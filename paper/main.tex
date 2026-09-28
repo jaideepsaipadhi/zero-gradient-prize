@@ -1,0 +1,107 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,longtable,array,enumitem}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[expansion=false]{microtype}
+\usepackage{graphicx}
+
+\setlist{leftmargin=2em}
+\emergencystretch=2em
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{theoremA}{Theorem A}
+\newtheorem*{theoremB}{Theorem B}
+\newtheorem*{theoremC}{Theorem C}
+\newtheorem*{theoremD}{Theorem D}
+\newtheorem*{corollaryBp}{Corollary B$'$}
+\newtheorem*{propositionE}{Proposition E}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+
+% Pointer to the script that produced a number
+\newcommand{\cert}[2]{\par\smallskip{\raggedright\noindent\emph{Computation:} \texttt{#1}; output \texttt{#2}.\par}}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\hO}{h_\Omega}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Th}{\mathcal T_h}
+\newcommand{\EG}{\mathcal E_h^\Gamma}
+\newcommand{\Vh}{V_h}
+\newcommand{\VR}{V_h^R}
+\newcommand{\VO}{V_h^0}
+\newcommand{\Pih}{\Pi_h}
+\newcommand{\Zh}{Z_h}
+\newcommand{\Wh}{W_h}
+\newcommand{\gI}{g_I}
+\newcommand{\dn}{\partial_n}
+\newcommand{\dt}{\partial_\tau}
+\newcommand{\ut}{\tilde u}
+\newcommand{\pt}{\tilde p}
+\newcommand{\ft}{\tilde f}
+\newcommand{\psit}{\tilde\psi}
+\newcommand{\pbar}{\bar p}
+\newcommand{\pbG}{\bar p_{\Gamma}}
+\newcommand{\ip}[2]{\langle #1,\, #2\rangle}
+\newcommand{\tnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\GS}{\mathrm{GS}}
+\newcommand{\CNS}{\mathrm{CNS}^\ast}
+\newcommand{\eps}{\varepsilon_h}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\Gc}{\mathcal G}
+\newcommand{\cS}{\mathcal S}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\dist}{dist}
+
+\begin{document}
+
+\title[Scott--Vogelius--Nitsche on polygonal boundaries]{Scott--Vogelius--Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold}
+\author{Jaideep Sai Padhi}
+\address{Department of Computer Science, Purdue University, West Lafayette, IN 47907, USA}
+\email{jpadhi@purdue.edu}
+\date{\today}
+\subjclass[2020]{Primary 65N30; Secondary 65N12, 65N15, 76D07}
+\keywords{Stokes equations, Scott--Vogelius elements, Nitsche's method, curved boundaries, divergence-free finite elements}
+
+\begin{abstract}
+We analyse the Scott--Vogelius--Nitsche method of Gjerde and Scott for two-dimensional Stokes flow whose no-slip curve is replaced by an inscribed polygon: continuous $P_4$ velocities that are exactly divergence-free, with Dirichlet data imposed weakly on the polygon by Nitsche's method. This answers Scott's zero-gradient prize question, which asks whether the $H^1$ error behaves like $h_\Gamma^{3/2}+h_\Omega^k$ for general Stokes data and, if not, why not.
+
+For the method as printed, the answer is no as soon as the pressure is not constant on the boundary. The printed Nitsche form omits the traction $-pn$. We prove that the method converges, at the sharp rate $h/\mu$ in the $H^1$ seminorm and at the exact rate $(h/\mu)^{1/2}$ in the mesh-dependent energy norm. To leading order the error is an explicit field: the discrete velocity leaks through the wall with normal velocity $(h/\mu)(p-\bar p)$, with constant exactly $1$ in the slip and energy norms. The $H^1$ rate is $1$ and not $1/2$ only because incompressibility turns the normal part of the missing traction into a tangential derivative.
+
+The naive pressure-consistent correction is singular. A mean-corrected variant is well posed and attains $h_\Gamma^{3/2}+h_\Omega^4$ for general data, using the Guzm\'an--Scott inf-sup constant made uniform over the perturbed domains.
+
+We also show that the Nitsche penalty must scale like $\rho=h_\Omega/\min_e|e|$, with necessity certified in exact rational arithmetic. A computational study up to $N=256$ boundary chords confirms every rate and constant. It includes a pure-pressure test that isolates the traction response exactly, and a penalty study in which the threshold is linear in $\rho$ with slope about $20$.
+\end{abstract}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_setting}
+\input{sections/03_geometry}
+\input{sections/04_discrete}
+\input{sections/05_error_equation}
+\input{sections/06_printed_method}
+\input{sections/07_consistent_method}
+\input{sections/08_penalty}
+\input{sections/09_numerics}
+
+\appendix
+\input{sections/A_reproducibility}
+
+\input{sections/Z_ai_declaration}
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+\end{document}

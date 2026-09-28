@@ -1,0 +1,7 @@
+done N=16 04:11:54
+done N=24 04:11:58
+done N=32 04:12:08
+done N=48 04:12:37
+done N=64 04:13:46
+/tmp/claude-0/-home-claude/77d3045c-d647-5fbd-8266-5afc6540d445/scratchpad/runP.sh: line 2:  1763 Killed                  python3 job.py study $N C 100
+done N=96 04:15:59

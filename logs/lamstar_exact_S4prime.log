@@ -1,0 +1,3 @@
+star m=4: 110 exact constraints, divergence-free kernel dim = 16
+  float lambda* = 9.267472;  exact Rayleigh quotient of rational witness = 9.267472
+  EXACT check  2B - A - 9*C > 0 :  True   (value 1.6190e-04)

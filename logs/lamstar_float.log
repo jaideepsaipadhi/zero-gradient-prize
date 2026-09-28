@@ -1,0 +1,13 @@
+/home/claude/scott-vogelius-nitsche/code/lamstar.py:60: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+  if abs(np.cross(B - A, p - A)) > tol:
+/home/claude/scott-vogelius-nitsche/code/lamstar.py:44: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+  area = abs(np.cross(T[1] - T[0], T[2] - T[0]))
+m=2 uniform fan: {'dimZ': 12, 'lam_star': np.float64(14.919090920924198)}
+m=3 uniform fan: {'dimZ': 14, 'lam_star': np.float64(15.131726803761929)}
+m=4 uniform fan: {'dimZ': 16, 'lam_star': np.float64(14.988632516477816)}
+m=5 uniform fan: {'dimZ': 18, 'lam_star': np.float64(18.900220975561478)}
+m=6 uniform fan: {'dimZ': 20, 'lam_star': np.float64(22.394953556526048)}
+m=4 random fan [0.   0.4  0.99 1.92 3.14]: {'dimZ': 16, 'lam_star': np.float64(28.494538644240077)}
+m=4 random fan [0.   0.34 2.37 2.62 3.14]: {'dimZ': 16, 'lam_star': np.float64(34.41801197213243)}
+m=4 random fan [0.   1.68 1.84 2.15 3.14]: {'dimZ': 16, 'lam_star': np.float64(14.822406343467442)}
+m=4 random fan [0.   0.31 2.37 2.68 3.14]: {'dimZ': 16, 'lam_star': np.float64(38.52535283341826)}

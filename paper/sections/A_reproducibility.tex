@@ -1,0 +1,39 @@
+\section{Reproducibility}\label{app:repro}
+
+All code, raw outputs and logs are in the repository that accompanies this paper. Paths below are relative to its root.
+
+\subsection*{Code (\texttt{code/})}
+\begin{itemize}
+\item \texttt{svn.py}: the solver. It contains the mesh generator, the $P_4$ space, assembly of $N_h$, $B$ and the $\CNS$ coupling, the SuperLU saddle-point solver (\texttt{solve\_lu}), error norms, and the exact solutions for tests A, B, P and C.
+\item \texttt{job.py}: one study or threshold job per process.
+\item \texttt{run\_all.py}: memory- and CPU-aware scheduler for the full campaign.
+\item \texttt{report.py} and \texttt{report\_local.py}: produce the tables.
+\item \texttt{plots.py}: produces the figures.
+\item \texttt{penalty.py}: computes the coercivity threshold $\mu^\ast$.
+\item \texttt{lemma\_tests.py}: computes the dual norms of Table~\ref{tab:lemma}.
+\item \texttt{lamstar\_exact.py} and \texttt{lamstar\_exact\_v2.py}: the exact certificates of Proposition~\ref{prop:penalty}.
+\item \texttt{lamstar.py}: the floating-point $\lambda^\ast$ on other fans.
+\end{itemize}
+
+\subsection*{Where each number comes from}
+\begin{center}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}}
+\toprule
+Result & Command & Output\\
+\midrule
+Tables~\ref{tab:cns}, \ref{tab:gs}, \ref{tab:thresh} & \texttt{python3 run\_all.py} & \texttt{results/pod/report.txt}\\
+Table~\ref{tab:P}, test C & \texttt{python3 job.py study N P1 MU} and \texttt{python3 job.py study N C 100}, then \texttt{report\_local.py} & \texttt{results/local/report\_local.txt}\\
+Figures & \texttt{python3 plots.py} & \texttt{paper/figures/*.pdf}\\
+Certificate for $\cS_3$ & \texttt{python3 lamstar\_exact.py} & \texttt{logs/lamstar\_exact\_\allowbreak S3\_S4singular.log}\\
+Certificate for $\cS_4'$ & \texttt{python3 lamstar\_exact\_v2.py} & \texttt{logs/lamstar\_exact\_S4prime.log}\\
+Table~\ref{tab:lemma} & \texttt{python3 lemma\_tests.py 16,24,32,48,64} & \texttt{logs/lemma\_tests.log}\\
+Floating-point $\lambda^\ast$ & \texttt{python3 lamstar.py} & \texttt{logs/lamstar\_float.log}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Resources}
+The full A/B campaign (74 study jobs up to $N=256$ and 16 threshold jobs) took 36 minutes on 32 cores with 125\,GB of memory. The largest single job ($N=256$, both methods) takes about 23 minutes; the scheduler reserved up to 55\,GB for it. Every job with $N\le96$ runs on a 2-core, 7\,GB machine.
+
+The environment was Python 3.11 with NumPy 2.4, SciPy 1.17 (SuperLU) and SymPy 1.14.

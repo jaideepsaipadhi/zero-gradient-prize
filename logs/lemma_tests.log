@@ -1,0 +1,12 @@
+N= 16 hG=0.4595 | normal S: Z 1.9410e+00  R 9.9897e+00 | tangential S: Z 9.6337e+00 | (grad u)^T n  A: R 1.4242e-01  B: R 4.1216e-02
+N= 24 hG=0.3204 | normal S: Z 1.8730e+00  R 1.2511e+01 | tangential S: Z 1.2131e+01 | (grad u)^T n  A: R 7.5635e-02  B: R 2.2925e-02
+N= 32 hG=0.2444 | normal S: Z 1.8292e+00  R 1.4581e+01 | tangential S: Z 1.4174e+01 | (grad u)^T n  A: R 4.8229e-02  B: R 1.4849e-02
+N= 48 hG=0.1650 | normal S: Z 1.7803e+00  R 1.8000e+01 | tangential S: Z 1.7531e+01 | (grad u)^T n  A: R 2.5666e-02  B: R 7.9817e-03
+N= 64 hG=0.1243 | normal S: Z 1.7544e+00  R 2.0856e+01 | tangential S: Z 2.0323e+01 | (grad u)^T n  A: R 1.6455e-02  B: R 5.1313e-03
+
+observed rates vs h_Gamma (positive = decays, negative = grows):
+  normal S on Z_h         :  0.10   0.09   0.07   0.05
+  normal S on V_h^R       : -0.62  -0.57  -0.54  -0.52
+  tangential S on Z_h     : -0.64  -0.57  -0.54  -0.52
+  (grad u)^T n, test A    :  1.75   1.66   1.61   1.57
+  (grad u)^T n, test B    :  1.63   1.60   1.58   1.56

@@ -1,0 +1,190 @@
+\section{The printed method}\label{sec:printed}
+
+Throughout this section $\gamma\ge\gamma_0$.
+
+\subsection*{Test field}
+Let $\varphi_0(\theta):=\int_0^\theta(p-\pbar)(\theta')\,d\theta'$, which is periodic, and $\varphi:=\chi_1(r)\varphi_0(\theta)$, where $\chi_1\equiv1$ near $r=1$ (so $\chi_1'(1)=0$) and $\chi_1\equiv0$ near $\partial R$.
+Then $w:=\curl\varphi$ has components $w_r=\partial_\theta\varphi/r$ and $w_\theta=-\partial_r\varphi$, and on $\Gamma$
+\[
+w=(p-\pbar)e_r=-(p-\pbar)n .
+\]
+Let $v_\varphi:=\curl\Pi_A\varphi\in\Zh$. Then $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^4$.
+
+\begin{theorem}[Energy norm: exact rate $1/2$]\label{thm:A}
+The error satisfies the upper bound
+\[
+\tnorm{\ut-u_h}\le C\Bigl[(\hG/\gamma)^{1/2}G+(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
+\]
+If $G>0$ and $\hG\le h_0(G)$, with $h_0$ independent of $\gamma\ge\gamma_0$, it also satisfies the lower bound
+\[
+\tnorm{\ut-u_h}\ge(2M)^{-1}(\hG/\gamma)^{1/2}G-C\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
+\]
+In Scott's variables, $(\hG/\gamma)^{1/2}=(h/\mu)^{1/2}$.
+\end{theorem}
+
+\begin{proof}[Proof of the upper bound]
+For $z\in\Wh$, $e_h:=z-u_h\in\Zh$. By Corollary~\ref{cor:GSerr} and Lemma~\ref{lem:coercive},
+\[
+c_1\tnorm{e_h}^2\le N_h(z-\ut,e_h)+\Rc(e_h)+\Gc(e_h).
+\]
+Using the Jacobian bound of Lemma~\ref{lem:chords}, $|\Rc(e_h)|\le(G+C\hG^2)(h/\mu)^{1/2}\tnorm{e_h}$. Then apply Lemmas~\ref{lem:Gbound} and~\ref{lem:approx}.
+\end{proof}
+
+\begin{proof}[Proof of the lower bound]
+\begin{enumerate}
+\item We have $v_\varphi\cdot n_e=-(p-\pbar)(x^\ast)\,n(x^\ast)\cdot n_e+O(h^4)$, $\Rc=-\ip{\pt-\pbar}{v\cdot n}$ and $n(x^\ast)\cdot n_e=1+O(s^2)$. Hence
+\[
+\Rc(v_\varphi)=\ip{(\pt-\pbar)\,(p-\pbar)(x^\ast)}{n(x^\ast)\cdot n_e}+O(h^4)=G^2+O(\hG^2+h^4).
+\]
+\item $\tnorm{v_\varphi}^2\le(\mu/h)(G^2+C\hG^2)+C$.
+\item By continuity, $M\tnorm{\ut-u_h}\ge(|\Rc(v_\varphi)|-|\Gc(v_\varphi)|)/\tnorm{v_\varphi}$, and Lemma~\ref{lem:Gbound} bounds $\Gc$.
+\item $|\Rc|/\tnorm{v_\varphi}\ge(h/\mu)^{1/2}G\bigl(1-C\hG^2/G^2-C(\hG/\gamma_0)^{1/2}/G\bigr)$, which is at least $\frac12(h/\mu)^{1/2}G$ for $\hG\le h_0(G)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+The lower bound is carried by the boundary parts of $\tnorm\cdot$. By Theorem~\ref{thm:C}, $\norm{\nabla(\ut-u_h)}$ is only $O(h/\mu)$.
+
+\begin{corollary}\label{cor:Aprime}
+If $G>0$, $\gamma\hG\ll G$ and $\eps\ll(\hG/\gamma)^{1/2}G$, then $\tnorm{\ut-u_h}\asymp(h/\mu)^{1/2}$. The mesh-dependent energy rate is exactly $1/2$.
+\end{corollary}
+
+\begin{lemma}[Normal-load cancellation]\label{lem:cancel}
+Let $S$ be edgewise $W^{1,\infty}$ on $\Gh$, continuous at the vertices of $\Gh$, with $|S\cdot\tau_e|\le C\hG$ on every $e\in\EG$. (For instance, $S$ smooth with $S\cdot\tau=0$ on $\Gamma$.) Then for $v\in\Zh$,
+\[
+|\ip{S}{\dn v}|\le C\bigl(\norm{v}_{\Gh}+\hG^{1/2}\norm{\nabla v}\bigr)\le C\norm{\nabla v}.
+\]
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Tangential part.} By Lemma~\ref{lem:inverse} and (M0), $|\ip{(S\cdot\tau)\tau}{\dn v}|\le C\hG\norm{\dn v}_{\Gh}\le C\hG^{1/2}\norm{\nabla v}$.
+\item \emph{Normal part.} On $e$, $v$ is a polynomial on $T_e$ with $\div v=0$, so $\dn v\cdot n_e=-\dt(v\cdot\tau_e)$. With $\sigma_e:=S\cdot n_e$,
+\[
+\int_e\sigma_e\,\dn v\cdot n_e=\int_e\dt\sigma_e\,(v\cdot\tau_e)-\bigl[\sigma_e\,v\cdot\tau_e\bigr]_{\partial e}.
+\]
+\item At a polygon vertex $x$ shared by $e$ and $e'$, the endpoint terms combine to $v(x)\cdot(\sigma_{e'}\tau_{e'}-\sigma_e\tau_e)$, of size at most $C(|e|+|e'|)|v(x)|$.
+\item $\sum_e|e|\norm{v}_{L^\infty(e)}\le C\sum_e|e|^{1/2}\norm{v}_{L^2(e)}\le C|\Gh|^{1/2}\norm{v}_{\Gh}$.
+\item Finish with Lemma~\ref{lem:korn}.\qedhere
+\end{enumerate}
+\end{proof}
+
+Numerically (Section~\ref{sec:numerics}), the dual norm of $v\mapsto\ip{S}{\dn v}$ stays bounded on $\Zh$ for normal $S$. It grows like $\hG^{-1/2}$ on $\VR$ (no divergence constraint), and also on $\Zh$ for tangential $S$. Incompressibility is exactly what the proof uses.
+
+\begin{theorem}[$H^1$ seminorm: rate $1$]\label{thm:C}
+With $C_p:=C(1+\norm{p-\pbar}_{W^{1,\infty}(\Gamma)})$,
+\[
+\norm{\nabla(\ut-u_h)}\le C_p\,(\hG/\gamma)+C\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
+\]
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Split.} For $z\in\Wh$, write $z-u_h=\delta_R+\delta_G$, where $\delta_R,\delta_G\in\Zh$ solve
+\[
+N_h(\delta_R,v)=\Rc(v),\qquad N_h(\delta_G,v)=\Gc(v)-N_h(\ut-z,v)\qquad\forall v\in\Zh.
+\]
+Lax--Milgram on $\Zh$ (Lemma~\ref{lem:coercive}) gives existence and uniqueness.
+\item \emph{Geometric part.} $\norm{\nabla\delta_G}\le\tnorm{\delta_G}\le c_1^{-1}\bigl(C(1+\gamma^{1/2})\hG^{3/2}+ME_h\bigr)$.
+\item \emph{Ansatz.} Heuristically $\delta_R\approx-(h/\mu)(p-\pbar)n=(h/\mu)w$ on $\Gh$. Set $S_h:=v_\varphi\in\Zh$ and $r_h:=\delta_R-(h/\mu)S_h\in\Zh$. Then $N_h(r_h,v)=m(v)+\ell(v)$ with
+\begin{align*}
+m(v)&:=\Rc(v)-\ip{S_h}{v}=-\ip{(\pt-\pbar)n+S_h}{v},\\
+\ell(v)&:=-(h/\mu)\bigl[a_h(S_h,v)-\ip{\dn S_h}{v}-\ip{S_h}{\dn v}\bigr].
+\end{align*}
+\item \emph{Bound on $m$.} On $e$,
+\[
+(\pt-\pbar)n_e+S_h=(p-\pbar)(x^\ast)(n_e-n(x^\ast))+O(\hG^2)+O(h^4)=(p-\pbar)(m_e^\ast)\,s\,\tau_e+O(\hG^2)+O(h^4).
+\]
+The leading term is odd in $s$ with a constant coefficient. The argument of Lemma~\ref{lem:transposed} handles it, and the $O(h^4)$ remainder contributes $Ch^4\norm{v}_{L^1(\Gh)}$. Hence $|m(v)|\le C_p(\hG^{3/2}+h^4)\norm{\nabla v}$.
+\item \emph{Bound on $\ell$.} $|a_h(S_h,v)|+|\ip{\dn S_h}{v}|\le C_p\norm{\nabla v}$. By Lemma~\ref{lem:cancel} applied to $S=w$,
+\[
+|\ip{S_h}{\dn v}|\le|\ip{w}{\dn v}|+|\ip{S_h-w}{\dn v}|\le C_p\norm{\nabla v}+Ch^4\hG^{-1/2}\norm{\nabla v}.
+\]
+So $|\ell(v)|\le(h/\mu)(C_p+Ch^4\hG^{-1/2})\norm{\nabla v}$.
+\item \emph{Close.} Testing with $v=r_h$,
+\[
+c_1\tnorm{r_h}^2\le\bigl[C_p(h/\mu+\hG^{3/2}+h^4)+C(h/\mu)h^4\hG^{-1/2}\bigr]\norm{\nabla r_h}.
+\]
+The last two terms are at most $C\eps$, since $(h/\mu)h^4\hG^{-1/2}=\gamma^{-1}h^4\hG^{1/2}\le Ch^4$. Hence
+\[
+\norm{\nabla\delta_R}\le(h/\mu)\norm{\nabla S_h}+\norm{\nabla r_h}\le C_p(\hG/\gamma)+C(\hG^{3/2}+\eps).\qedhere
+\]
+\end{enumerate}
+\end{proof}
+
+\begin{remark}[Why rate $1$ and not $1/2$]
+Without incompressibility, Lemma~\ref{lem:cancel} would give only $C\hG^{-1/2}$. The $H^1$ error would then be $(h/\mu)\hG^{-1/2}$: rate $1/2$, with element-scale oscillation in the trace. The inconsistency $-pn$ is purely normal, and $\div v=0$ converts $\dn v\cdot n$ into a tangential derivative. That is why $\GS$ still converges at rate $1$ in $H^1$.
+\end{remark}
+
+\begin{theorem}[Boundary slip; $H^1$ lower bound]\label{thm:B}
+Let $\gamma\ge\gamma_0$ and $G>0$, and put $X:=C_p(\hG/\gamma)+(1+\gamma^{1/2})\hG^{3/2}+\eps$, the right-hand side of Theorem~\ref{thm:C}. Suppose that, for a fixed small $\delta$,
+\[
+X\le\delta\,G\min(G,\hG^{1/2}),\qquad \hG/\gamma\le\delta G,\qquad \hG\le h_0(G).
+\]
+All three hold for fixed $\gamma$ and bounded $\rho$ as $\hG\to0$. Then
+\begin{enumerate}[label=(\roman*)]
+\item $c(\hG/\gamma)G\le\norm{\ut-u_h}_{L^2(\Gh)}\le C(\hG/\gamma)^{1/2}\tnorm{\ut-u_h}$;
+\item $\norm{\nabla(\ut-u_h)}\ge c(\hG/\gamma)G-Ch^{4.5}$.
+\end{enumerate}
+Combined with Theorem~\ref{thm:C}, $\norm{\nabla(\ut-u_h)}\asymp h/\mu$ in this regime.
+\end{theorem}
+
+\begin{proof}[Proof of (i)]
+Let $e:=\ut-u_h$ and $v:=v_\varphi$. Corollary~\ref{cor:GSerr} rearranges to
+\[
+\frac\mu h\ip{e}{v}=\Rc(v)+\Gc(v)-a_h(e,v)+\ip{\dn e}{v}+\ip{e}{\dn v}.
+\]
+We bound the terms, using that $v$ is smooth up to $O(h^4)$.
+\begin{enumerate}
+\item $\Rc(v)=G^2+O(\hG^2+h^4)$.
+\item $|\Gc(v)|\le C(\hG^{3/2}+\gamma\hG^3+\gamma\hG h^4)$. On the chord, $\ut=\pm d\,\dn u(x^\ast)+O(d^2)$ is tangential while $v\approx-(p-\pbar)n$ is normal. Hence $\ut\cdot v=O(\hG^4+\hG^2h^4)$, the second term coming from $v_\varphi-w$.
+\item $|a_h(e,v)|\le C_p\norm{\nabla e}\le C_pX\le C_p\delta G^2$, by Theorem~\ref{thm:C}.
+\item By Theorem~\ref{thm:A} and $h/\mu=\hG/\gamma\le\delta G$,
+\[
+|\ip{e}{\dn v}|\le C_p\norm{e}_{\Gh}\le C_p(h/\mu)^{1/2}\tnorm e\le C_p[(h/\mu)G+X]\le2C_p\delta G^2 .
+\]
+\item We have
+\[
+|\ip{\dn e}{v}|\le\norm{\dn(\ut-z)}_{\Gh}\norm{v}+C_I(\rho/h)^{1/2}\bigl(\norm{\nabla(z-\ut)}+\norm{\nabla e}\bigr)\norm{v}_{\Gh}.
+\]
+By Theorem~\ref{thm:C} and $(\rho/h)^{1/2}\le(c_0\hG)^{-1/2}$, this is at most $C\hG^{-1/2}XG\le C\delta G^2$.
+\end{enumerate}
+For $\delta$ small, $|\ip{e}{v}|\ge\frac12(h/\mu)G^2$. Dividing by $\norm{v}_{\Gh}\le G+C\hG^2$ gives the lower bound. The upper bound is $\norm{e}_{\Gh}\le(h/\mu)^{1/2}\tnorm e$.
+\end{proof}
+
+\begin{proof}[Proof of (ii)]
+Let $E\in H^1(\Oh)$ lift $(g-\gI)|_{\partial R}$, supported near $\partial R$, with $E|_{\Gh}=0$ and $\norm{E}_{H^1}\le C\norm{g-\gI}_{H^{1/2}(\partial R)}\le Ch^{4.5}$. By Lemma~\ref{lem:korn}, $\norm{e}_{\Gh}=\norm{e-E}_{\Gh}\le C_{\mathrm{tr}}(\norm{\nabla e}+\norm{\nabla E})$.
+\end{proof}
+
+\begin{corollary}[Exact leading term]\label{cor:Bp}
+Let $G>0$ and $\hG\to0$ with $h/\mu\to0$, $\gamma\hG\to0$ and $\eps/(\hG/\gamma)^{1/2}\to0$. Then
+\[
+\ut-u_h=(h/\mu)\,v_\varphi+\vartheta_h,\qquad \tnorm{\vartheta_h}=o\bigl((h/\mu)^{1/2}\bigr),\qquad \norm{\vartheta_h}_{\Gh}=o(h/\mu),
+\]
+and consequently
+\[
+\frac{\norm{\ut-u_h}_{L^2(\Gh)}}{(h/\mu)G}\to1,\qquad\frac{\tnorm{\ut-u_h}}{(h/\mu)^{1/2}G}\to1 .
+\]
+\end{corollary}
+
+On $\Gh$, $v_\varphi\approx-(p-\pbar)n$. So to leading order the printed method replaces the no-slip condition by the leak condition $(\mu/h)\,u_h\cdot n\approx p-\pbar$: the penalty, not a traction, balances the pressure.
+
+\begin{proof}
+Write $\ut-u_h=(\ut-z)+\delta_R+\delta_G$ in the notation of Theorem~\ref{thm:C}, with $\delta_R=(h/\mu)S_h+r_h$ and $S_h=v_\varphi$.
+\begin{enumerate}
+\item From step~6 of Theorem~\ref{thm:C},
+\[
+c_1\tnorm{r_h}^2\le\bigl[C_p(h/\mu+\hG^{3/2})+C\eps\bigr]\tnorm{r_h}.
+\]
+So $\tnorm{r_h}\le C_p(h/\mu+\hG^{3/2})+C\eps$ and $\norm{r_h}_{\Gh}\le(h/\mu)^{1/2}\tnorm{r_h}$.
+\item $\tnorm{\delta_G}+\tnorm{\ut-z}\le C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$, and the $\Gh$ norm carries an extra factor $(h/\mu)^{1/2}$.
+\item Relative to $(h/\mu)^{1/2}G$ (energy) and $(h/\mu)G$ (slip), steps 1--2 contribute
+\[
+O\bigl((h/\mu)^{1/2}/G+(\gamma^{1/2}+\gamma)\hG/G+\eps(\gamma/\hG)^{1/2}/G\bigr)\to0 .
+\]
+\item By Lemma~\ref{lem:chords} (Jacobian and displacement of $\Gh$ from $\Gamma$), $\norm{v_\varphi}_{\Gh}=G(1+O(\hG^2))+O(h^4)$ and $\tnorm{v_\varphi}^2=(\mu/h)\norm{v_\varphi}^2_{\Gh}+O(1)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+This gives the sharp answer to Scott's question for the printed method. The estimate $\hG^{3/2}+h^k$ fails exactly when $p$ is not constant on $\Gamma$. The error is then the explicit field $(h/\mu)v_\varphi$, with the universal constant $1$ in both the slip norm and the energy norm.
+
+The $H^1$ constant $\norm{\nabla(\ut-u_h)}\mu/(hG)$ is not universal. It depends on the global Stokes response to the leak, since $r_h$ has the same order as $(h/\mu)S_h$ in $H^1$. In the computations it is about $2.7$--$2.8$ (Table~\ref{tab:P}).

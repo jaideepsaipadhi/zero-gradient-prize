@@ -1,0 +1,64 @@
+\section{Setting, methods and assumptions}\label{sec:setting}
+
+\subsection*{Domain}
+Let $R=(-L,L)^2$ with $L>1$, let $D$ be the open unit disk, $\Omega=R\setminus\overline D$ and $\Gamma=\partial D$.
+Let $P_h$ be a convex polygon with vertices on $\Gamma$, $\Gh=\partial P_h$ and $\Oh=R\setminus P_h$. Since $P_h\subset D$, we have $\Omega\subset\Oh$. The strip $S_h=\Oh\setminus\overline\Omega$ lies between each chord and its arc.
+
+\subsection*{Mesh}
+$\Th$ is a conforming triangulation of $\Oh$, and $\EG$ is its set of edges on $\Gh$. We use the parameters
+\[
+h=\hO:=\max_{T\in\Th}\diam T,\qquad
+\hG:=\max_{e\in\EG}|e|,\qquad
+\rho:=\frac{h}{\min_{e\in\EG}|e|},\qquad
+\gamma:=\frac{\mu\hG}{h}.
+\]
+Here $h$ is the $h$ in Scott's penalty $\mu/h$, and $\gamma$ is the effective boundary penalty, so that $\mu/h=\gamma/\hG$.
+
+\begin{assumption}\label{ass:mesh}\leavevmode
+\begin{enumerate}[label=(M\arabic*),start=0]
+\item Shape regularity, and $c_0\hG\le|e|\le\hG$ for all $e\in\EG$. Hence $\rho/h\le1/(c_0\hG)$. No quasi-uniformity is assumed; $\hG\ll h$ is allowed.
+\item No vertex of $\Th$ is singular. A vertex is singular if it is an interior vertex whose incident edges lie on two lines, a boundary vertex with one incident triangle, or a boundary vertex whose incident edges lie on two lines.
+\item[(M1$'$)] Every vertex of $\Gh$ has at least three incident triangles. The angle of $\Oh$ at a vertex of $\Gh$ is $\pi+O(\hG)$, so with two triangles $\Theta(z)=O(\hG)\to0$, contradicting (M2).
+\item $\Theta(z):=\max_j|\sin(\theta_j+\theta_{j+1})|\ge\Theta_0>0$ at every vertex $z$, in the notation of Guzm\'an--Scott \cite{GuzmanScott2019}. At boundary vertices the wrap-around term is omitted.
+\end{enumerate}
+\textbf{(D)} $\ft$ is smooth and bounded on a fixed neighbourhood of $\overline\Omega$, $\ft=f$ on $\Omega$, and $\hG\le h_\ast$ is small.
+\end{assumption}
+
+\subsection*{Spaces}
+$\Vh$ is the space of continuous piecewise-$P_4$ vector fields, $\VR:=\{v\in\Vh:v|_{\partial R}=0\}$ and $\VO:=\{v\in\Vh:v|_{\partial\Oh}=0\}$.
+$\Pih$ is the space of discontinuous piecewise-$P_3$ functions and $\Zh:=\{v\in\VR:\div v=0\}$.
+$\Wh:=\{z\in\Vh:z|_{\partial R}=\gI,\ \div z=0\}$, where $\gI$ is the $P_4$ Lagrange interpolant of $g$.
+
+\subsection*{Forms}
+$n$ is the outward unit normal of $\Oh$ on $\Gh$ (pointing into $P_h$), and $\ip\cdot\cdot$ is the $L^2(\Gh)$ pairing. Let
+\begin{align*}
+a_h(u,v)&=\tfrac12(Du,Dv),\qquad Du=\nabla u+(\nabla u)^{\mathsf T},\\
+N_h(u,v)&=a_h(u,v)-\ip{\dn u}{v}-\ip{u}{\dn v}+\frac{\mu}{h}\ip{u}{v},\qquad \dn u:=(\nabla u)n .
+\end{align*}
+
+\begin{definition}[Method $\GS$ {\cite[(28)]{GjerdeScott2024}}, as printed]
+Find $u_h\in\Vh$ with $u_h|_{\partial R}=\gI$ and $p_h\in\Pih$ such that
+\[
+N_h(u_h,v)-(p_h,\div v)=(\ft,v)\quad\forall v\in\VR,\qquad (q,\div u_h)=0\quad\forall q\in\Pih.
+\]
+\end{definition}
+
+\begin{definition}[Method $\CNS$]
+As $\GS$, with momentum row
+\[
+N_h(u_h,v)-(p_h,\div v)+\ip{p_h-\pbG(p_h)}{v\cdot n}=(\ft,v),\qquad \pbG(q):=|\Gh|^{-1}\int_{\Gh}q .
+\]
+\end{definition}
+
+\subsection*{Exact solution and extensions}
+$(u,p)$ is smooth with $-\Delta u+\nabla p=f$ and $\div u=0$ in $\Omega$, $u|_\Gamma=0$ and $u|_{\partial R}=g$; note $-\div D(u)=-\Delta u$. The stream function $\psi$ with $u=\curl\psi=(\partial_y\psi,-\partial_x\psi)$ is single-valued because $u\cdot n=0$ on $\Gamma$.
+Let $\psit$ be a smooth extension of $\psi$ to a neighbourhood of $\overline\Omega$ and $\ut:=\curl\psit$, so $\div\ut=0$. Let $\pt$ be a smooth extension of $p$. Then $F:=\ft+\Delta\ut-\nabla\pt$ vanishes on $\Omega$ and is supported in $S_h$.
+
+\subsection*{Norms and constants}
+For $v$ with traces on $\Gh$,
+\[
+\tnorm{v}^2:=\norm{\nabla v}_{\Oh}^2+\frac{\mu}{h}\norm{v}_{\Gh}^2+\sum_{e\in\EG}|e|\,\norm{\dn v}_{L^2(e)}^2 .
+\]
+This is used for discrete fields and for errors $\ut-z$; since $\ut$ is smooth, every trace exists. We write $G:=\norm{p-\pbar}_{L^2(\Gamma)}$, with $\pbar$ the mean of $p$ over $\Gamma$.
+
+$C$ and $c$ depend on (M0)--(M2), $k=4$, $L$ and norms of $(u,p,\psit)$. They are independent of $h,\hG,\mu,\gamma,\rho$ unless displayed. $C_p$ is a constant that may also depend on $\norm{p-\pbar}_{W^{1,\infty}(\Gamma)}$. Where $G$ is tracked explicitly, ``$\delta$ small'' means $\delta\le\delta_0(C_p)$.

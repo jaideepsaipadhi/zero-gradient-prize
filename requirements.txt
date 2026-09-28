@@ -1,0 +1,5 @@
+numpy>=2.0        # tested with 2.4.4
+scipy>=1.13       # tested with 1.17.1 (SuperLU via scipy.sparse.linalg.splu)
+sympy>=1.12       # tested with 1.14.0 (exact certificates)
+matplotlib>=3.8   # tested with 3.10.9 (figures only)
+pypardiso         # optional; not used by the reported runs (solve_lu is SuperLU)

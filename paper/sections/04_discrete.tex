@@ -1,0 +1,98 @@
+\section{Discrete tools}\label{sec:discrete}
+
+\begin{lemma}[Inverse traces]\label{lem:inverse}
+For $v\in\Vh$,
+\[
+\sum_{e\in\EG}|e|\norm{\dn v}^2_{L^2(e)}\le C_I^2\norm{\nabla v}^2,
+\qquad\text{hence}\qquad
+\norm{\dn v}_{\Gh}\le C_I(\rho/h)^{1/2}\norm{\nabla v}.
+\]
+For $q\in\Pih$,
+\[
+\norm{q}^2_{\Gh}\le C_I^2\sum_{T\in\Th^\Gamma}|e_T|^{-1}\norm{q}^2_T\le C_I^2(\rho/h)\norm{q}^2 .
+\]
+A triangle with two edges on $\Gh$ only doubles $C_I$.
+\end{lemma}
+
+\begin{lemma}[Coercivity and continuity]\label{lem:coercive}
+Let $\mu_0:=4\kappa\rho C_I^2$. The condition $\gamma\ge\gamma_0:=4\kappa C_I^2/c_0$ is sufficient for $\mu\ge\mu_0$. If $\mu\ge\mu_0$, then
+\[
+N_h(v,v)\ge c_1\tnorm{v}^2\quad\forall v\in\VR,\qquad
+|N_h(w,v)|\le M\tnorm{w}\,\tnorm{v},
+\]
+with $c_1=1/\max(2\kappa(1+C_I^2),2)$ and $M=3+(\kappa C_I^2)^{-1/2}$. Both constants are independent of $h$, $\mu$ and $\rho$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item By Lemma~\ref{lem:inverse} and Young's inequality with $\varepsilon=1/(2\kappa)$,
+\[
+2|\ip{\dn v}{v}|\le2C_I\norm{\nabla v}(\rho/h)^{1/2}\norm{v}_{\Gh}\le\tfrac12a_h(v,v)+2\kappa\rho C_I^2h^{-1}\norm{v}^2_{\Gh}.
+\]
+\item Hence $N_h(v,v)\ge\frac12a_h(v,v)+(\mu-2\kappa\rho C_I^2)h^{-1}\norm{v}^2$. For $\mu\ge\mu_0$ this is at least $(2\kappa)^{-1}\norm{\nabla v}^2+(\mu/2h)\norm{v}^2$.
+\item Adding $\sum_e|e|\norm{\dn v}^2\le C_I^2\norm{\nabla v}^2$ gives the coercivity constant.
+\item For continuity, $a_h(w,v)\le2\norm{\nabla w}\norm{\nabla v}$. Each $\dn$-term is at most $(\rho/\mu)^{1/2}\tnorm w\tnorm v\le(4\kappa C_I^2)^{-1/2}\tnorm w\tnorm v$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[Divergence range]\label{lem:divrange}
+Under (M1), $\div\VR=\Pih$ and $\Wh\neq\emptyset$. The velocities of $\GS$ and $\CNS$ are pointwise divergence-free.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item With no singular vertices, Scott--Vogelius \cite{ScottVogelius1985} ($k\ge4$) gives $\div\VO=\Pih\cap L^2_0$. That result is a local construction and applies to the doubly connected domain $\Oh$.
+\item The edge bubble $b=\beta_en_e$ on one $e\subset\Gh$ lies in $\VR$ and has $\int\div b=\int_{\Gh}b\cdot n=|e|/6\ne0$. This adds the constants, so $\div\VR=\Pih$.
+\item For any $\mathcal G\in\Vh$ with trace $\gI$, we have $\div\mathcal G\in\Pih=\div\VR$. Hence $\mathcal G-v\in\Wh$ for a suitable $v\in\VR$.
+\item For the discrete velocity, $u_h-\mathcal G\in\VR$, and the continuity row forces $\div u_h=0$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+If a vertex of $\partial R$ is singular (for example a corner with one triangle), then $A_z(\div\mathcal G)=0$ is a condition on $\gI$ that generic data violate, and $\Wh=\emptyset$.
+\end{remark}
+
+\begin{lemma}[Approximation in $\Wh$]\label{lem:approx}
+\[
+E_h:=\inf_{z\in\Wh}\tnorm{\ut-z}\le C\eps,\qquad \eps:=(1+(\gamma\hG)^{1/2})h^4+\mu^{1/2}h^{5.5}.
+\]
+\end{lemma}
+
+The last term is a genuine lower-order floor, not an artefact of the proof. Let $\nu$ be the outward normal of $R$ and $F_g:=\int_{\partial R}\gI\cdot\nu$. Every $z\in\Wh$ has $\int_{\Gh}z\cdot n=-F_g$, while $\int_{\Gh}\ut\cdot n=0$. Hence $E_h\ge(\mu/h)^{1/2}|F_g|/|\Gh|^{1/2}$.
+
+$F_g=O(h^6)$ is the composite Boole-rule error, and $|F_g|\asymp h^6$ for generic $g$. The floor term is at most $h^4$ whenever $\mu\le h^{-3}$, for example for bounded $\gamma$ and $\hG\ge h^4$. It vanishes in two cases: if $\gI$ is replaced by a flux-corrected interpolant with $\int_{\partial R}\gI\cdot\nu=0$, and for the test data of Section~\ref{sec:numerics}, where $g\cdot\nu$ is a polynomial of degree at most $5$ on each side and Boole's rule is exact.
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Interior and $\Gh$.} Let $s_0=\Pi_A\psit$ be the Argyris interpolant \cite{Argyris1968,BrennerScott}: $C^1$, piecewise $P_5$, $C^2$ at vertices, with $|\psit-s_0|_{W^{m,\infty}(T)}\le Ch_T^{6-m}$. Then $\curl s_0\in\Vh$ is divergence-free, and its bulk error is $O(h^4)$. Boundary triangles have diameter $\le C\hG$ by shape regularity, so on $\Gh$ the error terms are $(\mu/h)^{1/2}C\hG^5=C\gamma^{1/2}\hG^{4.5}$ and $C\hG^4$.
+\item \emph{$C^1$ gluing.} A piecewise-$P_5$ function is $C^1$ if and only if, on each interior edge, the trace and the normal-derivative trace agree from both sides.
+\begin{itemize}
+\item The trace ($P_5$) is Hermite in $(s,\dt s,\dt^2s)$ at both endpoints.
+\item The normal-derivative trace ($P_4$) is determined by $(\partial_\nu s,\dt\partial_\nu s)$ at both endpoints plus the midpoint value; the kernel $t^2(1-t)^2$ is non-zero there.
+\end{itemize}
+Consequently each triangle may carry its own vertex Hessian $H_T$, provided $H_{T_+}-H_{T_-}=\alpha_e\nu_e\otimes\nu_e$ across each edge. A symmetric jump $J$ with $\tau^{\mathsf T}J\tau=\tau^{\mathsf T}J\nu=0$ is exactly of this form.
+\item \emph{Matching $\gI$ on $\partial R$.} The target trace is $\dt s=\tilde g\cdot n$, $\dn s=-\tilde g\cdot\tau$, with $\tilde g:=\gI-F_g\curl\Pi_A(\theta/2\pi)|_{\partial R}$. The carrier's stream function jumps by exactly $1$ across a cut, so its flux through $\partial R$ is exactly $F_g$. Hence $\int_{\partial R}\tilde g\cdot n=0$, and $\tilde g$ is the trace of a single-valued stream function.
+
+At each vertex of $\partial R$ this prescribes the one-sided values of $\tau^{\mathsf T}H\tau$ and $\tau^{\mathsf T}Hn$.
+\begin{itemize}
+\item At a straight-edge vertex with $m$ triangles there are two equations in the $m-1$ jump coefficients $\alpha_j$, with coefficient vectors $\sin\varphi_j(\sin\varphi_j,-\cos\varphi_j)$. The $2\times2$ minors are $\sin\varphi_1\sin\varphi_2\sin(\varphi_2-\varphi_1)$, so the rank is $2$ if and only if $m\ge3$.
+\item At a corner, $\tau_1^{\mathsf T}Hn_1$ and $\tau_2^{\mathsf T}Hn_2$ are the same Hessian entry, which forces a compatibility condition if $m=1$. For $m\ge2$ the system is solvable.
+\end{itemize}
+These are exactly the non-singular cases, so (M1) suffices. The solutions are bounded in terms of the minimum angle (M0).
+\item \emph{Sizes.}
+\begin{itemize}
+\item For $\gI$ itself, Lagrange data are exact at the vertices, so values and gradients need no correction. The edge-midpoint normal derivative also matches exactly, because the midpoint is both a $P_4$ Lagrange node and an Argyris degree of freedom.
+\item Subtracting the carrier adds mismatches of size $O(|F_g|)=O(h^6)$ in every datum.
+\item The Hessian mismatch is the derivative of the $P_4$ interpolation error, $O(h^4)$.
+\item Vertex values of the stream function are cumulative edge fluxes. Equispaced $P_4$ Lagrange interpolation integrates exactly like the five-point Newton--Cotes (Boole) rule. So each per-edge flux error is $O(h^7)$, cumulative errors are $O(h^6)$, and against the value basis ($|D^2|\sim h^{-2}$) this contributes $O(h^4)$.
+\end{itemize}
+The correction $\delta s$ therefore has $\norm{\nabla\curl\delta s}_\infty\le Ch^4$ on the one-element layer at $\partial R$, which has area $O(h)$. So $\norm{\nabla\curl\delta s}\le Ch^{4.5}$.
+\item \emph{Net flux.} $F_g=\int_{\partial R}(\gI-g)\cdot\nu=O(h^6)$, because $\int_{\partial R}g\cdot\nu=0$ and composite Boole integration of a smooth function has error $O(h^6)$.
+
+The carrier $F_g\curl\Pi_A(\theta/2\pi)$ is defined on the domain cut along a path of mesh edges; $\theta$ is smooth on $\Oh$ because $0\in P_h$. Argyris uses the true vertex Hessian on both branches, so the traces jump by the constant $F_g$ and the normal-derivative traces agree. Its curl is therefore continuous $P_4$ and divergence-free, with flux $F_g$ through $\Gh$, and
+\[
+\tnorm{F_g\curl\Pi_A(\theta/2\pi)}\le C(1+(\mu/h)^{1/2})|F_g|\le C(h^6+\mu^{1/2}h^{5.5}).
+\]
+Set $z:=\curl(s_0+\delta s)+F_g\curl\Pi_A(\theta/2\pi)$. Then $z|_{\partial R}=\gI$ and $\div z=0$, so $z\in\Wh$.\qedhere
+\end{enumerate}
+\end{proof}

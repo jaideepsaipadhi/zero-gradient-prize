@@ -1,0 +1,39 @@
+\section{The penalty threshold scales with \texorpdfstring{$\rho$}{rho}}\label{sec:penalty}
+
+\begin{proposition}\label{prop:penalty}\leavevmode
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Sufficiency.} $\mu\ge\mu_0=4\kappa C_I^2\rho$ implies coercivity (Lemma~\ref{lem:coercive}).
+\item \emph{Necessity, with an exact certificate.} Let $z$ be a vertex of a straight part of the Nitsche boundary, and let $\ell_z$ be the length of its boundary edges. Suppose its star, dilated by the factor $\ell_z$, is congruent to one of the reference stars $\cS_3$ or $\cS_4'$ below. If $\mu/(h/\ell_z)<9$, then $N_h$ is indefinite on $\Zh$.
+
+The same holds, by continuity, at a vertex of $\Gh$ with interior angle $\pi+O(\hG)$ whose star is a small perturbation of $\cS_3$ or $\cS_4'$. This uses that both reference stars are non-singular: every vertex, including the rim vertices, has non-collinear incident edges. The dimension of the divergence-free subspace therefore equals the generic count and is locally constant. This fails at the singular $m=2$ configuration, which (M1$'$) excludes.
+\end{enumerate}
+\end{proposition}
+
+So, for meshes that contain such a boundary star at a vertex with $\rho\asymp h/\ell_z$, the condition $\mu_0\asymp\rho$ is both necessary and sufficient. The threshold is local: what is required is $\mu/h\gtrsim c/\ell_z$. The $\rho$-scaling is the price of Scott's normalisation of the penalty by the global $h$.
+
+\begin{proof}[Proof of (b)]
+\begin{enumerate}
+\item In two dimensions, $a(v,v)$ and $\ip{\dn v}{v}$ are invariant under dilation, and $\norm{v}^2_{L^2(\Gh)}$ scales linearly.
+\item A witness $v$ on the reference star, extended by zero, lies in $\Zh$: it is continuous, vanishes on the star's outer chords and on $\partial R$, and is divergence-free.
+\item It satisfies $N_h(v,v)=a(v,v)-2\ip{\dn v}{v}+(\mu\ell_z/h)\norm{v}^2_{\mathrm{ref}}$.
+\item By the certificate below, $2B-A-9C>0$ on each reference star, so $N_h(v,v)<0$ when $\mu\ell_z/h<9$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsection*{The exact certificate}
+The reference stars are fans at $O=(0,0)$ with rational rim points:
+\begin{itemize}
+\item $\cS_3$: rim points $(1,0),(1,1),(-1,1),(-1,0)$;
+\item $\cS_4'$: rim points $(1,0),(1,1),(0,\tfrac65),(-1,1),(-1,0)$.
+\end{itemize}
+The apex of $\cS_4'$ is moved off the line $y=1$. With apex $(0,1)$ the rim vertex is singular, the kernel dimension jumps from $16$ to $17$, and the perturbation argument does not apply.
+
+The Nitsche boundary is $\{y=0\}$, and the rim chords carry zero Dirichlet data. The velocity is represented on each triangle by $P_4$ polynomials in global coordinates with rational coefficients. The computation is done in exact rational arithmetic (SymPy):
+\begin{itemize}
+\item Continuity across the spokes, vanishing on the rim, and pointwise $\div v=0$ are imposed as polynomial identities. This gives $80$ and $110$ linear constraints and kernel dimensions $14$ and $16$, the generic counts.
+\item The quadratic forms $A=\sum_T\int\frac12Dv:Dv$, $B=\int(\dn v)\cdot v$ and $C=\int|v|^2$ are integrated exactly.
+\item A rational witness in the kernel satisfies $2B-A-9C>0$ \emph{exactly} on each star. Its exact Rayleigh quotients $(2B-A)/C$ are $9.97854\ldots$ ($\cS_3$) and $9.26747\ldots$ ($\cS_4'$).
+\end{itemize}
+\cert{code/lamstar\_exact.py, code/lamstar\_exact\_v2.py}{logs/lamstar\_exact\_*.log}
+
+In floating point, the largest Rayleigh quotient $\lambda^\ast$ is about $15$ on uniform fans with $m=3,4$ and ranges over $14.8$--$38.5$ on random $4$-fans (\texttt{code/lamstar.py}). As a global check, the measured threshold $\gamma^\ast=\mu^\ast/\rho$ stays in $18.1$--$20.1$ as $\rho$ varies over $3.3$--$44$ on two mesh levels. Under refinement at fixed $\rho$ it lies in $14.7$--$20.8$, with increments that roughly halve per doubling (Table~\ref{tab:thresh}).
