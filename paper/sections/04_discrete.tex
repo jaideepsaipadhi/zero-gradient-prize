@@ -11,7 +11,6 @@ For $q\in\Pih$,
 \[
 \norm{q}^2_{\Gh}\le C_I^2\sum_{T\in\Th^\Gamma}|e_T|^{-1}\norm{q}^2_T\le C_I^2(\rho/h)\norm{q}^2 .
 \]
-A triangle with two edges on $\Gh$ only doubles $C_I$.
 \end{lemma}
 
 \begin{lemma}[Coercivity and continuity]\label{lem:coercive}
@@ -48,7 +47,7 @@ Under (M1), $\div\VR=\Pih$ and $\Wh\neq\emptyset$. The velocities of $\GS$ and $
 \end{enumerate}
 \end{proof}
 
-\begin{remark}
+\begin{remark}\label{rem:corner}
 If a vertex of $\partial R$ is singular (for example a corner with one triangle), then $A_z(\div\mathcal G)=0$ is a condition on $\gI$ that generic data violate, and $\Wh=\emptyset$.
 \end{remark}
 
@@ -76,7 +75,7 @@ E_h:=\inf_{z\in\Wh}\tnorm{\ut-z}\le C\eps,\qquad \eps:=(1+(\gamma\hG)^{1/2})\,h^
 
 The second term comes from the net flux of the interpolated boundary data. It cannot be removed for the method as posed. Let $\nu$ be the outward normal of $R$ and $m_R:=\int_{\partial R}\gI\cdot\nu$. Every $z\in\Wh$ (including the discrete velocity) has $\int_{\Gh}z\cdot n=-m_R$, while $\int_{\Gh}\ut\cdot n=0$. Hence $\tnorm{\ut-z}\ge(\mu/h)^{1/2}|m_R|/|\Gh|^{1/2}$, and $|m_R|\asymp h^{\sigma_k}$ for generic $g$.
 
-For bounded $\gamma$ the term is at most $Ch^k$ whenever $\hG\ge h^{2(\sigma_k-k)}$: that is, $\hG\ge h^4$ for even $k$ and $\hG\ge h^2$ for odd $k$. It vanishes if $\gI$ is flux-corrected so that $m_R=0$, and for the test data of Section~\ref{sec:numerics}, where $g\cdot\nu$ is a polynomial of degree at most $5$ on each side and the flux integrals are exact.
+For bounded $\gamma$ the term is at most $Ch^k$ whenever $\hG\ge h^{2(\sigma_k-k)}$: that is, $\hG\ge h^4$ for even $k$ and $\hG\ge h^2$ for odd $k$. If $\gI$ is flux-corrected so that $m_R=0$, or for the test data of Section~\ref{sec:numerics}, where $g\cdot\nu$ is a polynomial of degree at most $5$ on each side and the flux integrals over $\partial R$ are exact, only the contribution of $\Gh$ to the net flux remains. By step~2 of the proof below it is $O(\hG^{\sigma_k})$, so the term reduces to $C(1+\gamma^{1/2})\hG^{\sigma_k-1/2}$, which is below $h^k$ for bounded $\gamma$.
 
 \begin{proof}
 \begin{enumerate}

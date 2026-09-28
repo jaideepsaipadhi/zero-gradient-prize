@@ -1,0 +1,243 @@
+% ---------------------------------------------------------------------------
+% Clough--Tocher (barycentric) refinements, k >= 2.
+% To be \input into paper/main.tex after Section 8 (sections/08_penalty).
+% Uses only the macros of paper/main.tex. New citation keys used here
+% (BibTeX entries are given in notes/v3/ct_report.md, to be appended to refs.bib):
+%   ArnoldQin1992, GuzmanNeilan2018, CloughTocher1965, Ciarlet1978book,
+%   ScottZhang1990
+% Certificates: code/lamstar_exact_ct.py -> logs/lamstar_exact_ct.log
+% ---------------------------------------------------------------------------
+\section{Clough--Tocher refinements: every \texorpdfstring{$k\ge2$}{k>=2}}\label{ct:sec}
+
+Sections~\ref{sec:setting}--\ref{sec:penalty} assume continuous $P_k$ velocities with $k\ge4$ on a mesh satisfying (M0)--(M2). Here we show that every result holds for all $k\ge2$ on Clough--Tocher (barycentric, Alfeld) refinements, and that (M1), (M1$'$) and (M2) can be dropped. Only four ingredients change: the inf-sup constant, the divergence range, the flux exponent in Lemma~\ref{lem:approx}, and the $C^1$ test field $v_\varphi$. The penalty-necessity constants of Proposition~\ref{prop:penalty} also change, and we recertify them exactly.
+
+\subsection{Setting}
+Let $\Th^M$ be a conforming triangulation of $\Oh$ (the \emph{macro mesh}). Its Clough--Tocher refinement $\Th$ splits every $T\in\Th^M$ at its barycentre $g_T$ into three triangles. Macro edges are not split, so the edges of $\Th$ on $\Gh$ and on $\partial R$ are exactly the macro edges there, and $\EG$ is unchanged.
+For $k\ge2$, $\Vh$ is the space of continuous piecewise-$P_k$ fields on $\Th$ and $\Pih$ the space of discontinuous piecewise-$P_{k-1}$ functions on $\Th$. $\VR$, $\VO$, $\Zh$, $\Wh$, the forms $a_h$ and $N_h$, the methods $\GS$ and $\CNS$ and the norm $\tnorm\cdot$ are defined by the formulas of Section~\ref{sec:setting}, applied to these spaces.
+We put $h:=\max_{T\in\Th^M}\diam T$ and keep $\hG$, $\rho$, $\gamma$ as before.
+
+\begin{assumption}\label{ct:ass}\leavevmode
+\begin{enumerate}[label=(CT\arabic*),start=0]
+\item $\Th^M$ is shape regular: $\diam T\le\sigma\,r_T$ for every $T\in\Th^M$, where $r_T$ is the inradius. Moreover $c_0\hG\le|e|\le\hG$ for all $e\in\EG$.
+\end{enumerate}
+Assumption (D) of Section~\ref{sec:setting} is kept. No analogue of (M1), (M1$'$) or (M2) is assumed.
+\end{assumption}
+
+In this section $C$ and $c$ depend on $\sigma$, $c_0$, $k$, $L$ and norms of $(u,p,\psit)$, and on nothing else.
+
+\begin{lemma}[Structure of the refined mesh]\label{ct:lem:mesh}
+Assume (CT0) and $h\le h_\ast$.
+\begin{enumerate}[label=(\alph*)]
+\item $\Th$ is shape regular with a constant depending only on $\sigma$, and $\diam K\ge c\,\diam T$ for $K\subset T$.
+\item Each $e\in\EG$ is an edge of exactly one $K_e\in\Th$, namely $K_e=\mathrm{conv}(e\cup\{g_{T_e}\})$, where $T_e\in\Th^M$ is the macro triangle on $e$. Its height over $e$ is one third of that of $T_e$, and $\diam K_e\le C|e|$. No macro triangle has two edges on $\Gh$. Every vertex of $\Gh$ lies in at least two macro triangles, hence in at least four triangles of $\Th$.
+\item $\Th$ has no singular vertex in the sense of (M1). It satisfies (M2) with a constant $\Theta_0=\Theta_0(\sigma)>0$.
+\end{enumerate}
+In particular, $\Th$ satisfies (M0)--(M2) of Assumption~\ref{ass:mesh}, with constants depending only on $\sigma$ and $c_0$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}[label=(\alph*)]
+\item For $K\subset T$ we have $|K|=|T|/3$ and $\diam K\le\diam T$. Hence $\diam K^2/|K|\le3\diam T^2/|T|\le C(\sigma)$, which bounds the angles of $K$ from below. Also $\diam K\ge$ the length of the macro edge of $K$, which is $\ge c\,\diam T$.
+\item The barycentre lies at one third of each height, so $K_e$ is the only refined triangle with an edge on $e$, and $\diam K_e\le\diam T_e\le C|e|$.
+
+The interior angle of $\Oh$ at a vertex $z$ of $\Gh$ is $\pi+O(\hG)$. Every macro angle is at most $\pi-2\theta_{\min}(\sigma)$. So for $h\le h_\ast$ at least two macro triangles meet at $z$. A macro triangle with two edges on $\Gh$ would have both edges at a common vertex $z$ of $\Gh$, and its angle at $z$ would be that interior angle, which is impossible.
+\item Consider a macro vertex $z$ with incident macro triangles $T_1,\dots,T_m$. The refined edges at $z$ are the macro edges and the medians $zg_{T_i}$, and each median lies strictly inside the angle of $T_i$ at $z$.
+\begin{itemize}
+\item If $z$ is interior, $m\ge3$, so $z$ has $2m\ge6$ refined edges. At most four rays from $z$ lie on two lines, so $z$ is not singular.
+\item If $z$ is a boundary vertex, it has $2m+1\ge3$ refined edges. For $m\ge2$ there are at least $5>4$ of them. For $m=1$ the three rays are two macro edges, at an angle $<\pi$, and a median strictly between them, so no two are opposite.
+\item A barycentre has three edges, and no two are opposite since $g_T$ is interior.
+\item Every vertex lies in at least two refined triangles.
+\end{itemize}
+For (M2), at a macro vertex the two refined angles $\alpha_i',\alpha_i''$ inside $T_i$ are consecutive (never the wrap-around pair), and they add up to the macro angle $\alpha_i\in[\theta_{\min},\pi-2\theta_{\min}]$. Hence $\Theta(z)\ge\sin\theta_{\min}$.
+
+At a barycentre, the angles $\phi_1,\phi_2,\phi_3$ satisfy $\sum\phi_j=2\pi$ and, by (a), $\phi_j\le\pi-2\theta'_{\min}(\sigma)$. Moreover $|\sin(\phi_j+\phi_{j+1})|=\sin\phi_{j+2}$ and $\max_j\phi_j\ge2\pi/3$. Hence $\Theta(g_T)\ge\min(\sin\tfrac{2\pi}3,\sin2\theta'_{\min})$.\qedhere
+\end{enumerate}
+\end{proof}
+
+By Lemma~\ref{ct:lem:mesh}, for $k\ge4$ the paper applies verbatim to $\Th$. The new content is $k\in\{2,3\}$, together with the fact that no angle or singular-vertex hypothesis on the macro mesh is needed for any $k$. The proofs below cover all $k\ge2$ uniformly, except the $C^1$ test field of Lemma~\ref{ct:lem:vphi}.
+
+\subsection{Divergence: local and global}
+
+For a triangle $T$ with Clough--Tocher split $T^{\mathrm{ct}}$, let $V_0(T)$ be the space of continuous piecewise-$P_k$ fields on $T^{\mathrm{ct}}$ vanishing on $\partial T$, and $Q_0(T)$ the space of discontinuous piecewise-$P_{k-1}$ functions on $T^{\mathrm{ct}}$ with mean zero on $T$.
+
+\begin{lemma}[Local surjectivity]\label{ct:lem:local}
+Let $k\ge2$. Then $\div V_0(T)=Q_0(T)$. For every $q\in Q_0(T)$ there is $v\in V_0(T)$ with $\div v=q$ and $\norm{\nabla v}_T\le C_{\mathrm{loc}}\norm{q}_T$, where $C_{\mathrm{loc}}$ depends only on $k$ and the shape regularity of $T$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Reference element.} Let $\hat T$ be the reference triangle, with its Clough--Tocher split. We show that $\div:V_0(\hat T)\to Q_0(\hat T)$ is onto.
+\begin{itemize}
+\item $k=2$. Here $\dim V_0(\hat T)=8=\dim Q_0(\hat T)$, so it suffices that $\div$ is injective. A divergence-free $v\in V_0(\hat T)$ is $\curl\psi$ with $\psi\in C^1(\hat T)$ piecewise cubic on the split and $\psi=\nabla\psi=0$ on $\partial\hat T$ (the boundary is connected). All twelve Hsieh--Clough--Tocher degrees of freedom of $\psi$ \cite{CloughTocher1965,Ciarlet1978book} then vanish, so $\psi=0$.
+\item $k\ge4$. The split is a three-triangle mesh of $\hat T$ with no singular vertex (Lemma~\ref{ct:lem:mesh}(c) applied to one macro triangle), so the Scott--Vogelius theorem \cite{ScottVogelius1985,GuzmanScott2019} applies on the domain $\hat T$.
+\item $k=3$ (and, as a check, $k=2,4,5,6$). An exact rational rank computation gives $\operatorname{rank}(\div|_{V_0(\hat T)})=\dim Q_0(\hat T)$. The dimensions are $\dim V_0=8,20,38,62,92$, $\dim Q_0=8,17,29,44,62$ and $\dim\ker\div=0,3,9,18,30$.
+\item The statement for all $k\ge d=2$ is also the local ingredient of Guzm\'an--Neilan \cite{GuzmanNeilan2018}; for $k=2$ it is Arnold--Qin \cite{ArnoldQin1992}.
+\end{itemize}
+A surjective linear map between finite-dimensional spaces has a bounded right inverse. Let $\hat C_k$ be its norm.
+\item \emph{Piola transfer.} Let $F(\hat x)=B\hat x+b$ map $\hat T$ onto $T$. Affine maps preserve barycentres, so $F$ maps $\hat T^{\mathrm{ct}}$ onto $T^{\mathrm{ct}}$. For $q\in Q_0(T)$, put $\hat q:=(\det B)\,q\circ F\in Q_0(\hat T)$. Take $\hat v$ with $\widehat\div\,\hat v=\hat q$ and $\norm{\hat\nabla\hat v}\le\hat C_k\norm{\hat q}$, and set $v:=(\det B)^{-1}B\,\hat v\circ F^{-1}$. Then $v\in V_0(T)$, $\div v=q$ and $\norm{\nabla v}_T\le\hat C_k\norm{B}\norm{B^{-1}}\norm{q}_T$.\qedhere
+\end{enumerate}
+\end{proof}
+\cert{code/lamstar\_exact\_ct.py (Part 1)}{logs/lamstar\_exact\_ct.log}
+
+\begin{lemma}[Uniform inf-sup constant, Clough--Tocher]\label{ct:lem:infsup}
+Let $k\ge2$ and assume (CT0). There is $\beta>0$, depending only on $k$, $\sigma$ and $L$, such that for every $q\in\Pih\cap L^2_0(\Oh)$ there exists $v\in\VO$ with $\div v=q$ and $\norm{\nabla v}\le\beta^{-1}\norm q$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Continuous level.} By the second half of the proof of Lemma~\ref{lem:infsup} (the Galdi wedge cover, which involves only $\Oh$ and not the mesh), there is $\beta_c>0$ independent of $h$ with the following property: for each $f\in L^2_0(\Oh)$ there is $w\in H^1_0(\Oh)^2$ with $\div w=f$ and $\norm{\nabla w}\le\beta_c^{-1}\norm f$.
+\item \emph{Macro Fortin step.} Let $\Pi^{\mathrm{SZ}}$ be the Scott--Zhang interpolant \cite{ScottZhang1990} onto continuous piecewise-$P_1$ fields on $\Th^M$ that vanish on $\partial\Oh$. For an interior macro edge $E$, let $b_E=\lambda_a\lambda_b$ be its quadratic macro bubble. Set
+\[
+w_h:=\Pi^{\mathrm{SZ}}w+\sum_{E}c_Eb_E,\qquad c_E:=\frac{6}{|E|}\int_E(w-\Pi^{\mathrm{SZ}}w)\in\R^2 .
+\]
+Then $w_h$ is continuous piecewise-$P_2$ on $\Th^M$, hence in $\VO$ for $k\ge2$, and $\int_Ew_h=\int_Ew$ on every macro edge (both vanish on $\partial\Oh$). By the divergence theorem, $\int_T\div w_h=\int_T\div w=\int_Tq$ for every $T\in\Th^M$. The trace inequality and the local estimates of $\Pi^{\mathrm{SZ}}$ give $|c_E|\le C\norm{\nabla w}_{\omega_E}$. Since $\norm{\nabla b_E}\le C$ in two dimensions, $\norm{\nabla w_h}\le C\norm{\nabla w}\le C\beta_c^{-1}\norm q$.
+\item \emph{Local step.} On each $T\in\Th^M$, $r:=q-\div w_h$ is piecewise $P_{k-1}$ on $T^{\mathrm{ct}}$ (since $\div w_h|_T\in P_1$) and has mean zero on $T$. Lemma~\ref{ct:lem:local} gives $v_T\in V_0(T)$ with $\div v_T=r|_T$ and $\norm{\nabla v_T}_T\le C_{\mathrm{loc}}\norm r_T$. Extended by zero, $v_T\in\VO$.
+\item Put $v:=w_h+\sum_Tv_T\in\VO$. Then $\div v=q$ and $\norm{\nabla v}\le\norm{\nabla w_h}+C_{\mathrm{loc}}(\norm q+\sqrt2\norm{\nabla w_h})\le\beta^{-1}\norm q$.\qedhere
+\end{enumerate}
+\end{proof}
+
+The domain enters only through $\beta_c$, in step 1. The transfer of the Galdi argument is therefore immediate: unlike Lemma~\ref{lem:infsup}, neither a Poincar\'e constant nor an angle condition is involved. For $k\ge4$ one may instead apply Lemma~\ref{lem:infsup} to $\Th$, using Lemma~\ref{ct:lem:mesh}(c).
+
+\begin{lemma}[Divergence range]\label{ct:lem:divrange}
+Let $k\ge2$ and assume (CT0). Then $\div\VR=\Pih$, and $\Wh\ne\emptyset$ for every boundary datum $g$. The velocities of $\GS$ and $\CNS$ are pointwise divergence-free.
+\end{lemma}
+
+\begin{proof}
+Follow the proof of Lemma~\ref{lem:divrange}, using Lemma~\ref{ct:lem:infsup} for $\div\VO=\Pih\cap L^2_0$, and the quadratic edge bubble $\beta_en_e$ of the refined triangle $K_e$ for the constants ($\int_e\beta_e=|e|/6$). The corner obstruction in the remark after Lemma~\ref{lem:divrange} cannot occur, because by Lemma~\ref{ct:lem:mesh}(c) no vertex of $\partial R$ is singular in $\Th$.
+\end{proof}
+
+\subsection{Approximation in \texorpdfstring{$\Wh$}{W\_h} and the test field}
+
+\begin{lemma}[Approximation in $\Wh$, $k\ge2$]\label{ct:lem:approx}
+Let $k\ge2$, assume (CT0), and let $\sigma_k:=k+2$ for even $k$ and $\sigma_k:=k+1$ for odd $k$. In particular $\sigma_2=\sigma_3=4$. Then
+\[
+E_h=\inf_{z\in\Wh}\tnorm{\ut-z}\le C\eps,\qquad\eps=(1+(\gamma\hG)^{1/2})h^k+h^{\sigma_k}\bigl(\hG^{-1/2}+(\mu/h)^{1/2}\bigr).
+\]
+The lower bound $\tnorm{\ut-z}\ge(\mu/h)^{1/2}|m_R|/|\Gh|^{1/2}$ for every $z\in\Wh$, stated after Lemma~\ref{lem:approx}, holds unchanged. The flux term is at most $Ch^k$ for bounded $\gamma$ whenever $\hG\ge h^{2(\sigma_k-k)}$: that is, $\hG\ge h^4$ for $k=2$ and $\hG\ge h^2$ for $k=3$. It vanishes if $g\cdot\nu$ is a polynomial of degree at most $\sigma_k-1$ on each side of $R$.
+\end{lemma}
+
+\begin{proof}
+Steps 1--5 of the proof of Lemma~\ref{lem:approx} go through word for word, with three substitutions.
+\begin{enumerate}
+\item The Lagrange interpolant is taken on $\Th$. Refined triangles meeting $\Gh$ have diameter at most $C\hG$ by Lemma~\ref{ct:lem:mesh}(a,b), so the three interpolation bounds of step 1 hold for every $k\ge1$.
+\item In step 2, the trace of $I_h\ut$ on a boundary edge is its equispaced $P_k$ Lagrange interpolant, and the edge is not split. Integrating it is the closed $(k+1)$-point Newton--Cotes rule, which is exact on $P_{\sigma_k-1}$. For $k=2$ this is Simpson's rule and for $k=3$ Simpson's $3/8$ rule, both exact on cubics. Each edge therefore contributes $O(|e|^{\sigma_k+1})$, and $|m|\le Ch^{\sigma_k}$.
+\item Step 3 uses the bubbles $\beta_e$ of the refined triangles $K_e$, and step 4 uses Lemma~\ref{ct:lem:infsup} in place of Lemma~\ref{lem:infsup}.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[The $C^1$ test field]\label{ct:lem:vphi}
+Let $k\ge2$, assume (CT0) and $h\le h_\ast$, and let $\varphi$ and $w=\curl\varphi$ be as in Section~\ref{sec:printed}. There is $v_\varphi\in\Zh$ with
+\begin{equation}\label{ct:eq:vphi}
+\norm{v_\varphi-w}_{L^\infty(\Oh)}\le Ch^k,\qquad\max_{K\in\Th}\norm{\nabla(v_\varphi-w)}_{L^\infty(K)}\le Ch .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\begin{itemize}
+\item $k\in\{2,3\}$. Let $\Pi^{\mathrm{HCT}}\varphi$ be the Hsieh--Clough--Tocher interpolant on $\Th^M$ \cite{CloughTocher1965}. It is $C^1$ on $\Oh$ and piecewise cubic on $\Th$. Its degrees of freedom are the values and gradients at the macro vertices and the normal derivatives at the macro-edge midpoints, and it reproduces $P_3$. The HCT interpolation estimate \cite[Section 6.1]{Ciarlet1978book} gives
+\[
+|\varphi-\Pi^{\mathrm{HCT}}\varphi|_{W^{j,\infty}(T)}\le Ch_T^{4-j}|\varphi|_{W^{4,\infty}(T)},\qquad j\le2,
+\]
+with $C$ depending on $\sigma$. Put $v_\varphi:=\curl\Pi^{\mathrm{HCT}}\varphi$. It is continuous and piecewise $P_2\subset P_k$ on $\Th$, and divergence-free. Since the interpolant is local and $\varphi\equiv0$ near $\partial R$, $v_\varphi=0$ near $\partial R$. So $v_\varphi\in\Zh$, with $L^\infty$ error $Ch^3\le Ch^k$ and gradient error $Ch^2$.
+\item $k\ge4$. By Lemma~\ref{ct:lem:mesh}, $\Th$ satisfies (M0)--(M2), and the construction of Section~\ref{sec:printed} (the Morgan--Scott interpolant of degree $k+1$ \cite{MorganScott1975} on $\Th$) gives the errors $Ch^{k+1}$ and $Ch^k$.\qedhere
+\end{itemize}
+\end{proof}
+
+Section~\ref{sec:printed} writes $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^k$, but its proofs use only the two bounds in \eqref{ct:eq:vphi}. The $O(h^k)$ terms in step 1 of the lower bound of Theorem~\ref{thm:A}, in steps 4--5 of Theorem~\ref{thm:C}, in steps 1--2 of Theorem~\ref{thm:B}(i) and in step 4 of Corollary~\ref{cor:Bp} are all pointwise values of $v_\varphi-w$ on $\Gh$. Everywhere else only boundedness of $\nabla v_\varphi$ is used: in $\tnorm{v_\varphi}$, $a_h(S_h,\cdot)$, $\ip{\dn S_h}{\cdot}$ and $\ip{e}{\dn v}$.
+
+\subsection{The theorem}
+
+\begin{theorem}[Clough--Tocher version of the paper]\label{ct:thm:main}
+Let $k\ge2$ be fixed, and let $\Th$ be the Clough--Tocher refinement of a macro mesh satisfying (CT0). Let $\Vh,\Pih$ be as in this section, and assume (D).
+\begin{enumerate}[label=(\roman*)]
+\item The following hold as stated, with constants $C$, $c$, $C_I$, $\kappa$, $c_1$, $M$, $\beta$, $\gamma_0$, $\gamma_2$, $h_0$, $\delta_0$ depending on $\sigma$, $c_0$, $k$, $L$ (and on the data as in Section~\ref{sec:setting}) instead of on (M0)--(M2), $k$, $L$:
+\begin{itemize}
+\item Lemmas~\ref{lem:chords}--\ref{lem:transposed}, \ref{lem:inverse}, \ref{lem:coercive}, \ref{lem:erroreq}, \ref{lem:Gbound} and~\ref{lem:cancel}, and Corollary~\ref{cor:GSerr};
+\item Lemma~\ref{lem:divrange} in the form of Lemma~\ref{ct:lem:divrange}, Lemma~\ref{lem:infsup} in the form of Lemma~\ref{ct:lem:infsup}, and Lemma~\ref{lem:approx} in the form of Lemma~\ref{ct:lem:approx};
+\item Theorems~\ref{thm:A}, \ref{thm:C}, \ref{thm:B} and~\ref{thm:D}, Corollaries~\ref{cor:Aprime} and~\ref{cor:Bp}, Proposition~\ref{prop:singular} and Proposition~\ref{prop:penalty}(a).
+\end{itemize}
+In Lemma~\ref{lem:inverse} the triangle $T_e$ is replaced by $K_e$, and the remark about triangles with two edges on $\Gh$ is void (Lemma~\ref{ct:lem:mesh}(b)).
+\item In particular, for $\gamma\in[\gamma_2,\gamma_{\max}]$ the method $\CNS$ satisfies
+\[
+\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+h^k\bigr)\qquad\text{whenever }\hG\ge h^{2(\sigma_k-k)} .
+\]
+This is $\hG^{3/2}+h^2$ for $k=2$ with $\hG\ge h^4$, and $\hG^{3/2}+h^3$ for $k=3$ with $\hG\ge h^2$. The printed method $\GS$ has the leading error $(h/\mu)v_\varphi$ of Corollary~\ref{cor:Bp}, with constant $1$ in the slip and energy norms.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We go through the paper section by section and record every place where the mesh, the degree or the element enters.
+\begin{enumerate}
+\item \emph{Section~\ref{sec:geometry}.} Lemmas~\ref{lem:chords}--\ref{lem:wall} concern only $\Gamma$, $\Gh$ and $\Oh$, which are unchanged. Lemma~\ref{lem:transposed} uses, besides these, only the inverse trace inequality $|e|\norm{\dt v}_{L^2(e)}^2\le C_I^2\norm{\nabla v}^2_{K_e}$ on the refined triangle $K_e$. This holds by Lemma~\ref{ct:lem:mesh}(a,b) and a scaling argument.
+\item \emph{Section~\ref{sec:discrete}.} Lemma~\ref{lem:inverse} holds on $K_e$ for the same reason, and the $K_e$ are distinct for distinct $e$. Lemma~\ref{lem:coercive} uses only Lemmas~\ref{lem:korn} and~\ref{lem:inverse}, so its formulas for $\mu_0$, $\gamma_0$, $c_1$, $M$ are unchanged, with the new $C_I$. For the remaining three lemmas, see Lemmas~\ref{ct:lem:divrange}, \ref{ct:lem:infsup} and~\ref{ct:lem:approx}.
+\item \emph{Section~\ref{sec:erroreq}.} Lemma~\ref{lem:erroreq} is an identity for smooth $\ut$ and any $v\in\VR$. Lemma~\ref{lem:Gbound} uses Lemmas~\ref{lem:ext}, \ref{lem:transposed} and~\ref{lem:inverse}. Corollary~\ref{cor:GSerr} uses $\div v=0$ pointwise for $v\in\Zh$.
+\item \emph{Section~\ref{sec:printed}.} Take $v_\varphi$ from Lemma~\ref{ct:lem:vphi}; by the discussion after it, \eqref{ct:eq:vphi} is all that Theorems~\ref{thm:A}, \ref{thm:C}, \ref{thm:B} and Corollaries~\ref{cor:Aprime}, \ref{cor:Bp} need. Lemma~\ref{lem:cancel} uses only three facts: on $e$, $v\in\Zh$ is a polynomial on $K_e$ with $\div v=0$ pointwise, so $\dn v\cdot n_e=-\dt(v\cdot\tau_e)$ on $e$; $v$ is continuous at the vertices of $\Gh$; and Lemmas~\ref{lem:inverse} and~\ref{lem:korn} hold. All three are available.
+
+The remaining steps (the split $\delta_R+\delta_G$, Lax--Milgram on $\Zh$, the ansatz $r_h$, and the lower-bound arguments) are abstract: they use only Lemma~\ref{lem:coercive}, Lemma~\ref{lem:approx} through $E_h\le C\eps$, and Lemma~\ref{lem:korn}. The lift $E$ in the proof of Theorem~\ref{thm:B}(ii) uses $\norm{g-\gI}_{H^{1/2}(\partial R)}\le Ch^{k+1/2}$, which holds for every $k\ge1$.
+\item \emph{Section~\ref{sec:consistent}.} Proposition~\ref{prop:singular} is algebraic. In Theorem~\ref{thm:D}, step 2 uses $\div\VO\subset\Pih$ with $\pi_h$ the $L^2(\Oh)$ projection onto $\Pih$ (on $\Th$). Step 3 uses Lemma~\ref{ct:lem:infsup}. Step 4 uses $\norm{\eta}_{L^\infty(K_e)}\le C(\diam K_e)^k\le C\hG^k$. Step 6 uses the bubble $\beta_en_e$ on $K_e$.
+\item \emph{Section~\ref{sec:penalty}(a)} is Lemma~\ref{lem:coercive}.
+\end{enumerate}
+The rate in (ii) is Theorem~\ref{thm:D} combined with Lemma~\ref{ct:lem:approx}.
+\end{proof}
+
+\begin{remark}
+For $k=2$ the bulk term $h^2$ dominates $\hG^{3/2}$ exactly when $\hG\le h^{4/3}$. So for quasi-uniform meshes the $\CNS$ error is $O(h^{3/2})$ for every $k\ge2$, and the degree matters only through $\eps$. The constant-pressure benchmark of \cite{GjerdeScott2024} is the case $G=0$ of Theorem~\ref{thm:A}. It was analysed on Clough--Tocher splits with $k\ge2$ in \cite{Cavalcante}; the proof here does not use \cite{Cavalcante}.
+\end{remark}
+
+\subsection{The penalty threshold on Clough--Tocher stars}
+
+The necessity half of Proposition~\ref{prop:penalty} depends on the element, and we recertify it. A \emph{Clough--Tocher star} at a boundary vertex $z$ is the union of the macro triangles containing $z$, each split at its barycentre. We use the reference stars of Section~\ref{sec:penalty}, now split, together with two more. All are fans at $O=(0,0)$ with Nitsche boundary $\{y=0\}$:
+\begin{itemize}
+\item $\cS_2$: rim points $(1,0),(0,1),(-1,0)$;
+\item $\cS_3$: rim points $(1,0),(1,1),(-1,1),(-1,0)$;
+\item $\cS_4$: rim points $(1,0),(1,1),(0,1),(-1,1),(-1,0)$;
+\item $\cS_4'$: rim points $(1,0),(1,1),(0,\tfrac65),(-1,1),(-1,0)$.
+\end{itemize}
+Without the split, $\cS_2$ and $\cS_4$ contain singular vertices, and Section~\ref{sec:penalty} had to exclude them. After the split every vertex is non-singular (Lemma~\ref{ct:lem:mesh}(c)).
+
+\begin{proposition}[Penalty necessity, Clough--Tocher]\label{ct:prop:penalty}
+Let $z$ be a vertex of a straight part of the Nitsche boundary, and let $\ell_z$ be the length of its boundary edges. Suppose its Clough--Tocher star, dilated by the factor $1/\ell_z$, is congruent to the split star $\cS$. Let $k\ge2$, and let $\lambda_k(\cS)$ be the certified value in Table~\ref{ct:tab:lam}, taking $\lambda_k:=\lambda_4$ for $k\ge5$. If $\mu\ell_z/h<\lambda_k(\cS)$, then $N_h$ is indefinite on $\Zh$.
+
+The same holds, with the same constants and by continuity, at every vertex of $\Gh$ with interior angle $\pi+O(\hG)$ whose split star is a small perturbation of a split reference star. No exclusion like (M1$'$) is needed; in particular the case of two macro triangles ($\cS_2$), which is typical at vertices of $\Gh$, is covered.
+\end{proposition}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llcccc}
+\toprule
+ & & $\cS_2$ & $\cS_3$ & $\cS_4$ & $\cS_4'$\\
+\midrule
+$k=2$ & kernel dimension & $6$ & $7$ & $8$ & $8$\\
+ & certified $\lambda_2$ & $5.71$ & $7.54$ & $7.54$ & $7.52$\\
+ & exact quotient & $5.71715$ & $7.54884$ & $7.54467$ & $7.52180$\\
+\midrule
+$k=3$ & kernel dimension & $18$ & $24$ & $30$ & $30$\\
+ & certified $\lambda_3$ & $24.15$ & $24.81$ & $24.80$ & $24.80$\\
+ & exact quotient & $24.15473$ & $24.81227$ & $24.80848$ & $24.80696$\\
+\midrule
+$k=4$ & kernel dimension & $36$ & $50$ & $64$ & $64$\\
+ & certified $\lambda_4$ & $48.38$ & $48.78$ & $48.78$ & $48.77$\\
+ & exact quotient & $48.38946$ & $48.78255$ & $48.78181$ & $48.77803$\\
+\bottomrule
+\end{tabular}
+\caption{Clough--Tocher split stars. \emph{Kernel dimension}: the exact dimension of the divergence-free space of continuous piecewise-$P_k$ fields on the split star vanishing on the rim. It equals $\dim V_\cS-\dim\Pi_\cS$ in every case, with $\operatorname{rank}\div=\dim\Pi_\cS$. \emph{Certified $\lambda_k$}: the rational $\lambda_0$ for which $2B-A-\lambda_0C>0$ is verified exactly on a rational witness. \emph{Exact quotient}: the exact value of $(2B-A)/C$ at that witness. (Rounded to five decimals; the certified row is the rigorous statement.) It is a lower bound for the largest Rayleigh quotient $\lambda^\ast(\cS)$, and it agrees with the floating-point maximiser to about $10^{-5}$ relative.}
+\label{ct:tab:lam}
+\end{table}
+\cert{code/lamstar\_exact\_ct.py (Part 2)}{logs/lamstar\_exact\_ct.log}
+
+\begin{proof}
+\begin{enumerate}
+\item The witnesses. Steps 1--4 of the proof of Proposition~\ref{prop:penalty}(b) apply verbatim. The witness is a continuous piecewise-$P_k$ field on the split star, pointwise divergence-free, vanishing on the rim chords, which are macro edges. Extended by zero it therefore lies in $\Zh$.
+\item Monotonicity in $k$. A witness for degree $k$ is also continuous piecewise-$P_{k'}$ for $k'\ge k$, so $\lambda^\ast$ is nondecreasing in $k$; this justifies $\lambda_k:=\lambda_4$ for $k\ge5$. The witnesses of Section~\ref{sec:penalty} (unsplit $P_4$ fans) are also piecewise $P_4$ on the split fans. For $k\ge4$ they certify only $9$, which Table~\ref{ct:tab:lam} supersedes.
+\item The certificate. The computation follows Section~\ref{sec:penalty}, with two changes. First, the per-element polynomials live on the split triangles, whose vertices (including barycentres) are rational. Second, the maximisation is reduced exactly. The kernel $\ker\div$ and the splitting of it into $\ker C$ (fields with zero trace on the Nitsche boundary) and a complement are computed in exact rational arithmetic. On $\ker C$, $B=0$ and $A>0$, so the Schur complement of $2B-A$ onto the complement is formed exactly. Only the top eigenvector of this small exact pencil is computed in floating point, then rationalised.
+
+A floating-point splitting misclassifies directions with tiny but non-zero trace. For $k=3$ it overestimated $\lambda^\ast$ (a spurious $25.11$), which the exact check then rejected. We report only exactly verified values.
+\item Continuity. For every Clough--Tocher star, not only the reference ones, $\div:V_\cS\to\Pi_\cS$ is onto. Here $V_\cS$ is the space of continuous piecewise-$P_k$ fields vanishing on the rim, and $\Pi_\cS$ the space of discontinuous piecewise-$P_{k-1}$ functions. Indeed, the proof of Lemma~\ref{ct:lem:infsup} on the fixed Lipschitz polygon $\cS$ (step 1 now being the continuous inf-sup condition on $\cS$) gives $\div V_0(\cS)=\Pi_\cS\cap L^2_0$, and the $\beta_e$ bubble on a Nitsche edge adds the constants.
+
+Hence $\dim\ker\div=\dim V_\cS-\dim\Pi_\cS$ does not depend on the vertex positions, for fixed combinatorics. The divergence-free subspace is the kernel of a constraint matrix whose entries are polynomial in the vertex coordinates and whose rank is constant, so it depends continuously on them. The forms $A$, $B$, $C$ (with edgewise normals) do as well, so the strict inequality $2B-A-\lambda_0C>0$ persists under small perturbations. This includes the rotation by $O(\hG)$ of one Nitsche edge at a vertex of $\Gh$ and unequal edge lengths $\ell,\ell'$ with $\ell'/\ell$ near $1$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{remark}[Size of the threshold]
+The local thresholds on split stars are much larger than on unsplit ones: $\lambda^\ast\approx48.8$ versus $9.98$ on $\cS_3$ for $k=4$. They grow with $k$ ($7.5$, $24.8$, $48.8$ for $k=2,3,4$). This is consistent with the inverse-trace constant of the thinner boundary triangle $K_e$, whose height is one third of that of $T_e$, and with its growth in $k$. Sufficiency (Lemma~\ref{lem:coercive}) and necessity (Proposition~\ref{ct:prop:penalty}) still both scale with $\rho$, so the conclusion $\mu_0\asymp\rho$ of Section~\ref{sec:penalty} holds for Clough--Tocher meshes. The numerical threshold $\gamma^\ast\approx18$--$20$ of Section~\ref{sec:numerics}, however, was measured on unsplit $k=4$ meshes and does not transfer. On Clough--Tocher meshes a larger $\gamma$ should be expected; this has not been measured.
+\end{remark}

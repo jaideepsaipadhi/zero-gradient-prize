@@ -1,7 +1,3 @@
-/home/claude/scott-vogelius-nitsche/code/lamstar.py:60: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
-  if abs(np.cross(B - A, p - A)) > tol:
-/home/claude/scott-vogelius-nitsche/code/lamstar.py:44: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
-  area = abs(np.cross(T[1] - T[0], T[2] - T[0]))
 m=2 uniform fan: {'dimZ': 12, 'lam_star': np.float64(14.919090920924198)}
 m=3 uniform fan: {'dimZ': 14, 'lam_star': np.float64(15.131726803761929)}
 m=4 uniform fan: {'dimZ': 16, 'lam_star': np.float64(14.988632516477816)}

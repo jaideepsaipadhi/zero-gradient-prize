@@ -1,0 +1,5 @@
+limit star S_{3/4} at theta=0 (N->inf): rim (1,0),(1,3/4),(0,3/4),(-1,0); boundary y=0
+star m=3: 80 exact constraints, divergence-free kernel dim = 14
+  float lambda* = 17.706401;  exact Rayleigh quotient of rational witness = 17.706401
+  EXACT check  2B - A - 17*C > 0 :  True   (value 5.7358e-04)
+time 27.243897199630737

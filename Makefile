@@ -8,6 +8,7 @@ pdf:
 report:
 	cd code && python3 report.py ../results/pod > ../results/pod/report.regen.txt && diff -q ../results/pod/report.regen.txt ../results/pod/report.txt && echo "report.txt reproduced exactly"
 	cd code && python3 report_local.py > ../results/local/report_local.regen.txt && diff -q ../results/local/report_local.regen.txt ../results/local/report_local.txt && echo "report_local.txt reproduced exactly"
+	cp results/v3/report_v3.txt results/v3/report_v3.shipped.txt && cd code && python3 report_v3.py ../results/v3 > /dev/null && diff -q ../results/v3/report_v3.txt ../results/v3/report_v3.shipped.txt && echo "report_v3.txt reproduced exactly"
 
 figures:
 	cd code && python3 plots.py
@@ -16,7 +17,7 @@ figures:
 smoke:
 	cd code && SVN_OUT=/tmp/svn_smoke python3 job.py study 16 B1 100 && SVN_OUT=/tmp/svn_smoke python3 job.py study 16 P1 100 && cat /tmp/svn_smoke/study/*.jsonl
 
-# Exact certificates (Prop. 6.1 / Prop. E), float lambda*, and the lemma dual-norm tests (~20 min on 2 cores)
+# All logs: exact certificates, float lambda*, lemma dual-norm tests, and the v3 logs (about an hour)
 certificates lemma-tests:
 	cd code && ./regen_logs.sh
 

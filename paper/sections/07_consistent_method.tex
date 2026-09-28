@@ -25,7 +25,7 @@ Consequently, for every fixed $k\ge4$, for $\gamma$ in a bounded range $[\gamma_
 \[
 \norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^k\bigr).
 \]
-This condition ensures that the flux term of $\eps$ is at most $Ch^k$. Without it, that single extra term is kept, and by the remark after Lemma~\ref{lem:approx} it is then genuinely present unless $\gI$ is flux-corrected. This is the rate Scott conjectured, for general Stokes data. The $L^2$ part of the $H^1$ norm uses the lift $E$ from the proof of Theorem~\ref{thm:B}(ii).
+This condition ensures that the flux term of $\eps$ is at most $Ch^k$. Without it, that single extra term is kept, and by the remark after Lemma~\ref{lem:approx} it is then genuinely present unless $\gI$ is flux-corrected (which reduces it to a term below $h^k$). This is the rate Scott conjectured, for general Stokes data. The $L^2$ part of the $H^1$ norm uses the lift $E$ from the proof of Theorem~\ref{thm:B}(ii).
 \end{theorem}
 
 \begin{proof}
@@ -59,3 +59,273 @@ where
 \item \emph{Uniqueness.} Apply steps 3--5 to the homogeneous problem ($\gI=0$, so $z=0\in\Wh$). This gives $u_h=0$, and then $p_h=c$ is constant. Now \eqref{eq:cnserr} reads $-c\int_{\Gh}v\cdot n=0$ for all $v$, and the edge bubble of Lemma~\ref{lem:divrange} gives $c=0$. The system is square, so uniqueness gives existence.\qedhere
 \end{enumerate}
 \end{proof}
+
+\subsection{A matching lower bound: the rate \texorpdfstring{$\hG^{3/2}$}{h^{3/2}} is sharp}\label{lb:sec}
+
+Theorem~\ref{thm:D} gives $\norm{\nabla(\ut-u_h)}\le\tnorm{\ut-u_h}\le C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$ for $\CNS$, and Theorem~\ref{thm:A} gives the same bound for $\GS$ when $G=0$. Here we prove the reverse inequality in the $H^1$ seminorm whenever the wall shear is not identically zero.
+
+\emph{Status of the hypothesis.} The proof needs a local condition (M3) on the boundary stars (Assumption~\ref{lb:ass}). For $k\ge7$ it holds on every mesh satisfying (M0)--(M2) (Lemma~\ref{lb:k7}), so the lower bound is unconditional there. For $4\le k\le6$ we have \emph{not} proved (M3). It is a finite-dimensional, scale-invariant condition that we verified numerically for $k=4$ at every boundary vertex of the meshes of Section~\ref{sec:numerics} (Table~\ref{lb:tab:stars}); since the space it involves grows with $k$, this verification also covers $k=5,6$ on those meshes (Remark~\ref{lb:k4}). For $4\le k\le6$ on other meshes, the lower bound is conditional on (M3). The proof does \emph{not} go through the transposed-gradient term of Lemma~\ref{lem:transposed}; see Section~\ref{lb:sec:route} for why that route fails for $\CNS$.
+
+\subsubsection{Notation}
+On $\Gamma$ let $n$ be the unit normal pointing into $D$ and $\tau$ the unit tangent, oriented so that $\tau(x^\ast)\cdot\tau_e>0$ for $x\in e$ ($\tau_e$ is $n_e$ rotated in the same sense). By Lemma~\ref{lem:wall}, $\dn u=W\tau$ on $\Gamma$, where
+\[
+W:=\dn u\cdot\tau\qquad\text{(the wall shear)}.
+\]
+For $e\in\EG$, $T_e$ is the triangle with edge $e$, $s$ is arclength on $e$ from its midpoint $m_e$, and $W_e:=W(m_e^\ast)$. No triangle has two edges on $\Gh$: two such edges would share a vertex $z$ of $\Gh$, and the angle of $\Oh$ at $z$ is $\pi+O(\hG)>\pi$. Define
+\[
+Y_h:=\Zh\cap\VO,\qquad Y_h^1:=\Bigl\{v\in Y_h:\ \int_e\dn v=0\ \ \forall e\in\EG\Bigr\}.
+\]
+
+\subsubsection{The local assumption}
+Write $\mathcal M(v):=-\tfrac12\sum_{e\in\EG}\int_e s^2\,\dn v\cdot\tau_e\,ds$. For a vertex $z$ of $\Gh$, let $e_z$ be the edge of $\Gh$ that follows $z$ counterclockwise; $z\mapsto e_z$ is a bijection between the vertices and the edges of $\Gh$.
+
+\begin{assumption}[Boundary test fields]\label{lb:ass}
+\textbf{(M3)} There are constants $\kappa_0>0$ and $K_{\mathrm{ov}},C_s$ such that every vertex $z$ of $\Gh$ carries a field $v_z\in Y_h^1$ with the following properties:
+\begin{enumerate}[label=(\roman*)]
+\item $\norm{\nabla v_z}=1$;
+\item $v_z$ is supported in a patch $\omega_z$ of triangles within distance $C_s\hG$ of $z$, and every triangle lies in at most $K_{\mathrm{ov}}$ patches;
+\item $\mathcal M(v_z)\ge\kappa_0\,|e_z|^2$, with $e_z$ as above.
+\end{enumerate}
+\end{assumption}
+
+Condition (iii) is invariant under scaling, since $\norm{\nabla v}$ is scale invariant in two dimensions. Only the sign of $v_z$ is chosen in (iii): $\mathcal M(-v)=-\mathcal M(v)$.
+
+\begin{lemma}[(M3) for $k\ge7$]\label{lb:k7}
+If $k\ge7$, (M3) holds with $\omega_z=T_{e_z}$. Here $K_{\mathrm{ov}}=1$ and $\kappa_0$ depends only on (M0).
+\end{lemma}
+
+\begin{proof}
+Let $T=T_{e_z}$, and let $\lambda_1,\lambda_2,\lambda_3$ be its barycentric coordinates with $\lambda_3=0$ on $e:=e_z$. Put $b:=\lambda_1\lambda_2\lambda_3$ and $\sigma:=2s/|e|=\lambda_1-\lambda_2$ on $e$ (up to sign), and set
+\[
+\phi:=b^2\bigl((\lambda_1-\lambda_2)^2-\tfrac17\bigr)\in P_8,\qquad v:=\curl\phi\in P_7^2 .
+\]
+\begin{itemize}
+\item $\phi$ vanishes to second order on $\partial T$, so $v=0$ on $\partial T$. Extended by zero, $v$ is continuous, lies in $\VO\subset\VR$ (because $k\ge7$), and satisfies $\div v=0$. Hence $v\in Y_h$.
+\item On $e$, $\dn v\cdot\tau_e=\pm\partial_{nn}\phi=\pm2|\nabla\lambda_3|^2(\lambda_1\lambda_2)^2(\sigma^2-\tfrac17)=\pm\tfrac18|\nabla\lambda_3|^2(1-\sigma^2)^2(\sigma^2-\tfrac17)$.
+\item Since $\int_{-1}^1(1-\sigma^2)^2=\frac{16}{15}$ and $\int_{-1}^1\sigma^2(1-\sigma^2)^2=\frac{16}{105}$, this has mean zero. With $\dn v\cdot n_e=0$ (Lemma~\ref{lb:normal} below), $\int_e\dn v=0$, so $v\in Y_h^1$.
+\item Its second moment is $\int_{-1}^1\sigma^2(1-\sigma^2)^2(\sigma^2-\frac17)\,d\sigma=\frac{16}{315}-\frac{16}{735}=\frac{64}{2205}\neq0$.
+\end{itemize}
+The other two edges of $T$ are interior edges and do not enter $\mathcal M$. Hence $\mathcal M(v)\ne0$. The ratio $|\mathcal M(v)|/(|e|^2\norm{\nabla v})$ is invariant under similarity. It is a continuous, nonvanishing function of the shape of $T$, and the shapes allowed by (M0) form a compact set, so the ratio is bounded below by some $\kappa_0>0$. Normalise and choose the sign.
+\end{proof}
+
+\begin{remark}[$k=4$]\label{lb:k4}
+For $k=4$ no field in $Y_h^1$ can be supported in a single triangle, or in the two triangles of one first-layer quadrilateral; for the production meshes the latter space is $\{0\}$ (Section~\ref{lb:sec:num}). The smallest natural patch is the boundary star $\omega_z$ (the triangles at $z$).
+
+Write $v=\curl\phi$ with $\phi$ a $C^1$ piecewise quintic; since $v=0$ on $\partial\omega_z$ and on $\Gh$, we may take $\phi=0$ and $\nabla\phi=0$ on $\partial\omega_z$ and on the two edges $e,e'$ of $\Gh$ at $z$. On such an edge $e$, $\dn v\cdot\tau_e=\pm\partial_{n_en_e}\phi|_{T_e}$ is a cubic with zero mean ($v\in Y_h^1$). At the far endpoint of $e$ the gradient of $\phi|_{T_e}$ vanishes along two independent lines, so its Hessian vanishes there. If also $\partial_{n_en_e}\phi|_{T_e}(z)=0$, the cubic vanishes at both ends of $e$ and has zero mean, so it is odd about the midpoint and $\int_es^2\,\dn v\cdot\tau_e=0$. Hence (M3) requires $\partial_{n_en_e}\phi|_{T_e}(z)\ne0$ for at least one of the two edges $e$ at $z$, the value being taken from the triangle $T_e$. This is possible only because $C^1$ quintics can have Hessians that jump across the interior edges at $z$: an Argyris ($C^2$-vertex) stream function has a single Hessian at $z$, which vanishes on both boundary directions and hence is zero. Such jumps exist at a boundary vertex with at least three triangles, which is (M1$'$).
+
+We have not proved (M3) for $k=4$ on general meshes. It is a finite-dimensional, scale-invariant condition on each boundary star, and we verified it numerically:
+\begin{itemize}
+\item for every boundary vertex of every production mesh ($N=8$, $12$, $16$, $20$, $24$, $32$, $48$, $64$, $96$, $128$, $192$, $256$) and also for $N=512$ and $1024$ (Table~\ref{lb:tab:stars}): $\dim Y^1(\omega_z)=1$, $\min_z\kappa_z\ge0.00288$ in every case, and $\min_z\kappa_z$ converges to about $0.0029$ as $N$ grows;
+\item for randomly generated three- and four-triangle boundary stars: $\dim Y^1(\omega_z)=2m-5$ for $m$ triangles, and $\kappa_z>0$ in every sample.
+\end{itemize}
+(M3) is monotone in the degree: a field in $Y_h^1$ for degree $k$ is continuous piecewise $P_{k'}$ for every $k'\ge k$, and $\mathcal M$ and $\norm{\nabla\cdot}$ do not depend on $k$. So (M3) for $k=4$ on a mesh implies (M3) for $k=5,6$ on the same mesh, and the numerical verification above covers $4\le k\le6$ on the meshes of Section~\ref{sec:numerics}. It is a numerical verification in floating point, not a proof.
+\end{remark}
+
+\subsubsection{Three lemmas}
+
+\begin{lemma}\label{lb:normal}
+If $v\in Y_h$ and $e\in\EG$, then $\dn v\cdot n_e=0$ on $e$.
+\end{lemma}
+
+\begin{proof}
+$v|_{T_e}$ is a polynomial that vanishes on $e$, so $\dt v=0$ on $e$. Then $0=\div v=\dt(v\cdot\tau_e)+\dn(v\cdot n_e)$ on $e$.
+\end{proof}
+
+\begin{lemma}[The error identity on $Y_h$]\label{lb:identity}
+Let $u_h$ be the velocity of $\CNS$ ($\gamma\ge\gamma_2$), or of $\GS$ ($\gamma\ge\gamma_0$, any $G$), and let $e_u:=\ut-u_h$. Then for all $v\in Y_h$,
+\[
+a_h(e_u,v)-\ip{e_u}{\dn v}=-\ip{\ut}{\dn v}-(F,v).
+\]
+\end{lemma}
+
+\begin{proof}
+For $\CNS$ use \eqref{eq:cnserr}: $B^\ast(e_p,v)=-(e_p,\div v)+\ip{e_p-\pbG(e_p)}{v\cdot n}=0$, because $\div v=0$ and $v=0$ on $\Gh$. For $\GS$ use Corollary~\ref{cor:GSerr}: $\Rc(v)=-\ip{\pt-c}{v\cdot n}=0$. In both cases $N_h(e_u,v)=\Gc(v)$. Since $v=0$ on $\Gh$, $N_h(e_u,v)=a_h(e_u,v)-\ip{e_u}{\dn v}$, and in $\Gc(v)$ the transposed and penalty terms vanish, leaving $\Gc(v)=-\ip{\ut}{\dn v}-(F,v)$.
+\end{proof}
+
+Neither the pressure error nor the penalty enters this identity. It is simply the discrete momentum equation $a_h(u_h,v)-\ip{u_h}{\dn v}=(\ft,v)$ on $Y_h$, which $\ut$ violates by $-\ip{\ut}{\dn v}$ (Nitsche's symmetric term applied to the nonzero trace of $\ut$ on the chords) and by $(F,v)$.
+
+\begin{lemma}[Trace control on $Y_h^1$]\label{lb:poinc}
+Let $C_{PT}$ be the constant in $\norm{w-\bar w_T}_{L^2(e)}\le C_{PT}|e|^{1/2}\norm{\nabla w}_{T}$ for $e\subset\partial T$, where $\bar w_T$ is the mean of $w$ over $T$; it depends only on shape regularity. Then for $w\in H^1(\Oh)^2$ and $v\in Y_h^1$,
+\[
+|\ip{w}{\dn v}|\le C_{PT}C_I\norm{\nabla w}\norm{\nabla v}.
+\]
+\end{lemma}
+
+\begin{proof}
+On each $e$, $\int_e\dn v=0$, so $\int_e w\cdot\dn v=\int_e(w-\bar w_{T_e})\cdot\dn v$. Hence
+\[
+|\ip{w}{\dn v}|\le\sum_e C_{PT}\norm{\nabla w}_{T_e}\,|e|^{1/2}\norm{\dn v}_{L^2(e)}\le C_{PT}C_I\sum_e\norm{\nabla w}_{T_e}\norm{\nabla v}_{T_e},
+\]
+using the local form of Lemma~\ref{lem:inverse}. Finish with Cauchy--Schwarz; the $T_e$ are distinct.
+\end{proof}
+
+\begin{corollary}[Abstract lower bound]\label{lb:abstract}
+With $\Lambda_0:=2+C_{PT}C_I$ and $e_u=\ut-u_h$ as in Lemma~\ref{lb:identity},
+\[
+\Lambda_0\norm{\nabla e_u}\ \ge\ \sup_{0\ne v\in Y_h^1}\frac{|\ip{\ut}{\dn v}+(F,v)|}{\norm{\nabla v}} .
+\]
+\end{corollary}
+
+\begin{proof}
+$|a_h(e_u,v)|\le2\norm{\nabla e_u}\norm{\nabla v}$; apply Lemmas~\ref{lb:identity} and~\ref{lb:poinc}.
+\end{proof}
+
+\begin{lemma}[Leading term]\label{lb:expand}
+For $v\in Y_h^1$,
+\[
+\Bigl|\ip{\ut}{\dn v}-\ell_W(v)\Bigr|\le C\hG^{5/2}\norm{\nabla v},\qquad \ell_W(v):=-\frac12\sum_{e\in\EG}W_e\int_e s^2\,\dn v\cdot\tau_e\,ds,
+\]
+and $|(F,v)|\le C\hG^2\norm{\nabla v}$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Geometry.} Let $x\in e$ and let $x^\ast=x/|x|$ be its nearest point on $\Gamma$. Then $x=x^\ast+d\,n(x^\ast)$ with $d=1-|x|$. Put $\ell=|e|$. Since $|x|^2=1-\ell^2/4+s^2$,
+\[
+d=\tfrac12\bigl(\tfrac{\ell^2}4-s^2\bigr)+O(\ell^4).
+\]
+\item \emph{Taylor expansion.} Using $\ut(x^\ast)=0$ and Lemma~\ref{lem:wall},
+\[
+\ut(x)=d\,W(x^\ast)\tau(x^\ast)+O(d^2).
+\]
+Moreover $\tau(x^\ast)\cdot\tau_e=1+O(s^2)$ and $W(x^\ast)=W_e+O(|s|)$. Hence
+\[
+\ut\cdot\tau_e=\tfrac12\bigl(\tfrac{\ell^2}{4}-s^2\bigr)W_e+O(\hG^3)\quad\text{on }e .
+\]
+\item \emph{Pairing on one edge.} By Lemma~\ref{lb:normal}, $\ut\cdot\dn v=(\ut\cdot\tau_e)(\dn v\cdot\tau_e)$ on $e$. The constant part $\frac{\ell^2}{8}W_e$ integrates to zero against $\dn v\cdot\tau_e$, whose mean vanishes because $v\in Y_h^1$. Therefore
+\[
+\int_e\ut\cdot\dn v=-\tfrac12W_e\int_es^2\,\dn v\cdot\tau_e+O(\hG^3)\norm{\dn v}_{L^1(e)} .
+\]
+\item \emph{Summation.} $\sum_e\norm{\dn v}_{L^1(e)}\le\sum_e|e|^{1/2}\norm{\dn v}_{L^2(e)}\le C_I(\#\EG)^{1/2}\norm{\nabla v}\le C\hG^{-1/2}\norm{\nabla v}$.
+\item \emph{The $F$ term.} This is Lemma~\ref{lem:ext}.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[Assembling the test field]\label{lb:assemble}
+Assume (M3), $W\not\equiv0$, and $\hG\le h_1$, where $h_1$ depends on $\norm{W}_{W^{1,\infty}(\Gamma)}/\norm{W}_{L^2(\Gamma)}$, on (M0), on $C_I$, and on the constants $\kappa_0$, $C_s$, $K_{\mathrm{ov}}$ of (M3). Then $v:=\sum_zW(z)\,v_z\in Y_h^1$ satisfies
+\[
+\ell_W(v)\ \ge\ \tfrac12\kappa_0c_0^{5/2}K_{\mathrm{ov}}^{-1/2}\,\norm{W}_{L^2(\Gamma)}\,\hG^{3/2}\,\norm{\nabla v}.
+\]
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Norm.} By bounded overlap, $\norm{\nabla v}^2\le K_{\mathrm{ov}}\sum_zW(z)^2$.
+\item \emph{Splitting $\ell_W$.} Write $m_{z,e}:=-\frac12\int_es^2\,\dn v_z\cdot\tau_e$, so that $\sum_em_{z,e}=\mathcal M(v_z)$. Then $|m_{z,e}|\le\frac{\hG^2}{8}C_I$, and $m_{z,e}\ne0$ only for the boundedly many edges $e$ in $\omega_z$. For those, $|W_e-W(z)|\le C\hG\norm{W}_{W^{1,\infty}}$. Hence
+\[
+\ell_W(v)=\sum_zW(z)\sum_eW_e\,m_{z,e}\ \ge\ \sum_zW(z)^2\mathcal M(v_z)-C\hG^3\norm{W}_{W^{1,\infty}}\sum_z|W(z)| .
+\]
+\item \emph{Lower bound.} By (M3)(iii) and (M0), $\mathcal M(v_z)\ge\kappa_0c_0^2\hG^2$. Moreover $\sum_z|W(z)|\le\#\EG\,\norm{W}_\infty\le C\hG^{-1}\norm{W}_\infty$.
+\item \emph{Riemann sum.} Let $\Sigma_W:=\sum_zW(z)^2|e_z|$. Since $z\mapsto e_z$ is a bijection onto the edges, this is a Riemann sum for $\int_\Gamma W^2$, and $|\Sigma_W-\norm{W}^2_{L^2(\Gamma)}|\le C\hG\norm{W}^2_{W^{1,\infty}}$; and $\sum_zW(z)^2\in[\Sigma_W/\hG,\ \Sigma_W/(c_0\hG)]$.
+\item Combining,
+\[
+\ell_W(v)\ge\kappa_0c_0^2\hG\,\Sigma_W-C\hG^2\norm{W}^2_{W^{1,\infty}},\qquad \norm{\nabla v}\le(K_{\mathrm{ov}}\Sigma_W/(c_0\hG))^{1/2}.
+\]
+For $\hG\le h_1$ we have $\Sigma_W\ge\frac34\norm{W}^2_{L^2(\Gamma)}$, and the negative term is at most a quarter of the positive one.\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsubsection{The theorem}
+
+\begin{theorem}[$H^1$ lower bound]\label{lb:thm}
+Assume (M0)--(M2) and (D), and assume (M3); for $k\ge7$ the latter holds automatically (Lemma~\ref{lb:k7}), while for $4\le k\le6$ it is a hypothesis. Let $W=\dn u\cdot\tau\not\equiv0$ on $\Gamma$. Let $u_h$ be the velocity of $\CNS$ with $\gamma\ge\gamma_2$, or of $\GS$ with $\gamma\ge\gamma_0$ and any $G$. Then, for $\hG\le h_1$,
+\[
+\norm{\nabla(\ut-u_h)}_{\Oh}\ \ge\ c_{\mathrm{LB}}\,\kappa_0\,\norm{W}_{L^2(\Gamma)}\,\hG^{3/2}-C\hG^{2},\qquad c_{\mathrm{LB}}:=\frac{c_0^{5/2}}{2\Lambda_0K_{\mathrm{ov}}^{1/2}} .
+\]
+Here $c_{\mathrm{LB}}$ depends on $c_0$, on $K_{\mathrm{ov}}$ from (M3), and on $C_{PT}$ and $C_I$ (hence on (M0)--(M2)); $h_1$ is as in Lemma~\ref{lb:assemble}; and $C$ depends on $\norm{\ut}_{W^{2,\infty}}$, $\norm{W}_{W^{1,\infty}}$ and $\norm{F}_\infty$. Neither depends on $\gamma$, $\mu$, $\rho$, $\hO$, the pressure, or $\eps$.
+\end{theorem}
+
+\begin{proof}
+Take $v$ from Lemma~\ref{lb:assemble} in Corollary~\ref{lb:abstract}, and use Lemma~\ref{lb:expand}:
+\[
+\Lambda_0\norm{\nabla e_u}\ \ge\ \frac{\ell_W(v)}{\norm{\nabla v}}-C\hG^{5/2}-C\hG^2 .
+\]
+Lemma~\ref{lb:assemble} bounds the first term from below.
+\end{proof}
+
+\begin{corollary}[Sharpness of Theorem~\ref{thm:D} and of Theorem~\ref{thm:A} at $G=0$]\label{lb:cor}
+Assume (M0)--(M3), $W\not\equiv0$, $\gamma\in[\gamma_2,\gamma_{\max}]$ and $\eps\le C\hG^{3/2}$ (for instance $\hO^k\le\hG^{3/2}$ and the flux condition of Theorem~\ref{thm:D}). Then for $\CNS$, and for $\GS$ when $p$ is constant on $\Gamma$,
+\[
+c\,\hG^{3/2}\ \le\ \norm{\nabla(\ut-u_h)}\ \le\ \tnorm{\ut-u_h}\ \le\ C\,\hG^{3/2}.
+\]
+So the $H^1$ rate is exactly $3/2$. For $\GS$ with $G>0$, Theorems~\ref{thm:B} and~\ref{lb:thm} together give
+\[
+\norm{\nabla(\ut-u_h)}\ \ge\ c\max\bigl((\hG/\gamma)G,\ \hG^{3/2}\bigr)
+\]
+in the regime of Theorem~\ref{thm:B}.
+\end{corollary}
+
+\begin{remark}
+\begin{enumerate}
+\item \emph{Only the chordal bump matters.} The lower bound is carried by the part of $\ut|_{\Gh}$ that oscillates on each chord, $-\frac12s^2W_e$ minus its mean. It has amplitude $\hG^2$ and wavelength $\hG$, hence $H^{1/2}(\Gh)$-size $\hG^{3/2}$. No discrete velocity that is Nitsche-consistent on $Y_h$ can reproduce it. The mean part $\frac{\ell^2}{12}W_e$ is smooth along $\Gh$ and contributes only $O(\hG^2)$.
+\item \emph{The terms that do not carry it.} The transposed-gradient term and the penalty term of $\Gc$ vanish identically on $Y_h$, as does every pressure term. The lower bound therefore holds for $\CNS$ even though its pressure error is itself $O(\hG^{3/2})$.
+\item \emph{A method-independent statement.} Corollary~\ref{lb:abstract} holds for \emph{any} discrete velocity with $a_h(u_h,v)-\ip{u_h}{\dn v}=(\ft,v)$ for all $v\in Y_h$. Every Nitsche variant with this volume form and zero boundary data, tested on $\Zh$, has this property.
+\end{enumerate}
+\end{remark}
+
+\subsubsection{The route through the transposed-gradient term}\label{lb:sec:route}
+The natural first attempt tests with a field whose trace is odd on each chord, and uses $\Gc(v)\approx\ip{s\,a_e}{v}$. We record what that route gives.
+\begin{enumerate}
+\item \emph{The relevant trace is normal, not tangential.} Since $a_e=n(m_e^\ast)\,W_e$, we have $\ip{s\,a_e}{v}=\sum_eW_e\int_es\,v\cdot n_e+O(\hG^2)\norm{v}_{L^1}$. An odd \emph{tangential} trace pairs to zero at leading order.
+\item \emph{Incompressibility allows an odd normal trace.} For $v=\curl\phi$, $v\cdot n_e=-\dt\phi$, so $\int_ev\cdot n_e=0$ just says that $\phi$ takes equal values at the two ends of $e$. The identity $\dn v\cdot n_e=-\dt(v\cdot\tau_e)$ constrains the normal \emph{derivative}, not the trace. So there is no obstruction there.
+\item \emph{The penalty term reinforces, at relative order $\gamma\hG$.} On $e$,
+\[
+\ut\cdot n_e=d\,W(x^\ast)\,\tau(x^\ast)\cdot n_e+O(\hG^4)
+\qquad\text{and}\qquad
+(\nabla\ut)^{\mathsf T}n_e\cdot n_e=W(x^\ast)\,\tau(x^\ast)\cdot n_e+O(\hG^2),
+\]
+where $\tau(x^\ast)\cdot n_e=\pm s+O(s^3)$. So on the normal trace the penalty term multiplies the transposed term pointwise by $1+(\mu/h)d(s)$, with $0\le(\mu/h)d\le\gamma\hG/8$. It is lower order for fixed $\gamma$, of the same sign, and becomes leading once $\gamma\gtrsim\hG^{-1}$. On the tangential trace the penalty pairs $\frac12(\frac{\ell^2}4-s^2)W_e$ with $v\cdot\tau_e$. This is not lower order unless $v\cdot\tau_e$ is odd or zero; choosing $\dn\phi=0$ on $\Gh$ removes it.
+\item \emph{The Nitsche symmetric term is \emph{not} lower order.} $-\ip{\ut}{\dn v}$ pairs the chordal bump with $\dn v\cdot\tau_e$, which for a first-layer field of amplitude $A$ is of size $A/\hG$. It has the same order $\hG A$ as the transposed term. This is the term Theorem~\ref{lb:thm} uses.
+\item \emph{Where the route fails: the pressure.} A test field with $v\cdot n\neq0$ lies outside $Y_h$. For $\CNS$ the error equation then contains $\ip{\xi-\bar\xi}{v\cdot n}$, which by Theorem~\ref{thm:D} (steps 3--4) is only bounded by
+\[
+C(c_0\gamma)^{-1/2}\beta^{-1}\bigl(\tnorm{e_u}+\hG^{3/2}\bigr)\tnorm v .
+\]
+That is the same order as the term one is trying to bound below, so it can cancel the lower bound unless $\gamma$ is large compared with constants we do not control.
+\item \emph{What the route gives when it works.} For $\GS$ with $G=0$, where $|\Rc(v)|\le C\hG^2\norm{v}_{L^1(\Gh)}$ is lower order, the route gives only $\tnorm{\ut-u_h}\gtrsim\hG^{3/2}/(1+\gamma^{1/2})$ in the \emph{energy} norm. That lower bound may be carried entirely by the slip part $(\mu/h)^{1/2}\norm{e_u}_{\Gh}$. Numerically this part dominates: for $\GS$ on test A at $N=64$, $\mu=100$, it is $0.0795$ against $\norm{\nabla e_u}=0.0182$. So it says nothing about $H^1$.
+\end{enumerate}
+
+\subsubsection{Numerical checks}\label{lb:sec:num}
+All computations use $k=4$ and the meshes of Section~\ref{sec:numerics}. The script is \texttt{code/}\allowbreak\texttt{lower\_bound\_tests.py}.
+
+\begin{table}[h]
+\centering
+\caption{(M3) on the production meshes: star constants $\kappa_z:=\mathcal M(v_z)/|e_z|^2$, with $\norm{\nabla v_z}=1$ and $v_z$ supported in the three triangles at $z$. All production levels $N=8,\dots,256$ were checked; selected rows are shown.}\label{lb:tab:stars}
+\begin{tabular}{rcccc}
+\toprule
+$N$ & $\dim Y^1(\omega_z)$ & $\min_z\kappa_z$ & mean & $\max_z\kappa_z$\\
+\midrule
+8 & 1 & 0.00288 & 0.0055 & 0.0080\\
+16 & 1 & 0.00555 & 0.0109 & 0.0179\\
+64 & 1 & 0.00366 & 0.0145 & 0.0252\\
+256 & 1 & 0.00303 & 0.0149 & 0.0260\\
+1024 & 1 & 0.00288 & 0.0149 & 0.0261\\
+\bottomrule
+\end{tabular}
+\end{table}
+\cert{code/lower\_bound\_tests.py stars 8,12,\dots,1024}{logs/lower\_bound\_stars.log}
+The minimum is attained in the diagonal directions of the square, where the first-layer triangles are most elongated.
+
+\begin{table}[h]
+\centering
+\caption{The assembled field $v=\sum_zW(z)v_z$ of Lemma~\ref{lb:assemble}: $\ip{\ut}{\dn v}/(\norm{\nabla v}\hG^{3/2})$, with the leading term $\ell_W(v)$ in parentheses.}\label{lb:tab:field}
+\begin{tabular}{rcccc}
+\toprule
+$N$ & test A & rate & test B$_1$ & rate\\
+\midrule
+32 & 0.0606 (0.0605) & -- & 0.0184 (0.0181) & --\\
+64 & 0.0651 (0.0651) & 1.39 & 0.0204 (0.0203) & 1.35\\
+128 & 0.0665 (0.0665) & 1.47 & 0.0209 (0.0209) & 1.46\\
+256 & 0.0669 (0.0669) & 1.49 & 0.0211 (0.0211) & 1.49\\
+512 & 0.0670 (0.0670) & 1.50 & 0.0212 (0.0212) & 1.50\\
+\bottomrule
+\end{tabular}
+\end{table}
+\cert{code/lower\_bound\_tests.py field 16,\dots,512}{logs/lower\_bound\_field.log}
+
+On the full spaces, for test A with $\mu=100$ and $N=16\to64$ (\texttt{logs/lower\_bound\_global.log}):
+\begin{itemize}
+\item The exact dual norm of $v\mapsto\ip{\ut}{\dn v}$ on $Y_h^1$ has rates $1.12,1.27,1.35,1.40$; its ratio to $\hG^{3/2}$ increases from $0.086$ to $0.115$.
+\item It is between $14\%$ and $24\%$ of the actual $\CNS$ error $\norm{\nabla(\ut-u_h)}$.
+\item On $\Zh$, the energy-dual norms of $\Gc$ and of its transposed part decay at rates $1.70\to1.54$ and $1.61\to1.51$. So Lemma~\ref{lem:transposed} is sharp on $\Zh$ as well as on $\VR$.
+\item The $\norm{\nabla\cdot}$-dual norm of $\Gc$ on $\Zh$ decays only like $\hG^{1}$. It is dominated by the penalty part, which is of size $\gamma\hG$ in that norm. The $\hG^{3/2}$ upper bound genuinely needs the mesh-dependent norm.
+\end{itemize}

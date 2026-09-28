@@ -1,6 +1,6 @@
 \section{Reproducibility}\label{app:repro}
 
-All code, raw outputs and logs are in the repository that accompanies this paper. Paths below are relative to its root.
+All code, raw outputs and logs are in the repository that accompanies this paper. Paths below are relative to its root; commands are run from \texttt{code/}. \texttt{code/regen\_logs.sh} regenerates every log in \texttt{logs/} with the commands below, and \texttt{make report} checks that all three reports are reproduced byte-for-byte.
 
 \subsection*{Code (\texttt{code/})}
 \begin{itemize}
@@ -14,6 +14,16 @@ All code, raw outputs and logs are in the repository that accompanies this paper
 \item \texttt{lamstar\_exact.py} and \texttt{lamstar\_exact\_v2.py}: the exact certificates of Proposition~\ref{prop:penalty}.
 \item \texttt{lamstar.py}: the floating-point $\lambda^\ast$ on other fans.
 \end{itemize}
+Added in this version:
+\begin{itemize}
+\item \texttt{svn\_k.py}: degree-general solver ($P_k$ velocities, $k\ge2$; standard or Clough--Tocher mesh; SuperLU or PARDISO). \texttt{job\_k.py} runs one study or threshold job, \texttt{penalty\_k.py} computes $\mu^\ast$, \texttt{report\_v3.py} writes the tables, and \texttt{validate\_k.py} checks $k=4$ against \texttt{svn.py} and PARDISO against SuperLU. The scheduler is \texttt{results/v3/sched.py}, with job list \texttt{results/v3/jobs.txt}.
+\item \texttt{lamstar\_exact\_ct.py}: the exact local-surjectivity ranks and penalty certificates on Clough--Tocher stars (Section~\ref{ct:sec}).
+\item \texttt{lamstar\_family.py}: the single-triangle forms, the shape-family certificates and the patch thresholds (Section~\ref{pb:sec}).
+\item \texttt{h1\_limit.py}: the annulus bracket, the series solution and the finite element comparison for the $H^1$ constant (Section~\ref{hc:sec}).
+\item \texttt{lower\_bound\_tests.py}: the (M3) star constants, the assembled test field and the dual norms (Section~\ref{lb:sec}).
+\item \texttt{plot\_leak.py}: Figure~\ref{fig:leak}.
+\item \texttt{notes/v3/face\_mean\_check.py}: the face-mean check of Lemma~\ref{td:faces}(d).
+\end{itemize}
 
 \subsection*{Where each number comes from}
 \begin{center}
@@ -22,13 +32,23 @@ All code, raw outputs and logs are in the repository that accompanies this paper
 \toprule
 Result & Command & Output\\
 \midrule
-Tables~\ref{tab:cns}, \ref{tab:gs}, \ref{tab:thresh} & \texttt{python3 run\_all.py} & \texttt{results/pod/report.txt}\\
-Table~\ref{tab:P}, test C & \texttt{python3 job.py study N P1 MU} and \texttt{python3 job.py study N C 100}, then \texttt{report\_local.py} & \texttt{results/local/report\_local.txt}\\
-Figures & \texttt{python3 plots.py} & \texttt{paper/figures/*.pdf}\\
+Tables~\ref{tab:cns}, \ref{tab:gs}, \ref{tab:thresh} & \texttt{SVN\_OUT=../results/pod python3 run\_all.py}, then \texttt{python3 report.py ../results/pod} & \texttt{results/pod/report.txt}\\
+Table~\ref{tab:P}, test C & \texttt{SVN\_OUT=../results/local python3 job.py study N P1 MU} and \texttt{SVN\_OUT=../results/local python3 job.py study N C 100}, then \texttt{python3 report\_local.py} & \texttt{results/local/report\_local.txt}\\
 Certificate for $\cS_3$ & \texttt{python3 lamstar\_exact.py} & \texttt{logs/lamstar\_exact\_\allowbreak S3\_S4singular.log}\\
 Certificate for $\cS_4'$ & \texttt{python3 lamstar\_exact\_v2.py} & \texttt{logs/lamstar\_exact\_S4prime.log}\\
 Table~\ref{tab:lemma} & \texttt{python3 lemma\_tests.py 16,24,32,48,64} & \texttt{logs/lemma\_tests.log}\\
-Floating-point $\lambda^\ast$ & \texttt{python3 lamstar.py} & \texttt{logs/lamstar\_float.log}\\
+Floating-point $\lambda^\ast$ & \texttt{python3 -W ignore::DeprecationWarning lamstar.py} & \texttt{logs/lamstar\_float.log}\\
+Figures~\ref{fig:rates}, \ref{fig:thresh} & \texttt{python3 plots.py} & \texttt{paper/figures/}\allowbreak\texttt{h1\_rates.pdf} etc.\\
+Figure~\ref{fig:leak} & \texttt{python3 plot\_leak.py} & \texttt{paper/figures/}\allowbreak\texttt{leak\_field.pdf}\\
+Tables~\ref{tab:threshv3}--\ref{tab:ratesv3} & \texttt{SVN\_SOLVER=pardiso python3 ../results/v3/sched.py ../results/v3/jobs.txt LOG} (runs \texttt{job\_k.py}; output root \texttt{results/v3} by default, or \texttt{SVN\_OUT}), then \texttt{python3 report\_v3.py} & \texttt{results/v3/}\allowbreak\texttt{report\_v3.txt}\\
+Validation of \texttt{svn\_k.py} & \texttt{python3 validate\_k.py} & \texttt{results/v3/}\allowbreak\texttt{validation.txt}\\
+Lemma~\ref{ct:lem:local} ($k=3$), Table~\ref{ct:tab:lam} & \texttt{python3 lamstar\_exact\_ct.py} & \texttt{logs/lamstar\_}\allowbreak\texttt{exact\_ct.log}\\
+Theorem~\ref{pb:thm}, Proposition~\ref{pb:cert} & \texttt{python3 lamstar\_family.py bubble}; \texttt{\ldots\ certify} & \texttt{logs/lamstar\_family\_}\allowbreak\texttt{bubble.log}, \texttt{\ldots\_certify.log}\\
+Patch thresholds (Section~\ref{pb:sec}) & \texttt{python3 lamstar\_family.py mesh}; \texttt{\ldots\ limit}; \texttt{\ldots\ limitstar} & \texttt{logs/lamstar\_family\_}\allowbreak\texttt{mesh.log}, \texttt{\ldots\_limit.log}, \texttt{\ldots\_limitstar.log}\\
+Level-set and tall-triangle values of $\lambda_T$ (Section~\ref{pb:sec}) & \texttt{python3 lamstar\_family.py levels} & \texttt{logs/lamstar\_family\_}\allowbreak\texttt{levels.log}\\
+$H^1$ constant (Section~\ref{hc:sec}) & \texttt{python3 h1\_limit.py annulus} and \texttt{\ldots\ mps} (series log); \texttt{\ldots\ fem} & \texttt{logs/h1\_limit\_}\allowbreak\texttt{series.log}, \texttt{\ldots\_fem.log}\\
+(M3) and Tables~\ref{lb:tab:stars}, \ref{lb:tab:field} & \texttt{python3 lower\_bound\_tests.py} with \texttt{stars 8,12,\ldots,1024}, \texttt{field 16,\ldots,512}, \texttt{global 16,\ldots,64} & \texttt{logs/lower\_bound\_}\allowbreak\texttt{stars.log}, \texttt{\ldots\_field.log}, \texttt{\ldots\_global.log}\\
+Lemma~\ref{td:faces}(d) & \texttt{python3 notes/v3/}\allowbreak\texttt{face\_mean\_check.py} (from the root) & standard output\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -36,4 +56,6 @@ Floating-point $\lambda^\ast$ & \texttt{python3 lamstar.py} & \texttt{logs/lamst
 \subsection*{Resources}
 The full A/B campaign (74 study jobs up to $N=256$ and 16 threshold jobs) took 36 minutes on 32 cores with 125\,GB of memory. The largest single job ($N=256$, both methods) takes about 23 minutes; the scheduler reserved up to 55\,GB for it. Every job with $N\le96$ runs on a 2-core, 7\,GB machine.
 
-The environment was Python 3.11 with NumPy 2.4, SciPy 1.17 (SuperLU) and SymPy 1.14.
+The runs of Section~\ref{sec:numv3} used a 2-core machine with a 5.8\,GB memory limit shared with other jobs; the largest single job used 3.6\,GB (peak RSS is recorded in each record). Each job took at most about $2.5$ minutes.
+
+The environment was Python 3.11 with NumPy 2.4, SciPy 1.17 (SuperLU) and SymPy 1.14. The runs of Section~\ref{sec:numv3} also used MKL PARDISO through \texttt{pypardiso}.

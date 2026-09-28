@@ -85,19 +85,19 @@ N_h(\delta_R,v)=\Rc(v),\qquad N_h(\delta_G,v)=\Gc(v)-N_h(\ut-z,v)\qquad\forall v
 \]
 Lax--Milgram on $\Zh$ (Lemma~\ref{lem:coercive}) gives existence and uniqueness.
 \item \emph{Geometric part.} $\norm{\nabla\delta_G}\le\tnorm{\delta_G}\le c_1^{-1}\bigl(C(1+\gamma^{1/2})\hG^{3/2}+ME_h\bigr)$.
-\item \emph{Ansatz.} Heuristically $\delta_R\approx-(h/\mu)(p-\pbar)n=(h/\mu)w$ on $\Gh$. Set $S_h:=v_\varphi\in\Zh$ and $r_h:=\delta_R-(h/\mu)S_h\in\Zh$. Then $N_h(r_h,v)=m(v)+\ell(v)$ with
+\item \emph{Ansatz.} Heuristically $\delta_R\approx-(h/\mu)(p-\pbar)n=(h/\mu)w$ on $\Gh$. Set $S_\varphi:=v_\varphi\in\Zh$ and $r_h:=\delta_R-(h/\mu)S_\varphi\in\Zh$. Then $N_h(r_h,v)=m(v)+\ell(v)$ with
 \begin{align*}
-m(v)&:=\Rc(v)-\ip{S_h}{v}=-\ip{(\pt-\pbar)n+S_h}{v},\\
-\ell(v)&:=-(h/\mu)\bigl[a_h(S_h,v)-\ip{\dn S_h}{v}-\ip{S_h}{\dn v}\bigr].
+m(v)&:=\Rc(v)-\ip{S_\varphi}{v}=-\ip{(\pt-\pbar)n+S_\varphi}{v},\\
+\ell(v)&:=-(h/\mu)\bigl[a_h(S_\varphi,v)-\ip{\dn S_\varphi}{v}-\ip{S_\varphi}{\dn v}\bigr].
 \end{align*}
 \item \emph{Bound on $m$.} On $e$,
 \[
-(\pt-\pbar)n_e+S_h=(p-\pbar)(x^\ast)(n_e-n(x^\ast))+O(\hG^2)+O(h^k)=(p-\pbar)(m_e^\ast)\,s\,\tau_e+O(\hG^2)+O(h^k).
+(\pt-\pbar)n_e+S_\varphi=(p-\pbar)(x^\ast)(n_e-n(x^\ast))+O(\hG^2)+O(h^k)=(p-\pbar)(m_e^\ast)\,s\,\tau_e+O(\hG^2)+O(h^k).
 \]
 The leading term is odd in $s$ with a constant coefficient. The argument of Lemma~\ref{lem:transposed} handles it, and the $O(h^k)$ remainder contributes $Ch^k\norm{v}_{L^1(\Gh)}$. Hence $|m(v)|\le C_p(\hG^{3/2}+h^k)\norm{\nabla v}$.
-\item \emph{Bound on $\ell$.} $|a_h(S_h,v)|+|\ip{\dn S_h}{v}|\le C_p\norm{\nabla v}$. By Lemma~\ref{lem:cancel} applied to $S=w$,
+\item \emph{Bound on $\ell$.} $|a_h(S_\varphi,v)|+|\ip{\dn S_\varphi}{v}|\le C_p\norm{\nabla v}$. By Lemma~\ref{lem:cancel} applied to $S=w$,
 \[
-|\ip{S_h}{\dn v}|\le|\ip{w}{\dn v}|+|\ip{S_h-w}{\dn v}|\le C_p\norm{\nabla v}+Ch^k\hG^{-1/2}\norm{\nabla v}.
+|\ip{S_\varphi}{\dn v}|\le|\ip{w}{\dn v}|+|\ip{S_\varphi-w}{\dn v}|\le C_p\norm{\nabla v}+Ch^k\hG^{-1/2}\norm{\nabla v}.
 \]
 So $|\ell(v)|\le(h/\mu)(C_p+Ch^k\hG^{-1/2})\norm{\nabla v}$.
 \item \emph{Close.} Testing with $v=r_h$,
@@ -106,7 +106,7 @@ c_1\tnorm{r_h}^2\le\bigl[C_p(h/\mu+\hG^{3/2}+h^k)+C(h/\mu)h^k\hG^{-1/2}\bigr]\no
 \]
 The last two terms are at most $C\eps$, since $(h/\mu)h^k\hG^{-1/2}=\gamma^{-1}h^k\hG^{1/2}\le Ch^k$. Hence
 \[
-\norm{\nabla\delta_R}\le(h/\mu)\norm{\nabla S_h}+\norm{\nabla r_h}\le C_p(\hG/\gamma)+C(\hG^{3/2}+\eps).\qedhere
+\norm{\nabla\delta_R}\le(h/\mu)\norm{\nabla S_\varphi}+\norm{\nabla r_h}\le C_p(\hG/\gamma)+C(\hG^{3/2}+\eps).\qedhere
 \]
 \end{enumerate}
 \end{proof}
@@ -129,30 +129,30 @@ Combined with Theorem~\ref{thm:C}, $\norm{\nabla(\ut-u_h)}\asymp h/\mu$ in this 
 \end{theorem}
 
 \begin{proof}[Proof of (i)]
-Let $e:=\ut-u_h$ and $v:=v_\varphi$. Corollary~\ref{cor:GSerr} rearranges to
+Let $e_u:=\ut-u_h$ and $v:=v_\varphi$. Corollary~\ref{cor:GSerr} rearranges to
 \[
-\frac\mu h\ip{e}{v}=\Rc(v)+\Gc(v)-a_h(e,v)+\ip{\dn e}{v}+\ip{e}{\dn v}.
+\frac\mu h\ip{e_u}{v}=\Rc(v)+\Gc(v)-a_h(e_u,v)+\ip{\dn e_u}{v}+\ip{e_u}{\dn v}.
 \]
 We bound the terms, using that $v$ is smooth up to $O(h^k)$.
 \begin{enumerate}
 \item $\Rc(v)=G^2+O(\hG^2+h^k)$.
 \item $|\Gc(v)|\le C(\hG^{3/2}+\gamma\hG^3+\gamma\hG h^k)$. On the chord, $\ut=\pm d\,\dn u(x^\ast)+O(d^2)$ is tangential while $v\approx-(p-\pbar)n$ is normal. Hence $\ut\cdot v=O(\hG^4+\hG^2h^k)$, the second term coming from $v_\varphi-w$.
-\item $|a_h(e,v)|\le C_p\norm{\nabla e}\le C_pX\le C_p\delta G^2$, by Theorem~\ref{thm:C}.
+\item $|a_h(e_u,v)|\le C_p\norm{\nabla e_u}\le C_pX\le C_p\delta G^2$, by Theorem~\ref{thm:C}.
 \item By Theorem~\ref{thm:A} and $h/\mu=\hG/\gamma\le\delta G$,
 \[
-|\ip{e}{\dn v}|\le C_p\norm{e}_{\Gh}\le C_p(h/\mu)^{1/2}\tnorm e\le C_p[(h/\mu)G+X]\le2C_p\delta G^2 .
+|\ip{e_u}{\dn v}|\le C_p\norm{e_u}_{\Gh}\le C_p(h/\mu)^{1/2}\tnorm{e_u}\le C_p[(h/\mu)G+X]\le2C_p\delta G^2 .
 \]
 \item We have
 \[
-|\ip{\dn e}{v}|\le\norm{\dn(\ut-z)}_{\Gh}\norm{v}+C_I(\rho/h)^{1/2}\bigl(\norm{\nabla(z-\ut)}+\norm{\nabla e}\bigr)\norm{v}_{\Gh}.
+|\ip{\dn e_u}{v}|\le\norm{\dn(\ut-z)}_{\Gh}\norm{v}+C_I(\rho/h)^{1/2}\bigl(\norm{\nabla(z-\ut)}+\norm{\nabla e_u}\bigr)\norm{v}_{\Gh}.
 \]
 By Theorem~\ref{thm:C} and $(\rho/h)^{1/2}\le(c_0\hG)^{-1/2}$, this is at most $C\hG^{-1/2}XG\le C\delta G^2$.
 \end{enumerate}
-For $\delta$ small, $|\ip{e}{v}|\ge\frac12(h/\mu)G^2$. Dividing by $\norm{v}_{\Gh}\le G+C\hG^2$ gives the lower bound. The upper bound is $\norm{e}_{\Gh}\le(h/\mu)^{1/2}\tnorm e$.
+For $\delta$ small, $|\ip{e_u}{v}|\ge\frac12(h/\mu)G^2$. Dividing by $\norm{v}_{\Gh}\le G+C\hG^2$ gives the lower bound. The upper bound is $\norm{e_u}_{\Gh}\le(h/\mu)^{1/2}\tnorm{e_u}$.
 \end{proof}
 
 \begin{proof}[Proof of (ii)]
-Let $E\in H^1(\Oh)$ lift $(g-\gI)|_{\partial R}$, supported near $\partial R$, with $E|_{\Gh}=0$ and $\norm{E}_{H^1}\le C\norm{g-\gI}_{H^{1/2}(\partial R)}\le Ch^{k+1/2}$. By Lemma~\ref{lem:korn}, $\norm{e}_{\Gh}=\norm{e-E}_{\Gh}\le C_{\mathrm{tr}}(\norm{\nabla e}+\norm{\nabla E})$.
+Let $E\in H^1(\Oh)$ lift $(g-\gI)|_{\partial R}$, supported near $\partial R$, with $E|_{\Gh}=0$ and $\norm{E}_{H^1}\le C\norm{g-\gI}_{H^{1/2}(\partial R)}\le Ch^{k+1/2}$. By Lemma~\ref{lem:korn}, $\norm{e_u}_{\Gh}=\norm{e_u-E}_{\Gh}\le C_{\mathrm{tr}}(\norm{\nabla e_u}+\norm{\nabla E})$.
 \end{proof}
 
 \begin{corollary}[Exact leading term]\label{cor:Bp}
@@ -169,7 +169,7 @@ and consequently
 On $\Gh$, $v_\varphi\approx-(p-\pbar)n$. So to leading order the printed method replaces the no-slip condition by the leak condition $(\mu/h)\,u_h\cdot n\approx p-\pbar$: the penalty, not a traction, balances the pressure.
 
 \begin{proof}
-Write $\ut-u_h=(\ut-z)+\delta_R+\delta_G$ in the notation of Theorem~\ref{thm:C}, with $\delta_R=(h/\mu)S_h+r_h$ and $S_h=v_\varphi$.
+Write $\ut-u_h=(\ut-z)+\delta_R+\delta_G$ in the notation of Theorem~\ref{thm:C}, with $\delta_R=(h/\mu)S_\varphi+r_h$ and $S_\varphi=v_\varphi$.
 \begin{enumerate}
 \item From step~6 of Theorem~\ref{thm:C},
 \[
@@ -187,4 +187,223 @@ O\bigl((h/\mu)^{1/2}/G+(\gamma^{1/2}+\gamma)\hG/G+\eps(\gamma/\hG)^{1/2}/G\bigr)
 
 This gives the sharp answer to Scott's question for the printed method. The estimate $\hG^{3/2}+h^k$ fails exactly when $p$ is not constant on $\Gamma$. The error is then the explicit field $(h/\mu)v_\varphi$, with the universal constant $1$ in both the slip norm and the energy norm.
 
-The $H^1$ constant $\norm{\nabla(\ut-u_h)}\mu/(hG)$ is not universal. It depends on the global Stokes response to the leak, since $r_h$ has the same order as $(h/\mu)S_h$ in $H^1$. In the computations it is about $2.7$--$2.8$ (Table~\ref{tab:P}).
+\subsection{The \texorpdfstring{$H^1$}{H1} leak constant}\label{hc:sec}
+
+Corollary~\ref{cor:Bp} identifies the slip and energy constants of $\GS$ (both $\to1$), but not the $H^1$ constant
+$\norm{\nabla(\ut-u_h)}\,\mu/(hG)$, because the remainder $r_h=\delta_R-(h/\mu)S_\varphi$ of Theorem~\ref{thm:C} has the same
+$H^1$ order as $(h/\mu)S_\varphi$. We identify the limit of $(\mu/h)\delta_R$: it is the Stokes flow in $\Omega$ driven by the
+leak as \emph{Dirichlet} data. The $H^1$ constant is $K=\norm{\nabla U}/G$, a global quantity that depends on the outer
+box (it tends to $3/\sqrt7$ as $L\to\infty$ for the pressure of test P). For test P and $L=2.5$ a converged series computation gives
+$K=2.7565157$, inside the rigorous bracket $[2.0746,\,3.0526]$ of Proposition~\ref{hc:bracket}.
+
+\subsubsection{The limit problem}
+
+\begin{definition}[Leak flow]\label{hc:def}
+Let $(U,P)$ solve
+\[
+-\Delta U+\nabla P=0,\quad \div U=0\ \text{in }\Omega,\qquad U=(p-\pbar)\,e_r=-(p-\pbar)\,n\ \text{on }\Gamma,\qquad U=0\ \text{on }\partial R ,
+\]
+and put $K:=\norm{\nabla U}_{L^2(\Omega)}/G$.
+\end{definition}
+
+The data are compatible, since $\int_\Gamma U\cdot n=-\int_\Gamma(p-\pbar)=0$. Hence $(U,P)$ exists and is unique ($P$ up to
+a constant), $U=\curl\Psi$ with a single-valued stream function, and $U|_\Gamma=w|_\Gamma$ with $w=\curl\varphi$ the test field
+above. $U$ is smooth up to $\Gamma$ (smooth boundary and data) and $U\in H^2(\Omega)$ (the corners of $R$
+are convex). Since $-\Delta U=-\nabla P$, for every divergence-free $V$ with the same boundary values
+$\int\nabla U:\nabla(V-U)=-\int\nabla P\cdot(V-U)=0$, so
+\begin{equation}\label{hc:min}
+\norm{\nabla U}^2=\min\Bigl\{\norm{\nabla V}^2_{L^2(\Omega)}:\ V\in H^1(\Omega)^2,\ \div V=0,\ V|_\Gamma=(p-\pbar)e_r,\ V|_{\partial R}=0\Bigr\}.
+\end{equation}
+In particular $K$ depends on $p|_\Gamma$ \emph{and} on the outer boundary: it is not a local quantity.
+
+\subsubsection{Convergence}
+
+Extend $\Psi$ smoothly across $\Gamma$ to a fixed neighbourhood and put $\tilde U:=\curl\tilde\Psi$ on $\Oh$, so $\div\tilde U=0$;
+extend $P$ smoothly to $\tilde P$. Then $F_U:=-\Delta\tilde U+\nabla\tilde P$ vanishes on $\Omega$, is bounded, and is supported in
+the strip $S_\varphi$.
+
+\begin{lemma}\label{hc:approx}
+There is $z_U\in\Zh$ with $\tnorm{\tilde U-z_U}\le E_U:=C\bigl(h\norm{U}_{H^2(\Omega)}+(1+(\gamma\hG)^{1/2})h^k+(1+\gamma^{1/2})\hG^{\sigma_k-1/2}\bigr)$. For bounded $\gamma$, $E_U\le Ch$, since $\sigma_k-\frac12\ge k+\frac12$.
+\end{lemma}
+
+\begin{proof}
+Repeat the proof of Lemma~\ref{lem:approx} with $\ut$ replaced by $\tilde U$ and $g=0$. Away from $\Gamma$ only $\tilde U\in
+H^2$ is available, so the interpolation step gives $\norm{\nabla(\tilde U-I_h\tilde U)}\le Ch\norm{U}_{H^2(\Omega)}$. Near $\Gamma$, $\tilde U$
+is smooth and the boundary terms are as before. The net flux $m=\int_{\Gh}(I_h\tilde U-\tilde U)\cdot n$ is $O(\hG^{\sigma_k})$
+because $\int_{\Gh}\tilde U\cdot n=\int_{\Oh}\div\tilde U=0$. As in step~3 of that proof, the flux bubble then costs
+$C|m|(\hG^{-1/2}+(\mu/h)^{1/2})\le C(1+\gamma^{1/2})\hG^{\sigma_k-1/2}$; the Bogovskii correction (Lemma~\ref{lem:infsup})
+is unchanged.
+\end{proof}
+
+\begin{theorem}[The leak flow is the $H^1$ limit]\label{hc:thm}
+Let $\gamma\ge\gamma_0$ and let $\delta_R\in\Zh$ solve $N_h(\delta_R,v)=\Rc(v)$ for all $v\in\Zh$ (Theorem~\ref{thm:C}, step 1).
+Then
+\[
+\Bigl\|\nabla\Bigl(\frac\mu h\delta_R-\tilde U\Bigr)\Bigr\|_{\Oh}
+\le\tnorm{\frac\mu h\delta_R-z_U}+E_U
+\le C_U\Bigl[\min\bigl(\gamma\hG^{1/2},(\gamma\hG)^{1/2}\bigr)+\hG^{1/2}+(h/\mu)^{1/2}+E_U\Bigr],
+\]
+where $C_U$ depends on (M0)--(M2), $k$, $L$ and on norms of $p$ and $U$ near $\Gamma$.
+\end{theorem}
+
+\begin{proof}
+Put $\epsilon:=\delta_R-(h/\mu)z_U\in\Zh$. For $v\in\Zh$,
+\begin{equation}\label{hc:erreq}
+N_h(\epsilon,v)=\Rc(v)-\frac h\mu N_h(\tilde U,v)+\frac h\mu N_h(\tilde U-z_U,v).
+\end{equation}
+\begin{enumerate}
+\item \emph{Green's formula for $\tilde U$.} As in Lemma~\ref{lem:erroreq}, $\div D(\tilde U)=\Delta\tilde U$, $\div v=0$, $v|_{\partial R}=0$ and
+$\int_{\Gh}v\cdot n=0$ give, for any constant $c$,
+\[
+N_h(\tilde U,v)=(F_U,v)+\ip{\sigma_U}{v}-\ip{\tilde U}{\dn v}+\frac\mu h\ip{\tilde U}{v},\qquad
+\sigma_U:=(\nabla\tilde U)^{\mathsf T}n-(\tilde P-c)\,n .
+\]
+\item \emph{The penalty terms cancel to leading order.} With $\Rc(v)=-\ip{(\pt-\pbar)n}{v}$, \eqref{hc:erreq} becomes
+\[
+N_h(\epsilon,v)=-\ip{\zeta}{v}-\frac h\mu\Bigl[(F_U,v)+\ip{\sigma_U}{v}-\ip{\tilde U}{\dn v}\Bigr]+\frac h\mu N_h(\tilde U-z_U,v),
+\qquad \zeta:=(\pt-\pbar)n+\tilde U .
+\]
+\item \emph{The mismatch $\zeta$.} On $e\in\EG$, by Lemma~\ref{lem:chords} and $\tilde U(x^\ast)=-(p-\pbar)(x^\ast)n(x^\ast)$,
+\[
+\zeta=(p-\pbar)(x^\ast)\bigl(n_e-n(x^\ast)\bigr)+O(\hG^2)=(p-\pbar)(m_e^\ast)\,s\,\tau_e+O(\hG^2),
+\]
+exactly the functional $m$ of Theorem~\ref{thm:C}, step~4 (without the $h^k$ term). Hence
+$|\ip{\zeta}{v}|\le C\hG^{3/2}\norm{\nabla v}$. Alternatively $\norm{\zeta}_{\Gh}\le C\hG$ gives
+$|\ip{\zeta}{v}|\le C\hG(h/\mu)^{1/2}\tnorm v$.
+\item \emph{The $O(h/\mu)$ terms.} $|(F_U,v)|\le C\hG^2\norm{\nabla v}$ (Lemma~\ref{lem:ext}); $|\ip{\sigma_U}{v}|\le
+C\norm{v}_{\Gh}\le C(h/\mu)^{1/2}\tnorm v$. On $\Gh$, $\tilde U$ is edgewise smooth, continuous at the vertices, and
+$\tilde U\cdot\tau_e=-(p-\pbar)(x^\ast)\,n(x^\ast)\cdot\tau_e+O(\hG^2)=O(\hG)$. So Lemma~\ref{lem:cancel} applies with
+$S=\tilde U$: $|\ip{\tilde U}{\dn v}|\le C(\norm v_{\Gh}+\hG^{1/2}\norm{\nabla v})\le C((h/\mu)^{1/2}+\hG^{1/2})\tnorm v$.
+Finally $|N_h(\tilde U-z_U,v)|\le ME_U\tnorm v$ (Lemmas~\ref{lem:coercive} and~\ref{hc:approx}).
+\item \emph{Close.} Test with $v=\epsilon$ and use Lemma~\ref{lem:coercive}:
+\[
+c_1\tnorm{\epsilon}\le C\Bigl[\min\bigl(\hG^{3/2},\hG(h/\mu)^{1/2}\bigr)+\frac h\mu\bigl(\hG^2+(h/\mu)^{1/2}+\hG^{1/2}+E_U\bigr)\Bigr].
+\]
+Divide by $h/\mu$, and use $\hG^{3/2}\mu/h=\gamma\hG^{1/2}$ and $\hG(\mu/h)^{1/2}=(\gamma\hG)^{1/2}$. The first inequality of the
+theorem is the triangle inequality with Lemma~\ref{hc:approx}.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}[The $H^1$ constant]\label{hc:cor}
+\begin{enumerate}[label=(\roman*)]
+\item For $\GS$ with general data, in the notation of Theorem~\ref{thm:C},
+\[
+\Bigl\|\nabla\Bigl(\frac\mu h(\ut-u_h)-\tilde U\Bigr)\Bigr\|_{\Oh}\le\text{(bound of Theorem~\ref{hc:thm})}
++C\frac\mu h\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
+\]
+\item Consequently, if $\hG\to0$ with $h/\mu\to0$, $\gamma\hG\to0$, $\gamma(1+\gamma^{1/2})\hG^{1/2}\to0$ and
+$(\mu/h)\eps\to0$ (all of which hold for fixed $\gamma$ and bounded $\rho$), then
+\[
+\frac{\norm{\nabla(\ut-u_h)}_{\Oh}}{(h/\mu)\,G}\longrightarrow K=\frac{\norm{\nabla U}_{L^2(\Omega)}}{G}.
+\]
+\item On test P ($u=0$, $f=\nabla p$) one has $\ut=0$, $z=0$ and $\Gc\equiv0$, so $\ut-u_h=\delta_R$ exactly and
+Theorem~\ref{hc:thm} applies with no further condition.
+\item The remainder of Theorem~\ref{thm:C} converges: $(\mu/h)\,r_h\to U-w$ in $H^1$. The limit is the Stokes correction
+of the cut-off field $w$: it vanishes on $\partial\Omega$ and solves $-\Delta(U-w)+\nabla P=\Delta w$. It depends on the
+cut-off $\chi_1$, whereas $U$ does not.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i) is $\ut-u_h=(\ut-z)+\delta_R+\delta_G$ with steps 2 of Theorem~\ref{thm:C} and Lemma~\ref{lem:approx}. (ii) Multiply out;
+$\norm{\nabla\tilde U}^2_{\Oh}-\norm{\nabla U}^2_{\Omega}=\norm{\nabla\tilde U}^2_{S_h}=O(\hG^2)$. (iii) $F=\ft-\nabla\pt=0$ and all terms of
+$\Gc$ contain $\ut$. (iv) $r_h=\delta_R-(h/\mu)v_\varphi$ and $\norm{\nabla(v_\varphi-w)}\le Ch^k$.
+\end{proof}
+
+\begin{remark}[The Dirichlet-dominated regime]\label{hc:regime}
+The hypothesis $\gamma\hG=\mu\hG^2/h\to0$ is the one of Corollary~\ref{cor:Bp}. It fails for the large-$\mu$ runs of
+Table~\ref{tab:P} ($\gamma\hG\approx240$ at $N=96$, $\mu=10^4$). There the discrete problem is close to its $\mu\to\infty$ limit,
+a discrete Dirichlet problem whose data $-(p-\pbar)n_e$ jumps in direction at every vertex of $\Gh$. The computations below
+show that $(\mu/h)\delta_R\to U$ in that regime too, with relative $H^1$ distance $d_h$ decaying roughly like $\hG^{0.6}$--$\hG^{0.8}$, the decay slowing as $N$ grows, but
+Theorem~\ref{hc:thm} does not cover it. Proving convergence uniformly in $\mu\ge\mu_0$ is open.
+\end{remark}
+
+\subsubsection{Rigorous bracket and exact asymptotics}
+
+For $\varrho>1$ let $\mathcal A_\varrho=\{1<r<\varrho\}$ and let $\mathcal E(\varrho)$ be the minimum \eqref{hc:min} over $\mathcal A_\varrho$ (zero data on
+$r=\varrho$). Extending by zero shows that the minimum decreases as the domain grows.
+
+\begin{proposition}\label{hc:bracket}
+If $\mathcal A_{\varrho_1}\subset\Omega\subset\mathcal A_{\varrho_2}$, then $\mathcal E(\varrho_2)\le\norm{\nabla U}^2\le\mathcal E(\varrho_1)$. In the annulus the
+Fourier modes decouple: if $\Psi|_\Gamma=\sum_n(a_n\cos n\theta+b_n\sin n\theta)$, then $\mathcal E(\varrho)=\sum_n(a_n^2+b_n^2)E_n(\varrho)$, where
+$E_n(\varrho)=\pi\int_1^\varrho\bigl[f''^2+2n^2((f/r)')^2+(f'/r-n^2f/r^2)^2\bigr]r\,dr$, and $f$ is the combination of
+$r^n,r^{-n},r^{n+2},r^{2-n}$ ($r,r^{-1},r^3,r\log r$ for $n=1$) with $f(1)=1$, $f'(1)=0$, $f(\varrho)=f'(\varrho)=0$.
+\end{proposition}
+
+For test P, $p-\pbar=-\frac34\sin\theta+\frac14\sin3\theta+\frac12\cos\theta$ on $\Gamma$, so
+$\Psi|_\Gamma=\frac34\cos\theta+\frac12\sin\theta-\frac1{12}\cos3\theta$ and $G^2=7\pi/8$. With $\varrho_1=L=2.5$ and $\varrho_2=L\sqrt2$
+(40-digit quadrature):
+\[
+\boxed{\,2.0746004\le K\le3.0525769\,}
+\]
+The same formulas give the dependence on the box. $E_3(\varrho)\to45\pi$ (the exterior clamped solution is
+$f=\frac32r^{-1}-\frac12r^{-3}$). $E_1(\varrho)\to\pi$: the $n=1$ data split into a potential dipole (exterior energy exactly $\pi$) and
+a rigid translation, whose energy vanishes as $\varrho\to\infty$ (the Stokes paradox). The annulus values $E_1(\varrho)-\pi=2.47$, $0.87$, $0.38$ at $\varrho=10,10^2,10^4$ are consistent with the classical $1/\log\varrho$ rate, which we observe numerically here rather than prove. Hence
+\[
+K(L)\longrightarrow\sqrt{\tfrac{(\frac9{16}+\frac14)\pi+\frac{45\pi}{144}}{7\pi/8}}=\frac3{\sqrt7}\approx1.134\qquad(L\to\infty),
+\]
+but only logarithmically: the annulus values are $K=1.420$, $1.242$, $1.183$ at $\varrho=10,10^2,10^4$. So the constant
+$2.7$--$2.8$ of Table~\ref{tab:P} belongs to the box $L=2.5$, not to the method.
+
+\subsubsection{The value for test P}
+
+\emph{Series solution.} Write $\Psi=\sum_{n\text{ odd}\le n_{\max}}f_n(r)\cos n\theta$ for data $\cos\theta$ and $\cos3\theta$ separately (the class of
+$\cos n\theta$, $n$ odd, is invariant under both reflections of the square; the $\sin\theta$ datum is the rotation of the
+$\cos\theta$ one by $\pi/2$, and cross terms between the two reflection classes vanish). Imposing $\Psi=0$ on $\partial R$, rather than an unknown constant, is justified by symmetry: for data $\cos n\theta$ with $n$ odd, the reflection $x\mapsto-x$ maps $\Omega$ to itself and changes the sign of the data, so by uniqueness $\Psi$ is odd under it, and its constant value on $\partial R$ is zero; the $\sin\theta$ datum follows by rotation. The conditions on $r=1$ are imposed
+exactly, mode by mode, and $\Psi=\partial_\nu\Psi=0$ on $\partial R$ by least squares at $16\,000$ Chebyshev-clustered points.
+The energy is integrated by Gauss quadrature on eight polar sectors. The value is stable to 8 digits under refinement of both the truncation $n_{\max}$ and the
+quadrature:
+
+\begin{center}
+\begin{tabular}{rccc}
+\toprule
+$n_{\max}$ & max boundary residual & $\norm{\nabla U}$ & $K$\\
+\midrule
+15 & $4.4\cdot10^{-3}$ & 4.57012143 & 2.75644148\\
+31 & $6.1\cdot10^{-5}$ & 4.57024239 & 2.75651444\\
+47 & $5.1\cdot10^{-6}$ & 4.57024449 & 2.75651571\\
+63 & $1.1\cdot10^{-6}$ & 4.57024450 & 2.75651571\\
+79 & $1.8\cdot10^{-7}$ & 4.57024450 & 2.75651571\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\[
+\boxed{\,K_{\mathrm P}=2.7565157\,}
+\]
+This lies inside the rigorous bracket.
+\cert{code/h1\_limit.py annulus; code/h1\_limit.py mps}{logs/h1\_limit\_series.log}
+
+\emph{Finite element check.} Our solver (SuperLU with refinement, as in Section~\ref{sec:numerics}) was run on test P, and
+the discrete field was compared \emph{pointwise} with the series $U$ at the quadrature points. Both the normalised $H^1$ error
+$K_h$ and the relative distance $d_h:=\norm{\nabla((\mu/h)(\ut-u_h)-\tilde U)}/\norm{\nabla U}$ are shown below. The $\mu=100$ and
+$N=96$ values of $K_h$ reproduce Table~\ref{tab:P} to all printed digits.
+
+\begin{center}\small
+\begin{tabular}{r|cc|cc|cc|cc}
+\toprule
+ & \multicolumn{2}{c|}{$\mu=10^2$} & \multicolumn{2}{c|}{$\mu=10^3$} & \multicolumn{2}{c|}{$\mu=10^4$} & \multicolumn{2}{c}{$\mu=10^8$}\\
+$N$ & $K_h$ & $d_h$ & $K_h$ & $d_h$ & $K_h$ & $d_h$ & $K_h$ & $d_h$\\
+\midrule
+16 & 2.4642 & 0.193 & 2.7844 & 0.318 & 3.0562 & 0.539 & 3.3254 & 0.717\\
+24 & 2.5629 & 0.147 & 2.7913 & 0.259 & 2.9309 & 0.398 & 3.0452 & 0.497\\
+32 & 2.6117 & 0.124 & 2.7880 & 0.222 & 2.8751 & 0.323 & 2.9339 & 0.385\\
+48 & 2.6601 & 0.098 & 2.7808 & 0.179 & 2.8283 & 0.246 & 2.8514 & 0.277\\
+64 & 2.6843 & 0.084 & 2.7759 & 0.154 & 2.8082 & 0.206 & 2.8208 & 0.226\\
+96 & 2.7084 & 0.067 & 2.7701 & 0.124 & 2.7899 & 0.163 & 2.7959 & 0.175\\
+\bottomrule
+\end{tabular}
+\end{center}
+\cert{code/h1\_limit.py fem}{logs/h1\_limit\_fem.log}
+
+The measured values $2.71$--$2.79$ bracket the limit $2.7565$ from both sides. The approach runs in two directions.
+\begin{itemize}
+\item At $\mu=100$, $K_h$ increases towards $K$ and $d_h$ decays like $h^{0.6}$ ($0.193\to0.067$ as $h$ drops by a factor $5.3$).
+This is consistent with Theorem~\ref{hc:thm}: for fixed $\mu$, the terms $(h/\mu)^{1/2}$ and $\hG^{1/2}$ are both
+$\propto h^{1/2}$, and $(\gamma\hG)^{1/2}\propto h^{1/2}$ too.
+\item At large $\mu$ (Remark~\ref{hc:regime}), $K_h$ decreases towards $K$ from above. The excess is the energy of an
+element-scale oscillation that is nearly orthogonal to $U$: $K_h^2\approx K^2(1+d_h^2)$, for example $2.7565\sqrt{1+0.175^2}=2.798$
+against $2.796$ at $N=96$.
+\end{itemize}
+At fixed $N=96$ the $\mu$-dependence of Table~\ref{tab:P} ($2.708\to2.770\to2.790$) is the crossover between the two regimes,
+not a sign of a different limit.

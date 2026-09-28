@@ -1,0 +1,18 @@
+== lambda_T on the level sets {apex angle = phi, base angles >= 5 deg}: min over a scan, and isosceles value
+  apex  60:  min lambda_T =   9.31382 at base angle  60.020   isosceles:   9.31381
+  apex  50:  min lambda_T =   6.07408 at base angle  64.972   isosceles:   6.07408
+  apex  45:  min lambda_T =   4.46690 at base angle  67.520   isosceles:   4.46690
+  apex  40:  min lambda_T =   2.83027 at base angle  70.000   isosceles:   2.83027
+  apex  35:  min lambda_T =   1.11992 at base angle  72.470   isosceles:   1.11992
+  apex  30:  min lambda_T =  -0.73487 at base angle  74.998   isosceles:  -0.73487
+== right angle at a base vertex (beta = 90), apex angle = 90 - alpha
+  apex  30:  lambda_T =   -0.2500
+  apex  25:  lambda_T =   -2.5754
+  apex  20:  lambda_T =   -5.3465
+  apex  15:  lambda_T =   -9.1527
+  apex  10:  lambda_T =  -15.7237
+== production meshes: boundary triangle with the smallest lambda_T (edge scaled to [(0,0),(1,0)])
+  N=  16: min lambda_T =  -2.0786 at apex (-0.317, 1.953)
+  N=  32: min lambda_T =  -3.2029 at apex (-0.158, 2.230)
+  N=  64: min lambda_T =  -3.8077 at apex (-0.079, 2.380)
+  N= 256: min lambda_T =  -4.2728 at apex (-0.020, 2.496)

@@ -1,0 +1,12 @@
+1) svn_k (k=4, std, SuperLU) vs svn.py (in-process) and vs stored JSONL (results/pod, results/local)
+   N=16 B1 theta=0: svn_k-vs-svn 0.0e+00  svn_k-vs-stored 5.6e-12  pardiso-vs-lu 1.1e-10  (rel)
+   N=16 B1 theta=1: svn_k-vs-svn 0.0e+00  svn_k-vs-stored 5.2e-12  pardiso-vs-lu 2.1e-10  (rel)
+   N=16 P1 theta=0: svn_k-vs-svn 0.0e+00  svn_k-vs-stored 0.0e+00  pardiso-vs-lu 2.4e-10  (rel)
+   N=16 P1 theta=1: svn_k-vs-svn 0.0e+00  svn_k-vs-stored 0.0e+00  pardiso-vs-lu 6.9e-11  (abs)
+   N=24 B1 theta=0: svn_k-vs-svn 0.0e+00  svn_k-vs-stored 1.7e-10  pardiso-vs-lu 1.8e-10  (rel)
+   N=24 B1 theta=1: svn_k-vs-svn 0.0e+00  svn_k-vs-stored 2.6e-10  pardiso-vs-lu 7.7e-10  (rel)
+   N=24 P1 theta=0: svn_k-vs-svn 0.0e+00  svn_k-vs-stored 0.0e+00  pardiso-vs-lu 3.3e-10  (rel)
+   N=24 P1 theta=1: svn_k-vs-svn 0.0e+00  svn_k-vs-stored 0.0e+00  pardiso-vs-lu 6.3e-11  (abs)
+2) PARDISO vs SuperLU at k=6, N=32, B1, mu=1000
+   theta=0: rel diff 2.7e-10
+   theta=1: rel diff 1.0e-09

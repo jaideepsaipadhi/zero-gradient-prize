@@ -1,0 +1,8 @@
+== production meshes (paper Section 13): local thresholds lambda* = (mu/h)* hG  of fields supported on boundary patches
+   (lambda* of a patch is a LOWER bound for the global gamma* = mu* hG / h)
+   tri/star = max over all boundary triangles / single-vertex stars; winW = first-layer window of W columns
+   around theta = 0; J = first J full layers (J = m = N/4 is the whole mesh only for N <= 16)
+N=  8  star:  13.7080  tri:   6.1260  win2:  13.9142  win4:  14.6540  J=1:  14.6773  J=2:  14.7431
+N= 16  star:  16.5780  tri:   8.9315  win2:  16.8908  win4:  17.9143  win8:  17.9434  J=1:  17.9526  J=2:  18.0897  J=3:  18.0923  J=4:  18.0927
+N= 32  star:  17.4762  tri:  10.0756  win2:  17.8247  win4:  19.5404  win8:  19.6911  win16:  19.6924  J=1:  19.6930  J=2:  19.8505  J=3:  19.8523  J=4:  19.8524
+N= 64  star:  17.6961  tri:  10.4892  win2:  18.0260  win4:  20.2948  win8:  20.6835  win16:  20.6891  win32:  20.6891  J=1:  20.6891  J=2:  20.8024  J=3:  20.8043  J=4:  20.8043

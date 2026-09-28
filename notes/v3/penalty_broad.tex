@@ -1,0 +1,176 @@
+% notes/v3/penalty_broad.tex  --  broader penalty necessity (item 6)
+% Fragment in the macros of paper/main.tex; labels pb:.  Script: code/lamstar_family.py; logs: logs/lamstar_family_*.log
+
+\section{Penalty necessity beyond two reference stars}\label{pb:sec}
+
+Proposition~\ref{prop:penalty}(b) certifies indefiniteness of $N_h$ on $\Zh$ for $\mu\ell_z/h<9$ only at vertices whose star is
+congruent to (or a perturbation of) $\cS_3$ or $\cS_4'$. We replace it by a statement about \emph{every} boundary triangle, with
+an explicit closed-form constant and an exact certificate over a two-parameter family of shapes. We then explain the gap
+between the local constant and the global $\gamma^\ast\approx18$--$21$ of Table~\ref{tab:thresh}.
+
+\subsection{A witness supported in one boundary triangle}
+
+Let $T\in\Th$ have an edge $e\subset\Gh$, and let $T$ not meet $\partial R$. Rotate, translate and dilate by $1/|e|$ so that
+$e=[(0,0),(1,0)]$, the fluid lies above and the apex is $(a,b)$, $b>0$. Let $\lambda_0,\lambda_1,\lambda_2$ be the barycentric
+coordinates of the apex and of the base vertices $(0,0)$, $(1,0)$. For $c\in\R^3$ put
+\[
+\psi_c:=\lambda_1^2\lambda_2^2\,(c_0\lambda_0+c_1\lambda_1+c_2\lambda_2)\in P_5,\qquad v_c:=\curl\psi_c\in P_4^2 .
+\]
+Since $\psi_c$ vanishes to second order on the two interior edges $\{\lambda_1=0\}$ and $\{\lambda_2=0\}$, $v_c$ vanishes there.
+Extended by zero, $v_c$ is continuous, zero on $\partial R$ and pointwise divergence-free. So $v_c\in\Zh$ for every $k\ge4$ and
+every mesh containing $T$. No condition on the vertices (singular or not), on the other triangles, or on the straightness of
+$\Gh$ beyond the edge $e$ itself is needed.
+
+Let $A_T=\int_T\frac12Dv:Dv$, $B_T=\int_e(\dn v)\cdot v$ and $C_T=\int_e|v|^2$, with $n=(0,-1)$, as quadratic forms in $c$. They are
+computed exactly (SymPy) and, writing $\beta:=4a^2+4b^2$, are
+\begin{align*}
+C_T&=\frac1{1260\,b^2}\begin{pmatrix}2&a-6&-(a+5)\\ a-6&2(\beta-3a+9)&\beta-4a+15\\ -(a+5)&\beta-4a+15&2(\beta-5a+10)\end{pmatrix},\\
+B_T&=\frac1{840\,b^3}\begin{pmatrix}12&-(\beta-6a+27)&-(\beta-2a+25)\\ -(\beta-6a+27)&6(\beta-3a+9)&3(\beta-4a+15)\\ -(\beta-2a+25)&3(\beta-4a+15)&6(\beta-5a+10)\end{pmatrix},
+\end{align*}
+and $A_T=(\alpha_{ij})/b^3$ with
+\begin{align*}
+630\,\alpha_{00}&=3a^4-6a^3+6a^2b^2+12a^2-6ab^2-9a+3b^4+4b^2+9,\\
+420\,\alpha_{01}&=3a^4+6a^2b^2-5a^2+6a+3b^4-7b^2-9,\\
+420\,\alpha_{02}&=3a^4-12a^3+6a^2b^2+13a^2-12ab^2-8a+3b^4-b^2-5,\\
+70\,\alpha_{11}&=3a^4-3a^3+6a^2b^2+5a^2-3ab^2-3a+3b^4+7b^2+3,\\
+140\,\alpha_{12}&=a^4-2a^3+2a^2b^2+5a^2-2ab^2-4a+b^4+7b^2+5,\\
+70\,\alpha_{22}&=3a^4-9a^3+6a^2b^2+14a^2-9ab^2-10a+3b^4+10b^2+5 .
+\end{align*}
+$\det C_T=(3a^4-6a^3+7a^2b^2+3a^2-7ab^2+4b^4+5b^2)/(83\,349\,000\,b^6)>0$. (The forms were checked against an independent
+quadrature/finite-difference evaluation, relative difference $4.5\cdot10^{-9}$, and $\lambda_T$ below against the paper's
+penalty-threshold code on single-triangle patches of the Section~\ref{sec:numerics} meshes: $10.48912$ vs.\ $10.48912$.)
+
+\begin{theorem}[Single-triangle necessity]\label{pb:thm}
+Let $\lambda_T$ be the largest eigenvalue of the pencil $(2B_T-A_T,\,C_T)$; it depends only on the shape of $T$. If
+$\mu|e|/h<\lambda_T$, then $N_h$ is indefinite on $\Zh$ for every $k\ge4$. Consequently every mesh satisfies the necessary
+condition
+\[
+\mu\ \ge\ h\,\max_{e\in\EG}\frac{\lambda_{T_e}}{|e|} .
+\]
+\end{theorem}
+
+\begin{proof}
+In two dimensions $A$ and $B$ are dilation invariant and $C$ scales like $|e|$. So for the eigenvector $c$,
+$N_h(v_c,v_c)=A_T-2B_T+(\mu|e|/h)C_T=(\mu|e|/h-\lambda_T)\,C_T(c)<0$.
+\end{proof}
+
+\begin{proposition}[Exact certificates over shape families]\label{pb:cert}
+For $\varphi\in(0,\pi)$ let $Q_\varphi$ be the set of apex positions $(a,b)$ for which the apex angle is at least $\varphi$ and $b\ge
+s\max(a,1-a)$, with $s=0.087<\tan5^\circ$. This contains every triangle with apex angle $\ge\varphi$ and base angles $\ge5^\circ$.
+Then
+\[
+\lambda_T>9.3\ \text{on }Q_{60^\circ},\qquad \lambda_T>4\ \text{on }Q_{45^\circ},\qquad \lambda_T>1\ \text{on }Q_{35^\circ}.
+\]
+The first bound is nearly sharp: the minimum over $Q_{60^\circ}$ is $\lambda_T=9.31381\ldots$, attained at the equilateral
+triangle. Along the level sets it is $6.07$ (apex $50^\circ$), $4.47$ ($45^\circ$), $2.83$ ($40^\circ$), $1.12$ ($35^\circ$) and
+$-0.73$ ($30^\circ$), each at the isosceles shape.
+\end{proposition}
+
+\begin{proof}[Proof (computer-assisted, exact)]
+$Q_\varphi$ is the part of the disk through $(0,0)$, $(1,0)$ with inscribed angle $\varphi$ that lies above the two lines. Cover a
+rational box containing $Q_\varphi$ by dyadic sub-boxes. A box is discarded only if it provably misses $Q_\varphi$, using
+outward-rounded rational enclosures of the disk. On every other box, take a rational vector $q$ (the eigenvector at the box
+centre, rounded to denominators $\le1000$) and verify
+\[
+\Phi_q(a,b):=2520\,b^3\,q^{\mathsf T}\bigl(2B_T-A_T-c\,C_T\bigr)q>0
+\]
+on the whole box. $\Phi_q$ is a polynomial with rational coefficients (the denominators clear exactly), and the lower bound is
+evaluated monomial-wise in exact rational interval arithmetic. The boxes are split until this succeeds.
+\begin{itemize}
+\item $c=9$ and $c=9.3$ on $Q_{60^\circ}$: $323$ and $716$ boxes, depth $\le11$.
+\item $c=4$ on $Q_{45^\circ}$: $259$ boxes.
+\item $c=1$ on $Q_{35^\circ}$: $297$ boxes.
+\end{itemize}
+As negative controls, the same procedure fails for $c=9.4$ on $Q_{60^\circ}$ and for $c=4.5$ on $Q_{45^\circ}$, as it must.
+\end{proof}
+\cert{code/lamstar\_family.py bubble; code/lamstar\_family.py certify}{logs/lamstar\_family\_bubble.log, logs/lamstar\_family\_certify.log}
+
+\begin{corollary}[$\rho$-scaling is necessary on a broad class]\label{pb:rho}
+Let $e_\ast$ be a shortest edge of $\Gh$ and suppose its triangle has apex angle $\ge35^\circ$ and base angles $\ge5^\circ$.
+Then coercivity of $N_h$ on $\Zh$ requires $\mu>\rho$. If the apex angle is $\ge45^\circ$ (resp.\ $\ge60^\circ$) it requires
+$\mu>4\rho$ (resp.\ $\mu>9.3\rho$). Together with Lemma~\ref{lem:coercive}, $\mu_0\asymp\rho$ is necessary and sufficient on
+every such mesh, with no star-congruence or perturbation hypothesis.
+\end{corollary}
+
+\begin{remark}[What the single triangle cannot do]\label{pb:limits}
+$\lambda_T<0$ for tall triangles, for example every right triangle with the right angle at a base vertex and apex angle
+$\le30^\circ$ ($\lambda_T\approx-0.2500$ at apex $30^\circ$, decreasing to $-15.7$ at $10^\circ$). A uniform statement under (M0)--(M2) alone would need witnesses on
+several triangles. In the Section~\ref{sec:numerics} meshes such tall boundary triangles occur near the corner directions,
+with apex coordinates about $(-0.08,2.38)$ and $\lambda_T=-3.8$. There the vertex stars and first-layer windows still
+have positive $\lambda^\ast$. Proving $\lambda^\ast_{\text{star}}\ge c(\Theta_0)>0$ for every nonsingular boundary star remains
+open. The float evidence (random $4$-fans, $\lambda^\ast\in[14.8,38.5]$) suggests it holds.
+\end{remark}
+
+\subsection{Why the certified constant is below the global threshold}
+
+The global threshold is $\gamma^\ast=\hG\sup_{\Zh}(2B-A)/C$, where $A$ is taken over $\Oh$, $B,C$ over $\Gh$, and
+$\hG=\max|e|$. Every patch witness gives a lower bound. For the Section~\ref{sec:numerics} meshes we computed the patch
+thresholds with the paper's own penalty code (bisection on the inertia of $A_\mu+rB^{\mathsf T}M^{-1}B$, fields vanishing
+outside the patch). We maximised over all boundary triangles and single-vertex stars. \emph{win}$W$ is the first layer
+restricted to $W$ columns centred at $\theta=0$, and $J$ counts full layers; $J=m$ is the whole mesh and reproduces
+Table~\ref{tab:thresh}(a).
+
+\begin{center}\small
+\begin{tabular}{rccccccccc}
+\toprule
+$N$ & triangle & star & win2 & win4 & win8 & win16 & $J=1$ & $J=2$ & global\\
+\midrule
+8 & 6.13 & 13.71 & 13.91 & 14.65 & -- & -- & 14.68 & 14.74 & 14.74\\
+16 & 8.93 & 16.58 & 16.89 & 17.91 & 17.94 & -- & 17.95 & 18.09 & 18.09\\
+32 & 10.08 & 17.48 & 17.82 & 19.54 & 19.69 & 19.69 & 19.69 & 19.85 & 19.85\\
+64 & 10.49 & 17.70 & 18.03 & 20.29 & 20.68 & 20.69 & 20.69 & 20.80 & 20.80\\
+\bottomrule
+\end{tabular}
+\end{center}
+\cert{code/lamstar\_family.py mesh}{logs/lamstar\_family\_mesh.log}
+
+\emph{The limit geometry.} The meshes of Section~\ref{sec:numerics} do \emph{not} have equal chords. The square points are
+equispaced and projected radially, so $\max|e|/\min|e|$ grows from $1.43$ ($N=16$) to $1.97$ ($N=256$). The longest chords
+are at the side midpoints $\theta=0,\pi/2,\ldots$. There the first layer, scaled by the chord, tends to columns
+$[i,i+1]\times[0,\frac34]$ (layer height $(L-1)/2=\frac34$) split on the forward diagonal. The single-vertex star of that
+geometry is $\cS_{3/4}$, with rim $(1,0),(1,\frac34),(0,\frac34),(-1,0)$. The general exact code (continuity, Dirichlet and
+divergence constraints over $\mathbb Q$, exact barycentric moments) gives:
+
+\begin{center}\small
+\begin{tabular}{lcccccc}
+\toprule
+ & star & $W=2$ & $W=4$ & $W=8$ & $W=16$ & $W=32$\\
+\midrule
+1 layer & 17.7064 & 17.9759 & 20.4872 & 21.1726 & 21.3358 & 21.3758\\
+2 layers & -- & 18.1738 & 20.6781 & 21.2432 & 21.3675 & 21.3974\\
+3 layers & -- & 18.1916 & 20.6811 & 21.2462 & 21.3708 & --\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\emph{Exact certificates in the limit geometry:} $2B-A-17C>0$ on $\cS_{3/4}$ (dimension $14$, witness quotient $17.70640$; also
+confirmed by \texttt{code/lamstar\_exact.py}), and $2B-A-20C>0$ on the $W=4$ window (dimension $41$, witness quotient
+$20.48725$).
+\cert{code/lamstar\_family.py limit; lamstar\_exact.run on $\cS_{3/4}$}{logs/lamstar\_family\_limit.log, logs/lamstar\_family\_limitstar.log}
+
+The perturbation argument of Proposition~\ref{prop:penalty}(b) transfers these strict inequalities to the actual meshes near
+$\theta=0$ for all sufficiently large $N$ (non-explicit $N_0$). All patch vertices keep at least three distinct edge lines, or
+are Dirichlet corners where $v$ and $\nabla v$ vanish, so the kernel dimension is locally constant. This gives
+$\gamma^\ast(N)>20$ for $N\ge N_0$. The finite-$N$ values in the first table agree: win4 is $20.29$ at $N=64$.
+
+The gap between the certified $9$ and the measured $18$--$21$ is therefore accounted for, in order of size, by:
+\begin{enumerate}
+\item \emph{Shape.} The reference stars $\cS_3,\cS_4'$ have layer height $1$ per unit chord. The meshes have height $\frac34$ at the
+longest chords, which is where $\gamma^\ast$ is decided because $\gamma$ is normalised by $\max|e|$. $\lambda^\ast$ grows fast as the
+layer flattens: $9.98$ for $\cS_3$ against $17.71$ for $\cS_{3/4}$.
+\item \emph{Collective boundary modes.} The optimal witness spreads over $4$--$8$ boundary edges and adds about $3.7$
+($17.7\to21.4$). Windows wider than about $16$ edges add nothing.
+\item \emph{Depth.} The second layer adds $0.02$--$0.15$ and the third about $0.003$. $\gamma^\ast$ is a boundary-layer quantity
+(compare $J=2$ with the global value).
+\item \emph{Finite $N$.} Away from the limit geometry (curvature, the varying chord and height along the layer) $\gamma^\ast(N)$ is
+lower. Richardson extrapolation of the window sequences (differences shrink by a factor of about $4$ per doubling of $W$) gives
+$\gamma^\ast_\infty\approx21.39$ (one layer) and $21.41$ (two layers). The paper's guess ``a limit near $22$'' should read
+$\approx21.4$.
+\end{enumerate}
+
+\begin{remark}[A labelling slip in Section~\ref{sec:numerics}]\label{pb:rho-label}
+The ``$\rho\approx3.3$'' of Section~\ref{sec:numerics} and Table~\ref{tab:thresh} is $h/\max|e|$ (as printed by
+\texttt{code/penalty.py}), not $\rho=h/\min|e|$ of Section~\ref{sec:setting}. The latter is $4.70$, $5.73$, $6.35$ at $N=16,32,64$.
+The reported $\gamma^\ast=\mu^\ast\hG/h$ is correct as defined, since $\hG=\max|e|$. Only the label ``$\rho$'' and the phrase
+``$N$ equal boundary chords'' need correcting (the chords are equal only for $N=8$).
+\end{remark}

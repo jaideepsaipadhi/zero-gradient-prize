@@ -1,0 +1,4 @@
+penalty_k r-independence (N=16): k, mesh, mu* at r = 1e5, 1e6, 1e7
+5 std 99.188 99.188 99.188
+2 ct 29.704 29.701 29.701
+4 std 59.271 59.271 59.271   (results/pod/thresh N16: 59.27102)

@@ -1,9 +1,27 @@
 #!/usr/bin/env bash
-# Regenerates the certificate / lemma-test logs in ../logs (sequential; ~minutes to an hour on 2 cores).
+# Regenerates every certificate / lemma-test / v3 log in ../logs (sequential, single process).
+# v2 logs: minutes on 2 cores.  v3 logs: about an hour in total; h1_limit fem needs a few GB (N <= 96, SuperLU).
 set -e
 cd "$(dirname "$0")"
 mkdir -p ../logs
+# --- v2
 python3 lamstar_exact.py    2>&1 | tee ../logs/lamstar_exact_S3_S4singular.log
 python3 lamstar_exact_v2.py 2>&1 | tee ../logs/lamstar_exact_S4prime.log
-python3 lamstar.py          2>&1 | tee ../logs/lamstar_float.log
+python3 -W ignore::DeprecationWarning lamstar.py 2>&1 | tee ../logs/lamstar_float.log
 python3 lemma_tests.py 16,24,32,48,64 2>&1 | tee ../logs/lemma_tests.log
+# --- v3: Clough--Tocher certificates (Section 9)
+python3 lamstar_exact_ct.py 2>&1 | tee ../logs/lamstar_exact_ct.log
+# --- v3: broader penalty necessity (Section 8.1)
+python3 lamstar_family.py bubble    2>&1 | tee ../logs/lamstar_family_bubble.log
+python3 lamstar_family.py certify   2>&1 | tee ../logs/lamstar_family_certify.log
+python3 lamstar_family.py mesh      2>&1 | tee ../logs/lamstar_family_mesh.log
+python3 lamstar_family.py limit     2>&1 | tee ../logs/lamstar_family_limit.log
+python3 lamstar_family.py limitstar 2>&1 | tee ../logs/lamstar_family_limitstar.log
+python3 lamstar_family.py levels    2>&1 | tee ../logs/lamstar_family_levels.log
+# --- v3: H^1 leak constant (Section 6.1)
+{ python3 h1_limit.py annulus; python3 h1_limit.py mps; } 2>&1 | tee ../logs/h1_limit_series.log
+python3 h1_limit.py fem 2>&1 | tee ../logs/h1_limit_fem.log
+# --- v3: lower bound (Section 7.1)
+python3 lower_bound_tests.py stars  8,12,16,20,24,32,48,64,96,128,192,256,512,1024 2>&1 | tee ../logs/lower_bound_stars.log
+python3 lower_bound_tests.py field  16,32,64,128,256,512 2>&1 | tee ../logs/lower_bound_field.log
+python3 lower_bound_tests.py global 16,24,32,48,64 2>&1 | tee ../logs/lower_bound_global.log

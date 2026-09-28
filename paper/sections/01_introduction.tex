@@ -5,10 +5,10 @@ Exactly divergence-free finite elements are sensitive to how a curved no-slip bo
 Gjerde and Scott \cite{GjerdeScott2024} impose the Dirichlet condition on the polygon weakly, by Nitsche's method \cite{Nitsche1971}, and observed $H^1$ errors of order $h^{3/2}$ on a benchmark with constant pressure. Scott's zero-gradient prize \cite{ScottPrize} asks for a proof that Scott--Vogelius--Nitsche converges for general Stokes data, including a computational study of the Nitsche penalty. It states the expected error $\hG^{3/2}+\hO^k$ and adds: \emph{if this does not hold, why not?}
 
 \subsection*{Answer}
-For the method as printed in \cite[(27)--(28)]{GjerdeScott2024}, the expected estimate holds if and only if the pressure is constant on the wall. The printed Nitsche form contains no traction term $-pn$. When $p$ varies along $\Gamma$, the penalty, not a traction, balances the pressure. The discrete velocity then leaks through the wall with normal velocity $(h/\mu)(p-\pbar)$, and the error is dominated by this leak (Theorems~A--C and Corollary~B$'$). A pressure-consistent correction restores the expected rate (Theorem~D), and the penalty threshold must grow with the ratio of bulk to boundary mesh size (Proposition~E).
+For the method as printed in \cite[(27)--(28)]{GjerdeScott2024} and bounded $\gamma$, the expected estimate holds if and only if the pressure is constant on the wall. The printed Nitsche form contains no traction term $-pn$. When $p$ varies along $\Gamma$, the penalty, not a traction, balances the pressure. The discrete velocity then leaks through the wall with normal velocity $(h/\mu)(p-\pbar)$, and the error is dominated by this leak (Theorems~A--C, Corollary~B$'$ and Theorem~B$''$). A pressure-consistent correction, well posed for $\gamma\ge\gamma_2$, restores the expected rate (Theorem~D), and its $\hG^{3/2}$ term cannot be improved whenever the wall shear is not identically zero (Theorem~D$'$). The penalty threshold must grow with the ratio of bulk to boundary mesh size (Proposition~E).
 
 \subsection*{Main results}
-The notation is fixed in Section~\ref{sec:setting}. Throughout, $h=\hO$ is the bulk mesh size used in Scott's penalty $\mu/h$, $\hG$ is the boundary edge length, $\gamma=\mu\hG/h$ and $G=\norm{p-\pbar}_{L^2(\Gamma)}$. Constants do not depend on $h,\hG,\mu,\gamma$ or $\rho$.
+The notation is fixed in Section~\ref{sec:setting}. Throughout, $h=\hO$ is the bulk mesh size used in Scott's penalty $\mu/h$, $\hG$ is the length of the longest boundary edge, $\rho=h/\min_e|e|$, $\gamma=\mu\hG/h$ and $G=\norm{p-\pbar}_{L^2(\Gamma)}$. Constants do not depend on $h,\hG,\mu,\gamma$ or $\rho$.
 
 \begin{theoremA}[Theorem~\ref{thm:A}]
 The printed method $\GS$ converges, and its error in the mesh-dependent energy norm is
@@ -36,29 +36,62 @@ $\ut-u_h=(h/\mu)\,v_\varphi+o\bigl((h/\mu)^{1/2}\bigr)$ in the energy norm, wher
 \]
 \end{corollaryBp}
 
+\begin{theoremBpp}[Theorem~\ref{hc:thm}, Corollary~\ref{hc:cor}]
+Let $U$ be the Stokes flow in $\Omega$ with Dirichlet data $-(p-\pbar)n$ on $\Gamma$ and $0$ on $\partial R$. For fixed $\gamma$ and bounded $\rho$, $(\mu/h)(\ut-u_h)\to U$ in $H^1$, so
+\[
+\frac{\norm{\nabla(\ut-u_h)}}{(h/\mu)G}\to K:=\frac{\norm{\nabla U}_{L^2(\Omega)}}{G}.
+\]
+The constant $K$ is not universal: it depends on the domain. For the pressure of our test P it is $K=2.7565157$ (series computation, inside a rigorous bracket $[2.0746,3.0526]$), and $K\to3/\sqrt7$ as the outer box grows. Convergence in the regime $\gamma\hG\to\infty$ is observed but not proved.
+\end{theoremBpp}
+
 \begin{theoremD}[Theorem~\ref{thm:D}]
 The naive consistent form, which adds $\ip{p_h}{v\cdot n}$, is singular (Proposition~\ref{prop:singular}). The corrected method $\CNS$, which adds $\ip{p_h-\pbG(p_h)}{v\cdot n}$, is well posed for $\gamma\ge\gamma_2$ and satisfies
 \[
 \norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^{k}\bigr)
 \]
-for general Stokes data, every fixed $k\ge4$ and bounded $\gamma$, provided the boundary edges are not too short relative to the bulk ($\hG\ge\hO^4$ for even $k$, $\hG\ge\hO^2$ for odd $k$). This is Scott's expected rate. Without that proviso a single lower-order term, due to the net flux of the interpolated outer data, remains.
+for general Stokes data, every fixed $k\ge4$ and bounded $\gamma$, provided the boundary edges are not too short relative to the bulk ($\hG\ge\hO^4$ for even $k$, $\hG\ge\hO^2$ for odd $k$). This is Scott's expected rate. Without that proviso a single lower-order term, due to the net flux of the interpolated outer data, remains. On Clough--Tocher refinements the same holds for every $k\ge2$ (Theorem~F).
 \end{theoremD}
 
-\begin{propositionE}[Proposition~\ref{prop:penalty}]
-The coercivity threshold of the Nitsche penalty scales like $\rho=h/\min_{e\in\EG}|e|$. The condition $\mu\ge 4\kappa C_I^2\rho$ is sufficient. The condition $\mu\gtrsim\rho$ is necessary on meshes whose boundary stars are close to two reference stars, certified in exact rational arithmetic.
+\begin{theoremDp}[Theorem~\ref{lb:thm}, Corollary~\ref{lb:cor}]
+Suppose the wall shear $W=\dn u\cdot\tau$ is not identically zero. For $\CNS$, and for $\GS$ with any $G$,
+\[
+\norm{\nabla(\ut-u_h)}\ge c\,\norm{W}_{L^2(\Gamma)}\,\hG^{3/2}-C\hG^2 ,
+\]
+with $c$ independent of $\gamma,\mu,\rho$ and the pressure. So, whenever $\eps\le C\hG^{3/2}$ and $\gamma$ is bounded, the rate $\hG^{3/2}$ of Theorem~D (and of Theorem~A at $G=0$) is exact; it is the $\hG^{3/2}$ term, not the $\hO^k$ term, that is shown to be sharp. This is \emph{unconditional for $k\ge7$}. \emph{For $4\le k\le6$ it is conditional} on a local, scale-invariant condition (M3) on the boundary stars, which we have not proved; we verified it numerically at every boundary vertex of our meshes, for $N$ up to $1024$.
+\end{theoremDp}
+
+\begin{propositionE}[Proposition~\ref{prop:penalty}, Theorem~\ref{pb:thm}, Corollary~\ref{pb:rho}]
+The coercivity threshold of the Nitsche penalty scales like $\rho=h/\min_{e\in\EG}|e|$. The condition $\mu\ge 4\kappa C_I^2\rho$ is sufficient. On every mesh, coercivity requires $\mu\ge\lambda_T\,h/|e|$ for each triangle $T$ with an edge $e$ on $\Gh$ (and not touching $\partial R$), with an explicit $\lambda_T$ depending only on the shape of $T$. In exact rational arithmetic, $\lambda_T>1$ whenever the apex angle is at least $35^\circ$ and $\lambda_T>9.3$ when it is at least $60^\circ$ (base angles at least $5^\circ$). So $\mu\gtrsim\rho$ is necessary on a broad class of meshes. Necessity is also certified on stars close to two reference stars.
 \end{propositionE}
 
-Theorem~A with $G=0$ gives $\tnorm{\ut-u_h}\le C((1+\gamma^{1/2})\hG^{3/2}+\eps)$. This recovers, for the printed method, the constant-pressure benchmark studied numerically in \cite{GjerdeScott2024} and analysed in \cite{Cavalcante}, which covers $k\ge4$ and also Clough--Tocher splits with $k\ge2$. Our proof does not use \cite{Cavalcante}. All results hold for every fixed $k\ge4$; the computations use $k=4$.
+Theorem~A with $G=0$ gives $\tnorm{\ut-u_h}\le C((1+\gamma^{1/2})\hG^{3/2}+\eps)$. This recovers, for the printed method, the constant-pressure benchmark studied numerically in \cite{GjerdeScott2024} and analysed in \cite{Cavalcante}, which covers $k\ge4$ and also Clough--Tocher splits with $k\ge2$. Our proof does not use \cite{Cavalcante}. Theorems~A--D$'$ hold for every fixed $k\ge4$ on meshes satisfying (M0)--(M2) (Theorem~D$'$ with the proviso above).
+
+\subsection*{Extensions}
+\begin{theoremF}[Theorem~\ref{ct:thm:main}, Proposition~\ref{ct:prop:penalty}]
+On the Clough--Tocher refinement of any shape-regular mesh whose boundary edges have comparable lengths, Theorems~A--D, Corollary~B$'$ and the sufficiency part of Proposition~E hold for every $k\ge2$, with no angle or singular-vertex condition. For example, $\CNS$ satisfies $\norm{\ut-u_h}_{H^1}\le C(\hG^{3/2}+h^2)$ for $k=2$ if $\hG\ge h^4$. The penalty necessity is recertified exactly on split stars.
+\end{theoremF}
+
+\begin{theoremG}[Section~\ref{gd:sec}]
+In two dimensions, Theorems~A--D and Corollary~B$'$ extend to a bounded connected domain whose curved boundary consists of finitely many closed smooth curves, convex or not, with a nonempty polygonal component $\Sigma$ on which the data are imposed strongly. The geometric lemmas use only $C^3$ curves; the results assume the regularity (R1) of the solution, which for generic $f$ requires $\Gamma\in C^{k+1,\alpha}$, and the results that use the leak test field assume $\Gamma\in C^{k+3}$. With several curved components, the correct pressure constant is the \emph{global} boundary mean. $\CNS$ needs one global correction, and a per-component correction is inconsistent.
+\end{theoremG}
+
+\begin{theoremH}[Section~\ref{ns:sec}]
+For steady Navier--Stokes, assume the discrete linearisation at the exact solution is uniformly stable; we prove this under a small-data condition. Then $\GS$ converges at $H^1$ rate $h/\mu$ with the same leak (slip and energy constants $1$), and $\CNS$ attains $\hG^{3/2}+\hO^k$. No inflow/outflow correction of the convective term is needed for these statements.
+\end{theoremH}
+
+\begin{theoremI}[Theorem~\ref{td:main}]
+In three dimensions, with an inscribed triangulated polyhedron, Theorems~A--D and Corollary~B$'$ hold with the same rates, assuming a uniform discrete inf-sup constant. That assumption is known for Alfeld (barycentric) splits with $k\ge3$, by the published split-mesh theory combined with a uniform Bogovski\u{\i} bound that we prove; we have not re-audited the published proofs for hidden domain dependence. Only a spherical obstacle is treated. Penalty necessity, sharpness and unsplit meshes remain open in 3D.
+\end{theoremI}
 
 \subsection*{Computations}
-Section~\ref{sec:numerics} reports $k=4$ computations with up to $N=256$ boundary chords. They show the following.
+Section~\ref{sec:numerics} reports computations with up to $N=256$ boundary chords, mostly for $k=4$, with $k=5,6$ and Clough--Tocher $k=2,3$ in Section~\ref{sec:numv3}. They show the following.
 \begin{itemize}
-\item The $\CNS$ $H^1$ rate decreases monotonically to $3/2$, independently of the pressure.
+\item The $\CNS$ $H^1$ rate decreases monotonically to $3/2$, independently of the pressure, for $k=4,5,6$.
 \item The printed method has rate $1$ whenever $G>0$.
-\item On a pure-pressure test that isolates the traction response exactly, the slip and energy constants of Corollary~B$'$ converge to $1$.
-\item In the penalty study, the coercivity threshold $\mu^\ast$ is linear in $\rho$ over more than a decade, with $\mu^\ast/\rho\approx 18$--$21$.
+\item On a pure-pressure test that isolates the traction response exactly, the slip and energy constants of Corollary~B$'$ approach $1$ for every element tested. For $k=4$ the $H^1$ constants approach the $K$ of Theorem~B$''$; that they do so also for $k=5,6$ and on Clough--Tocher refinements is observed, not proved.
+\item In the penalty study, the coercivity threshold $\mu^\ast$ is linear in $h/\hG$ over more than a decade, with $\gamma^\ast=\mu^\ast\hG/h\approx18$--$21$ for $k=4$. It is larger for higher $k$ and on Clough--Tocher refinements.
 \end{itemize}
 All code, raw outputs and logs are in the accompanying repository (Appendix~\ref{app:repro}).
 
 \subsection*{Organisation}
-Section~\ref{sec:setting} fixes the setting. Sections~\ref{sec:geometry}--\ref{sec:erroreq} collect geometric and discrete tools and the error equation. Section~\ref{sec:printed} treats the printed method, Section~\ref{sec:consistent} the pressure-consistent method, Section~\ref{sec:penalty} the penalty threshold and Section~\ref{sec:numerics} the computations.
+Section~\ref{sec:setting} fixes the setting. Sections~\ref{sec:geometry}--\ref{sec:erroreq} collect geometric and discrete tools and the error equation. Section~\ref{sec:printed} treats the printed method and identifies its $H^1$ constant. Section~\ref{sec:consistent} treats the pressure-consistent method and proves the lower bound. Section~\ref{sec:penalty} treats the penalty threshold. Sections~\ref{ct:sec}--\ref{td:sec} contain the extensions: Clough--Tocher refinements, general domains, Navier--Stokes and three dimensions. Section~\ref{sec:numerics} reports the computations.

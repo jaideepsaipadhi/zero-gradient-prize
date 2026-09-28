@@ -36,11 +36,12 @@ for mu, mk in [(100.0, "o"), (1000.0, "s"), (10000.0, "^")]:
 ax.axhline(1, color="k", lw=0.6); ax.set_xlim(0, 1.6); ax.set_xlabel(r"$h_\Omega$"); ax.set_ylabel("normalised GS error"); ax.legend(fontsize=6)
 ax.set_title("test P: slip$\\cdot\\mu/(hG)$, energy$\\cdot(\\mu/h)^{1/2}/G$", fontsize=7); fig.savefig(os.path.join(FIG, "leading_term.pdf"))
 
-# Figure 3: mu* vs rho
+# Figure 3: mu* vs h/h_Gamma
 fig, ax = plt.subplots(); T = [json.load(open(f)) for f in glob.glob(os.path.join(POD, "thresh", "*.json"))]
 for N, mk in [(16, "o"), (32, "s")]:
     t = sorted([r for r in T if r["N"] == N and (r["L"] != 2.5 or r["layers"] == N // 4)], key=lambda r: r["rho"])
     ax.loglog([r["rho"] for r in t], [r["mu_star"] for r in t], mk + "-", ms=3, lw=1, label=f"N = {N}")
-rr = [3, 45]; ax.loglog(rr, [20 * x for x in rr], "k--", lw=0.7, label=r"$\mu=20\rho$")
-ax.set_xlabel(r"$\rho$"); ax.set_ylabel(r"$\mu^*$"); ax.legend(fontsize=7); fig.savefig(os.path.join(FIG, "threshold.pdf"))
+rr = [3, 45]; ax.loglog(rr, [20 * x for x in rr], "k--", lw=0.7, label=r"$\mu=20\,h_\Omega/h_\Gamma$")
+# the "rho" field written by penalty.py is h_Omega / max|e| = h/h_Gamma (not rho = h/min|e| of Section 2)
+ax.set_xlabel(r"$h_\Omega/h_\Gamma$"); ax.set_ylabel(r"$\mu^*$"); ax.legend(fontsize=7); fig.savefig(os.path.join(FIG, "threshold.pdf"))
 print("wrote", sorted(os.listdir(FIG)))

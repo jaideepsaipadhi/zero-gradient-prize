@@ -1,0 +1,602 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\setlist{leftmargin=2em}
+\emergencystretch=2em
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{fact}[theorem]{Fact}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+
+% ---- macros of the paper (paper/main.tex) ----
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\hO}{h_\Omega}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Th}{\mathcal T_h}
+\newcommand{\EG}{\mathcal E_h^\Gamma}
+\newcommand{\Vh}{V_h}
+\newcommand{\VR}{V_h^R}
+\newcommand{\VO}{V_h^0}
+\newcommand{\Pih}{\Pi_h}
+\newcommand{\Zh}{Z_h}
+\newcommand{\Wh}{W_h}
+\newcommand{\gI}{g_I}
+\newcommand{\dn}{\partial_n}
+\newcommand{\dt}{\partial_\tau}
+\newcommand{\ut}{\tilde u}
+\newcommand{\pt}{\tilde p}
+\newcommand{\ft}{\tilde f}
+\newcommand{\psit}{\tilde\psi}
+\newcommand{\pbar}{\bar p}
+\newcommand{\pbG}{\bar p_{\Gamma}}
+\newcommand{\ip}[2]{\langle #1,\, #2\rangle}
+\newcommand{\tnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\GS}{\mathrm{GS}}
+\newcommand{\CNS}{\mathrm{CNS}^\ast}
+\newcommand{\eps}{\varepsilon_h}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\Gc}{\mathcal G}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\dist}{dist}
+% ---- macros of this note ----
+\newcommand{\kap}{\varkappa}            % curvature (kappa is the Korn constant of the paper)
+\newcommand{\kapi}{\norm{\kap}_\infty}
+\newcommand{\Pref}[1]{\textup{[P,~#1]}}
+\newcommand{\Tr}{\mathcal T_r}
+\newcommand{\Bog}{\mathfrak B}
+
+\begin{document}
+
+\title[SVN on polygonal boundaries: general curved domains]{Scott--Vogelius--Nitsche on polygonally approximated boundaries:\\ extension to general curved, nonconvex, multiply connected domains}
+\author{Working note (v3 draft)}
+\date{\today}
+
+\begin{abstract}
+This note extends every result of the paper [P] (\texttt{paper/main.tex}, branch \texttt{v3-draft}) from $\Omega=(-L,L)^2\setminus\overline D$ to a bounded connected domain whose no-slip boundary $\Gamma$ consists of finitely many closed $C^3$ curves, convex or not, approximated by inscribed polygons, while the remaining boundary $\Sigma\neq\emptyset$ is polygonal and carries strong Dirichlet data. Section and result numbers \Pref{Lemma 3.1} etc.\ refer to the compiled paper. The main new points are: a curvature version of the chord lemma; a normal-coordinate map $\Phi_h$ valid when $\Omega\setminus\Oh$ and $\Oh\setminus\Omega$ are both nonempty; a chart-based star-shaped cover giving a uniform Bogovski\u{\i} constant; and the observation that with several curved components the correct pressure constant is the \emph{global} boundary mean. The latter forces a new test field (a divergence-free field without a global stream function) and a new discrete-curl interpolant. The pressure-consistent method needs only one global correction, and its discrete velocity is independent of how that constant is normalised; a per-component correction is inconsistent.
+\end{abstract}
+
+\maketitle
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+%======================================================================
+\section{Setting and assumptions}\label{gd:sec:setting}
+
+\subsection{Domain}
+\begin{assumption}[Domain]\label{gd:ass:domain}
+$\Omega\subset\R^2$ is a bounded connected open set with $\partial\Omega=\Gamma\sqcup\Sigma$, where
+\begin{enumerate}[label=(\alph*)]
+\item $\Gamma=\Gamma_1\sqcup\dots\sqcup\Gamma_m$, $m\ge1$, and each $\Gamma_i$ is a whole connected component of $\partial\Omega$ and a closed embedded curve of class $C^3$;
+\item $\Sigma\neq\emptyset$ is a finite disjoint union of closed simple polygons, each a whole component of $\partial\Omega$.
+\end{enumerate}
+Which components are ``inner'' or ``outer'' is not restricted: the outer boundary may be curved (with $\Sigma$ an inner polygonal hole) or polygonal. Components mixing curved and straight pieces are \emph{not} covered (the junctions are corners of $\Gamma$).
+\end{assumption}
+For the paper's domain, $m=1$, $\Gamma_1=\partial D$, $\Sigma=\partial R$.
+
+For each $i$ fix an arclength parametrisation $\gamma_i:\R/|\Gamma_i|\mathbb Z\to\Gamma_i$, let $N_i(s)$ be the unit normal pointing into $\Omega$, and orient $\gamma_i$ so that $(T_i,N_i)$, $T_i:=\gamma_i'$, is positively oriented. The signed curvature $\kap$ is defined by $T_i'=\kap N_i$ (so $N_i'=-\kap T_i$). Thus $\kap>0$ where $\Omega$ is locally convex near $\Gamma$ and $\kap<0$ where it is locally concave; for the exterior of the unit disk $\kap\equiv-1$. The curvature is written $\kap$ because $\kappa$ is the Korn constant of \Pref{Lemma 3.2}. Since $\Gamma\in C^3$, $\kap\in C^1(\Gamma)$.
+
+On $\Gamma$ we write $n:=-N$ (the outward normal of $\Omega$); on $\Gh$, $n$ is the outward normal of $\Oh$, as in the paper.
+
+\begin{fact}[Tubular neighbourhood; standard]\label{gd:fact:tube}
+There is $r>0$ with $r\kapi\le\frac12$ such that, with $\Tr:=\{x:\dist(x,\Gamma)<r\}$:
+\begin{enumerate}[label=(\roman*)]
+\item $\Psi(s,d):=\gamma_i(s)+dN_i(s)$ is a $C^2$ diffeomorphism from $\bigsqcup_i(\R/|\Gamma_i|\mathbb Z)\times(-r,r)$ onto $\Tr$, and $d$ is the signed distance to $\Gamma$ (positive in $\Omega$), so $\Tr\cap\Omega=\{d>0\}$;
+\item $d\in C^3(\Tr)$, the projection $\pi(x)=x-d(x)\nabla d(x)$ and the arclength coordinate $\sigma:=s\circ\Psi^{-1}$ are $C^2$, and
+\[
+\nabla d=N\circ\pi,\qquad \nabla\sigma=\frac{T\circ\pi}{J},\qquad J(x):=1-\kap(\pi(x))\,d(x)\in[\tfrac12,\tfrac32],\qquad dx=J\,dd\,ds;
+\]
+\item $\dist(\mathcal T_{r},\Sigma)>0$, and $\dist(\Gamma_i,\Gamma_j)>2r$ for $i\ne j$.
+\end{enumerate}
+In the orthogonal coordinates $(s,d)$ (scale factors $J$ and $1$), a field $F\,N\circ\pi+G\,T\circ\pi$ has
+\begin{equation}\label{gd:eq:divnormal}
+\div(F\,N\circ\pi+G\,T\circ\pi)=\frac1J\bigl(\partial_d(JF)+\partial_sG\bigr).
+\end{equation}
+\end{fact}
+
+\begin{fact}[Uniform local graphs; standard]\label{gd:fact:graph}
+There is $a_0\in(0,r/4]$ with $4\kapi a_0\le\frac15$ such that for every $y=\gamma_i(s_0)\in\Gamma$, in the Cartesian frame $(y;T_i(s_0),N_i(s_0))$ with coordinates $(\xi,\eta)$ and with $Q'_y:=(-2a_0,2a_0)^2$,
+\[
+\Gamma\cap Q'_y=\{(\xi,f_y(\xi)):|\xi|<2a_0\},\qquad \Omega\cap Q'_y=\{\eta>f_y(\xi)\},
+\]
+where $f_y\in C^3$, $f_y(0)=f_y'(0)=0$, $f_y''=\kap(1+f_y'^2)^{3/2}$, $|f_y'(\xi)|\le2\kapi|\xi|\le\frac15$, $|f_y(\xi)|\le\kapi\xi^2$ and $\norm{f_y'''}_\infty\le C_\Gamma$ (depending on $\norm{\kap}_{C^1}$). Moreover $Q'_y\subset\Tr$.
+\end{fact}
+Both facts concern the fixed curve only (tubular neighbourhood theorem, regularity of the distance function for $C^3$ curves, implicit function theorem and compactness); no $h$ enters.
+
+\subsection{Inscribed polygons and mesh}
+\begin{assumption}[Inscribed polygons]\label{gd:ass:poly}
+\leavevmode
+\begin{enumerate}[label=(G\arabic*)]
+\item For each $i$, $\Gamma_{h,i}$ is the closed polygon whose vertices $z_{i,0},\dots,z_{i,N_i-1}\in\Gamma_i$ are in cyclic order along $\gamma_i$, consecutive vertices being joined by chords. For a chord $e$, $\Gamma_e$ denotes the arc of $\Gamma_i$ between its endpoints containing no other vertex, and $|\Gamma_e|\le2|e|$. $\Gh:=\bigcup_i\Gamma_{h,i}$.
+\item $\hG\le h_\ast$, where $h_\ast\le a_0/4$ is small in terms of $\Gamma$, $\Sigma$ and the data (it is decreased finitely often below).
+\end{enumerate}
+\end{assumption}
+(G1) only excludes a chord that ``wraps around'' the long way; it is automatic if, e.g., the vertices are images of a quasi-uniform partition of the parameter.
+
+The domain $\Oh$ is defined in Lemma~\ref{gd:lem:graph}. The mesh assumptions (M0)--(M2), (M1$'$), (D) of \Pref{Assumption 2.1} are kept verbatim with $\partial R$ replaced by $\Sigma$; $\Th$ is a conforming triangulation of $\Oh$ and $\EG$ its edges on $\Gh$. The spaces $\Vh,\VR,\VO,\Pih,\Zh,\Wh$, the forms $a_h$, $N_h$, the methods $\GS$ and $\CNS$, and the norm $\tnorm\cdot$ are those of \Pref{Section 2}, with $\partial R$ replaced by $\Sigma$. In $\CNS$,
+\[
+\pbG(q):=|\Gh|^{-1}\int_{\Gh}q,
+\]
+the mean over \emph{all} of $\Gh$ (see Section~\ref{gd:sec:D} for why this is the right choice).
+
+\subsection{Exact solution, regularity and the pressure constant}
+\begin{assumption}[Regularity]\label{gd:ass:reg}
+\leavevmode
+\begin{enumerate}[label=(R\arabic*)]
+\item $u\in C^{k+1}(\overline\Omega)$, $p\in C^{k}(\overline\Omega)$ solve $-\Delta u+\nabla p=f$, $\div u=0$ in $\Omega$, $u|_\Gamma=0$, $u|_\Sigma=g$; $\ft$ as in (D).
+\item (Only for results that use the test field of Section~\ref{gd:sec:test}: the lower bound of Theorem~\ref{gd:thm:A}, Theorems~\ref{gd:thm:C} and~\ref{gd:thm:B}, Corollary~\ref{gd:cor:Bp}.) $\Gamma\in C^{k+3}$ and $p|_\Gamma\in C^{k+1}(\Gamma)$.
+\end{enumerate}
+\end{assumption}
+Since $u|_\Gamma=0$ and $\div u=0$, necessarily $\int_\Sigma g\cdot\nu=0$ ($\nu$ the outward normal of $\Omega$).
+
+\begin{definition}[Pressure constant]\label{gd:def:G}
+$\pbar:=|\Gamma|^{-1}\int_\Gamma p\,ds$ (the mean over all curved components), $q:=p-\pbar$ on $\Gamma$, and
+\[
+G:=\norm{p-\pbar}_{L^2(\Gamma)},\qquad \bar q_i:=|\Gamma_i|^{-1}\int_{\Gamma_i}q\quad(\text{so }\textstyle\sum_i|\Gamma_i|\bar q_i=0).
+\]
+$C_p:=C(1+\norm{p-\pbar}_{W^{1,\infty}(\Gamma)})$.
+\end{definition}
+Proposition~\ref{gd:prop:Gglobal} shows that the per-component quantity $G_{\rm per}^2:=\sum_i\norm{p-\bar p_i}_{L^2(\Gamma_i)}^2$ ($\bar p_i$ the mean over $\Gamma_i$) is \emph{not} the right one when $m\ge2$. Note $G^2=G_{\rm per}^2+\sum_i|\Gamma_i|\bar q_i^{\,2}$.
+
+\emph{Constants.} $C,c$ depend on (M0)--(M2), $k$, the geometry ($\norm{\kap}_{C^1}$, $r$, $a_0$, $|\Gamma|$, $\Sigma$, the fixed cover of Lemma~\ref{gd:lem:cover}), and norms of $(u,p,\ut,\pt)$; they are independent of $h,\hG,\mu,\gamma,\rho$.
+
+%======================================================================
+\section{Changes to Section 3 (geometry)}\label{gd:sec:geometry}
+
+\begin{lemma}[Chords; replaces \Pref{Lemma 3.1}]\label{gd:lem:chords}
+Let $e\in\EG$ be a chord of $\Gamma_i$ of length $\ell$, with midpoint $m_e$ and unit tangent $\tau_e$ oriented like $T_i$ along $\Gamma_e$. For $x\in e$ let $t\in[-\ell/2,\ell/2]$ be its coordinate along $e$ from $m_e$, $x^\ast:=\pi(x)$, and $\kap_e:=\kap(m_e^\ast)$. Let $N_e$ be the unit normal of $e$ with $N_e\cdot N(x^\ast)>0$ and $n_e:=-N_e$. Then:
+\begin{enumerate}[label=(\alph*)]
+\item \emph{(sagitta)} $d(x)=\tfrac12\kap(x^\ast)\,(\ell^2/4-t^2)+O(\ell^3)$ and $|d(x)|\le\kapi\ell^2/8+C\ell^4$. If $\kap\ge0$ on $\Gamma_e$ then $e\subset\overline\Omega$; if $\kap\le0$ on $\Gamma_e$ then $e\cap\Omega=\emptyset$.
+\item \emph{(normal rotation)} $n(x^\ast)-n_e=\kap_e\,t\,\tau_e+O(\ell^2)$. In particular $n(x^\ast)\cdot n_e=1+O(\ell^2)$ and $|n(x^\ast)\cdot\tau_e|+|N(x^\ast)\cdot\tau_e|\le C\ell$.
+\item \emph{(Jacobian)} $\pi|_e:e\to\Gamma_e$ is a $C^2$ bijection with $\frac{d(\sigma\circ\pi)}{dt}=\frac{T(x^\ast)\cdot\tau_e}{J(x)}=1+O(\ell^2)$; hence $|\Gamma_e|=\ell(1+O(\ell^2))$.
+\item \emph{(turning)} If $e,e'$ share a vertex, $|\tau_e-\tau_{e'}|+|n_e-n_{e'}|\le2\kapi(|\Gamma_e|+|\Gamma_{e'}|)$.
+\end{enumerate}
+The $O(\cdot)$ constants depend only on $\norm{\kap}_{C^1}$. For $\kap\equiv-1$ this is \Pref{Lemma 3.1} (there $s$ plays the role of $t$).
+\end{lemma}
+
+\begin{proof}
+By (G1), $|\Gamma_e|\le2\hG\le a_0/2$, so $\Gamma_e$ lies in $Q'_{z}$ for its first endpoint $z$ and is a graph there. By the mean value theorem there is $y_0\in\Gamma_e$ with $T(y_0)\parallel e$. Work in the frame of Fact~\ref{gd:fact:graph} at $y_0$, with $f:=f_{y_0}$ (the arc is still a graph there since $|\Gamma_e|\le a_0/2$). The chord is the horizontal segment $\{(\xi,c):\xi_a\le\xi\le\xi_b\}$ with $f(\xi_a)=f(\xi_b)=c$, $\xi_b-\xi_a=\ell$, $0\in[\xi_a,\xi_b]$, and $\tau_e=e_1$, $N_e=e_2$. Put $\xi_m:=(\xi_a+\xi_b)/2$, so $t=\xi-\xi_m$.
+
+(a) Linear interpolation error: $c-f(\xi)=\tfrac12f''(\zeta)(\xi-\xi_a)(\xi_b-\xi)$ for some $\zeta\in(\xi_a,\xi_b)$, and $(\xi-\xi_a)(\xi_b-\xi)=\ell^2/4-t^2$. Since $|f'|\le2\kapi\ell$ on $[\xi_a,\xi_b]$, $f''=\kap(1+f'^2)^{3/2}=\kap(1+O(\ell^2))$, and $\kap$ at the graph point over $\zeta$ differs from $\kap(x^\ast)$ by $\norm{\kap'}_\infty\cdot O(\ell)$. Next, $d$ is $C^2$ with $d=0$ on the graph and $\nabla d=N$, so $d(\xi,c)=(c-f(\xi))N_2+O((c-f)^2)$ with $N_2=(1+f'^2)^{-1/2}=1+O(\ell^2)$. Hence $d(x)=\frac12\kap(x^\ast)(\ell^2/4-t^2)+O(\ell^3)$, and $|d(x)|\le\frac12\kapi(1+C\ell^2)\ell^2/4+C\ell^4$. The sign statements follow because $f''$ has the sign of $\kap$ and $\Omega\cap Q'=\{\eta>f\}$.
+
+(b) $N(x^\ast)=(1+f'(\xi^\ast)^2)^{-1/2}(-f'(\xi^\ast),1)$, so $N(x^\ast)-N_e=-f'(\xi^\ast)e_1+O(\ell^2)$. The projection moves the abscissa by $|d|\,|f'|=O(\ell^3)$, so $f'(\xi^\ast)=f'(\xi)+O(\ell^3)=f'(\xi_m)+f''(\cdot)\,t+O(\ell^3)$. The midpoint rule for divided differences gives $f'(\xi_m)=\frac{f(\xi_b)-f(\xi_a)}{\ell}+O(\ell^2\norm{f'''}_\infty)=O(\ell^2)$, and $f''(\cdot)=\kap(x^\ast)+O(\ell)=\kap_e+O(\ell)$. Thus $N(x^\ast)-N_e=-\kap_e t\,\tau_e+O(\ell^2)$; multiply by $-1$.
+
+(c) By Fact~\ref{gd:fact:tube}(ii), $\frac{d}{dt}\sigma(\pi(x))=\nabla\sigma\cdot\tau_e=T(x^\ast)\cdot\tau_e/J(x)$. Here $|T(x^\ast)-T(y_0)|\le\kapi|\Gamma_e|$, so $T(x^\ast)\cdot\tau_e=1+O(\ell^2)$, and $J=1+O(\ell^2)$ by (a). The derivative is positive, and the endpoints are fixed by $\pi$, so $\pi|_e$ is a bijection onto $\Gamma_e$.
+
+(d) $\tau_e=T(y_0)$ and $\tau_{e'}=T(y_0')$ with $y_0\in\Gamma_e$, $y_0'\in\Gamma_{e'}$, and $|T(y)-T(y')|\le\kapi\cdot$(arc distance); $n_e$ is $\tau_e$ rotated by a fixed angle.
+\end{proof}
+
+\begin{lemma}[$\Gh$ is a normal graph; definition of $\Oh$]\label{gd:lem:graph}
+For $\hG\le h_\ast$:
+\begin{enumerate}[label=(\alph*)]
+\item $\Gamma_{h,i}=\{\gamma_i(s)+\eta_h(s)N_i(s)\}$ for a Lipschitz, piecewise $C^2$ function $\eta_h$ with
+\[
+\norm{\eta_h}_\infty\le\kapi\hG^2/8+C\hG^4,\qquad\norm{\eta_h'}_\infty\le C\hG .
+\]
+In particular the $\Gamma_{h,i}$ are simple closed polygons, pairwise disjoint and disjoint from $\Sigma$, and the vertex angle of each is $\pi+O(\hG)$ (this justifies (M1$'$)).
+\item Define
+\[
+\Oh:=(\Omega\setminus\mathcal T_{r/2})\cup\{x\in\mathcal T_{r/2}:\ d(x)>\eta_h(\sigma(x))\}.
+\]
+Then $\Oh$ is a bounded polygonal open set with $\partial\Oh=\Sigma\sqcup\Gh$, it lies on the $\Omega$-side of each chord (so the outward normal of $\Oh$ on $e$ is $n_e$ of Lemma~\ref{gd:lem:chords}), and
+\[
+\Oh\setminus\Omega=\{\eta_h(\sigma)<d\le0\},\qquad\Omega\setminus\Oh=\{0<d\le\eta_h(\sigma)\},\qquad|\Omega\,\triangle\,\Oh|\le C\hG^2 .
+\]
+Both differences are nonempty as soon as $\kap$ takes both signs on $\Gamma$ (for $\hG$ small).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) By Lemma~\ref{gd:lem:chords}(c), $\pi$ maps each chord bijectively onto its arc; the arcs $\Gamma_e$ of consecutive chords tile $\Gamma_i$ (G1). So $\pi|_{\Gamma_{h,i}}:\Gamma_{h,i}\to\Gamma_i$ is a bijection and $\eta_h(s):=d\bigl((\pi|_{\Gamma_{h,i}})^{-1}(\gamma_i(s))\bigr)$ represents $\Gamma_{h,i}$ as stated. The sup bound is Lemma~\ref{gd:lem:chords}(a). On a chord, $\frac{d\eta_h}{ds}=\nabla d\cdot\tau_e\,\frac{dt}{ds}=N(x^\ast)\cdot\tau_e\,(1+O(\ell^2))=O(\ell)$ by Lemma~\ref{gd:lem:chords}(b),(c). Since $\Psi$ is a diffeomorphism and $|\eta_h|<r/2$, $\Gamma_{h,i}$ is embedded; disjointness follows from Fact~\ref{gd:fact:tube}(iii). The vertex angle is $\pi$ plus the turning angle, which is $O(\hG)$ by Lemma~\ref{gd:lem:chords}(d).
+
+(b) Openness and $\partial\Oh=\Sigma\sqcup\Gh$ are immediate from the definition and Fact~\ref{gd:fact:tube}. The descriptions of the differences follow from $\Omega\cap\mathcal T_r=\{d>0\}$; their measure is $\int_\Gamma\int|\eta_h|J\,dd\,ds\le C\hG^2$. If $\kap(y)<0$ at some $y$, then for small $\hG$ the chord $e$ with $y\in\Gamma_e$ has $\kap<0$ on $\Gamma_e$, and Lemma~\ref{gd:lem:chords}(a) gives $d<0$ in its interior; similarly for $\kap>0$.
+\end{proof}
+
+\begin{lemma}[Uniform trace, Friedrichs, Korn; replaces \Pref{Lemma 3.2}]\label{gd:lem:korn}
+There are $C_{\rm tr},C_F,\kappa,C_P$, independent of $h$, such that every $v\in H^1(\Oh)^2$ with $v|_\Sigma=0$ satisfies
+\[
+\norm{v}_{L^2(\Gh)}\le C_{\rm tr}\norm{\nabla v},\qquad\norm{v}\le C_F\norm{\nabla v},\qquad\norm{\nabla v}^2\le\kappa\,a_h(v,v),
+\]
+and every $v\in H^1(\Oh)$ satisfies $\inf_{c\in\R}\norm{v-c}_{\Oh}\le C_P\norm{\nabla v}_{\Oh}$. Moreover $\Oh$ is connected.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $\chi\in C^\infty(\R)$, $0\le\chi\le1$, $\chi=1$ on $(-\infty,r/8]$, $\chi=0$ on $[r/4,\infty)$, $|\chi'|\le16/r$. Define $\Phi_h$ on $\overline\Omega$ by
+\[
+\Phi_h(\Psi(s,d)):=\Psi\bigl(s,\ d+\chi(d)\eta_h(s)\bigr)\quad(0\le d<r),\qquad\Phi_h:=\mathrm{id}\ \text{ on }\overline\Omega\setminus\mathcal T_r .
+\]
+\item For fixed $s$, $d\mapsto d+\chi(d)\eta_h(s)$ has derivative $1+\chi'\eta_h\ge1-C\hG^2/r\ge\frac12$, equals $\eta_h(s)$ at $d=0$ and $d$ for $d\ge r/4$. So $\Phi_h$ is a homeomorphism of $\overline\Omega$ onto $\overline{\Oh}$ mapping $\Gamma_i$ onto $\Gamma_{h,i}$, with $\Phi_h=\mathrm{id}$ outside $\mathcal T_{r/4}$, in particular near $\Sigma$. Hence $\Oh$ is connected.
+\item In $(s,d)$ coordinates $\hat\Phi_h(s,d)=(s,d+\chi\eta_h)$ has $D\hat\Phi_h=I+\begin{pmatrix}0&0\\\chi\eta_h'&\chi'\eta_h\end{pmatrix}=I+O(\hG)$ a.e. Since $D\Psi\in C^1$, $D\Psi(s,d')D\Psi(s,d)^{-1}=I+O(|d'-d|)=I+O(\hG^2)$. Therefore $D\Phi_h=D\Psi\circ\hat\Phi_h\cdot D\hat\Phi_h\cdot(D\Psi)^{-1}$ satisfies $\norm{D\Phi_h-I}_{L^\infty}+\norm{D\Phi_h^{-1}-I}_{L^\infty}\le C\hG$, and $\Phi_h|_\Gamma$ has arclength Jacobian $1+O(\hG^2)$ (it is the inverse of $\pi|_{\Gh}$, Lemma~\ref{gd:lem:chords}(c)).
+\item The rest is \Pref{Lemma 3.2}, steps 4--6, verbatim: for $w=v\circ\Phi_h$, $D(w)=D(v)\circ\Phi_h+E$ with $|E|\le C\hG|\nabla v\circ\Phi_h|$; on the fixed connected Lipschitz domain $\Omega$, $w$ vanishes on $\Sigma$, which has positive length, so Korn's first inequality, the trace inequality on $\Gamma$ and the Friedrichs inequality hold; transfer back and absorb $C\hG\norm{\nabla v}$ for $\hG\le h_\ast$. The Poincar\'e inequality transfers the same way from $\Omega$.\qedhere
+\end{enumerate}
+\end{proof}
+Here $\Sigma\ne\emptyset$ is used (Korn and Friedrichs with zero trace on $\Sigma$). The map $\Phi_h$ works for arbitrary signs of $\kap$: it moves points along normals in both directions.
+
+\begin{lemma}[Extension; replaces \Pref{Lemma 3.3} and the extension paragraph of \Pref{Section 2}]\label{gd:lem:ext}
+There are $\ut\in C^{k+1}$ and $\pt\in C^{k}$ on the open set $\mathcal O:=\Omega\cup\mathcal T_r$ with $\ut=u$, $\pt=p$ on $\Omega$ and $\div\ut=0$ on $\mathcal O$. With $F:=\ft+\Delta\ut-\nabla\pt$ on $\Oh$ (so $F=0$ on $\Oh\cap\Omega$ and $\operatorname{supp}F\subset\overline{\Oh\setminus\Omega}$):
+\[
+\norm{\ut}_{L^\infty(\Gh)}\le C\hG^2,\qquad|(F,v)_{\Oh}|\le C\hG^2\norm{\nabla v}\quad\forall v\in\VR .
+\]
+\end{lemma}
+
+\begin{proof}
+\emph{Construction.} Let $U_i:=\Psi(\Gamma_i\times(-r,r))$ and $U_i^+:=U_i\cap\Omega$, an annulus. The flux of $u$ through $\Psi(\Gamma_i\times\{d\})$ is independent of $d\in(0,r)$ since $\div u=0$, and tends to $\int_{\Gamma_i}u\cdot N=0$. So $u=\curl\psi_i$ on $U_i^+$ with $\psi_i$ single-valued and $\psi_i\in C^{k+2}(\overline{U_i^+})$. (A global stream function need not exist: when $\Sigma$ has several components, $g$ may have nonzero flux through each of them. The paper's single-valued $\psi$ is replaced by these local ones.) By Whitney's extension theorem ($\overline{U_i^+}$ has $C^1$ boundary, so $C^{k+2}$ functions on it are Whitney jets), extend $\psi_i$ to $\psit_i\in C^{k+2}(U_i)$, and set $\ut:=\curl\psit_i$ on $U_i\setminus\Omega$ and $\ut:=u$ on $\Omega$. On $U_i$, $\ut=\curl\psit_i$ on both sides, so $\ut\in C^{k+1}(\mathcal O)$ and $\div\ut=0$. $\pt$ is a Whitney extension of $p$.
+
+\emph{Bounds.} $\ut=0$ on $\Gamma$ and $|x-\pi(x)|=|d(x)|\le C\hG^2$ on $\Gh$ (Lemma~\ref{gd:lem:graph}) give the first bound. For the second, $F$ is bounded on $\Oh\setminus\Omega=\{\eta_h(s)<d\le0\}$. For $x=\Psi(s,d)$ there, with $y_h(s):=\Psi(s,\eta_h(s))\in\Gh$,
+\[
+|v(x)|\le|v(y_h(s))|+\int_{\eta_h(s)}^0|\nabla v(\Psi(s,t))|\,dt .
+\]
+Integrate with $dx=J\,dd\,ds$ over the strip of width $|\eta_h(s)|\le C\hG^2$:
+\[
+\int_{\Oh\setminus\Omega}|v|\le C\hG^2\Bigl(\int_\Gamma|v(y_h(s))|\,ds+\int_{\Oh\setminus\Omega}|\nabla v|\Bigr)\le C\hG^2\bigl(\norm{v}_{L^1(\Gh)}+\hG\norm{\nabla v}\bigr),
+\]
+using the Jacobian of Lemma~\ref{gd:lem:chords}(c) and $|\Oh\setminus\Omega|^{1/2}\le C\hG$. Finish with $\norm{v}_{L^1(\Gh)}\le|\Gh|^{1/2}\norm{v}_{L^2(\Gh)}$ and Lemma~\ref{gd:lem:korn}.
+\end{proof}
+
+\begin{remark}[The part $\Omega\setminus\Oh$]\label{gd:rem:outside}
+Where $\Gamma$ is locally convex ($\kap>0$) the chords cut off $\Omega\setminus\Oh$. Nothing needs to be extended there: all fields live on $\Oh$ and all integrations by parts are on $\Oh$. The errors are measured on $\Oh$ as in the paper, so $\Omega\setminus\Oh$ (area $O(\hG^2)$) is simply not approximated. On $\Oh\setminus\Omega$ the error $\ut-u_h$ depends on the extension; two $C^1$ extensions differ there by $O(\hG^2)$ in $W^{1,\infty}$ (their difference and its gradient vanish on $\Gamma$), hence by $O(\hG^3)$ in $H^1(\Oh)$, which is below every rate in this note.
+\end{remark}
+
+\emph{\Pref{Lemma 3.4} (wall structure)} holds verbatim on any $C^1$ curve, with $n=-N$.
+
+\begin{lemma}[Transposed-gradient term; replaces \Pref{Lemma 3.5}]\label{gd:lem:transposed}
+The statement of \Pref{Lemma 3.5} holds, with
+\[
+a_e:=-\kap_e\,n(m_e^\ast)\bigl(\dn u(m_e^\ast)\cdot\tau_e\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Only step 1 changes. For $x\in e$, $\ut\in C^2$ gives $(\nabla\ut(x))^{\mathsf T}n_e=(\nabla u(x^\ast))^{\mathsf T}n_e+O(\hG^2)$. By \Pref{Lemma 3.4}, $(\nabla u)^{\mathsf T}n(x^\ast)=0$ and $(\nabla u)^{\mathsf T}b=n\,(\dn u\cdot b)$ at $x^\ast$. With Lemma~\ref{gd:lem:chords}(b),
+\[
+(\nabla u(x^\ast))^{\mathsf T}n_e=n(x^\ast)\bigl(\dn u(x^\ast)\cdot(n_e-n(x^\ast))\bigr)=-\kap_e\,t\,n(x^\ast)\bigl(\dn u(x^\ast)\cdot\tau_e\bigr)+O(\ell^2)=t\,a_e+O(\hG^2),
+\]
+since $x^\ast$ and $m_e^\ast$ are $O(\ell)$ apart. The coefficient $a_e$ is constant on $e$, and $\int_et\,dt=0$. Steps 2--4 are unchanged; the sum over edges uses $\#\EG\le|\Gamma|/(c_0\hG)$, since $|\Gh|\le|\Gamma|$.
+\end{proof}
+For $\kap\equiv-1$ this is the paper's $a_e$. On straight parts of $\Gamma$ ($\kap=0$) the chords lie on $\Gamma$, and the leading term vanishes.
+
+%======================================================================
+\section{Changes to Section 4 (discrete tools)}\label{gd:sec:discrete}
+
+\Pref{Lemmas 4.1, 4.2} are mesh-only and hold verbatim, with $\kappa$ from Lemma~\ref{gd:lem:korn}. \Pref{Lemma 4.3} and \Pref{Remark 4.4} hold verbatim with $\partial R\to\Sigma$. The only domain property used in \Pref{Lemma 4.3}, step 1, is that $\Oh$ is connected (so that $\div\VO$ is the mean-zero part of $\Pih$), and this is Lemma~\ref{gd:lem:korn}. The edge bubble of step 2 may sit on any edge of any $\Gamma_{h,i}$.
+
+\subsection{Uniform continuous inf-sup constant}
+\begin{lemma}[Decomposition of the divergence equation]\label{gd:lem:bog}
+Let $U=\bigcup_{j=1}^NU_j$ be a bounded open set, where each $U_j$ is star-shaped with respect to every point of a ball $B_j$ of radius $\ge r_\ast$ with $\overline{B_j}\subset U_j$, $\diam U_j\le d_\ast$, and, for $j<N$, $|A_j|\ge m_\ast$ where $A_j:=U_j\cap D_j$, $D_j:=\bigcup_{l>j}U_l$. Then for every $f\in L^2_0(U)$ there is $v\in H^1_0(U)^2$ with $\div v=f$ and $\norm{\nabla v}\le C_B\norm f$, where $C_B$ depends only on $N,r_\ast,d_\ast,m_\ast$ and $|U|$.
+\end{lemma}
+
+\begin{proof}
+Let $E_j:=U_j\setminus D_j$ (so $E_N=U_N$ and the $E_j$ partition $U$). Put $g_1:=f$ and, for $j=1,\dots,N-1$,
+\[
+f_j:=g_j\mathbf 1_{E_j}-\frac{\int_{E_j}g_j}{|A_j|}\mathbf 1_{A_j},\qquad g_{j+1}:=g_j-f_j,\qquad f_N:=g_N .
+\]
+By induction, $\operatorname{supp}g_j\subset E_j\cup D_j$ and $\int g_j=0$. Hence $\operatorname{supp}f_j\subset U_j$, $\int f_j=0$ and $\operatorname{supp}g_{j+1}\subset D_j$. Also $\norm{f_j}\le(1+|U|^{1/2}m_\ast^{-1/2})\norm{g_j}$ and $\norm{g_{j+1}}\le\norm{g_j}+\norm{f_j}$. So $\norm{f_j}\le C(N,m_\ast,|U|)\norm f$, and $f=\sum_jf_j$. By Bogovski\u{\i}'s theorem on star-shaped domains \cite[Thm.~III.3.1]{Galdi} there is $v_j\in H^1_0(U_j)^2$ with $\div v_j=f_j$ and $\norm{\nabla v_j}\le c_0(d_\ast/r_\ast)^2(1+d_\ast/r_\ast)\norm{f_j}$. Take $v:=\sum_jv_j$, each extended by zero.
+\end{proof}
+
+\begin{lemma}[A uniform star-shaped cover of $\Oh$]\label{gd:lem:cover}
+There are $N$, $r_\ast$, $d_\ast$, $m_\ast>0$, depending only on $\Omega$, and $h_\ast$, such that for $\hG\le h_\ast$, $\Oh$ admits a cover as in Lemma~\ref{gd:lem:bog}.
+\end{lemma}
+
+\begin{proof}
+Fix $a:=a_0$ (Fact~\ref{gd:fact:graph}), so $\kapi a\le1/20$.
+
+\emph{Chart pieces.} Choose $y_1,\dots,y_{N_1}\in\Gamma$ ($N_1\le4|\Gamma|/a+m$) such that the arcs of length $a/2$ centred at the $y_j$ cover $\Gamma$. In the frame of Fact~\ref{gd:fact:graph} at $y_j$, let $Q_j:=(-a,a)^2\subset Q'_j:=(-2a,2a)^2$, $f:=f_{y_j}$, and $U_j^h:=\Oh\cap Q_j$.
+\begin{enumerate}
+\item \emph{$\Gh\cap Q_j$ is the graph of $f_h:=I_1f$}, the piecewise-linear interpolant of $f$ at the abscissae of the vertices of $\Gh$ in $Q'_j$. A chord meeting $Q_j$ has length $\le\hG<a/4$, so both endpoints lie in $Q'_j\cap\Gamma$, i.e.\ on the graph of $f$. Chords of other components, and $\Sigma$, do not meet $Q'_j\subset\Tr$ (Fact~\ref{gd:fact:tube}(iii)). Moreover $|f_h'|\le\sup_{|\xi|<2a}|f'|\le\frac15=:L$ (slopes of $I_1f$ are values of $f'$), and $|f_h|\le\kapi(a+\hG)^2\le a/5=:b_0$.
+\item \emph{$U_j^h=\{(\xi,\eta)\in Q_j:\eta>f_h(\xi)\}$.} $Q_j\setminus\Gh$ has exactly two components, above and below the graph. $\Oh\cap Q_j$ is relatively open and closed in $Q_j\setminus\Gh$ (because $\partial\Oh\cap Q_j=\Gh\cap Q_j$), so it is a union of components. The point $(0,a/2)$ lies in $\Omega$ at distance $>a/4$ from $\Gamma$, hence in $\Oh$ (as $\Omega\setminus\Oh\subset\{d\le C\hG^2\}$). The point $(0,-a/2)$ has $d=-a/2<\eta_h$, so it is not in $\Oh$.
+\item \emph{$U_j^h$ is star-shaped with respect to every point of $B_j:=B((0,\frac34a),\frac a8)$.} Let $y\in B_j$, $x\in U_j^h$ and $z_t:=(1-t)y+tx$. The constraints $|\xi|<a$, $\eta<a$ are convex. Since $g:=f_h$ is $L$-Lipschitz, $g(\xi_{z_t})\le g(\xi_x)+L(1-t)|\xi_x-\xi_y|\le g(\xi_x)+L(1-t)\tfrac98a$. Hence
+\[
+\eta_{z_t}-g(\xi_{z_t})\ge t\bigl(\eta_x-g(\xi_x)\bigr)+(1-t)\bigl(\tfrac58a-b_0-\tfrac98La\bigr)=t\bigl(\eta_x-g(\xi_x)\bigr)+(1-t)\tfrac a5>0 .
+\]
+Also $\overline{B_j}\subset U_j^h$, since $\frac58a>b_0$ and $\frac78a<a$. Finally $\diam U_j^h\le2\sqrt2a$.
+\end{enumerate}
+
+\emph{Interior pieces.} Let $\Omega_\ast:=\{x\in\Omega:\dist(x,\Gamma)>a/4\}$. It is independent of $h$, and $\Omega_\ast\subset\Oh$ for $\hG\le h_\ast$. It is connected: the map $\Psi(s,d)\mapsto\Psi(s,\frac a4+(1-\frac a{4r})d)$ on $\{0<d<r\}$, extended by the identity, is a homeomorphism $\Omega\to\Omega_\ast$. It is a bounded Lipschitz domain (its boundary is $\Sigma$ together with the $C^2$ parallel curves $\{d=a/4\}$). By \cite[Lemma~II.1.3]{Galdi} it is a finite union $\Omega_\ast=\bigcup_{l=1}^{N_2}V_l$ of domains, each star-shaped with respect to every point of a ball. Since $\Omega_\ast$ is connected, the intersection graph of $\{V_l\}$ is connected. List the $V_l$ in the reverse of a breadth-first order from a root; then each $V_l$ except the last meets a later one in a nonempty open set. All of this is $h$-independent.
+
+\emph{Covering.} If $x\in\Oh$ and $\dist(x,\Gamma)\ge a/2$, then $x\in\Omega_\ast$. If $\dist(x,\Gamma)<a/2$, write $x=\pi(x)+dN$ with $\pi(x)$ within arclength $a/4$ of some $y_j$. In the frame at $y_j$, $|\xi_x|\le\frac a4+\frac a2\cdot\frac15<a$ and $|\eta_x|\le\frac a5+\frac a2<a$, so $x\in U_j^h$. Hence $\Oh=\bigcup_jU_j^h\cup\bigcup_lV_l$.
+
+\emph{Overlaps.} Order the chart pieces first, then the $V_l$. Then $U_j^h\cap D_j\supset U_j^h\cap\Omega_\ast\supset y_j+\{|\xi|<\frac a2,\ \frac a2<\eta<a\}$. These points are above $f_h$, lie in $\Omega$, and are at distance $\ge(\frac a2-b_0)/\sqrt{1+L^2}>\frac a4$ from the graph part of $\Gamma$, and at distance $>\frac a4$ from $\Gamma\setminus Q'_j$. So $|A_j|\ge a^2/2$. The overlaps among the $V_l$ are fixed positive numbers. Take $N=N_1+N_2$, $r_\ast=\min(a/8,\text{radii of the }V_l)$, $d_\ast=\max(2\sqrt2a,\diam V_l)$ and $m_\ast$ the minimum overlap.
+\end{proof}
+
+\begin{lemma}[Uniform inf-sup constant; replaces \Pref{Lemma 4.5}]\label{gd:lem:infsup}
+The statement of \Pref{Lemma 4.5} holds on $\Oh$, with $\beta$ depending only on $k$, $\Theta_0$, shape regularity and $\Omega$.
+\end{lemma}
+
+\begin{proof}
+As in \Pref{Lemma 4.5}, the Guzm\'an--Scott argument \cite{GuzmanScott2019} depends on the domain only through the continuous inf-sup (Bogovski\u{\i}) constant and a Poincar\'e constant. The latter is uniform by Lemma~\ref{gd:lem:korn}, the former by Lemmas~\ref{gd:lem:bog} and~\ref{gd:lem:cover}. The wedge cover and the hypothesis $P_h\subset D$ of the paper are no longer used.
+\end{proof}
+
+\subsection{Approximation}
+\emph{\Pref{Lemma 4.6} and the remark after it} hold verbatim with $\partial R\to\Sigma$, $\nu$ the outward normal of $\Omega$ on $\Sigma$, and $m_R:=\int_\Sigma\gI\cdot\nu$. The only domain facts used are:
+\begin{itemize}
+\item $\ut\in W^{k+1,\infty}(\Oh)$ (Lemma~\ref{gd:lem:ext});
+\item boundary triangles have diameter $\le C\hG$;
+\item $\int_{\Gh}\ut\cdot n=\int_{\partial\Oh}\ut\cdot n-\int_\Sigma g\cdot\nu=\int_{\Oh}\div\ut-0=0$;
+\item the edge-bubble field $b=\sum_{e\in\EG}\beta_en_e$ over all components;
+\item Lemma~\ref{gd:lem:infsup}.
+\end{itemize}
+
+%======================================================================
+\section{Changes to Section 5 (error equation); the flux structure}\label{gd:sec:err}
+
+\Pref{Lemma 5.1} holds verbatim. Its proof integrates by parts on the polygon $\Oh$, where $\ut\in C^2(\overline\Oh)$, $\pt\in C^1(\overline\Oh)$ and $v=0$ on $\Sigma$. Nothing requires $\Omega\subset\Oh$. \Pref{Lemma 5.2} holds verbatim by Lemmas~\ref{gd:lem:ext} and~\ref{gd:lem:transposed}.
+
+For $v\in\VR$ put $\Phi_i(v):=\int_{\Gamma_{h,i}}v\cdot n$.
+
+\begin{lemma}[Fluxes]\label{gd:lem:flux}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+\item For $v\in\Zh$, $\sum_{i=1}^m\Phi_i(v)=0$.
+\item If $m\ge2$ and $\hG,h\le h_\ast$ (with (R2) available for the construction, i.e.\ $\Gamma\in C^{k+3}$), then $v\mapsto(\Phi_i(v))_i$ maps $\Zh$ \emph{onto} $\{x\in\R^m:\sum_ix_i=0\}$. In particular individual fluxes of $\Zh$ functions do not vanish.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $0=\int_{\Oh}\div v=\int_{\Gh}v\cdot n$, since $v=0$ on $\Sigma$.
+(b) Given $\alpha\in\R^m$ with $\sum_i|\Gamma_i|\alpha_i=0$, Lemma~\ref{gd:lem:w} below, applied with $q:=\alpha_i$ on $\Gamma_i$ (which is $C^\infty$ on $\Gamma$, the components being disjoint, and has $\int_\Gamma q=0$), and Lemma~\ref{gd:lem:curlint} give $v_\alpha\in\Zh$ with $v_\alpha=\alpha_iN+O(\hG^2+h^k)$ on $\Gamma_{h,i}$. By Lemma~\ref{gd:lem:chords}(b) and (c), $\Phi_i(v_\alpha)=-|\Gamma_i|\alpha_i+O(\hG^2+h^k)|\alpha|$. The map $\alpha\mapsto(\Phi_i(v_\alpha))_i$ is linear from an $(m-1)$-dimensional space into the hyperplane, and it is a small perturbation of the isomorphism $\alpha\mapsto(-|\Gamma_i|\alpha_i)_i$. So it is onto for small $h$.
+\end{proof}
+
+\begin{corollary}[$\GS$ on $\Zh$; replaces \Pref{Corollary 5.3}]\label{gd:cor:GSerr}
+For $v\in\Zh$ and every constant $c\in\R$,
+\[
+N_h(\ut-u_h,v)=\Rc(v)+\Gc(v),\qquad\Rc(v):=-\ip{\pt-c}{v\cdot n}_{\Gh}.
+\]
+The freedom is \emph{one global} constant. For piecewise constants $c_i$ on $\Gamma_{h,i}$,
+\[
+-\ip{\pt-\textstyle\sum_ic_i\mathbf 1_{\Gamma_{h,i}}}{v\cdot n}=\Rc(v)+\sum_i(c_i-c)\Phi_i(v),
+\]
+and the last sum is not zero on $\Zh$ when $m\ge2$ and the $c_i$ are not all equal (Lemma~\ref{gd:lem:flux}(b)).
+\end{corollary}
+
+\begin{proof}
+As in \Pref{Corollary 5.3}, using only Lemma~\ref{gd:lem:flux}(a).
+\end{proof}
+
+%======================================================================
+\section{Changes to Section 6: the test field and the printed method}\label{gd:sec:test}
+
+\subsection{The test field}
+The paper's $\varphi=\chi_1(r)\int_0^\theta(p-\pbar)$ generalises, per component, to $\chi(d)\int_0^s(q-\bar q_i)$. This is single-valued only with the \emph{per-component} mean. Since the correct constant is global (Corollary~\ref{gd:cor:GSerr}), $w$ must carry the net fluxes $-|\Gamma_i|\bar q_i$ through the $\Gamma_i$. Such a $w$ has no global stream function, and the construction below replaces $\varphi$.
+
+\begin{lemma}[Test field]\label{gd:lem:w}
+Assume (R2), and let $q\in C^{k+1}(\Gamma)$ with $\int_\Gamma q=0$. There is $w\in C^{k+1}(\mathcal O')^2$ with:
+\begin{enumerate}[label=(\alph*)]
+\item $w=0$ on $\Omega\cap\mathcal N_\Sigma$ for a neighbourhood $\mathcal N_\Sigma$ of $\Sigma$; extended by $0$ to $\mathcal N_\Sigma\setminus\Omega$, $w$ is defined on $\mathcal O':=\mathcal O\cup\mathcal N_\Sigma$ (an open neighbourhood of $\overline\Omega$) and $\div w=0$ there;
+\item $w=q\,N=-q\,n$ on $\Gamma$;
+\item $\norm{w}_{W^{1,\infty}(\mathcal T_{r/8})}\le C\norm{q}_{W^{1,\infty}(\Gamma)}$, $\norm{\nabla w}_{L^2(\Omega)}\le C\norm q_{W^{1,\infty}(\Gamma)}$, and $\norm{w}_{W^{k+1,\infty}}\le C\norm{q}_{C^{k+1}(\Gamma)}$.
+\end{enumerate}
+If $m=1$, or more generally if all $\bar q_i=0$, then $w=-\curl\bigl(\chi(d)Q_i(\sigma)\bigr)$ near $\Gamma_i$, which is the paper's construction.
+\end{lemma}
+
+\begin{proof}
+Let $\chi$ be as in Lemma~\ref{gd:lem:korn} (so $\chi=1$ on $(-r,r/8]$, $\chi=0$ on $[r/4,r)$), and $Q_i(s):=\int_0^s(q-\bar q_i)$, which is $|\Gamma_i|$-periodic. On $\Psi(\Gamma_i\times(-r,r))$ set
+\[
+w_0:=\frac{\chi(d)\,q(\sigma)}{J}\,N\circ\pi-\chi'(d)\,Q_i(\sigma)\,T\circ\pi ,
+\]
+and $w_0:=0$ elsewhere in $\mathcal O$. By \eqref{gd:eq:divnormal},
+\[
+\div w_0=\frac1J\bigl(\chi'q-\chi'(q-\bar q_i)\bigr)=\frac{\chi'(d)\,\bar q_i}{J}=:g_0\quad\text{on }U_i .
+\]
+Here $g_0$ is supported in the bands $B_i:=\Psi(\Gamma_i\times[r/8,r/4])\subset\Omega$, and
+\[
+\int g_0=\sum_i\bar q_i|\Gamma_i|\int_0^r\chi'=-\sum_i|\Gamma_i|\bar q_i=-\int_\Gamma q=0 .
+\]
+Write $g_0=\sum_{i<m}\bar q_i\,g^{(i)}$ with $g^{(i)}:=\chi'(d_i)/J-(|\Gamma_i|/|\Gamma_m|)\chi'(d_m)/J$, where $d_j$ is the signed distance to $\Gamma_j$. These are $m-1$ fixed, $h$-independent, compactly supported mean-zero functions in $C^{k+1}$ (since $\Gamma\in C^{k+3}$ gives $J\in C^{k+1}$).
+
+Let $K\Subset\Omega$ be a connected finite union of open balls with closures in $\Omega$ containing $\bigcup_iB_i$. It exists because $\bigcup B_i$ is compact and $\Omega$ is path-connected: join the balls covering the bands by finite chains of balls along paths. A tree argument on the intersection graph of the balls writes each $g^{(i)}$ as a finite sum of mean-zero functions in $C^{k+1}_c$ of single balls: use a smooth partition of unity subordinate to the balls, and transfer masses along tree edges with fixed bumps in $C^\infty_c(B\cap B')$. Bogovski\u{\i}'s operator on each ball maps $W^{s,p}_0$ to $W^{s+1,p}_0$ for all $s\ge0$, $1<p<\infty$ \cite[Thm.~III.3.3]{Galdi}. This gives $w^{(i)}\in W^{k+2,p}_0(K)\subset C^{k+1}_c(K)$ ($p>2$) with $\div w^{(i)}=g^{(i)}$.
+
+Set $w:=w_0-\sum_{i<m}\bar q_i\,w^{(i)}$. Then:
+\begin{itemize}
+\item (a) holds, since $w_0$ vanishes outside the collars and $K\Subset\Omega$.
+\item (b): at $d=0$, $\chi=1$, $\chi'=0$ and $J=1$, and $w^{(i)}=0$ near $\Gamma$.
+\item (c): on $\mathcal T_{r/8}$ only the first term of $w_0$ is present, with $W^{1,\infty}$ norm $\le C\norm q_{W^{1,\infty}}$. On the bands $|Q_i|\le|\Gamma_i|\,\norm q_\infty$, and $|\bar q_i|\le\norm q_\infty$. The regularity count is: $N\circ\pi,T\circ\pi,\sigma\in C^{k+2}$, $J\in C^{k+1}$, $q\circ\sigma\in C^{k+1}$.\qedhere
+\end{itemize}
+\end{proof}
+
+\begin{lemma}[Discrete curl of a divergence-free field]\label{gd:lem:curlint}
+Let $\mathcal O'$ be an open neighbourhood of $\overline\Omega$, and let $w\in W^{k+1,\infty}(\mathcal O')^2$ be divergence-free and vanish on a neighbourhood of $\Sigma$. For $T\in\Th$ let $B_T\subset\mathcal O'$ be an open disk of radius $2h$ containing $\overline T$. It exists for $h\le h_\ast$, since $\overline\Oh\subset\overline\Omega\cup\{|d|\le C\hG^2\}$ lies in a fixed compact subset of $\mathcal O'$. Let $\varphi_T$ be a stream function of $w$ on $B_T$ ($w=\curl\varphi_T$), and define
+\[
+v_w|_T:=\curl\bigl(\Pi_{k+1}^T\varphi_T\bigr),
+\]
+where $\Pi^T_{k+1}$ is the element restriction of the $C^1$ piecewise-$P_{k+1}$ nodal interpolant of \cite{MorganScott1975} (Argyris for $k=4$), whose degrees of freedom on $T$ are functionals of the jet of the function on $\overline T$. Then $v_w$ is well defined, $v_w\in\Zh$, and
+\[
+\norm{v_w-w}_{W^{1,\infty}(T)}\le Ch_T^k|w|_{W^{k+1,\infty}(B_T)}.
+\]
+If $w=\curl\varphi$ globally, then $v_w=\curl\Pi_{k+1}\varphi$ is the paper's $v_\varphi$.
+\end{lemma}
+
+\begin{proof}
+\emph{Well defined.} Two stream functions on $B_T$ differ by a constant, and $\Pi^T_{k+1}$ is linear and reproduces constants.
+
+\emph{Continuity.} Let $T,T'$ share an edge $e$, and let $B\subset\mathcal O'$ be a disk containing $T\cup T'$ with stream function $\varphi_B$. On the connected set $B\cap B_T$, $\varphi_T-\varphi_B$ is constant, so $\curl\Pi^T_{k+1}\varphi_T=\curl\Pi^T_{k+1}\varphi_B$ on $T$, and likewise on $T'$. The global interpolant of $\varphi_B$ on $T\cup T'$ is $C^1$ across $e$. So the two curls agree on $e$.
+
+\emph{$v_w\in\Zh$.} $v_w$ is a curl elementwise, so $\div v_w=0$. If $\overline T$ meets $\Sigma$, then $T$ lies in the neighbourhood where $w=0$ (for $h$ small), $\varphi_T$ is constant and $v_w|_T=0$. So $v_w=0$ on $\Sigma$.
+
+\emph{Error.} $\norm{\curl(\Pi^T_{k+1}\varphi_T-\varphi_T)}_{W^{1,\infty}(T)}\le Ch_T^k|\varphi_T|_{W^{k+2,\infty}(T)}=Ch_T^k|w|_{W^{k+1,\infty}(T)}$ by the local interpolation estimate for $\Pi_{k+1}$ (constants depending on (M0), (M2) as in the paper).
+\end{proof}
+
+\begin{definition}[General test field]\label{gd:def:vphi}
+Assume (R2). With $q=p-\pbar$ (Definition~\ref{gd:def:G}), let $w$ be the field of Lemma~\ref{gd:lem:w} and $v_\varphi:=v_w\in\Zh$ from Lemma~\ref{gd:lem:curlint}. Then $\norm{v_\varphi-w}_{W^{1,\infty}(\Oh)}\le Ch^k$, and on $\Gamma$, $w=(p-\pbar)N=-(p-\pbar)n$, exactly as in the paper.
+\end{definition}
+
+The following pointwise facts on a chord $e$ replace the uses of ``$n(x^\ast)=e_r$'' in \Pref{Section 6}. They follow from Lemma~\ref{gd:lem:chords}, $|x-x^\ast|\le C\hG^2$, and $w\in W^{1,\infty}$:
+\begin{equation}\label{gd:eq:chordfacts}
+\begin{aligned}
+v_\varphi\cdot n_e&=-q(x^\ast)+O(\hG^2+h^k),\\
+v_\varphi\cdot\tau_e&=O(\norm q_\infty\kapi\hG)+O(\hG^2+h^k),\\
+(\pt-\pbar)(x)\,n_e+v_\varphi(x)&=-q(m_e^\ast)\kap_e\,t\,\tau_e+O(\hG^2+h^k).
+\end{aligned}
+\end{equation}
+For the third: $(\pt-\pbar)(x)=q(x^\ast)+O(\hG^2)$, $v_\varphi(x)=q(x^\ast)N(x^\ast)+O(\hG^2+h^k)=-q(x^\ast)n(x^\ast)+\dots$, then Lemma~\ref{gd:lem:chords}(b) and $q(x^\ast)\kap(x^\ast)=q(m_e^\ast)\kap_e+O(\ell)$. Also, by Lemma~\ref{gd:lem:chords}(c),
+\begin{equation}\label{gd:eq:normG}
+\norm{\pt-\pbar}_{L^2(\Gh)}\le G(1+C\hG^2)+C\hG^2,\qquad\norm{v_\varphi}_{L^2(\Gh)}=G(1+O(\hG^2))+O(h^k).
+\end{equation}
+
+\subsection{The theorems}
+\begin{theorem}[\Pref{Theorem 6.1} on general domains]\label{gd:thm:A}
+Under Assumptions~\ref{gd:ass:domain}, \ref{gd:ass:poly}, (M0)--(M2), (D) and (R1), the upper bound of \Pref{Theorem 6.1} holds with $G$ of Definition~\ref{gd:def:G}. If in addition (R2) holds, the lower bound holds as stated. \Pref{Corollary 6.2} follows as in the paper.
+\end{theorem}
+
+\begin{proof}
+\emph{Upper bound.} Verbatim, with $c=\pbar$ in Corollary~\ref{gd:cor:GSerr} and \eqref{gd:eq:normG}: $|\Rc(e_h)|\le(G+C\hG^2)(h/\mu)^{1/2}\tnorm{e_h}$.
+
+\emph{Lower bound.} Use $v_\varphi$ of Definition~\ref{gd:def:vphi}. Step 1 becomes: by \eqref{gd:eq:chordfacts} and Lemma~\ref{gd:lem:chords}(c),
+\[
+\Rc(v_\varphi)=\ip{\pt-\pbar}{q\circ\pi}_{\Gh}+O(\hG^2+h^k)=\int_\Gamma q^2+O(\hG^2+h^k)=G^2+O(\hG^2+h^k).
+\]
+Step 2 uses \eqref{gd:eq:normG} and $\norm{\nabla v_\varphi}+\bigl(\sum_e|e|\norm{\dn v_\varphi}_{L^2(e)}^2\bigr)^{1/2}\le C$ (Lemma~\ref{gd:lem:w}(c)). Steps 3--4 are verbatim.
+\end{proof}
+
+\begin{theorem}[\Pref{Theorem 6.4} on general domains]\label{gd:thm:C}
+Under the assumptions of Theorem~\ref{gd:thm:A} including (R2), with $C_p=C(1+\norm{p-\pbar}_{W^{1,\infty}(\Gamma)})$ ($\pbar$ global),
+\[
+\norm{\nabla(\ut-u_h)}\le C_p(\hG/\gamma)+C\bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\bigr].
+\]
+\end{theorem}
+
+\begin{proof}
+Steps 1, 2 and 6 are verbatim. Step 3: $S_h:=v_\varphi$ of Definition~\ref{gd:def:vphi}.
+
+Step 4: by the third line of \eqref{gd:eq:chordfacts}, on each $e$,
+\[
+(\pt-\pbar)n_e+S_h=b_e\,t+O(\hG^2+h^k),\qquad b_e:=-q(m_e^\ast)\kap_e\tau_e\ \text{ constant on }e,\ |b_e|\le\norm q_\infty\kapi .
+\]
+The argument of Lemma~\ref{gd:lem:transposed} gives $|m(v)|\le C_p(\hG^{3/2}+h^k)\norm{\nabla v}$.
+
+Step 5: $|a_h(S_h,v)|+|\ip{\dn S_h}{v}|\le C_p\norm{\nabla v}$ by Lemma~\ref{gd:lem:w}(c) and Lemma~\ref{gd:lem:korn}. For $\ip{S_h}{\dn v}$ apply \Pref{Lemma 6.3} to $S=w|_{\Gh}$. Its hypotheses hold:
+\begin{itemize}
+\item $w$ is continuous, and edgewise $W^{1,\infty}$ with $\norm{\nabla w}_{L^\infty(\mathcal T_{r/8})}\le C\norm q_{W^{1,\infty}}$;
+\item $|w\cdot\tau_e|\le C\norm q_{W^{1,\infty}}\hG$ by the second line of \eqref{gd:eq:chordfacts} (applied to $w$);
+\item in step 3 of \Pref{Lemma 6.3}, $|\sigma_{e'}\tau_{e'}-\sigma_e\tau_e|\le|w(x)|\,(|n_{e'}-n_e|+|\tau_{e'}-\tau_e|)\le C\norm q_\infty\kapi(|e|+|e'|)$ by Lemma~\ref{gd:lem:chords}(d);
+\item the other steps of \Pref{Lemma 6.3} are local and use only $\div v=0$ and (M0).
+\end{itemize}
+The remainder $\ip{S_h-w}{\dn v}$ is bounded as in the paper.
+\end{proof}
+
+\begin{theorem}[\Pref{Theorem 6.6} on general domains]\label{gd:thm:B}
+Under the assumptions of Theorem~\ref{gd:thm:C}, \Pref{Theorem 6.6} holds verbatim with the global $G$.
+\end{theorem}
+
+\begin{proof}
+In (i), item 1 is Theorem~\ref{gd:thm:A}, step 1. For item 2, on $e$ we have $\ut(x)=\ut(x^\ast)+d(x)\,\partial_N\ut(x^\ast)+O(d^2)=-d(x)\,\dn u(x^\ast)+O(\hG^4)$. This is tangential up to $O(\hG^4)$, by $\dn u\cdot n=0$ (\Pref{Lemma 3.4}), while $v_\varphi(x)=q(x^\ast)N(x^\ast)+O(\hG^2+h^k)$. Hence $\ut\cdot v_\varphi=O(\hG^4+\hG^2h^k)$ as in the paper. Items 3--5 are verbatim. In (ii), the lift $E$ of $(g-\gI)|_\Sigma$ is supported near $\Sigma$, where $\Oh=\Omega$.
+\end{proof}
+
+\begin{corollary}[\Pref{Corollary 6.7} on general domains]\label{gd:cor:Bp}
+Under the assumptions of Theorem~\ref{gd:thm:C}, \Pref{Corollary 6.7} holds verbatim, with $v_\varphi$ of Definition~\ref{gd:def:vphi} and the global $G$. To leading order the printed method imposes the leak condition $(\mu/h)\,u_h\cdot n\approx p-\pbar$ with $\pbar$ the mean of $p$ over \emph{all} curved components. In particular, the discrete flow carries the net volume flux $\approx-(h/\mu)|\Gamma_i|(\bar p_i-\pbar)$ through $\Gamma_{h,i}$ (Lemma~\ref{gd:lem:flux}).
+\end{corollary}
+
+\begin{proof}
+Step 4 of the paper's proof is \eqref{gd:eq:normG}. The rest is verbatim.
+\end{proof}
+
+\begin{proposition}[The constant is global]\label{gd:prop:Gglobal}
+Let $m\ge2$. No estimate $\tnorm{\ut-u_h}\le C[(h/\mu)^{1/2}G_{\rm per}+(1+\gamma^{1/2})\hG^{3/2}+\eps]$ can hold. Take $u=0$, $g=0$, $\pt$ any smooth function with $\pt|_{\Gamma_i}\equiv c_i$ (not all equal), and $\ft:=\nabla\pt$, so that $f=\nabla p$. Then $G_{\rm per}=0$, $F=0$, $\Gc\equiv0$ and $\eps=0$, but for $h\le h_0(G)$
+\[
+\tnorm{u_h}\ge(2M)^{-1}(h/\mu)^{1/2}G,\qquad G^2=\sum_i|\Gamma_i|(c_i-\bar c)^2>0,\quad\bar c=\frac{\sum_i|\Gamma_i|c_i}{|\Gamma|}.
+\]
+\end{proposition}
+
+\begin{proof}
+Theorem~\ref{gd:thm:A}, lower bound, with $\ut=0$ (so $E_h=0$: take $z=0\in\Wh$) and $\Gc\equiv0$. Here $q$ is piecewise constant, so (R2) reduces to $\Gamma\in C^{k+3}$.
+\end{proof}
+
+%======================================================================
+\section{Changes to Section 7: the pressure-consistent method}\label{gd:sec:D}
+
+\Pref{Proposition 7.1} holds verbatim: for $v\in\VR$, $-(1,\div v)+\ip1{v\cdot n}_{\Gh}=-\int_\Sigma v\cdot n=0$.
+
+More generally, for a linear functional $\ell$ on $\Pih+\R$ with $\ell(1)=1$, let $\CNS_\ell$ be $\CNS$ with $\pbG$ replaced by $\ell$:
+\[
+B_\ell(q,v):=-(q,\div v)+\ip{q-\ell(q)}{v\cdot n}_{\Gh}.
+\]
+$\CNS=\CNS_\ell$ with $\ell=\pbG$ (global boundary mean). Extend $\ell$ to $\pt$ by the same formula.
+
+\begin{theorem}[\Pref{Theorem 7.2} on general domains]\label{gd:thm:D}
+Under Assumptions~\ref{gd:ass:domain}, \ref{gd:ass:poly}, (M0)--(M2), (D) and (R1), and for any such $\ell$, \Pref{Theorem 7.2} holds verbatim for $\CNS_\ell$ (with $\beta$ from Lemma~\ref{gd:lem:infsup}). In particular one global correction suffices for well-posedness and for the rate $\hG^{3/2}+\hO^k$, for any number $m$ of curved components.
+\end{theorem}
+
+\begin{proof}
+We go through the steps of \Pref{Theorem 7.2}.
+\begin{enumerate}
+\item \emph{Consistency.} For $c\in\R$, $B_\ell(q+c,v)=B_\ell(q,v)-c\int_{\Gh}v\cdot n$, because $\int_{\Oh}\div v=\int_{\Gh}v\cdot n$ for $v\in\VR$. With $p^\ast:=\pt-\ell(\pt)$,
+\[
+B_\ell(p^\ast,v)=-(\pt,\div v)+\ip{\pt}{v\cdot n}+\ell(\pt)\Bigl(\int_{\Oh}\div v-\int_{\Gh}v\cdot n\Bigr)=-(\pt,\div v)+\ip{\pt}{v\cdot n},
+\]
+which is the pressure form of \Pref{Lemma 5.1}. So \Pref{eq.~(1)} holds for all $v\in\VR$.
+\item \emph{Split.} Verbatim.
+\item \emph{Pressure.} Verbatim: $v\in\VO$ vanishes on all of $\Gh$, and Lemma~\ref{gd:lem:infsup} applies.
+\item \emph{Velocity.} $B_\ell(e_p,e_h)=\ip{e_p}{e_h\cdot n}-\ell(e_p)\sum_i\Phi_i(e_h)=\ip{e_p}{e_h\cdot n}$ by Lemma~\ref{gd:lem:flux}(a). Also $\ip{\bar\xi}{e_h\cdot n}=\bar\xi\sum_i\Phi_i(e_h)=0$. Only the \emph{total} flux enters, never the individual $\Phi_i$. The rest is verbatim.
+\item \emph{Absorb.} Verbatim.
+\item \emph{Uniqueness} (Proposition~\ref{gd:prop:kernel}).\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}[Kernel analysis]\label{gd:prop:kernel}
+For $\gamma\ge\gamma_2$, the homogeneous $\CNS_\ell$ system ($\gI=0$, $\ft=0$) has only the trivial solution. Hence $\CNS_\ell$ is uniquely solvable for every $m\ge1$.
+\end{proposition}
+
+\begin{proof}
+Let $(u_h,p_h)$ solve the homogeneous system. By \Pref{Lemma 4.3} $u_h\in\Zh$, and steps 3--5 with $z=0$, $\ut=0$, $\pt=0$ (so $\Gc=0$, $E_h=0$, $\eta=0$) give $u_h=0$. Step 3 then gives $\norm{p_h-\bar p_h}=0$, where $\bar p_h$ is the mean over $\Oh$. Since $\Oh$ is connected (Lemma~\ref{gd:lem:korn}), $p_h\equiv c$. Then for all $v\in\VR$,
+\[
+0=B_\ell(c,v)=-c\int_{\Oh}\div v+(c-c\,\ell(1))\int_{\Gh}v\cdot n=-c\int_{\Gh}v\cdot n .
+\]
+The edge bubble $b=\beta_en_e$ on any single $e\in\EG$ has $\int_{\Gh}b\cdot n\ne0$, so $c=0$. The system is square, so uniqueness gives existence.
+\end{proof}
+
+\begin{remark}[The velocity does not depend on $\ell$]\label{gd:rem:ell}
+If $(u_h,p_h)$ solves $\CNS_\ell$ and $\ell'$ is another normalisation, then $(u_h,p_h+c)$ with $c:=\ell(p_h)-\ell'(p_h)$ solves $\CNS_{\ell'}$. Indeed,
+\[
+B_{\ell'}(p_h+c,v)=-(p_h,\div v)-c\int_{\Gh}v\cdot n+\ip{p_h-\ell'(p_h)}{v\cdot n}=B_\ell(p_h,v),
+\]
+and the continuity row does not involve $\ell$. So the correction term only removes the kernel vector $(0,1)$ of \Pref{Proposition 7.1}. Using the global boundary mean, the domain mean, or a single point value gives the same discrete velocity, and pressures differing by a constant.
+\end{remark}
+
+\begin{remark}[Per-component correction is inconsistent]\label{gd:rem:percomp}
+Let $m\ge2$ and replace $\ip{q-\pbG(q)}{v\cdot n}$ by $\sum_i\ip{q-\ell_i(q)}{v\cdot n}_{\Gamma_{h,i}}$ with $\ell_i(q):=|\Gamma_{h,i}|^{-1}\int_{\Gamma_{h,i}}q$. This is \emph{not} of the form $\CNS_\ell$. For $v\in\VR$,
+\[
+B_{\rm per}(q,v)=B_{\pbG}(q,v)-\sum_i\bigl(\ell_i(q)-\pbG(q)\bigr)\Phi_i(v).
+\]
+Adding a constant to $q$ does not change the sum, so no choice of pressure constant makes the exact pair consistent. The residual on $\Zh$ is
+\[
+\mathcal I(v)=\sum_i\bigl(\ell_i(\pt)-\pbG(\pt)\bigr)\Phi_i(v)=\sum_i(\bar p_i-\pbar)\Phi_i(v)+O(\hG^2)\norm{v}_{L^1(\Gh)} .
+\]
+Test with $v=v_\alpha$ from the proof of Lemma~\ref{gd:lem:flux}(b), $\alpha_i:=\bar p_i-\pbar$, $A^2:=\sum_i|\Gamma_i|\alpha_i^2$. Then $\mathcal I(v_\alpha)=-A^2+O(\hG^2+h^k)A^2$, and $\tnorm{v_\alpha}\le(\mu/h)^{1/2}A(1+o(1))+CA$ (using $|\alpha|\le CA$). Hence, if $A>0$, the dual norm of $\mathcal I$ with respect to $\tnorm\cdot$ is at least $c\,(h/\mu)^{1/2}A$ for $h\le h_0$, because $h/\mu=\hG/\gamma\le\hG/\gamma_0$ is small. We do \emph{not} prove that the discrete error of the per-component method is actually of this size. Unlike $\GS$, its pressure does not drop out on $\Zh$, so the lower-bound argument of Theorem~\ref{gd:thm:A} does not apply directly. It is, however, not a consistent method of order $\hG^{3/2}$ when the component means of $p$ differ. The per-component method \emph{is} uniquely solvable for $\gamma$ large: the extra term is absorbed in step 4 like $\ip{\xi-\bar\xi}{e_h\cdot n}$, since $|\ell_i(\xi-\bar\xi)|\le|\Gamma_{h,i}|^{-1/2}\norm{\xi-\bar\xi}_{\Gamma_{h,i}}$, and the kernel argument of Proposition~\ref{gd:prop:kernel} goes through.
+\end{remark}
+
+%======================================================================
+\section{Section 8 and the numerics}
+\Pref{Proposition 8.1} is local to a boundary star and uses only that the angle of $\Oh$ at a vertex of $\Gh$ is $\pi+O(\hG)$, which is Lemma~\ref{gd:lem:graph}(a). It holds verbatim. No computations have been run for general domains.
+
+%======================================================================
+\section{Summary of dependencies}
+\begin{itemize}
+\item $\Gamma\in C^3$, $\Sigma\ne\emptyset$, $\Omega$ connected: Lemmas~\ref{gd:lem:chords}--\ref{gd:lem:transposed}, Section~\ref{gd:sec:discrete}, \Pref{Lemmas 5.1--5.2}, Theorem~\ref{gd:thm:A} (upper bound), Theorem~\ref{gd:thm:D}.
+\item Additionally (R2) ($\Gamma\in C^{k+3}$, $p|_\Gamma\in C^{k+1}$): everything using $v_\varphi$, namely the lower bound in Theorem~\ref{gd:thm:A}, Theorems~\ref{gd:thm:C} and~\ref{gd:thm:B}, Corollary~\ref{gd:cor:Bp}, Lemma~\ref{gd:lem:flux}(b), Proposition~\ref{gd:prop:Gglobal}, and the lower bound in Remark~\ref{gd:rem:percomp}.
+\item New geometric constants: $\norm{\kap}_{C^1}$, the tube radius $r$, the graph scale $a_0$, and the $h$-independent cover of Lemma~\ref{gd:lem:cover}. The discrete constants $C_I,c_1,M,\gamma_0,\gamma_2$ depend on these only through $\kappa$ and $\beta$.
+\item Inherited without re-proof, exactly as in the paper: the reduction of the Guzm\'an--Scott discrete inf-sup constant to the continuous one plus a Poincar\'e constant, and the local nodal structure and interpolation estimate of the Morgan--Scott $C^1$ interpolant.
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem[P]{P} J.~S.~Padhi, \emph{Scott--Vogelius--Nitsche on a polygonally approximated boundary}, \texttt{paper/main.tex}, branch \texttt{v3-draft}.
+\bibitem{Galdi} G.~P.~Galdi, \emph{An Introduction to the Mathematical Theory of the Navier--Stokes Equations. Steady-State Problems}, 2nd ed., Springer, 2011.
+\bibitem{GuzmanScott2019} J.~Guzm\'an and L.~R.~Scott, The Scott--Vogelius finite elements revisited, \emph{Math.\ Comp.} 88 (2019), 515--529.
+\bibitem{MorganScott1975} J.~Morgan and R.~Scott, A nodal basis for $C^1$ piecewise polynomials of degree $n\ge5$, \emph{Math.\ Comp.} 29 (1975), 736--740.
+\end{thebibliography}
+
+\end{document}

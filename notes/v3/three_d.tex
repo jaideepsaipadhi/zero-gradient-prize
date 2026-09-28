@@ -1,0 +1,273 @@
+% notes/v3/three_d.tex
+% Three-dimensional analogue of Theorems A--D (Stokes) and of Section ns: (Navier--Stokes).
+% Written to be \input after the paper's sections and notes/v3/navier_stokes.tex.
+% All labels in this file start with "td:".
+
+\providecommand{\FG}{\mathcal F_h^\Gamma}
+\providecommand{\epsd}{\varepsilon_h^{(3)}}
+
+\section{Three dimensions}\label{td:sec}
+
+This section asks which of Theorems~\ref{thm:A}--\ref{thm:D}, Corollary~\ref{cor:Bp}, Proposition~\ref{prop:penalty} and Section~\ref{ns:sec} survive when the curved wall is a surface approximated by an inscribed triangulated polyhedron. The answer (Theorem~\ref{td:main}) is that all of them carry over, with the same rates, under one stability hypothesis, (IS3). (IS3) is known unconditionally only for split meshes (Alfeld/barycentric, $k\ge3$). Three things change:
+\begin{itemize}
+\item the odd-in-$s$ cancellation of Lemma~\ref{lem:transposed} fails on non-equilateral faces (Lemma~\ref{td:faces}(d));
+\item the vertex terms of Lemma~\ref{lem:cancel} become edge terms (Lemma~\ref{td:cancel});
+\item the Morgan--Scott stream-function construction of $v_\varphi$ is replaced by an interpolate-and-correct construction (Lemma~\ref{td:vphi}).
+\end{itemize}
+The first change turns out to be harmless, because the error analysis only needs a penalty-weighted bound (Lemma~\ref{td:G}); this is also true in 2D. The necessity half of Proposition~\ref{prop:penalty} is not proved in 3D.
+
+\subsection{Setting}\label{td:setting}
+Let $R=(-L,L)^3$ with $L>1$, let $D$ be the open unit ball, $\Omega=R\setminus\overline D$ and $\Gamma=\partial D$. Let $P_h$ be a convex polyhedron with triangular faces whose vertices lie on $\Gamma$. Then $P_h\subset D$ and $\Omega\subset\Oh:=R\setminus P_h$. $\Th$ is a conforming tetrahedral mesh of $\Oh$, and $\FG$ is its set of faces on $\Gh=\partial P_h$. For simplicity we assume that each $F\in\FG$ is a whole face of $P_h$ (this holds for an Alfeld refinement of such a mesh; for splits that subdivide boundary faces see Remark~\ref{td:wf}). Put
+\[
+h:=\max_T\diam T,\qquad \hG:=\max_{F\in\FG}\diam F,\qquad \rho:=h/\min_{F\in\FG}\diam F,\qquad \gamma:=\mu\hG/h .
+\]
+The spaces $\Vh,\VR,\VO,\Pih,\Zh,\Wh$, the forms $a_h,N_h$, and the methods $\GS$ and $\CNS$ are defined exactly as in Section~\ref{sec:setting}, with $n$ the unit normal of $\Gh$ pointing into $P_h$. The energy norm is
+\[
+\tnorm v^2:=\norm{\nabla v}^2_{\Oh}+\frac\mu h\norm v^2_{\Gh}+\sum_{F\in\FG}\diam F\,\norm{\dn v}^2_{L^2(F)} .
+\]
+
+\begin{assumption}\label{td:ass}\leavevmode
+\begin{enumerate}[label=(M0$^3$)]
+\item $\Th$ is shape regular and $c_0\hG\le\diam F\le\hG$ for all $F\in\FG$. Hence the faces of $P_h$ are shape regular and $\rho/h\le1/(c_0\hG)$.
+\end{enumerate}
+\begin{enumerate}[label=(IS3)]
+\item $k\ge3$, and there is $\beta>0$, independent of $h$, such that for every $q\in\Pih\cap L^2_0(\Oh)$ there exists $v\in\VO$ with $\div v=q$ and $\norm{\nabla v}\le\beta^{-1}\norm q$.
+\end{enumerate}
+(D) is as in Assumption~\ref{ass:mesh}.
+\end{assumption}
+
+\paragraph{Status of (IS3).} In 2D, (IS3) is Lemma~\ref{lem:infsup} (Guzm\'an--Scott, $k\ge4$, general meshes under (M1)--(M2)). In 3D the known results for the Scott--Vogelius pair $P_k$--$P_{k-1}^{\rm disc}$ are these.
+\begin{itemize}
+\item \emph{Alfeld (barycentric) refinements} of an arbitrary shape-regular mesh: stable for $k\ge3$ (S.~Zhang, Math.\ Comp.\ 74 (2005) 543--554), and for $k\ge d$ in dimension $d$ (Guzm\'an--Neilan, SIAM J.\ Numer.\ Anal.\ 56 (2018)). Farrell, Mitchell and Scott (SIAM J.\ Sci.\ Comput., arXiv:2211.05494) summarise this as ``$k\ge d$ for Alfeld splits''.
+\item \emph{Worsey--Farin splits}: lower degrees (Guzm\'an--Lischke--Neilan), with a robustness caveat at nearly singular vertices, as tabulated in arXiv:2211.05494, Table~2.1.
+\item \emph{Freudenthal meshes}: $k\ge6$ (S.~Zhang, Math.\ Comp.\ 80 (2011) 669--695), conjectured $k\ge4$ in arXiv:2211.05494. This is irrelevant here, because a Freudenthal mesh cannot be fitted to an inscribed polyhedron.
+\item \emph{General tetrahedral meshes}: only conditionally, $k\ge6$ (Neilan, Math.\ Comp.\ 84 (2015), Proposition~6.5, under a mesh condition stated there as a conjecture).
+\end{itemize}
+So the unconditional 3D theory below is for Alfeld-refined meshes with $k\ge3$. Uniformity of $\beta$ in $h$ has two parts. The domain part, a Bogovskii constant uniform over the perturbed domains $\Oh$, is proved in Lemma~\ref{td:bog}. The discrete part, that the constant of the split-element proof depends only on shape regularity and the continuous inf-sup constant, is how these results are stated. We have not re-audited those proofs line by line for hidden dependence on the domain; see the report.
+
+\subsection{Geometry of inscribed triangles}
+
+\begin{lemma}[Faces]\label{td:faces}
+Let $F\in\FG$ lie in the plane $\{y\cdot\nu_F=d_F\}$, where $\nu_F=-n_F$ is the unit normal pointing away from the centre. Let $r_F$ be the circumradius of $F$ and $o_F=d_F\nu_F$ its circumcentre; then $d_F=(1-r_F^2)^{1/2}$ and $r_F\le C\hG$. For $x\in F$ let $x^\ast=x/|x|$ be its radial projection. Then:
+\begin{enumerate}[label=(\alph*)]
+\item $\dist(x,\Gamma)\le1-d_F=r_F^2/2+O(r_F^4)\le C\hG^2$.
+\item $n(x^\ast)-n_F=-(x-o_F)+O(\hG^2)$, where $n(x^\ast)=-x^\ast$. The leading term is tangential to $F$, linear in $x$, and vanishes at the circumcentre.
+\item The area Jacobian of $x\mapsto x^\ast$ from $F$ to $\Gamma$ is $d_F/|x|^3=1+O(\hG^2)$.
+\item $|F|^{-1}\int_F\bigl(n(x^\ast)-n_F\bigr)\,dA=-(x_c-o_F)+O(\hG^2)$, where $x_c$ is the centroid. The leading term vanishes if and only if $F$ is equilateral.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Write $x=o_F+y$ with $y\perp\nu_F$ and $|y|\le r_F$. Then $|x|^2=d_F^2+|y|^2\in[d_F^2,1]$, which gives (a). For (b),
+\[
+n(x^\ast)-n_F=-\frac{o_F+y}{|x|}+\nu_F=-\frac{y}{|x|}+\nu_F\Bigl(1-\frac{d_F}{|x|}\Bigr),
+\]
+with $|x|^{-1}=1+O(r_F^2)$ and $0\le1-d_F/|x|\le1-d_F$. For (c), central projection onto the unit sphere has area element $(x^\ast\cdot\nu_F)|x|^{-2}$. (d) follows by integrating (b); the centroid and circumcentre of a triangle coincide exactly when it is equilateral.
+\end{proof}
+\cert{notes/v3/face\_mean\_check.py}{face mean of $n(x^\ast)-n_F$ (oriented away from the centre) equals $(x_c-o_F)+O(\hG^2)$; tangential part $0$ for an equilateral face and $0.105\,\hG$, $0.122\sqrt2\,\hG$ for two non-equilateral faces, at circumradius $0.2,0.1,0.05$}
+
+For a general smooth strictly convex $D$ the same holds, with $o_F$ replaced by the point at which the gradient of the quadratic part of $\Gamma$, written as a local graph over $F$, equals the gradient of its linear interpolant. Only (a), (c) and $|n(x^\ast)-n_F|\le C\hG$ are used below.
+
+In 2D the circumcentre of a chord is its midpoint, so the leading term is odd about the midpoint. That is the cancellation in Lemma~\ref{lem:transposed}. In 3D it is lost on every non-equilateral face.
+
+\begin{proposition}[Transposed-gradient term]\label{td:transposed}
+For $v\in\VR$:
+\begin{enumerate}[label=(\roman*)]
+\item On $F$, $(\nabla\ut)^{\mathsf T}n_F=\sigma\,n(x^\ast)+O(\hG^2)$ with $\sigma:=\dn u(x^\ast)\cdot(n_F-n(x^\ast))=\dn u(x^\ast)\cdot(x-o_F)+O(\hG^2)$. So the load is normal, of size $O(\hG)$, and has nonzero face means in general.
+\item $|\ip{(\nabla\ut)^{\mathsf T}n}{v}|\le C\hG\norm v_{L^1(\Gh)}\le C\hG(h/\mu)^{1/2}\tnorm v=C\gamma^{-1/2}\hG^{3/2}\tnorm v$.
+\item In the $\norm{\nabla v}$-dual norm the rate is generically only $\hG$. For smooth $\psi$ on $\Gamma$, let $v$ be the Lagrange interpolant of $\chi\psi n$, with a fixed cutoff $\chi$. Then
+\[
+\ip{(\nabla\ut)^{\mathsf T}n}{v}=\sum_{F\in\FG}|F|\,\psi(x_F^\ast)\,\dn u(x_F^\ast)\cdot(x_c-o_F)+O(\hG^2),
+\]
+while $\norm{\nabla v}\le C$. This is $\Theta(\hG)$ whenever $\hG^{-1}\sum_F|F|\psi\,\dn u\cdot(x_c-o_F)\not\to0$, for example for a family in which all boundary faces are congruent isosceles triangles with a consistent orientation relative to $\dn u$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Lemma~\ref{lem:wall} is dimension-free: $\nabla u=\dn u\otimes n$ on $\Gamma$ and $\dn u\cdot n=0$. So $(\nabla u)^{\mathsf T}n_F=n\,(\dn u\cdot n_F)=n\,(\dn u\cdot(n_F-n))$. Taylor-expand $\nabla\ut$ from $x^\ast$ to $x$ (distance $O(\hG^2)$) and apply Lemma~\ref{td:faces}(b); this gives (i). (ii) follows from $|\sigma|\le C\hG$, Cauchy--Schwarz on $\Gh$ ($|\Gh|\le C$) and $\norm v^2_{\Gh}\le(h/\mu)\tnorm v^2$. For (iii), use $v\cdot n(x^\ast)=\psi+O(\hG)$ and Lemma~\ref{td:faces}(d).
+\end{proof}
+
+\subsection{Tools}
+
+\begin{lemma}[Dimension-independent tools]\label{td:tools}
+Under (M0$^3$) and (D):
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Uniform Korn, trace and Friedrichs} (Lemma~\ref{lem:korn}) hold in 3D.
+\item \emph{Extension} (Lemma~\ref{lem:ext}): $\norm{\ut}_{L^\infty(\Gh)}\le C\hG^2$ and $|(F,v)|\le C\hG^2\norm{\nabla v}$ for $v\in\VR$.
+\item \emph{Inverse traces and coercivity} (Lemmas~\ref{lem:inverse} and~\ref{lem:coercive}) hold verbatim, with $|e|$ replaced by $\diam F$ and with the same $\mu_0=4\kappa\rho C_I^2$, $c_1$ and $M$.
+\item \emph{Divergence range} (Lemma~\ref{lem:divrange}): under (IS3), $\div\VR=\Pih$ and $\Wh\ne\emptyset$, and discrete velocities are pointwise divergence-free.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item[(a)] Let $\rho_h(\omega)=d_F/(\omega\cdot\nu_F)$ be the radial function of $\Gh$ on the cone over $F$. Then $\norm{\rho_h-1}_\infty\le C\hG^2$, and $\rho_h$ is Lipschitz with $|\nabla_\omega\rho_h|=d_F|\nu_F-(\omega\cdot\nu_F)\omega|/(\omega\cdot\nu_F)^2\le C\hG$. The map $\Phi_h(r,\omega)=(r+\chi(r)(\rho_h(\omega)-1),\omega)$ then satisfies $\norm{D\Phi_h-I}_\infty\le C\hG$, and steps~3--6 of Lemma~\ref{lem:korn} apply unchanged.
+\item[(b)] The first bound is Lemma~\ref{td:faces}(a). For the second, apply a one-dimensional Poincar\'e inequality along normal segments across $S_h$, whose thickness is at most $C\hG^2$. This gives $\norm v_{L^2(S_h)}\le C\hG(\norm v_{\Gh}+\hG\norm{\nabla v})$. Then $|(F,v)|\le\norm F_\infty|S_h|^{1/2}\norm v_{L^2(S_h)}$ with $|S_h|\le C\hG^2$, and (a) finishes.
+\item[(c)] The proofs use only scaling and shape regularity.
+\item[(d)] $\div\VO=\Pih\cap L^2_0$ is (IS3). The cubic face bubble $b_F\ge0$ of the tetrahedron on $F\in\FG$ gives $b_Fn_F\in\VR$ (since $k\ge3$) and $\int\div(b_Fn_F)=\int_Fb_F\ne0$. The rest is as in Lemma~\ref{lem:divrange}.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[Uniform continuous inf-sup constant]\label{td:bog}
+The Bogovskii (continuous inf-sup) constant of $\Oh$ is bounded independently of $h$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Fix $\alpha<\pi/2$, $r_b>1$, $r_B>0$ with $(r_b-r_B)\cos(\alpha+\arcsin(r_B/r_b)+\alpha_0)>1$, where $\alpha_0>0$ is small. Cover $S^2$ by finitely many caps of half-angle $\alpha$ about directions $\omega_j$, such that adjacent caps overlap in a cap of fixed size. Let $W_j$ be the corresponding cones, $c_j:=r_b\omega_j$ and $B_j:=B(c_j,r_B)\subset W_j\cap R$.
+\item Let $x\in W_j\cap\Oh$. Since $0\in P_h$ (for small $\hG$), the ray from $0$ through $x$ leaves $P_h$ through a face $F$ that meets $W_j$, and $x$ lies on the outer side of the plane of $F$. Because $|\nu_F-\omega|\le C\hG$ for directions $\omega$ hitting $F$, the angle between $\nu_F$ and $\omega_j$ is at most $\alpha+C\hG$.
+\item Hence every $y\in B_j$ satisfies $y\cdot\nu_F\ge(r_b-r_B)\cos(\alpha+\arcsin(r_B/r_b)+C\hG)>1\ge d_F$. So $y$ is also on the outer side of that plane. The segment $[y,x]$ therefore stays on the outer side of the plane, so it misses the convex set $P_h$, and it lies in the convex set $W_j\cap R$.
+\item Thus $W_j\cap\Oh$ is star-shaped with respect to $B_j$, uniformly in $h$. Galdi's Lemma~III.3.4 \cite{Galdi} gives a Bogovskii operator on $\Oh=\bigcup_j(W_j\cap\Oh)$ with a bound independent of $h$. The diameters, ball radii and overlaps are fixed.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[Geometric consistency]\label{td:G}
+With $\Gc$ as in Lemma~\ref{lem:erroreq} (which is dimension-free), $|\Gc(v)|\le C(1+\gamma^{1/2})\hG^{3/2}\tnorm v$ for $v\in\VR$, and $|\Gc(v)|\le C\hG^{3/2}\norm{\nabla v}$ for $v\in\VO$.
+\end{lemma}
+
+\begin{proof}
+Take the four terms in turn.
+\begin{itemize}
+\item The transposed term is at most $C\gamma^{-1/2}\hG^{3/2}\tnorm v\le C\gamma_0^{-1/2}\hG^{3/2}\tnorm v$ by Proposition~\ref{td:transposed}(ii).
+\item $|\ip{\ut}{\dn v}|\le C\hG^2\cdot C_I(c_0\hG)^{-1/2}\norm{\nabla v}$.
+\item $\frac\mu h|\ip{\ut}{v}|\le(\mu/h)^{1/2}C\hG^2\tnorm v=C\gamma^{1/2}\hG^{3/2}\tnorm v$.
+\item $|(F,v)|\le C\hG^2\norm{\nabla v}$.
+\end{itemize}
+On $\VO$ the first and third terms vanish.
+\end{proof}
+
+\begin{remark}[The 2D cancellation is not needed for any error bound]\label{td:nocancel2d}
+The proof of Lemma~\ref{td:G} works verbatim in 2D. So Lemma~\ref{lem:transposed} (the odd-in-$s$ cancellation) is not needed for Lemma~\ref{lem:Gbound} or Theorem~\ref{thm:D}; it only gives the sharper $\norm{\nabla v}$-dual bound. Likewise, in step~4 of Theorem~\ref{thm:C} the $O(\hG)$ tangential load $(p-\pbar)(n_e-n(x^\ast))$ can be bounded in the energy dual norm by $C_p\hG(h/\mu)^{1/2}$. Since step~6 tests with $r_h$ in $\tnorm\cdot$, this suffices.
+\end{remark}
+
+\begin{lemma}[Approximation in $\Wh$]\label{td:approx}
+Under (M0$^3$) and (IS3), $E_h:=\inf_{z\in\Wh}\tnorm{\ut-z}\le C\epsd$, where
+\[
+\epsd:=(1+(\gamma\hG)^{1/2})h^k+h^{k+1}\bigl(\hG^{-1/2}+(\mu/h)^{1/2}\bigr).
+\]
+For bounded $\gamma$ the flux term is at most $Ch^k$ if $\hG\ge h^2$. It vanishes if $\gI$ is flux-corrected. The lower bound $\tnorm{\ut-z}\ge(\mu/h)^{1/2}|m_R|/|\Gh|^{1/2}$ after Lemma~\ref{lem:approx} holds verbatim.
+\end{lemma}
+
+\begin{proof}
+As for Lemma~\ref{lem:approx}, with three changes.
+\begin{itemize}
+\item \emph{Net flux.} Estimate it crudely by pointwise interpolation error: $|m|\le\int_{\partial R}|\gI-g|+\int_{\Gh}|w_h-\ut|\le Ch^{k+1}$. No extra quadrature exactness of Lagrange interpolation on triangles is used; unlike the 1D Newton--Cotes case, there is none in general (for $k=2$ the induced rule gives $1/24$ for $\int x^3=1/20$ on the reference triangle).
+\item \emph{Bubble.} $b:=\sum_Fb_Fn_F$ with cubic face bubbles. Then $\int_{\Gh}b\cdot n=c_b|\Gh|$ with $c_b>0$, $\norm{\nabla b}+\norm{\div b}\le C\hG^{-1/2}$ (there are $O(\hG^{-2})$ bubbles, each of $H^1$-seminorm squared $O(\hG)$), $\norm b_{\Gh}\le C$, and $\sum_F\diam F\norm{\dn b}^2_F\le C\hG^{-1}$.
+\item \emph{Correction.} Use (IS3) in place of Lemma~\ref{lem:infsup}.\qedhere
+\end{itemize}
+\end{proof}
+
+\subsection{The leak field without stream functions}
+
+\begin{lemma}[A divergence-free field with normal trace $p-\pbar$]\label{td:w}
+Let $q:=(p-\pbar)|_\Gamma$ and let $\phi_0$ solve $\Delta_{S^2}\phi_0=q$ on the unit sphere; this is solvable since $\int_\Gamma q=0$. Let $\chi\in C^\infty$ with $\chi\equiv1$ on $[\tfrac12,1+r_1]$ and $\chi\equiv0$ on $[1+2r_1,\infty)$, where $1+2r_1<L$. In spherical coordinates set
+\[
+w:=\chi(r)\,r^{-2}q(\omega)\,e_r-\chi'(r)\,r^{-1}\nabla_{S^2}\phi_0(\omega).
+\]
+Then $w$ is smooth on $\{r>\tfrac12\}\supset\Oh$, $\div w=0$, $w\equiv0$ near $\partial R$, and $w|_\Gamma=q\,e_r=-(p-\pbar)n$.
+\end{lemma}
+
+\begin{proof}
+$\div(f(r)q\,e_r)=r^{-2}(r^2f)'q$, which equals $r^{-2}\chi'q$ for $f=\chi r^{-2}$. A tangential field $g(r)r^{-1}\nabla_{S^2}\phi_0$ has divergence $g\,r^{-2}\Delta_{S^2}\phi_0=g\,r^{-2}q$. With $g=-\chi'$ the two cancel. At $r=1$, $\chi=1$ and $\chi'=0$.
+\end{proof}
+
+\begin{lemma}[Discrete leak field]\label{td:vphi}
+Let $I_h$ be Lagrange interpolation and $b$ as in Lemma~\ref{td:approx}. Set
+\[
+v_\varphi:=I_hw-ab-v_0,\qquad a:=\frac{\int_{\Gh}I_hw\cdot n}{c_b|\Gh|},
+\]
+where $v_0\in\VO$ is given by (IS3) with $\div v_0=\div(I_hw-ab)$. Then $v_\varphi\in\Zh$ and
+\begin{gather*}
+\norm{v_\varphi-w}_{L^\infty(\Gh)}\le C\hG^{k+1},\qquad \norm{\nabla(v_\varphi-w)}\le Ch^k,\\
+\norm{\dn(v_\varphi-w)}_{\Gh}\le Ch^k\hG^{-1/2},\qquad \sum_F\diam F\norm{\dn(v_\varphi-w)}^2_F\le Ch^{2k}.
+\end{gather*}
+These bounds replace $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^k$ (Morgan--Scott) in every use in Sections~\ref{sec:printed} and~\ref{ns:sec}. The same construction works in 2D and removes the dependence on the $C^1$ interpolant there.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{The mean.} Since $\div w=0$ on $\Oh$ and $w=0$ near $\partial R$, $\int_{\Gh}w\cdot n=0$. So $|a|\le C\norm{I_hw-w}_{L^\infty(\Gh)}\le C\hG^{k+1}$, because boundary tetrahedra have diameter at most $C\hG$. By the choice of $a$, $\div(I_hw-ab)\in\Pih\cap L^2_0$.
+\item \emph{The correction.} Its norm satisfies $\norm{\div(I_hw-ab)}\le Ch^k+C|a|\hG^{-1/2}\le Ch^k$. So $\norm{\nabla v_0}\le Ch^k$. Since $v_0=0$ on $\Gh$, the inverse trace inequality gives $\norm{\dn v_0}_{\Gh}\le C\hG^{-1/2}h^k$ and $\sum_F\diam F\norm{\dn v_0}^2_F\le Ch^{2k}$.
+\item \emph{The remaining terms.} $I_hw-w$ and $ab$ contribute $O(\hG^{k+1})$ pointwise on $\Gh$, $O(h^k)$ in $H^1$, and $O(\hG^k)$ pointwise for $\dn$ (for $ab$ this is $|a|\hG^{-1}$).
+\end{enumerate}
+The uses are:
+\begin{itemize}
+\item Theorem~\ref{thm:A} lower bound, steps~1--2 (pointwise trace, and $\norm{\nabla v_\varphi}+\sum\diam F\norm{\dn v_\varphi}^2\le C$);
+\item Theorem~\ref{thm:C}, steps~4--5 ($\norm{\dn v_\varphi}_{\Gh}\le C$, and $|\ip{v_\varphi-w}{\dn v}|\le C\hG^{k+1}\hG^{-1/2}\norm{\nabla v}$);
+\item Theorem~\ref{thm:B}(i), steps~1--5;
+\item Corollary~\ref{cor:Bp}, step~4;
+\item Theorem~\ref{ns:thmGS}, step~5.
+\end{itemize}
+Each needs only the listed bounds.
+\end{proof}
+
+\subsection{Normal-load cancellation with edge terms}
+
+\begin{lemma}[3D analogue of Lemma~\ref{lem:cancel}]\label{td:cancel}
+Let $S\in W^{1,\infty}$ on a neighbourhood of $\Gh$, with $|S-(S\cdot n_F)n_F|\le C\hG$ on every $F\in\FG$. (For instance $S=w$ of Lemma~\ref{td:w}, since $w(x)\parallel n(x^\ast)$ up to $O(\hG^2)$ and $|n(x^\ast)-n_F|\le C\hG$.) Then for $v\in\Zh$,
+\[
+|\ip{S}{\dn v}|\le C\bigl(\norm v_{\Gh}+\hG^{1/2}\norm{\nabla v}\bigr)\le C\norm{\nabla v},
+\]
+with $C$ depending on $\norm S_{W^{1,\infty}}$, $k$ and (M0$^3$).
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Tangential part.} $|\ip{S-(S\cdot n_F)n_F}{\dn v}|\le C\hG\norm{\dn v}_{\Gh}\le C\hG^{1/2}\norm{\nabla v}$, by Lemma~\ref{td:tools}(c).
+\item \emph{Normal part.} On $F$, $v$ is a polynomial on the adjacent tetrahedron with $\div v=0$ and constant $n_F$. So $\dn v\cdot n_F=-\div_F v_F$, where $v_F$ is the part of $v$ tangential to $F$ and $\div_F$ is the in-plane divergence. With $\sigma_F:=S\cdot n_F$ and $\nu_{\partial F}$ the in-plane outward conormal,
+\[
+\int_F\sigma_F\,\dn v\cdot n_F=\int_F\nabla_F\sigma_F\cdot v_F-\int_{\partial F}\sigma_F\,v\cdot\nu_{\partial F}.
+\]
+The first term is at most $C\norm v_{L^1(F)}$.
+\item \emph{Edge terms.} Each edge $E$ of the closed triangulated surface $\Gh$ is shared by exactly two faces $F,F'$. Since $v$ is continuous across $E$, the two contributions combine to $\int_Ev\cdot(\sigma_F\nu_{E,F}+\sigma_{F'}\nu_{E,F'})$. With $t_E$ a unit tangent oriented so that $\nu_{E,F}=t_E\times n_F$, we have $\nu_{E,F'}=-t_E\times n_{F'}$. Hence $\nu_{E,F}+\nu_{E,F'}=t_E\times(n_F-n_{F'})=O(\hG)$ and $\sigma_F-\sigma_{F'}=S\cdot(n_F-n_{F'})=O(\hG)$. So the coefficient is $O(\hG)$.
+\item \emph{Summing.} The inverse inequality $\norm v_{L^1(\partial F)}\le C(\diam F)^{-1}\norm v_{L^1(F)}$ for $v|_F\in P_k$ (scaling and shape regularity) gives
+\[
+\sum_E\hG\norm v_{L^1(E)}\le C\sum_F\norm v_{L^1(F)}=C\norm v_{L^1(\Gh)}\le C\norm v_{\Gh}.
+\]
+\item Finish with the uniform trace inequality.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{remark}\label{td:wf}
+If boundary faces of $\Th$ subdivide the faces of $P_h$ (Worsey--Farin splits, or Alfeld refinements of a mesh whose boundary faces already subdivide the faces of $P_h$), the extra edges lie inside a plane. There $n_F=n_{F'}$ and the conormals are opposite, so their contributions in step~3 cancel exactly. Lemma~\ref{td:faces} is applied to the faces of $P_h$, which must then be shape regular of size $\asymp\hG$.
+\end{remark}
+
+\subsection{Main results in three dimensions}
+
+\begin{theorem}\label{td:main}
+Assume (M0$^3$), (IS3) and (D), and let $(u,p)$ be a smooth Stokes solution on $\overline\Omega$. Then Theorems~\ref{thm:A}, \ref{thm:C}, \ref{thm:B} and~\ref{thm:D}, Corollaries~\ref{cor:Aprime} and~\ref{cor:Bp}, Proposition~\ref{prop:singular} and Proposition~\ref{prop:penalty}(a) hold verbatim in 3D, with $\eps$ replaced by $\epsd$ and $v_\varphi$ by the field of Lemma~\ref{td:vphi}. In particular:
+\begin{enumerate}[label=(\roman*)]
+\item $\GS$ converges at rate $h/\mu$ in $H^1$ and $(h/\mu)^{1/2}$ in energy. To leading order its error is $(h/\mu)v_\varphi$ with $v_\varphi|_{\Gh}\approx-(p-\pbar)n$, with universal constant $1$ in the slip and energy norms.
+\item $\CNS$ is well posed for $\gamma\ge\gamma_2$ and satisfies $\tnorm{\ut-u_h}\le C[(1+\gamma^{1/2})\hG^{3/2}+\epsd]$. For bounded $\gamma$ and $\hG\ge h^2$ this gives $\norm{\ut-u_h}_{H^1(\Oh)}\le C(\hG^{3/2}+h^k)$.
+\end{enumerate}
+On Alfeld-refined meshes this holds for every $k\ge3$, subject to the uniformity caveat in item~3 of Section~\ref{td:open}.
+\end{theorem}
+
+\begin{proof}
+The 2D proofs use the following facts, each replaced as indicated.
+\begin{itemize}
+\item Lemma~\ref{lem:chords} is replaced by Lemma~\ref{td:faces}: sagitta $O(\hG^2)$, $|n(x^\ast)-n_F|\le C\hG$, Jacobian $1+O(\hG^2)$. Hence $|\Rc(v)|\le(G+C\hG^2)(h/\mu)^{1/2}\tnorm v$ and $\Rc(v_\varphi)=G^2+O(\hG^2+h^k)$. Note $v_\varphi\cdot n_F=-(p-\pbar)(x^\ast)\,n\cdot n_F+O(\hG^{k+1})$ with $n\cdot n_F=1+O(\hG^2)$.
+\item Lemmas~\ref{lem:korn}, \ref{lem:ext}, \ref{lem:inverse}, \ref{lem:coercive} and~\ref{lem:divrange} are replaced by Lemma~\ref{td:tools}; Lemmas~\ref{lem:infsup} and~\ref{lem:approx} by (IS3), Lemma~\ref{td:bog} and Lemma~\ref{td:approx}; Lemma~\ref{lem:Gbound} by Lemma~\ref{td:G}; Lemma~\ref{lem:cancel} by Lemma~\ref{td:cancel}; and the Morgan--Scott $v_\varphi$ by Lemma~\ref{td:vphi}.
+\item Corollary~\ref{cor:GSerr}, Proposition~\ref{prop:singular} and the consistency and uniqueness steps of Theorem~\ref{thm:D} are dimension-free. They use $\int_{\partial\Oh}v\cdot n=\int\div v$ and a boundary bubble.
+\item \emph{Step~4 of Theorem~\ref{thm:C}.} On $F$, $(\pt-\pbar)n_F+v_\varphi=(p-\pbar)(x^\ast)(n_F-n(x^\ast))+O(\hG^2)+O(\hG^{k+1})$. This is $O(\hG)$ with nonzero face means, so we use the energy-dual bound (Remark~\ref{td:nocancel2d}): $|m(v)|\le C_p\bigl(\hG(h/\mu)^{1/2}+\hG^2+h^k\bigr)\tnorm v$. Step~6 then gives $\tnorm{r_h}\le C_p(h/\mu+\hG^2)+C\epsd$, using $\hG(h/\mu)^{1/2}\le\frac12(\hG^2+h/\mu)$. The conclusion of Theorem~\ref{thm:C}, and the bound on $\tnorm{r_h}$ in Corollary~\ref{cor:Bp}, are unchanged or better.
+\item \emph{Step~2 of Theorem~\ref{thm:B}(i).} Here $|\Gc(v_\varphi)|\le C(\hG+\gamma\hG^3+\gamma\hG h^k)$, with $\hG$ in place of $\hG^{3/2}$ by Proposition~\ref{td:transposed}(i). The proof only needs this to be at most $\delta G^2$, which follows from the hypothesis $\hG\le h_0(G)$ and the $X$-condition. The penalty part $\ut\cdot v_\varphi=O(\hG^4+\hG^2h^k)$ is unchanged: $\ut\approx\pm d\,\dn u(x^\ast)$ is tangential and $v_\varphi$ is normal to $\Gamma$ up to $O(d)$.
+\item \emph{Flux proviso.} The condition $\hG\ge\hO^{2(\sigma_k-k)}$ of Theorem~\ref{thm:D} becomes $\hG\ge h^2$, since the 3D flux exponent is $k+1$.\qedhere
+\end{itemize}
+\end{proof}
+
+\begin{corollary}[Navier--Stokes in 3D]\label{td:ns}
+Lemma~\ref{ns:SD}, Theorems~\ref{ns:thmGS} and~\ref{ns:thmD}, Corollary~\ref{ns:Bp} and Lemma~\ref{ns:pe} hold in 3D under the assumptions of Theorem~\ref{td:main} together with (NS1)--(NS2) (with $\ut=\curl\psit$ for a vector potential $\psit$, which exists because $\int_\Gamma u\cdot n=0$), with $\epsd$ in place of $\eps$.
+\end{corollary}
+
+\begin{proof}
+Section~\ref{ns:sec} uses the Stokes lemmas only as black boxes, together with Lemma~\ref{ns:tri}, which holds for $d=3$ because $H^1\subset L^4$. Replace the Stokes lemmas by Theorem~\ref{td:main} and its ingredients. In step~5 of Theorem~\ref{ns:thmGS} use $\norm{v_\varphi}_{H^1}\le C$ from Lemma~\ref{td:vphi}.
+\end{proof}
+
+\subsection{What is not proved in 3D}\label{td:open}
+\begin{enumerate}
+\item \emph{Penalty necessity} (Proposition~\ref{prop:penalty}(b)). Scaling gives the same threshold form in 3D: under dilation by $\ell$, $a$ and $\ip{\dn v}{v}$ scale like $\ell$ and $\norm v^2_{\Gh}$ like $\ell^2$, so $N_h(v,v)=\ell[A-2B+(\mu\ell/h)C]$. But no 3D witness (a divergence-free $v\in\Zh$ supported in a boundary vertex or face star with $2B>A$) has been computed or certified. Sufficiency $\mu\ge4\kappa C_I^2\rho$ holds.
+\item \emph{(IS3) on general tetrahedral meshes.} It is unknown in 3D for unsplit meshes; there is only the conditional $k\ge6$ result of Neilan. The theory is unconditional only on split meshes.
+\item \emph{Uniformity of the split-mesh inf-sup constant over $\Oh$.} The domain part is Lemma~\ref{td:bog}. We rely on the published statements for the claim that the discrete part depends only on shape regularity; we have not re-audited Zhang's or Guzm\'an--Neilan's proofs for hidden domain dependence.
+\item \emph{Sharpness of $\hG^{3/2}$ for $\CNS$.} Not proved, in 2D or 3D; in 2D it is supported numerically.
+\item \emph{Non-convex $D$.} Not treated, in 2D or 3D, because $\Omega\subset\Oh$ is used.
+\end{enumerate}

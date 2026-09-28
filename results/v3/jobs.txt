@@ -1,0 +1,152 @@
+thresh 5 std 16
+thresh 5 std 32
+thresh 2 ct 16
+thresh 2 ct 32
+thresh 6 std 16
+thresh 6 std 32
+thresh 3 ct 16
+thresh 3 ct 32
+thresh 4 ct 16
+thresh 4 ct 32
+study 5 std 16 B1 100
+study 5 std 16 B1 1000
+study 5 std 16 P1 100
+study 5 std 16 P1 1000
+study 6 std 16 B1 100
+study 6 std 16 B1 1000
+study 6 std 16 P1 100
+study 6 std 16 P1 1000
+study 2 ct 16 B1 100
+study 2 ct 16 P1 100
+study 2 ct 16 P1 1000
+study 3 ct 16 B1 100
+study 3 ct 16 B1 1000
+study 3 ct 16 P1 100
+study 3 ct 16 P1 1000
+study 5 std 24 B1 100
+study 5 std 24 B1 1000
+study 5 std 24 P1 100
+study 5 std 24 P1 1000
+study 6 std 24 B1 100
+study 6 std 24 B1 1000
+study 6 std 24 P1 100
+study 6 std 24 P1 1000
+study 2 ct 24 B1 100
+study 2 ct 24 P1 100
+study 2 ct 24 P1 1000
+study 3 ct 24 B1 100
+study 3 ct 24 B1 1000
+study 3 ct 24 P1 100
+study 3 ct 24 P1 1000
+study 5 std 32 B1 100
+study 5 std 32 B1 1000
+study 5 std 32 P1 100
+study 5 std 32 P1 1000
+study 6 std 32 B1 100
+study 6 std 32 B1 1000
+study 6 std 32 P1 100
+study 6 std 32 P1 1000
+study 2 ct 32 B1 100
+study 2 ct 32 P1 100
+study 2 ct 32 P1 1000
+study 3 ct 32 B1 100
+study 3 ct 32 B1 1000
+study 3 ct 32 P1 100
+study 3 ct 32 P1 1000
+study 5 std 48 B1 100
+study 5 std 48 B1 1000
+study 5 std 48 P1 100
+study 5 std 48 P1 1000
+study 6 std 48 B1 100
+study 6 std 48 B1 1000
+study 6 std 48 P1 100
+study 6 std 48 P1 1000
+study 2 ct 48 B1 100
+study 2 ct 48 P1 100
+study 2 ct 48 P1 1000
+study 3 ct 48 B1 100
+study 3 ct 48 B1 1000
+study 3 ct 48 P1 100
+study 3 ct 48 P1 1000
+study 5 std 64 B1 100
+study 5 std 64 B1 1000
+study 5 std 64 P1 100
+study 5 std 64 P1 1000
+study 6 std 64 B1 100
+study 6 std 64 B1 1000
+study 6 std 64 P1 100
+study 6 std 64 P1 1000
+study 2 ct 64 B1 100
+study 2 ct 64 P1 100
+study 2 ct 64 P1 1000
+study 3 ct 64 B1 100
+study 3 ct 64 B1 1000
+study 3 ct 64 P1 100
+study 3 ct 64 P1 1000
+thresh 5 std 8
+thresh 2 ct 8
+study 5 std 16 B1 300
+study 6 std 16 B1 300
+study 5 std 24 B1 300
+study 6 std 24 B1 300
+study 5 std 32 B1 300
+study 6 std 32 B1 300
+study 5 std 48 B1 300
+study 6 std 48 B1 300
+thresh 5 std 64
+thresh 6 std 64
+thresh 2 ct 64
+thresh 3 ct 64
+study 5 std 64 B1 300
+study 6 std 64 B1 300
+study 5 std 96 B1 300
+study 6 std 96 B1 300
+study 5 std 96 B1 1000
+study 5 std 96 P1 1000
+study 6 std 96 B1 1000
+study 6 std 96 P1 1000
+study 2 ct 96 B1 100
+study 2 ct 96 P1 100
+study 2 ct 96 P1 1000
+study 3 ct 96 B1 1000
+study 3 ct 96 P1 1000
+study 5 std 96 B1 100
+study 5 std 96 P1 100
+study 6 std 96 B1 100
+study 6 std 96 P1 100
+study 3 ct 96 B1 100
+study 3 ct 96 P1 100
+thresh 2 ct 128
+study 5 std 128 B1 1000
+study 5 std 128 P1 1000
+study 5 std 128 B1 300
+study 6 std 128 B1 1000
+study 6 std 128 P1 1000
+study 6 std 128 B1 300
+study 2 ct 128 B1 100
+study 2 ct 128 P1 100
+study 2 ct 128 P1 1000
+study 3 ct 128 B1 1000
+study 3 ct 128 P1 1000
+study 2 ct 192 B1 100
+study 2 ct 192 P1 100
+study 2 ct 256 B1 100
+study 2 ct 256 P1 100
+study 3 ct 192 B1 1000
+study 3 ct 192 P1 1000
+study 2 ct 16 A 100
+study 2 ct 24 A 100
+study 2 ct 32 A 100
+study 2 ct 48 A 100
+study 2 ct 64 A 100
+study 2 ct 96 A 100
+study 2 ct 128 A 100
+study 2 ct 192 A 100
+study 3 ct 16 A 1000
+study 3 ct 24 A 1000
+study 3 ct 32 A 1000
+study 3 ct 48 A 1000
+study 3 ct 64 A 1000
+study 3 ct 96 A 1000
+study 3 ct 128 A 1000
+study 2 ct 256 A 100

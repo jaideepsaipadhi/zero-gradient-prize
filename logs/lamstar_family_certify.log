@@ -1,0 +1,7 @@
+== EXACT certificate [apex >= 60 deg, base angles >= 5 deg]: 2B - A - 9*C > 0 at an explicit rational witness on every box meeting Q: 323 certified boxes, 74 boxes provably outside Q, max depth 7  (1s)
+== EXACT certificate [apex >= 60 deg, base angles >= 5 deg]: 2B - A - 93/10*C > 0 at an explicit rational witness on every box meeting Q: 716 certified boxes, 275 boxes provably outside Q, max depth 11  (2s)
+== EXACT certificate [apex >= 45 deg, base angles >= 5 deg]: 2B - A - 4*C > 0 at an explicit rational witness on every box meeting Q: 259 certified boxes, 42 boxes provably outside Q, max depth 6  (1s)
+== EXACT certificate [apex >= 35 deg, base angles >= 5 deg]: 2B - A - 1*C > 0 at an explicit rational witness on every box meeting Q: 297 certified boxes, 70 boxes provably outside Q, max depth 8  (1s)
+negative controls (must FAIL: the bound exceeds the true minimum of lambda_T on Q):
+  c=47/5, apex>=60: failed as expected: certificate failed on box [(0.603271484375, 0.60556640625), (0.8566881443298969, 0.8583215206185567)]
+  c=9/2, apex>=45: failed as expected: certificate failed on box [(0.6092102786144579, 0.6120105421686747), (1.1984789156626505, 1.200777484939759)]
