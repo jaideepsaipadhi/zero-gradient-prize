@@ -1,0 +1,4 @@
+max continuity jump on internal faces: 1.4941390139022737e-15
+max |v| on apex faces: 1.6653345369377348e-15
+max |div v| (FD): 3.4802888002061216e-11
+quadrature: A=0.00079801825 B=0.00075160695 C=3.0682885e-05  (2B-A)/C = 22.98335527   exact-pipeline lam* = 22.98335527

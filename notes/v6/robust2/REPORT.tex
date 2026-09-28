@@ -1,0 +1,500 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,booktabs,geometry}
+\geometry{margin=2.3cm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\tn}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\title{notes/v6/robust2: nondegeneracy $(N_k)$, the residual leak law, and the $H^1$ order of the $\mathrm{CNS}^\ast$ pressure part}
+\date{2026-09-28 (subagent report; nothing in paper/ or letter/ touched, nothing committed)}
+\begin{document}\maketitle
+
+\noindent Labels: \textbf{PROVED} = complete proof here, using only results of the paper (cited by label) and of
+\texttt{notes/v6/robust/REPORT.md} (L1.3, Thm~3.2), as verified in \texttt{referee2\_robust\_l2.md};
+\textbf{PROVED MODULO X}; \textbf{NUMERICAL}. Scripts and logs are in \texttt{notes/v6/robust2/}.
+
+\section*{Summary}
+\begin{enumerate}
+\item \textbf{Local algebra (PROVED, all $k\ge 2$).} For a boundary triangle $T$ with $\Gamma_h$-edge $e$ and the local
+div-free fields $X_e=\mathrm{curl}(\lambda_a^2\lambda_b^2P_{k-3})$, the leading-order map
+$H\mapsto \Pi_{P_e}((I-\pi_T)H)|_e$ on homogeneous degree-$k$ polynomials has rank exactly $k-2$ and kernel
+\emph{exactly} $\mathrm{span}\{\lambda_a^k,\lambda_b^k,\lambda_c^k\}$ mod $P_{k-1}$, i.e.\ the $k$-th powers of the three
+edge normals of $T$ (Thm~\ref{thm:kernel}). So $X_e$ never sees the pure normal tensor $n_e^{\otimes k}$, and sees the pure
+tangential tensor $\tau_e^{\otimes k}$ iff $T$ has no right angle at a $\Gamma_h$ vertex. The production meshes converge to
+exactly that right-angled configuration (third vertex radially above an endpoint, $\xi-1=O(1/N)$). This is why
+\texttt{cert.py} saw $D_h/\hG^{4.5}$ fall from $1.6\times10^{-3}$ to $3.6\times10^{-4}$.
+\item \textbf{$(N_k)$ resolved (PROVED).} $\tn{W_\ast(\phi)}\ge K_1^{-1}\sup_{v\in V_R^0}\ip{\eta}{v\cdot n}/\tn v$ over
+\emph{all} zero-flux $v\in V_R$, not only divergence-free $v$, for every $\gamma\ge\gamma_0$ (Thm~\ref{thm:energy}).
+With this larger test space there are three explicit lower bounds (Thm~\ref{thm:Dlower}):
+ \begin{itemize}
+ \item[(i)] $c\,(1+\gamma)^{-1/2}\hG^{1/2}\|\Pi_{T_0}(\eta n)\|_{\Gh}$, for all $k$, with a computable certificate;
+ \item[(ii)] a two-sided local bound, $\asymp(1+\gamma)^{-1/2}\hG^{k+1/2}$ iff $\nabla^k\phi(m_e)$ stays away from the span of
+ the edge-normal powers of $T_e$ on edges of total length $\gtrsim1$ (for all $k$);
+ \item[(iii)] for \textbf{even $k$}, the checkable condition $g:=\nabla^k\phi[\tau^{\otimes k}]\not\equiv0$ on $\Gamma$,
+ via an exact Rodrigues identity $\ip{\eta}{L_k}_e=|e|^{k+1}\tfrac{k!}{(2k+1)!}\,\mathrm{avg}_{\beta}(\partial_{\tau_e}^k\phi)$,
+ which does not depend on the triangle shape. For odd $k$ this route provably fails (continuity at vertices forces
+ alternating signs).
+ \end{itemize}
+\item \textbf{Residual leak law and $H^1$ order (PROVED for large $\gamma$).} With $\varepsilon=h/\mu=\hG/\gamma$ and
+$Y=\Pi_{T_0}(\eta n)$:
+ \begin{itemize}
+ \item slip: $\|W|_{\Gh}-\varepsilon Y\|\le 2C_2\gamma^{-1}\varepsilon\|Y\|$;
+ \item $H^1$ leading term: $W=\varepsilon W_1+O(\gamma^{-1})$, where $W_1$ is the discrete Nitsche-harmonic Stokes extension
+ of $Y$;
+ \item two-sided bound: $c\,\sigma\, \hG^{1/2}\gamma^{-1}\|Y\|\le\|\nabla W\|\le C\hG^{1/2}\gamma^{-1}\|Y\|$, with
+ $\sigma=\|(I-P_0)Y\|/\|Y\|$ the edge-oscillation fraction.
+ \end{itemize}
+The true $H^1$ order is therefore $\hG^{k+1/2}\gamma^{-1}$. The $\hG^{-1/2}$ (versus GS) comes from $\eta$ oscillating at the
+edge scale, so its leak flow is a boundary layer. If $\nabla^k\phi|_\Gamma$ is purely normal, the oscillation of $\eta$ is
+$O(\hG^{k+1})$ (PROVED), and the $H^1$ order rises (NUMERICAL, $\phi=(r-1)^4$).
+\item \textbf{Numerics.}
+ \begin{itemize}
+ \item The measured rates 5.73, 4.97, 4.71 are reproduced to $\pm0.2$ by $4.5+\log_2$ of the drift of $\|\eta\|_{\Gh}/\hG^4$,
+ while $\|\nabla W\|/(\varepsilon\hG^{-1/2}\|\eta\|)=5.5,6.2,6.3,6.1$ is flat.
+ \item The leak law holds to $\approx10\%$ at $\mu=10^3$ and to $0.3\%$ at $\mu=10^5$.
+ \item At the production $\mu=100$ it fails (factor 1.1--4). Reason (NUMERICAL, exact Schur-complement eigenvalue): the
+ critical Nitsche penalty on this mesh family is $\mu_c=59.6,68.0,73.0,76.1$ ($N=8..64$, limit $\approx 80$), so $\mu=100$
+ is only $\approx1.3\,\mu_c$. The edge-mean normal slip is amplified by $\approx(1-\mu_c/\mu)^{-1}$. $H^1$ is unaffected;
+ the energy normalisation grows 3.1$\to$4.8.
+ \end{itemize}
+\item \textbf{Literature.}
+ \begin{itemize}
+ \item arXiv:2609.30008: \textbf{still not read}; both the abs and html pages returned HTTP 429 with a do-not-retry
+ instruction, and search engines return only its title.
+ \item Liu--Neilan--Otus (JNMA 31 (2023) 105--123), read via the NSF-PAR copy, state qualitatively that divergence-free
+ methods with weakly imposed BCs are not pressure robust. They mitigate this with a Lagrange multiplier for $u\cdot n$
+ (error $\nu^{-1}h^{k+1}\|p\|_{H^{k+1}}$). They use \emph{no} reconstruction or modified load, and prove no lower bound or
+ non-robustness theorem.
+ \item So neither CNS$^\ast$-R nor a quantitative ``GS is not pressure robust'' theorem appears there.
+ \item Neilan--Otus (isoparametric SV on curved domains) do use a load reconstruction $\Pi_W f$ with a commuting
+ projection. That is a different setting (exact BCs on isoparametric domains), but it is close prior art for the
+ \emph{idea} of CNS$^\ast$-R.
+ \end{itemize}
+\end{enumerate}
+
+\section{Setting and notation}
+We use the paper's §2 conventions, with $k\ge4$ (Section 2 holds for $k\ge2$). CNS$^\ast$ at $\nu=1$ with data $(\nabla\phi,0)$
+has velocity $W=W_\ast(\phi)\in Z_h$ and pressure $p_h$. Further notation:
+\begin{itemize}
+\item $\varepsilon:=h/\mu=\hG/\gamma$.
+\item $\eta:=\phi-\pi_T\phi$ on each $e\in\mathcal E_\Gamma$, where $T=T_e$ is the boundary triangle.
+\item $\xi:=\pi_h\phi-p_h\in\Pi_h$, and $\xi_\Omega$ is its mean over $\Omega_h$.
+\item $V_R^0:=\{v\in V_R:\int_{\Gh}v\cdot n=0\}$, and $Y_h:=Z_h\cap V_O$.
+\item $T_0$ is the space of continuous piecewise-$P_k$ vector fields on $\Gh$ (traces of $V_h$) with zero net normal
+flux.
+\item $Y:=\Pi_{T_0}(\eta n)$ is the $L^2(\Gh)$-orthogonal projection, and $P_0$ is the edgewise mean (vector) on $\Gh$.
+\item $P_e:=\{p\in P_k(e):p=0\text{ at both endpoints},\ \int_ep=0\}$ ($\dim=k-2$), which is exactly the normal-trace space
+of $X_e$.
+\item $\lambda_a,\lambda_b,\lambda_c$ are the barycentrics of $T$, with $e=\{\lambda_c=0\}$.
+\end{itemize}
+For every $t\in T_0$ the \emph{nodal lift} $v_t$ takes the value $t$ at the $\Gh$ Lagrange nodes and $0$ at all other nodes.
+It lies in $V_R^0$ and satisfies
+\[
+\|\nabla v_t\|\le C_L\hG^{-1/2}\|t\|_{\Gh},\qquad \tn{v_t}\le C_L(1+\gamma)^{1/2}\hG^{-1/2}\|t\|_{\Gh}.\tag{1.1}
+\]
+This follows from scaling, shape regularity (triangles touching $\Gh$ have diameter $\simeq|e|$), $|e|\ge c_0\hG$ and Lemma
+\texttt{inverse} (PROVED).
+
+\section{Local algebra}
+\begin{lemma}[Jacobi structure, PROVED]\label{lem:jac}
+Let $J_k$ be the monic polynomial of degree $k$ with $\int_0^1J_k(s)q(s)(1-s)\,ds=0$ for all $q\in P_{k-1}$. Then for every vertex
+$w$ of $T$, $(I-\pi_T)\lambda_w^k=J_k(\lambda_w)$. Moreover $\int_0^1J_k'(s)s(1-s)^2q(s)\,ds=0$ for all $q\in P_{k-2}$.
+\end{lemma}
+\begin{proof}
+\emph{First claim.} $\lambda_w^k-J_k(\lambda_w)\in P_{k-1}(T)$. For $r\in P_{k-1}(T)$, integrate over the slices
+$\{\lambda_w=s\}$. Each slice is a segment of length proportional to $1-s$, and the integral of $r$ over it is $(1-s)R(s)$ with
+$R\in P_{k-1}$. Hence $\int_TJ_k(\lambda_w)r=c\int_0^1J_k(s)(1-s)R(s)ds=0$.
+
+\emph{Second claim.} Integrate by parts. The boundary terms vanish at $s=0$ and $s=1$, leaving
+$-\int J_k\,[s(1-s)^2q]'$. Since $[s(1-s)^2q]'=(1-s)P(s)$ with $P\in P_{k-1}$, this is $0$.
+\end{proof}
+
+\begin{lemma}[trace isomorphism, PROVED]\label{lem:trace}
+Let $O_k(T):=P_k(T)\ominus P_{k-1}(T)$. The restriction $O_k(T)\to P_k(e)$ is an isomorphism.
+\end{lemma}
+\begin{proof}
+Use the Dubiner--Koornwinder orthogonal basis
+$\psi_{pq}=L_p\big(\tfrac{\lambda_b-\lambda_a}{\lambda_a+\lambda_b}\big)(\lambda_a+\lambda_b)^pP^{(2p+1,0)}_q(2\lambda_c-1)$.
+The $\psi_{p,k-p}$, $0\le p\le k$, span $O_k(T)$. On $e$ we have $\lambda_a+\lambda_b=1$ and $\lambda_c=0$, so
+$\psi_{p,k-p}|_e=(-1)^{k-p}L_p(2t-1)$. These traces form a basis of $P_k(e)$, and the dimensions agree ($k+1$).
+\end{proof}
+
+\begin{theorem}[kernel of the local map, PROVED]\label{thm:kernel}
+Define $\Lambda_T:\mathrm{Hom}_k\to P_e$ by $\Lambda_T(H):=\Pi_{P_e}\big((I-\pi_T)H\big)|_e$. Then $\Lambda_T$ is onto and
+$\ker\Lambda_T=\mathrm{span}\{\ell_a^k,\ell_b^k,\ell_c^k\}$, where $\ell_w(x)=\nabla\lambda_w\cdot x$ is the top-degree part of
+$\lambda_w$ (so $\ell_c^k\propto(n_e\cdot x)^k$). By continuity and compactness,
+$|\Lambda_{\hat T}(H)|\ge\sigma_\ast\,\mathrm{dist}(H,\ker\Lambda_{\hat T})$, uniformly over shape-regular $\hat T$ normalised to
+$|e|=1$.
+\end{theorem}
+\begin{proof}
+\emph{Onto.} $H\mapsto(I-\pi_T)H$ is an isomorphism $\mathrm{Hom}_k\to O_k(T)$. The trace is an isomorphism by
+Lemma~\ref{lem:trace}, and $\Pi_{P_e}$ is onto. So the rank is $k-2$ and the kernel has dimension exactly $3$.
+
+\emph{Kernel.} $\ell_w^k\equiv\lambda_w^k$ mod $P_{k-1}$, so by Lemma~\ref{lem:jac} we must show $J_k(\lambda_w)|_e\perp P_e$.
+\begin{itemize}
+\item $w=c$: $\lambda_c=0$ on $e$, so the trace is constant, and $\int_ep=0$.
+\item $w=a$ ($w=b$ is symmetric): on $e$, $\lambda_a=s:=1-t$. Every $p\in P_e$ is $\partial_t\Psi$ with
+$\Psi=t^2(1-t)^2r$, $r\in P_{k-3}$. Then
+\[
+\int_eJ_k(\lambda_a)p=\pm|e|\int_0^1J_k'(s)s^2(1-s)^2r(1-s)\,ds=0
+\]
+by the second claim of Lemma~\ref{lem:jac} with $q=s\,r(1-s)\in P_{k-2}$.
+\end{itemize}
+The three powers are independent because the edge normals are pairwise non-parallel. The uniform $\sigma_\ast$ holds because
+$\Lambda_{\hat T}$ depends continuously on the shape and has constant rank.
+\end{proof}
+
+\noindent\textbf{Checks (NUMERICAL, exact).}
+\begin{itemize}
+\item \texttt{nk\_kernel\_exact.py}: rational arithmetic, $k=4..8$, 4 shapes: all residuals exactly $0$.
+\item \texttt{nk\_local\_f.py}, \texttt{nk\_kernel.py}: 230--273 shapes, $k=4..7$; the rank is always $k-2$.
+\item $|\Lambda_T(x^k)|$ depends only on $\xi$ (vertical scaling fixes $x^k$). It vanishes exactly at $\xi\in\{0,1\}$, the
+right angle at $a$ or $b$ (\texttt{nk\_tan.txt}).
+\item Production mesh: $\xi-1=0.19..0.32,\ 0.047..0.079,\ 0.012..0.020$ at $N=16,64,256$, so the boundary triangles tend to
+that right-angled shape.
+\end{itemize}
+
+\begin{corollary}[edge oscillation of $\eta$; pure normal is invisible, PROVED]\label{cor:osc}
+$(I-P_0^{e})\big((I-\pi_T)H\big)|_e=0$ iff $H\in\mathrm{span}\{\ell_c^k\}$. Hence, if $\nabla^k\phi|_\Gamma=a\,n^{\otimes k}$
+with $a$ smooth, then $\|(I-P_0)\eta\|_{\Gh}\le C\hG^{k+1}\|\phi\|_{W^{k+1,\infty}}$, although $\|\eta\|_{\Gh}\simeq\hG^k$.
+\end{corollary}
+\begin{proof}
+By Lemma~\ref{lem:trace}, exactly one line of $O_k$ has constant trace, and by Lemma~\ref{lem:jac} it is $J_k(\lambda_c)$.
+For the consequence:
+\begin{itemize}
+\item Taylor-expand at $m_e$. The terms of degree $<k$ are annihilated by $I-\pi_T$, which is $L^\infty$-stable.
+\item $\nabla^k\phi(m_e)=a\,n_e^{\otimes k}+O(\hG^2)$, since $\mathrm{dist}(m_e,\Gamma)=O(\hG^2)$ and $n(m_e^\ast)=n_e$.
+\item $(n_e\cdot(x-m_e))^k\equiv c\lambda_c^k$ mod $P_{k-1}$.\qedhere
+\end{itemize}
+\end{proof}
+
+\begin{lemma}[shape-free tangential functional, PROVED]\label{lem:Lk}
+Let $L_k^e$ be the degree-$k$ Legendre polynomial on $e$ with $L_k^e=1$ at the end of $e$. Then
+\[
+\ip{\eta}{L_k^e}_e=\ip{\phi}{L_k^e}_e=\frac{k!\,|e|^{k+1}}{(2k+1)!}\cdot\frac{(2k+1)!}{(k!)^2}\int_0^1\partial^k_{\tau_e}\phi(x(t))\,t^k(1-t)^kdt ,
+\]
+that is, $|e|^{k+1}\tfrac{k!}{(2k+1)!}$ times the $\mathrm{Beta}(k+1,k+1)$-average of $\partial^k_{\tau_e}\phi$ over $e$.
+\end{lemma}
+\begin{proof}
+$\pi_T\phi|_e\in P_{k-1}(e)\perp L_k$. Then apply Rodrigues' formula $L_k=\frac1{k!}\frac{d^k}{dt^k}(t^2-t)^k$ and integrate by
+parts $k$ times.
+\end{proof}
+
+\noindent\textbf{Check (NUMERICAL).} \texttt{cert\_Lk.jsonl}: pairing/prediction $=0.982,0.9935,0.9985,0.99962,0.99990$ at
+$N=8..128$ (the $O(\hG^2)$ Riemann-sum error).
+
+\section{Energy lower bound: $(N_k)$}
+\begin{lemma}[error identity, PROVED]\label{lem:id}
+For $v\in V_R^0$:
+\[
+N_h(W,v)=\ip{\eta}{v\cdot n}+\ip{\xi-\xi_\Omega}{v\cdot n}-(\xi-\xi_\Omega,\operatorname{div}v).
+\]
+\end{lemma}
+\begin{proof}
+First, $(\nabla\phi,v)=-(\phi,\operatorname{div}v)+\ip{\phi}{v\cdot n}$. Next, $(\phi-\pi_h\phi,\operatorname{div}v)=0$ since
+$\operatorname{div}V_h\subset\Pi_h$. Substitute into the CNS$^\ast$ row
+$N_h(W,v)-(p_h,\operatorname{div}v)+\ip{p_h-\bar p_\Gamma}{v\cdot n}=(\nabla\phi,v)$. Finally, constants drop out because
+$\int_{\Gh}v\cdot n=\int\operatorname{div}v=0$.
+\end{proof}
+
+\begin{lemma}[pressure, PROVED]\label{lem:xi}
+For $\mu\ge\mu_0$:
+\[
+\|\xi-\xi_\Omega\|\le\beta^{-1}\big(2\|\nabla W\|+C_Ic_0^{-1/2}\hG^{-1/2}\|W\|_{\Gh}\big).
+\]
+\end{lemma}
+\begin{proof}
+Take $v\in V_O$ with $\operatorname{div}v=\xi-\xi_\Omega$ and $\|\nabla v\|\le\beta^{-1}\|\xi-\xi_\Omega\|$
+(Lemma~\texttt{infsup}). By Lemma~\ref{lem:id}, $\|\xi-\xi_\Omega\|^2=-a_h(W,v)+\ip{W}{\partial_nv}$. Then use Lemma
+\texttt{inverse}.
+\end{proof}
+
+\begin{theorem}[energy duality over $V_R^0$, PROVED]\label{thm:energy}
+For $\mu\ge\mu_0$ (continuity constant $M$) and every $v\in V_R^0$,
+\[
+|\ip{\eta}{v\cdot n}|\le K_1\tn W\tn v,\qquad
+K_1:=M+\beta^{-1}\big(2+C_Ic_0^{-1/2}\gamma^{-1/2}\big)\big(\sqrt2+C_Ic_0^{-1/2}\gamma^{-1/2}\big).
+\]
+Hence $\tn W\ge K_1^{-1}D^0_h$ with $D^0_h:=\sup_{V_R^0}\ip{\eta}{v\cdot n}/\tn v$. Here $D_h^0\ge D_h$ (the old $\oplus X_e$
+supremum), and no absorption and no $\gamma\ge\gamma_2$ is needed.
+\end{theorem}
+\begin{proof}
+Apply Lemma~\ref{lem:id} and bound the two $\xi$ terms:
+\begin{itemize}
+\item $|\ip{\xi-\xi_\Omega}{v\cdot n}|\le C_I(c_0\hG)^{-1/2}\|\xi-\xi_\Omega\|\,(h/\mu)^{1/2}\tn v$;
+\item $|(\xi-\xi_\Omega,\operatorname{div}v)|\le\sqrt2\|\xi-\xi_\Omega\|\tn v$.
+\end{itemize}
+Then apply Lemma~\ref{lem:xi} with $\hG^{-1/2}\|W\|_{\Gh}\le\gamma^{-1/2}\tn W$.
+\end{proof}
+
+\begin{theorem}[lower bounds for $D^0_h$, PROVED]\label{thm:Dlower}
+\begin{enumerate}
+\item[(i)] (all $k$) $D^0_h\ge C_L^{-1}(1+\gamma)^{-1/2}\hG^{1/2}\|Y\|_{\Gh}$, with $Y=\Pi_{T_0}(\eta n)$.
+\item[(ii)] (all $k$, local) Let $\delta_e:=\mathrm{dist}\big(\nabla^k\phi(m_e)/k!,\ \mathrm{span}\{\nabla\lambda_{w}^{\otimes k}\}_{w\in T_e}\big)$. Then
+\[
+c(1+\gamma)^{-1/2}\Big(\sum_e|e|^{2k+2}\delta_e^2\Big)^{1/2}-C(1+\gamma)^{-1/2}\hG^{k+3/2}\|\phi\|_{W^{k+1,\infty}}
+\le D_h\le C(1+\gamma)^{-1/2}\Big(\sum_e|e|^{2k+2}\delta_e^2\Big)^{1/2}+\dots
+\]
+So $\liminf(1+\gamma)^{1/2}\hG^{-k-1/2}D_h>0$ holds iff $\liminf\hG^{-1}\sum_e|e|\,(|e|/\hG)^{2k+1}\delta_e^2>0$. This is the
+exact nondegeneracy condition for the $\oplus X_e$ certificate.
+\item[(iii)] (even $k$) Let $g:=\nabla^k\phi[\tau^{\otimes k}]$ on $\Gamma$. Then
+\[
+D^0_h\ge c\,c_0^k\frac{k!}{(2k+1)!}(1+\gamma)^{-1/2}\hG^{k+1/2}\frac{\|g\|_{L^2(\Gamma)}^2-C\hG\|\phi\|^2_{W^{k+1,\infty}}}{\|\phi\|_{W^{k+1,\infty}}}.
+\]
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\emph{(i)} Take $v=v_Y$ in (1.1). Then $\ip{\eta}{Y\cdot n}=\|Y\|^2$.
+
+\emph{(ii)} The supports of the $X_e$ are disjoint, so $D_h^2=\sum d_e^2$.
+\begin{itemize}
+\item Upper bound for $\tn v$: for $v\in X_e$ with trace $q$, scaling gives $\tn v\le C(1+\gamma)^{1/2}|e|^{-1/2}\|q\|_e$ for
+the minimal-energy extension.
+\item Lower bound for $\tn v$: $\tn v\ge c(1+\gamma)^{1/2}|e|^{-1/2}\|q\|_e$, by trace--Poincar\'e (since $\int_e q=0$) and
+the penalty.
+\item So $d_e\asymp(1+\gamma)^{-1/2}|e|^{1/2}\|\Pi_{P_e}\eta\|_e$.
+\item Taylor: $\eta|_e=((I-\pi_T)H_e)|_e+O(|e|^{k+1})$ with $H_e=\nabla^k\phi(m_e)[\cdot-m_e]^k/k!$.
+\item Then apply Theorem~\ref{thm:kernel} and scaling.
+\end{itemize}
+
+\emph{(iii)} Construct $v\in V_R$ by nodal values:
+\begin{itemize}
+\item On each $e$ put $G_e L_k^e\,n_e+(\text{linear})\tau_e$, with $G_e:=g(m_e^\ast)$. For $k$ even, $L_k^e=1$ at \emph{both}
+endpoints.
+\item At each $\Gh$ vertex $z$ shared by $e,e'$, $v(z)$ solves $v(z)\cdot n_e=G_e$, $v(z)\cdot n_{e'}=G_{e'}$. The angle between
+$n_e$ and $n_{e'}$ is $\theta\ge(|e|+|e'|)/2$ and $|G_e-G_{e'}|\le\|g'\|_\infty(|e|+|e'|)/2$, so
+$|v(z)|\le C\|g\|_{W^{1,\infty}}$.
+\item The linear tangential part interpolates $v(z)\cdot\tau_e$.
+\item All other nodes are $0$.
+\end{itemize}
+Then $v\cdot n_e=G_eL_k^e$ \emph{exactly} on each edge, so every edge flux is $0$ and $v\in V_R^0$. Also
+$\tn v\le C(1+\gamma)^{1/2}\hG^{-1/2}\|g\|_{W^{1,\infty}}$. By Lemma~\ref{lem:Lk},
+\[
+\ip{\eta}{v\cdot n}=\tfrac{k!}{(2k+1)!}\sum_e|e|^{k+1}G_e\big(G_e+O(\hG\|\phi\|_{k+1,\infty})\big)
+\ge\tfrac{k!}{(2k+1)!}(c_0\hG)^k\big(\|g\|_{L^2(\Gamma)}^2-C\hG\|\phi\|^2_{k+1,\infty}\big),
+\]
+using a Riemann sum and a projection Jacobian $1+O(\hG^2)$.
+\end{proof}
+
+\begin{remark}[odd $k$, PROVED obstruction]
+$L_k^e$ takes the values $\mp1$ at the two ends. A continuous trace with $v\cdot n_e\propto L_k^e$ on consecutive edges
+therefore needs $G_{e'}=-G_e$ up to $O(\hG)$. The pairing $\sum G_e|e|^{k+1}g_e$ then alternates and cancels to leading order,
+while any repair costs $|v(z)|\sim\hG^{-1}$. For odd $k$ only (i) and (ii) are available.
+
+The exact visibility, for the local certificate and to leading order, is:
+\begin{itemize}
+\item $X_e$ sees $\nabla^k\phi$ modulo the three edge-normal powers of $T_e$;
+\item the $L_k$ fields (even $k$) see exactly $\nabla^k\phi[\tau^{\otimes k}]$;
+\item neither sees $n^{\otimes k}$, which is also invisible to every edge-oscillating test (Cor.~\ref{cor:osc}).
+\end{itemize}
+\end{remark}
+
+\begin{corollary}[$(N_k)$, PROVED]
+Take $\gamma\ge\gamma_0$ (upper bound: $\gamma\ge\gamma_2$). Suppose either (a) $k$ is even and
+$\nabla^k\phi[\tau^{\otimes k}]\not\equiv0$ on $\Gamma$, or (b) the local condition of Thm~\ref{thm:Dlower}(ii) holds. Then
+\[
+c(\phi)\,(1+\gamma)^{-1/2}\hG^{k+1/2}\le\tn{W_\ast(\phi)}\le C\gamma^{-1/2}\hG^{k+1/2}|\phi|_{W^{k,\infty}}.
+\]
+The same holds under $\|Y\|\ge\sigma_Y\|\eta\|$ and $\|\eta\|\ge c\hG^k$, by (i).
+\end{corollary}
+
+\noindent\textbf{Certificates (NUMERICAL, $k=4$, $\sin2x\cos y$, $\mu=100$).}
+\begin{itemize}
+\item (i): $D_Y/(\varepsilon^{1/2}\|\eta\|)=0.332,0.324,0.310,0.304$ ($N=8..64$), against
+$\tn W/(\varepsilon^{1/2}\|\eta\|)=3.1..4.8$. So $K_1\lesssim16$ is consistent. The lift constant $C_L\approx2.7$--$3.0$ and
+$\|Y\|/\|\eta\|\approx0.92$.
+\item (iii): $D_{L_k}/(\hG^{4.5}(1+\gamma)^{-1/2})=1.34,0.34,0.21,0.175,0.166\ (\times10^{-4})$ for $N=8..128$, converging.
+It is positive but weak ($\tn W/D_{L_k}\approx2\text{--}3\times10^3$), because $k!/(2k+1)!=1/15120$.
+\item (ii): the old $\oplus X_e$ value $3.6\times10^{-4}$ is positive because $\sin2x\cos y$ has components off
+$\mathrm{span}\{n^4,\tau^4,\nu_d^4\}$.
+\item For $\phi=(r-1)^4$ (pure normal): (i) still gives $0.207,0.218,0.202$, so the energy stays of full order through the
+edge-mean (flux) channel.
+\end{itemize}
+
+\section{$H^1$: the residual leak law}
+\begin{theorem}[residual leak law, PROVED]\label{thm:leak}
+There is $C_2$, independent of $h,\hG,\mu,\phi$, such that
+\[
+\|W-\varepsilon Y\|_{\Gh}\le C_2\gamma^{-1}\|W\|_{\Gh}.
+\]
+Hence for $\gamma\ge2C_2$: $\|W\|_{\Gh}\le2\varepsilon\|Y\|$ and $\|W-\varepsilon Y\|_{\Gh}\le2C_2\gamma^{-1}\varepsilon\|Y\|$.
+\end{theorem}
+\begin{proof}
+Let $t\in T_0$ and $v=v_t$. By the definition of $N_h$ and Lemma~\ref{lem:id},
+\[
+\varepsilon^{-1}\ip{W}{t}-\ip{\eta}{t\cdot n}=R(t):=-a_h(W,v)+\ip{\partial_nW}{t}+\ip{W}{\partial_nv}+\ip{\xi-\xi_\Omega}{t\cdot n}-(\xi-\xi_\Omega,\operatorname{div}v).
+\]
+With (1.1), Lemma \texttt{inverse} for $V_h$ and $\Pi_h$, and Lemma~\ref{lem:xi}:
+\[
+|R(t)|\le C\hG^{-1/2}\big(\|\nabla W\|+\hG^{-1/2}\|W\|_{\Gh}\big)\|t\|\le C_2\hG^{-1}\|W\|_{\Gh}\|t\|,
+\]
+using L1.3 ($\|\nabla W\|\le C_Y\hG^{-1/2}\|W\|_{\Gh}$; $W$ satisfies its hypothesis by Lemma~\ref{lem:id} with $v\in Y_h$).
+Since $\ip{\eta}{t\cdot n}=\ip{Y}{t}$ on $T_0$, and $W|_{\Gh}-\varepsilon Y\in T_0$, take $t=W|_{\Gh}-\varepsilon Y$. Then use
+$\varepsilon\hG^{-1}=\gamma^{-1}$.
+\end{proof}
+
+\begin{corollary}[leading term, PROVED]\label{cor:lead}
+Let $W_1\in Z_h$ be the unique field with $W_1|_{\Gh}=Y$ and $a_h(W_1,y)-\ip{W_1}{\partial_ny}=0$ for all $y\in Y_h$ (the
+discrete Nitsche-harmonic Stokes extension, i.e.\ the ``residual leak flow''). Then for $\gamma\ge2C_2$,
+\[
+\|\nabla(W-\varepsilon W_1)\|\le 2C_YC_2\gamma^{-1}\varepsilon\hG^{-1/2}\|Y\|.
+\]
+\end{corollary}
+\begin{proof}
+$W-\varepsilon W_1\in Z_h$ satisfies the hypothesis of L1.3. Apply L1.3 and Theorem~\ref{thm:leak}.
+
+Existence of $W_1$: lift $Y$ by $v_Y$, subtract the $V_O$ field with the same divergence (mean zero, Lemma~\texttt{infsup}),
+then add the $Y_h$-correction, which exists by Korn on $Y_h$.
+\end{proof}
+
+\begin{theorem}[$H^1$ two-sided bound, PROVED for $\gamma\ge\gamma_3$]\label{thm:H1}
+Let $\sigma:=\|(I-P_0)Y\|_{\Gh}/\|Y\|_{\Gh}$. Then:
+\begin{itemize}
+\item for all $\gamma\ge\gamma_0$: $\|\nabla W\|\ge C_P^{-1}\hG^{-1/2}\|(I-P_0)W\|_{\Gh}$;
+\item for $\gamma\ge\gamma_3:=\max(2C_2,4C_2/\sigma)$:
+\[
+\frac{\sigma}{2C_P}\,\hG^{1/2}\gamma^{-1}\|Y\|_{\Gh}\le\|\nabla W\|\le 2C_Y\,\hG^{1/2}\gamma^{-1}\|Y\|_{\Gh}.
+\]
+\end{itemize}
+Moreover $\sigma\ge S_\eta/\|\eta\|$, where $S_\eta:=(\sum_e\|\Pi_{P_e}\eta\|_e^2)^{1/2}$. So under the local condition of
+Thm~\ref{thm:Dlower}(ii) the $H^1$ order is exactly $\hG^{k+1/2}\gamma^{-1}$.
+\end{theorem}
+\begin{proof}
+\emph{First bullet.} Trace--Poincar\'e on $T_e$: $\|w-\bar w_{T_e}\|_e\le C_P|e|^{1/2}\|\nabla w\|_{T_e}$. No triangle has two
+$\Gh$ edges.
+
+\emph{Two-sided bound.} $\|(I-P_0)W\|\ge\varepsilon\|(I-P_0)Y\|-\|W-\varepsilon Y\|$; then apply Theorem~\ref{thm:leak}. The upper
+bound is L1.3 plus Theorem~\ref{thm:leak}.
+
+\emph{$\sigma$ bound.} For $q\in\oplus P_e$, $qn\in T_0$ and $P_0(qn)=0$, so
+$\|(I-P_0)Y\|\ge\ip{Y}{qn}/\|q\|=\ip{\eta}{q}/\|q\|$.
+\end{proof}
+
+\begin{remark}[exponent bookkeeping; comparison with GS]
+\begin{itemize}
+\item GS leak: $W_{GS}\cdot n\approx\varepsilon(p-\bar p)$, which is smooth. Its leak flow is a global Stokes flow with
+$\|\nabla\|\simeq\varepsilon\|p-\bar p\|$.
+\item CNS$^\ast$: the driver $Y$ has an $O(1)$ edge-oscillating fraction $\sigma$. The leak flow $W_1$ is a boundary layer
+of width $\simeq\hG$, which gives the extra $\hG^{-1/2}$:
+\[
+\|\nabla W_\ast\|\simeq\varepsilon\hG^{-1/2}\|\eta\|=\hG^{1/2}\gamma^{-1}\hG^{k}.
+\]
+\item The energy is dominated by the penalty: $\tn W\simeq(\mu/h)^{1/2}\|W\|_{\Gh}\simeq\varepsilon^{1/2}\|Y\|$, which is
+$\gamma^{1/2}$ larger than $\|\nabla W\|$. Measured at $N=64$, $\mu=100$: $9.53\times10^{-7}/2.22\times10^{-7}=4.3$, against
+$\gamma^{1/2}=5.4$.
+\item Pure-normal $\nabla^k\phi|_\Gamma$ (Cor.~\ref{cor:osc}): $(I-P_0)\eta=O(\hG^{k+1})$. On meshes whose boundary triangles
+vary smoothly, $\sigma\to0$ and the $H^1$ order rises (NUMERICAL below). The energy order does not change.
+\end{itemize}
+\end{remark}
+
+\noindent\textbf{What is not proved.} The $H^1$ lower bound at the production $\gamma\approx30$. Numerically
+$2C_2\approx\gamma\cdot\mathrm{leak}\approx60$--$180$, so $\gamma_3$ is of order $10^2$--$10^3$ (see §5).
+
+\section{Numerics ($k=4$, production meshes, SuperLU, relres $\le3\times10^{-15}$)}
+Logs: \texttt{leak\_*.jsonl}, \texttt{certY.jsonl}, \texttt{cert\_Lk.jsonl}, \texttt{slip\_split\_*.jsonl},
+\texttt{mucrit.jsonl}, \texttt{nk\_*.txt}. Table from \texttt{python table.py}.
+Notation: $\varepsilon=h/\mu$; ``slip''$=\|W\|_{\Gh}$; ``osc''$=\|(I-P_0)W\|_{\Gh}$; ``leak''$=\|W-\varepsilon Y\|/(\varepsilon\|Y\|)$.
+
+\begin{center}\small
+\begin{tabular}{llrrrrrrrr}\toprule
+$\phi$ & $\mu$ & $N$ & $\gamma$ & $\|\eta\|/\hG^4$ & slip$/\varepsilon\|\eta\|$ & osc$/\varepsilon\|\eta\|$ & $\|\nabla W\|/(\varepsilon\hG^{-1/2}\|\eta\|)$ & $\tn W/(\varepsilon^{1/2}\|\eta\|)$ & leak\\\midrule
+sin & 100 & 8 & 29.3 & .0406 & 1.72 & 1.12 & 5.52 & 3.14 & 1.11\\
+sin & 100 & 16 & 30.5 & .0202 & 2.45 & 1.26 & 6.16 & 3.49 & 1.78\\
+sin & 100 & 32 & 30.1 & .0144 & 3.39 & 1.31 & 6.31 & 4.05 & 2.86\\
+sin & 100 & 64 & 29.4 & .0128 & 4.41 & 1.28 & 6.06 & 4.80 & 4.02\\
+sin & $10^3$ & 8 & 293 & .0406 & 0.93 & 0.66 & 3.64 & 1.05 & .147\\
+sin & $10^3$ & 16 & 305 & .0202 & 0.97 & 0.57 & 3.19 & 1.05 & .117\\
+sin & $10^3$ & 32 & 301 & .0144 & 0.99 & 0.53 & 2.79 & 1.03 & .105\\
+sin & $10^3$ & 64 & 294 & .0128 & 1.00 & 0.51 & 2.52 & 1.02 & .105\\
+sin & $10^4$ & 32 & 3007 & .0144 & 0.92 & 0.50 & 2.91 & 0.93 & .016\\
+sin & $10^5$ & 32 & 30070 & .0144 & 0.92 & 0.49 & 3.07 & 0.92 & .0026\\
+$(r-1)^4$ & $10^3$ & 8/16/32/64 & $\approx$300 & .169/.044/.025/.021 & .65/.63/.61/.61 & .35/.23/.14/.076 & 2.40/2.02/1.42/0.90 & .71/.66/.62/.62 & .17/.12/.08/.07\\
+$(r^2-1)^3$ & $10^3$ & 8/16/32/64 & $\approx$300 & 4.8/.91/.44/.33 & .66/.66/.60/.58 & .33/.27/.24/.23 & 2.40/2.17/1.67/1.33 & .72/.69/.62/.59 & .17/.13/.10/.09\\
+\bottomrule\end{tabular}\end{center}
+
+\begin{enumerate}
+\item[N1] \textbf{The rate drift is entirely in $\|\eta\|$.} At $\mu=100$ the ratio $\|\nabla W\|/(\varepsilon\hG^{-1/2}\|\eta\|)$
+is flat ($5.5\to6.3\to6.1$). The predicted rate $4.5+\log_2$ of the ratio of successive $\|\eta\|/\hG^4$ values gives
+$5.51,4.99,4.67$, against the measured $5.73,4.97,4.71$. The asymptotic $H^1$ rate is $k+1/2=4.5$; the drift is the
+$O(\hG^{k+1})$ Taylor remainder in $\eta$.
+\item[N2] \textbf{The leak law.} At $\mu\ge10^3$, leak$\cdot\gamma\approx30$--$180$ (N-independent within the drift of the
+boundary shapes) and leak$\to0$ like $1/\mu$. At fixed $N=8$: $0.147,0.062,0.011,0.0013,0.00013$ for $\mu=10^3..10^7$.
+At $\mu=10^5$ the $H^1$ ratio $3.07$ is the leading-term constant $\|\nabla W_1\|/(\hG^{-1/2}\|\eta\|)$ of
+Cor.~\ref{cor:lead}.
+\item[N3] \textbf{The $H^1$ ratio is bounded below uniformly} in $\gamma\in[30,3\times10^4]$ (at $N=32$: $6.31,2.79,2.91,3.07$).
+The $H^1$ lower bound therefore holds numerically at the production $\gamma$ even though the leak law itself does not.
+$\|\nabla W\|/(\hG^{-1/2}\text{osc})\approx4.8$--$5.6$ throughout, so the boundary-layer mechanism holds at all $\gamma$.
+\item[N4] \textbf{$\mu=100$ is near-critical.} The exact critical penalty
+$\mu_c=\max_v[2\ip{\partial_nv}{v}-a_h(v,v)]/(h^{-1}\|v\|^2_{\Gh})$, computed via a Schur complement
+(\texttt{mucrit.py}), is $59.6,68.0,73.0,76.1$ for $N=8,16,32,64$ ($\gamma_c=17.5,20.8,22.0,22.4$). The increments shrink
+geometrically, so the limit is $\approx80$. The top eigenvalue is 4-fold (the 4 shortest-edge sites).
+\begin{itemize}
+\item The growing part of the slip at $\mu=100$ is the \emph{edge-mean normal} slip: $2.09,3.12,4.22$ at $N=16..64$.
+Tangential slip is $0.32$ and oscillatory slip is $\approx1.3$, both flat.
+\item This tracks the amplification $(1-\mu_c/\mu)^{-1}=3.1,3.7,4.2$. At $\mu=300$ the edge-mean normal slip is
+$0.93,1.02,1.07$.
+\item So the constants $1/c_1$ in Thm~3.2(a) are about 5 at $\mu=100$, and the CNS$^\ast$ energy normalisation should
+saturate near 5.
+\end{itemize}
+\textbf{Flag for the paper:} $\mu=100$ is safely coercive but only $\approx1.25$--$1.3\,\mu_c$ on this mesh family.
+\item[N5] \textbf{Pure normal $(r-1)^4$.} The oscillatory slip decays relative to $\varepsilon\|\eta\|$ like $\hG^{0.8}$
+($.35\to.076$), and $\|Y_{osc}\|/\|Y\|=0.53,0.34,0.22,0.12$. The $H^1$ ratio falls ($2.40\to0.90$), so $\|\nabla W\|$ is of
+order at least $\hG^{k+1}$ here, while the energy ratio stays at $0.61$. This confirms Cor.~\ref{cor:osc} and that
+$n^{\otimes k}$ is invisible to the $H^1$-relevant channel. For $(r^2-1)^3$ the degree-4 part is $12(y^4+x^2y^2)$; the
+$x^2y^2$ part is visible, and osc$/\varepsilon\|\eta\|$ levels off at $0.23$.
+\end{enumerate}
+
+\section{Literature (task 3)}
+\begin{itemize}
+\item \textbf{arXiv:2609.30008}, ``Pressure-robust finite elements for the Stokes problem on three-dimensional curved
+domains'': NOT READ. Both \texttt{/abs/} and \texttt{/html/} were refused (HTTP 429, with an instruction not to refetch).
+Search results give only the title. Its 3D curved setting suggests parametric or isoparametric Piola-mapped elements (like
+arXiv 2512.16216, Neilan--Otus), but this is a guess. \textbf{Must still be read before any novelty claim for CNS$^\ast$-R.}
+\item \textbf{Liu--Neilan--Otus}, JNMA 31(2) (2023) 105--123, arXiv 2105.10409; read via the NSF-PAR full text.
+\begin{itemize}
+\item Method: SV on Clough--Tocher splits, boundary correction by Taylor transfer $S_h$, Nitsche penalisation.
+\item They add a Lagrange multiplier (continuous piecewise $P_k$ on $\partial\Omega_h$, mean-free) that weakly enforces
+$u\cdot n$.
+\item Main estimate: $\|u-u_h\|_{1,h}\le C(h^k\|u\|_{H^{k+1}}+\nu^{-1}h^{k+1}\|p\|_{H^{k+1}})$.
+\item They state that ``a divergence-free method for the Stokes problem with weak enforcement of the boundary conditions is
+not pressure robust'', because divergence-free functions with nonzero normal trace are not $L^2$-orthogonal to gradients.
+They ``mitigate'' this rather than removing it.
+\item No reconstruction or modified load $(f,Rv)$, no lower bound, and no non-robustness theorem.
+\end{itemize}
+Consequences for us:
+\begin{itemize}
+\item The \emph{qualitative} GS-not-robust statement and its mechanism are in LNO (and in FNZ).
+\item Our quantitative leak law and lower bound (Cor.~2.2 of robust/, with constant 1), and CNS$^\ast$-R, are not.
+\item The LNO multiplier variant has the same flavour as CNS$^\ast$: a $\nu^{-1}$ term compensated by a power of $h$.
+\item We should cite LNO for the qualitative statement.
+\end{itemize}
+\item \textbf{Neilan--Otus} (NSF-PAR 10223777; isoparametric SV) and the general-degree follow-up arXiv 2404.14226 /
+J.\ Sci.\ Comput.\ (2024).
+\begin{itemize}
+\item Exact BCs on isoparametric curved domains.
+\item Pressure robustness via a reconstructed load $f_h=\Pi_Wf$ with commuting projections, $\Pi_W\nabla p=\nabla\Pi_\Sigma p$.
+\item This is prior art for the \emph{idea} of restoring robustness through the load on curved domains. It is not the
+local boundary-BDM correction $R$ on an inscribed polygon with Nitsche. Keep ``no novelty claimed for the device''.
+\end{itemize}
+\end{itemize}
+
+\section{Open items}
+\begin{itemize}
+\item $H^1$ lower bound for $\gamma<\gamma_3$, in particular $\gamma\approx30$. The obstruction is the smooth (edge-mean) slip
+entering through $\ip{W}{\partial_nv}$ and the pressure $\xi$.
+\item Saturation of the $\mu=100$ smooth slip and of $\mu_c$: \texttt{run\_pod2.sh} ($N=128,256$).
+\item A shape-independent condition for odd $k$: only the local one is available, and it degenerates on the production
+mesh for $\tau^{\otimes k}$.
+\item Upper bound of order $\hG^{k+3/2}$ for pure-normal $\phi$: NUMERICAL only.
+\item arXiv:2609.30008.
+\end{itemize}
+
+\noindent\textbf{Pod.} \texttt{bash notes/v6/robust2/run\_pod2.sh} (N=128 leak/slip/certY, $\mu_c$ at $N=128,256$;
+$\approx$1 h, $\le$10 GB).
+\end{document}

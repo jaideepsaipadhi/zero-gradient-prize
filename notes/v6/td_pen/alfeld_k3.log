@@ -1,0 +1,7 @@
+k=3 near-regular   dim W=  8  lam*(coords)=32.248093  diamF=1.0078  lambda_T=diamF*lam*=32.49905  exact cert 2B-A-(28060/871)C>0 at rational witness: True (witness quotient 32.248093)
+k=3 right-corner   dim W=  8  lam*(coords)=22.983355  diamF=1.4142  lambda_T=diamF*lam*=32.50337  exact cert 2B-A-(9850/429)C>0 at rational witness: True (witness quotient 22.983355)
+k=3 flat(h=1/2)    dim W=  8  lam*(coords)=61.444860  diamF=1.0078  lambda_T=diamF*lam*=61.92304  exact cert 2B-A-(51071/832)C>0 at rational witness: True (witness quotient 61.444860)
+k=3 flat(h=1/4)    dim W=  8  lam*(coords)=134.356355  diamF=1.0078  lambda_T=diamF*lam*=135.40195  exact cert 2B-A-(133014/991)C>0 at rational witness: True (witness quotient 134.356355)
+k=3 tall(h=2)      dim W=  8  lam*(coords)=-10.380906  diamF=1.0078  lambda_T=diamF*lam*=-10.46169  exact cert 2B-A-(-239/23)C>0 at rational witness: True (witness quotient -10.380906)
+k=3 tall(h=3)      dim W=  8  lam*(coords)=-57.453693  diamF=1.0078  lambda_T=diamF*lam*=-57.90081  exact cert 2B-A-(-36117/628)C>0 at rational witness: True (witness quotient -57.453693)
+k=3 skew           dim W=  8  lam*(coords)=32.385588  diamF=1.0078  lambda_T=diamF*lam*=32.63762  exact cert 2B-A-(14656/453)C>0 at rational witness: True (witness quotient 32.385588)

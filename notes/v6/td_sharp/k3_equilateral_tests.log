@@ -1,0 +1,9 @@
+octahedral fan, off-axis apex (1/5,1/7,2):
+  nullspace done
+  k=3: unknowns=198, dim Y=39, rank constraints=8, dim Y1=31, rank tangential moment on Y1=2
+regular-tetrahedron fan (3 equilateral faces), apex 2*(1,1,1):
+  nullspace done
+  k=3: unknowns=150, dim Y=31, rank constraints=6, dim Y1=25, rank tangential moment on Y1=2
+octahedral fan, apex (0,0,2), k=4 (control):
+  nullspace done
+  k=4: unknowns=465, dim Y=146, rank constraints=8, dim Y1=138, rank tangential moment on Y1=2

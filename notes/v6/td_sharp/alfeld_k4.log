@@ -1,0 +1,5 @@
+k=4: interior domain pts=35, unknowns=105, div rows=80, rank(div)=79
+dim Y (local div-free, zero on dT) = 26
+dim P_(k-1)^disc(T^A) - 1 = 79; rank(div) = 79  -> onto mean-zero: True
+rank of [mean; E12; E13; E23] on Y = 8
+rank of [mean] on Y = 2

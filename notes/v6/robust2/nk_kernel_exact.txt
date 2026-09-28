@@ -1,0 +1,16 @@
+k=4 shape (1/2,1/2): all zero
+k=4 shape (1/5,3/5): all zero
+k=4 shape (-2/7,5/9): all zero
+k=4 shape (13/10,2/3): all zero
+k=5 shape (1/2,1/2): all zero
+k=5 shape (1/5,3/5): all zero
+k=5 shape (-2/7,5/9): all zero
+k=5 shape (13/10,2/3): all zero
+k=6 shape (1/2,1/2): all zero
+k=6 shape (1/5,3/5): all zero
+k=6 shape (-2/7,5/9): all zero
+k=6 shape (13/10,2/3): all zero
+k=7 shape (1/2,1/2): all zero
+k=7 shape (1/5,3/5): all zero
+k=7 shape (-2/7,5/9): all zero
+k=7 shape (13/10,2/3): all zero

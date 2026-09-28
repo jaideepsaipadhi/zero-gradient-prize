@@ -1,0 +1,2 @@
+tall(h=2): dim=8; A-2B-10C > 0 exactly: True  (control A-2B-11C > 0: False)
+tall(h=3): dim=8; A-2B-57C > 0 exactly: True  (control A-2B-58C > 0: False)

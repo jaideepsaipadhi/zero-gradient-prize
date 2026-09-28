@@ -1,0 +1,12 @@
+vertex fan, m=4 boundary faces (regular ring):
+  nullspace done
+  k=3: unknowns=198, dim Y=39, rank constraints=8, dim Y1=31, rank tangential moment on Y1=2
+vertex fan, m=5 boundary faces (regular ring):
+  nullspace done
+  k=3: unknowns=246, dim Y=47, rank constraints=10, dim Y1=37, rank tangential moment on Y1=2
+vertex fan, m=6 boundary faces (regular ring):
+  nullspace done
+  k=3: unknowns=294, dim Y=55, rank constraints=12, dim Y1=43, rank tangential moment on Y1=2
+vertex fan, m=5, irregular ring:
+  nullspace done
+  k=3: unknowns=246, dim Y=47, rank constraints=10, dim Y1=37, rank tangential moment on Y1=2

@@ -1,0 +1,280 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Zh}{Z_h}
+\newcommand{\Yh}{Y_h}
+\newcommand{\Th}{T_h}
+\newcommand{\PT}{\Pi_T}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\tnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\dn}{\partial_n}
+\newcommand{\Ut}{\tilde U}
+\newcommand{\Pt}{\tilde P}
+\newcommand{\pt}{\tilde p}
+\newcommand{\pbar}{\bar p}
+\newcommand{\EU}{E^{0}_{U}}
+\newcommand{\GS}{\mathrm{GS}}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\Gc}{\mathcal G}
+\newcommand{\EG}{\mathcal E_\Gamma}
+\newcommand{\VO}{V_O}
+\newcommand{\ut}{\tilde u}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\lab}[1]{\textbf{[#1]}}
+\title{notes/v6/unifmu: the leak limit $(\mu/h)\delta_R\to U$ uniformly in the penalty\\
+\large (answers the open question of Remark~\texttt{hc:regime})}
+\date{2026-09-28}
+\begin{document}\maketitle
+
+\section*{0. Summary}
+Notation of \texttt{paper/sections/02--06}; $\lambda:=\mu/h=\gamma/\hG$, $X:=\lambda\,\delta_R$ with $\delta_R\in\Zh$ the solution of
+$N_h(\delta_R,v)=\Rc(v)$ on $\Zh$ (Theorem~\texttt{thm:C}, step~1), $d_h:=\norm{\nabla(X-\Ut)}_{\Oh}/\norm{\nabla U}_\Omega$.
+
+\begin{enumerate}[label=(\alph*)]
+\item \lab{PROVED} \emph{Uniform upper bound} (Theorem~\ref{thm:up}). For every $\gamma\ge\gamma_0$, with no upper bound on $\gamma$,
+\[
+\norm{\nabla(X-\Ut)}_{\Oh}\le C_U\bigl(\hG^{1/2}+\EU\bigr),\qquad \EU:=h\norm{U}_{H^2(\Omega)}+h^k+\hG^{\sigma_k-1/2}.
+\]
+This closes Remark~\texttt{hc:regime}: $(\mu/h)\delta_R\to U$ in $H^1$ uniformly in $\mu\ge\mu_0$, with rate $\hG^{1/2}$ (for $h\lesssim\hG^{1/2}$, e.g.\ bounded $h/\hG$).
+\item \lab{PROVED} \emph{Sharpness} (Theorem~\ref{thm:low}). If $G>0$ there are $\gamma_1,h_1$ (data-dependent) such that for $\gamma\ge\gamma_1$, $\hG\le h_1$ and $\EU\le\hG^{1/2}$,
+\[
+\norm{\nabla(X-\Ut)}_{\Oh}\ \ge\ c_\ast\,G\,\hG^{1/2}.
+\]
+So $d_h\asymp\hG^{1/2}$: the rate is \emph{exactly} $1/2$ in the Dirichlet-dominated regime, and also for every \emph{fixed} $\mu\ge\mu_1$ when $h/\hG$ is bounded (then $\gamma\asymp\mu$). The observed $0.6$--$0.8$ are pre-asymptotic.
+\item \lab{PROVED} \emph{Mechanism} (Lemma~\ref{lem:proj}). On $\Zh$ the printed method imposes, for every $\mu$, the $L^2(\Gh)$-projection $t^\ast=\PT g$ of the edgewise leak data $g=-(\pt-\pbar)n_e$ onto the trace space $\Th$ of $\Zh$ (continuous piecewise $P_k$, zero flux): $N_h(X,v)=\lambda\ip{t^\ast}{v}$. The penalty never sees the non-representable part $g-t^\ast$. The whole $H^1$ error is (up to $O(\hG^{1/2})$ terms that vanish in practice) the discrete Stokes lift of $\PT\zeta$, the projection of the \emph{sawtooth} $\zeta=\Ut-g=(p-\pbar)(m_e^\ast)\,s\,\tau_e+O(\hG^2)$, whose $H^{1/2}(\Gh)$ norm is $\asymp\hG^{1/2}$.
+\item \lab{PROVED} \emph{General data} (Corollary~\ref{cor:gen}): $\norm{\nabla(\ut-u_h-\frac h\mu\Ut)}\le C\frac h\mu(\hG^{1/2}+\EU)+C(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$ for all $\gamma\ge\gamma_0$; hence the $H^1$ leak constant $K$ is obtained whenever $\gamma\hG^{1/2}\to0$ (plus data terms), replacing the conditions $\gamma\hG\to0$, $\gamma^{3/2}\hG^{1/2}\to0$ of Corollary~\texttt{hc:cor}(ii).
+\item \lab{PROVED} \emph{The constant converges at rate 1} (Corollary~\ref{cor:K}): $K_h^2=K^2(1+d_h^2)+O(\hG^2+\hG\gamma^{-1/2}+\hG^{1/2}\EU\gamma^{-1})$, uniformly in $\gamma\ge\gamma_0$. This is the paper's empirical ``$K_h^2\approx K^2(1+d_h^2)$'', now a theorem; so $|K_h-K|=O(\hG)$ although $d_h\asymp\hG^{1/2}$.
+\item \lab{NUMERICAL} $d_h(\mu{=}\infty)\approx0.55\,\hG^{1/2}(1+0.96\hG+3.0\hG^2)$ on the paper's meshes (fit residual $10^{-3}$); predicted local rates $0.58$ at $N=192$, $0.53$ at $N=384$. For fixed $\mu$, $d_h\approx\varphi(\gamma)\cdot0.55\,\hG^{1/2}$ with a mesh-independent \emph{capture fraction} $\varphi(30)\approx0.43$, $\varphi(300)\approx0.86$, $\varphi(3000)\approx0.98$ (fit at $\mu=100$: $a=0.225=0.41\times0.55$; local rates $0.643\to0.544$). A lower bound for $\gamma_0\le\gamma<\gamma_1$ (i.e.\ $\varphi(\gamma)>0$ for all $\gamma$) is \emph{not} proved; it is supported by all data.
+\end{enumerate}
+
+\emph{On the heuristics in the task.} The prediction $d_h\sim\hG^{1/2}$ from ``$H^{1/2}$ cost of $O(\hG)$ direction jumps at $\sim\hG^{-1}$ vertices'' is correct, but the relevant object is not a best continuous approximation of $g$ in $H^{1/2}$ ($g\notin H^{1/2}$): the method selects $\PT g$ itself (Lemma~\ref{lem:proj}). There is no vertex/div-free obstruction: under (M2) every continuous zero-flux $P_k$ trace is the trace of a member of $\Zh$ (Lemma~\texttt{rs:lift}), so the zero-gradient constraints at wall vertices restrict vertex \emph{gradients}, not traces, and play no role at leading order. No Robin--Dirichlet interpolation argument is needed: one estimate (Theorem~\ref{thm:up}) covers all $\gamma\ge\gamma_0$, because after Lemma~\ref{lem:proj} the penalty term has no inconsistent part left.
+
+\section{Setting}
+Assumptions (M0)--(M2), (D), $k\ge4$, test P or the $\delta_R$-part of general data. $C$ depends on (M0)--(M2), $k$, $L$, $\norm{p-\pbar}_{W^{1,\infty}}$ near $\Gamma$ and norms of $U$ ($W^{2,\infty}$ near $\Gamma$, $H^2(\Omega)$); never on $h,\hG,\mu,\gamma,\rho$.
+\begin{itemize}
+\item $g:=-(\pt-\pbar)\,n_e$ on each $e\in\EG$ (edgewise smooth, discontinuous in direction at vertices). Since $\int_{\Gh}v\cdot n=0$ on $\Zh$, $\Rc(v)=\ip{g}{v}$, so $N_h(X,v)=\lambda\ip{g}{v}$ for $v\in\Zh$.
+\item $\zeta:=\Ut-g=(\pt-\pbar)n_e+\Ut$ (the paper's $\zeta$). By Lemma~\texttt{lem:chords} and $\Ut(x^\ast)=-(p-\pbar)(x^\ast)n(x^\ast)$ (paper, proof of \texttt{hc:thm}, step~3):
+\begin{equation}\label{zeta}
+\zeta|_e=c_e\,s\,\tau_e+r_e,\qquad c_e=\pm(p-\pbar)(m_e^\ast),\qquad |r_e|\le C\hG^2,
+\end{equation}
+with a fixed orientation sign. In particular $\norm\zeta_{\Gh}\le C\hG$.
+\item $\Th:=\{t\in C^0(\Gh)^2:\ t|_e\in P_k(e)^2,\ \int_{\Gh}t\cdot n=0\}$ and $\PT$ the $L^2(\Gh)$-orthogonal projection onto $\Th$.
+\item $\Yh:=\Zh\cap\VO$; $z_U\in\Zh$ from Lemma~\texttt{hc:approx}, which in fact gives the penalty-free bounds
+\begin{equation}\label{zU}
+\norm{\nabla(\Ut-z_U)}\le C\EU,\qquad \norm{\Ut-z_U}_{L^\infty(\Gh)}\le C\hG^{k+1}
+\end{equation}
+(on $\Gh$, $z_U=I_h\Ut-ab$ with $|a|\le C\hG^{\sigma_k}$; the $\gamma$-dependent parts of $E_U$ come only from the penalty weight).
+\end{itemize}
+
+\section{Three lemmas}
+\begin{lemma}[Traces of $\Zh$; the projection identity]\label{lem:proj}
+$\{v|_{\Gh}:v\in\Zh\}=\Th$. With $t^\ast:=\PT g$,
+\[
+N_h(X,v)=\lambda\ip{t^\ast}{v}\qquad\forall v\in\Zh .
+\]
+\end{lemma}
+\begin{proof}
+For $v\in\Zh$, $v|_{\Gh}$ is continuous piecewise $P_k$ and $\int_{\Gh}v\cdot n=\int_{\Oh}\div v=0$ ($v=0$ on $\partial R$). Conversely Lemma~\texttt{rs:lift} lifts every $t\in\Th$ into $\Zh$. Hence $v|_{\Gh}\in\Th$ and $\ip{g-\PT g}{v}=0$.
+\end{proof}
+
+\begin{lemma}[Normal data are invisible to $\dn$ on $\Zh$]\label{lem:canc}
+For $v\in\Zh$, $|\ip{g}{\dn v}|\le C_p\norm{v}_{\Gh}$. For $v\in\Yh$, $\ip{g}{\dn v}=0$.
+\end{lemma}
+\begin{proof}
+$g\cdot\tau_e=0$, $\sigma_e:=g\cdot n_e=-(\pt-\pbar)$. On $T_e$, $\div v=0$ gives $\dn v\cdot n_e=-\partial_\tau(v\cdot\tau_e)$, so
+$\int_e\sigma_e\,\dn v\cdot n_e=\int_e\partial_\tau\sigma_e\,(v\cdot\tau_e)-[\sigma_e\,v\cdot\tau_e]_{\partial e}$.
+If $v=0$ on $\Gh$ everything vanishes. Otherwise, at a vertex $x$ between $e$ and $e'$ the endpoint terms combine to $\sigma(x)\,v(x)\cdot(\tau_{e'}-\tau_e)$ ($\pt$ is continuous), of size $\le C\hG|v(x)|$; $\sum_x\hG|v(x)|\le C\hG\sum_e|e|^{-1/2}\norm v_{L^2(e)}\le C\norm v_{\Gh}$ by (M0). The interior terms are $\le C\norm{\nabla\pt}_\infty|\Gh|^{1/2}\norm v_{\Gh}$.
+\end{proof}
+(Compared with Lemma~\texttt{lem:cancel} there is no $\hG^{1/2}\norm{\nabla v}$ term, because $g$ is \emph{exactly} normal on every edge.)
+
+\begin{lemma}[Sizes]\label{lem:size}
+$\norm{t^\ast-g}_{\Gh}\le C\hG$ and $\norm{t^\ast-\Ut}_{\Gh}\le C\hG$.
+\end{lemma}
+\begin{proof}
+$z_U|_{\Gh}\in\Th$, so $\norm{\PT g-g}\le\norm{z_U-g}\le\norm{z_U-\Ut}+\norm\zeta\le C\hG$. And $t^\ast-\Ut=(t^\ast-g)-\zeta$.
+\end{proof}
+
+\section{The discrete Dirichlet comparison field}
+Let $X^D\in\Zh$ be the solution of the discrete Stokes--Dirichlet problem
+\[
+X^D|_{\Gh}=t^\ast,\qquad a_h(X^D,v)=0\quad\forall v\in\Yh .
+\]
+It exists and is unique: the affine set $\{z\in\Zh:z|_{\Gh}=t^\ast\}$ is non-empty (Lemma~\ref{lem:proj}), its direction is $\Yh$, and $a_h$ is coercive on $\Yh$ (Lemma~\texttt{lem:korn}).
+
+\begin{lemma}\label{lem:XD}
+$\norm{\nabla(X^D-\Ut)}\le C(\hG^{1/2}+\EU)$.
+\end{lemma}
+\begin{proof}
+$W:=X^D-z_U\in\Zh$ has trace $t^\ast-z_U\in\Th$ with $\norm{t^\ast-z_U}_{\Gh}\le\norm{t^\ast-\Ut}+\norm{\Ut-z_U}_{\Gh}\le C\hG$ (Lemma~\ref{lem:size}, \eqref{zU}). Let $L\in\Zh$ be its lift (Lemma~\texttt{rs:lift}), $\norm{\nabla L}\le C_L\hG^{-1/2}C\hG=C\hG^{1/2}$, and $y:=W-L\in\Yh$. Then $a_h(y,y)=-a_h(z_U,y)-a_h(L,y)$. By Green's formula on $\Oh$ (as in Lemma~\texttt{lem:erroreq}), for $y\in\Yh$, $a_h(\Ut,y)=(F_U,y)$, $|(F_U,y)|\le C\hG^2\norm{\nabla y}$ (Lemma~\texttt{lem:ext}). With Korn,
+$\norm{\nabla y}\le\kappa(2\norm{\nabla(z_U-\Ut)}+C\hG^2+2\norm{\nabla L})$, and $\norm{\nabla(X^D-\Ut)}\le\norm{\nabla(z_U-\Ut)}+\norm{\nabla L}+\norm{\nabla y}$.
+\end{proof}
+
+\section{The uniform upper bound}
+\begin{theorem}[\lab{PROVED}]\label{thm:up}
+Let $\gamma\ge\gamma_0$ (no upper bound) and $D:=X-X^D\in\Zh$. Then
+\[
+\tnorm{D}\le C\Bigl[\Bigl(\frac{\hG}{\gamma}\Bigr)^{1/2}+\gamma^{-1/2}\EU+\hG^{1/2}\Bigr],\qquad
+\norm{\nabla(X-\Ut)}_{\Oh}\le C\bigl(\hG^{1/2}+\EU\bigr).
+\]
+Moreover $\norm{D}_{\Gh}\le\lambda^{-1/2}\tnorm D\le C\,\hG\,\gamma^{-1/2}(1+\hG^{-1/2}\EU)$.
+\end{theorem}
+\begin{proof}
+\emph{Error equation.} By Lemma~\ref{lem:proj} and the definition of $N_h$, using $X^D|_{\Gh}=t^\ast$: for all $v\in\Zh$,
+\[
+N_h(D,v)=\lambda\ip{t^\ast}{v}-N_h(X^D,v)=-a_h(X^D,v)+\ip{\dn X^D}{v}+\ip{t^\ast}{\dn v}=:\ell(v).
+\]
+The two $\lambda$-terms cancel \emph{exactly}; this is the point.
+
+\emph{(i) $a_h(X^D,v)$.} Let $L_v\in\Zh$ lift $v|_{\Gh}$ (Lemma~\texttt{rs:lift}); $v-L_v\in\Yh$, so $a_h(X^D,v)=a_h(X^D,L_v)=a_h(\Ut,L_v)+a_h(X^D-\Ut,L_v)$. Green's formula ($\div L_v=0$, $L_v=0$ on $\partial R$, $\int_{\Gh}L_v\cdot n=0$) gives
+$a_h(\Ut,L_v)=(F_U,L_v)+\ip{(D(\Ut)-(\Pt-c))n}{v}$, bounded by $C\hG^2\norm{\nabla L_v}+C\norm v_{\Gh}\le C\norm v_{\Gh}$. By Lemma~\ref{lem:XD}, $|a_h(X^D-\Ut,L_v)|\le2\norm{\nabla(X^D-\Ut)}C_L\hG^{-1/2}\norm v_{\Gh}\le C(1+\hG^{-1/2}\EU)\norm v_{\Gh}$.
+
+\emph{(ii) $\ip{\dn X^D}{v}$.} By Lemma~\texttt{lem:inverse} and (M0), $\norm{\dn(X^D-I_h\Ut)}_{\Gh}\le C_I(c_0\hG)^{-1/2}\norm{\nabla(X^D-I_h\Ut)}\le C\hG^{-1/2}(\hG^{1/2}+\EU)$; $\norm{\dn I_h\Ut}_{\Gh}\le C$. So $|\ip{\dn X^D}{v}|\le C(1+\hG^{-1/2}\EU)\norm v_{\Gh}$.
+
+\emph{(iii) $\ip{t^\ast}{\dn v}=\ip{g}{\dn v}+\ip{t^\ast-g}{\dn v}$.} Lemma~\ref{lem:canc} bounds the first by $C\norm v_{\Gh}$; Lemma~\ref{lem:size} and $\norm{\dn v}_{\Gh}\le(c_0\hG)^{-1/2}\tnorm v$ bound the second by $C\hG^{1/2}\tnorm v$.
+
+\emph{Close.} With $\norm v_{\Gh}\le\lambda^{-1/2}\tnorm v=(\hG/\gamma)^{1/2}\tnorm v$:
+$|\ell(v)|\le C[(1+\hG^{-1/2}\EU)(\hG/\gamma)^{1/2}+\hG^{1/2}]\tnorm v$. Coercivity (Lemma~\texttt{lem:coercive}, constant $c_1$ independent of $\mu$) with $v=D$ gives the bound on $\tnorm D$. Then $\norm{\nabla(X-\Ut)}\le\tnorm D+\norm{\nabla(X^D-\Ut)}$, Lemma~\ref{lem:XD}, and $(\hG/\gamma)^{1/2}\le\gamma_0^{-1/2}\hG^{1/2}$.
+\end{proof}
+
+\begin{remark}\label{rem:limit}
+As $\gamma\to\infty$ (fixed mesh), $\norm D_{\Gh}\to0$ and $X\to X^\infty\in\Zh$ with $X^\infty|_{\Gh}=t^\ast$ and $a_h(X^\infty,v)=\ip{t^\ast-g}{\dn v}$ on $\Yh$ (Lemma~\ref{lem:canc}). So $X^\infty-X^D\in\Yh$ is driven only by the tangential part of $g-\PT g$; the proof gives $\norm{\nabla(X^\infty-X^D)}\le C\hG^{1/2}$, but numerically it is $O(\hG^{1.3})$ and $\le1.3\%$ of $\norm{\nabla(X-\Ut)}$ (Table~2, column $d(X,X^D)$ at $\mu=10^8$) \lab{NUMERICAL}. To leading order the Dirichlet-limit error \emph{is} $X^D-\Ut$, i.e.\ (since the smooth-data field $X^U$ below is accurate to $10^{-4}$) the discrete Stokes lift of $-\PT\zeta$.
+\end{remark}
+
+\section{Consequences}
+\begin{corollary}[General data, \lab{PROVED}]\label{cor:gen}
+For $\GS$ with general data and every $\gamma\ge\gamma_0$,
+\[
+\Bigl\|\nabla\Bigl(\ut-u_h-\frac h\mu\Ut\Bigr)\Bigr\|_{\Oh}\le C\frac h\mu\bigl(\hG^{1/2}+\EU\bigr)+C\bigl(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2}\bigr).
+\]
+Hence $\norm{\nabla(\ut-u_h)}\,\mu/(hG)\to K$ whenever $\hG\to0$ with $h/\mu\to0$, $\EU\to0$ and $\frac\mu h(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})\to0$; the geometric part of the last condition is $\gamma\hG^{1/2}\to0$. (With flux-corrected data $h^{\sigma_k}\hG^{-1/2}$ becomes $\hG^{\sigma_k-1/2}+|m_R|$, Theorem~\texttt{rs:Dfc}.)
+\end{corollary}
+\begin{proof}
+$\delta_R$ does not depend on $z$ (it solves $N_h(\delta_R,v)=\Rc(v)$). In the proof of Theorem~\texttt{rs:unif}, $\ut-u_h=(\ut-u_h')+\delta_R$ with $\norm{\nabla(\ut-u_h')}\le C(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$ uniformly in $\gamma$ (its steps 2--5). Apply Theorem~\ref{thm:up} to $\delta_R=(h/\mu)X$.
+\end{proof}
+For $\gamma\gtrsim\hG^{-1/2}$ the geometric error $\asymp\hG^{3/2}$ (Theorem~\texttt{lb:thm}, under (M3), $W\not\equiv0$) is at least the leak $(h/\mu)G\asymp\hG G/\gamma$, so we expect the condition $\gamma\hG^{1/2}\to0$ cannot be dropped for general data; we have not excluded cancellation between the two parts, so this is not claimed. For test P ($\ut=0$, $\Gc=0$) the second term is absent and the statement is uniform in $\gamma$.
+
+\begin{corollary}[The $H^1$ constant converges at rate one, \lab{PROVED}]\label{cor:K}
+On test P let $K_h:=\norm{\nabla X}_{\Oh}/G$ (the table value $\norm{\nabla(\ut-u_h)}\mu/(hG)$). For every $\gamma\ge\gamma_0$,
+\[
+\bigl|K_h^2-K^2(1+d_h^2)\bigr|\le C\bigl(\hG^2+\hG\gamma^{-1/2}(1+\hG^{-1/2}\EU)\bigr),
+\]
+hence $|K_h-K|\le C(\hG+(\EU)^2)$ uniformly in $\gamma$, while $d_h\asymp\hG^{1/2}$.
+\end{corollary}
+\begin{proof}
+Put $W:=X-\Ut$; then $\norm{\nabla X}^2=\norm{\nabla\Ut}^2_{\Oh}+2(\nabla\Ut,\nabla W)+\norm{\nabla W}^2$, $\norm{\nabla W}=d_h\norm{\nabla U}$, $\norm{\nabla\Ut}^2_{\Oh}-\norm{\nabla U}_\Omega^2=O(\hG^2)$. Since $\div W=0$, $W=0$ on $\partial R$ and $\int_{\Gh}W\cdot n=0$, Green gives $(\nabla\Ut,\nabla W)=(F_U,W)+\ip{\sigma}{W}$, $\sigma:=\dn\Ut-(\Pt-c)n$, edgewise smooth with jumps $O(\hG)$ at vertices, so $\norm{\sigma-\PT\sigma}_{\Gh}\le C\hG$. On $\Gh$, $W=D+(\PT\Ut-\Ut)-\PT\zeta$. Then:
+$|(F_U,W)|\le C\hG^2\norm{\nabla W}$;
+$\ip\sigma{\PT\zeta}=\ip{\sigma}{\zeta}+\ip{\PT\sigma-\sigma}{\zeta}$, where $|\ip\sigma\zeta|\le C\hG^2$ by \eqref{zeta} and $\int_e s\,ds=0$ (as in Lemma~\texttt{lem:transposed}), and $|\ip{\PT\sigma-\sigma}\zeta|\le C\hG\cdot\hG$;
+$|\ip{\sigma}{\PT\Ut-\Ut}|\le C\hG^{k+1}$; $|\ip\sigma D|\le C\norm D_{\Gh}$, bounded by Theorem~\ref{thm:up}.
+\end{proof}
+\noindent\lab{NUMERICAL} At $\mu=10^8$ the paper's table gives $K_h^2-K^2(1+d_h^2)=-0.447,-0.202,-0.115,-0.051,-0.029,-0.013$ for $N=16,\dots,96$, i.e.\ $\approx-1.87\,\hG^2$ from $N=48$ on, exactly the $\gamma\to\infty$ form of Corollary~\ref{cor:K}. At $\mu=100$ the defect is $\approx-105\,h/\mu$ (smooth Robin correction); the proof bounds this piece only by $(h/\mu)^{1/2}$-type terms (energy argument), which is not sharp.
+
+\section{The lower bound}
+\subsection*{Fourier norms on $\Gh$}
+Parametrise $\Gh$ by arclength $\sigma\in[0,\Lambda)$, $\Lambda=|\Gh|$. For mean-free $w\in L^2(\Gh)^2$ with coefficients $\hat w_n$ ($w=\sum\hat w_ne^{2\pi in\sigma/\Lambda}$) set $|w|_s^2:=\Lambda\sum_{n\ne0}|2\pi n/\Lambda|^{2s}|\hat w_n|^2$. For $w$ not mean-free, $|w|_s:=|w-\bar w|_s$ ($s>0$).
+\begin{enumerate}[label=(F\arabic*)]
+\item \emph{Trace.} $|w|_{1/2}\le C_T\norm{\nabla w}_{L^2(\Oh)}$ for $w\in H^1(\Oh)^2$, with $C_T$ independent of $h$. ($|\cdot|_{1/2}$ is a fixed multiple of the Gagliardo seminorm with chordal distance on the circle of length $\Lambda$; the radial map $\Gh\to\Gamma$ is bi-Lipschitz with constants $1+O(\hG)$ and extends to the map $\Phi_h$ of Lemma~\texttt{lem:korn}; apply the trace theorem on a fixed collar of $\Gamma$ to $w\circ\Phi_h$ minus its mean.) For $w$ vanishing on $\partial R$ one may take $C_T=1+O(\hG)$: extend by $0$ outside $R$ and use the Dirichlet principle in the exterior of the unit disk, whose harmonic extension has energy exactly $2\pi\sum|n||\hat w_n|^2=|w|_{1/2}^2$ when $\Lambda=2\pi$.
+\item \emph{Duality.} If $q$ is mean-free, $|\ip wq|\le|w|_{1/2}|q|_{-1/2}$.
+\item \emph{Interpolation.} $|q|_{-1/2}^2\le|q|_{-1}\norm q$ (Cauchy--Schwarz on the coefficients).
+\item \emph{Cell means.} If $q$ has zero mean on every edge, $|q|_{-1}=\sup_\phi\ip q\phi/\norm{\phi'}\le(\hG/\pi)\norm q$ (Poincar\'e--Wirtinger on each edge). Hence $|q|_{-1/2}\le(\hG/\pi)^{1/2}\norm q$.
+\end{enumerate}
+
+\begin{theorem}[\lab{PROVED}]\label{thm:low}
+Let $G>0$. With $c_\ast:=c_0^2\sqrt{840\pi}/(120\,C_T)$ and $C$ as above (now also depending on $G^{-1}$),
+\[
+\norm{\nabla(X-\Ut)}_{\Oh}\ \ge\ \hG^{1/2}\Bigl[c_\ast G-C\bigl(\hG+\gamma^{-1/2}(1+\hG^{-1/2}\EU)\bigr)\Bigr]
+\]
+for all $\gamma\ge\gamma_0$ and $\hG\le h_\ast$. In particular, if $\gamma\ge\gamma_1:=(4C/(c_\ast G))^2$, $\EU\le\hG^{1/2}$ and $\hG\le c_\ast G/(4C)$, then $\norm{\nabla(X-\Ut)}\ge\frac{c_\ast}2G\,\hG^{1/2}$, i.e.\ $d_h\ge\frac{c_\ast}{2K}\hG^{1/2}$.
+\end{theorem}
+\begin{proof}
+\emph{Test trace.} With $c_e,\tau_e$ from \eqref{zeta} and $\beta_e(s):=s(\ell_e^2/4-s^2)/\ell_e^2$ ($\ell_e=|e|$, $s$ from the midpoint) let $q_h|_e:=c_e\beta_e(s)\tau_e$. It is cubic ($\le k$), vanishes at the vertices (so is continuous), is tangential (so has zero flux): $q_h\in\Th$. Each edge mean is zero ($\beta_e$ odd). Using $\int_es\beta_e=\ell_e^3/120$, $\int_e\beta_e^2=\ell_e^3/840$, $|q_h|\le C\hG$, (M0) and the Riemann sum $\sum_e\ell_ec_e^2=G^2+O(\hG)$:
+\[
+\ip\zeta{q_h}\ge\frac{c_0^2\hG^2}{120}(G^2-C\hG),\qquad \norm{q_h}\le\frac{\hG}{\sqrt{840}}(G+C\hG),\qquad |q_h|_{-1/2}\le\frac{\hG^{3/2}}{\sqrt{840\pi}}(G+C\hG).
+\]
+\emph{Pairing.} Let $W:=X-\Ut$. On $\Gh$, $X=t^\ast+D$ and $t^\ast=\PT\Ut-\PT\zeta$. Since $\PT$ is self-adjoint and $q_h\in\Th$, $\ip{\PT\Ut-\Ut}{q_h}=0$ and $\ip{\PT\zeta}{q_h}=\ip\zeta{q_h}$, so \emph{exactly}
+\[
+\ip W{q_h}=\ip D{q_h}-\ip\zeta{q_h}.
+\]
+By Theorem~\ref{thm:up}, $|\ip D{q_h}|\le\norm D_{\Gh}\norm{q_h}\le C\hG^2\gamma^{-1/2}(1+\hG^{-1/2}\EU)$.
+\emph{Conclude.} By (F1),(F2): $C_T\norm{\nabla W}\,|q_h|_{-1/2}\ge|\ip W{q_h}|\ge\ip\zeta{q_h}-|\ip D{q_h}|$; divide.
+\end{proof}
+
+\begin{remark}[What the constant is]\label{rem:const}
+The proof really shows $\norm{\nabla(X-\Ut)}\ge C_T^{-1}|\PT\zeta|_{1/2}-C\gamma^{-1/2}\hG^{1/2}(\dots)$ and $|\PT\zeta|_{1/2}\ge\ip\zeta{q_h}/|q_h|_{-1/2}$. On the paper's meshes (Table~1) $|\PT\zeta|_{1/2}/\hG^{1/2}\to0.942$ and the certificate $\ip\zeta{q_h}/|q_h|_{-1/2}$ gives $0.920\,\hG^{1/2}$ at $N=256$ \lab{NUMERICAL}. The discrete $\Zh$-extension costs $\norm{\nabla X^{\rm saw}}/|\PT\zeta|_{1/2}\approx2.6$--$2.9$ (continuum harmonic extension: $\approx1$), which with $\norm{\nabla U}=4.570$ gives the observed $a_\infty\approx0.55$.
+\end{remark}
+
+\subsection*{The Robin--Dirichlet crossover (what is not proved)}
+The threshold $\gamma_1$ is genuine for the \emph{method of proof}: the exact identity $\ip W{q_h}=\ip D{q_h}-\ip\zeta{q_h}$ shows that the sawtooth is captured with fraction
+\[
+\varphi_h(\gamma):=\frac{\ip W{q_h}}{-\ip\zeta{q_h}}=1-\frac{\ip D{q_h}}{\ip\zeta{q_h}},
+\]
+and $D$ does carry an element-scale response of relative size $\sim\gamma^{-1}$ (at the element scale the penalty $\lambda$ competes with a stiffness $\sim\hG^{-1}$, ratio $\gamma$). Theorem~\ref{thm:up} gives $1-\varphi_h=O(\gamma^{-1/2})$; the data give $\varphi_h$ mesh-independent and $\approx0.43,0.86,0.98$ at $\gamma\approx30,300,3000$, i.e.\ $1-\varphi\approx C\gamma^{-0.8}$. \lab{CONJECTURE} For every fixed $\gamma\ge\gamma_0$, $d_h\sim\varphi(\gamma)a_\infty\hG^{1/2}$ with $\varphi(\gamma)>0$; so the $H^1$ rate of the leak is exactly $1/2$ for every penalty. A proof would need a two-scale (cell-problem) analysis of $D$ on the boundary layer; we have not attempted it.
+
+\section{Numerics \lab{NUMERICAL}}
+Script \texttt{notes/v6/unifmu/unifmu.py} (reuses \texttt{code/svn.py}, \texttt{code/h1\_limit.py}, \texttt{code/strong\_bc.py}; SuperLU; test P; $L=2.5$; the paper's structured meshes). New quantities: $t^\ast=\PT g$ (constrained $L^2(\Gh)$ projection), $X^D$ (strong Dirichlet data $t^\ast$), $X^U$ (strong Dirichlet data $\PT\Ut$, i.e.\ \emph{no sawtooth}), $X^{\rm saw}=X^D-X^U$; Fourier norms with $16N$ modes and $40$ Gauss points per edge. All GS runs reproduce the $d_h$ column of \texttt{logs/h1\_limit\_fem.log} to all printed digits. Divergence residuals $\le6\cdot10^{-13}$ (Dirichlet) and $\le2\cdot10^{-15}$ (GS); flux of $t^\ast$ $\le1.3\cdot10^{-15}$.
+
+\begin{center}\small
+Table 1. Trace quantities (no solve; $N\le256$).\\[2pt]
+\begin{tabular}{rcccccc}
+\toprule
+$N$ & $\hG$ & $\norm\zeta/\hG$ & $\norm{t^\ast-g}/\hG$ & $|\PT\zeta|_{1/2}/\hG^{1/2}$ & cert$/\hG^{1/2}$ & $\norm{\PT\Ut-\Ut}$\\
+\midrule
+16 & .4595 & .4876 & .2243 & 1.028 & .843 & $2.3\cdot10^{-4}$\\
+32 & .2444 & .4363 & .2269 & .970 & .877 & $8.6\cdot10^{-6}$\\
+64 & .1243 & .4232 & .2286 & .950 & .900 & $2.9\cdot10^{-7}$\\
+96 & .0831 & .4207 & .2290 & .945 & .909 & $3.9\cdot10^{-8}$\\
+128 & .0624 & .4199 & .2292 & .944 & .913 & $9.2\cdot10^{-9}$\\
+192 & .0416 & .4193 & .2293 & .943 & .918 & $1.2\cdot10^{-9}$\\
+256 & .0312 & .4191 & .2293 & .942 & .920 & $2.9\cdot10^{-10}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Lemma~\ref{lem:size} ($\norm{t^\ast-g},\norm\zeta\asymp\hG$) and the $\hG^{1/2}$ law for $|\PT\zeta|_{1/2}$ are clean.
+
+\begin{center}\small
+Table 2. $H^1$ distances $d(\cdot)=\norm{\nabla(\cdot-\Ut)}/\norm{\nabla U}$ and capture fraction.\\[2pt]
+\begin{tabular}{r|ccc|ccc|cc|cc}
+\toprule
+& \multicolumn{3}{c|}{Dirichlet fields} & \multicolumn{3}{c|}{$\mu=10^8$} & \multicolumn{2}{c|}{$\mu=10^2$ ($\gamma\approx30$)} & \multicolumn{2}{c}{$\mu=10^4$ ($\gamma\approx3000$)}\\
+$N$ & $d(X^D)$ & $d(X^U)$ & ext & $d_h$ & $d(X,X^D)$ & $d_h/\hG^{1/2}$ & $d_h$ & $\varphi_h$ & $d_h$ & $\varphi_h$\\
+\midrule
+16 & .7169 & $9.5\cdot10^{-3}$ & 4.69 & .7170 & $1.3\cdot10^{-2}$ & 1.058 & .1926 & .447 & .5392 & .972\\
+24 & .4970 & $2.4\cdot10^{-3}$ & 4.06 & .4970 & $8.1\cdot10^{-3}$ & .878 & .1475 & .429 & .3985 & .976\\
+32 & .3846 & $8.3\cdot10^{-4}$ & 3.66 & .3847 & $5.6\cdot10^{-3}$ & .778 & .1239 & .425 & .3228 & .978\\
+48 & .2771 & $2.1\cdot10^{-4}$ & 3.26 & .2771 & $3.2\cdot10^{-3}$ & .682 & .0981 & .425 & .2455 & .980\\
+64 & .2258 & $1.0\cdot10^{-4}$ & 3.08 & .2258 & $2.1\cdot10^{-3}$ & .640 & .0836 & .427 & .2055 & .981\\
+96 & .1745 & $4.7\cdot10^{-5}$ & 2.93 & .1745 & $1.1\cdot10^{-3}$ & .605 & .0672 & .430 & .1627 & .982\\
+\bottomrule
+\end{tabular}
+\end{center}
+(ext $=\norm{\nabla X^{\rm saw}}/|\PT\zeta|_{1/2}$. At $\mu=10^3$: $\varphi_h=.835,.843,.849,.856,.860,.864$.)
+
+\paragraph{Reading.}
+\begin{itemize}
+\item With the sawtooth removed from the data ($X^U$) the discrete Dirichlet field is accurate to $5\cdot10^{-5}$: the $\hG^{1/2}$ error is \emph{entirely} the sawtooth, $d(X^D)=d(X^{\rm saw})$ to 5 digits.
+\item At $\mu=10^8$, $X$ and $X^D$ agree to $d(X,X^D)=O(\hG^{1.3})$, $\le1.3\%$ of $d_h$ (Remark~\ref{rem:limit}).
+\item Fits (\texttt{fit.log}, $N\ge32$): $d(X^D)=0.550\,\hG^{1/2}(1+0.96\hG+3.04\hG^2)$ (rel.\ residual $1.1\cdot10^{-3}$); $d_h(\mu{=}100)=0.225\,\hG^{1/2}(1+0.39\hG+0.30\hG^2)$ (residual $4\cdot10^{-5}$), with $0.225/0.550=0.41\approx\varphi(30)$. Local rates: $\mu=10^8$: $.947,.834,.724,.640$; $\mu=100$: $.643,.594,.564,.544$. Both descend to $1/2$, as Theorems~\ref{thm:up} and~\ref{thm:low} require.
+\item The paper's ``$\hG^{0.6}$--$\hG^{0.8}$, slowing'' is the correction $1+0.96\hG+3.0\hG^2$; predicted local rate $0.58$ at $N=192$ and $0.53$ at $N=384$.
+\end{itemize}
+
+\section{Suggested paper edits (not made)}
+\begin{enumerate}
+\item Replace Remark~\texttt{hc:regime}'s last two sentences by Theorems~\ref{thm:up}/\ref{thm:low}: ``$(\mu/h)\delta_R\to U$ in $H^1$ uniformly in $\mu\ge\mu_0$, with $d_h\le C(\hG^{1/2}+h)$; for $\gamma\ge\gamma_1$ also $d_h\ge c\hG^{1/2}$. The observed $0.6$--$0.8$ are pre-asymptotic.''
+\item Theorem~\texttt{hc:thm} can be restated with the $\gamma$-free bound $C_U(\hG^{1/2}+\EU)$; its terms $\min(\gamma\hG^{1/2},(\gamma\hG)^{1/2})$ and $(h/\mu)^{1/2}$ are artefacts of estimating $\lambda\ip\zeta v$ instead of using Lemma~\ref{lem:proj}.
+\item In Corollary~\texttt{hc:cor}(ii) the conditions $\gamma\hG\to0$, $\gamma^{3/2}\hG^{1/2}\to0$ can be replaced by $\gamma\hG^{1/2}\to0$ (Corollary~\ref{cor:gen}); for test P no condition.
+\item The bullet ``$K_h^2\approx K^2(1+d_h^2)$'' becomes Corollary~\ref{cor:K}; $K_h\to K$ at rate $1$.
+\item The ``rate $h^{0.6}$ at $\mu=100$ consistent with Theorem~\texttt{hc:thm}'' should say that the asymptotic rate is $1/2$ there too (local rates $0.64\to0.54$).
+\end{enumerate}
+
+\section{Files}
+\texttt{notes/v6/unifmu/}: \texttt{unifmu.py} (all computations; \texttt{ONLYGEO=1} for Table~1 only; \texttt{MUS=} penalty list), \texttt{fit.py}$\to$\texttt{fit.log}, \texttt{run\_*.log} (raw JSON lines). Commands: \texttt{python unifmu.py 16; python unifmu.py 24 32 48 64; python unifmu.py 96} (N=96: $\approx$20 min on one core, each solve $\le4$ min, $<3$\,GB); \texttt{ONLYGEO=1 python unifmu.py 128 192 256}; \texttt{python fit.py > fit.log}. $N=128$ with solves was OOM-killed here (SuperLU fill $>4.4$\,GB); pod command (one core, $\approx16$\,GB, expect $\approx10$ min per solve at $N=128$): \texttt{cd notes/v6/unifmu \&\& MUS=1e2,1e8 python unifmu.py 128 192 > run\_pod.log \&\& python fit.py > fit.log}. Prediction to test: $d(X^D)/\hG^{1/2}\approx0.589$ ($N=128$), $0.575$ ($N=192$); local rate $\approx0.58$ at $N=192$.
+\end{document}

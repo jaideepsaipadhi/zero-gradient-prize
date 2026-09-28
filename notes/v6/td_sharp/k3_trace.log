@@ -1,0 +1,16 @@
+single tet (general) : dim Y = 6  rank of trace map g = 3
+   rank of g at vertex1 = 0
+   rank of g at vertex2 = 0
+   rank of g at vertex3 = 0
+   rank of g at mid12 = 1
+   rank of g at centroid = 2
+   basis of traces (components along NF-frame omitted):
+    3
+octa fan : dim Y = 39  rank of trace map g = 7
+   rank of g at vertex1 = 2
+   rank of g at vertex2 = 0
+   rank of g at vertex3 = 0
+   rank of g at mid12 = 2
+   rank of g at centroid = 2
+   basis of traces (components along NF-frame omitted):
+    7

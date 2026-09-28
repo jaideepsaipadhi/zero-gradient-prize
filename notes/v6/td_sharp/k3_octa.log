@@ -1,0 +1,6 @@
+single macro-tet on an equilateral face:
+  nullspace done
+  k=3: unknowns=45, dim Y=6, rank constraints=2, dim Y1=4, rank tangential moment on Y1=0
+octahedral vertex fan (4 equilateral faces):
+  nullspace done
+  k=3: unknowns=198, dim Y=39, rank constraints=8, dim Y1=31, rank tangential moment on Y1=0

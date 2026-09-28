@@ -1,0 +1,2 @@
+dim Y1 = 24  singular values of E (H1-orthonormal): [0.2398863  0.17456873 0.12268594 0.06893682 0.02110356 0.01090772]
+kappa_hat = sigma_min = 0.010907723818015217    ||R|| = 1/kappa_hat = 91.67815546891626

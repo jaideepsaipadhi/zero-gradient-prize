@@ -1,0 +1,227 @@
+% notes/v6/td_pen/REPORT.tex -- 3D penalty necessity (td:open item 1), (IS3) uniformity on Alfeld splits (item 3),
+% literature status for unsplit meshes (item 2).  Not part of paper/; nothing committed.
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,enumitem}
+\usepackage[margin=2.2cm]{geometry}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}[theorem]{Lemma}\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Oh}{\Omega_h}\newcommand{\Gh}{\Gamma_h}\newcommand{\hG}{h_\Gamma}\newcommand{\dn}{\partial_n}
+\newcommand{\norm}[1]{\|#1\|}\newcommand{\ip}[2]{\langle #1,#2\rangle}\DeclareMathOperator{\curl}{curl}\DeclareMathOperator{\diam}{diam}
+\newcommand{\lab}[1]{\textbf{[#1]}}
+\title{3D penalty necessity and (IS3) uniformity on Alfeld splits}\date{2026-09-28}\author{notes/v6/td\_pen}
+\begin{document}\maketitle
+
+\section*{Summary}
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{Item 1 (3D penalty necessity).} Two results.
+ \begin{itemize}
+ \item \textbf{Theorem~\ref{thm:3A} (single Alfeld tetrahedron)} \lab{PROVED, computer-assisted exact}.
+ Take a macro tetrahedron $T$ with a face $F\subset\Gh$. The space $W_k(T)$ consists of the continuous, piecewise-$P_k$, pointwise divergence-free fields on the Alfeld split of $T$ that vanish on the three other faces. Its dimension is $8$ for $k=3$ and is affine-invariant by a Piola argument (Lemma~\ref{lem:piola}). Put $\lambda_T:=\diam F\cdot\sup_{W_k(T)}(2B-A)/C$. If $\mu\diam F/h<\lambda_T$, then $N_h$ is indefinite on $Z_h$ for every $k\ge3$. No fineness or star hypothesis is needed. Exact rational witnesses give:
+ \begin{itemize}
+ \item $\lambda_T>32.21$ on a near-regular tetrahedron;
+ \item $\lambda_T>32.4$ on the right-corner tetrahedron;
+ \item $\lambda_T>61$ and $>134$ on flattened tetrahedra.
+ \end{itemize}
+ By Piola continuity each bound also holds on an open set of shapes. As in 2D, the single-cell witness fails on tall cells: $\lambda_T<0$ once the apex height exceeds about $1.7\times$ the base size, for which there is an exact negative certificate \lab{PROVED}.
+ \item \textbf{Theorem~\ref{thm:3B} (continuum witness)}, the 3D analogue of 2D Theorem~A.
+ \begin{itemize}
+ \item Witness: $v=I w-ab-v_0$ with $w=\curl(F e_y)$, where $F$ is a tensor-product profile at scale $Y$.
+ \item Half-space constant: $Y(2B-A)/C=2327591/151008=15.4137$ (exact, SymPy) \lab{PROVED}.
+ \item Conclusion: under local quasi-uniformity over $O(1/\kappa_0)$ layers at a smallest boundary face, $\mu^\ast\ge(15\kappa_0/C_q)\rho$.
+ \item This holds for every shape of $T$, including tall ones. \lab{PROVED MODULO (IS3)}, which is itself proved uniform in item~3; $\kappa_0$ is not explicit.
+ \end{itemize}
+ \end{itemize}
+\item \emph{Item 3 (uniformity of $\beta$ over $\Oh$).} \textbf{Lemma~\ref{lem:IS3}} \lab{PROVED MODULO the published local lemma [GN18, Thm 3.1] and Lemma td:bog}. On Alfeld refinements with $k\ge3$,
+\[\beta^{-1}\le C_{\rm loc}+C_\Pi C_B(\Oh)\,(1+\sqrt3\,C_{\rm loc}),\]
+where $C_{\rm loc}=C_{\rm loc}(k,\sigma)$ and $C_\Pi=C_\Pi(\sigma)$ depend only on the degree and on shape regularity, and $C_B(\Oh)$ is the Bogovskii constant, which is uniform by Lemma td:bog. The domain enters only through $C_B$. I found no hidden domain dependence.
+\item \emph{Item 2 (unsplit meshes).} A short literature summary: still open for general unsplit tetrahedral meshes.
+\end{enumerate}
+
+\section{Item 1: penalty necessity in 3D}
+\paragraph{Forms and scaling.} Take $v\in Z_h$ supported near $\Gh$. Put $A=a_h(v,v)=\tfrac12(Dv,Dv)$, $B=\ip{\dn v}{v}_{\Gh}$ with $\dn v=(\nabla v)n$, and $C=\norm v^2_{\Gh}$. Then $N_h(v,v)=A-2B+(\mu/h)C$. Under dilation by $\ell$, $A$ and $B$ scale like $\ell$ and $C$ scales like $\ell^2$. So for a field of length scale $\ell$,
+\[N_h(v,v)=\frac{C}{\ell}\Bigl[\frac{\mu\ell}{h}-\frac{\ell(2B-A)}{C}\Bigr],\]
+which is negative whenever $\mu\ell/h<\ell(2B-A)/C$. This quotient is dilation invariant.
+
+\subsection{Single Alfeld tetrahedron}
+Let $T=\mathrm{conv}(P_0,\dots,P_3)$ be a macro tetrahedron whose face $F=\mathrm{conv}(P_1,P_2,P_3)$ lies on $\Gh$, with $n$ the outward normal of the fluid on $F$. Let $T^A$ be its Alfeld split, into four sub-tetrahedra $\mathrm{conv}(m,\cdot)$ about the barycentre $m$. Define
+\[W_k(T):=\{v\in C^0(T)^3:\ v|_S\in P_k^3\ \forall S\in T^A,\ \operatorname{div}v=0,\ v=0\text{ on the three faces of }T\text{ other than }F\}.\]
+Put $A_T=\int_T\tfrac12 Dv:Dv$, $B_T=\int_F\dn v\cdot v$ and $C_T=\int_F|v|^2$, and
+\[\lambda_T:=\diam F\cdot\sup_{v\in W_k(T),\,C_T(v)>0}\frac{2B_T-A_T}{C_T}.\]
+
+\begin{lemma}[Piola invariance]\label{lem:piola}\lab{PROVED}
+Let $\Phi(\hat x)=J\hat x+b$ map $\hat T$ onto $T$, with $\hat F\mapsto F$. Then $\hat v\mapsto(\det J)^{-1}J\,\hat v\circ\Phi^{-1}$ is a bijection $W_k(\hat T)\to W_k(T)$. Consequently:
+\begin{itemize}
+\item $\dim W_k(T)$ does not depend on the shape;
+\item $A_T$, $B_T$, $C_T$, pulled back to $W_k(\hat T)$, are rational functions of $J$ that are continuous where $\det J\neq0$;
+\item a strict inequality $(2B_T-A_T-cC_T)(v)>0$ at a fixed pulled-back witness persists on an open set of shapes.
+\end{itemize}
+\end{lemma}
+\begin{proof}
+$\Phi$ maps barycentre to barycentre, so it maps $\hat T^A$ onto $T^A$. $J$ is constant, so continuity, the degree and vanishing on faces are preserved. For the contravariant Piola transform, $\operatorname{div}v=(\det J)^{-1}(\widehat{\operatorname{div}}\,\hat v)\circ\Phi^{-1}$. The inverse is the Piola transform with $J^{-1}$.
+\end{proof}
+
+\begin{theorem}[Single-tetrahedron necessity]\label{thm:3A}
+Let $\Th$ be the Alfeld refinement of a macro mesh, and $k\ge3$. Let $T$ be a macro tetrahedron with a face $F\subset\Gh$ and $T\cap\partial R=\emptyset$. If $\mu\,\diam F/h<\lambda_T$, then $N_h$ is indefinite on $Z_h$. In particular, if the macro tetrahedron on a smallest face $F_\ast$ of $\Gh$ has $\lambda_{T}\ge\lambda_0>0$, coercivity requires $\mu\ge\lambda_0\rho$.
+\end{theorem}
+\begin{proof}
+Extend $v\in W_k(T)$ by zero. The result is continuous, because $v=0$ on the faces of $T$ shared with other elements. It is piecewise $P_k$ on $\Th$, vanishes on $\partial R$ and is divergence-free, so $v\in Z_h$. The terms $A$, $B$, $C$ of $v$ are $A_T$, $B_T$, $C_T$. Apply the scaling identity with $\ell=\diam F$ to the maximiser. For the second statement, note $h/\diam F_\ast=\rho$.
+\end{proof}
+
+\paragraph{Computation} (\texttt{alfeld\_tet.py}, \texttt{verify\_alfeld.py}, \texttt{neg\_cert.py}). Each sub-tetrahedron carries $P_3^3$ in global monomials, $240$ unknowns in all. Continuity on the six internal faces, vanishing on the three apex faces, and $\operatorname{div}=0$ are imposed as polynomial identities. The null space is computed exactly over $\mathbb Q$ (SymPy \texttt{DomainMatrix}). The forms are exact barycentric-moment integrals. $\lambda_T$ is found by float bisection on the pencil. The \emph{certificate} is a rational witness $q$ with $(2B-A-cC)(q)>0$ checked in \texttt{Fraction}s. Base $(0,0,0),(1,0,0),(\tfrac12,\tfrac78,0)$ (nearly equilateral); apex positions as listed:
+\begin{center}\small\begin{tabular}{lcccc}
+shape (apex) & $\dim W_3$ & $\sup(2B-A)/C$ (coords) & $\lambda_T$ & exact certificate\\\hline
+near-regular $(\tfrac12,\tfrac7{24},\tfrac{13}{16})$ & 8 & 32.2481 & 32.499 & $2B-A-\tfrac{28060}{871}C>0$\\
+right corner $(0,0,1)$, base $(0,0,0),(1,0,0),(0,1,0)$ & 8 & 22.9834 & 32.503 & $2B-A-\tfrac{9850}{429}C>0$\\
+flat, height $\tfrac12$ & 8 & 61.4449 & 61.92 & $2B-A-\tfrac{51071}{832}C>0$\\
+flat, height $\tfrac14$ & 8 & 134.356 & 135.40 & $2B-A-\tfrac{133014}{991}C>0$\\
+skew $(\tfrac32,\tfrac13,\tfrac34)$ & 8 & 32.3856 & 32.64 & $2B-A-\tfrac{14656}{453}C>0$\\
+tall, height $2$ & 8 & $-10.381$ & $-10.46$ & $A-2B-10C\succ0$ (exact LDL$^{\mathsf T}$)\\
+tall, height $3$ & 8 & $-57.454$ & $-57.90$ & $A-2B-57C\succ0$ (exact LDL$^{\mathsf T}$)
+\end{tabular}\end{center}
+\emph{Height scan, NUMERICAL} (\texttt{scan\_height.py}, apex above $(\tfrac12,\tfrac7{24})$). For heights $0.8125$, $1$, $1.125$, $1.25$, $1.375$, $1.5$, $1.75$, $\lambda_T$ is $32.50$, $23.06$, $18.11$, $13.74$, $9.69$, $5.80$, $-2.03$, crossing zero at height $\approx1.69$. The regular tetrahedron has height $0.816$.
+
+\emph{Independent check} (\texttt{verify\_alfeld.py}). The optimal witness was rebuilt as piecewise polynomials. Its continuity jumps and apex-face traces are below $10^{-15}$ and $|\operatorname{div}|$ is below $10^{-10}$ (finite differences). $A$, $B$, $C$ were recomputed by Duffy/Gauss--Legendre quadrature with finite-difference gradients. The quotient $32.24809277$ agrees with the exact pipeline value $32.24809278$.
+
+\emph{Bug note.} A first run gave $\dim W_3=11$ on the right-corner tetrahedron. This contradicts Lemma~\ref{lem:piola}, and it came from a parameter-count bug when a coordinate vanishes identically on a face plane. After the fix, $\dim=8$ for every shape, and the table is from the fixed code.
+
+\emph{Status and scope.} Theorem~\ref{thm:3A} is \lab{PROVED} at the tabulated shapes and, by Lemma~\ref{lem:piola}, on open neighbourhoods of them. A certificate over an explicit shape family, as in Prop.~pb:cert of the paper, is feasible: the pulled-back forms are rational in $J$, with $5$ shape parameters after normalisation. I have not done it. Tall macro tetrahedra, with height above about $1.7$ times the size of $F$, have no single-cell witness. This is exactly the 2D phenomenon (Remark pb:limits), and it is why Theorem~\ref{thm:3B} is needed.
+
+\subsection{Continuum constant on the half-space}
+Take the fluid in $\{z>0\}$, $n=(0,0,-1)$ and $\dn=-\partial_z$. Put $g(t)=t(1-t)^6$ on $[0,1]$ (zero for $t\ge1$), $\phi(s)=(1-s^2)^6$ on $[-1,1]$, and
+\[F=Y\,\phi(x/X)\,\phi(y/X)\,g(z/Y),\qquad w=\curl(F e_y)=(-F_z,0,F_x).\]
+Then $\operatorname{div}w=0$ and $w\cdot n=0$ on $z=0$. At $z=0$, $w_1=-\phi\phi$ and $\dn w_1=\phi\phi\,g''(0)/Y=-12\phi\phi/Y$, so $\dn w\cdot w=12\phi^2\phi^2/Y>0$.
+
+Exact values (\texttt{continuum3d.py}, \texttt{continuum3d.log}):
+\begin{itemize}
+\item $X=2Y$: $\hat\lambda:=Y(2B-A)/C=2327591/151008=15.41369$, with $A=8.4610$, $B=11.8249$, $C=0.98541$ at $Y=1$;
+\item $X=3Y$: $15.53940$;
+\item $X=4Y$: $15.58222$;
+\item $X=8Y$: $15.62292$;
+\item $X/Y\to\infty$: $-2g'(0)g''(0)-\int_0^1|g''|^2=172/11=15.63636$.
+\end{itemize}
+\lab{PROVED}. The 2D value for the same profile is $15.487$.
+
+\subsection{Continuum witness under local quasi-uniformity}
+\textbf{Hypothesis (LQ$_{\kappa,C_q}$).} Let $F_\ast$ be a face of $\Gh$ of minimal diameter, $x_0\in F_\ast$, and $Y:=C_q\diam F_\ast/\kappa$. Assume that every tetrahedron of $\Th$ meeting $B(x_0,4Y)$ has diameter $\le C_q\diam F_\ast=\kappa Y$, and that $B(x_0,4Y)\cap\partial R=\emptyset$. The lower bound $\diam F\ge\kappa Y/C_q$ for boundary faces then holds automatically, by minimality of $F_\ast$.
+
+\begin{theorem}[Continuum-witness necessity]\label{thm:3B}
+Assume (M0$^3$) and (IS3) with constant $\beta$; the latter holds uniformly on Alfeld meshes, $k\ge3$, by Lemma~\ref{lem:IS3}. There are $\kappa_0>0$ and $Y_0>0$, depending on $C_q$, $\beta$, $k$ and shape regularity, such that under (LQ$_{\kappa,C_q}$) with $\kappa\le\kappa_0$ and $Y\le Y_0$, $N_h$ is indefinite on $Z_h$ whenever $\mu<15\,h/Y$. Hence $\mu^\ast\ge(15\kappa_0/C_q)\,\rho$. No condition on the shape of the boundary cells, beyond shape regularity, is needed. \lab{PROVED MODULO (IS3)} and standard Lagrange-interpolation and inverse estimates.
+\end{theorem}
+
+\begin{proof}
+Constants $C$ depend only on the profile, $k$ and shape regularity unless indicated.
+\begin{enumerate}[label=\arabic*.]
+\item \emph{Field.} Let $x_0^\ast=x_0/|x_0|\in\Gamma$ and use Cartesian coordinates $(x,y,z)$ centred at $x_0^\ast$, with $z=(\cdot-x_0^\ast)\cdot x_0^\ast$ pointing into the fluid. Take $X=2Y$. Build $w=\curl\Psi$, $\Psi=F e_y$, as above. For $z<0$ extend $g$ polynomially and multiply by a fixed cutoff equal to $1$ on $z\ge-Y/2$. Then:
+ \begin{itemize}
+ \item $\Psi\in C^5_c$, $w\in W^{4,\infty}$ and $|D^jw|\le C_jY^{-j}$ for $j\le4$;
+ \item $\operatorname{div}w=0$;
+ \item $\operatorname{supp}w\subset B(x_0,4Y)$.
+ \end{itemize}
+ Near $x_0$, $\Gh$ is a graph $z=\gamma(x,y)$ with $|\gamma|\le C Y^2$ and $|\nabla\gamma|\le CY$. This follows from the sphere and Lemma td:faces: $\Gh$ lies between the sphere and its inscribed polyhedron, the face normals satisfy $|n_F-n(x^\ast)|\le C\kappa Y$, and $|n(x^\ast)-n(x_0^\ast)|\le CY$.
+\item \emph{Geometric comparison with the half-space.} $\Oh$ and $\{z>0\}$ differ, on $\operatorname{supp}w$, in a set of volume $\le CY^4$, and $|\nabla w|^2\le CY^{-2}$. The integrands of $B$ and $C$ change by $O(1)$ and $O(Y)$ pointwise when moved from $z=0$ to $z=\gamma$ and $n_0$ is replaced by $n_F$. Hence
+ \[|A_{\Oh}(w)-Y\hat A|+|B_{\Gh}(w)-Y\hat B|\le CY^2,\qquad |C_{\Gh}(w)-Y^2\hat C|\le CY^3,\]
+ where $\hat A,\hat B,\hat C$ are the half-space values at $Y=1$.
+\item \emph{Discrete field.} Let $I$ be degree-$3$ Lagrange interpolation on $\Th$; since $k\ge3$, $Iw\in V_h$. Then
+ \[\norm{w-Iw}_{L^\infty}\le C\kappa^4,\qquad \norm{\nabla(w-Iw)}_{L^\infty}\le C\kappa^3/Y.\]
+ Let $b:=\sum_{F\subset\Gh\cap B(x_0,Y)}b_Fn_F$, with cubic face bubbles.
+ \begin{itemize}
+ \item $\int_{\Gh}b\cdot n\ge cY^2$, since $\Gh\cap B(x_0,Y)$ has area $\ge cY^2$ and the faces have size $\le\kappa Y$.
+ \item $|\nabla b|\le C/\diam F\le CC_q/(\kappa Y)$ pointwise.
+ \item The number of faces is at most $CC_q^2/\kappa^2$, and $\norm{\nabla b}^2\le C\sum_F\diam F\le CC_q^2Y/\kappa$.
+ \end{itemize}
+ Put $m:=\int_{\Gh}Iw\cdot n$. Since $\int_{\Gh}w\cdot n=\int_{\Gh}\curl\Psi\cdot n=0$ on the closed surface $\Gh$, $|m|\le CY^2\kappa^4$. Put $a:=m/\int_{\Gh}b\cdot n$, so $|a|\le C\kappa^4$. Then $Iw-ab\in V_h^R$ and $\int_{\Oh}\operatorname{div}(Iw-ab)=0$, so (IS3) gives $v_0\in V_h^0$ with $\operatorname{div}v_0=\operatorname{div}(Iw-ab)$ and
+ \[\norm{\nabla v_0}\le\beta^{-1}\bigl(\sqrt3\,\norm{\nabla(Iw-w)}+|a|\norm{\nabla b}\bigr)\le C\beta^{-1}(\kappa^3+C_q\kappa^{7/2})Y^{1/2}.\]
+ Set $v:=Iw-ab-v_0\in Z_h$.
+\item \emph{Perturbation bounds.} On $\Gh$ we have $v=Iw-ab$, because $v_0=0$ there. So
+ \begin{itemize}
+ \item $|C(v)^{1/2}-C_{\Gh}(w)^{1/2}|\le C\kappa^4Y$;
+ \item $|A(v)^{1/2}-A_{\Oh}(w)^{1/2}|\le\sqrt2\bigl(\norm{\nabla(Iw-w)}+|a|\norm{\nabla b}+\norm{\nabla v_0}\bigr)\le C(1+\beta^{-1})C_q\kappa^3Y^{1/2}$.
+ \end{itemize}
+ For $B$ split $\dn v=\dn w+\dn(Iw-w)-a\dn b-\dn v_0$. The first three terms change $B$ by at most $C(\kappa^3+C_q\kappa^3)Y$. For the last, use the inverse trace inequality $\norm{\nabla v_0}_{L^2(F)}\le C(\diam F)^{-1/2}\norm{\nabla v_0}_{L^2(T_F)}$ and Cauchy--Schwarz over the faces in the support, with $\sum_F|F|/\diam F\le CC_qY/\kappa$:
+ \[|\ip{\dn v_0}{Iw-ab}|\le C(C_qY/\kappa)^{1/2}\norm{\nabla v_0}\le C\beta^{-1}C_q^{3/2}\kappa^{5/2}Y.\]
+\item \emph{Conclusion.} Combining steps 2--4,
+ \[\frac{Y(2B(v)-A(v))}{C(v)}\ \ge\ \hat\lambda-C\bigl[(1+\beta^{-1})C_q^{3/2}\kappa^{5/2}+Y\bigr],\qquad \hat\lambda=15.4137.\]
+ Choose $\kappa_0,Y_0$ so that the bracket term is at most $0.4$. Then $\mu<15h/Y$ gives
+ \[N_h(v,v)=\frac{C(v)}{Y}\Bigl[\frac{\mu Y}{h}-\frac{Y(2B-A)}{C}\Bigr]<0.\]
+ Finally, $Y=C_q\diam F_\ast/\kappa$ and $h/\diam F_\ast=\rho$ give $\mu^\ast\ge15h/Y=(15\kappa/C_q)\rho$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{remark}[Removing (IS3) from Theorem~\ref{thm:3B}]
+Fu, Guzm\'an and Neilan (Math.\ Comp.\ 2020, arXiv:1807.05883) build exact smooth sequences on Alfeld splits \emph{with commuting projections}. Replacing $Iw-ab-v_0$ by $\Pi_V w$, where $\Pi_V$ is the commuting projection onto the continuous $P_k$ velocity space, gives $\operatorname{div}\Pi_Vw=\Pi_Q\operatorname{div}w=0$ directly, with no global correction and no $\beta$. This needs $W^{1,\infty}$-local approximation bounds for $\Pi_V$, which I have not checked in their paper. So this variant is \lab{PROVED MODULO FGN20 projection estimates}. It is not needed on Alfeld meshes, because Lemma~\ref{lem:IS3} supplies $\beta$.
+\end{remark}
+
+\begin{remark}[Suggested replacement for td:open item 1]
+``Penalty necessity in 3D holds in two forms. (i) Single-cell: on Alfeld refinements with $k\ge3$, $N_h$ is indefinite if $\mu\diam F/h<\lambda_T$, where $\lambda_T$ is the largest eigenvalue of an $8$-dimensional pencil. $\lambda_T>32$ is certified exactly near the regular tetrahedron, and $\lambda_T<0$ for tall macro cells. (ii) Continuum: under local quasi-uniformity at a smallest boundary face, $\mu^\ast\ge(15\kappa_0/C_q)\rho$ for any cell shapes. The general (M0$^3$)-only statement, without local quasi-uniformity or a shape condition, is open, as in 2D.''
+\end{remark}
+
+\section{Item 3: (IS3) holds uniformly on $\Oh$ (Alfeld splits)}
+\textbf{Sources read.} Guzm\'an--Neilan, SINUM 56 (2018), arXiv:1710.08044 [GN18]. I read it through a fetch-and-summarise tool, because arXiv PDF download was blocked by the egress proxy, so the quotations below are from that summary. The relevant items:
+\begin{itemize}
+\item Theorem 3.1 (local): ``For any $K\in\mathcal T_h$ and $p\in\mathring{\mathcal P}_{k-1}(K^r)$ there exists $v\in\mathring{\mathcal P}^c_k(K^r)$ with $\operatorname{div}v=p$ on $K$ and $\norm v_{H^1(K)}\le C\norm p_{L^2(K)}$'', where ``the constant $C>0$ only depends on $k$ and the shape regularity of $K^r$''. Here $\mathring{\ }$ means zero boundary values on $\partial K$ for velocities and mean zero on $K$ for pressures.
+\item Proposition 4.1: Bernardi--Raugel $V_h^{BR}$--$\mathring P_0(\mathcal T_h)$ stability, cited as ``well known''.
+\item Proposition 6.1: if $\mathring P_k(\mathcal T_h^r)\subset V_h$ and $V_h$--$\mathring P_0(\mathcal T_h)$ is stable, then $V_h$--$\mathring P_{k-1}(\mathcal T_h^r)$ is stable, via the split $q=\bar q+(q-\bar q)$ into macro means and a remainder.
+\item Corollary 6.2: $k\ge d$.
+\end{itemize}
+The only global ingredient is Proposition 4.1, which I write out below. Zhang (Math.\ Comp.\ 2005) covers the same range, $d=3$, $k\ge3$. I did not re-read his proof, and the lemma below does not depend on it.
+
+\begin{lemma}[(IS3) uniformly on $\Oh$]\label{lem:IS3}
+Let $\mathcal T_h^M$ be a conforming macro mesh of $\Oh$ with shape-regularity constant $\sigma$, let $\Th$ be its Alfeld refinement, and let $k\ge3$. For every $q\in\Pi_h\cap L^2_0(\Oh)$ there is $v\in V_h^0$ with $\operatorname{div}v=q$ and
+\[\norm{\nabla v}\le\bigl[C_{\rm loc}+C_\Pi C_B(\Oh)(1+\sqrt3\,C_{\rm loc})\bigr]\norm q.\]
+Here $C_{\rm loc}=C_{\rm loc}(k,\sigma)$ is from [GN18, Thm 3.1], $C_\Pi=C_\Pi(\sigma)$ is the Bernardi--Raugel Fortin constant below, and $C_B(\Oh)$ is the Bogovskii constant of $\Oh$. By Lemma td:bog, $C_B(\Oh)\le C_B^\ast$ independently of $h$, so (IS3) holds with $\beta$ independent of $h$.
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[label=\arabic*.]
+\item \emph{Fortin operator for BR (local).} Let $I_{SZ}$ be the Scott--Zhang $P_1$ interpolant on $\mathcal T_h^M$ that preserves homogeneous boundary values. By Scott--Zhang (Math.\ Comp.\ 1990, (4.3) with $l=m=1$, and the $L^2$ estimate with $l=1$, $m=0$), for $u\in H^1_0(\Oh)^3$,
+ \[|I_{SZ}u|_{1,K}\le C|u|_{1,\omega_K},\qquad \norm{u-I_{SZ}u}_K\le Ch_K|u|_{1,\omega_K},\]
+ with $C=C(\sigma)$. For each interior face $F$ of $\mathcal T^M_h$ let $b_F$ be its cubic face bubble; $b_Fn_F\in P_3(K^r)$, so $b_Fn_F\in V_h$ since $k\ge3$. Set
+ \[\Pi u=I_{SZ}u+\sum_{F\ \mathrm{interior}}\alpha_Fb_Fn_F,\qquad \alpha_F=\frac{\int_F(u-I_{SZ}u)\cdot n_F}{\int_Fb_F}.\]
+ Then $\int_F\Pi u\cdot n_F=\int_Fu\cdot n_F$ on interior faces, and on boundary faces both sides vanish. Using $|\alpha_F|\le C|F|^{-1/2}\norm{u-I_{SZ}u}_{L^2(F)}$ and the scaled trace inequality,
+ \[|\Pi u|_{1,K}\le C(\sigma)|u|_{1,\omega'_K},\qquad\text{so}\qquad \norm{\nabla\Pi u}\le C_\Pi\norm{\nabla u}\ \text{ with }C_\Pi=C_\Pi(\sigma),\]
+ by finite overlap. \emph{No domain constant enters}: every estimate is on a patch, uses $u\in H^1_0$ only through the preserved zero trace, and no Poincar\'e inequality on $\Oh$ is used.
+\item \emph{Macro means.} Let $\bar q$ be the $L^2$ projection of $q$ onto macro-piecewise constants, so $\bar q\in L^2_0(\Oh)$ and $\norm{\bar q}\le\norm q$. The continuous inf-sup condition gives $u\in H^1_0(\Oh)^3$ with $\operatorname{div}u=\bar q$ and $\norm{\nabla u}\le C_B(\Oh)\norm{\bar q}$. Put $v_1=\Pi u\in V_h^0$. By the divergence theorem and the flux property,
+ \[\int_K\operatorname{div}v_1=\int_K\bar q=\int_Kq\quad\text{for all }K,\qquad \norm{\nabla v_1}\le C_\Pi C_B(\Oh)\norm q.\]
+\item \emph{Local fluctuations.} $r:=q-\operatorname{div}v_1$ is piecewise $P_{k-1}$ on $K^r$ (since $v_1|_{K^r}\in P_k$) and has zero mean on every $K$. [GN18, Thm 3.1] gives $w_K\in\mathring P^c_k(K^r)$ with $\operatorname{div}w_K=r|_K$ and $\norm{\nabla w_K}_K\le C_{\rm loc}\norm r_K$. Extended by zero, $w:=\sum_Kw_K\in V_h^0$.
+\item \emph{Sum.} $v:=v_1+w$ satisfies $\operatorname{div}v=q$ and
+ \[\norm{\nabla v}\le C_\Pi C_B\norm q+C_{\rm loc}(\norm q+\sqrt3\norm{\nabla v_1})\le\bigl[C_{\rm loc}+C_\Pi C_B(1+\sqrt3C_{\rm loc})\bigr]\norm q.\qedhere\]
+\end{enumerate}
+\end{proof}
+
+\paragraph{Where domain dependence could enter, and why it does not.}
+\begin{enumerate}[label=(\alph*)]
+\item Only through $C_B(\Oh)$ in step 2, which is handled by Lemma td:bog. That lemma carries its own VERIFY flag on the Galdi locator, Lemma III.3.4.
+\item There is no singular-vertex issue of the 2D Scott--Vogelius type. The local problem in step 3 is posed on a single macro element with zero data on all of $\partial K$, so boundary vertices of $\Oh$ play no role.
+\item Step 1 uses boundary faces of $\Gh$ only through $u=0$ there. Pure shape regularity controls $\omega_K$ near $\Gh$.
+\item $\Oh=R\setminus P_h$ is connected, so $L^2_0$ is the right pressure space. Its boundary has two components, which is harmless for Bogovskii.
+\item The only remaining trust is in the stated dependence of $C_{\rm loc}$ in [GN18, Thm 3.1]. The proof there is constructive through barycentric formulas (their Lemmas 3.3--3.4 and eqs.\ (3.7)--(3.8)). Even if a compactness-in-shape argument were used instead, the constant would be a function of $(k,\sigma)$ alone, because the problem lives on one macro element.
+\end{enumerate}
+\emph{Consequence for the paper.} The caveat ``subject to the uniformity caveat in item 3'' in Theorem td:main and the ``Status of (IS3)'' paragraph can be replaced by a citation of this lemma: [GN18 Thm 3.1 + Prop 6.1] together with the Bernardi--Raugel Fortin operator and Lemma td:bog. Before the paper cites Theorem 3.1, its verbatim wording should be checked against the PDF.
+
+\section{Item 2: (IS3) on unsplit meshes -- literature status (brief)}
+\begin{itemize}
+\item \emph{Split meshes.}
+ \begin{itemize}
+ \item Alfeld, $k\ge3$: Zhang 2005 and Guzm\'an--Neilan 2018.
+ \item Worsey--Farin: Guzm\'an--Lischke--Neilan 2022; Fabien--Guzm\'an--Neilan--Zytoon (arXiv:2105.09214), $k\ge1$, as listed by Farrell--Mitchell--Scott 2024.
+ \end{itemize}
+\item \emph{Freudenthal meshes}: $k\ge6$ (Zhang 2011). Two September 2026 arXiv preprints claim $k\ge4$ on Freudenthal meshes, resolving the Farrell--Mitchell--Scott conjecture: arXiv:2609.25690 and arXiv:2609.29608, with Zenodo companions. \emph{Not read}: WebFetch was rate-limited (HTTP 429). They are irrelevant to meshes fitted to an inscribed polyhedron anyway.
+\item \emph{General unstructured tetrahedral meshes}: still open, to my knowledge.
+ \begin{itemize}
+ \item The only conditional result is Neilan 2015, which extends to $k\ge6$ under a mesh condition, as described by FMS24.
+ \item Guzm\'an--Scott 2019 is two-dimensional.
+ \item I found no 2025--26 result giving unconditional 3D Scott--Vogelius stability on unsplit meshes. The search was brief and not exhaustive.
+ \end{itemize}
+\item \emph{Possibly relevant, unread.} arXiv:2609.30008, ``Pressure-robust finite elements for the Stokes problem on three-dimensional curved domains'' (Sept 2026). It came up in the search, but the fetch was refused (rate limit). It should be checked for overlap with Section 12.
+\end{itemize}
+
+\section{Files}
+All in \texttt{notes/v6/td\_pen/}:
+\begin{itemize}
+\item \texttt{continuum3d.py}, \texttt{.log}: exact half-space constants.
+\item \texttt{alfeld\_tet.py}, \texttt{alfeld\_k3.log}: single-tetrahedron pencils and exact witnesses. Usage: \texttt{python3 alfeld\_tet.py K [shape...]}.
+\item \texttt{verify\_alfeld.py}, \texttt{verify\_*.log}: independent quadrature check.
+\item \texttt{neg\_cert.py}, \texttt{.log}: exact LDL$^{\mathsf T}$ no-witness certificates for tall cells.
+\item \texttt{scan\_height.py}, \texttt{scan\_k3.log}: height scan.
+\end{itemize}
+Heavier run, not done here because the machine is shared: \texttt{python3 alfeld\_tet.py 4 near-regular "tall(h=2)"} and \texttt{python3 scan\_height.py 4 1 3/2 7/4 2 5/2}. These test whether higher $k$ raises $\lambda_T$ and moves the tall-cell failure threshold; expect roughly 10--30 minutes per shape.
+\end{document}

@@ -1,0 +1,399 @@
+% notes/v6/td_sharp/REPORT.tex -- 3D sharpness of h_Gamma^{3/2} (td:open item 4) and general
+% smooth obstacles in 3D (td:open item 5).  Standalone; references like td:main, lb:thm,
+% gd:lem:cover are to paper/sections/12_three_d.tex, 07_consistent_method.tex,
+% 10_general_domains.tex.  Nothing in paper/ or letter/ was changed.
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,enumitem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Th}{\mathcal T_h}
+\newcommand{\FG}{\mathcal F_h^\Gamma}
+\newcommand{\VR}{V_h^R}
+\newcommand{\VO}{V_h^0}
+\newcommand{\Pih}{\Pi_h}
+\newcommand{\Zh}{Z_h}
+\newcommand{\dn}{\partial_n}
+\newcommand{\ut}{\tilde u}
+\newcommand{\pt}{\tilde p}
+\newcommand{\ft}{\tilde f}
+\newcommand{\pbar}{\bar p}
+\newcommand{\pbG}{\bar p_{\Gamma}}
+\newcommand{\ip}[2]{\langle #1,\, #2\rangle}
+\newcommand{\tnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\GS}{\mathrm{GS}}
+\newcommand{\CNS}{\mathrm{CNS}^\ast}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Gc}{\mathcal G}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\M}{\mathcal M}
+\newcommand{\hh}{\mathfrak h}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\dist}{dist}
+\author{subagent report}
+\newcommand{\status}[1]{\textbf{[#1]}}
+\title{Three dimensions: sharpness of $h_\Gamma^{3/2}$ and general smooth obstacles\\ \large (td:open items 4 and 5)}
+\date{notes/v6/td\_sharp, 2026-09-28}
+\begin{document}
+\maketitle
+
+\section*{Summary and status}
+\begin{center}
+\begin{tabular}{p{0.55\textwidth}p{0.37\textwidth}}
+\toprule
+Statement & Status\\
+\midrule
+Thm~\ref{A:thm}: $\norm{\nabla(\ut-u_h)}\ge c\,\kappa_0\norm{W}_{L^2(\Gamma)}\hG^{3/2}-C\hG^2$ for $\CNS$ (and $\GS$), sphere, under the 3D boundary condition (M3$^3$) & \status{PROVED}\\
+(M3$^3$) on Alfeld-refined meshes, every $k\ge4$, one macro-tetrahedron per face, uniform in the shape (Thm~\ref{A:alfeld}) & \status{PROVED}, computer-assisted, exact rational arithmetic (rank $8$ of an $8\times26$ matrix)\\
+(M3$^3$) on any shape-regular tetrahedral mesh, $k\ge9$ (Prop.~\ref{A:bubble}) & \status{PROVED}, closed form\\
+Hence: sharpness of Scott's rate for $\CNS$ on Alfeld meshes, all $k\ge4$ (Cor.~\ref{A:sharp}) & \status{PROVED} (modulo the (IS3) uniformity caveat of td:open item 3, which is needed only for the \emph{upper} bound)\\
+$k=3$ on Alfeld meshes: a single macro-element cannot work (Prop.~\ref{A:k3}); vertex fans of macro-elements do in generic exact tests & \status{PROVED} negative / \status{NUMERICAL} (exact rational ranks on 6 fans); (M3$^3$) for $k=3$ open\\
+Part B: Thm~td:main and Cor.~td:ns on a general smooth (non-convex, several components) obstacle in 3D, inscribed triangulated surfaces, $\Omega\not\subset\Oh$, global mean (Thm~\ref{B:main}) & \status{PROVED MODULO (IS3)}, exactly as in the sphere case; all domain ingredients proved (uniform Bogovski\u{\i}, Korn, extension, sagitta, test field)\\
+Lower bound on general surfaces, curvature-weighted: $\norm{\nabla(\ut-u_h)}\ge c\hG^{3/2}\norm{|\hh|\,W}_{L^2(\Gamma)}-C\hG^2$ (Thm~\ref{B:lb}) & \status{PROVED} for Alfeld $k\ge4$ and all meshes $k\ge9$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Two findings worth recording. (i) On a face inscribed in the sphere the sagitta is \emph{exactly} the circumsphere function: $d=\tfrac12\sum_{i<j}\ell_{ij}^2\mu_i\mu_j+O(\hG^4)$ (Lemma~\ref{A:sag}); on a general surface the weights become $\hh(e_{ij},e_{ij})$ (second fundamental form on the edge vectors). The whole 3D lower bound reduces to the three \emph{edge-bubble moments} $\int_F\mu_i\mu_j\,\dn v$, and on Alfeld splits their joint surjectivity is an affine-invariant property of one reference macro-element (no compactness over shapes). (ii) For $k=3$ the single-macro-element image is one-dimensional and equals $\sum_{\rm cyc}\ell_{ij}^2e_{ij}$, which vanishes exactly on equilateral faces (the 3D analogue of the centroid/circumcentre defect of Lemma~td:faces(d)).
+
+Throughout, the notation and conventions of paper Section~12 (td) are used: $n$ is the outward normal of $\Oh$ on $\Gh$ (into $P_h$), $a_h(u,v)=\frac12(Du,Dv)$, $N_h$, $\Gc$, $\tnorm\cdot$ as in Sections~2, 5, 12. $C,c$ depend on shape regularity, $k$, the geometry and norms of $(u,p,\ut,\pt)$, never on $h,\hG,\mu,\gamma,\rho$.
+
+%=====================================================================
+\section{Part A: the lower bound in 3D}\label{A:sec}
+%=====================================================================
+
+\subsection{Setting and the abstract lower bound}
+Setting of td:setting: $\Omega=R\setminus\overline D$, $D$ the unit ball, $P_h$ a convex inscribed polyhedron with triangular faces, $\Th$ a conforming shape-regular mesh of $\Oh=R\setminus P_h$ whose boundary faces $F\in\FG$ are whole faces of $P_h$, (M0$^3$), (D). For $F\in\FG$ let $K_F\in\Th$ be the tetrahedron with face $F$.
+
+\begin{lemma}[One boundary face per tetrahedron]\label{A:one}
+For $\hG$ small (in terms of shape regularity), no tetrahedron has two faces in $\Gh$. In particular $F\mapsto K_F$ is injective.
+\end{lemma}
+\begin{proof}
+Two faces of $K$ in $\Gh$ share an edge $E$ of $\Gh$, and the dihedral angle of $K$ at $E$ equals the dihedral angle of $\Oh$ at $E$, which is $\pi+\angle(n_F,n_{F'})>\pi$ since $P_h$ is convex. (On a general surface, Part B, it is $\pi+O(\hG)$, which exceeds the maximal dihedral angle $\pi-\delta(\text{shape reg.})$ for $\hG$ small.)
+\end{proof}
+
+Put $Y_h:=\Zh\cap\VO$ (divergence-free, zero on $\Gh\cup\partial R$) and
+\[
+Y_h^1:=\Bigl\{v\in Y_h:\ \int_F\dn v\,dA=0\ \ \forall F\in\FG\Bigr\}.
+\]
+
+\begin{lemma}\label{A:normal}
+If $v\in Y_h$ and $F\in\FG$, then on $F$ (trace from $K_F$) $\nabla v=\dn v\otimes n_F$ and $\dn v\cdot n_F=0$; $\dn v$ is tangential to $F$.
+\end{lemma}
+\begin{proof}
+$v|_{K_F}$ is a polynomial vanishing on the plane of $F$, so its tangential derivatives vanish there; then $0=\div v=\dn v\cdot n_F$.
+\end{proof}
+
+\begin{lemma}[Error identity; dimension-free]\label{A:identity}
+Let $u_h$ be the $\CNS$ velocity ($\gamma\ge\gamma_2$, under (IS3)) or the $\GS$ velocity ($\gamma\ge\gamma_0$), $e_u=\ut-u_h$. For $v\in Y_h$:
+$a_h(e_u,v)-\ip{e_u}{\dn v}=-\ip{\ut}{\dn v}-(F,v)$.
+\end{lemma}
+\begin{proof}
+Verbatim Lemma~lb:identity: the error equation (eq:cnserr) resp.\ Cor.~cor:GSerr hold in 3D (Thm~td:main); on $Y_h$ the pressure form $B^\ast(e_p,v)$ and $\Rc(v)$ vanish ($\div v=0$, $v|_{\Gh}=0$), as do the transposed and penalty parts of $\Gc$.
+\end{proof}
+
+\begin{lemma}[Trace control on $Y_h^1$]\label{A:poinc}
+Let $C_{PT}$ be the constant of $\norm{w-\bar w_K}_{L^2(F)}\le C_{PT}(\diam K)^{1/2}\norm{\nabla w}_K$ ($F\subset\partial K$, $\bar w_K$ the mean over $K$) and $C_I$ that of $\norm{\nabla v}_{L^2(F)}\le C_I(\diam K)^{-1/2}\norm{\nabla v}_K$ for $v|_K\in P_k$. Then $|\ip{w}{\dn v}|\le C_{PT}C_I\norm{\nabla w}\norm{\nabla v}$ for $w\in H^1(\Oh)^3$, $v\in Y_h^1$.
+\end{lemma}
+\begin{proof}
+$\int_Fw\cdot\dn v=\int_F(w-\bar w_{K_F})\cdot\dn v$; Cauchy--Schwarz on each $F$ and over the distinct $K_F$ (Lemma~\ref{A:one}). Both constants are scaling/shape-regularity constants in 3D.
+\end{proof}
+
+\begin{corollary}[Abstract lower bound]\label{A:abstract}
+With $\Lambda_0:=2+C_{PT}C_I$: $\ \Lambda_0\norm{\nabla e_u}\ge\sup_{0\ne v\in Y_h^1}|\ip{\ut}{\dn v}+(F,v)|/\norm{\nabla v}$.
+\end{corollary}
+\begin{proof}
+$|a_h(e_u,v)|\le2\norm{\nabla e_u}\norm{\nabla v}$ and Lemmas~\ref{A:identity}, \ref{A:poinc}.
+\end{proof}
+
+\subsection{The sagitta is the circumsphere function}
+For $F\in\FG$ with vertices $z_1,z_2,z_3$, barycentrics $\mu_1,\mu_2,\mu_3$, edge lengths $\ell_{ij}=|z_i-z_j|$, circumcentre $o_F$, circumradius $r_F$:
+
+\begin{lemma}[Sagitta]\label{A:sag}
+For $x\in F$, $\ d(x):=\dist(x,\Gamma)=1-|x|$ satisfies
+\[
+d(x)=\tfrac12\bigl(r_F^2-|x-o_F|^2\bigr)+\delta(x)=\tfrac12\sum_{i<j}\ell_{ij}^2\,\mu_i\mu_j+\delta(x),\qquad 0\le\delta\le r_F^4/4 .
+\]
+\end{lemma}
+\begin{proof}
+With $s:=r_F^2-|x-o_F|^2\in[0,r_F^2]$, $|x|^2=d_F^2+|x-o_F|^2=1-s$ (td:faces), and $1-\sqrt{1-s}\in[s/2,\,s/2+s^2/4]$ for $s\le\frac12$. For $x=\sum\mu_iz_i$: $\sum_i\mu_i|z_i-o|^2-|x-o|^2=\sum_{i<j}\mu_i\mu_j|z_i-z_j|^2$ (variance identity), and $|z_i-o_F|=r_F$.
+\end{proof}
+
+By Lemma~lem:wall, $W:=\dn u|_\Gamma$ is a tangential vector field on $\Gamma$ (the wall shear); $\ut(x^\ast)=0$ and $x=x^\ast+d(x)n(x^\ast)$ ($x^\ast=x/|x|$) give
+\begin{equation}\label{A:utaylor}
+\ut(x)=d(x)\,W(x^\ast)+O(d^2)\qquad(x\in\Gh),\quad |O(d^2)|\le\norm{\ut}_{W^{2,\infty}}\,d^2 .
+\end{equation}
+For $v\in Y_h$ and $F\in\FG$ define the face moment (a vector parallel to $F$, Lemma~\ref{A:normal})
+\[
+\M_F(v):=\tfrac12\sum_{i<j}\ell_{ij}^2\int_F\mu_i\mu_j\,\dn v\,dA,\qquad \ell_W(v):=\sum_{F\in\FG}W_F\cdot\M_F(v),\quad W_F:=W(x_F^\ast),
+\]
+$x_F$ the centroid.
+
+\begin{lemma}[Leading term]\label{A:lead}
+For $v\in Y_h^1$: $|\ip{\ut}{\dn v}-\ell_W(v)|\le C\hG^{5/2}\norm{\nabla v}$ and $|(F,v)|\le C\hG^2\norm{\nabla v}$, $C$ depending on $\norm{\ut}_{W^{2,\infty}}$, $\norm W_{W^{1,\infty}(\Gamma)}$, shape regularity.
+\end{lemma}
+\begin{proof}
+On $F$, by \eqref{A:utaylor}, Lemma~\ref{A:sag} and $|W(x^\ast)-W_F|\le C\hG$: $\ut=\bigl(\tfrac12(r_F^2-|x-o_F|^2)\bigr)W_F+R$ with $|R|\le C\hG^3$. Since $\int_F\dn v=0$, the constant $\frac12r_F^2$ drops, and $-\frac12|x-o_F|^2\equiv\frac12\sum\ell^2_{ij}\mu_i\mu_j$ modulo constants; so $\int_F\ut\cdot\dn v=W_F\cdot\M_F(v)+O(\hG^3)\norm{\dn v}_{L^1(F)}$. Now $\norm{\dn v}_{L^1(F)}\le|F|^{1/2}C_I(\diam K_F)^{-1/2}\norm{\nabla v}_{K_F}\le C\hG^{1/2}\norm{\nabla v}_{K_F}$ and $\#\FG\le C\hG^{-2}$ ($|F|\ge c\hG^2$, $|\Gh|\le4\pi$), so $\sum_F\norm{\dn v}_{L^1(F)}\le C\hG^{-1/2}\norm{\nabla v}$. The $F$-term is td:tools(b).
+\end{proof}
+
+\subsection{The local condition and the assembly}
+\begin{assumption}[(M3$^3$)]\label{A:M3}
+There are $\kappa_0>0$, $K_{\rm ov}$, $C_s$ such that for every $F\in\FG$ and every unit vector $t$ parallel to $F$ there is $v_{F,t}\in Y_h^1$ with (i) $\norm{\nabla v_{F,t}}=1$; (ii) $\operatorname{supp}v_{F,t}\subset\omega_F$, a union of tetrahedra within distance $C_s\hG$ of $F$, each tetrahedron lying in at most $K_{\rm ov}$ of the $\omega_F$; (iii) $t\cdot\sum_{F'\in\FG}\M_{F'}(v_{F,t})\ \ge\ \kappa_0\,(\diam F)^{5/2}$.
+\end{assumption}
+(iii) is scale invariant: under $x\mapsto\lambda x$ (with $v\mapsto v(\cdot/\lambda)$ renormalised) $\norm{\nabla v}$ scales like $\lambda^{1/2}$ and $\M_F$ like $\lambda^3$. The witnesses of Section~\ref{A:ver} are supported in one tetrahedron or one macro-tetrahedron $T_F\supset F$, so $\omega_F\cap\Gh=F$, $K_{\rm ov}=1$.
+
+\begin{lemma}[Assembly]\label{A:assemble}
+Assume (M3$^3$) with $\omega_F\cap\Gh=F$ (this is the case below; the general case only adds a term $C\hG\norm W_{W^{1,\infty}}$ to $h_1$ as in Lemma~lb:assemble). Let $W\not\equiv0$ and $\hG\le h_1$. For $F$ with $W_F^\parallel$ (the projection of $W_F$ on the plane of $F$) nonzero put $v_F:=|W_F^\parallel|\,v_{F,t_F}$, $t_F=W_F^\parallel/|W_F^\parallel|$ (else $v_F:=0$), and $v:=\sum_Fv_F\in Y_h^1$. Then
+\[
+\ell_W(v)\ \ge\ \tfrac12\kappa_0c_0^{5/2}\,c_A^{1/2}K_{\rm ov}^{-1/2}\ \norm W_{L^2(\Gamma)}\,\hG^{3/2}\,\norm{\nabla v},
+\]
+where $c_A\hG^2\le|F|$ (shape regularity of the faces, $c_A$ explicit from $c_0$ and the minimal angle).
+\end{lemma}
+\begin{proof}
+1. Since $\omega_F\cap\Gh=F$, $\M_{F'}(v_F)=0$ for $F'\ne F$ and $\ell_W(v)=\sum_FW_F\cdot\M_F(v_F)$. Write $W_F=W_F^\parallel+W_F^\perp$. Since $W_F\perp n(x_F^\ast)$ and $|n(x^\ast_F)-n_F|\le C\hG$ (td:faces(b)), $|W_F^\perp|\le C\hG|W_F|$; and $|\M_F(v_F)|\le\frac12r_F^2|F|^{1/2}\norm{\dn v_F}_{L^2(F)}\le C\hG^{5/2}\norm{\nabla v_F}$. Since $\M_F(v_F)$ is parallel to $F$, $W_F\cdot\M_F(v_F)=W_F^\parallel\cdot\M_F(v_F)$, and by (M3$^3$)(iii)
+\[
+W_F\cdot\M_F(v_F)\ge\kappa_0(\diam F)^{5/2}|W_F^\parallel|^2\ge\kappa_0c_0^{5/2}\hG^{5/2}(1-C\hG^2)|W_F|^2 .
+\]
+2. \emph{Riemann sum.} The radial projections $F^\ast$ of the faces tile $\Gamma$ with area Jacobian $1+O(\hG^2)$ (td:faces(c)), and $||W|^2-|W_F|^2|\le C\hG\norm W_{W^{1,\infty}}^2$ on $F^\ast$; so $\Sigma:=\sum_F|F||W_F|^2$ satisfies $|\Sigma-\norm W^2_{L^2(\Gamma)}|\le C\hG\norm W^2_{W^{1,\infty}}$. With $c_A\hG^2\le|F|\le\hG^2$: $\Sigma/\hG^2\le\sum_F|W_F|^2\le\Sigma/(c_A\hG^2)$.\\
+3. Hence $\ell_W(v)\ge\kappa_0c_0^{5/2}(1-C\hG^2)\hG^{1/2}\Sigma$ and, by bounded overlap, $\norm{\nabla v}^2\le K_{\rm ov}\sum_F|W_F|^2\le K_{\rm ov}\Sigma/(c_A\hG^2)$, so $\ell_W(v)/\norm{\nabla v}\ge\kappa_0c_0^{5/2}(1-C\hG^2)c_A^{1/2}K_{\rm ov}^{-1/2}\hG^{3/2}\Sigma^{1/2}$. For $\hG\le h_1$ (depending on $\norm W_{W^{1,\infty}}/\norm W_{L^2}$), $\Sigma\ge\frac34\norm W^2_{L^2}$ and $1-C\hG^2\ge\frac{1}{\sqrt3}$; combine.
+\end{proof}
+
+\begin{theorem}[$H^1$ lower bound in 3D]\label{A:thm}
+Assume (M0$^3$), (D), (M3$^3$), and let $W=\dn u|_\Gamma\not\equiv0$. Let $u_h$ be the velocity of $\CNS$ ($\gamma\ge\gamma_2$; this needs (IS3) for existence) or of $\GS$ ($\gamma\ge\gamma_0$, any $G$). Then for $\hG\le h_1$
+\[
+\norm{\nabla(\ut-u_h)}_{\Oh}\ \ge\ \frac{\kappa_0c_0^{5/2}c_A^{1/2}}{2\Lambda_0K_{\rm ov}^{1/2}}\,\norm W_{L^2(\Gamma)}\,\hG^{3/2}-C\hG^2 ,
+\]
+with $C$ independent of $\gamma,\mu,\rho,h$, the pressure and $\varepsilon_h^{(3)}$.
+\end{theorem}
+\begin{proof}
+Corollary~\ref{A:abstract} with $v$ of Lemma~\ref{A:assemble}; Lemma~\ref{A:lead} gives $|\ip{\ut}{\dn v}+(F,v)|\ge\ell_W(v)-C\hG^2\norm{\nabla v}$.
+\end{proof}
+
+\begin{corollary}[Sharpness of Scott's rate in 3D]\label{A:sharp}
+On Alfeld-refined meshes with $k\ge4$ (Thm~\ref{A:alfeld}), or on any mesh with $k\ge9$ where $\CNS$ is well posed (Prop.~\ref{A:bubble}), if $W\not\equiv0$, $\gamma\in[\gamma_2,\gamma_{\max}]$ and $\varepsilon_h^{(3)}\le C\hG^{3/2}$:
+$\ c\,\hG^{3/2}\le\norm{\nabla(\ut-u_h)}\le\tnorm{\ut-u_h}\le C\hG^{3/2}$.
+\end{corollary}
+The upper bound is Thm~td:main(ii) and inherits its caveat (td:open item 3); the lower bound does not use (IS3) beyond existence of $u_h$.
+
+\subsection{Verification of (M3$^3$)}\label{A:ver}
+
+\paragraph{Transport of face data.} Let $T$ be a tetrahedron with face $F\in\FG$ and apex $p_0$; $\hat T=\operatorname{conv}(\hat p_0,\hat p_1,\hat p_2,\hat p_3)$ the reference tetrahedron $\hat p_0=(0,0,1)$, $\hat p_1=0$, $\hat p_2=e_1$, $\hat p_3=e_2$, $\hat F=\{z=0\}\cap\hat T$, inward unit normal $\hat\nu=e_3$; $x=A\hat x+a$ the affine map with $\hat F\mapsto F$, $\det A>0$. Let $\nu=-n_F$ be the inward unit normal of $T$ on $F$ and $h_T$, $\hat h=1$ the heights over $F$, $\hat F$. For $\hat v$ vanishing on $\hat F$, let $v:=(\det A)^{-1}A\,\hat v\circ A^{-1}$ (Piola) and $\hat g:=\partial_{\hat\nu}\hat v|_{\hat F}$.
+
+\begin{lemma}\label{A:piola}
+(a) The Piola map preserves continuity, zero boundary values, piecewise-$P_k$ structure on affinely corresponding meshes, and $\div v=(\det A)^{-1}\widehat{\div}\,\hat v\circ A^{-1}$. It maps the Alfeld split of $\hat T$ onto that of $T$.
+(b) $\int_F\mu_i\mu_j\,\partial_\nu v\,dA=(\hat h/h_T)^2\,A\int_{\hat F}\mu_i\mu_j\,\hat g\,d\hat A$ for all polynomial weights; in particular for $\mu_i\mu_j$ and for $1$.
+(c) $\norm{\nabla v}_T\le(\det A)^{-1/2}\norm A\norm{A^{-1}}\norm{\hat\nabla\hat v}_{\hat T}$.
+\end{lemma}
+\begin{proof}
+(a) standard ($A$ constant; barycentre $\mapsto$ barycentre). (b) On $\hat F$, $\hat\nabla\hat v=\hat g\otimes\hat\nu$, so $\partial_\nu v=(\det A)^{-1}A\hat g\,(A^{-\mathsf T}\hat\nu\cdot\nu)$ with $A^{-\mathsf T}\hat\nu=|A^{-\mathsf T}\hat\nu|\,\nu$ (it is normal to $F$ and points into $T$). Nanson: $dA=\det A\,|A^{-\mathsf T}\hat\nu|\,d\hat A$. So the factor is $|A^{-\mathsf T}\hat\nu|^2$, and $|A^{-\mathsf T}\hat\nu|=|\nabla\lambda_0|\,\hat h=\hat h/h_T$ ($\lambda_0$ the barycentric of the apex). Barycentrics are affine invariants. (c) $\nabla v=(\det A)^{-1}A(\hat\nabla\hat v)A^{-1}$.
+\end{proof}
+
+Since $\partial_n=-\partial_\nu$ on $F$, $\M_F(v)=-\frac12\sum\ell_{ij}^2\int_F\mu_i\mu_j\partial_\nu v$; signs are absorbed by choosing $\pm v$.
+
+\begin{proposition}[Joint criterion]\label{A:joint}
+Let $\hat{\mathcal Y}$ be a space of continuous piecewise polynomial, divergence-free fields on (a subdivision of) $\hat T$ vanishing on $\partial\hat T$, and $\hat{\mathcal Y}^1:=\{\hat v\in\hat{\mathcal Y}:\int_{\hat F}\hat g=0\}$. Suppose the joint edge-moment map
+\[
+\hat E:\hat{\mathcal Y}^1\to(\R^2)^3,\qquad \hat v\mapsto\Bigl(\int_{\hat F}\mu_1\mu_2\hat g,\ \int_{\hat F}\mu_1\mu_3\hat g,\ \int_{\hat F}\mu_2\mu_3\hat g\Bigr)
+\]
+is onto, with right inverse of norm $\norm{\hat R}$ (from the Euclidean norm on $\R^6$ to $\norm{\hat\nabla\cdot}_{L^2(\hat T)}$). Then, for every tetrahedron $T$ with face $F$ on which the corresponding (Piola) space is admissible in $Y_h^1$, and every set of real weights $w=(w_{12},w_{13},w_{23})\ne0$ and unit $t\parallel F$, there is $v$ supported in $T$ with $\norm{\nabla v}=1$ and
+\[
+t\cdot\tfrac12\sum_{i<j}w_{ij}\int_F\mu_i\mu_j\partial_\nu v\ \ge\ \frac{|w|\,(\hat h/h_T)^2(\det A)^{1/2}}{2\norm A\norm{A^{-1}}^2\norm{\hat R}} .
+\]
+For the sphere ($w_{ij}=\ell_{ij}^2$, $|w|\ge(\diam F)^2$) and a shape-regular $T$ this is $\ge\kappa_0(\diam F)^{5/2}$, $\kappa_0=c(\text{shape reg.})/\norm{\hat R}$: (M3$^3$) holds with $\omega_F=T$, $K_{\rm ov}=1$.
+\end{proposition}
+\begin{proof}
+$s:=A^{-1}t$ is parallel to $\hat F$. Take $\hat v:=\hat R\bigl((w_{ij}s/|w|^2)_{i<j}\bigr)$, so $\sum_{i<j}w_{ij}\hat E_{ij}(\hat v)=s$ and $\norm{\hat\nabla\hat v}\le\norm{\hat R}|s|/|w|\le\norm{\hat R}\norm{A^{-1}}/|w|$. By Lemma~\ref{A:piola}(b), $\frac12\sum w_{ij}\int_F\mu_i\mu_j\partial_\nu v=\frac12(\hat h/h_T)^2As=\frac12(\hat h/h_T)^2t$; by (c) and normalisation the claim follows. Shape regularity bounds $\norm A\lesssim\diam T$, $\norm{A^{-1}}\lesssim(\diam T)^{-1}$, $\det A\gtrsim(\diam T)^3$, $h_T\lesssim\diam T\lesssim\diam F$; the powers combine to $(\diam F)^{2-2+3/2-1+2}=(\diam F)^{5/2}$.
+\end{proof}
+No compactness over shapes is used: $\hat{\mathcal Y}^1$ and $\hat E$ are fixed, and the shape enters only through $A$ and $w$. The weights may have any signs (used in Part B).
+
+\begin{theorem}[(M3$^3$) on Alfeld splits, $k\ge4$]\label{A:alfeld}
+Let $\Th$ be the Alfeld refinement of a shape-regular macro mesh of $\Oh$ and $k\ge4$. Then (M3$^3$) holds with $\omega_F=T_F$ (the macro-tetrahedron containing $F$), $K_{\rm ov}=1$ and $\kappa_0=c(\text{shape reg.})\,\hat\kappa$, $\hat\kappa:=1/\norm{\hat R}$.
+\end{theorem}
+\begin{proof}
+Let $\hat{\mathcal Y}_k$ be the continuous piecewise-$P_k$ divergence-free fields on the Alfeld split of $\hat T$ vanishing on $\partial\hat T$. Exact rational computation (\texttt{alfeld\_witness.py 4}, log \texttt{alfeld\_k4.log}; Bernstein--B\'ezier basis on the $35$ interior domain points, $105$ unknowns, $80$ divergence equations): $\operatorname{rank}\div=79$ (onto the mean-zero $P_3^{\rm disc}$), $\dim\hat{\mathcal Y}_4=26$, and the $8$ functionals ($\int_{\hat F}\hat g$ and the three edge moments, $2$ tangential components each) have rank $8$ on $\hat{\mathcal Y}_4$. Hence $\hat E$ is onto on $\hat{\mathcal Y}_4^1$ ($\dim=24$). For $k\ge4$, $\hat{\mathcal Y}_4\subset\hat{\mathcal Y}_k$. By Lemma~\ref{A:piola}(a) the Piola image of $\hat{\mathcal Y}^1_k$ under the map onto $T_F$, extended by zero, lies in $Y_h^1$: it is continuous and piecewise $P_k$ on the Alfeld refinement, vanishes on $\partial T_F\supset F$, is divergence free, has $\int_F\dn v=0$ by (b), and $T_F$ meets $\Gh$ only in $F$ (Lemma~\ref{A:one}), so the other constraints and moments vanish. Apply Prop.~\ref{A:joint}.
+\end{proof}
+\emph{Value (NUMERICAL, floating point):} with $\norm{\hat\nabla\cdot}_{L^2(\hat T)}$, the singular values of $\hat E$ on $\hat{\mathcal Y}^1_4$ are $0.240,0.175,0.123,0.069,0.0211,0.0109$, so $\hat\kappa=0.0109$, $\norm{\hat R}=91.7$ (\texttt{k4\_constant.py}).
+
+\begin{proposition}[(M3$^3$) on any mesh, $k\ge9$]\label{A:bubble}
+Let $K=K_F$, $\lambda_0$ its barycentric vanishing on $F$, $B:=(\lambda_1\lambda_2\lambda_3)^2$. For a unit $\tau\parallel F$ and a quadratic $q$ on $F$ put $\psi:=\lambda_0^2B\,q\,(\nu\times\tau)$, $q$ written as the same polynomial in $\lambda_1,\lambda_2,\lambda_3$ as in $\mu_1,\mu_2,\mu_3$, and $v:=\curl\psi\in P_9^3$, extended by zero. Then $v\in Y_h$, $\partial_\nu v|_F=-2|\nabla\lambda_0|^2Bq\,\tau$, and with $Q_w:=\sum_{i<j}w_{ij}\mu_i\mu_j$, $q:=Q_w-\int_FBQ_w/\int_FB$ one has $v\in Y_h^1$ and
+\[
+\tfrac12\sum w_{ij}\int_F\mu_i\mu_j\partial_\nu v=-|\nabla\lambda_0|^2\,\tau\int_FB(Q_w-\bar Q_w)^2,\qquad \frac1{|F|}\int_FB(Q_w-\bar Q_w)^2\ \ge\ \frac{|w|^2}{8316000}.
+\]
+Hence (M3$^3$) holds for $k\ge9$ on every shape-regular mesh, with $\omega_F=K_F$, $K_{\rm ov}=1$, and any real weights.
+\end{proposition}
+\begin{proof}
+$\psi$ vanishes to second order on $\partial K$, so $v=\curl\psi$ vanishes on $\partial K$, is continuous after extension by zero and divergence free. $\curl(f\Phi)=\nabla f\times\Phi+f\curl\Phi$ with $f=\lambda_0^2Bq$; on $F$ only $2\lambda_0\,\partial_\nu\lambda_0\ldots$ survives after one normal derivative: $\partial_\nu v|_F=2|\nabla\lambda_0|^2Bq\,\nu\times(\nu\times\tau)=-2|\nabla\lambda_0|^2Bq\,\tau$. Mean zero by the choice of the constant. The identity is then $\int B(Q_w-\bar Q_w)Q_w=\int B(Q_w-\bar Q_w)^2$. The lower bound: $\frac1{|F|}\int B(Q_w-\bar Q_w)^2=w^{\mathsf T}\mathcal Vw$ with $\mathcal V$ the $B$-weighted covariance of the three edge bubbles, computed exactly (\texttt{bubble\_variance.py}): $\mathcal V=\frac1{1188000}I-\frac1{2772000}(J-I)$, eigenvalues $1/831600$ (twice) and $1/8316000$. By scaling ($q$ has coefficients $O(|w|)$ in the barycentrics), $\norm{\nabla v}_K\le\norm{D^2\psi}_K\le C(\text{shape})|w|(\diam K)^{-1/2}$, while the moment has modulus $|\nabla\lambda_0|^2|F|\,w^{\mathsf T}\mathcal Vw\ge c(\text{shape})|w|^2/8316000$ ($|\nabla\lambda_0|=1/h_K$). The ratio is $\ge c|w|(\diam F)^{1/2}$, i.e.\ $\ge c(\diam F)^{5/2}$ for $w_{ij}=\ell_{ij}^2$.
+\end{proof}
+
+\begin{proposition}[$k=3$: one macro-element is not enough]\label{A:k3}
+For $k=3$ on the Alfeld split: $\dim\hat{\mathcal Y}_3=6$ (div onto mean-zero $P_2^{\rm disc}$), $\dim\hat{\mathcal Y}^1_3=4$, and the image of $\hat E$ on $\hat{\mathcal Y}^1_3$ is the line spanned by $(\hat E_{12},\hat E_{13},\hat E_{23})=(\hat p_1-\hat p_2,\ \hat p_3-\hat p_1,\ \hat p_2-\hat p_3)$ (exact, \texttt{alfeld\_k3.log}). Consequently, for a single macro-element field on $T_F$, the physical moment $\M_F(v)$ is a multiple of $\sum_{\rm cyc}\ell_{ij}^2e_{ij}$ ($e_{ij}$ the cyclically oriented edge vectors), which is nonzero iff $F$ is not equilateral; and one direction per face only. So (M3$^3$) cannot be verified with $\omega_F=T_F$ for $k=3$, not even for a single direction on equilateral faces.
+\end{proposition}
+\begin{proof}
+The rank statement is the exact computation. By Lemma~\ref{A:piola}(b), $\M_F=c\,A\sum\ell_{ij}^2\hat e_{ij}=c\sum\ell_{ij}^2e_{ij}$. With $a+b+c=0$ the cyclic edge vectors, $|a|^2a+|b|^2b+|c|^2c=(|a|^2-|c|^2)a+(|b|^2-|c|^2)b$, zero iff $|a|=|b|=|c|$. In fact, symbolically (for a general triangle), $\sum_{\rm cyc}\ell_{ij}^2e_{ij}=\pm12|F|\,R_{\pi/2}(x_c-o_F)$ with $x_c$ the centroid and $R_{\pi/2}$ the in-plane rotation: the $k=3$ macro-element sees exactly the centroid--circumcentre defect of td:faces(d), rotated.
+\end{proof}
+\emph{$k=3$, larger patches (NUMERICAL, exact rational ranks; \texttt{k3\_patches.py}, \texttt{k3\_equilateral\_tests.py}, \texttt{k3\_octa\_weights.py}).} On vertex fans of $m$ macro-tetrahedra $\operatorname{conv}(q,z,a_j,a_{j+1})$ sharing an interior edge $[z,q]$, with the true circumsphere weights, the tangential total-moment map on $Y^1(\text{fan})$ has rank $2$ for $m=4,5,6$ (regular rings on a paraboloid), for an octahedral fan of \emph{equilateral} faces with off-axis apex, and for a regular-tetrahedron fan of equilateral faces. It has rank $0$ for the octahedral fan with apex on the axis, where the four interior macro-faces at $[z,q]$ lie in two planes (a ``singular edge'', the analogue of (M1)); there the rank is restored by unequal weights ($(1,2,3)$: rank 2). So (M3$^3$) for $k=3$ plausibly holds with fan patches under a non-singularity condition at interior edges, but this is not proved; Thm~\ref{A:thm} is conditional for $k=3$.
+
+%=====================================================================
+\section{Part B: general smooth obstacles in 3D}\label{B:sec}
+%=====================================================================
+
+\subsection{Setting}
+\begin{assumption}[Domain]\label{B:dom}
+$\Omega\subset\R^3$ bounded, connected, $\partial\Omega=\Gamma\sqcup\Sigma$; $\Gamma=\Gamma_1\sqcup\dots\sqcup\Gamma_m$ closed connected embedded surfaces of class $C^3$ (class $C^{k+3}$ where stated), each a whole component of $\partial\Omega$; $\Sigma\ne\emptyset$ a finite union of closed polyhedral surfaces (whole components), carrying strong data.
+\end{assumption}
+$N$ is the unit normal of $\Gamma$ into $\Omega$, $n=-N$, $d$ the signed distance (positive in $\Omega$), $\hh_y(X,Y)=-\langle D_XN,Y\rangle$ the second fundamental form w.r.t.\ $N$ (so $\hh>0$ where $\Omega$ is locally convex; for the exterior of the unit ball $\hh=-I$), $\kappa_\infty:=\sup|\hh|$.
+
+\emph{Standard facts} (fixed surface only; tubular neighbourhood theorem, regularity of $d$, implicit function theorem, compactness):
+(T) there is $r>0$, $r\kappa_\infty\le\frac12$, with $\Psi(y,s)=y+sN(y)$ a $C^2$ diffeomorphism $\Gamma\times(-r,r)\to\mathcal T_r$, $d(\Psi(y,s))=s$, $\pi=x-d\nabla d\in C^2$, $\nabla d=N\circ\pi$, $dx=J\,dA\,ds$ with $J=\det(I-sS_y)\in[\frac14,\frac94]$, $\mathcal T_r$ at positive distance from $\Sigma$, components $2r$ apart.
+(Gr) there is $a_0\le r/4$ with $\kappa_\infty a_0\le\frac1{40}$ such that in the frame $(y;\tau_1,\tau_2,N(y))$ with coordinates $(\xi,\eta)\in\R^2\times\R$ and $Q'_y=(-2a_0,2a_0)^3$: $\Gamma\cap Q'_y$ is the graph of $f_y\in C^3$, $\Omega\cap Q'_y=\{\eta>f_y\}$, $f_y(0)=0$, $\nabla f_y(0)=0$, $D^2f_y(0)=\hh_y$, $|\nabla f_y(\xi)|\le2\kappa_\infty|\xi|\le\frac15$, $|f_y(\xi)|\le\kappa_\infty|\xi|^2$, $\norm{D^3f_y}\le C_\Gamma$.
+
+\begin{assumption}[Inscribed surfaces]\label{B:ins}
+(G1) $\Gh=\bigcup_i\Gamma_{h,i}$, each $\Gamma_{h,i}$ a closed triangulated polyhedral surface whose vertices lie on $\Gamma_i$; faces have diameter in $[c_0\hG,\hG]$ and minimal angle $\ge\theta_0$. (G2) $\pi|_{\Gh}:\Gh\to\Gamma$ is a bijection. (G3) $\hG\le h_\ast$, small.
+\end{assumption}
+(G2) is the standard lift condition of surface finite elements; it excludes folded triangulations and is automatic for convex inscribed polyhedra of the sphere (radial projection). It cannot be derived from (G1) alone.
+
+\subsection{Geometry}
+\begin{lemma}[Faces on a general surface]\label{B:face}
+Let $F\in\FG$ have vertices $z_i\in\Gamma$, barycentrics $\mu_i$, $\ell:=\diam F\le h_\ast$, edge vectors $e_{ij}=z_i-z_j$, centroid $x_F$, $y_F:=\pi(x_F)$, $\hh_F:=\hh_{y_F}\circ P_{y_F}$ ($P$ the tangential projection). Then for $x\in F$, $x^\ast:=\pi(x)$:
+\begin{enumerate}[label=(\alph*)]
+\item $d(x)=\frac12\sum_{i<j}\hh_F(e_{ij},e_{ij})\,\mu_i\mu_j+O(\ell^3)$; in particular $|d|\le C\ell^2$;
+\item $|n_F-n(x^\ast)|\le C\ell$, where $n_F$ is the unit normal of $F$ with $n_F\cdot N(x^\ast)<0$;
+\item $\pi|_F$ is a $C^2$ diffeomorphism onto $\pi(F)$ with area Jacobian $1+O(\ell^2)$;
+\item $|w_F|\ge c(\theta_0)\,\ell^2\,|\hh_{y_F}|-C\ell^3$, where $w_F:=(\hh_F(e_{ij},e_{ij}))_{i<j}$ and $|\hh|$ is the operator norm.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Frame (Gr) at $y:=z_1$. $z_j=(\xi_j,f(\xi_j))$ with $|\xi_j|\le\ell$; the vertical parts are $\le\kappa_\infty\ell^2$, so the projected triangle $\tilde F=\operatorname{conv}(\xi_j)$ has minimal angle $\ge\theta_0/2$ for $h_\ast$ small, and $F$ is the graph of $L:=I_1f$ over $\tilde F$ (same barycentrics).
+(a) $f=\frac12\xi^{\mathsf T}H\xi+R_3$, $H=\hh_{z_1}$, $|R_3|\le C\ell^3$ on $\tilde F$. For a quadratic form, $I_1Q-Q=\sum_{i<j}\mu_i\mu_j Q(\xi_i-\xi_j)$ (variance identity, polarised). So $L-f=\frac12\sum\mu_i\mu_j(\xi_i-\xi_j)^{\mathsf T}H(\xi_i-\xi_j)+O(\ell^3)$. For $x=(\xi,f(\xi)+\delta)$, $d(x)=\delta N_3+O(\delta^2)=\delta+O(\ell^4)$ since $N_3=(1+|\nabla f|^2)^{-1/2}=1+O(\ell^2)$. Finally $\xi_i-\xi_j=P_{z_1}e_{ij}$, and replacing $(z_1,P_{z_1})$ by $(y_F,P_{y_F})$ changes $\hh(e,e)$ by $O(\ell)|e|^2$ ($\Gamma\in C^3$).
+(b) $n_F\parallel(\nabla L,-1)$, $N(x^\ast)\parallel(-\nabla f(\xi^\ast),1)$; $|\nabla L-\nabla f|\le C\ell/\sin(\theta_0/2)$ on $\tilde F$ (P1 interpolation), $|\xi^\ast-\xi|\le C\ell^3$.
+(c) $D\pi(x)=(I-d\,S)^{-1}P_{x^\ast}$; restricted to the plane of $F$ it has Jacobian $(n_F\cdot N(x^\ast))\,(1+O(d))=1+O(\ell^2)$ by (b), (a). Injectivity on $F$: $\pi|_F$ is a small $C^1$ perturbation of the vertical projection, which is injective.
+(d) The map $H\mapsto(H(u_{ij},u_{ij}))_{i<j}$, $u_{ij}=P e_{ij}/|Pe_{ij}|$, from symmetric forms on $T_{y_F}\Gamma$ to $\R^3$ is invertible (three pairwise non-parallel directions) with inverse bounded by $C(\theta_0)$; $|Pe_{ij}|\ge c\ell$.
+\end{proof}
+For the unit sphere seen from $\Omega=R\setminus\overline D$: $\hh=-I$, $d(x)=-(1-|x|)$ and (a) is Lemma~\ref{A:sag} with $O(\ell^4)$.
+
+\begin{lemma}[Normal graph; definition of $\Oh$]\label{B:graph}
+Under (G1)--(G3), $\Gh=\{y+\eta_h(y)N(y):y\in\Gamma\}$ with $\eta_h:=d\circ(\pi|_{\Gh})^{-1}$ Lipschitz, piecewise $C^2$, $\norm{\eta_h}_\infty\le C\hG^2$, $\norm{\nabla_\Gamma\eta_h}_\infty\le C\hG$. Define
+\[
+\Oh:=(\Omega\setminus\mathcal T_{r/2})\cup\{x\in\mathcal T_{r/2}:\ d(x)>\eta_h(\pi(x))\}.
+\]
+Then $\Oh$ is a bounded polyhedral domain, $\partial\Oh=\Sigma\sqcup\Gh$, $\Oh$ lies on the $N$-side of each face (its outward normal on $F$ is $n_F$ of Lemma~\ref{B:face}(b)), $\Oh\setminus\Omega=\{\eta_h\circ\pi<d\le0\}$, $\Omega\setminus\Oh=\{0<d\le\eta_h\circ\pi\}$, $|\Omega\triangle\Oh|\le C\hG^2$. Both differences are nonempty in general (e.g.\ near saddle points, where $\hh$ is indefinite, a single face crosses $\Gamma$).
+\end{lemma}
+\begin{proof}
+Every point of a face is within $\hG$ of a vertex, so $\Gh\subset\mathcal T_{r/2}$. By (G2) $\eta_h$ is well defined; its bounds follow from Lemma~\ref{B:face}(a) and, on $\pi(F)$, $\nabla_\Gamma\eta_h=D(\pi|_F)^{-\mathsf T}\nabla_Fd$ with $|\nabla_Fd|=|N(x^\ast)-(N\cdot n_F)n_F|\le C\hG$ (b) and (c). Since $\pi(x+tN(\pi x))=\pi(x)$, near $F$ the set $\{d>\eta_h\circ\pi\}$ is the half-space side into which $N$ points. The rest is as in gd:lem:graph.
+\end{proof}
+
+\begin{lemma}[Uniform Korn, trace, Friedrichs, Poincar\'e; connectedness]\label{B:korn}
+The statements of gd:lem:korn hold on $\Oh\subset\R^3$ with constants independent of $h$.
+\end{lemma}
+\begin{proof}
+$\Phi_h(\Psi(y,s)):=\Psi(y,s+\chi(s)\eta_h(y))$ ($\chi$ as in gd:lem:korn) is a homeomorphism $\overline\Omega\to\overline\Oh$, identity near $\Sigma$, with $\norm{D\Phi_h-I}_\infty+\norm{D\Phi_h^{-1}-I}_\infty\le C\hG$: in $(y,s)$ coordinates $D\hat\Phi_h=I+\begin{pmatrix}0&0\\\chi\nabla_\Gamma\eta_h&\chi'\eta_h\end{pmatrix}$, and $D\Psi(y,s')D\Psi(y,s)^{-1}=I+O(|s-s'|)$. Then steps 4--6 of Lemma~lem:korn verbatim (Korn's first inequality with zero trace on $\Sigma$, trace, Friedrichs and Poincar\'e on the fixed Lipschitz domain $\Omega$, transferred).
+\end{proof}
+
+\subsection{Extension across $\Gamma$ without vector potentials}
+\begin{lemma}[Piola--Hestenes extension]\label{B:ext}
+Let $\Gamma\in C^{k+3}$, $u\in C^{k+1}(\overline\Omega)$ divergence free, $p\in C^k(\overline\Omega)$. There are $\ut\in C^{k+1}(\mathcal O)$, $\pt\in C^k(\mathcal O)$, $\mathcal O:=\Omega\cup\mathcal T_{r/2}$, with $\ut=u$, $\pt=p$ on $\Omega$ and $\div\ut=0$ on $\mathcal O$. Moreover $\norm{\ut}_{L^\infty(\Gh)}\le C\hG^2$ and, with $F:=\ft+\Delta\ut-\nabla\pt$ (supported in $\overline{\Oh\setminus\Omega}$), $|(F,v)|\le C\hG^2\norm{\nabla v}$ for $v\in\VR$.
+\end{lemma}
+\begin{proof}
+Let $\omega:=\iota_u\,\mathrm{vol}$, a closed $C^{k+1}$ 2-form on $\overline\Omega$. On a collar $\Gamma_i\times[0,r)$, $\beta:=\Psi^\ast\omega$ is closed and $C^{k+1}$ up to $s=0$ ($\Psi\in C^{k+2}$ since $N\in C^{k+2}$). In local coordinates $(\sigma_1,\sigma_2)$ on $\Gamma_i$, $\beta=a\,d\sigma_1\wedge d\sigma_2+b_1\,d\sigma_2\wedge ds+b_2\,ds\wedge d\sigma_1$. For $\lambda>0$ let $R_\lambda(y,s)=(y,-\lambda s)$; then $R_\lambda^\ast\beta=a(\sigma,-\lambda s)\,d\sigma_1\wedge d\sigma_2-\lambda\,b_\alpha(\sigma,-\lambda s)(\dots)$. Choose distinct $\lambda_j\in(0,1]$, $j=1,\dots,k+3$, and $c_j$ with $\sum_jc_j(-\lambda_j)^m=1$ for $m=0,\dots,k+2$ (Vandermonde), and set $\tilde\beta:=\sum_jc_jR_{\lambda_j}^\ast\beta$ for $s\in(-r/2,0)$. Then $\partial_s^m\partial_\sigma^\alpha$ of the coefficients of $\tilde\beta$ and $\beta$ agree at $s=0$ for $m+|\alpha|\le k+1$ (for $a$ this uses $m\le k+1$, for $b$ the shifted conditions $m+1\le k+2$), so the glued form is $C^{k+1}$ on $\Gamma_i\times(-r/2,r)$; it is closed on each side (pull-backs commute with $d$) hence everywhere. Push forward by $\Psi^{-1}$ and let $\ut$ be the vector field of the resulting closed 2-form: $\ut\in C^{k+1}$, $\div\ut=0$. $\pt$: scalar Hestenes reflection. The bounds are those of gd:lem:ext: $\ut|_\Gamma=0$ and $|d|\le C\hG^2$ on $\Gh$; $|(F,v)|$ by a one-dimensional Poincar\'e inequality along normal segments across $\{\eta_h\circ\pi<d\le0\}$ (width $\le C\hG^2$), the Jacobian $J$, Lemma~\ref{B:face}(c) and Lemma~\ref{B:korn}.
+\end{proof}
+This replaces the vector potential of td:setting (whose existence on a collar needs the zero-flux condition and elliptic regularity) by an elementary construction; it also works in 2D. For the geometric lemmas only $\ut\in C^2$ near $\Gamma$ is needed.
+
+\subsection{Uniform Bogovski\u{\i} constant}
+\begin{lemma}[Uniform star-shaped cover in 3D]\label{B:cover}
+There are $N_B,r_\ast,d_\ast,m_\ast>0$ depending only on $\Omega$ such that for $\hG\le h_\ast$, $\Oh$ admits a cover as in gd:lem:bog (which is dimension-free, with Galdi's star-shaped constant $c_0(d/r)^3(1+d/r)$). Hence the Bogovski\u{\i} (continuous inf-sup) constant of $\Oh$ is bounded independently of $h$.
+\end{lemma}
+\begin{proof}
+Let $a:=a_0$ of (Gr), frames at $y_1,\dots,y_{N_1}\in\Gamma$ such that the sets $\Gamma\cap\{|\xi|_\infty<a/4\}$ (in the frame at $y_j$) cover $\Gamma$; $Q_j:=(-a,a)^3$, $U_j^h:=\Oh\cap Q_j$.
+
+\emph{1. $\Gh\cap Q_j$ is a Lipschitz graph.} With $y(\xi)=(\xi,f(\xi))$, the points of $\Gh$ over $\Gamma\cap Q_j'$ are $y(\xi)+\eta_h(y(\xi))N(y(\xi))$, with horizontal coordinate $\Xi(\xi)=\xi-\eta_h\nabla f/\sqrt{1+|\nabla f|^2}$. By Lemma~\ref{B:graph}, $\norm{D\Xi-I}\le C\hG$ and $|\Xi(\xi)-\xi|\le C\hG^2$, so $\Xi$ is a bi-Lipschitz homeomorphism of $(-2a,2a)^2$ onto a set containing $(-\frac32a,\frac32a)^2$; over it $\Gh$ is the graph of $f_h:=(f+\eta_h/\sqrt{1+|\nabla f|^2})\circ\Xi^{-1}$ with $\mathrm{Lip}(f_h)\le\frac15+C\hG\le L:=\frac14$ and $|f_h|\le2\kappa_\infty a^2+C\hG^2\le b_0:=\frac a{10}$ on $(-a,a)^2$. No other part of $\Gh$ enters $(-\frac32a,\frac32a)^3$: points of $\Gh$ are within $C\hG^2$ of their projection on $\Gamma$, and $\Gamma\cap Q'_j$ is the graph part.
+
+\emph{2. $U^h_j=\{(\xi,\eta)\in Q_j:\eta>f_h(\xi)\}$}, by the connectedness argument of gd:lem:cover, step 2 (the point $(0,0,a/2)$ is in $\Oh$, $(0,0,-a/2)$ is not).
+
+\emph{3. Star-shaped w.r.t.\ every point of $B_j:=B((0,0,\frac34a),\frac a8)$.} For $y\in B_j$, $x\in U_j^h$, $z_t=(1-t)y+tx$: $|\xi_x-\xi_y|\le(\sqrt2+\frac18)a<1.54a$ and
+\[
+\eta_{z_t}-f_h(\xi_{z_t})\ge t(\eta_x-f_h(\xi_x))+(1-t)\bigl(\tfrac58a-b_0-1.54La\bigr)\ge t(\eta_x-f_h(\xi_x))+(1-t)\,0.14a>0;
+\]
+the box constraints are convex; $\overline{B_j}\subset U^h_j$; $\diam U_j^h\le2\sqrt3a$.
+
+\emph{4. Interior pieces, covering, overlaps.} $\Omega_\ast:=\{x\in\Omega:\dist(x,\Gamma)>a/4\}$ is an $h$-independent connected Lipschitz domain (homeomorphic to $\Omega$ via the collar map), $\Omega_\ast\subset\Oh$, and a finite union of domains star-shaped w.r.t.\ balls (Galdi Lemma~II.1.3; locator unverified as in the paper). If $x\in\Oh$ and $\dist(x,\Gamma)<a/2$, then $x=\pi(x)+dN$ with $\pi(x)$ in the $a/4$-patch of some $y_j$, and in that frame $|\xi_x|_\infty\le\frac a4+\frac a2\cdot\frac15<a$, $|\eta_x|\le\frac a{10}+\frac a2<a$, so $x\in U^h_j$. Ordering chart pieces first: $U^h_j\cap\Omega_\ast\supset y_j+\{|\xi|_\infty<\frac a2,\ \frac a2<\eta<a\}$ (these points are at distance $\ge(\frac a2-b_0)/\sqrt{1+L^2}>\frac a4$ from $\Gamma$), of volume $a^3/2$. The rest is gd:lem:cover.
+\end{proof}
+Consequently the domain part of (IS3) is uniform on general smooth obstacles; the discrete part has exactly the status of td:open item 3.
+
+\subsection{Test field, fluxes and the global mean}
+\begin{lemma}[Divergence-free field with normal trace $q$]\label{B:w}
+Let $\Gamma\in C^{k+3}$, $q\in C^{k+1}(\Gamma)$, $\int_\Gamma q=0$, $\bar q_i$ its mean on $\Gamma_i$. Let $\phi_i\in C^{k+2,\alpha}(\Gamma_i)$ solve $\Delta_\Gamma\phi_i=q-\bar q_i$ (Schauder theory on the closed $C^{k+3}$ surface), $\chi$ a cutoff ($\chi=1$ near $0$, $\chi=0$ on $[r/4,r)$), and on the product $\Gamma\times(-r,r)$ (volume $dA\,ds$) let $V:=(-\chi'(s)\nabla_\Gamma\phi_i,\ \chi(s)q)$. Let $w_0$ be the Piola push-forward of $V$ by $\Psi$ (defined by $\iota_{w_0}\mathrm{vol}=(\Psi^{-1})^\ast\iota_V(dA\wedge ds)$). Then $\div w_0=J^{-1}\chi'(s)\bar q_i$, $w_0=qN$ on $\Gamma$, $w_0\in C^{k+1}$. Correcting the $\bar q_i$-part with Bogovski\u{\i} fields on balls in $\{d>r/16\}$ exactly as in gd:lem:w (dimension-free) gives $w\in C^{k+1}$ on a neighbourhood of $\overline\Omega$, $\div w=0$, $w=0$ near $\Sigma$, $w|_\Gamma=qN=-qn$, with the bounds (c) of gd:lem:w.
+\end{lemma}
+\begin{proof}
+$d(\iota_{w_0}\mathrm{vol})=(\Psi^{-1})^\ast\bigl((\operatorname{div}_{\rm prod}V)\,dA\wedge ds\bigr)$ and $\Psi^\ast\mathrm{vol}=J\,dA\wedge ds$; $\operatorname{div}_{\rm prod}V=-\chi'\Delta_\Gamma\phi_i+\chi'q=\chi'\bar q_i$. At $s=0$, $D\Psi=\mathrm{id}_{T\Gamma}\oplus(\partial_s\mapsto N)$, $J=1$, $\chi'=0$. Regularity: $\nabla_\Gamma\phi_i\in C^{k+1,\alpha}$, $D\Psi,J\in C^{k+1}$. For $m=1$ and piecewise constant $q$, $\phi_i=0$.
+\end{proof}
+The \emph{discrete} leak field is then the interpolate-and-correct field of td:vphi, $v_\varphi:=I_hw-ab-v_0\in\Zh$; its proof uses only $\int_{\Gh}w\cdot n=\int_{\Oh}\div w-\int_\Sigma w\cdot\nu=0$, boundary tetrahedra of size $\le C\hG$, the face bubbles and (IS3). No global stream function or vector potential is needed, so the multiply-connected complications of gd:lem:curlint disappear in 3D.
+
+\begin{lemma}[Fluxes]\label{B:flux}
+For $v\in\Zh$, $\sum_i\Phi_i(v)=0$, $\Phi_i(v):=\int_{\Gamma_{h,i}}v\cdot n$. If $m\ge2$ and $\Gamma\in C^{k+3}$, $v\mapsto(\Phi_i(v))_i$ maps $\Zh$ onto $\{\sum_ix_i=0\}$ for small $h$.
+\end{lemma}
+\begin{proof}
+As gd:lem:flux, with $v_\alpha$ from Lemma~\ref{B:w} ($q=\alpha_i$ on $\Gamma_i$) and td:vphi: $\Phi_i(v_\alpha)=-|\Gamma_i|\alpha_i+O(\hG^2+h^k)|\alpha|$ by Lemma~\ref{B:face}(b),(c).
+\end{proof}
+
+\subsection{Main theorem on general obstacles}
+\begin{theorem}\label{B:main}
+Assume Assumptions~\ref{B:dom}, \ref{B:ins}, (M0$^3$) (with $\partial R$ replaced by $\Sigma$), (IS3) with $\beta$ independent of $h$, (D), and $u\in C^{k+1}(\overline\Omega)$, $p\in C^k(\overline\Omega)$, $\Gamma\in C^{k+3}$. In $\CNS$ use the global mean $\pbG(q)=|\Gh|^{-1}\int_{\Gh}q$ and $\pbar:=|\Gamma|^{-1}\int_\Gamma p$, $G:=\norm{p-\pbar}_{L^2(\Gamma)}$. Then Theorem~td:main (i), (ii) and Corollary~td:ns hold verbatim on $\Oh$; the results using $v_\varphi$ additionally need $p|_\Gamma\in C^{k+1}$. Proposition~gd:prop:Gglobal (the constant is global; the per-component $G$ is not an admissible error indicator when $m\ge2$) and Remark~gd:rem:percomp (per-component correction inconsistent) hold verbatim. $\Omega\subset\Oh$ is not used anywhere.
+\end{theorem}
+\begin{proof}
+Go through the proof of td:main and replace each ingredient:
+\begin{itemize}
+\item td:faces $\to$ Lemma~\ref{B:face}: sagitta $O(\hG^2)$, $|n_F-n(x^\ast)|\le C\hG$, Jacobian $1+O(\hG^2)$ (only these are used, as noted after td:faces);
+\item td:tools(a) $\to$ Lemma~\ref{B:korn}; td:tools(b) and the extension $\to$ Lemma~\ref{B:ext}; td:tools(c),(d) are mesh-only (face bubble on any $F\in\FG$, $\Oh$ connected);
+\item td:bog $\to$ Lemma~\ref{B:cover};
+\item td:transposed(ii): $(\nabla\ut)^{\mathsf T}n_F=n(x^\ast)\bigl(\dn u(x^\ast)\cdot(n_F-n(x^\ast))\bigr)+O(\hG^2)=O(\hG)$ (Lemma~lem:wall holds on any $C^1$ surface), so td:G holds;
+\item td:w $\to$ Lemma~\ref{B:w} with $q=p-\pbar$; td:vphi verbatim;
+\item td:cancel: $\Gh$ is a closed triangulated surface, so every edge lies in exactly two faces; $|n_F-n_{F'}|\le C\hG$ for adjacent faces (both within $C\hG$ of $n$ at nearby points); $|w-(w\cdot n_F)n_F|\le C\hG$ on $F$ since $w=qN+O(d)$ near $\Gamma$. Steps 1--5 unchanged;
+\item Cor.~cor:GSerr and the consistency step of Thm~thm:D use only $\sum_i\Phi_i(v)=0$ on $\Zh$ (Lemma~\ref{B:flux}); the global constant is forced as in gd:cor:GSerr, and Prop.~gd:prop:Gglobal follows from the lower bound of Thm~A with $\ut=0$;
+\item step 4 of Thm~thm:C: $(\pt-\pbar)n_F+v_\varphi=q(x^\ast)(n_F-n(x^\ast))+O(\hG^2+h^k)=O(\hG)$, energy-dual bound (td:nocancel2d); step 2 of Thm~thm:B(i): $\ut=d\,\partial_Nu(x^\ast)+O(d^2)$ is tangential to $\Gamma$ up to $O(\hG^4)$, $v_\varphi=qN+O(\hG^2+h^k)$;
+\item the Riemann sums $\int_{\Gh}(\cdot)\approx\int_\Gamma(\cdot)$ (e.g.\ $\Rc(v_\varphi)=G^2+O(\hG^2+h^k)$) use (G2) and Lemma~\ref{B:face}(c).
+\end{itemize}
+All integrations by parts are on the polyhedron $\Oh$, where $\ut\in C^2(\overline\Oh)$, $\pt\in C^1(\overline\Oh)$; $F$ lives on $\Oh\setminus\Omega$; $\Omega\setminus\Oh$ is never used.
+\end{proof}
+
+\begin{theorem}[Curvature-weighted lower bound on general obstacles]\label{B:lb}
+Under the assumptions of Theorem~\ref{B:main}, on an Alfeld-refined mesh with $k\ge4$ or on any mesh with $k\ge9$, let $W:=\partial_Nu|_\Gamma$ and $|\hh|$ the pointwise operator norm of the second fundamental form. Then for $\CNS$ ($\gamma\ge\gamma_2$) and $\GS$ ($\gamma\ge\gamma_0$), if $\hh W\not\equiv0$ and $\hG\le h_1$,
+\[
+\norm{\nabla(\ut-u_h)}_{\Oh}\ \ge\ c\,\hG^{3/2}\,\bigl\|\,|\hh|\,W\bigr\|_{L^2(\Gamma)}-C\hG^2 ,
+\]
+with $c$ depending on shape regularity, $\theta_0$, and $\hat\kappa$ (Alfeld) resp.\ $\lambda_{\min}(\mathcal V)=1/8316000$ (bubble).
+\end{theorem}
+\begin{proof}
+Lemmas~\ref{A:one} (with the remark in its proof), \ref{A:normal}--\ref{A:poinc} and Cor.~\ref{A:abstract} are unchanged. In Lemma~\ref{A:lead} replace Lemma~\ref{A:sag} by Lemma~\ref{B:face}(a): $\ut=d\,W(x^\ast)+O(d^2)$ with $d=\frac12\sum w^F_{ij}\mu_i\mu_j+O(\ell^3)$, so $\M_F(v):=\frac12\sum_{i<j}w^F_{ij}\int_F\mu_i\mu_j\dn v$ and the error is still $C\hG^3\norm{\dn v}_{L^1(F)}$, summing to $C\hG^{5/2}\norm{\nabla v}$. Prop.~\ref{A:joint} and Prop.~\ref{A:bubble} allow arbitrary real weights and give a witness with $t\cdot\M_F(v_{F,t})\ge c\,|w^F|(\diam F)^{1/2}\ge c\,\hG^{5/2}|\hh_{y_F}|-C\hG^{7/2}$ (Lemma~\ref{B:face}(d)). In Lemma~\ref{A:assemble} take $v_F:=|\hh_{y_F}|\,|W_F^\parallel|\,v_{F,t_F}$; the Riemann sum is now for $\int_\Gamma|\hh|^2|W|^2$ ($|\hh|$ is Lipschitz), and $\norm{\nabla v}^2\le\sum_F|\hh_{y_F}|^2|W_F|^2$. The rest is identical.
+\end{proof}
+On flat parts of $\Gamma$ the faces lie on $\Gamma$ and the chordal bump vanishes; the theorem says the $\hG^{3/2}$ loss is driven by $|\hh|\,|\partial_Nu|$, as expected. Whether $\hh$ could be replaced by a smaller quantity (e.g.\ only the part of $\hh$ seen by the mesh) is not examined.
+
+\section{What is not proved}
+\begin{enumerate}
+\item (M3$^3$) for $k=3$ (Alfeld): single macro-elements provably fail (Prop.~\ref{A:k3}); fan patches work in exact tests except at a singular-edge configuration. No proof.
+\item (M3$^3$) for $4\le k\le8$ on non-split meshes (where (IS3) is anyway unknown), and for Worsey--Farin splits (boundary faces subdivided; the witness of Prop.~\ref{A:bubble} still works for $k\ge9$ with the weight $-\frac12|x-o_F|^2$ restricted to the sub-face, since only the nonzero Hessian of the weight is used).
+\item The upper bounds (Thm~td:main, Thm~\ref{B:main}) keep the td:open item 3 caveat (uniformity of the discrete split-mesh inf-sup constant); the domain part is now uniform for general obstacles (Lemma~\ref{B:cover}).
+\item (G2) is an assumption, as in surface FEM.
+\item Galdi locators (Lemma~II.1.3, III.3.1, Thm~III.3.3) are used as in the paper and inherit its VERIFY flags.
+\item No 3D Stokes computation was run; the only numerics are the exact/rational rank computations and one floating-point singular value computation.
+\end{enumerate}
+
+\section*{Files (notes/v6/td\_sharp/)}
+\begin{itemize}
+\item \texttt{alfeld\_witness.py k} (exact; logs \texttt{alfeld\_k3.log}, \texttt{alfeld\_k4.log}): reference Alfeld macro-element, $\dim\hat{\mathcal Y}_k$, rank of divergence, rank of the $8$ face functionals. Run: \texttt{python3 alfeld\_witness.py 4} (4 s).
+\item \texttt{k4\_constant.py} (log \texttt{k4\_constant.log}): singular values of $\hat E$ in the $H^1$-seminorm (floating point).
+\item \texttt{bubble\_variance.py} (log): exact covariance matrix $\mathcal V$ of Prop.~\ref{A:bubble}.
+\item \texttt{alfeld\_patch.py}: general exact patch code (independent implementation; single-tet cross-check of the $k=3$ and $k=4$ ranks on a non-reference shape).
+\item \texttt{k3\_patches.py}, \texttt{k3\_equilateral\_tests.py}, \texttt{k3\_octa.py}, \texttt{k3\_octa\_weights.py}, \texttt{k3\_trace.py}, \texttt{k3\_constraints.py}, \texttt{k3\_face\_moment.py} and logs: the $k=3$ exploration.
+\end{itemize}
+\end{document}

@@ -1,0 +1,42 @@
+(A) locked star, apex w=(1+a t, b t), a=3/2 b=0
+   t      h*smax   h*smin/phi   |c|/h (1,1)   |c|phi/h (1,0)
+  1/10   1.8763   0.9412       0.7537        0.7550
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/20   1.8833   0.9424       0.7509        0.7512
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/40   1.8850   0.9427       0.7502        0.7503
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/80   1.8855   0.9428       0.7501        0.7501
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/160  1.8856   0.9428       0.7500        0.7500
+         continuity on s, grad=0 at z_-, z_+, w: True
+(A) locked star, apex w=(1+a t, b t), a=3 b=0
+   t      h*smax   h*smin/phi   |c|/h (1,1)   |c|phi/h (1,0)
+  1/10   0.9381   0.4706       1.5075        1.5100
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/20   0.9416   0.4712       1.5019        1.5025
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/40   0.9425   0.4714       1.5005        1.5006
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/80   0.9427   0.4714       1.5001        1.5002
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/160  0.9428   0.4714       1.5000        1.5000
+         continuity on s, grad=0 at z_-, z_+, w: True
+(A) locked star, apex w=(1+a t, b t), a=3/2 b=2/3
+   t      h*smax   h*smin/phi   |c|/h (1,1)   |c|phi/h (1,0)
+  1/10   1.8819   0.9403       0.8248        0.7214
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/20   1.8847   0.9422       0.8218        0.7346
+         continuity on s, grad=0 at z_-, z_+, w: True
+  1/40   1.8854   0.9427       0.8210        0.7420
+         continuity on s, grad=0 at z_-, z_+, w: True
+(B) bubble lemma: rank of div on (P_k cap H^1_0(T))^2 vs dim{q in P_{k-1}: mean 0, q(vertices)=0}
+   k=3  dim bubbles=2  rank(div)=2  target dim=2  onto=True
+   k=4  dim bubbles=6  rank(div)=6  target dim=6  onto=True
+   k=5  dim bubbles=12  rank(div)=11  target dim=11  onto=True
+   k=6  dim bubbles=20  rank(div)=17  target dim=17  onto=True
+   k=7  dim bubbles=30  rank(div)=24  target dim=24  onto=True
+   k=8  dim bubbles=42  rank(div)=32  target dim=32  onto=True
+(C) flux bubble lam_z^2 lam_w^2 on T = (z, z', w) reference: grads at vertices and edge integral
+   grads at vertices: [[0, 0], [0, 0], [0, 0]]
+   int over edge z-w (x=0, y=r) of b: 1/30

@@ -1,0 +1,369 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\VO}{V_O}
+\newcommand{\Pih}{\Pi_h}
+\newcommand{\Lk}{\mathcal L}
+\newcommand{\dn}{\partial_\nu}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\Ql}{Q_{\rm lock}}
+\title{Strong no-slip for Scott--Vogelius with locked wall vertices:\\ closing S4 (notes/v6/strong2)}
+\date{2026-09-28}
+\begin{document}
+\maketitle
+
+\section*{Summary and status}
+Notation as in \texttt{paper/sections/02\_setting.tex} and \texttt{notes/v6/strong/REPORT.md}.
+A \emph{locked} vertex is a vertex $z$ of $\Gamma_h$ lying in exactly two triangles; $\Lk$ is the set of
+locked vertices. $\phi_z$ is the turning angle of $P_h$ at $z$; for the inscribed polygon
+$\phi_z=\arcsin(|e_1|/2)+\arcsin(|e_2|/2)$, so $c_0\hG\le\phi_z\le 1.1\,\hG$ by (M0).
+
+\begin{center}\small\begin{tabular}{p{3.2cm}p{9.6cm}p{2.4cm}}
+\toprule
+Claim & Content & Status\\\midrule
+Lemma~\ref{lem:K} & vertex gradients of $\VO$ at a locked $z$: exactly $\{(c\otimes g_1,c\otimes g_2)\}$; exact inverse formulas & PROVED\\
+Theorem~\ref{thm:L} & uniform right inverse of $\div$ on $\Ql=\{q:\ q|_{T_1}(z)=q|_{T_2}(z)\ \forall z\in\Lk\}$ & PROVED$^*$\\
+Corollary~\ref{cor:L} & hypothesis (L) of the S4 note (constraint $q|_{T_i}(z)=0$) & PROVED$^*$\\
+Theorem~\ref{thm:sharp} & $\min\{\norm{\nabla v}:\div v=q\}\asymp\norm q+\big(\sum_z(h_z|q_1(z)-q_2(z)|/\sin\phi_z)^2\big)^{1/2}$; $\beta_h\asymp\min_z\phi_z\asymp\hG$ & PROVED$^*$\\
+Theorem~\ref{thm:S4} & $\norm{\nabla(\tilde u-u_h)}\le C(h^k+\hG^{3/2}+\hG(\sum_{\Lk}|\dn u(z)|^2)^{1/2})$ & PROVED$^*$\\
+Corollary~\ref{cor:two} & two-sided rate (with S2, S3$'$) & PROVED$^*$\\
+Theorem~\ref{thm:P}(i),(ii),(iii) & pressure: $\Ql$-part at velocity rate; raw error $\le CR/\phi_{\min}$; filtered pressure & PROVED$^*$\\
+Sharpness of Thm~\ref{thm:P}(ii) & raw pressure error $O(1)$ (one lock), $\sim\hG^{-1/2}$ (mesh (a)) & NUMERICAL\\
+Adjacency & no separation of locked vertices needed & PROVED$^*$ + NUMERICAL\\
+\bottomrule\end{tabular}\end{center}
+$^*$``PROVED'' modulo the following cited standard ingredients. None of them is applied on a locked star in a
+way that could depend on $\phi$:
+(a) the uniform continuous inf-sup constant on $\Omega_h$ (proof of \texttt{lem:infsup} in the paper, Bogovski\u{\i}/Galdi);
+(b) the $P_2$ Fortin operator with $\int_e\Pi_F w=\int_e w$ on edges, stable under shape regularity
+(Crouzeix--Raviart 1973; Boffi--Brezzi--Fortin 2013, \S8.4);
+(c) the element bubble lemma (Lemma~\ref{lem:bubble}), classical (Scott--Vogelius 1985) and checked exactly here for $k=3,\dots,8$.
+The vertex lemma (Lemma~\ref{lem:V}) is proved below (surjectivity by a dimension count, uniformity by compactness),
+so we do not rely on the internal structure of the Guzm\'an--Scott proof.
+
+\paragraph{Answer to the question ``which constraints are necessary''.}
+At a locked vertex there is \emph{no} exact constraint on $\div\VO$: the vertex-divergence map
+$\VO\to\mathbb R^2$, $v\mapsto(\div v|_{T_1}(z),\div v|_{T_2}(z))$ is onto (the vertex is nearly singular,
+not singular), so $\div\VO=\Pih\cap L^2_0$. What fails is \emph{uniformity}: the preimage of
+$(q_1,q_2)$ costs $\asymp h_z|q_1-q_2|/\sin\phi_z+h_z|q|$ in $H^1$ (Theorem~\ref{thm:sharp}). The single
+scalar condition $q|_{T_1}(z)=q|_{T_2}(z)$ -- the $\phi\to0$ limit of the Scott--Vogelius alternating-sum
+condition, which is exact at a flat 2-triangle boundary vertex -- is necessary and sufficient for a
+$\phi$-independent bound. The two conditions $q|_{T_1}(z)=q|_{T_2}(z)=0$ of hypothesis (L) are more
+than needed; they are what the approximation step naturally produces (the div-free solution has $\nabla u_h(z)=0$).
+
+\section{Hypotheses}
+\textbf{(H)} (M0), (M1) of the paper; $k\ge4$; every vertex of $\Gamma_h$ has at least two triangles
+(implied by (M1)); (M2) with constant $\Theta_0$ holds at every vertex \emph{not} in $\Lk$
+(interior vertices, vertices of $\partial R$, and $\Gamma_h$ vertices with $m\ge3$ -- for the latter it is
+automatic by L2 of the S4 note when $\phi_z\le\theta_{\min}/2$).
+No condition on the number or arrangement of locked vertices. In particular locked vertices may be
+adjacent (two locked neighbours $z,z_+$ share the triangle $[z,z_+,w]$ and the apex $w$), and the apex $w$ of
+several locked stars is an ordinary vertex subject to (M2).
+Constants $C,c$ depend only on $k$, $\theta_{\min}$, $c_0$, $\Theta_0$, $L$ (and on norms of $u,p$ where
+displayed); never on $h,\hG,\phi_z,\#\Lk$ or the positions of locked vertices.
+
+\section{Local structure at a locked vertex}
+Let $z\in\Lk$ with triangles $T_1=[z_-,z,w]$, $T_2=[z,z_+,w]$, wall edges $e_1=[z_-,z]$, $e_2=[z,z_+]$ and
+interior edge $s=[z,w]$. Let $\lambda_x$ be the global hat function of vertex $x$ and put
+$g_i:=\nabla\lambda_w|_{T_i}$. Then $g_i=\nu_i/H_i$ with $\nu_i$ the unit normal of $e_i$ pointing into
+$T_i$ and $H_i=\mathrm{dist}(w,\mathrm{line}\,e_i)\asymp h_z:=\mathrm{diam}(T_1\cup T_2)\asymp\hG$.
+Since $\lambda_w$ is linear on $s$ from $0$ to $1$,
+\begin{equation}\label{eq:gs}
+g_1\cdot(w-z)=g_2\cdot(w-z)=1 .
+\end{equation}
+Let $D_z$ be the $2\times2$ matrix with rows $g_1^{\mathsf T},g_2^{\mathsf T}$.
+
+\begin{lemma}[Locked star]\label{lem:K}
+\begin{enumerate}
+\item[(a)] For every $v\in\VO$ there is a unique $c_v\in\mathbb R^2$ with $\nabla v|_{T_i}(z)=c_v\otimes g_i$
+($i=1,2$). Hence $(\div v|_{T_1}(z),\div v|_{T_2}(z))=D_zc_v$, and $|c_v|\le C\norm{\nabla v}_{T_1}$.
+\item[(b)] For $c\in\mathbb R^2$, $\delta\in\mathbb R$ put
+$K_z(c,\delta):=c\,\lambda_w\lambda_z^2+\delta\,n_s\lambda_z^2\lambda_w^2$ ($n_s$ the unit normal of $s$ from $T_1$ to $T_2$).
+Then $K_z(c,\delta)\in\VO$, $\operatorname{supp}K_z\subset T_1\cup T_2$, $\nabla K_z=0$ at $z_-,z_+,w$ (indeed at every vertex other than $z$),
+$\nabla K_z|_{T_i}(z)=c\otimes g_i$, $\norm{\nabla K_z}\le C(|c|+|\delta|)$, and
+$\int_{T_1}\div K_z=-\int_{T_2}\div K_z=|s|\big(\tfrac1{12}c\cdot n_s+\tfrac1{30}\delta\big)$.
+\item[(c)] $|\det D_z|=\sin\phi_z/(H_1H_2)$; in particular $D_z$ is invertible.
+\item[(d)] $D_z(w-z)=(1,1)^{\mathsf T}$. Hence the vertex data $(\sigma,\sigma)$ are realised by
+$K_z(\sigma(w-z),0)=\sigma(w-z)\lambda_w\lambda_z^2$, which has $\norm{\nabla\cdot}\le C|\sigma|h_z$ and
+\emph{zero} flux through $s$ (so zero mean divergence on $T_1$ and on $T_2$).
+\item[(e)] $|D_z^{-1}(1,0)^{\mathsf T}|=H_1/\sin\phi_z$ and $|g_1-g_2|\le C\phi_z/h_z$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a) $v=0$ on $e_1$, so $\nabla v|_{T_1}(z)t_1=0$ and $\nabla v|_{T_1}(z)=a\otimes\nu_1=c\otimes g_1$; likewise
+$\nabla v|_{T_2}(z)=c'\otimes g_2$. Continuity across $s$ gives $\nabla v|_{T_1}(z)(w-z)=\nabla v|_{T_2}(z)(w-z)$,
+i.e.\ $c=c'$ by \eqref{eq:gs}. The bound: $|c_v||g_1|=|\nabla v|_{T_1}(z)|\le Ch_z^{-1}\norm{\nabla v}_{T_1}$ (inverse
+inequality) and $|g_1|=1/H_1\ge c/h_z$.
+(b) $\lambda_w\lambda_z$ is nonzero only on triangles containing both $z$ and $w$, i.e.\ $T_1\cup T_2$; it is
+continuous (product of hats) of degree $3$ resp.\ $4\le k$. $\lambda_w=0$ on $e_1,e_2$ and $\lambda_z=0$ on
+$[z_-,w],[w,z_+]$, so $K_z\in\VO$. At a vertex $x\ne z$, $\lambda_z(x)=0$ and $\nabla(\lambda_z^2)(x)=0$, so
+$\nabla K_z(x)=0$. At $z$, $\lambda_z=1,\lambda_w=0$ give $\nabla K_z|_{T_i}(z)=c\otimes g_i$ (the $\delta$-term has a
+factor $\lambda_w^2$). Fluxes: $K_z=0$ on $\partial(T_1\cup T_2)$, and on $s$ (param.\ $\lambda_w=r$,
+$\lambda_z=1-r$) $\int_s\lambda_w\lambda_z^2=|s|/12$, $\int_s\lambda_z^2\lambda_w^2=|s|/30$. The $H^1$ bound is scaling.
+(c) $g_1\times g_2=\sin\angle(\nu_1,\nu_2)/(H_1H_2)$ and the normals of consecutive chords make the angle $\phi_z$.
+(d) is \eqref{eq:gs}; the flux is $\sigma(w-z)\cdot n_s\,|s|/12=0$ since $w-z\parallel s$.
+(e) $D_z^{-1}(1,0)^{\mathsf T}=(\det D_z)^{-1}g_2^{\perp}$, of length $|g_2|/|\det D_z|=H_1/\sin\phi_z$. For the second
+claim let $\alpha_i$ be the angle of $T_i$ at $z$; $\alpha_1+\alpha_2=\pi+\phi_z$ and $H_i=|s|\sin\alpha_i$, so
+$|H_1-H_2|=|s||\sin\alpha_1-\sin(\alpha_1-\phi_z)|\le|s|\phi_z$, and
+$|g_1-g_2|\le|\nu_1-\nu_2|/H_1+|H_1^{-1}-H_2^{-1}|\le C\phi_z/h_z$.
+\end{proof}
+Exact rational checks of (b)--(e) on inscribed stars with chord parameter $t=1/10,\dots,1/160$ (two symmetric apex
+positions) and $t\le1/40$ (an off-axis apex): \texttt{local\_L.py}, log \texttt{local\_L.log}. With $h=|e_1|$:
+$h\sigma_{\min}(D_z)/\phi_z\to0.943$ resp.\ $0.471$; $|c|/h$ stays bounded ($0.75$, $1.50$, $0.82$) for data $(1,1)$;
+$|c|\phi/h$ stays bounded ($0.75$, $1.50$, $0.74$) for data $(1,0)$, so there $|c|\sim h/\phi$. The solution for $(1,1)$ is
+\emph{exactly} $c=w-z$ (asserted in the script). Singular values use floating point on the exact matrix.
+
+\section{The constrained inf-sup condition}
+\begin{lemma}[Element bubbles]\label{lem:bubble}
+For every triangle $T$ and $q\in P_{k-1}(T)$ with $\int_Tq=0$ and $q=0$ at the three vertices there is
+$v\in P_k(T)^2\cap H^1_0(T)^2$ with $\div v=q$ and $\norm{\nabla v}_T\le C(\theta_{\min},k)\norm q_T$.
+\end{lemma}
+\begin{proof}
+On the reference triangle $\div$ maps the bubbles $(b_TP_{k-3})^2$ into the target space (a divergence of an
+$H^1_0$ field has zero mean, and $\nabla v=0$ at vertices because $v$ vanishes on two independent edges).
+Surjectivity for $k=3,\dots,8$ is an exact rank computation (\texttt{local\_L.py} (B): ranks $2,6,11,17,24,32$
+equal the target dimensions); for general $k$ it is classical (Scott--Vogelius 1985). Transport by the
+contravariant Piola map, which preserves $H^1_0\cap P_k$ and scales $\div$ by $1/\det B_T$; the constant depends
+on shape regularity only.
+\end{proof}
+
+\begin{lemma}[Vertex lemma]\label{lem:V}
+Let $y\notin\Lk$ be a vertex with triangles $T_1,\dots,T_m$ and $\Theta(y)\ge\Theta_0$. For every
+$r\in\mathbb R^m$ there is $v_y\in\VO$ with $\operatorname{supp}v_y\subset\mathrm{star}(y)$ such that
+(i) $\div v_y|_{T_j}(y)=r_j$; (ii) $\nabla v_y(x)=0$ at every vertex $x\ne y$; (iii) $\int_T\div v_y=0$ for every $T$;
+(iv) $\norm{\nabla v_y}\le Ch_y|r|$.
+\end{lemma}
+\begin{proof}
+Let $x_j$ be the neighbours of $y$. Set $\ell=\sum_jc_j\lambda_{x_j}$ with $c_j\in\mathbb R^2$ and $c_j=0$ when
+$[y,x_j]\subset\partial\Omega_h$, and $v_y=\lambda_y^2\ell+\sum_e\delta_e n_e\lambda_y^2\lambda_{x_e}^2$, the sum over the
+edges $e=[y,x_e]$ of the star not on $\partial\Omega_h$. Every term has the factor $\lambda_y^2$, so $v_y$ is supported in the
+star, vanishes on its outer boundary, and $\nabla v_y(x)=0$ at all vertices $x\ne y$: (ii). On a boundary edge
+$[y,x_0]$ of the star, $\ell=c_0\lambda_{x_0}=0$ and $\lambda_{x_e}=0$ for $x_e\ne x_0$, so $v_y\in\VO$.
+At $y$, $\nabla v_y|_{T}(y)=\nabla\ell|_T$ (the bubbles have $\lambda_{x_e}^2$).
+
+\emph{Surjectivity.} The tuples $(\nabla\ell|_{T_j})_j$ are exactly the vertex-gradient tuples of $C^0$ fields
+vanishing at $y$ (and on the boundary edges through $y$): dimension $2m$ (interior) resp.\ $2(m-1)$ (boundary).
+The kernel of the trace map on this set is the set $A_y$ of \emph{div-free} tuples; by the argument of L1 in the S4
+note (write $G=JH$, $H$ symmetric, jumps $\beta_is_i^\perp s_i^{\perp\mathsf T}$, closure relation of rank
+$\min(3,L_y)$, $L_y$ = number of distinct edge lines), $\dim A_y=m+3-\min(3,L_y)$ (interior) resp.
+$m+1-\min(3,L_y)$ (boundary). Hence the rank of $c\mapsto(\div\ell|_{T_j})_j$ is $m-3+\min(3,L_y)$ in both
+cases, i.e.\ it is onto $\mathbb R^m$ iff $L_y\ge3$. If $L_y\le2$ then consecutive angles are supplementary and
+$\Theta(y)=0$; so $\Theta(y)\ge\Theta_0$ implies surjectivity.
+
+\emph{Uniformity.} Normalise $h_y=1$. The set of stars with $m\le2\pi/\theta_{\min}$, all angles
+$\ge\theta_{\min}$, edge ratios $\le C(\theta_{\min})$ and $\Theta\ge\Theta_0$ is compact, and the least singular value
+of the (onto) map depends continuously on the star, so it has a positive minimum. Rescaling gives $|c|\le Ch_y|r|$.
+
+\emph{Means.} $\sum_j\int_{T_j}\div(\lambda_y^2\ell)=\int_{\partial\,\mathrm{star}}\lambda_y^2\ell\cdot n=0$. The edge bubble on
+$e$ moves flux $\delta_e|e|/30$ between the two triangles sharing $e$; the triangles of the star with these edges
+form a cycle (interior $y$) or a path (boundary $y$), which is connected, so every zero-sum vector of triangle
+means is matched, with $|\delta_e|\le C\sum_j|\int_{T_j}\div(\lambda_y^2\ell)|/h_y\le C|c|$. This gives (iii), (iv).
+\end{proof}
+
+\begin{theorem}[Uniform constrained inf-sup]\label{thm:L}
+Assume (H). Let
+\[\Ql:=\{q\in\Pih\cap L^2_0(\Omega_h):\ q|_{T_1(z)}(z)=q|_{T_2(z)}(z)\ \text{for all }z\in\Lk\}.\]
+For every $q\in\Ql$ there is $y\in\VO$ with $\div y=q$ and $\norm{\nabla y}\le C\norm q$, $C$ independent of
+$h,\hG,(\phi_z)_{z\in\Lk}$ and of the number and arrangement of locked vertices.
+\end{theorem}
+\begin{proof}
+\emph{Step A (means; vertex gradients at locked vertices removed).}
+By (a) there is $w\in H^1_0(\Omega_h)^2$ with $\div w=q$, $\norm{\nabla w}\le C\norm q$. Let $v_A=\Pi_Fw\in\VO$ be its
+$P_2$ Fortin interpolant (b): $\int_T\div v_A=\int_Tq$ for all $T$, $\norm{\nabla v_A}\le C\norm{\nabla w}$. Put
+\[v_A'=v_A-\sum_{z\in\Lk}K_z\big(c_{v_A,z},-\tfrac52\,c_{v_A,z}\cdot n_{s_z}\big).\]
+By Lemma~\ref{lem:K}(b) each subtracted field is flux-neutral on every triangle, has zero gradient at every vertex
+other than its own $z$, and kills the vertex gradient of $v_A$ at $z$. Hence $\nabla v_A'(z)=0$ for $z\in\Lk$,
+$\int_T\div v_A'=\int_Tq$, and since a triangle lies in at most two locked stars,
+$\norm{\nabla v_A'}\le C\norm{\nabla v_A}$ (Lemma~\ref{lem:K}(a)). Let $q_1=q-\div v_A'$; then
+$\int_Tq_1=0$ for all $T$ and $q_1|_{T_i(z)}(z)=q|_{T_i(z)}(z)=:\sigma_z$ ($i=1,2$) for $z\in\Lk$.
+
+\emph{Step B (locked vertices).} $v_B:=\sum_{z\in\Lk}\sigma_z(w_z-z)\lambda_{w_z}\lambda_z^2$. By
+Lemma~\ref{lem:K}(d) it matches the vertex divergences $(\sigma_z,\sigma_z)$, has zero triangle means, zero gradient
+at all other vertices, and $\norm{\nabla v_B}^2\le C\sum_z\sigma_z^2h_z^2\le C\norm{q_1}^2$ (inverse inequality
+$h_T|p(x)|\le C\norm p_T$). $q_2:=q_1-\div v_B$ has zero triangle means and vanishes at locked vertices.
+
+\emph{Step C (other vertices).} $v_C:=\sum_{y\notin\Lk}v_y$ from Lemma~\ref{lem:V} with $r_T=q_2|_T(y)$. By (ii) the
+vertex values at other vertices and by (iii) the means are unchanged, and
+$\norm{\nabla v_C}^2\le C\sum_y h_y^2|r_y|^2\le C\norm{q_2}^2$. $q_3:=q_2-\div v_C$ has zero mean on every
+triangle and vanishes at every vertex of every triangle.
+
+\emph{Step D (elements).} Lemma~\ref{lem:bubble} on each $T$ gives $v_D$ with $\div v_D=q_3$,
+$\norm{\nabla v_D}\le C\norm{q_3}$.
+
+$y=v_A'+v_B+v_C+v_D$ satisfies $\div y=q$, $y\in\VO$, $\norm{\nabla y}\le C\norm q$. The only place a locked vertex
+enters is Lemma~\ref{lem:K}(a),(b),(d), whose constants do not involve $\phi_z$.
+\end{proof}
+
+\begin{corollary}[Hypothesis (L) of the S4 note]\label{cor:L}
+(L) holds: for $q\in\Pih\cap L^2_0$ with $q|_{T_1(z)}(z)=q|_{T_2(z)}(z)=0$ at every $z\in\Lk$ there is $y\in\VO$,
+$\div y=q$, $\norm{\nabla y}\le C\norm q$.
+\end{corollary}
+
+\begin{theorem}[Sharp stability of $\div$ without the constraint]\label{thm:sharp}
+Assume (H). For $q\in\Pih\cap L^2_0$ write $\ell_z(q):=q|_{T_1(z)}(z)-q|_{T_2(z)}(z)$. Then
+\[
+c\,N(q)\le\min\{\norm{\nabla v}:v\in\VO,\ \div v=q\}\le C\,N(q),\qquad
+N(q):=\norm q+\Big(\sum_{z\in\Lk}\Big(\frac{h_z|\ell_z(q)|}{\sin\phi_z}\Big)^2\Big)^{1/2}.
+\]
+Consequently the inf-sup constant $\beta_h$ of $(\VO,\Pih\cap L^2_0)$ satisfies
+$c\min(1,\min_{\Lk}\phi_z)\le\beta_h\le C\min_{\Lk}\phi_z$, i.e.\ $\beta_h\asymp\hG$ as soon as $\Lk\ne\emptyset$,
+and $\div\VO=\Pih\cap L^2_0$ always.
+\end{theorem}
+\begin{proof}
+\emph{Upper.} Repeat the proof of Theorem~\ref{thm:L}, replacing Step B by $v_B=\sum_zK_z(c_z,\delta_z)$ with
+$c_z=D_z^{-1}(q_1|_{T_1}(z),q_1|_{T_2}(z))^{\mathsf T}$ and $\delta_z=-\frac52c_z\cdot n_s$. Split the data as
+$\sigma(1,1)+\ell_z(q)(1,0)$ with $\sigma=q_1|_{T_2}(z)$; by Lemma~\ref{lem:K}(d),(e)
+$|c_z|\le C h_z|\sigma|+H_1|\ell_z(q)|/\sin\phi_z$ (note $\ell_z(q_1)=\ell_z(q)$).
+\emph{Lower.} $\norm{\nabla v}\ge\norm{\div v}/\sqrt2=\norm q/\sqrt2$. By Lemma~\ref{lem:K}(a),(e),
+$c_v=\sigma(w-z)+\ell_z(q)D_z^{-1}(1,0)^{\mathsf T}$ with $\sigma=q|_{T_2}(z)$, so
+$\norm{\nabla v}_{T_1(z)}\ge c|c_v|\ge c\,h_z|\ell_z(q)|/\sin\phi_z-C\norm q_{T_2(z)}$. Square, sum (each triangle in at
+most two locked stars) and combine with the first bound.
+\emph{Inf-sup.} The lower bound on $\beta_h$ follows from $N(q)\le C\norm q/\min(1,\sin\phi_{\min})$
+($h_z|\ell_z(q)|\le C\norm q_{T_1\cup T_2}$). For the upper bound let $\rho_z:=R_1-R_2$, where $R_i\in P_{k-1}(T_i)$ is the
+$L^2(T_i)$ Riesz representer of $p\mapsto p(z)$. Then $\int\rho_z=1-1=0$, $(q,\rho_z)=\ell_z(q)$ for $q\in\Pih$,
+$\norm{\rho_z}^2=R_1(z)+R_2(z)\ge c/h_z^2$, and for $v\in\VO$, $(\rho_z,\div v)=\ell_z(\div v)=c_v\cdot(g_1-g_2)$,
+so $|(\rho_z,\div v)|\le C\phi_zh_z^{-1}\norm{\nabla v}$ by Lemma~\ref{lem:K}(a),(e). Hence
+$\sup_v(\rho_z,\div v)/(\norm{\rho_z}\norm{\nabla v})\le C\phi_z$.
+\end{proof}
+
+\section{The velocity estimate}
+Method (S): $u_h\in V_h$, $u_h|_{\partial R}=g_I$, $u_h|_{\Gamma_h}=0$, $p_h\in\Pih\cap L^2_0$ with
+$a_h(u_h,v)-(p_h,\div v)=(\tilde f,v)$ for $v\in\VO$ and $\div u_h=0$; outer flux $m_R=0$.
+By Theorem~\ref{thm:sharp}, $(u_h,p_h)$ exists and is unique under (H) (for every $h$, but with a pressure
+stability constant $\asymp\hG^{-1}$ -- Section~\ref{sec:p}).
+
+\begin{theorem}[S4]\label{thm:S4}
+Assume (H), (D), $m_R=0$. Then
+\[\norm{\nabla(\tilde u-u_h)}\le C\Big(h^k+\hG^{3/2}+\hG\Big(\sum_{z\in\Lk}|\dn u(z)|^2\Big)^{1/2}\Big).\]
+\end{theorem}
+\begin{proof}
+\emph{Interpolant.} $w_h:=I_h\tilde u-\sum_{x\in\mathcal N_\Gamma}\tilde u(x)\varphi_x$ as in S1:
+$\norm{\nabla(\tilde u-w_h)}\le C(h^k+\hG^{3/2})$, $w_h=0$ on $\Gamma_h$, $w_h=g_I$ on $\partial R$. At $z\in\Lk$,
+$T_1,T_2$ carry a $\Gamma_h$ edge, so $h_{T_i}\asymp\hG$ by (M0) and shape regularity. Since $z\in\Gamma$,
+$\nabla\tilde u(z)=\nabla u(z)=\dn u(z)\otimes\nu$ (\texttt{lem:wall}); the interpolation error at $z$ is
+$\le Ch_T^k$, and zeroing costs $\sum_x|\tilde u(x)||\nabla\varphi_x(z)|\le C\hG^2\cdot\hG^{-1}$. Hence
+$|\nabla w_h|_{T_i}(z)|\le|\dn u(z)|+C\hG$ and, by Lemma~\ref{lem:K}(a), $|c_{w_h,z}|\le C\hG(|\dn u(z)|+C\hG)$.
+Put $w_h':=w_h-\sum_{z\in\Lk}K_z(c_{w_h,z},0)$. Then $w_h'$ has the same traces, $\nabla w_h'(z)=0$ on both
+triangles at every locked $z$, and (supports overlap at most twice, $\#\Lk\le C/\hG$)
+\[\norm{\nabla(w_h'-w_h)}^2\le C\sum_{z\in\Lk}\hG^2(|\dn u(z)|^2+\hG^2)\le C\hG^2\sum_{\Lk}|\dn u(z)|^2+C\hG^3.\]
+\emph{Divergence.} $q:=\div w_h'\in\Pih$ has mean $m_R=0$, vanishes at every locked vertex on both triangles,
+so $q\in\Ql$; and $\norm q\le\sqrt2\norm{\nabla(w_h'-\tilde u)}$ since $\div\tilde u=0$.
+Theorem~\ref{thm:L} gives $y\in\VO$ with $\div y=q$, $\norm{\nabla y}\le C\norm q$, so $z_h:=w_h'-y$ is
+admissible and divergence-free with $\norm{\nabla(\tilde u-z_h)}\le C\norm{\nabla(\tilde u-w_h')}$.
+\emph{Energy argument.} Exactly S1 steps 4--5: $\varepsilon=u_h-z_h\in Z_O$ is pointwise divergence-free, so the
+pressure drops out, $|(F,\varepsilon)|\le C\hG^2\norm{\nabla\varepsilon}$ (\texttt{lem:ext}), and Korn gives
+$\norm{\nabla\varepsilon}\le C(\norm{\nabla(\tilde u-z_h)}+\hG^2)$.
+\end{proof}
+
+\begin{corollary}[Two-sided rate]\label{cor:two}
+Under (H), (D), $m_R=0$, $h^k\le\hG^{3/2}$ and $\norm{\dn u}_{L^2(\Gamma)}>0$:
+\[\norm{\nabla(\tilde u-u_h)}\asymp\hG^{3/2}+\hG\Big(\sum_{z\in\Lk}|\dn u(z)|^2\Big)^{1/2}\]
+for $\hG$ small, by Theorem~\ref{thm:S4}, S2 ($\ge c\hG^{3/2}$) and S3$'$ ($\ge c\hG(\sum_\Lk|\dn u|^2)^{1/2}-C\hG^{3/2}$).
+In particular: one lock $\Rightarrow$ rate $1$; a positive arc fraction of locks where $\dn u\ne0$ $\Rightarrow$ rate $1/2$;
+$n$ locks $\Rightarrow$ $\hG^{3/2}+\sqrt n\,\hG$.
+\end{corollary}
+
+\section{Pressure}\label{sec:p}
+Let $\pi_h:=p_h-\Pi(\tilde p-\bar p)\in\Pih\cap L^2_0$ ($\Pi$ = $L^2$ projection) and
+$R:=\norm{\nabla(\tilde u-u_h)}+C\hG^2$. As in S1 step 6, $|(\pi_h,\div v)|\le CR\norm{\nabla v}$ for all $v\in\VO$.
+Let $P_{\rm lock}$ be the $L^2$-orthogonal projection of $\Pih\cap L^2_0$ onto $\Ql$; its complement is
+$\Ql^\perp=\mathrm{span}\{\rho_z:z\in\Lk\}$ (the $\rho_z$ of Theorem~\ref{thm:sharp}, local on the locked stars).
+
+\begin{theorem}[Pressure]\label{thm:P}
+Assume (H), (D), $m_R=0$.
+\begin{enumerate}
+\item[(i)] $\norm{P_{\rm lock}\pi_h}\le CR$.
+\item[(ii)] $\norm{\pi_h}\le CR/\min(1,\phi_{\min})\le CR/\hG$.
+\item[(iii)] The \emph{filtered pressure} $p_h^f:=P_{\rm lock}p_h$ (computable: subtract $\sum_z\gamma_z\rho_z$, a banded
+Gram solve) satisfies $\norm{p_h^f-\Pi(\tilde p-\bar p)}\le C(R+\hG^{k+1/2})$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(i) Theorem~\ref{thm:L} gives $v$ with $\div v=P_{\rm lock}\pi_h$, $\norm{\nabla v}\le C\norm{P_{\rm lock}\pi_h}$, and
+$(\pi_h,\div v)=\norm{P_{\rm lock}\pi_h}^2$. (ii) Same with Theorem~\ref{thm:sharp}. (iii)
+$p_h^f-\Pi(\tilde p-\bar p)=P_{\rm lock}\pi_h-(I-P_{\rm lock})\Pi\tilde p$ (constants lie in $\Ql$). For any $g^*\in\Ql$,
+$\norm{(I-P_{\rm lock})\Pi\tilde p}\le\norm{\Pi\tilde p-g^*}$. Take $g^*=\Pi\tilde p-\sum_z\ell_z(\Pi\tilde p)e_z$ with
+$e_z\in P_{k-1}(T_1(z))$, $e_z(z)=1$, $e_z=0$ at the other two vertices, $\int e_z=0$, $\norm{e_z}\le Ch_z$ (exists for
+$k-1\ge2$); then $g^*\in\Ql$ even for adjacent locks, and $|\ell_z(\Pi\tilde p)|=|(\Pi\tilde p-\tilde p)|_{T_1}(z)-(\Pi\tilde p-\tilde p)|_{T_2}(z)|\le Ch_z^k$.
+Sum over $\#\Lk\le C/\hG$.
+\end{proof}
+
+\begin{remark}[Sharpness of (ii) -- NUMERICAL]
+(ii) is attained: with one lock the raw pressure error does \emph{not} converge ($\norm{\pi_h}\to\approx12$), with
+mesh (a) it grows like $\hG^{-1/2}$, and $\norm{\pi_h}_{L^\infty(\text{layer})}\propto\hG^{-1}$ in both cases; the error
+is almost entirely the $\Ql^\perp$ component (Table~\ref{tab:filter}, column $\norm{(I-P_{\rm lock})p_h}$). The
+filtered pressure converges at the velocity rate (rate $\approx1.1$ with one lock, $\approx0.57$ on mesh (a)).
+Heuristically: the shear mode $\dn u_t$ that the lock suppresses is nearly div-free (divergence $O(\phi_z)$), and the
+momentum residual it leaves, of size $\asymp\hG|\dn u(z)|$ per lock, can only be balanced by the pressure mode
+$\rho_z$ at amplitude $\asymp\hG|\dn u(z)|/\phi_z=O(1)$. A rigorous lower bound for the raw pressure error was not
+attempted.
+\end{remark}
+
+\section{Adjacent locked vertices}
+Nothing in Sections 3--6 uses separation: the correction fields at different locked vertices have zero gradient
+at each other's vertices (Lemma~\ref{lem:K}(b)), are flux-neutral per triangle, and each triangle lies in at most
+two locked stars (a triangle has at most two $\Gamma_h$ vertices). The only requirement is (M2) at the non-locked
+vertices, in particular at the common apex $w$ of a run of consecutive locked vertices; with minimum angle
+$\theta_{\min}$ such a run has length $\le 2\pi/\theta_{\min}$ automatically. No hypothesis ``locked vertices are
+separated'' is needed. Checked numerically on mesh (a) (alternating) and on a mesh \texttt{fan} with two
+\emph{consecutive} locked vertices sharing an apex (Table~\ref{tab:infsup}).
+
+\section{Numerics}
+Scripts in \texttt{notes/v6/strong2/}; code base \texttt{code/svn.py}, \texttt{code/strong\_bc.py} ($k=4$).
+\begin{itemize}
+\item \texttt{infsup.py MESH N [--lobpcg]}: $\beta^2=\min(BA^{-1}B^{\mathsf T}q,q)/(Mq,q)$ on $\VO$ ($A$ = vector
+Laplacian) over $\Pih\cap L^2_0$ (\texttt{full}), $\Ql$ (\texttt{lockw}) and the (L)-space (\texttt{locks}); dense
+generalized eigensolver for $N\le32$, LOBPCG with $M$-orthogonality constraints otherwise (cross-checked at
+$N=16,24$ on mesh \texttt{one}). Logs \texttt{infsup\_dense.log}, \texttt{infsup\_lobpcg\_*.log}.
+\item \texttt{filter.py MESH N}: method (S), test case A, $\mu=100$; raw vs filtered pressure. Logs \texttt{filter*.log}.
+\item \texttt{local\_L.py}: exact checks (Lemma~\ref{lem:K}, Lemma~\ref{lem:bubble}, flux bubble). Log \texttt{local\_L.log}.
+\item \texttt{locate\_mode.py MESH N}: localisation of the smallest inf-sup mode.
+\end{itemize}
+
+\input{tab_infsup.tex}
+
+\input{tab_filter.tex}
+
+\paragraph{Observations.}
+\begin{itemize}
+\item \emph{Theorem~\ref{thm:L} (NUMERICAL confirmation).} On every mesh with locks and $\theta_{\min}\ge14^\circ$,
+$\beta_{\Ql}$ and $\beta_{(L)}$ equal $\beta$ of the lock-free mesh \texttt{std} at the same $N$ to 4--5 digits:
+the constrained constant does not see the locks at all. This includes mesh (a) (24 locks at $N=48$, alternating) and
+\texttt{fan} (two \emph{consecutive} locks sharing an apex). The one exception, \texttt{fan} $N=32$ ($0.0751$), is the
+coarse fan with minimum angle $10.2^\circ$; it returns to the \texttt{std} value once $\theta_{\min}\ge14^\circ$.
+\item \emph{Theorem~\ref{thm:sharp} (NUMERICAL confirmation).} $\beta_{\rm full}/\phi_{\min}\in[0.126,0.159]$ while
+$\phi_{\min}$ falls by a factor $5$; the slow downward drift of the ratio tracks the drift of the lock-free constant
+(next item). The smallest unconstrained mode carries $99.1\%$ of its $L^2$ mass on the two triangles of the locked star
+(\texttt{locate\_mode.py one 16}). Dense and LOBPCG agree where both were run
+(\texttt{one} $N=16,24$: $0.05832/0.03275$ both ways; \texttt{alt} $N=24$). One LOBPCG run (\texttt{alt} $N=24$, (L)-space,
+single start, block 4) missed the lowest cluster and returned $0.1125$; the dense value $0.0914$ is tabulated. LOBPCG
+values at $N\ge48$ are therefore upper bounds in principle; they agree with the pattern of the dense ones.
+\item \emph{The lock-free constant drifts:} $0.102,0.091,0.086,0.081,0.079$ for $N=16,24,32,48,64$. The differences shrink
+roughly linearly in $\hG$ (extrapolated limit $\approx0.07$). The minimising modes are 4-fold degenerate and sit in the
+\emph{outer} layer next to $\partial R$, not at $\Gamma_h$ (\texttt{locate\_mode.py std 16}). This is consistent with the
+paper's uniform \texttt{lem:infsup}, but a referee could ask about it. It is independent of the locking question.
+\item \emph{Pressure.} Raw error: \texttt{one} $5.8\to10.4$ (bounded, $\to\approx12$ by an $a-b\hG$ fit); mesh (a)
+$14\to35.7$, local rate $-0.45\to-1/2$; \texttt{fan} $4.1\to6.7$. $L^\infty$ on the layer $\propto\hG^{-1}$
+($\hG\,\norm{\pi_h}_{L^\infty}\approx93,100,104.5$ for \texttt{one} and $71.7,72.9,73.2$ for mesh (a), $N=64,96,128$). Filtered error rates:
+$1.12$ (\texttt{one}), $0.57$ (mesh (a)), $1.31$ (\texttt{fan}), close to the velocity rates $1.06$, $0.55$, $1.04$.
+The $L^\infty$ error of the filtered pressure on the layer stays $O(1)$, as it must: an $L^2$ error $\asymp\hG|\dn u|$ on a
+patch of area $\hG^2$.
+\end{itemize}
+
+\section{Suggested use in the paper (not made)}
+Replace ``S4 (PROVED MODULO (L))'' by Theorem~\ref{thm:S4} + Corollary~\ref{cor:two}; state (H) as ``(M0), (M1), and (M2) at all
+vertices except $\Gamma_h$ vertices with two triangles''. Add Theorem~\ref{thm:P}: with locks the \emph{velocity} is
+covered, the \emph{raw pressure} is not (non-convergent), and the one-line filter $P_{\rm lock}$ restores it. The
+key new device is the exact identity $D_z(w-z)=(1,1)$ (Lemma~\ref{lem:K}(d)): the radial field
+$(w-z)\lambda_w\lambda_z^2$ produces equal vertex divergences at a locked vertex at $\phi$-independent cost.
+Literature caveat: Guzm\'an--Scott and Scott--Vogelius treat singular and non-singular vertices with constants
+$\propto\Theta^{-1}$; for nearly singular vertices, pressure non-robustness with robust velocities has been studied in
+the elasticity/Stokes literature (e.g.\ work of Ainsworth and Parker on nearly singular vertices); I did not verify
+whether a statement equivalent to Theorem~\ref{thm:sharp} appears there, so priority should be checked before claiming it.
+
+\end{document}

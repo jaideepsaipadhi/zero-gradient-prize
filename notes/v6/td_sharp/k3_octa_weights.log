@@ -1,0 +1,3 @@
+equal weights  : rank (3d, xy) = (1, 0)
+weights (1,2,3): rank (3d, xy) = (3, 2)
+face-1 only weighted: (2, 2)
