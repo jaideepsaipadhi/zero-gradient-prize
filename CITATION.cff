@@ -5,8 +5,8 @@ authors:
   - family-names: Padhi
     given-names: Jaideep Sai
     affiliation: Purdue University
-version: v1
+version: v2
 date-released: 2026-09-28
-doi: 10.5281/zenodo.23006372
+doi: 10.5281/zenodo.23007081
 repository-code: "https://github.com/jaideepsaipadhi/zero-gradient-prize"
 type: article

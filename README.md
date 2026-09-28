@@ -1,8 +1,8 @@
 # Scott–Vogelius–Nitsche on a polygonally approximated boundary
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23006372.svg)](https://doi.org/10.5281/zenodo.23006372)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23007081.svg)](https://doi.org/10.5281/zenodo.23007081)
 
-**Preprint:** J. S. Padhi, *Scott–Vogelius–Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold*, Zenodo (2026), [doi:10.5281/zenodo.23006372](https://doi.org/10.5281/zenodo.23006372). v1 is the version deposited on 2026-09-28; `paper/main.pdf` here is the current version (v2: extended to every k ≥ 4, see `verification/REFEREE_ROUND3_k_general.md`).
+**Preprint:** J. S. Padhi, *Scott–Vogelius–Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold*, Zenodo (2026). Current version **v2** (all results for every fixed k ≥ 4): [doi:10.5281/zenodo.23007081](https://doi.org/10.5281/zenodo.23007081). v1 (k = 4): [doi:10.5281/zenodo.23006372](https://doi.org/10.5281/zenodo.23006372). `paper/main.pdf` in this repository is v2.
 
 This repository holds a paper, the code behind it and all the raw results, answering Ridgway Scott's **zero-gradient prize question (PPL 115)**. The method in question uses exactly divergence-free P4 velocities, with the no-slip condition imposed weakly by Nitsche's method on an inscribed polygon, as in Gjerde–Scott (2024). The prize asks whether the error behaves like `h_Γ^{3/2} + h_Ω^k` for general Stokes data, *and if not, why not*.
 
