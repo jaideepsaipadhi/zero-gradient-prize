@@ -1,0 +1,7 @@
+square fan, all 4 faces (sum c_i = 0)          h=(0, 1, 0)  sum_i w_ab=0  FE tangential total-moment rank (mod p) = 2
+square fan, all 4 faces, h=(x+y)^2             h=(1, 1, 1)  sum_i w_ab=8  FE tangential total-moment rank (mod p) = 2
+square fan, faces 0,2 (both degenerate at z)   h=(1, 1, 1)  sum_i w_ab=0  FE tangential total-moment rank (mod p) = 1
+square fan, faces 0,1 (face 1 non-degenerate)  h=(1, 1, 1)  sum_i w_ab=4  FE tangential total-moment rank (mod p) = 2
+square fan, face 0 only, h=(x+y)^2 (degenerate) h=(1, 1, 1)  sum_i w_ab=0  FE tangential total-moment rank (mod p) = 1
+square fan, face 0 only, h=x^2-y^2             h=(1, 0, -1)  sum_i w_ab=0  FE tangential total-moment rank (mod p) = 2
+Gamma-flat, off-plane non-Gamma vertices, I={4,0} h=(0, 1, 0)  sum_i w_ab=-1  FE tangential total-moment rank (mod p) = 2

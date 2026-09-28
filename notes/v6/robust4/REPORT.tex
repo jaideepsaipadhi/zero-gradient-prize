@@ -1,0 +1,424 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,booktabs,geometry}
+\geometry{margin=2.3cm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\title{notes/v6/robust4: the exact invisible set of the CNS$^\ast$ pressure defect,\\ why the clean condition
+``$\nabla^k\phi$ not purely normal'' is false, and the corrected two-sided characterisation}
+\date{2026-09-28 (subagent report; nothing in paper/ or letter/ touched, nothing committed)}
+\begin{document}\maketitle
+
+\noindent Labels: \textbf{PROVED}; \textbf{PROVED MODULO X}; \textbf{NUMERICAL}. Everything cites
+\texttt{robust/REPORT.md} (Thm~3.2, L1.3), \texttt{robust2/REPORT.tex} (Lemma jac, Lemma trace, Thm kernel), and
+\texttt{robust3/REPORT.tex} (Lemma pf, Thm cert, Thm order) as verified by referee5/referee7. Scripts and logs are in
+\texttt{notes/v6/robust4/}.
+
+\section*{Summary}
+\begin{enumerate}
+\item \textbf{The second invisible direction is structural (PROVED).} For a boundary triangle $T$ with $\Gh$-edge
+$e=[L,R]$ and apex $c$, let $\ell_w$ be the linear part of the barycentric $\lambda_w$. Put
+\[
+K_T:=\operatorname{span}\{\ell_c^k,\ \ell_L^k-\ell_R^k\}\subset\operatorname{Ker}_T:=\operatorname{span}\{\ell_c^k,\ell_L^k,\ell_R^k\}.
+\]
+Then $\eta_H:=(I-\pi_T)H|_e$ equals $J_k(0)$ for $H=\ell_c^k$ and $d_k:=J_k(1-s)-J_k(s)$ for $H=\ell_L^k-\ell_R^k$. For
+every $g\in P_k(e)$ one has $\ip{d_k}{g}_e=\beta_k|e|\,(g(L)-g(R))$ exactly (Lemma~\ref{lem:dk}). So a $K_T$-component of
+$\nabla^k\phi$ produces only (i) an edge-constant and (ii) a \emph{vertex-difference} functional. On a boundary where
+consecutive boundary triangles are translates of each other, (ii) telescopes to zero.
+\item \textbf{Ideas (1) and (2) of the brief cannot work (PROVED).} On a straight, translation-periodic boundary,
+$\ip{\eta_H}{v\cdot n}=\mathrm{const}\cdot\int v\cdot n$ for \emph{every} $v\in V_h$ and every $H\in K_T$
+(Thm~\ref{thm:inv}). So $K_T$ is invisible to pressure-blind stars of any size, to unions of stars, to layers, to
+robust2's $X_e$, $L_k$ and nodal-lift fields, and to any combination of these. The production meshes converge to exactly this
+configuration. robust3's extra kernel direction is $\ell_L^4-\ell_R^4$: for $T=(0,0),(1,0),(1,1)$ it is
+$x^4-(x-y)^4$, which agrees with $-\tfrac23x^3y+x^2y^2-\tfrac23xy^3$ modulo $y^4$.
+\item \textbf{The brief's clean theorem is false on meshes satisfying (M0)--(M2).} Take the uniform production-type family
+\textsf{UP} (equispaced boundary vertices, radial first layer of constant height ratio $\rho$). Let $\phi_B$ satisfy
+$\nabla^4\phi_B/4!=\cos(4\theta)\,(x^4-(x-y/\rho)^4)$ on $\Gamma$, which is not purely normal. Then
+$\|\nabla W_\ast(\phi_B)\|\le C\gamma^{-1}\hG^{k+3/2}$. This is PROVED (Thm~\ref{thm:up}). NUMERICALLY the observed order is
+$5.45,5.47,5.48,5.48$ ($N=48..96$), while $\eta$ is $99\%$ edge-oscillatory. So neither ``not purely normal'' nor ``edge-oscillating $\eta$'' is
+sufficient.
+\item \textbf{Corrected characterisation.} Call a mesh \emph{locally periodic} (LP) if consecutive boundary triangles are
+translates up to $O(\hG)$ in normalised shape and size. Production and \textsf{UP} are LP. Let $K(x)$ be the limit of
+$K_{T_e}$. For $\gamma\ge\max(\gamma_2,1)$:
+ \begin{itemize}
+ \item if $\int_\Gamma\mathrm{dist}(\nabla^k\phi/k!,K(x))^2>0$, then $\|\nabla W_\ast\|\asymp\gamma^{-1}\hG^{k+1/2}$. The upper
+ bound is PROVED; the lower bound is PROVED MODULO $(P^K)$, a scale-invariant star condition.
+ \item if $\nabla^k\phi/k!\in K(x)$ on $\Gamma$, then $\|\nabla W_\ast\|\le C\gamma^{-1}\hG^{k+3/2}$ when the edge-constant
+ part $A_e$ of $\eta$ is constant along $\Gamma$ (for pure normal $\phi$, $A_e=J_k(0)\,\mathrm{height}_e^k\,\partial_n^k\phi/k!$). This is PROVED, and covers pure normal on \textsf{UP}. In general the bound
+ is $C\gamma^{-1}\hG^{k+1}$, PROVED MODULO a smooth-data stability hypothesis (S).
+ \end{itemize}
+ NUMERICAL (\textsf{UP}, $k=4$, $\mu=10^3$): the $\gamma$-normalised order is $4.5$--$4.6$ for visible $\phi$ ($\sin2x\cos y$,
+ tangential $x^4$), $5.48$--$5.51$ for $\phi_B$ and $(r-1)^4$, and $5.28$ and falling for $(r-1)^4\cos4\theta$ (non-constant $A$).
+ So pure normal \emph{is} genuinely higher order. It is $k+1$ generically, not $k+3/2$; it is $k+3/2$ when $A$ is constant.
+\item \textbf{Mesh-uniform lower bound on all (M0)--(M2) meshes, PROVED MODULO $(P^T)$.} Replacing $\mathbb Rn^k$ by the
+$3$-dimensional $\operatorname{Ker}_{T_e}$ gives a condition that is uniform, with no degenerate locus:
+\[
+\|\nabla W\|\ge\frac{c}{1+\gamma}\Big(\sum_e|e|^{2k+2}\mathrm{dist}(H_e,\operatorname{Ker}_{T_e})^2\Big)^{1/2}-\text{h.o.t.}
+\]
+NUMERICAL evidence for $(P^T)$: over $900$ random flat or tilted $3$/$4$-triangle stars (minimum angle $12^\circ$--$30^\circ$),
+$\kappa_T\ge1.6\times10^{-5}$. On production stars $\kappa_T=1.35\times10^{-4}$ at $N=128$ and converging; it does not decay,
+unlike robust3's $\kappa$ relative to $\mathbb Rn^k$.
+\end{enumerate}
+
+\section{Setting}
+Notation is that of robust3 §1, with $k\ge4$, $\nu=1$, $W=W_\ast(\phi)$ and $\eta=\phi-\pi_h\phi$ on $\Gh$. For $e\in\mathcal
+E_\Gamma$ we write $T=T_e$, $e=[L,R]$ oriented counterclockwise along $\Gh$, $c$ the apex, and $s\in[0,1]$ the
+coordinate on $e$ with $\lambda_L=1-s$, $\lambda_R=s$, $\lambda_c=0$. $J_k$ is the monic polynomial orthogonal to $P_{k-1}$
+for the weight $1-s$ on $[0,1]$ (robust2 Lemma jac: $(I-\pi_T)\lambda_w^k=J_k(\lambda_w)$), and
+\[
+d_k(s):=J_k(1-s)-J_k(s).
+\]
+$P_e$ is robust2's space of zero-mean $P_k$ bubbles on $e$. Finally,
+$\operatorname{Ker}_T=\operatorname{span}\{\ell_L^k,\ell_R^k,\ell_c^k\}$ is the kernel of robust2's map
+$\Lambda_T$ (Thm kernel).
+
+\section{Local algebra (PROVED, all $k\ge2$)}
+\begin{lemma}[the vertex-difference functional]\label{lem:dk}
+$d_k\ne0$ and $d_k$ is antisymmetric under $s\mapsto1-s$. For every $g\in P_k[0,1]$,
+\[
+\int_0^1d_k\,g\,ds=\beta_k\,(g(0)-g(1)),\qquad \beta_k=\int_0^1J_k\,ds .
+\]
+Moreover $\operatorname{span}\{1,d_k\}$ is exactly the set of $p\in P_k$ such that $g\mapsto\int pg$ is a combination of $\int g$
+and $g(0)-g(1)$.
+\end{lemma}
+\begin{proof}
+\emph{Nonvanishing.} If $J_k(1-s)=J_k(s)$, then $J_k$ is also orthogonal to $P_{k-1}$ for the weight $s$, hence for the
+weight $1$. It would then be the monic shifted Legendre polynomial $\tilde L_k$. But
+$\int\tilde L_k(1-s)s^{k-1}=-\int\tilde L_ks^k=-\|\tilde L_k\|^2\ne0$, a contradiction. Antisymmetry is clear.
+
+\emph{Orthogonality to bubbles.} By robust2 Thm kernel, $J_k(\lambda_L)|_e$ and $J_k(\lambda_R)|_e$ are orthogonal to $P_e$,
+so $d_k\perp P_e$. Split a bubble $b=s(1-s)q$ into its symmetric and antisymmetric parts. The antisymmetric part has zero
+mean and vanishes at the endpoints, so it lies in $P_e$. The symmetric part is orthogonal to the antisymmetric $d_k$. Hence
+$d_k\perp s(1-s)P_{k-2}$.
+
+\emph{Endpoint form.} By the previous step $\int d_kg=\alpha g(0)+\alpha'g(1)$. Taking $g=1$ gives $\alpha+\alpha'=\int d_k=0$.
+Then
+\[
+\alpha=\int d_k(1-s)=\int J_k(t)t\,dt-\int J_k(s)(1-s)\,ds=\int J_k(t)t\,dt=\int J_k ,
+\]
+using orthogonality of $J_k$ to $1$ for the weight $1-s$ twice.
+
+\emph{Last claim.} The map $p\mapsto\int p\,\cdot$ is injective, both sides are $2$-dimensional, and $1,d_k$ are independent.
+\end{proof}
+\noindent\textbf{Check (exact, \texttt{jk\_const.py}).} The identity holds for $k=2..8$, with
+$\beta_k=|J_k(0)|/(k+1)$: $1/30,1/140,1/630,1/2772,\dots$; for $k=4$, $J_4(0)=1/126$ and $\beta_4=1/630$.
+
+\begin{lemma}[the local invisible plane $K_T$]\label{lem:KT}
+Let $K_T:=\{H\in\mathrm{Hom}_k:\eta_H\in\operatorname{span}\{1,d_k\}\}$. Then:
+\begin{itemize}
+\item $K_T=\operatorname{span}\{\ell_c^k,\ell_L^k-\ell_R^k\}$, $\dim K_T=2$, and $K_T\subset\operatorname{Ker}_T$;
+\item $\eta_{\ell_c^k}=J_k(0)$ and $\eta_{\ell_L^k-\ell_R^k}=d_k$;
+\item $K_T$ is invariant under translations and dilations of $T$.
+\end{itemize}
+For $T=(0,0),(1,0),(1,\rho)$ (apex over $R$), $K_T=\operatorname{span}\{y^k,\ x^k-(x-y/\rho)^k\}$.
+\end{lemma}
+\begin{proof}
+$\lambda_w^k\equiv\ell_w^k$ mod $P_{k-1}$, and $(I-\pi_T)\lambda_w^k=J_k(\lambda_w)$ by robust2 Lemma jac. On $e$ this gives
+$J_k(0)$, $J_k(1-s)$ and $J_k(s)$. Hence the two generators lie in $K_T$. By robust2 Lemma trace, $H\mapsto\eta_H$ is a bijection
+$\mathrm{Hom}_k\to P_k(e)$, so $\dim K_T=\dim\operatorname{span}\{1,d_k\}=2$.
+
+Invariance: the $\ell_w$ are unchanged by translation and rescale by a common factor under dilation. For the explicit form,
+$\ell_L=-x$, $\ell_R=x-y/\rho$ and $\ell_c=y/\rho$.
+\end{proof}
+\noindent\textbf{Check (exact rational, \texttt{sym\_kernel.py}).} The script computes $K_T$ from its definition for
+$(a,\rho)\in\{(1,1),(1,\tfrac34),(\tfrac13,1),(1,\tfrac52),(0,1)\}$ with $k=4$, and for $(1,1)$ with $k=5,6$. In every case
+$\dim K_T=2$, $K_T\subset\operatorname{Ker}_T$, and $K_T$ equals the span above. The script also shows:
+\begin{itemize}
+\item $\int d_kL_k=0$ for even $k$, so robust2's $L_k$ fields are blind to $K_T$;
+\item the Riesz representative in $P_{k-1}(T)$ of $r\mapsto\int_er$ is a polynomial in $\lambda_c$. Hence the normal part of
+robust3's constraint (D) is a multiple of the flux on flat stars, and adds nothing.
+\end{itemize}
+
+\begin{lemma}[edge decomposition of the defect functional]\label{lem:dec}
+Let $\hat\eta_e:=(I-\pi_T)\big(\nabla^k\phi(m_e)[\cdot-m_e]^k/k!\big)|_e$. Decompose it $L^2(e)$-orthogonally as
+\[
+\hat\eta_e=A_e+B_e\,d_k(s)+r_e,\qquad r_e\perp\operatorname{span}\{1,d_k\}.
+\]
+Then for every $v\in V_R$, with $g_e=v\cdot n_e$ on $e$,
+\[
+\ip{\eta}{v\cdot n}=\sum_eA_e\int_eg_e+\beta_k\sum_{z}v(z)\cdot w_z+\sum_e\ip{r_e+\varrho_e}{g_e}_e,\qquad
+w_z:=B_{e^+_z}|e^+_z|\,n_{e^+_z}-B_{e^-_z}|e^-_z|\,n_{e^-_z}.
+\]
+Here $e^+_z$ ($e^-_z$) is the edge having $z$ as its $L$ ($R$) end, $\|\varrho_e\|_{L^\infty(e)}\le C\hG^{k+1}|\phi|_{W^{k+1,\infty}}$, and
+$\|r_e\|_e\asymp|e|^{k+1/2}\mathrm{dist}(\nabla^k\phi(m_e)/k!,K_{T_e})$ uniformly under (M0).
+\end{lemma}
+\begin{proof}
+The Taylor remainder is robust3 Thm order, first bullet. The middle sum is Lemma~\ref{lem:dk} applied on each edge, with
+$g_e(L)=v(L)\cdot n_e$, regrouped by vertices. The equivalence $\|r_e\|\asymp|e|^{k+1/2}\mathrm{dist}$ follows from the bijection of
+Lemma~\ref{lem:KT}, scaling, and compactness of the normalised shapes allowed by (M0).
+\end{proof}
+
+\section{Exact invisibility on periodic boundaries; ideas (1)--(2) (PROVED)}
+\begin{theorem}\label{thm:inv}
+Let a straight piece of $\Gh$ carry edges $e_i=[z_i,z_{i+1}]$ with $z_{i+1}-z_i=t$ fixed, and boundary triangles
+$T_i=T_0+it$. The interior mesh is arbitrary. Let $H\in K_{T_0}$, $H=a\ell_c^k+b(\ell_L^k-\ell_R^k)$. Then for every $v\in V_h$
+whose trace has compact support in this piece,
+\[
+\ip{(I-\pi_h)H}{v\cdot n}_\Gamma=a\,J_k(0)\int_\Gamma v\cdot n .
+\]
+In particular the pairing vanishes for every zero-flux test field.
+\end{theorem}
+\begin{proof}
+$H(x+it)-H(x)\in P_{k-1}$, which $I-\pi_{T_i}$ kills. So $\eta_H|_{e_i}$ is the same polynomial in $s$ on every edge, and equals
+$aJ_k(0)+b\,d_k$ by Lemma~\ref{lem:KT}. By Lemma~\ref{lem:dk} and constancy of $n$,
+\[
+\sum_i\ip{b\,d_k}{v\cdot n}_{e_i}=b\beta_k|t|\sum_i\big(v(z_i)-v(z_{i+1})\big)\cdot n=0
+\]
+by telescoping and compact support.
+\end{proof}
+
+\begin{corollary}[no local certificate can have kernel $\mathbb Rn^k$ on LP meshes]\label{cor:nolocal}
+Let $\omega$ be any patch pattern (stars, $m$ adjacent stars, stars plus layers) and let the test family be any linear space of
+zero-flux fields supported in $\omega$: pressure-blind with (M),(D) as in robust3, $X_e$ or $L_k$ as in robust2, or sums of
+these. In the exactly periodic straight configuration its pairing vanishes on $K_{T_0}$.
+
+On an LP mesh this gives, for $H\in K_{T_e}$, $|\ip{\eta_H}{v\cdot n}|\le C\,d_\omega\,s^{k+1}|H|\,\|v\|_{L^\infty}$, where $d_\omega$
+is the deviation of $\omega$'s boundary triangles from translates of one another, plus the turning angle. Hence
+$d_\omega\le C\hG$. This explains robust3's observation that the second singular value decays like $\hG$ and that star2/star3
+patches do not cure it.
+\end{corollary}
+\begin{proof}
+The first part is Thm~\ref{thm:inv}. For the second, by Lemma~\ref{lem:dec} the only terms are the vertex terms
+$|w_z|\le C|e|\big(|B_{e^+}-B_{e^-}|+|B|\,|n_{e^+}-n_{e^-}|\big)$ and $|r_e|$. Both are $O(d_\omega\,s^k|H|)$ by
+Lipschitz dependence of $B_e$, $r_e$ on the normalised shape.
+\end{proof}
+\noindent\textbf{Answer to the brief's (1).} The invisible subspace on enlarged patches in the degenerate limit is exactly
+$K_{T_0}$, for every patch size: it is $\supseteq K_{T_0}$ by Thm~\ref{thm:inv}. It is $\subseteq K_{T_0}$ already for a single
+star, NUMERICALLY, with gap $0.22$ and $0.08$ relative to the top singular value (\texttt{stars.py}, periodic $\rho=1$ and
+$\rho=0.6$), with the $2$-dimensional kernel equal to $K_T$ to $10^{-12}$. Uniform compactness in $n^{\otimes k}$ is therefore
+impossible.
+
+\noindent\textbf{Answer to (2).} $L_k$ fields see only $\ip{\eta}{L_k}=\ip{d_k}{L_k}=0$ on $K_T$ for even $k$.
+$X_e$ sees $H$ mod $\operatorname{Ker}_T\supset K_T$. Stars see $H$ mod (at best) $K_T$. All invisible sets contain $K_T$, so
+their intersection does too.
+
+\noindent\textbf{Star kernels (NUMERICAL, \texttt{stars.py}, flat $3$-triangle stars).}
+\begin{itemize}
+\item The kernel is $2$-dimensional iff $T'$ is homothetic to $T$ (all edges parallel). It equals $K_T$ iff $T'$ is a
+translate. A pure dilation gives another $2$-plane inside $\operatorname{Ker}_T$, because a star sees only its middle vertex.
+\item Sharing only one edge direction (radial only, or hypotenuse only) gives a $1$-dimensional kernel with gap $0.02$--$0.03$.
+\item Mirror stars (apexes over opposite ends) give kernel $\mathbb Rn^4$ with gap $0.30$.
+\end{itemize}
+In every case the kernel is contained in $\operatorname{Ker}_T\cap\operatorname{Ker}_{T'}$. This is the parallel-edge criterion:
+five $4$th powers of pairwise distinct directions are independent.
+
+\section{Upper bounds: the invisible directions are genuinely higher order}
+\begin{theorem}[refined upper bound, PROVED given robust/ Thm~3.2's hypotheses]\label{thm:ub}
+For $\gamma\ge\gamma_2$, with $\bar A$ the length-weighted mean of the piecewise constant $A=(A_e)$,
+\[
+\|\nabla W_\ast(\phi)\|\le C\gamma^{-1}\hG^{-1/2}\,\Xi,\qquad
+\Xi:=\|A-\bar A\|_{\Gh}+\Big(\sum_z\frac{|w_z|^2}{|e^+_z|}\Big)^{1/2}+\Big(\sum_e\|r_e\|_e^2\Big)^{1/2}+\hG^{k+1}|\phi|_{W^{k+1,\infty}}.
+\]
+\end{theorem}
+\begin{proof}
+This is the proof of robust/ Thm~3.2(a),(b) with the bound $|\ip{\eta}{W\cdot n}|\le\|\eta\|\,\|W\|_\Gamma$ replaced by
+Lemma~\ref{lem:dec} at $v=W$:
+\begin{itemize}
+\item $\bar A\int_{\Gh}W\cdot n=0$, since $W\in Z_h$;
+\item $|\sum_zW(z)\cdot w_z|\le(\sum|w_z|^2/|e|)^{1/2}(\sum|e||W(z)|^2)^{1/2}\le C(\cdots)^{1/2}\|W\|_{\Gh}$, by equivalence of norms
+on $P_k(e)$ and (M0).
+\end{itemize}
+The $\xi$-absorption is unchanged: Lemma xi uses only $V_O$ test fields, on which the defect functional vanishes. This gives
+$c_1|||W|||\le C(h/\mu)^{1/2}\Xi$. Then $\|W\|_{\Gh}\le(h/\mu)^{1/2}|||W|||$, and L1.3 applies because the functional vanishes on
+$Y_h$. Finally $h/\mu=\hG/\gamma$.
+\end{proof}
+
+\begin{definition}
+A family is \emph{locally periodic} (LP) if for consecutive edges $e^-,e^+$ at each $\Gh$ vertex, the similarity-normalised
+boundary triangles differ by $\le C_P\hG$ and $\big||e^+|/|e^-|-1\big|\le C_P\hG$.
+\end{definition}
+The production meshes (\texttt{svn.make\_mesh}) are LP. Edge lengths and first-layer heights are smooth functions of the
+square-side parameter, with only a derivative kink at the four corners, and the apex lies radially above the forward
+endpoint. \textsf{UP} is LP with all boundary triangles congruent.
+
+\begin{corollary}[PROVED]\label{thm:up}
+Let the family be LP and suppose $\mathrm{dist}(\nabla^k\phi(x)/k!,K_{T_e})\le C\hG$ for $x\in e$ ($\phi$ is
+\emph{$K$-degenerate}). Then $\Xi\le\|A-\bar A\|+C\hG^{k+1}$.
+\begin{itemize}
+\item If moreover $A$ is constant up to $O(\hG^{k+1})$, then $\|\nabla W_\ast(\phi)\|\le C\gamma^{-1}\hG^{k+3/2}$.
+\item This holds on \textsf{UP} for $\phi=(r-1)^k$ (constant height, so $A$ is constant) and for $\phi_B$ ($A\equiv0$).
+\end{itemize}
+\end{corollary}
+\begin{proof}
+$B_e$ is a linear function of $\nabla^k\phi(m_e)$ scaled by $|e|^k$, Lipschitz in the normalised shape. Hence
+\[
+|B_{e^+}-B_{e^-}|\le C\hG^{k+1},\qquad |n_{e^+}-n_{e^-}|\le C\hG,
+\]
+so $|w_z|\le C\hG^{k+2}$ and $(\sum|w_z|^2/|e|)^{1/2}\le C\hG^{k+1}$. Also $\|r_e\|_\infty\le C\hG^{k+1}$ by
+$K$-degeneracy.
+\end{proof}
+
+\noindent\textbf{General $K$-degenerate $\phi$ (PROVED MODULO (S)).}
+\begin{quote}
+(S): for $a\in W^{1,\infty}(\Gamma)$ with $\int a=0$, the CNS$^\ast$ velocity driven by $v\mapsto\ip{a}{v\cdot n}$ satisfies
+$\|\nabla W^a\|\le C\gamma^{-1}\hG\|a\|_{W^{1,\infty}}$.
+\end{quote}
+This is the CNS$^\ast$ analogue of the smooth GS leak, robust/ §2 and Thm~B/hc:cor. Under (S), $K$-degenerate $\phi$ gives
+$\|\nabla W\|\le C\gamma^{-1}\hG^{k+1}$, since $A-\bar A$ is smooth of size $\hG^k$ up to $O(\hG^{k+1})$ oscillation. Without
+(S), Thm~\ref{thm:ub} gives only the sharp order for this term.
+
+\noindent\textbf{Pure normal: answer to the brief's last question.} It is genuinely higher order, but the gain is $\hG^{1/2}$
+(order $k+1$, modulo (S)). The full $\hG$ (order $k+3/2$) holds only when $A=J_k(0)\,\mathrm{height}_e^k\,\partial_n^k\phi/k!$ is
+constant, which is PROVED. On the production mesh the heights vary, so $(r-1)^4$ is order $k+1$, consistent with robust2 N5.
+``Edge oscillation of $\eta$ is $O(\hG^{k+1})$'' is neither necessary nor sufficient: $\phi_B$ has $99\%$ oscillatory $\eta$
+and order $k+3/2$.
+
+\section{Lower bounds}
+Write $\sigma_z$ for robust3's star seminorm. Thm order of robust3 gives, for every $\gamma>0$,
+\[
+\|\nabla W\|\ge\frac1{2\sqrt K(1+\gamma)}\Big(\sum_z s_z^{2k+2}\big(\sigma_z(H_z)-C_Rs_z|\phi|_{k+1,\infty}\big)_+^2\Big)^{1/2}.
+\]
+So each lower bound below reduces to a scale-invariant local inequality for $\sigma_z$.
+
+\begin{theorem}[mesh-uniform, all (M0)--(M2) meshes; PROVED MODULO $(P^T)$]\label{thm:PT}
+\[
+(P^T)\qquad\sigma_z(H)\ \ge\ \kappa_T\,\mathrm{dist}(H,\operatorname{Ker}_{T_{e_z}})\qquad\text{for all admissible stars}.
+\]
+Under $(P^T)$:
+\[
+\|\nabla W\|\ge\frac{\kappa_T}{4\sqrt K(1+\gamma)}\Big(\sum_z s_z^{2k+2}\mathrm{dist}(H_z,\operatorname{Ker}_{T_{e_z}})^2\Big)^{1/2}
+-C\gamma^{-1}\hG^{k+3/2}.
+\]
+Hence $\|\nabla W\|\ge c\gamma^{-1}\hG^{k+1/2}$ for $\gamma\ge1$ whenever
+$\liminf\hG^{-1}\sum_e|e|(|e|/\hG)^{2k+1}\mathrm{dist}(H_e,\operatorname{Ker}_{T_e})^2>0$. On a family whose normalised boundary
+triangles converge, this is $\int_\Gamma\mathrm{dist}(\nabla^k\phi/k!,\operatorname{Ker}(x))^2>0$.
+\end{theorem}
+\begin{proof}
+Use $(a-b)_+^2\ge a^2/2-b^2$ as in robust3 Cor order.
+\end{proof}
+$(P^T)$ has no degenerate locus in principle. In every computed case (NUMERICAL) the star kernel is contained in $\operatorname{Ker}_{T_e}\cap\operatorname{Ker}_{T_{e'}}$,
+and $\operatorname{Ker}_T$ is $3$-dimensional and continuous in the shape. A compactness proof, or an interval certificate as in
+\texttt{code/m3\_certify.py}, would need a continuous choice of star fields whose normal traces on $e$ span $P_e$, because
+$\dim V^\sharp$ jumps between tilted ($10$) and flat ($11$, $12$) stars. That construction is not done.
+
+\noindent\textbf{NUMERICAL evidence for $(P^T)$} (scale-invariant units of robust3/\texttt{pk.py}):
+\begin{itemize}
+\item \texttt{rand\_scan.py}, $3\times300$ random admissible $3$/$4$-triangle stars, $70\%$ tilted by up to $0.25$ rad, minimum
+angle $12^\circ/20^\circ/30^\circ$: $\min\kappa_T=2.5,2.2,3.5\times10^{-5}$; the $5\%$ quantile is $7$--$10\times10^{-5}$. The same scan relative to
+$\operatorname{Ker}_{T_{e'}}$ gives minimum $1.6\times10^{-5}$.
+\item Production stars (\texttt{prod\_detail.py}), minimum over all stars: $\kappa_T=2.5\times10^{-4}$, $1.5\times10^{-4}$,
+$1.35\times10^{-4}$ at $N=16,64,128$, converging. By contrast, robust3's $\kappa$ relative to $\mathbb Rn^4$ decays like $\hG$.
+\end{itemize}
+
+\begin{theorem}[LP families: sharp modulo $K$; PROVED MODULO $(P^K)$]\label{thm:PK}
+\[
+(P^K)\qquad\sigma_z(H)\ \ge\ \kappa_K\,\mathrm{dist}(H,K_{T_{e_z}})-C_d\,d_z|H|,
+\]
+where $d_z$ is the translate-deviation of $T_{e_z},T_{e'_z}$ plus $|\pi-\angle z|$, so $d_z\le C\hG$ on LP. Under $(P^K)$, on
+LP families and for $\gamma\ge\max(\gamma_2,1)$:
+\[
+\int_\Gamma\mathrm{dist}\big(\nabla^k\phi/k!,K(x)\big)^2>0\ \Longrightarrow\ c\gamma^{-1}\hG^{k+1/2}\le\|\nabla W_\ast\|\le
+C\gamma^{-1}\hG^{k+1/2}.
+\]
+Combined with Cor.~\ref{thm:up}, this is a complete dichotomy on LP families, with the gap between $k+1$ and $k+3/2$ in the
+degenerate case settled by (S).
+\end{theorem}
+\begin{proof}
+As in Thm~\ref{thm:PT}; the $C_dd_z$ term is $O(\hG^{k+3/2})$ after summation.
+\end{proof}
+\noindent\textbf{NUMERICAL evidence for $(P^K)$.}
+\begin{itemize}
+\item Exactly periodic stars: kernel $=K_T$, gap $0.22$ and $0.08$ relative (Sec.~3).
+\item Production stars at $\theta=0$:
+ \begin{itemize}
+ \item singular values $\sigma_1,\sigma_2=(4.8,17)$, $(3.2,3.8)$, $(1.7,2.0)\times10^{-5}$ at $N=16,64,128$, i.e.\ $\to0$
+ like $\hG$ (the $K$ directions);
+ \item $\sigma_3=4.2,2.2,2.1\times10^{-4}$, converging;
+ \item $\kappa_K=1.48,1.42,1.31\times10^{-4}$, converging;
+ \item minimum of $\kappa_K$ over all stars: $1.48,1.42,1.31\times10^{-4}$.
+ \end{itemize}
+\item The minimum over stars of $\sigma_3$ is $3.8,2.2,2.1\times10^{-4}$ at $N=16,64,128$, converging. At the corner
+stars ($\theta=\pm45^\circ$), $\sigma_2$ also decays like $\hG$.
+\end{itemize}
+The condition $\mathrm{dist}(\cdot,K)>0$ is \emph{mesh dependent}. For the production limit cell,
+$K=\operatorname{span}\{y^k,x^k-(x-y/\rho(\theta))^k\}$ with $\rho$ ranging over $[0.75,2.54]$. That dependence is unavoidable by
+Thm~\ref{thm:inv}. $\sin2x\cos y$ lies outside $K(x)$ except at isolated points, which explains robust3's certificate.
+
+\noindent\textbf{Clean special case.} On families whose consecutive boundary triangles are uniformly \emph{non}-homothetic (e.g.
+mirror-alternating apexes), $K$ collapses to $\mathbb Rn^k$. The mirror star has a relative gap $0.30$. There the brief's clean
+condition should hold, but only NUMERICALLY (single shapes).
+
+\section{Numerics: \textsf{UP} family, $k=4$, $\rho=1$, $\mu=10^3$ (\texttt{run\_u.py}, \texttt{table4.py})}
+Potentials, with $x$ the counterclockwise tangent and $y=e_r$:
+\begin{itemize}
+\item $\phi_B=\mathrm{Re}\sum_jc_j(r-1)^je^{4i\theta}$ with $c=(\tfrac27+\tfrac{12}{35}i,\ \tfrac{44}{35}+\tfrac{10}7i,\
+\tfrac{86}{35}+\tfrac{57}{35}i,\ \tfrac{52}{35}-\tfrac{16}{35}i,\ -1)$ (\texttt{kphi.py}, exact). Then
+$\nabla^4\phi_B/4!=\cos4\theta\,(x^4-(x-y)^4)$.
+\item $Q=\mathrm{Re}\,\tfrac8{35}(x+iy)^4/r$, with $\nabla^4Q/4!=\cos4\theta\,x^4$: visible, although $x^4\in\operatorname{Ker}_T$.
+\item $A=(r-1)^4\cos4\theta$: pure normal, non-constant amplitude.
+\item $R=(r-1)^4$: pure normal, constant amplitude.
+\end{itemize}
+H1n $:=\|\nabla W\|\gamma/\hG^{4.5}$. ``order'' $:=4.5+\log(\mathrm{H1n}_i/\mathrm{H1n}_{i+1})/\log(h_i/h_{i+1})$ (the $\gamma$-normalised
+order). $\gamma$ drifts from $294$ to $179$ with $N$. SuperLU, relres $\le10^{-15}$.
+
+\begin{center}\small
+\begin{tabular}{llrrrrrrr}\toprule
+$\phi$ & & $N=8$ & 16 & 32 & 48 & 64 & 80 & 96\\\midrule
+sin & H1n & .0953 & .0721 & .0587 & .0545 & .0524 & .0512 & .0504\\
+    & order & & 4.91 & 4.80 & 4.68 & 4.63 & 4.61 & 4.59\\
+$Q$ & H1n & .0170 & .0677 & .0619 & .0602 & .0592 & .0586 & .0582\\
+    & order & & -- & 4.63 & 4.57 & 4.56 & 4.55 & 4.54\\
+$\phi_B$ & H1n & .0793 & .0861 & .0468 & .0318 & .0241 & .0194 & .0162\\
+    & order & & -- & 5.39 & 5.45 & 5.47 & 5.48 & 5.48\\
+$A$ & H1n & .1520 & .0752 & .0406 & .0286 & .0225 & .0188 & .0163\\
+    & order & & 5.54 & 5.39 & 5.37 & 5.33 & 5.30 & 5.28\\
+$R$ & H1n & .0784 & .0358 & .0171 & .0113 & .0084 & .0067 & .0056\\
+    & order & & 5.66 & 5.57 & 5.53 & 5.52 & 5.51 & 5.51\\\bottomrule
+\end{tabular}
+\end{center}
+Reading:
+\begin{itemize}
+\item \emph{Visible} ($\sin$, $Q$): order $\to4.5$ from above, driven by the $\|\eta\|/\hG^4$ drift ($0.0263\to0.0199$), as in
+robust2 N1.
+\item $\phi_B$ and $R$: order $5.5=k+3/2$, as proved.
+\item $A$: order $5.28$ and still falling. This fits a smooth $\hG^{k+1}$ component (Sec.~4, (S)) becoming dominant.
+Asymptotic $k+1$ is \emph{not} confirmed at $N\le96$; see \texttt{run\_pod4.sh}.
+\item $\eta$ is $99\%$ oscillatory for $\phi_B$ ($\|(I-P_0)\eta\|/\|\eta\|=0.954,0.978,0.988,0.992,0.994$ for $N=32..96$), while
+$\|\eta\|/\hG^4\to0.0175$. It is not small.
+\item $\mu=100$ is near-critical on \textsf{UP}: at $N=32$, $\|\nabla W\|$ is $75\times$ its $\mu=10^3$ normalised value. Only
+$\mu=10^3$ is used (logs keep both).
+\end{itemize}
+
+\section{Status}
+\begin{itemize}
+\item \textbf{PROVED:}
+ \begin{itemize}
+ \item Lemmas~\ref{lem:dk}, \ref{lem:KT}, \ref{lem:dec};
+ \item Thm~\ref{thm:inv}, which disposes of ideas (1) and (2);
+ \item Cor.~\ref{cor:nolocal};
+ \item Thm~\ref{thm:ub} and Cor.~\ref{thm:up}, i.e.\ the order $k+3/2$ for $K$-degenerate $\phi$ with constant $A$, which
+ includes $(r-1)^k$ and $\phi_B$ on \textsf{UP};
+ \item the brief's clean theorem is FALSE on \textsf{UP} ((M0)--(M2) hold: $\Theta=1$ at boundary vertices).
+ \end{itemize}
+\item \textbf{PROVED MODULO:}
+ \begin{itemize}
+ \item the uniform lower bound modulo $\operatorname{Ker}_T$, all meshes, modulo $(P^T)$;
+ \item the sharp dichotomy modulo $K$ on LP families, modulo $(P^K)$;
+ \item order $k+1$ for general $K$-degenerate $\phi$, modulo (S).
+ \end{itemize}
+\item \textbf{NUMERICAL:} $(P^T)$, $(P^K)$, the star-kernel classification, and the \textsf{UP} orders.
+\item \textbf{Open:}
+ \begin{itemize}
+ \item a continuous star-field construction or interval certificate for $(P^T)$/$(P^K)$;
+ \item (S);
+ \item $N\ge128$ (pod: \texttt{bash notes/v6/robust4/run\_pod4.sh}, about 1--2 h, $\ge16$ GB; $N=128$ was OOM-killed in the 7 GB sandbox);
+ \item a $K$-degenerate non-normal $\phi$ on the production mesh itself, which needs $\rho(\theta)$-dependent jets and was not
+ built.
+ \end{itemize}
+\end{itemize}
+\noindent\textbf{Files.}
+\begin{itemize}
+\item \texttt{jk\_const.py}, \texttt{sym\_kernel.py}: exact algebra.
+\item \texttt{stars.py} (star forms, $\kappa$ relative to $n^k$, $K_T$, $\operatorname{Ker}_T$; \texttt{prod} scan),
+\texttt{prod\_detail.py} (logs \texttt{pd\_\{16,64,128\}.jsonl}, \texttt{prod\_scan.jsonl}).
+\item \texttt{rand\_scan.py} (\texttt{rand\_\{12,20,30\}.jsonl}).
+\item \texttt{kphi.py} (exact potentials), \texttt{run\_u.py} (\textsf{UP} mesh and solves; \texttt{u\_8\_64.jsonl},
+\texttt{u\_mid.jsonl}), \texttt{table4.py}, \texttt{run\_pod4.sh}.
+\end{itemize}
+\end{document}

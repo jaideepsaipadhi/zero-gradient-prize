@@ -1,0 +1,302 @@
+% notes/v6/td_k3b/REPORT.tex -- k=3 Alfeld sharpness on general smooth surfaces (indefinite / parabolic curvature).
+% Standalone.  References t:..., l:..., c:... are to notes/v6/td_k3/REPORT.tex; A:..., B:... to notes/v6/td_sharp/REPORT.tex.
+% Nothing in paper/ or letter/ was changed; nothing committed.  Scripts and logs are in this directory.
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,enumitem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\FG}{\mathcal F_h^\Gamma}
+\newcommand{\M}{\mathcal M}
+\newcommand{\gh}{\hat g}
+\newcommand{\hh}{\mathfrak h}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\diam}{diam}
+\newcommand{\Th}{\mathcal T_h}
+\newcommand{\status}[1]{\textbf{[#1]}}
+\title{$k=3$ Alfeld sharpness on general smooth surfaces:\\ \large indefinite and parabolic curvature via the edge-normal moves}
+\author{subagent report}
+\date{notes/v6/td\_k3b, 2026-09-28}
+\begin{document}
+\maketitle
+
+\section*{Summary and status}
+\begin{center}
+\begin{tabular}{p{0.62\textwidth}p{0.31\textwidth}}
+\toprule
+Statement & Status\\
+\midrule
+Per-face moment formula on every edge star, any geometry and weights: the moment of a $\Gamma$-face is an explicit linear function of the vertex jet $\delta$ and the spoke data $P_x=\delta+p_x$, modulo the single-macro line $\R D_F$ (Lemma~\ref{l:face}) & \status{PROVED} (exact reference computation + transport); 29/29 faces agree exactly with the reduced model\\
+Flat reduction: in the $\Gamma$-flat limit the admissible parameters are $\delta$, one free normal datum $\nu_j$ per spoke, and a 3-parameter flux datum $\sigma_j=\gamma-s_j\wedge\eta$ (Lemma~\ref{l:flat}) & \status{PROVED}; identities checked symbolically\\
+\textbf{Star Nondegeneracy Theorem}: on a $\Gamma$-flat edge star with a common quadratic form $\hh\neq0$, the tangential total moment has rank $2$ unless \emph{every} $\Gamma$-face of the star is degenerate at $z$. A face is degenerate at $z$ iff $\hh=\pm\nu\otimes\nu$ has rank one and $\nu\perp$ the edge opposite $z$ (Thm.~\ref{t:nondeg}, Lemma~\ref{l:degface}) & \status{PROVED}; exhaustive-in-$\hh$ exact checks on 3034 stars, no exception\\
+Every $\Gamma$-face is nondegenerate at the vertex opposite its edge of largest $|\hh(e,e)|$. Uniform witness $t\cdot\sum\M\ge\kappa_0|\hh|\,(\diam F)^{5/2}-C(\diam F)^{7/2}$ for all $t\in T\Gamma$ (Thm.~\ref{t:witness}) & \status{PROVED}; $\kappa_0(\theta)>0$ by compactness (not explicit)\\
+\textbf{Main result}: for $k\ge3$ on Alfeld refinements, $\norm{\nabla(\tilde u-u_h)}\ge c\,\hG^{3/2}\norm{|\hh|\,\partial_Nu}_{L^2(\Gamma)}-C\hG^2$. This is Thm.~B:lb, now with $k\ge3$ in place of $k\ge4$ (Thm.~\ref{t:main}) & \status{PROVED}. Assumptions as Thm.~B:lb; the upper bound keeps its td:open item 3 caveat\\
+Referee 8 MINOR FIX (the $t\parallel F$ step): the patch lemma is restated with $t$ tangent to $\Gamma$ (Lemma~\ref{l:patch}) & \status{PROVED}\\
+Full-FE cross-check (patchlib): rank predictions confirmed on 7 stars, including $\sum c_i=0$ with rank $2$ and a degenerate pair with rank $1$ & \status{NUMERICAL} (mod-$p$ ranks)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Main finding.} The vertex move of td\_k3 sees only $\sum_i c_i\propto\sum_i|F_i|\,\hh(e_{ab},e_{ab})/H_i$, and this sum can vanish for indefinite $\hh$. The Ring Trace Theorem has two further families of moves:
+\begin{itemize}[leftmargin=1.2em]
+\item the \emph{normal spoke data} $\nu_j$, one free scalar per spoke;
+\item the \emph{flux data} $\sigma_j$, an affine function of the spoke vector.
+\end{itemize}
+Their moments are weighted by the \emph{differences} $\hh(s_a,s_a)-\hh(s_b,s_b)$ of the two spoke weights of a face. These differences are nonzero exactly where the vertex move loses information.
+
+Combined with the single-macro directions $D_F$, the image of the moment map is degenerate only at \emph{parabolic} points: $\hh=\pm\nu\otimes\nu$, with an edge of $F$ aligned with the asymptotic direction $\nu^\perp$. At a saddle point ($\det\hh<0$) and at an elliptic point every edge star is nondegenerate. At a parabolic point, the edge star at a different vertex of the same face is nondegenerate.
+
+The earlier td\_k3 remark was too optimistic about the definite-curvature case. The single edge star at a chosen vertex can be degenerate for the \emph{semidefinite} form $\hh=(x+y)^2$ (\texttt{degen.log}, ``flat square, 1''). The vertex choice of Thm.~\ref{t:witness} is therefore needed.
+
+Conventions: as in td\_k3/td\_sharp Part B. $\Gamma\in C^3$, and $\Gh$ is inscribed with (G1)--(G3). $\Th$ is the Alfeld refinement of a shape-regular macro mesh (minimal angle $\theta$). $W=\partial_Nu|_\Gamma$, and $\hh_y$ is the second fundamental form. The sagitta weights are $w^F_{ij}=\hh_F(e_{ij},e_{ij})$, up to $O(\ell^3)$ (Lemma~B:face(a)). $\M_F(v)=\frac4H\int_FQ_F\gh\,dA$ with $Q_F=\frac12\sum w_{ij}\mu_i\mu_j$, as in td\_k3 Sec.~2.
+
+%=====================================================================
+\section{The per-face moment formula}\label{s:face}
+%=====================================================================
+Let $R=R(z,q)$ be an edge star with link $x_0,\dots,x_{m-1}$, $\Gamma$-faces $F_i=\conv(z,x_i,x_{i+1})$ for $i\in I$, and data $(\delta,p_q,p_j,\Phi)$ as in Lemma~l:nec. For a face $F=F_i=\conv(z,a,b)$ put $e_a=a-z$ and $e_b=b-z$. Put $P_a=\delta+p_a$ and $P_b=\delta+p_b$, the spoke data of the two spokes of $F$. Let $u_a=\nabla\lambda_q^{s_3}$ and $u_b=\nabla\lambda_q^{s_2}$ ($s_3=\conv(B,q,z,a)$, $s_2=\conv(B,q,z,b)$). Write $w=(w_{za},w_{zb},w_{ab})$ for the weights of $F$, and
+\[
+D_F:=(w_{za}-w_{ab})\,e_a+(w_{ab}-w_{zb})\,e_b\qquad(\text{the single-macro direction, Prop.~A:k3}).
+\]
+
+\begin{lemma}[Per-face moment]\label{l:face}
+For every $v\in Y^1(R)$ with interior-face data $(\delta,p_q,p_j,\Phi)$ and every $i\in I$,
+\[
+\M_{F_i}(v)\ \equiv\ \frac{8|F_i|}{H_i}\Bigl[-\frac{w_{ab}}{2880}\,G_i\delta\;-\;\frac{w_{za}-w_{zb}}{2880}\Bigl((P_a\cdot u_a)\,e_b-(P_b\cdot u_b)\,e_a\Bigr)\Bigr]\pmod{\R D_{F_i}} .
+\]
+Conversely, every value of the right-hand side, plus any multiple of $D_{F_i}$ chosen independently for each $i$, is attained by some $v\in Y^1(R)$ with these data.
+\end{lemma}
+\begin{proof}
+\emph{Reference computation} (\texttt{ref\_nu.py}, exact sympy). Take the reference triangle $z=0$, $a=e_1$, $b=e_2$. For $\gh\in U_F\cap\{\int\gh=0\}$ with $\gh(z)=e$, $\tilde\alpha:=\gh(m_{za})\cdot\nabla\mu_b$ and $\tilde\beta:=\gh(m_{zb})\cdot\nabla\mu_a$, the moment is determined modulo the line $D$ of Lemma~l:K. For one particular representative, linear in $(e,\tilde\alpha,\tilde\beta)$, the $\tilde\alpha$- and $\tilde\beta$-columns of $\int Q\gh$ are $\frac{w_{ab}-w_{za}}{180}(\hat e_1-\hat e_2)$ and $\frac{w_{zb}-w_{za}}{180}\hat e_1$. The $e$-columns are those of $K$ in Lemma~l:K. Adding $4D$ (with $720D=(w_{za}-w_{ab})\hat e_1+(w_{ab}-w_{zb})\hat e_2$) shows $\frac{w_{ab}-w_{za}}{180}(\hat e_1-\hat e_2)\equiv\frac{w_{za}-w_{zb}}{180}\hat e_2$ modulo $D$. Together with Lemma~l:K this gives
+\[
+\textstyle\int_{\rm ref}Q\gh\equiv-\frac{w_{ab}}{720}\,e+\frac{w_{za}-w_{zb}}{180}\bigl(\tilde\alpha\,\hat e_2-\tilde\beta\,\hat e_1\bigr)\pmod D .
+\]
+\emph{Transport.} Write $\gh=A\gh_{\rm ref}$ with $A\hat e_1=e_a$ and $A\hat e_2=e_b$. Then $\tilde\alpha,\tilde\beta$ are affine invariants ($\gh_{\rm ref}\cdot\hat e_2=\gh\cdot A^{-\mathsf T}\hat e_2=\gh\cdot\nabla\mu_b$). So
+\[
+\textstyle\int_FQ\gh\equiv2|F|\bigl[-\frac{w_{ab}}{720}\gh(z)+\frac{w_{za}-w_{zb}}{180}(\tilde\alpha e_b-\tilde\beta e_a)\bigr]\pmod{\R D_F},
+\]
+and $AD_{\rm ref}\propto D_F$.
+
+\emph{Traces.} $\gh(z)=\frac14G_i\delta$ (Lemma~l:jet). On $[z,a]$, Lemma~l:nec(d) reads $\gh\cdot\nabla\lambda_B^{s_3}=-\frac14P_a\cdot u_a$ at $m_{za}$, since $h_i(m_{za})=\frac14(\delta+p_a)$. Here $\lambda_B^{s_3}$ is linear, vanishes on the plane of $\conv(q,z,a)$, and equals $1$ at $B=\frac14(q+z+a+b)$, so it equals $4$ at $b$. Hence the tangential part of $\nabla\lambda_B^{s_3}$ is orthogonal to $e_a$ and pairs to $4$ with $e_b$, i.e.\ it equals $4\nabla\mu_b$. So $\tilde\alpha=-\frac1{16}P_a\cdot u_a$, and likewise $\tilde\beta=-\frac1{16}P_b\cdot u_b$. Multiply by $\frac4{H_i}$.
+
+\emph{Converse.} Thm.~t:trace and Lemma~l:suff give realisability. Lemma~l:single makes the means zero and leaves exactly the $D_{F_i}$-freedom on each face independently.
+\end{proof}
+\emph{Checks.} \texttt{face\_formula.py}, exact, reduced model: random data $(\delta,p_q,p_j,\Phi)$ with equal fluxes, generic weights, both $\Gamma$-flat and curved stars with $m=3,\dots,6$ and arbitrary $I$. The prediction is compared \emph{face by face} modulo the single line $\R D_{F_i}$, so the test is never vacuous (this answers the Referee 8 caveat on D-span tests). Result: 29/29 faces agree (\texttt{face\_formula.log}). The term $-\frac{8|F|w_{ab}}{2880H}G\delta=-\frac{c_i}{360}G_i\delta$ is Thm.~t:vertex.
+
+%=====================================================================
+\section{The $\Gamma$-flat reduction}\label{s:flat}
+%=====================================================================
+A star is \emph{$\Gamma$-flat} if its $\Gamma$-faces lie in one plane $T$. Put $z=0$, $T=\{x_3=0\}$ and $q=(q',H)$ with $H>0$. The non-$\Gamma$ link vertices are unrestricted. Call a spoke $s_j=x_j$ a $\Gamma$-spoke if it bounds a $\Gamma$-face; then $s_j\in T$. Let $J$ be the rotation by $+\frac\pi2$ in $T$. Orient so that $s_i\wedge s_{i+1}=2|F_i|>0$ for $i\in I$; this holds because the macro-tetrahedra around $[z,q]$ are consistently oriented and $q$ lies on one side of $T$. Put $\omega_j:=w(s_j):=\hh(s_j,s_j)$, $w_i:=w_{ab}^{F_i}$ and $\hat\tau_i:=\omega_i-\omega_{i+1}=w_{za}-w_{zb}$. Write $P_j=(\pi_j,\nu_j)\in T\times\R$ and
+\[
+\sigma_j:=Js_j\cdot\bigl(\pi_j-\nu_jq'/H\bigr).
+\]
+
+\begin{lemma}[Flat reduction]\label{l:flat}
+On a $\Gamma$-flat star with weights $w^{F}_{ij}=\hh(e_{ij},e_{ij})$ for one symmetric form $\hh$ on $T$:
+\begin{enumerate}[label=(\alph*)]
+\item $P_a\cdot u_a=-\sigma_a/(2|F|)+\nu_a/H$ and $P_b\cdot u_b=\sigma_b/(2|F|)+\nu_b/H$. Hence, modulo $\operatorname{span}\{D_{F_i}\}$,
+\[
+\sum_{i\in I}\M_{F_i}\equiv\frac1{360H}\sum_{i\in I}\Bigl[-|F_i|\,w_i\,G_i\delta+\hat\tau_i\Bigl(\tfrac12(\sigma_is_{i+1}+\sigma_{i+1}s_i)-\tfrac{|F_i|}{H}(\nu_is_{i+1}-\nu_{i+1}s_i)\Bigr)\Bigr].
+\]
+\item The flux condition for spoke $j$ is $A_j\cdot P_j=\frac H2\sigma_j$. The admissible spoke data are exactly: $\nu_j\in\R$ free for each $\Gamma$-spoke, and $\sigma_j=\gamma-s_j\wedge\eta$ with $(\gamma,\eta)\in\R\times\R^2$ free. The data $\delta\in\R^3$, $(\nu_j)$, $(\gamma,\eta)$ and the $D$-coefficients are mutually independent.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a) In the flat case $u_a=(-\nabla\mu_b,(1+\nabla\mu_b\cdot q')/H)$, $u_b=(-\nabla\mu_a,(1+\nabla\mu_a\cdot q')/H)$, $\nabla\mu_b=Js_a/(2|F|)$ and $\nabla\mu_a=-Js_b/(2|F|)$. Substitute into Lemma~\ref{l:face}; $H_i=H$ for all $i$.
+
+(b) $A_j=\frac12q\times x_j=\frac12(HJs_j,\,q'\wedge s_j)$ gives $A_j\cdot P_j=\frac H2\sigma_j$. Lemma~l:nec(b) with $p_j=P_j-\delta$ gives $A_j\cdot P_j=60\Phi-A_j\cdot\psi$ with $\psi:=\delta+2p_q$. Since $p_q$ and $\Phi$ are free, so are $\psi$ and $\Phi$. Then $\sigma_j=\frac{120\Phi}H-s_j\wedge(\psi'-\psi_nq'/H)$. Given $\nu_j$ and $\sigma_j$, the component $Js_j\cdot\pi_j$ is fixed ($Js_j\neq0$); the component of $\pi_j$ along $s_j$ is invisible. Spokes that bound no $\Gamma$-face enter only through their own flux equation.
+\end{proof}
+\emph{Check:} \texttt{flat\_algebra.py} (symbolic in $a,b,q,P$): (a), the flux identity and the affine form of $\sigma$ all hold (\texttt{flat\_algebra.log}).
+
+%=====================================================================
+\section{Star Nondegeneracy Theorem}\label{s:nondeg}
+%=====================================================================
+\begin{definition}
+A $\Gamma$-face $F=\conv(z,a,b)$ of a $\Gamma$-flat star is \emph{degenerate at $z$} (for $\hh$) if $w_{ab}=\hh(b-a,b-a)=0$ and $\hh(e_a,e_a)=\hh(e_b,e_b)$. This is the rank-$1$ case of Cor.~c:single(c).
+\end{definition}
+
+\begin{lemma}\label{l:degface}
+$F$ is degenerate at $z$ iff $\hh=0$ or $\hh=\pm\nu\otimes\nu$ with $\nu\perp b-a$. In particular $F$ is not degenerate at any vertex if $\det\hh\neq0$. If $\hh\neq0$, $F$ is nondegenerate at the vertex opposite any edge $e$ of $F$ with $\hh(e,e)\neq0$, and such an edge exists.
+\end{lemma}
+\begin{proof}
+Put $e=b-a$. Then $\hh(e_b)=\hh(e_a)+2\hh(e_a,e)+\hh(e)$, so the conditions say $\hh(e,e)=\hh(e_a,e)=0$.
+
+If $\det\hh\ne0$, the $\hh$-orthogonal complement of a null vector $e$ is $\R e$. Then $e_a\parallel e$, which is impossible for a triangle.
+
+If $\hh=\pm\nu\otimes\nu$, both conditions reduce to $\nu\cdot e=0$.
+
+A quadratic form on $\R^2$ vanishing on the three pairwise non-parallel edge vectors of $F$ is $0$.
+\end{proof}
+
+\begin{theorem}[Star Nondegeneracy]\label{t:nondeg}
+Let $R$ be a $\Gamma$-flat edge star, $\hh\ne0$ a symmetric form on $T$, and weights $w^F_{ij}=\hh(e_{ij},e_{ij})$. Assume the $\Gamma$-spokes are pairwise non-parallel in the same direction; on meshes they are separated by angles $\ge\theta/2$. If some $\Gamma$-face of $R$ is nondegenerate at $z$, then the tangential total moment $v\mapsto\sum_{i\in I}\M_{F_i}(v)$ maps $Y^1(R)$ onto $T$.
+\end{theorem}
+\begin{proof}
+Suppose $0\ne\lambda\in T$ annihilates the image. Put $\ell_j=\lambda\cdot s_j$, let $\mu:=J\lambda$, and set $\tau_i:=|F_i|\hat\tau_i$. By Lemma~\ref{l:flat} the parameters $\delta$, $\nu_j$, $\gamma$, $\eta$ and the $D$-coefficients are independent, so $\lambda$ annihilates each family separately:
+\begin{align*}
+&(\delta_T)\ \ \textstyle\sum_{i\in I}|F_i|\,w_i=0 \quad(\delta\in T,\ G_i|_T=I);\qquad (D)\ \ \lambda\cdot D_{F_i}=0\ \ \forall i\in I;\\
+&(\nu_j)\ \ \tau_{j-1}\ell_{j-1}\mathbf 1_{j-1}=\tau_j\ell_{j+1}\mathbf 1_j\ \ \text{for every $\Gamma$-spoke $j$}\quad(\mathbf 1_i=[i\in I]);\\
+&(\sigma)\ \ \textstyle\sum_{i\in I}\hat\tau_i\bigl[\gamma(\ell_i+\ell_{i+1})+L(s_i)\ell_{i+1}+L(s_{i+1})\ell_i\bigr]=0\quad\forall\gamma\in\R,\ L\in T^\ast .
+\end{align*}
+
+\emph{Step 1: $\tau_i=0$ for all $i\in I$.}
+
+Put $\varpi_i:=\tau_i\ell_i\ell_{i+1}$. Multiplying $(\nu_j)$ by $\ell_j$ gives $\varpi_{j-1}=\varpi_j$ when both faces are in $I$, and $\varpi_j=0$ at the first face of a run of consecutive $\Gamma$-faces. So $\varpi$ is constant on each run and zero on non-cyclic runs. If $I$ is the whole cycle, $(\sigma)$ with $\gamma=0$, $L=\lambda\cdot$ gives $2\sum\varpi_i/|F_i|=0$, so again $\varpi=0$. Hence $\tau_i=0$ whenever $\ell_i\ell_{i+1}\neq0$.
+
+Let $Z$ be the set of $\Gamma$-spokes with $\ell_p=0$, i.e.\ $s_p\parallel\mu$. By the separation assumption, $|Z|\le2$. If $|Z|=2$, the two spokes point in opposite directions. No face has both spokes in $Z$.
+
+For $p\in Z$, $(\nu_p)$ defines $X_p:=\tau_{p-1}\ell_{p-1}\mathbf 1_{p-1}=\tau_p\ell_{p+1}\mathbf 1_p$. If one of $F_{p-1},F_p$ is not in $I$, then $X_p=0$. The only possibly nonzero $\tau$'s are $\tau_{p-1}=X_p/\ell_{p-1}$ and $\tau_p=X_p/\ell_{p+1}$.
+
+Now $(\sigma)$ with $L=0$ and with $L=\mu\cdot$ gives, with $k_p:=\frac1{|F_{p-1}|}+\frac1{|F_p|}>0$:
+\[
+\textstyle\sum_{p\in Z}k_pX_p=0,\qquad\sum_{p\in Z}(\mu\cdot s_p)\,k_pX_p=0 .
+\]
+The numbers $\mu\cdot s_p$ ($p\in Z$) are nonzero and, if there are two, of opposite signs. So $X_p=0$ for all $p\in Z$, and $\tau\equiv0$.
+
+\emph{Step 2: $w_i=0$ for all $i\in I$.}
+
+Now $\omega_i=\omega_{i+1}=:\Omega_i$, and $(D)$ reads $(\Omega_i-w_i)(\ell_i-\ell_{i+1})=0$. Suppose $w_i\ne0$ for some $i$. There are two cases.
+\begin{itemize}[leftmargin=1.2em]
+\item If $w_i=\Omega_i$, then $\hh$ takes the same nonzero value $c$ on $s_i$, $s_{i+1}$ and $s_{i+1}-s_i$. In the basis $(s_i,s_{i+1})$, $\hh=c\begin{psmallmatrix}1&1/2\\1/2&1\end{psmallmatrix}$, which is definite. Then all $w_{i'}$ ($i'\in I$) are nonzero with the sign of $c$, contradicting $(\delta_T)$.
+\item Otherwise $\ell_i=\ell_{i+1}$, i.e.\ $s_{i+1}-s_i\parallel\mu$, and $w_i=|s_{i+1}-s_i|^2\hh(\hat\mu,\hat\mu)$.
+\end{itemize}
+So every $i$ with $w_i\ne0$ is of the second kind, and all such $w_i$ have the sign of $\hh(\hat\mu,\hat\mu)$. Then $(\delta_T)$ forces them all to vanish.
+
+So every $\Gamma$-face is degenerate at $z$, contradicting the hypothesis.
+\end{proof}
+
+\begin{remark}
+(i) The proof uses only four families: the vertex moves $\delta\in T$ (via $\sum|F_i|w_i$); the normal spoke moves $\nu_j$; the flux moves $(\gamma,\eta)$; and the single-macro directions $D_F$. It does not use the normal vertex move ($\delta\parallel n$).
+
+(ii) Converse: if every $\Gamma$-face is degenerate at $z$ (so $\hh=\pm\nu\otimes\nu$ with all opposite edges $\perp\nu$), the rank is $1$. This is seen in the exact search, e.g.\ \texttt{degen.log} ``flat square, 2 opp'', and in the FE check; it is not needed.
+
+(iii) The theorem explains the sphere result of td\_k3: there $\hh=-I$ and every face is nondegenerate at every vertex. It also locates the only obstruction: parabolic points with an edge along the asymptotic direction.
+\end{remark}
+
+\emph{Checks (exact, exhaustive in $\hh$).} \texttt{degen.py} computes, for a given star, \emph{all} real $\hh\ne0$ for which the tangential total moment on the full reduced model has rank $<2$. It writes the moment matrix as $h_{11}M_1+h_{12}M_2+h_{22}M_3$, eliminates $\hh$ through $3\times3$ minors, and takes the real roots in $\lambda$.
+
+The theorem's prediction was compared on:
+\begin{itemize}[leftmargin=1.2em]
+\item 7 structured stars (\texttt{degen.log});
+\item 1783 random fully flat stars on a $\frac13$-lattice with all subsets $I$ and $|I|=1..6$ (\texttt{degen\_random.log});
+\item 1251 random $\Gamma$-flat stars whose non-$\Gamma$ link vertices lie off the plane (\texttt{degen\_gflat.log}).
+\end{itemize}
+Every degeneracy found has all $\Gamma$-faces individually degenerate, including adjacent pairs such as $I=[1,2]$ with $\hh=(x+y)^2$. There is no counterexample.
+
+\emph{FE cross-check} (\texttt{fe\_cross.log}, full Alfeld FE, mod-$p$ ranks):
+\begin{itemize}[leftmargin=1.2em]
+\item square fan with all 4 faces and the saddle $\hh=2xy$, where $\sum_iw_{ab}=0$ and the vertex move is blind: rank $2$;
+\item single face with $\hh=x^2-y^2$ ($\sum w_{ab}=0$): rank $2$;
+\item faces $0,2$ with $\hh=(x+y)^2$ (both degenerate): rank $1$;
+\item faces $0,1$ with the same $\hh$ (face $1$ nondegenerate): rank $2$;
+\item a $\Gamma$-flat star with off-plane vertices: rank $2$.
+\end{itemize}
+
+%=====================================================================
+\section{Uniform witness and the lower bound}\label{s:main}
+%=====================================================================
+\begin{lemma}[Patch form, $t$ tangent to $\Gamma$; Referee 8 fix]\label{l:patch}
+Suppose there are $\kappa_0,K_{\rm ov},C_s,C_1$ with the following property. For every $F\in\FG$ and unit $t\in T_{y_F}\Gamma$ ($y_F=\pi(x_F)$) there is $v_{F,t}\in Y_h^1$ with:
+\begin{itemize}[leftmargin=1.2em]
+\item $\norm{\nabla v_{F,t}}=1$;
+\item support in a union $\omega_F$ of tetrahedra within distance $C_s\hG$ of $F$, with each tetrahedron in at most $K_{\rm ov}$ of the $\omega_F$;
+\item $t\cdot\sum_{F'\subset\omega_F\cap\Gh}\M_{F'}(v_{F,t})\ge\kappa_0|\hh_{y_F}|(\diam F)^{5/2}-C_1(\diam F)^{7/2}$.
+\end{itemize}
+Then, under the assumptions of Thm.~B:main, if $\hh W\not\equiv0$ and $\hG\le h_1$ ($h_1$ depending also on $\norm W_{W^{1,\infty}}$ and $\norm{|\hh|W}_{L^2}$),
+\[
+\norm{\nabla(\tilde u-u_h)}_{\Omega_h}\ \ge\ c\,\hG^{3/2}\bigl\|\,|\hh|\,W\bigr\|_{L^2(\Gamma)}-C\hG^2 .
+\]
+\end{lemma}
+\begin{proof}
+Let $W_F:=W(y_F)\in T_{y_F}\Gamma$ and $t_F=W_F/|W_F|$. Set $v_F:=|\hh_{y_F}|\,|W_F|\,v_{F,t_F}$ and $v=\sum_Fv_F$. Since $t_F$ is already tangent, no projection onto the plane of $F$ is needed; this is the fix. By Lemma~A:lead with B:face(a),
+\[
+\ell_W(v)=\sum_F\Bigl[W_F\cdot\sum_{F'}\M_{F'}(v_F)+\sum_{F'}(W_{F'}-W_F)\cdot\M_{F'}(v_F)\Bigr].
+\]
+We have $|\M_{F'}(v)|\le C\hG^{5/2}\norm{\nabla v}$ and $|W_{F'}-W_F|\le C C_s\hG\norm W_{W^{1,\infty}}$. So
+\[
+\ell_W(v)\ge\kappa_0c_0^{5/2}\hG^{5/2}\sum_F|\hh_{y_F}|^2|W_F|^2-C\hG^{7/2}\sum_F|\hh_{y_F}||W_F|\bigl(|W_F|+\norm W_{W^{1,\infty}}\bigr).
+\]
+Also $\norm{\nabla v}^2\le K_{\rm ov}\sum_F|\hh_{y_F}|^2|W_F|^2$. By the Riemann sums of Lemma~A:assemble (with $|\hh|$ Lipschitz, $\Gamma\in C^3$, Jacobian $1+O(\hG^2)$ from B:face(c)):
+\begin{itemize}[leftmargin=1.2em]
+\item $\sum_F|F||\hh_{y_F}|^2|W_F|^2=\norm{|\hh|W}^2+O(\hG)$;
+\item the error sum is $\le C\hG^{-2}$.
+\end{itemize}
+Hence $\ell_W(v)/\norm{\nabla v}\ge c\hG^{3/2}\norm{|\hh|W}-C\hG^{5/2}/\norm{|\hh|W}$, and the second term is at most half the first for $\hG\le h_1$. Conclude with Cor.~A:abstract and Lemma~A:lead, whose remainders give the $-C\hG^2$.
+\end{proof}
+
+For $F\in\FG$ let $z_F$ be the vertex of $F$ opposite an edge $e_F$ that maximises $|\hh_{y_F}(Pe,Pe)|$ over the three edges. Put $\omega_F:=R(z_F,q_F)$.
+
+\begin{theorem}[Uniform witness, $k=3$ Alfeld, general surfaces]\label{t:witness}
+There are $\kappa_0=\kappa_0(\theta,\theta_0)>0$, $C_1=C_1(\theta,\theta_0,\Gamma)$ and $h_\ast$ such that for $\hG\le h_\ast$ the hypothesis of Lemma~\ref{l:patch} holds with $\omega_F=R(z_F,q_F)$, $K_{\rm ov},C_s\le C(\theta)$.
+\end{theorem}
+\begin{proof}
+Put $\ell=\diam F$ and $\hh_0:=\hh_{y_F}\circ P_{y_F}$.
+
+\emph{(1) Weights.} Every $\Gamma$-face $F'$ of $\omega_F$ lies within $C\ell$ of $y_F$. So $w^{F'}_{ij}=\hh_0(e_{ij},e_{ij})+O(\ell^3)$ by B:face(a), using $\Gamma\in C^3$ and $|P_{y}-P_{y_F}|\le C\ell$. The moments are linear in the weights and $|\M_{F'}(v)|\le C|w|\ell^{1/2}\norm{\nabla v}$ (td\_sharp, proof of A:assemble). So replacing the weights by $\hh_0(e,e)$ costs $\le C\ell^{7/2}\norm{\nabla v}$. This is the $C_1$ term. If $\hh_0=0$ there is nothing to prove. Otherwise write $\hh_0=|\hh_0|\,\hat\hh$ with $|\hat\hh|=1$.
+
+\emph{(2) Parameters and energy.} For a parameter vector $x=(\delta,p_q,\Phi,(p_j),(s_i))$ satisfying the flux equations, Lemma~l:suff plus the single-macro adjustments give $v(x)\in Y^1(R)$. By the proof of Thm.~t:vertex (fixed reference right inverses, transported affinely), $\norm{\nabla v(x)}\le C_E(\theta)|x|\ell^{1/2}$ in the scaling where $x$ carries units of $|\nabla v|$. Let $\Pi(\mathcal C;\hat\hh)$ be the linear map $x\mapsto t$-components of $\ell^{-3}\sum\M_{F'}(v(x))$ for weights $\hat\hh(e,e)$. By Thm.~t:trace and Lemma~\ref{l:face}, $\Pi$ is an explicit rational function of the normalised geometry $\mathcal C$ (star scaled by $1/\ell$), linear in $\hat\hh$. It is defined on the admissible subspace, which has constant dimension because the flux equations have full rank $m$. So $s(\mathcal C,\hat\hh):=\sigma_{\min}(\Pi)$ is continuous.
+
+\emph{(3) Compactness.} Let $\mathcal K$ be the set of normalised $\Gamma$-flat configurations with the following properties:
+\begin{itemize}[leftmargin=1.2em]
+\item $m\le m_{\max}(\theta)$ and $I\ni i_0$, where $F=F_{i_0}$ has diameter $1$;
+\item all macro-tetrahedra have minimal angle $\ge\theta/2$;
+\item the $\Gamma$-spokes are separated by angles $\ge\theta_0/2$ and consistently oriented;
+\item $|\hat\hh|=1$ and $|\hat\hh(\hat e_F,\hat e_F)|\ge c_1(\theta_0)$.
+\end{itemize}
+$\mathcal K$ is compact, since there are finitely many combinatorial types and all conditions are closed. On $\mathcal K$ the face $F_{i_0}$ is nondegenerate at $z$ (Lemma~\ref{l:degface}), so $s>0$ by Thm.~\ref{t:nondeg}. By compactness, $s\ge s_0(\theta,\theta_0)>0$.
+
+The constant $c_1$ exists because $\hh\mapsto(\hh(e,e))_{e\in\text{edges}}$ is invertible with inverse bounded by $C(\theta_0)\ell^{-2}$ (Lemma~B:face(d)). So the maximising edge has $|\hat\hh(\hat e_F,\hat e_F)|\ge c_1$.
+
+\emph{(4) Actual meshes.} Project the $\Gamma$-vertices of $\omega_F$ onto $T_{y_F}\Gamma$. This moves them by $O(\ell^2)$, i.e.\ $O(\ell)$ after normalisation, so the actual normalised configuration is within $O(\ell)$ of a point of $\mathcal K$. The conditions hold in the limit by (G1), (G2), shape regularity, and $q_F\notin\Gh$ with $H\ge c\ell$. The distinction between $t\in T_{y_F}\Gamma$ and the plane of the projected faces is also $O(\ell)$. By uniform continuity of $\Pi$ on a compact neighbourhood of $\mathcal K$, $\sigma_{\min}(\Pi_{\rm actual})\ge s_0/2$ for $\ell\le h_\ast$.
+
+Choose $x$ with $t\cdot\Pi x\ge\frac{s_0}2|x|$ and normalise. Then
+\[
+t\cdot\textstyle\sum\M\ge\frac{s_0}{2C_E}|\hh_0|\,\ell^{5/2}-C\ell^{7/2}.
+\]
+Finally $|\hh_0|=|\hh_{y_F}|$.
+\end{proof}
+
+\begin{theorem}[Curvature-weighted lower bound, $k\ge3$, Alfeld]\label{t:main}
+Assume the setting of Thm.~B:main on an Alfeld-refined mesh with $k\ge3$. Let $W=\partial_Nu|_\Gamma$ with $\hh W\not\equiv0$, and let $u_h$ be the velocity of $\mathrm{CNS}^\ast$ ($\gamma\ge\gamma_2$) or of GS ($\gamma\ge\gamma_0$). Then for $\hG\le h_1$
+\[
+\norm{\nabla(\tilde u-u_h)}_{\Omega_h}\ \ge\ c\,\hG^{3/2}\,\bigl\|\,|\hh|\,W\bigr\|_{L^2(\Gamma)}-C\hG^2 ,
+\]
+with $c=c(\theta,\theta_0,\Lambda_0)$ independent of $\gamma,\mu,\rho,h$, the pressure and $\varepsilon_h^{(3)}$. This is Thm.~B:lb with ``$k\ge4$'' replaced by ``$k\ge3$'' on Alfeld meshes. It covers saddle points, parabolic points and flat regions ($|\hh|=0$ there, as the chordal bump vanishes).
+\end{theorem}
+\begin{proof}
+Combine Thm.~\ref{t:witness} and Lemma~\ref{l:patch}. For $k>3$ use $Y_3\subset Y_k$; the moments do not depend on $k$.
+\end{proof}
+
+\begin{remark}[What the weight means]
+The norm is the same as in B:lb and cannot be improved to $\norm W$ in general: on flat parts the sagitta vanishes. Near parabolic points the witness must be taken at the right vertex. A \emph{fixed} vertex choice fails for $\hh=\pm\nu\otimes\nu$ when the opposite edge is $\perp\nu$ (\texttt{degen.log}: ``flat square, 1''). This affects semidefinite regions, e.g.\ cylinders, which the td\_k3 remark counted as ``definite'' but which are not.
+\end{remark}
+
+%=====================================================================
+\section{What is not done}
+%=====================================================================
+\begin{itemize}[leftmargin=1.2em]
+\item The constant $\kappa_0$ comes from compactness (Thm.~\ref{t:witness}(3)) and is not explicit. A quantitative version of each step of Thm.~\ref{t:nondeg} is possible in principle (every division is by $\ell_j$, $|F_i|$ or $\mu\cdot s_p$, all of which are bounded below off the degenerate set), but it was not carried out.
+\item The td\_k3 sphere criterion $\tau(\tau+\rho)\le\frac12$ remains the only explicit criterion.
+\item Worsey--Farin $k=3$ on general surfaces: not attempted.
+\item The upper bound keeps the td:open item 3 caveat.
+\end{itemize}
+
+\section*{Files (notes/v6/td\_k3b; run from this directory; each run $<5$ min on 2 cores)}
+\begin{itemize}[leftmargin=1.2em]\small
+\item \texttt{ref\_nu.py}: exact reference computation for Lemma~\ref{l:face}; the $\alpha$ and $\beta$ columns and $\det[\cdot,D]$.
+\item \texttt{face\_formula.py} [seed] [trials] $\to$ \texttt{face\_formula.log}: per-face exact check against the td\_k3 reduced model (29/29).
+\item \texttt{flat\_algebra.py} $\to$ \texttt{flat\_algebra.log}: symbolic identities of Lemma~\ref{l:flat}.
+\item \texttt{degen.py} $\to$ \texttt{degen.log}: exact, exhaustive-in-$\hh$ degeneracy search.
+\item \texttt{degen\_random.py}, \texttt{degen\_gflat.py} [seed] $\to$ \texttt{degen\_random.log}, \texttt{degen\_gflat.log}: 1783 + 1251 random stars tested against the theorem (run with seeds 5, 7 and 11, 13 for about 4.5 min each).
+\item \texttt{fe\_cross.py} $\to$ \texttt{fe\_cross.log}: full-FE mod-$p$ cross-check (patchlib).
+\end{itemize}
+The scripts import \texttt{../td\_k3/reduced.py} and \texttt{patchlib.py} unchanged.
+\end{document}

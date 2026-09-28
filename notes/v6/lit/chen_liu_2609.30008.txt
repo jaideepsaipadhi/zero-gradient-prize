@@ -1,0 +1,24 @@
+Chen & Liu, "Pressure-robust finite elements for the Stokes problem on three-dimensional curved domains",
+arXiv:2609.30008v1 [math.NA], 24 Sep 2026 (Peking U / Jena). Read in full text (user-supplied PDF).
+
+Method: ISOPARAMETRIC curved tetrahedral mesh fitting Omega (Lenoir/[20] maps), Scott-Vogelius P_k/P_{k-1}, k>=3,
+on Alfeld splits, velocity space via Piola transform from reference element (H(div)-conforming, not H^1-conforming
+near boundary); bilinear form with interior-face consistency terms {d_n u}.[[v]] (no penalty); Dirichlet BC imposed
+strongly on the curved boundary (V_h subset H_0(div)). Thm 4.4: ||u-u_h||_{1,h} <~ h^{l-1}||u|| + nu^{-1}|f-f_h|_{Z_h*}.
+Pressure robustness (Sec 5): commuting operators Pi^W_h, Pi^Sigma_h on curved meshes (pullback + Fu-Guzman-Neilan
+reference commuting interpolant + covariant pushforward), f_h = Pi^W_h f; Cor 5.2: ||u-u_h||_{1,h} <~ h^k ||u||_{H^{k+2}}
+independent of p and nu. 2D predecessor: Neilan-Otus SINUM 2021 (Cor 6.2).
+
+Overlap with our work: NONE on (a) Nitsche/weak BCs, (b) inscribed polygon/polyhedron (straight-sided) geometry,
+(c) non-robustness of the Gjerde-Scott printed method / leak law, (d) our CNS*-R local BDM boundary load correction
+(their device is a global commuting-interpolant load, different construction and setting; related in spirit -> cite
+alongside Neilan-Otus as prior art for load reconstruction on curved domains), (e) h_Gamma^{3/2} rates/sharpness.
+Positioning consequence: isoparametric Piola SV attains optimal h^k in 3D; our paper must present the inscribed-
+polyhedron + Nitsche route as the low-cost straight-sided alternative whose best rate is h_Gamma^{3/2}+h^k (sharp),
+not as competing on rate.
+
+Useful for us: their Lemma 3.9 proves uniform global inf-sup on polyhedral approximations exactly by our route:
+uniform continuous inf-sup on Omega~_h via Bernardi-Costabel-Dauge-Girault, SIAM J. Math. Anal. 48 (2016) 1250-1271,
+Thm 4.4 (inf-sup constant continuity under domain perturbation), + Bernardi-Raugel face fluxes + local Alfeld
+stability [Guzman-Neilan 2018]. -> cite BCDG16 Thm 4.4 as an independent route to Lemma td:bog (removes reliance on
+the Galdi locator flagged VERIFY) and Chen-Liu Lemma 3.9 as precedent for Lemma IS3 (notes/v6/td_pen).

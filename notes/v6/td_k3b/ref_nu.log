@@ -1,0 +1,7 @@
+D = Matrix([[-w_ab/720 + w_za/720, w_ab/720 - w_zb/720]])
+alpha Matrix([[w_ab/180 - w_za/180, -w_ab/180 + w_za/180]])
+beta Matrix([[-w_za/180 + w_zb/180, 0]])
+e1 Matrix([[-w_ab/720, 0]])
+e2 Matrix([[w_ab/360 - w_za/360, -w_ab/240 + w_zb/360]])
+det[ alpha ,D] = (w_ab - w_za)*(w_za - w_zb)/129600
+det[ beta ,D] = -(w_ab - w_zb)*(w_za - w_zb)/129600

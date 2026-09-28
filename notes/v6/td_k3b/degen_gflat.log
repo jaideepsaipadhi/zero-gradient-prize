@@ -1,0 +1,1605 @@
+case 1: m=6 |I|=3  degeneracies=0  H consistent: True
+case 2: m=4 |I|=2  degeneracies=0  H consistent: True
+case 3: m=6 |I|=4  degeneracies=0  H consistent: True
+case 4: m=6 |I|=2  degeneracies=0  H consistent: True
+case 5: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[9/4, 3/2, 1] lam=(1, 2/3): all faces individually degenerate: True
+case 6: m=5 |I|=1  degeneracies=1  H consistent: True
+case 7: m=4 |I|=3  degeneracies=0  H consistent: True
+case 8: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[9/16, 3/4, 1] lam=(1, 4/3): all faces individually degenerate: True
+case 9: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[0] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 10: m=5 |I|=1  degeneracies=1  H consistent: True
+case 11: m=4 |I|=3  degeneracies=0  H consistent: True
+case 12: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 13: m=4 |I|=1  degeneracies=1  H consistent: True
+case 14: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 15: m=5 |I|=1  degeneracies=1  H consistent: True
+case 16: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[36, 6, 1] lam=(1, 1/6): all faces individually degenerate: True
+case 17: m=4 |I|=1  degeneracies=1  H consistent: True
+case 18: m=5 |I|=3  degeneracies=0  H consistent: True
+case 19: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 20: m=6 |I|=1  degeneracies=1  H consistent: True
+case 21: m=6 |I|=4  degeneracies=0  H consistent: True
+case 22: m=3 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 23: m=4 |I|=1  degeneracies=1  H consistent: True
+case 24: m=4 |I|=2  degeneracies=0  H consistent: True
+case 25: m=4 |I|=3  degeneracies=0  H consistent: True
+case 26: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 27: m=6 |I|=1  degeneracies=1  H consistent: True
+case 28: m=5 |I|=2  degeneracies=0  H consistent: True
+case 29: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[4/9, -2/3, 1] lam=(1, -3/2): all faces individually degenerate: True
+case 30: m=5 |I|=1  degeneracies=1  H consistent: True
+case 31: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 32: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[0, 1] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 33: m=4 |I|=2  degeneracies=1  H consistent: True
+case 34: m=5 |I|=2  degeneracies=0  H consistent: True
+case 35: m=4 |I|=2  degeneracies=0  H consistent: True
+case 36: m=6 |I|=3  degeneracies=0  H consistent: True
+case 37: m=5 |I|=4  degeneracies=0  H consistent: True
+case 38: m=6 |I|=5  degeneracies=0  H consistent: True
+case 39: m=5 |I|=2  degeneracies=0  H consistent: True
+case 40: m=6 |I|=5  degeneracies=0  H consistent: True
+case 41: m=6 |I|=2  degeneracies=0  H consistent: True
+case 42: m=5 |I|=4  degeneracies=0  H consistent: True
+case 43: m=5 |I|=2  degeneracies=0  H consistent: True
+case 44: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[1] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 45: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[2] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 46: m=5 |I|=1  degeneracies=1  H consistent: True
+case 47: m=5 |I|=2  degeneracies=0  H consistent: True
+case 48: m=6 |I|=4  degeneracies=0  H consistent: True
+case 49: m=5 |I|=2  degeneracies=0  H consistent: True
+case 50: m=5 |I|=2  degeneracies=0  H consistent: True
+case 51: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[4/9, 2/3, 1] lam=(1, 3/2): all faces individually degenerate: True
+case 52: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[1] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 53: m=3 |I|=1  degeneracies=1  H consistent: True
+case 54: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[4/9, -2/3, 1] lam=(1, -3/2): all faces individually degenerate: True
+case 55: m=4 |I|=1  degeneracies=1  H consistent: True
+case 56: m=4 |I|=2  degeneracies=0  H consistent: True
+case 57: m=6 |I|=4  degeneracies=0  H consistent: True
+case 58: m=6 |I|=3  degeneracies=0  H consistent: True
+case 59: m=5 |I|=3  degeneracies=0  H consistent: True
+case 60: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=5 I=[1] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 61: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[1] degenerate h=[25, 5, 1] lam=(1, 1/5): all faces individually degenerate: True
+case 62: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[3] degenerate h=[4/9, -2/3, 1] lam=(1, -3/2): all faces individually degenerate: True
+case 63: m=5 |I|=1  degeneracies=1  H consistent: True
+case 64: m=6 |I|=5  degeneracies=0  H consistent: True
+case 65: m=4 |I|=2  degeneracies=0  H consistent: True
+case 66: m=6 |I|=2  degeneracies=0  H consistent: True
+case 67: m=5 |I|=4  degeneracies=0  H consistent: True
+case 68: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 69: m=6 |I|=1  degeneracies=1  H consistent: True
+case 70: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[9/25, 3/5, 1] lam=(1, 5/3): all faces individually degenerate: True
+case 71: m=5 |I|=1  degeneracies=1  H consistent: True
+case 72: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[1/16, -1/4, 1] lam=(1, -4): all faces individually degenerate: True
+case 73: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[4] degenerate h=[25/9, -5/3, 1] lam=(1, -3/5): all faces individually degenerate: True
+case 74: m=5 |I|=1  degeneracies=1  H consistent: True
+case 75: m=5 |I|=3  degeneracies=0  H consistent: True
+case 76: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 77: m=4 |I|=1  degeneracies=1  H consistent: True
+case 78: m=3 |I|=2  degeneracies=0  H consistent: True
+case 79: m=5 |I|=4  degeneracies=0  H consistent: True
+case 80: m=5 |I|=3  degeneracies=0  H consistent: True
+case 81: m=5 |I|=4  degeneracies=0  H consistent: True
+case 82: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 83: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[2, 3] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 84: m=5 |I|=2  degeneracies=1  H consistent: True
+case 85: m=5 |I|=3  degeneracies=0  H consistent: True
+case 86: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[1] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 87: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[2] degenerate h=[9/25, 3/5, 1] lam=(1, 5/3): all faces individually degenerate: True
+case 88: m=3 |I|=1  degeneracies=1  H consistent: True
+case 89: m=6 |I|=5  degeneracies=0  H consistent: True
+case 90: m=6 |I|=3  degeneracies=0  H consistent: True
+case 91: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1/9, 1/3, 1] lam=(1, 3): all faces individually degenerate: True
+case 92: m=4 |I|=1  degeneracies=1  H consistent: True
+case 93: m=5 |I|=3  degeneracies=0  H consistent: True
+case 94: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 95: m=6 |I|=1  degeneracies=1  H consistent: True
+case 96: m=6 |I|=4  degeneracies=0  H consistent: True
+case 97: m=6 |I|=5  degeneracies=0  H consistent: True
+case 98: m=4 |I|=2  degeneracies=0  H consistent: True
+case 99: m=5 |I|=4  degeneracies=0  H consistent: True
+case 100: m=6 |I|=2  degeneracies=0  H consistent: True
+case 101: m=3 |I|=2  degeneracies=0  H consistent: True
+case 102: m=4 |I|=2  degeneracies=0  H consistent: True
+case 103: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[9/25, -3/5, 1] lam=(1, -5/3): all faces individually degenerate: True
+case 104: m=3 |I|=1  degeneracies=1  H consistent: True
+case 105: m=6 |I|=2  degeneracies=0  H consistent: True
+case 106: m=6 |I|=2  degeneracies=0  H consistent: True
+case 107: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[0, 4] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 108: m=6 |I|=2  degeneracies=1  H consistent: True
+case 109: m=5 |I|=3  degeneracies=0  H consistent: True
+case 110: m=6 |I|=5  degeneracies=0  H consistent: True
+case 111: m=5 |I|=2  degeneracies=0  H consistent: True
+case 112: m=5 |I|=4  degeneracies=0  H consistent: True
+case 113: m=5 |I|=4  degeneracies=0  H consistent: True
+case 114: m=6 |I|=2  degeneracies=0  H consistent: True
+case 115: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[9/4, 3/2, 1] lam=(1, 2/3): all faces individually degenerate: True
+case 116: m=5 |I|=1  degeneracies=1  H consistent: True
+case 117: m=6 |I|=4  degeneracies=0  H consistent: True
+case 118: m=6 |I|=5  degeneracies=0  H consistent: True
+case 119: m=6 |I|=2  degeneracies=0  H consistent: True
+case 120: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 121: m=6 |I|=1  degeneracies=1  H consistent: True
+case 122: m=4 |I|=2  degeneracies=0  H consistent: True
+case 123: m=5 |I|=3  degeneracies=0  H consistent: True
+case 124: m=5 |I|=4  degeneracies=0  H consistent: True
+case 125: m=6 |I|=4  degeneracies=0  H consistent: True
+case 126: m=6 |I|=3  degeneracies=0  H consistent: True
+case 127: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[1/25, -1/5, 1] lam=(1, -5): all faces individually degenerate: True
+case 128: m=4 |I|=1  degeneracies=1  H consistent: True
+case 129: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1/25, 1/5, 1] lam=(1, 5): all faces individually degenerate: True
+case 130: m=4 |I|=1  degeneracies=1  H consistent: True
+case 131: m=5 |I|=3  degeneracies=0  H consistent: True
+case 132: m=4 |I|=3  degeneracies=0  H consistent: True
+case 133: m=5 |I|=4  degeneracies=0  H consistent: True
+case 134: m=6 |I|=5  degeneracies=0  H consistent: True
+case 135: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[1] degenerate h=[16, 4, 1] lam=(1, 1/4): all faces individually degenerate: True
+case 136: m=5 |I|=1  degeneracies=1  H consistent: True
+case 137: m=5 |I|=4  degeneracies=0  H consistent: True
+case 138: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 139: m=3 |I|=1  degeneracies=1  H consistent: True
+case 140: m=5 |I|=4  degeneracies=0  H consistent: True
+case 141: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 142: m=5 |I|=1  degeneracies=1  H consistent: True
+case 143: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 144: m=5 |I|=1  degeneracies=1  H consistent: True
+case 145: m=4 |I|=2  degeneracies=0  H consistent: True
+case 146: m=5 |I|=2  degeneracies=0  H consistent: True
+case 147: m=5 |I|=2  degeneracies=0  H consistent: True
+case 148: m=4 |I|=3  degeneracies=0  H consistent: True
+case 149: m=5 |I|=3  degeneracies=0  H consistent: True
+case 150: m=5 |I|=2  degeneracies=0  H consistent: True
+case 151: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[4/9, 2/3, 1] lam=(1, 3/2): all faces individually degenerate: True
+case 152: m=6 |I|=1  degeneracies=1  H consistent: True
+case 153: m=5 |I|=2  degeneracies=0  H consistent: True
+case 154: m=6 |I|=2  degeneracies=0  H consistent: True
+case 155: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 156: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[2] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 157: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[2, 3] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 158: m=5 |I|=2  degeneracies=1  H consistent: True
+case 159: m=5 |I|=4  degeneracies=0  H consistent: True
+case 160: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[1/25, 1/5, 1] lam=(1, 5): all faces individually degenerate: True
+case 161: m=4 |I|=1  degeneracies=1  H consistent: True
+case 162: m=6 |I|=2  degeneracies=0  H consistent: True
+case 163: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 164: m=4 |I|=1  degeneracies=1  H consistent: True
+case 165: m=4 |I|=3  degeneracies=0  H consistent: True
+case 166: m=6 |I|=2  degeneracies=0  H consistent: True
+case 167: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[1/36, -1/6, 1] lam=(1, -6): all faces individually degenerate: True
+case 168: m=3 |I|=1  degeneracies=1  H consistent: True
+case 169: m=5 |I|=2  degeneracies=0  H consistent: True
+case 170: m=5 |I|=4  degeneracies=0  H consistent: True
+case 171: m=5 |I|=3  degeneracies=0  H consistent: True
+case 172: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[25/9, 5/3, 1] lam=(1, 3/5): all faces individually degenerate: True
+case 173: m=6 |I|=1  degeneracies=1  H consistent: True
+case 174: m=6 |I|=4  degeneracies=0  H consistent: True
+case 175: m=5 |I|=4  degeneracies=0  H consistent: True
+case 176: m=4 |I|=3  degeneracies=0  H consistent: True
+case 177: m=6 |I|=3  degeneracies=0  H consistent: True
+case 178: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[9, 3, 1] lam=(1, 1/3): all faces individually degenerate: True
+case 179: m=4 |I|=1  degeneracies=1  H consistent: True
+case 180: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[1] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 181: m=6 |I|=1  degeneracies=1  H consistent: True
+case 182: m=5 |I|=3  degeneracies=0  H consistent: True
+case 183: m=6 |I|=2  degeneracies=0  H consistent: True
+case 184: m=6 |I|=5  degeneracies=0  H consistent: True
+case 185: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[9, 3, 1] lam=(1, 1/3): all faces individually degenerate: True
+case 186: m=6 |I|=1  degeneracies=1  H consistent: True
+case 187: m=6 |I|=3  degeneracies=0  H consistent: True
+case 188: m=6 |I|=4  degeneracies=0  H consistent: True
+case 189: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 190: m=6 |I|=1  degeneracies=1  H consistent: True
+case 191: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[25, 5, 1] lam=(1, 1/5): all faces individually degenerate: True
+case 192: m=5 |I|=1  degeneracies=1  H consistent: True
+case 193: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[0, 1] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 194: m=4 |I|=2  degeneracies=1  H consistent: True
+case 195: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 196: m=5 |I|=1  degeneracies=1  H consistent: True
+case 197: m=5 |I|=3  degeneracies=0  H consistent: True
+case 198: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[4/25, -2/5, 1] lam=(1, -5/2): all faces individually degenerate: True
+case 199: m=4 |I|=1  degeneracies=1  H consistent: True
+case 200: m=5 |I|=2  degeneracies=0  H consistent: True
+case 201: m=5 |I|=3  degeneracies=0  H consistent: True
+case 202: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[0, 2] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 203: m=4 |I|=2  degeneracies=1  H consistent: True
+case 204: m=6 |I|=4  degeneracies=0  H consistent: True
+case 205: m=6 |I|=3  degeneracies=0  H consistent: True
+case 206: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[0, 4] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 207: m=6 |I|=2  degeneracies=1  H consistent: True
+case 208: m=6 |I|=5  degeneracies=0  H consistent: True
+case 209: m=3 |I|=2  degeneracies=0  H consistent: True
+case 210: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 211: m=6 |I|=1  degeneracies=1  H consistent: True
+case 212: m=5 |I|=3  degeneracies=0  H consistent: True
+case 213: m=6 |I|=3  degeneracies=0  H consistent: True
+case 214: m=5 |I|=2  degeneracies=0  H consistent: True
+case 215: m=6 |I|=4  degeneracies=0  H consistent: True
+case 216: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[1] degenerate h=[25/9, 5/3, 1] lam=(1, 3/5): all faces individually degenerate: True
+case 217: m=6 |I|=1  degeneracies=1  H consistent: True
+case 218: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 219: m=4 |I|=1  degeneracies=1  H consistent: True
+case 220: m=6 |I|=3  degeneracies=0  H consistent: True
+case 221: m=6 |I|=3  degeneracies=0  H consistent: True
+case 222: m=5 |I|=3  degeneracies=0  H consistent: True
+case 223: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 224: m=5 |I|=1  degeneracies=1  H consistent: True
+case 225: m=5 |I|=4  degeneracies=0  H consistent: True
+case 226: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 227: m=5 |I|=1  degeneracies=1  H consistent: True
+case 228: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[0, 1] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 229: m=4 |I|=2  degeneracies=1  H consistent: True
+case 230: m=5 |I|=4  degeneracies=0  H consistent: True
+case 231: m=6 |I|=3  degeneracies=0  H consistent: True
+case 232: m=6 |I|=3  degeneracies=0  H consistent: True
+case 233: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 234: m=4 |I|=1  degeneracies=1  H consistent: True
+case 235: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[1] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 236: m=6 |I|=1  degeneracies=1  H consistent: True
+case 237: m=4 |I|=2  degeneracies=0  H consistent: True
+case 238: m=6 |I|=5  degeneracies=0  H consistent: True
+case 239: m=6 |I|=4  degeneracies=0  H consistent: True
+case 240: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[25/16, 5/4, 1] lam=(1, 4/5): all faces individually degenerate: True
+case 241: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 242: m=6 |I|=1  degeneracies=1  H consistent: True
+case 243: m=5 |I|=3  degeneracies=0  H consistent: True
+case 244: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[1] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 245: m=6 |I|=1  degeneracies=1  H consistent: True
+case 246: m=6 |I|=4  degeneracies=0  H consistent: True
+case 247: m=5 |I|=3  degeneracies=0  H consistent: True
+case 248: m=6 |I|=4  degeneracies=0  H consistent: True
+case 249: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[16/9, -4/3, 1] lam=(1, -3/4): all faces individually degenerate: True
+case 250: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[1] degenerate h=[4/25, -2/5, 1] lam=(1, -5/2): all faces individually degenerate: True
+case 251: m=4 |I|=1  degeneracies=1  H consistent: True
+case 252: m=6 |I|=2  degeneracies=0  H consistent: True
+case 253: m=6 |I|=5  degeneracies=0  H consistent: True
+case 254: m=5 |I|=2  degeneracies=0  H consistent: True
+case 255: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[1] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 256: m=6 |I|=1  degeneracies=1  H consistent: True
+case 257: m=4 |I|=3  degeneracies=0  H consistent: True
+case 258: m=4 |I|=3  degeneracies=0  H consistent: True
+case 259: m=6 |I|=4  degeneracies=0  H consistent: True
+case 260: m=5 |I|=2  degeneracies=0  H consistent: True
+case 261: m=6 |I|=5  degeneracies=0  H consistent: True
+case 262: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 263: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[4] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 264: m=5 |I|=1  degeneracies=1  H consistent: True
+case 265: m=6 |I|=5  degeneracies=0  H consistent: True
+case 266: m=4 |I|=3  degeneracies=0  H consistent: True
+case 267: m=5 |I|=3  degeneracies=0  H consistent: True
+case 268: m=5 |I|=2  degeneracies=0  H consistent: True
+case 269: m=6 |I|=3  degeneracies=0  H consistent: True
+case 270: m=4 |I|=2  degeneracies=0  H consistent: True
+case 271: m=6 |I|=2  degeneracies=0  H consistent: True
+case 272: m=6 |I|=2  degeneracies=0  H consistent: True
+case 273: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 274: m=6 |I|=1  degeneracies=1  H consistent: True
+case 275: m=6 |I|=3  degeneracies=0  H consistent: True
+case 276: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 277: m=6 |I|=1  degeneracies=1  H consistent: True
+case 278: m=6 |I|=5  degeneracies=0  H consistent: True
+case 279: m=4 |I|=2  degeneracies=0  H consistent: True
+case 280: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[1] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 281: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[4] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 282: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[3] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 283: m=6 |I|=1  degeneracies=1  H consistent: True
+case 284: m=5 |I|=3  degeneracies=0  H consistent: True
+case 285: m=5 |I|=2  degeneracies=0  H consistent: True
+case 286: m=5 |I|=2  degeneracies=0  H consistent: True
+case 287: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 288: m=4 |I|=1  degeneracies=1  H consistent: True
+case 289: m=6 |I|=5  degeneracies=0  H consistent: True
+case 290: m=5 |I|=3  degeneracies=0  H consistent: True
+case 291: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[1/36, -1/6, 1] lam=(1, -6): all faces individually degenerate: True
+case 292: m=5 |I|=1  degeneracies=1  H consistent: True
+case 293: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[25, 5, 1] lam=(1, 1/5): all faces individually degenerate: True
+case 294: m=6 |I|=1  degeneracies=1  H consistent: True
+case 295: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 296: m=5 |I|=1  degeneracies=1  H consistent: True
+case 297: m=6 |I|=3  degeneracies=0  H consistent: True
+case 298: m=6 |I|=3  degeneracies=0  H consistent: True
+case 299: m=6 |I|=4  degeneracies=0  H consistent: True
+case 300: m=6 |I|=5  degeneracies=0  H consistent: True
+case 301: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 302: m=5 |I|=1  degeneracies=1  H consistent: True
+case 303: m=4 |I|=2  degeneracies=0  H consistent: True
+case 304: m=4 |I|=3  degeneracies=0  H consistent: True
+case 305: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[25, -5, 1] lam=(1, -1/5): all faces individually degenerate: True
+case 306: m=3 |I|=1  degeneracies=1  H consistent: True
+case 307: m=5 |I|=2  degeneracies=0  H consistent: True
+case 308: m=5 |I|=2  degeneracies=0  H consistent: True
+case 309: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[1] degenerate h=[4/9, 2/3, 1] lam=(1, 3/2): all faces individually degenerate: True
+case 310: m=6 |I|=1  degeneracies=1  H consistent: True
+case 311: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 312: m=4 |I|=1  degeneracies=1  H consistent: True
+case 313: m=5 |I|=4  degeneracies=0  H consistent: True
+case 314: m=6 |I|=4  degeneracies=0  H consistent: True
+case 315: m=3 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[3, 4] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 316: m=6 |I|=2  degeneracies=1  H consistent: True
+case 317: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 318: m=6 |I|=1  degeneracies=1  H consistent: True
+case 319: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 320: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[16, 4, 1] lam=(1, 1/4): all faces individually degenerate: True
+case 321: m=4 |I|=1  degeneracies=1  H consistent: True
+case 322: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 323: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[1] degenerate h=[9/4, -3/2, 1] lam=(1, -2/3): all faces individually degenerate: True
+case 324: m=4 |I|=1  degeneracies=1  H consistent: True
+case 325: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[9, 3, 1] lam=(1, 1/3): all faces individually degenerate: True
+case 326: m=4 |I|=1  degeneracies=1  H consistent: True
+case 327: m=5 |I|=3  degeneracies=0  H consistent: True
+case 328: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 329: m=6 |I|=1  degeneracies=1  H consistent: True
+case 330: m=3 |I|=2  degeneracies=0  H consistent: True
+case 331: m=5 |I|=3  degeneracies=0  H consistent: True
+case 332: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 333: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1/9, 1/3, 1] lam=(1, 3): all faces individually degenerate: True
+case 334: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[5] degenerate h=[16, 4, 1] lam=(1, 1/4): all faces individually degenerate: True
+case 335: m=6 |I|=1  degeneracies=1  H consistent: True
+case 336: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 337: m=3 |I|=1  degeneracies=1  H consistent: True
+case 338: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 339: m=6 |I|=1  degeneracies=1  H consistent: True
+case 340: m=6 |I|=4  degeneracies=0  H consistent: True
+case 341: m=6 |I|=3  degeneracies=0  H consistent: True
+case 342: m=6 |I|=5  degeneracies=0  H consistent: True
+case 343: m=4 |I|=2  degeneracies=0  H consistent: True
+case 344: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[1] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 345: m=5 |I|=1  degeneracies=1  H consistent: True
+case 346: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 347: m=3 |I|=1  degeneracies=1  H consistent: True
+case 348: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 349: m=6 |I|=1  degeneracies=1  H consistent: True
+case 350: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[16, 4, 1] lam=(1, 1/4): all faces individually degenerate: True
+case 351: m=4 |I|=1  degeneracies=1  H consistent: True
+case 352: m=5 |I|=4  degeneracies=0  H consistent: True
+case 353: m=6 |I|=5  degeneracies=0  H consistent: True
+case 354: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[25, 5, 1] lam=(1, 1/5): all faces individually degenerate: True
+case 355: m=3 |I|=1  degeneracies=1  H consistent: True
+case 356: m=5 |I|=3  degeneracies=0  H consistent: True
+case 357: m=4 |I|=2  degeneracies=0  H consistent: True
+case 358: m=3 |I|=2  degeneracies=0  H consistent: True
+case 359: m=5 |I|=4  degeneracies=0  H consistent: True
+case 360: m=5 |I|=3  degeneracies=0  H consistent: True
+case 361: m=5 |I|=3  degeneracies=0  H consistent: True
+case 362: m=3 |I|=2  degeneracies=0  H consistent: True
+case 363: m=4 |I|=3  degeneracies=0  H consistent: True
+case 364: m=6 |I|=4  degeneracies=0  H consistent: True
+case 365: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[36, 6, 1] lam=(1, 1/6): all faces individually degenerate: True
+case 366: m=4 |I|=1  degeneracies=1  H consistent: True
+case 367: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[16, -4, 1] lam=(1, -1/4): all faces individually degenerate: True
+case 368: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 369: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 370: m=4 |I|=1  degeneracies=1  H consistent: True
+case 371: m=4 |I|=2  degeneracies=0  H consistent: True
+case 372: m=3 |I|=2  degeneracies=0  H consistent: True
+case 373: m=4 |I|=2  degeneracies=0  H consistent: True
+case 374: m=4 |I|=3  degeneracies=0  H consistent: True
+case 375: m=6 |I|=5  degeneracies=0  H consistent: True
+case 376: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 377: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[0] degenerate h=[4/25, 2/5, 1] lam=(1, 5/2): all faces individually degenerate: True
+case 378: m=4 |I|=1  degeneracies=1  H consistent: True
+case 379: m=5 |I|=3  degeneracies=0  H consistent: True
+case 380: m=4 |I|=3  degeneracies=0  H consistent: True
+case 381: m=6 |I|=4  degeneracies=0  H consistent: True
+case 382: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 383: m=6 |I|=1  degeneracies=1  H consistent: True
+case 384: m=6 |I|=3  degeneracies=0  H consistent: True
+case 385: m=5 |I|=2  degeneracies=0  H consistent: True
+case 386: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[9/25, -3/5, 1] lam=(1, -5/3): all faces individually degenerate: True
+case 387: m=3 |I|=1  degeneracies=1  H consistent: True
+case 388: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[1/36, 1/6, 1] lam=(1, 6): all faces individually degenerate: True
+case 389: m=6 |I|=1  degeneracies=1  H consistent: True
+case 390: m=6 |I|=4  degeneracies=0  H consistent: True
+case 391: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[1] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 392: m=6 |I|=1  degeneracies=1  H consistent: True
+case 393: m=6 |I|=3  degeneracies=0  H consistent: True
+case 394: m=6 |I|=5  degeneracies=0  H consistent: True
+case 395: m=4 |I|=3  degeneracies=0  H consistent: True
+case 396: m=5 |I|=4  degeneracies=0  H consistent: True
+case 397: m=4 |I|=3  degeneracies=0  H consistent: True
+case 398: m=6 |I|=2  degeneracies=0  H consistent: True
+case 399: m=5 |I|=2  degeneracies=0  H consistent: True
+case 400: m=4 |I|=3  degeneracies=0  H consistent: True
+case 401: m=6 |I|=5  degeneracies=0  H consistent: True
+case 402: m=5 |I|=2  degeneracies=0  H consistent: True
+case 403: m=4 |I|=2  degeneracies=0  H consistent: True
+case 404: m=6 |I|=2  degeneracies=0  H consistent: True
+case 405: m=5 |I|=4  degeneracies=0  H consistent: True
+case 406: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[1, 3] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 407: m=4 |I|=2  degeneracies=1  H consistent: True
+case 408: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[9/4, -3/2, 1] lam=(1, -2/3): all faces individually degenerate: True
+case 409: m=6 |I|=1  degeneracies=1  H consistent: True
+case 410: m=5 |I|=3  degeneracies=0  H consistent: True
+case 411: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[4/9, -2/3, 1] lam=(1, -3/2): all faces individually degenerate: True
+case 412: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[4] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 413: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 414: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[1] degenerate h=[1/9, 1/3, 1] lam=(1, 3): all faces individually degenerate: True
+case 415: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[0] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 416: m=4 |I|=1  degeneracies=1  H consistent: True
+case 417: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[9/16, -3/4, 1] lam=(1, -4/3): all faces individually degenerate: True
+case 418: m=5 |I|=1  degeneracies=1  H consistent: True
+case 419: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[0] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 420: m=6 |I|=1  degeneracies=1  H consistent: True
+case 421: m=4 |I|=3  degeneracies=0  H consistent: True
+case 422: m=5 |I|=3  degeneracies=0  H consistent: True
+case 423: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[9, -3, 1] lam=(1, -1/3): all faces individually degenerate: True
+case 424: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[2] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 425: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[0] degenerate h=[36, -6, 1] lam=(1, -1/6): all faces individually degenerate: True
+case 426: m=4 |I|=1  degeneracies=1  H consistent: True
+case 427: m=4 |I|=2  degeneracies=0  H consistent: True
+case 428: m=6 |I|=3  degeneracies=0  H consistent: True
+case 429: m=3 |I|=2  degeneracies=0  H consistent: True
+case 430: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[36, 6, 1] lam=(1, 1/6): all faces individually degenerate: True
+case 431: m=3 |I|=1  degeneracies=1  H consistent: True
+case 432: m=6 |I|=4  degeneracies=0  H consistent: True
+case 433: m=6 |I|=2  degeneracies=0  H consistent: True
+case 434: m=4 |I|=3  degeneracies=0  H consistent: True
+case 435: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[36, -6, 1] lam=(1, -1/6): all faces individually degenerate: True
+case 436: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 437: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[0, 4] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 438: m=6 |I|=2  degeneracies=1  H consistent: True
+case 439: m=5 |I|=4  degeneracies=0  H consistent: True
+case 440: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 441: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[5] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 442: m=6 |I|=1  degeneracies=1  H consistent: True
+case 443: m=3 |I|=2  degeneracies=0  H consistent: True
+case 444: m=5 |I|=4  degeneracies=0  H consistent: True
+case 445: m=5 |I|=4  degeneracies=0  H consistent: True
+case 446: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[1, 3] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 447: m=4 |I|=2  degeneracies=1  H consistent: True
+  m=4 I=[1] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 448: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[3] degenerate h=[9, -3, 1] lam=(1, -1/3): all faces individually degenerate: True
+case 449: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[1] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 450: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[1] degenerate h=[25/9, 5/3, 1] lam=(1, 3/5): all faces individually degenerate: True
+case 451: m=4 |I|=1  degeneracies=1  H consistent: True
+case 452: m=5 |I|=2  degeneracies=0  H consistent: True
+case 453: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 454: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[0] degenerate h=[1/9, 1/3, 1] lam=(1, 3): all faces individually degenerate: True
+case 455: m=4 |I|=1  degeneracies=1  H consistent: True
+case 456: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 457: m=5 |I|=1  degeneracies=1  H consistent: True
+case 458: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[0] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 459: m=6 |I|=1  degeneracies=1  H consistent: True
+case 460: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[16/9, -4/3, 1] lam=(1, -3/4): all faces individually degenerate: True
+case 461: m=4 |I|=1  degeneracies=1  H consistent: True
+case 462: m=4 |I|=2  degeneracies=0  H consistent: True
+case 463: m=4 |I|=3  degeneracies=0  H consistent: True
+case 464: m=6 |I|=5  degeneracies=0  H consistent: True
+case 465: m=5 |I|=3  degeneracies=0  H consistent: True
+case 466: m=6 |I|=3  degeneracies=0  H consistent: True
+case 467: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[1] degenerate h=[25, -5, 1] lam=(1, -1/5): all faces individually degenerate: True
+case 468: m=6 |I|=1  degeneracies=1  H consistent: True
+case 469: m=6 |I|=3  degeneracies=0  H consistent: True
+case 470: m=4 |I|=3  degeneracies=0  H consistent: True
+case 471: m=5 |I|=2  degeneracies=0  H consistent: True
+case 472: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 473: m=4 |I|=1  degeneracies=1  H consistent: True
+case 474: m=5 |I|=2  degeneracies=0  H consistent: True
+case 475: m=5 |I|=2  degeneracies=0  H consistent: True
+case 476: m=5 |I|=2  degeneracies=0  H consistent: True
+case 477: m=4 |I|=3  degeneracies=0  H consistent: True
+case 478: m=6 |I|=5  degeneracies=0  H consistent: True
+case 479: m=6 |I|=3  degeneracies=0  H consistent: True
+case 480: m=6 |I|=5  degeneracies=0  H consistent: True
+case 481: m=6 |I|=2  degeneracies=0  H consistent: True
+case 482: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 483: m=6 |I|=1  degeneracies=1  H consistent: True
+case 484: m=5 |I|=2  degeneracies=0  H consistent: True
+case 485: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[1, 2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 486: m=5 |I|=2  degeneracies=1  H consistent: True
+case 487: m=3 |I|=2  degeneracies=0  H consistent: True
+case 488: m=5 |I|=4  degeneracies=0  H consistent: True
+case 489: m=6 |I|=3  degeneracies=0  H consistent: True
+case 490: m=4 |I|=3  degeneracies=0  H consistent: True
+case 491: m=6 |I|=2  degeneracies=0  H consistent: True
+case 492: m=6 |I|=2  degeneracies=0  H consistent: True
+case 493: m=5 |I|=4  degeneracies=0  H consistent: True
+case 494: m=6 |I|=3  degeneracies=0  H consistent: True
+case 495: m=5 |I|=3  degeneracies=0  H consistent: True
+case 496: m=4 |I|=3  degeneracies=0  H consistent: True
+case 497: m=4 |I|=3  degeneracies=0  H consistent: True
+case 498: m=5 |I|=2  degeneracies=0  H consistent: True
+case 499: m=6 |I|=2  degeneracies=0  H consistent: True
+case 500: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 501: m=6 |I|=1  degeneracies=1  H consistent: True
+case 502: m=5 |I|=2  degeneracies=0  H consistent: True
+case 503: m=6 |I|=2  degeneracies=0  H consistent: True
+case 504: m=5 |I|=2  degeneracies=0  H consistent: True
+case 505: m=6 |I|=3  degeneracies=0  H consistent: True
+case 506: m=6 |I|=4  degeneracies=0  H consistent: True
+case 507: m=6 |I|=3  degeneracies=0  H consistent: True
+case 508: m=4 |I|=2  degeneracies=0  H consistent: True
+case 509: m=4 |I|=3  degeneracies=0  H consistent: True
+case 510: m=6 |I|=3  degeneracies=0  H consistent: True
+case 511: m=5 |I|=2  degeneracies=0  H consistent: True
+case 512: m=5 |I|=2  degeneracies=0  H consistent: True
+case 513: m=4 |I|=2  degeneracies=0  H consistent: True
+case 514: m=3 |I|=2  degeneracies=0  H consistent: True
+case 515: m=6 |I|=4  degeneracies=0  H consistent: True
+case 516: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 517: m=5 |I|=1  degeneracies=1  H consistent: True
+case 518: m=5 |I|=3  degeneracies=0  H consistent: True
+case 519: m=5 |I|=3  degeneracies=0  H consistent: True
+case 520: m=5 |I|=3  degeneracies=0  H consistent: True
+case 521: m=4 |I|=3  degeneracies=0  H consistent: True
+case 522: m=6 |I|=4  degeneracies=0  H consistent: True
+case 523: m=6 |I|=2  degeneracies=0  H consistent: True
+case 524: m=6 |I|=3  degeneracies=0  H consistent: True
+case 525: m=6 |I|=2  degeneracies=0  H consistent: True
+case 526: m=6 |I|=2  degeneracies=0  H consistent: True
+case 527: m=5 |I|=3  degeneracies=0  H consistent: True
+case 528: m=6 |I|=5  degeneracies=0  H consistent: True
+case 529: m=5 |I|=2  degeneracies=0  H consistent: True
+case 530: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[4/25, 2/5, 1] lam=(1, 5/2): all faces individually degenerate: True
+case 531: m=5 |I|=1  degeneracies=1  H consistent: True
+case 532: m=6 |I|=2  degeneracies=0  H consistent: True
+case 533: m=6 |I|=5  degeneracies=0  H consistent: True
+case 534: m=4 |I|=2  degeneracies=0  H consistent: True
+case 535: m=5 |I|=4  degeneracies=0  H consistent: True
+case 536: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 537: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[0] degenerate h=[9/4, -3/2, 1] lam=(1, -2/3): all faces individually degenerate: True
+case 538: m=3 |I|=1  degeneracies=1  H consistent: True
+case 539: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 540: m=6 |I|=1  degeneracies=1  H consistent: True
+case 541: m=5 |I|=4  degeneracies=0  H consistent: True
+case 542: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[9/4, -3/2, 1] lam=(1, -2/3): all faces individually degenerate: True
+case 543: m=6 |I|=1  degeneracies=1  H consistent: True
+case 544: m=4 |I|=3  degeneracies=0  H consistent: True
+case 545: m=3 |I|=2  degeneracies=0  H consistent: True
+case 546: m=6 |I|=3  degeneracies=0  H consistent: True
+case 547: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[0, 2, 3] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 548: m=6 |I|=3  degeneracies=1  H consistent: True
+case 549: m=6 |I|=3  degeneracies=0  H consistent: True
+case 550: m=3 |I|=2  degeneracies=0  H consistent: True
+case 551: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 552: m=4 |I|=1  degeneracies=1  H consistent: True
+case 553: m=6 |I|=4  degeneracies=0  H consistent: True
+case 554: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 555: m=4 |I|=1  degeneracies=1  H consistent: True
+case 556: m=6 |I|=3  degeneracies=0  H consistent: True
+case 557: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 558: m=6 |I|=1  degeneracies=1  H consistent: True
+case 559: m=3 |I|=2  degeneracies=0  H consistent: True
+case 560: m=6 |I|=2  degeneracies=0  H consistent: True
+case 561: m=6 |I|=5  degeneracies=0  H consistent: True
+case 562: m=5 |I|=3  degeneracies=0  H consistent: True
+case 563: m=4 |I|=3  degeneracies=0  H consistent: True
+case 564: m=5 |I|=4  degeneracies=0  H consistent: True
+case 565: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[1, 4] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 566: m=6 |I|=2  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 567: m=4 |I|=1  degeneracies=1  H consistent: True
+case 568: m=6 |I|=2  degeneracies=0  H consistent: True
+case 569: m=5 |I|=4  degeneracies=0  H consistent: True
+case 570: m=6 |I|=5  degeneracies=0  H consistent: True
+case 571: m=4 |I|=3  degeneracies=0  H consistent: True
+case 572: m=4 |I|=2  degeneracies=0  H consistent: True
+case 573: m=6 |I|=2  degeneracies=0  H consistent: True
+case 574: m=6 |I|=4  degeneracies=0  H consistent: True
+case 575: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[0, 1] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 576: m=6 |I|=2  degeneracies=1  H consistent: True
+case 577: m=4 |I|=2  degeneracies=0  H consistent: True
+case 578: m=5 |I|=4  degeneracies=0  H consistent: True
+case 579: m=4 |I|=2  degeneracies=0  H consistent: True
+case 580: m=6 |I|=2  degeneracies=0  H consistent: True
+case 581: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[9/25, -3/5, 1] lam=(1, -5/3): all faces individually degenerate: True
+case 582: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[1] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 583: m=5 |I|=1  degeneracies=1  H consistent: True
+case 584: m=6 |I|=4  degeneracies=0  H consistent: True
+case 585: m=5 |I|=3  degeneracies=0  H consistent: True
+case 586: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[1, 2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 587: m=4 |I|=2  degeneracies=1  H consistent: True
+case 588: m=4 |I|=2  degeneracies=0  H consistent: True
+case 589: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[9, 3, 1] lam=(1, 1/3): all faces individually degenerate: True
+case 590: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[3] degenerate h=[16/9, -4/3, 1] lam=(1, -3/4): all faces individually degenerate: True
+case 591: m=5 |I|=1  degeneracies=1  H consistent: True
+case 592: m=5 |I|=4  degeneracies=0  H consistent: True
+case 593: m=6 |I|=3  degeneracies=0  H consistent: True
+case 594: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 595: m=6 |I|=1  degeneracies=1  H consistent: True
+case 596: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[9/4, 3/2, 1] lam=(1, 2/3): all faces individually degenerate: True
+case 597: m=5 |I|=1  degeneracies=1  H consistent: True
+case 598: m=5 |I|=4  degeneracies=0  H consistent: True
+case 599: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[1/16, 1/4, 1] lam=(1, 4): all faces individually degenerate: True
+case 600: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[1] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 601: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[1] degenerate h=[25/16, 5/4, 1] lam=(1, 4/5): all faces individually degenerate: True
+case 602: m=3 |I|=1  degeneracies=1  H consistent: True
+case 603: m=4 |I|=3  degeneracies=0  H consistent: True
+case 604: m=5 |I|=3  degeneracies=0  H consistent: True
+case 605: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 606: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 607: m=6 |I|=1  degeneracies=1  H consistent: True
+case 608: m=4 |I|=2  degeneracies=0  H consistent: True
+case 609: m=6 |I|=2  degeneracies=0  H consistent: True
+case 610: m=6 |I|=4  degeneracies=0  H consistent: True
+case 611: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[1/16, -1/4, 1] lam=(1, -4): all faces individually degenerate: True
+case 612: m=6 |I|=1  degeneracies=1  H consistent: True
+case 613: m=6 |I|=3  degeneracies=0  H consistent: True
+case 614: m=5 |I|=3  degeneracies=0  H consistent: True
+case 615: m=5 |I|=2  degeneracies=0  H consistent: True
+case 616: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 617: m=4 |I|=1  degeneracies=1  H consistent: True
+case 618: m=5 |I|=2  degeneracies=0  H consistent: True
+case 619: m=5 |I|=4  degeneracies=0  H consistent: True
+case 620: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[4/25, -2/5, 1] lam=(1, -5/2): all faces individually degenerate: True
+case 621: m=4 |I|=1  degeneracies=1  H consistent: True
+case 622: m=6 |I|=5  degeneracies=0  H consistent: True
+case 623: m=5 |I|=2  degeneracies=0  H consistent: True
+case 624: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[16, -4, 1] lam=(1, -1/4): all faces individually degenerate: True
+case 625: m=4 |I|=1  degeneracies=1  H consistent: True
+case 626: m=5 |I|=4  degeneracies=0  H consistent: True
+case 627: m=6 |I|=2  degeneracies=0  H consistent: True
+case 628: m=5 |I|=4  degeneracies=0  H consistent: True
+case 629: m=6 |I|=4  degeneracies=0  H consistent: True
+case 1: m=5 |I|=4  degeneracies=0  H consistent: True
+case 2: m=6 |I|=3  degeneracies=0  H consistent: True
+case 3: m=5 |I|=3  degeneracies=0  H consistent: True
+case 4: m=6 |I|=2  degeneracies=0  H consistent: True
+case 5: m=6 |I|=4  degeneracies=0  H consistent: True
+case 6: m=5 |I|=3  degeneracies=0  H consistent: True
+case 7: m=4 |I|=2  degeneracies=0  H consistent: True
+case 8: m=5 |I|=4  degeneracies=0  H consistent: True
+case 9: m=6 |I|=5  degeneracies=0  H consistent: True
+case 10: m=3 |I|=2  degeneracies=0  H consistent: True
+case 11: m=5 |I|=4  degeneracies=0  H consistent: True
+case 12: m=4 |I|=2  degeneracies=0  H consistent: True
+case 13: m=6 |I|=4  degeneracies=0  H consistent: True
+case 14: m=6 |I|=2  degeneracies=0  H consistent: True
+case 15: m=4 |I|=3  degeneracies=0  H consistent: True
+case 16: m=6 |I|=3  degeneracies=0  H consistent: True
+case 17: m=6 |I|=4  degeneracies=0  H consistent: True
+case 18: m=4 |I|=3  degeneracies=0  H consistent: True
+case 19: m=4 |I|=3  degeneracies=0  H consistent: True
+case 20: m=4 |I|=2  degeneracies=0  H consistent: True
+case 21: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 22: m=5 |I|=1  degeneracies=1  H consistent: True
+case 23: m=6 |I|=5  degeneracies=0  H consistent: True
+case 24: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[9/4, 3/2, 1] lam=(1, 2/3): all faces individually degenerate: True
+case 25: m=4 |I|=1  degeneracies=1  H consistent: True
+case 26: m=5 |I|=3  degeneracies=0  H consistent: True
+case 27: m=5 |I|=3  degeneracies=0  H consistent: True
+case 28: m=6 |I|=4  degeneracies=0  H consistent: True
+case 29: m=6 |I|=2  degeneracies=0  H consistent: True
+case 30: m=6 |I|=2  degeneracies=0  H consistent: True
+case 31: m=5 |I|=4  degeneracies=0  H consistent: True
+case 32: m=6 |I|=2  degeneracies=0  H consistent: True
+case 33: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 34: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[0] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 35: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[1] degenerate h=[9/16, -3/4, 1] lam=(1, -4/3): all faces individually degenerate: True
+case 36: m=6 |I|=1  degeneracies=1  H consistent: True
+case 37: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[25, 5, 1] lam=(1, 1/5): all faces individually degenerate: True
+case 38: m=4 |I|=1  degeneracies=1  H consistent: True
+case 39: m=5 |I|=3  degeneracies=0  H consistent: True
+case 40: m=5 |I|=2  degeneracies=0  H consistent: True
+case 41: m=6 |I|=3  degeneracies=0  H consistent: True
+case 42: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 43: m=5 |I|=1  degeneracies=1  H consistent: True
+case 44: m=4 |I|=2  degeneracies=0  H consistent: True
+case 45: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 46: m=4 |I|=1  degeneracies=1  H consistent: True
+case 47: m=4 |I|=3  degeneracies=0  H consistent: True
+case 48: m=4 |I|=2  degeneracies=0  H consistent: True
+case 49: m=5 |I|=4  degeneracies=0  H consistent: True
+case 50: m=5 |I|=2  degeneracies=0  H consistent: True
+case 51: m=6 |I|=4  degeneracies=0  H consistent: True
+case 52: m=3 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[9, 3, 1] lam=(1, 1/3): all faces individually degenerate: True
+case 53: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 54: m=4 |I|=1  degeneracies=1  H consistent: True
+case 55: m=5 |I|=4  degeneracies=0  H consistent: True
+case 56: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 57: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[0, 1] degenerate h=[1/9, 1/3, 1] lam=(1, 3): all faces individually degenerate: True
+case 58: m=5 |I|=2  degeneracies=1  H consistent: True
+  m=5 I=[0] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 59: m=5 |I|=1  degeneracies=1  H consistent: True
+case 60: m=6 |I|=5  degeneracies=0  H consistent: True
+case 61: m=6 |I|=4  degeneracies=0  H consistent: True
+case 62: m=6 |I|=5  degeneracies=0  H consistent: True
+case 63: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 64: m=3 |I|=1  degeneracies=1  H consistent: True
+case 65: m=5 |I|=2  degeneracies=0  H consistent: True
+case 66: m=3 |I|=2  degeneracies=0  H consistent: True
+case 67: m=6 |I|=5  degeneracies=0  H consistent: True
+case 68: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 69: m=5 |I|=1  degeneracies=1  H consistent: True
+case 70: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 71: m=6 |I|=1  degeneracies=1  H consistent: True
+case 72: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 73: m=6 |I|=1  degeneracies=1  H consistent: True
+case 74: m=6 |I|=3  degeneracies=0  H consistent: True
+case 75: m=6 |I|=5  degeneracies=0  H consistent: True
+case 76: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 77: m=6 |I|=1  degeneracies=1  H consistent: True
+case 78: m=4 |I|=2  degeneracies=0  H consistent: True
+case 79: m=4 |I|=2  degeneracies=0  H consistent: True
+case 80: m=3 |I|=2  degeneracies=0  H consistent: True
+case 81: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 82: m=6 |I|=1  degeneracies=1  H consistent: True
+case 83: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 84: m=4 |I|=1  degeneracies=1  H consistent: True
+case 85: m=4 |I|=3  degeneracies=0  H consistent: True
+case 86: m=4 |I|=3  degeneracies=0  H consistent: True
+case 87: m=4 |I|=2  degeneracies=0  H consistent: True
+case 88: m=5 |I|=3  degeneracies=0  H consistent: True
+case 89: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=5 I=[1, 2] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 90: m=5 |I|=2  degeneracies=1  H consistent: True
+case 91: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[0, 2] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 92: m=4 |I|=2  degeneracies=1  H consistent: True
+  m=5 I=[1] degenerate h=[9/4, -3/2, 1] lam=(1, -2/3): all faces individually degenerate: True
+case 93: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[2] degenerate h=[49/4, 7/2, 1] lam=(1, 2/7): all faces individually degenerate: True
+case 94: m=3 |I|=1  degeneracies=1  H consistent: True
+case 95: m=6 |I|=3  degeneracies=0  H consistent: True
+case 96: m=6 |I|=2  degeneracies=0  H consistent: True
+case 97: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 98: m=5 |I|=1  degeneracies=1  H consistent: True
+case 99: m=5 |I|=3  degeneracies=0  H consistent: True
+case 100: m=6 |I|=3  degeneracies=0  H consistent: True
+case 101: m=4 |I|=2  degeneracies=0  H consistent: True
+case 102: m=3 |I|=2  degeneracies=0  H consistent: True
+case 103: m=6 |I|=2  degeneracies=0  H consistent: True
+case 104: m=4 |I|=3  degeneracies=0  H consistent: True
+case 105: m=4 |I|=3  degeneracies=0  H consistent: True
+case 106: m=6 |I|=5  degeneracies=0  H consistent: True
+case 107: m=5 |I|=3  degeneracies=0  H consistent: True
+case 108: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 109: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[0] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 110: m=6 |I|=1  degeneracies=1  H consistent: True
+case 111: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 112: m=6 |I|=1  degeneracies=1  H consistent: True
+case 113: m=6 |I|=3  degeneracies=0  H consistent: True
+case 114: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[16/9, -4/3, 1] lam=(1, -3/4): all faces individually degenerate: True
+case 115: m=3 |I|=1  degeneracies=1  H consistent: True
+case 116: m=6 |I|=4  degeneracies=0  H consistent: True
+case 117: m=4 |I|=2  degeneracies=0  H consistent: True
+case 118: m=6 |I|=2  degeneracies=0  H consistent: True
+case 119: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 120: m=4 |I|=1  degeneracies=1  H consistent: True
+case 121: m=5 |I|=3  degeneracies=0  H consistent: True
+case 122: m=4 |I|=3  degeneracies=0  H consistent: True
+case 123: m=4 |I|=2  degeneracies=0  H consistent: True
+case 124: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[0, 1] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 125: m=4 |I|=2  degeneracies=1  H consistent: True
+case 126: m=5 |I|=3  degeneracies=0  H consistent: True
+case 127: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[4/9, 2/3, 1] lam=(1, 3/2): all faces individually degenerate: True
+case 128: m=5 |I|=1  degeneracies=1  H consistent: True
+case 129: m=6 |I|=4  degeneracies=0  H consistent: True
+case 130: m=4 |I|=2  degeneracies=0  H consistent: True
+case 131: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 132: m=5 |I|=1  degeneracies=1  H consistent: True
+case 133: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 134: m=6 |I|=1  degeneracies=1  H consistent: True
+case 135: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 136: m=5 |I|=1  degeneracies=1  H consistent: True
+case 137: m=4 |I|=3  degeneracies=0  H consistent: True
+case 138: m=6 |I|=2  degeneracies=0  H consistent: True
+case 139: m=5 |I|=4  degeneracies=0  H consistent: True
+case 140: m=3 |I|=2  degeneracies=0  H consistent: True
+case 141: m=6 |I|=5  degeneracies=0  H consistent: True
+case 142: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 143: m=4 |I|=1  degeneracies=1  H consistent: True
+case 144: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[1] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 145: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[0] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 146: m=4 |I|=1  degeneracies=1  H consistent: True
+case 147: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 148: m=5 |I|=1  degeneracies=1  H consistent: True
+case 149: m=6 |I|=3  degeneracies=0  H consistent: True
+case 150: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[1/9, 1/3, 1] lam=(1, 3): all faces individually degenerate: True
+case 151: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[3] degenerate h=[9/49, -3/7, 1] lam=(1, -7/3): all faces individually degenerate: True
+case 152: m=5 |I|=1  degeneracies=1  H consistent: True
+case 153: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 154: m=5 |I|=1  degeneracies=1  H consistent: True
+case 155: m=6 |I|=3  degeneracies=0  H consistent: True
+case 156: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 157: m=4 |I|=1  degeneracies=1  H consistent: True
+case 158: m=6 |I|=5  degeneracies=0  H consistent: True
+case 159: m=4 |I|=2  degeneracies=0  H consistent: True
+case 160: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 161: m=4 |I|=1  degeneracies=1  H consistent: True
+case 162: m=5 |I|=4  degeneracies=0  H consistent: True
+case 163: m=4 |I|=3  degeneracies=0  H consistent: True
+case 164: m=5 |I|=4  degeneracies=0  H consistent: True
+case 165: m=4 |I|=2  degeneracies=0  H consistent: True
+case 166: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[4/9, 2/3, 1] lam=(1, 3/2): all faces individually degenerate: True
+case 167: m=3 |I|=1  degeneracies=1  H consistent: True
+case 168: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 169: m=6 |I|=1  degeneracies=1  H consistent: True
+case 170: m=6 |I|=3  degeneracies=0  H consistent: True
+case 171: m=5 |I|=3  degeneracies=0  H consistent: True
+case 172: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[9, -3, 1] lam=(1, -1/3): all faces individually degenerate: True
+case 173: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[1, 3] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 174: m=6 |I|=2  degeneracies=1  H consistent: True
+case 175: m=5 |I|=4  degeneracies=0  H consistent: True
+case 176: m=3 |I|=2  degeneracies=0  H consistent: True
+case 177: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[9/4, -3/2, 1] lam=(1, -2/3): all faces individually degenerate: True
+case 178: m=4 |I|=1  degeneracies=1  H consistent: True
+case 179: m=3 |I|=2  degeneracies=0  H consistent: True
+case 180: m=5 |I|=3  degeneracies=0  H consistent: True
+case 181: m=4 |I|=3  degeneracies=0  H consistent: True
+case 182: m=5 |I|=3  degeneracies=0  H consistent: True
+case 183: m=5 |I|=3  degeneracies=0  H consistent: True
+case 184: m=4 |I|=3  degeneracies=0  H consistent: True
+case 185: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[9/16, 3/4, 1] lam=(1, 4/3): all faces individually degenerate: True
+case 186: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 187: m=4 |I|=1  degeneracies=1  H consistent: True
+case 188: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[9, -3, 1] lam=(1, -1/3): all faces individually degenerate: True
+case 189: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[3] degenerate h=[1/16, 1/4, 1] lam=(1, 4): all faces individually degenerate: True
+case 190: m=6 |I|=1  degeneracies=1  H consistent: True
+case 191: m=6 |I|=3  degeneracies=0  H consistent: True
+case 192: m=4 |I|=2  degeneracies=0  H consistent: True
+case 193: m=4 |I|=2  degeneracies=0  H consistent: True
+case 194: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 195: m=5 |I|=1  degeneracies=1  H consistent: True
+case 196: m=6 |I|=2  degeneracies=0  H consistent: True
+case 197: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 198: m=3 |I|=1  degeneracies=1  H consistent: True
+case 199: m=5 |I|=4  degeneracies=0  H consistent: True
+case 200: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[1/25, 1/5, 1] lam=(1, 5): all faces individually degenerate: True
+case 201: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[0] degenerate h=[4/25, -2/5, 1] lam=(1, -5/2): all faces individually degenerate: True
+case 202: m=6 |I|=1  degeneracies=1  H consistent: True
+case 203: m=5 |I|=4  degeneracies=0  H consistent: True
+case 204: m=6 |I|=3  degeneracies=0  H consistent: True
+case 205: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[4/9, 2/3, 1] lam=(1, 3/2): all faces individually degenerate: True
+case 206: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[4] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 207: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[2] degenerate h=[9/4, 3/2, 1] lam=(1, 2/3): all faces individually degenerate: True
+case 208: m=5 |I|=1  degeneracies=1  H consistent: True
+case 209: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 210: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 211: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 212: m=5 |I|=1  degeneracies=1  H consistent: True
+case 213: m=6 |I|=2  degeneracies=0  H consistent: True
+case 214: m=6 |I|=3  degeneracies=0  H consistent: True
+case 215: m=6 |I|=5  degeneracies=0  H consistent: True
+case 216: m=3 |I|=2  degeneracies=0  H consistent: True
+case 217: m=3 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 218: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[5] degenerate h=[16, -4, 1] lam=(1, -1/4): all faces individually degenerate: True
+case 219: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[1] degenerate h=[9, -3, 1] lam=(1, -1/3): all faces individually degenerate: True
+case 220: m=4 |I|=1  degeneracies=1  H consistent: True
+case 221: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 222: m=4 |I|=1  degeneracies=1  H consistent: True
+case 223: m=5 |I|=3  degeneracies=0  H consistent: True
+case 224: m=4 |I|=2  degeneracies=0  H consistent: True
+case 225: m=6 |I|=5  degeneracies=0  H consistent: True
+case 226: m=5 |I|=2  degeneracies=0  H consistent: True
+case 227: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[16/25, 4/5, 1] lam=(1, 5/4): all faces individually degenerate: True
+case 228: m=3 |I|=1  degeneracies=1  H consistent: True
+case 229: m=5 |I|=3  degeneracies=0  H consistent: True
+case 230: m=4 |I|=3  degeneracies=0  H consistent: True
+case 231: m=5 |I|=4  degeneracies=0  H consistent: True
+case 232: m=5 |I|=4  degeneracies=0  H consistent: True
+case 233: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 234: m=4 |I|=1  degeneracies=1  H consistent: True
+case 235: m=4 |I|=3  degeneracies=0  H consistent: True
+case 236: m=4 |I|=3  degeneracies=0  H consistent: True
+case 237: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 238: m=5 |I|=1  degeneracies=1  H consistent: True
+case 239: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1/9, 1/3, 1] lam=(1, 3): all faces individually degenerate: True
+case 240: m=4 |I|=1  degeneracies=1  H consistent: True
+case 241: m=5 |I|=2  degeneracies=0  H consistent: True
+case 242: m=5 |I|=2  degeneracies=0  H consistent: True
+case 243: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[4/25, 2/5, 1] lam=(1, 5/2): all faces individually degenerate: True
+case 244: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 245: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[3] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 246: m=4 |I|=1  degeneracies=1  H consistent: True
+case 247: m=4 |I|=3  degeneracies=0  H consistent: True
+case 248: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 249: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 250: m=4 |I|=1  degeneracies=1  H consistent: True
+case 251: m=4 |I|=3  degeneracies=0  H consistent: True
+case 252: m=6 |I|=3  degeneracies=0  H consistent: True
+case 253: m=3 |I|=2  degeneracies=0  H consistent: True
+case 254: m=5 |I|=4  degeneracies=0  H consistent: True
+case 255: m=6 |I|=2  degeneracies=0  H consistent: True
+case 256: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[9/16, -3/4, 1] lam=(1, -4/3): all faces individually degenerate: True
+case 257: m=5 |I|=1  degeneracies=1  H consistent: True
+case 258: m=6 |I|=2  degeneracies=0  H consistent: True
+case 259: m=3 |I|=2  degeneracies=0  H consistent: True
+case 260: m=6 |I|=4  degeneracies=0  H consistent: True
+case 261: m=5 |I|=4  degeneracies=0  H consistent: True
+case 262: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[9/4, 3/2, 1] lam=(1, 2/3): all faces individually degenerate: True
+case 263: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[0] degenerate h=[1/16, 1/4, 1] lam=(1, 4): all faces individually degenerate: True
+case 264: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[0] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 265: m=5 |I|=1  degeneracies=1  H consistent: True
+case 266: m=5 |I|=2  degeneracies=0  H consistent: True
+case 267: m=5 |I|=4  degeneracies=0  H consistent: True
+case 268: m=4 |I|=2  degeneracies=0  H consistent: True
+case 269: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[1, 2] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 270: m=6 |I|=2  degeneracies=1  H consistent: True
+  m=4 I=[1] degenerate h=[16/9, 4/3, 1] lam=(1, 3/4): all faces individually degenerate: True
+case 271: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[0] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 272: m=4 |I|=1  degeneracies=1  H consistent: True
+case 273: m=5 |I|=4  degeneracies=0  H consistent: True
+case 274: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[9/16, 3/4, 1] lam=(1, 4/3): all faces individually degenerate: True
+case 275: m=3 |I|=1  degeneracies=1  H consistent: True
+case 276: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 277: m=5 |I|=1  degeneracies=1  H consistent: True
+case 278: m=5 |I|=3  degeneracies=0  H consistent: True
+case 279: m=6 |I|=2  degeneracies=0  H consistent: True
+case 280: m=6 |I|=4  degeneracies=0  H consistent: True
+case 281: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 282: m=6 |I|=1  degeneracies=1  H consistent: True
+case 283: m=4 |I|=2  degeneracies=0  H consistent: True
+case 284: m=5 |I|=3  degeneracies=0  H consistent: True
+case 285: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[25/16, -5/4, 1] lam=(1, -4/5): all faces individually degenerate: True
+case 286: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[3] degenerate h=[25/9, 5/3, 1] lam=(1, 3/5): all faces individually degenerate: True
+case 287: m=4 |I|=1  degeneracies=1  H consistent: True
+case 288: m=4 |I|=3  degeneracies=0  H consistent: True
+case 289: m=6 |I|=4  degeneracies=0  H consistent: True
+case 290: m=3 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 291: m=5 |I|=1  degeneracies=1  H consistent: True
+case 292: m=4 |I|=2  degeneracies=0  H consistent: True
+case 293: m=3 |I|=2  degeneracies=0  H consistent: True
+case 294: m=5 |I|=4  degeneracies=0  H consistent: True
+case 295: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 296: m=5 |I|=1  degeneracies=1  H consistent: True
+case 297: m=6 |I|=2  degeneracies=0  H consistent: True
+case 298: m=4 |I|=2  degeneracies=0  H consistent: True
+case 299: m=5 |I|=2  degeneracies=0  H consistent: True
+case 300: m=3 |I|=2  degeneracies=0  H consistent: True
+case 301: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[25/4, 5/2, 1] lam=(1, 2/5): all faces individually degenerate: True
+case 302: m=4 |I|=1  degeneracies=1  H consistent: True
+case 303: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 304: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[3] degenerate h=[16, -4, 1] lam=(1, -1/4): all faces individually degenerate: True
+case 305: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[1] degenerate h=[1/4, 1/2, 1] lam=(1, 2): all faces individually degenerate: True
+case 306: m=4 |I|=1  degeneracies=1  H consistent: True
+case 307: m=4 |I|=2  degeneracies=0  H consistent: True
+case 308: m=5 |I|=3  degeneracies=0  H consistent: True
+case 309: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 310: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 311: m=6 |I|=1  degeneracies=1  H consistent: True
+case 312: m=6 |I|=2  degeneracies=0  H consistent: True
+case 313: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 314: m=5 |I|=1  degeneracies=1  H consistent: True
+case 315: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 316: m=3 |I|=1  degeneracies=1  H consistent: True
+case 317: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 318: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[4] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 319: m=6 |I|=1  degeneracies=1  H consistent: True
+case 320: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[1/16, -1/4, 1] lam=(1, -4): all faces individually degenerate: True
+case 321: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 322: m=4 |I|=1  degeneracies=1  H consistent: True
+case 323: m=5 |I|=2  degeneracies=0  H consistent: True
+case 324: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 325: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[2] degenerate h=[25/16, 5/4, 1] lam=(1, 4/5): all faces individually degenerate: True
+case 326: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[1] degenerate h=[1/16, -1/4, 1] lam=(1, -4): all faces individually degenerate: True
+case 327: m=6 |I|=1  degeneracies=1  H consistent: True
+case 328: m=5 |I|=3  degeneracies=0  H consistent: True
+case 329: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[16/9, -4/3, 1] lam=(1, -3/4): all faces individually degenerate: True
+case 330: m=3 |I|=1  degeneracies=1  H consistent: True
+case 331: m=5 |I|=3  degeneracies=0  H consistent: True
+case 332: m=6 |I|=4  degeneracies=0  H consistent: True
+case 333: m=5 |I|=4  degeneracies=0  H consistent: True
+case 334: m=5 |I|=4  degeneracies=0  H consistent: True
+case 335: m=6 |I|=4  degeneracies=0  H consistent: True
+case 336: m=6 |I|=4  degeneracies=0  H consistent: True
+case 337: m=5 |I|=3  degeneracies=0  H consistent: True
+case 338: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[4] degenerate h=[1/16, 1/4, 1] lam=(1, 4): all faces individually degenerate: True
+case 339: m=6 |I|=1  degeneracies=1  H consistent: True
+case 340: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[9/16, 3/4, 1] lam=(1, 4/3): all faces individually degenerate: True
+case 341: m=4 |I|=1  degeneracies=1  H consistent: True
+case 342: m=5 |I|=4  degeneracies=0  H consistent: True
+case 343: m=5 |I|=4  degeneracies=0  H consistent: True
+case 344: m=6 |I|=3  degeneracies=0  H consistent: True
+case 345: m=6 |I|=5  degeneracies=0  H consistent: True
+case 346: m=5 |I|=2  degeneracies=0  H consistent: True
+case 347: m=6 |I|=2  degeneracies=0  H consistent: True
+case 348: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[25/4, -5/2, 1] lam=(1, -2/5): all faces individually degenerate: True
+case 349: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[4] degenerate h=[16/25, -4/5, 1] lam=(1, -5/4): all faces individually degenerate: True
+case 350: m=6 |I|=1  degeneracies=1  H consistent: True
+case 351: m=5 |I|=2  degeneracies=0  H consistent: True
+case 352: m=6 |I|=2  degeneracies=0  H consistent: True
+case 353: m=6 |I|=3  degeneracies=0  H consistent: True
+case 354: m=4 |I|=3  degeneracies=0  H consistent: True
+case 355: m=3 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[25, -5, 1] lam=(1, -1/5): all faces individually degenerate: True
+case 356: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[1] degenerate h=[25/9, -5/3, 1] lam=(1, -3/5): all faces individually degenerate: True
+case 357: m=3 |I|=1  degeneracies=1  H consistent: True
+case 358: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 359: m=3 |I|=1  degeneracies=1  H consistent: True
+case 360: m=5 |I|=4  degeneracies=0  H consistent: True
+case 361: m=6 |I|=4  degeneracies=0  H consistent: True
+case 362: m=6 |I|=4  degeneracies=0  H consistent: True
+case 363: m=6 |I|=3  degeneracies=0  H consistent: True
+case 364: m=3 |I|=2  degeneracies=0  H consistent: True
+case 365: m=6 |I|=3  degeneracies=0  H consistent: True
+case 366: m=5 |I|=3  degeneracies=0  H consistent: True
+case 367: m=6 |I|=2  degeneracies=0  H consistent: True
+case 368: m=5 |I|=4  degeneracies=0  H consistent: True
+case 369: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[1/25, -1/5, 1] lam=(1, -5): all faces individually degenerate: True
+case 370: m=5 |I|=1  degeneracies=1  H consistent: True
+case 371: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[2] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 372: m=3 |I|=1  degeneracies=1  H consistent: True
+case 373: m=5 |I|=2  degeneracies=0  H consistent: True
+case 374: m=6 |I|=3  degeneracies=0  H consistent: True
+case 375: m=4 |I|=3  degeneracies=0  H consistent: True
+case 376: m=6 |I|=4  degeneracies=0  H consistent: True
+case 377: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[1/25, 1/5, 1] lam=(1, 5): all faces individually degenerate: True
+case 378: m=3 |I|=1  degeneracies=1  H consistent: True
+case 379: m=5 |I|=2  degeneracies=0  H consistent: True
+case 380: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 381: m=4 |I|=1  degeneracies=1  H consistent: True
+case 382: m=4 |I|=2  degeneracies=0  H consistent: True
+case 383: m=4 |I|=3  degeneracies=0  H consistent: True
+case 384: m=6 |I|=2  degeneracies=0  H consistent: True
+case 385: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[9/25, -3/5, 1] lam=(1, -5/3): all faces individually degenerate: True
+case 386: m=4 |I|=1  degeneracies=1  H consistent: True
+case 387: m=6 |I|=2  degeneracies=0  H consistent: True
+case 388: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[2] degenerate h=[4, -2, 1] lam=(1, -1/2): all faces individually degenerate: True
+case 389: m=6 |I|=1  degeneracies=1  H consistent: True
+case 390: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 391: m=5 |I|=1  degeneracies=1  H consistent: True
+case 392: m=5 |I|=2  degeneracies=0  H consistent: True
+case 393: m=5 |I|=4  degeneracies=0  H consistent: True
+case 394: m=5 |I|=4  degeneracies=0  H consistent: True
+case 395: m=5 |I|=3  degeneracies=0  H consistent: True
+case 396: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[25, 5, 1] lam=(1, 1/5): all faces individually degenerate: True
+case 397: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[4] degenerate h=[9, -3, 1] lam=(1, -1/3): all faces individually degenerate: True
+case 398: m=5 |I|=1  degeneracies=1  H consistent: True
+case 399: m=4 |I|=2  degeneracies=0  H consistent: True
+case 400: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[4/9, 2/3, 1] lam=(1, 3/2): all faces individually degenerate: True
+case 401: m=3 |I|=1  degeneracies=1  H consistent: True
+case 402: m=6 |I|=5  degeneracies=0  H consistent: True
+case 403: m=4 |I|=2  degeneracies=0  H consistent: True
+case 404: m=6 |I|=4  degeneracies=0  H consistent: True
+case 405: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 406: m=4 |I|=1  degeneracies=1  H consistent: True
+case 407: m=5 |I|=2  degeneracies=0  H consistent: True
+case 408: m=6 |I|=4  degeneracies=0  H consistent: True
+case 409: m=4 |I|=2  degeneracies=0  H consistent: True
+case 410: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 411: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[0] degenerate h=[4, 2, 1] lam=(1, 1/2): all faces individually degenerate: True
+case 412: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 413: m=5 |I|=1  degeneracies=1  H consistent: True
+case 414: m=6 |I|=5  degeneracies=0  H consistent: True
+case 415: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 416: m=5 |I|=1  degeneracies=1  H consistent: True
+case 417: m=5 |I|=2  degeneracies=0  H consistent: True
+case 418: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 419: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[1] degenerate h=[1/16, 1/4, 1] lam=(1, 4): all faces individually degenerate: True
+case 420: m=3 |I|=1  degeneracies=1  H consistent: True
+case 421: m=6 |I|=2  degeneracies=0  H consistent: True
+case 422: m=6 |I|=5  degeneracies=0  H consistent: True
+case 423: m=3 |I|=2  degeneracies=0  H consistent: True
+case 424: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[16, 4, 1] lam=(1, 1/4): all faces individually degenerate: True
+case 425: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[3] degenerate h=[9, -3, 1] lam=(1, -1/3): all faces individually degenerate: True
+case 426: m=4 |I|=1  degeneracies=1  H consistent: True
+case 427: m=3 |I|=2  degeneracies=0  H consistent: True
+case 428: m=5 |I|=2  degeneracies=0  H consistent: True
+case 429: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[1] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 430: m=5 |I|=1  degeneracies=1  H consistent: True
+case 431: m=6 |I|=5  degeneracies=0  H consistent: True
+case 432: m=4 |I|=2  degeneracies=0  H consistent: True
+case 433: m=6 |I|=4  degeneracies=0  H consistent: True
+case 434: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 435: m=6 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[0] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 436: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[3] degenerate h=[4/49, -2/7, 1] lam=(1, -7/2): all faces individually degenerate: True
+case 437: m=4 |I|=1  degeneracies=1  H consistent: True
+case 438: m=6 |I|=4  degeneracies=0  H consistent: True
+case 439: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[1/9, -1/3, 1] lam=(1, -3): all faces individually degenerate: True
+case 440: m=4 |I|=1  degeneracies=1  H consistent: True
+case 441: m=6 |I|=3  degeneracies=0  H consistent: True
+case 442: m=5 |I|=4  degeneracies=0  H consistent: True
+case 443: m=6 |I|=5  degeneracies=0  H consistent: True
+case 444: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[2] degenerate h=[25/4, 5/2, 1] lam=(1, 2/5): all faces individually degenerate: True
+case 445: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 446: m=4 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[1] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 447: m=3 |I|=1  degeneracies=1  H consistent: True
+case 448: m=6 |I|=3  degeneracies=0  H consistent: True
+case 449: m=6 |I|=5  degeneracies=0  H consistent: True
+case 450: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[3] degenerate h=[9/25, -3/5, 1] lam=(1, -5/3): all faces individually degenerate: True
+case 451: m=5 |I|=1  degeneracies=1  H consistent: True
+case 452: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 453: m=4 |I|=1  degeneracies=1  H consistent: True
+case 454: m=6 |I|=5  degeneracies=0  H consistent: True
+case 455: m=4 |I|=2  degeneracies=0  H consistent: True
+case 456: m=6 |I|=2  degeneracies=0  H consistent: True
+case 457: m=5 |I|=4  degeneracies=0  H consistent: True
+case 458: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=5 I=[1, 2] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 459: m=5 |I|=2  degeneracies=1  H consistent: True
+case 460: m=6 |I|=5  degeneracies=0  H consistent: True
+case 461: m=5 |I|=4  degeneracies=0  H consistent: True
+case 462: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[9, 3, 1] lam=(1, 1/3): all faces individually degenerate: True
+case 463: m=4 |I|=1  degeneracies=1  H consistent: True
+case 464: m=4 |I|=2  degeneracies=0  H consistent: True
+case 465: m=5 |I|=2  degeneracies=0  H consistent: True
+case 466: m=5 |I|=3  degeneracies=0  H consistent: True
+case 467: m=4 |I|=3  degeneracies=0  H consistent: True
+case 468: m=6 |I|=3  degeneracies=0  H consistent: True
+case 469: m=6 |I|=2  degeneracies=0  H consistent: True
+case 470: m=5 |I|=3  degeneracies=0  H consistent: True
+case 471: m=5 |I|=2  degeneracies=0  H consistent: True
+case 472: m=5 |I|=4  degeneracies=0  H consistent: True
+case 473: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1/9, 1/3, 1] lam=(1, 3): all faces individually degenerate: True
+case 474: m=4 |I|=1  degeneracies=1  H consistent: True
+case 475: m=6 |I|=2  degeneracies=0  H consistent: True
+case 476: m=5 |I|=3  degeneracies=0  H consistent: True
+case 477: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[1] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 478: m=5 |I|=1  degeneracies=1  H consistent: True
+case 479: m=5 |I|=4  degeneracies=0  H consistent: True
+case 480: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1, -1, 1] lam=(1, -1): all faces individually degenerate: True
+case 481: m=4 |I|=1  degeneracies=1  H consistent: True
+case 482: m=6 |I|=2  degeneracies=0  H consistent: True
+case 483: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[9/4, -3/2, 1] lam=(1, -2/3): all faces individually degenerate: True
+case 484: m=5 |I|=1  degeneracies=1  H consistent: True
+case 485: m=4 |I|=3  degeneracies=0  H consistent: True
+case 486: m=6 |I|=2  degeneracies=0  H consistent: True
+case 487: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 488: m=4 |I|=1  degeneracies=1  H consistent: True
+case 489: m=6 |I|=5  degeneracies=0  H consistent: True
+case 490: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[1/36, 1/6, 1] lam=(1, 6): all faces individually degenerate: True
+case 491: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=3 I=[2] degenerate h=[16/9, 4/3, 1] lam=(1, 3/4): all faces individually degenerate: True
+case 492: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[3] degenerate h=[4/25, 2/5, 1] lam=(1, 5/2): all faces individually degenerate: True
+case 493: m=4 |I|=1  degeneracies=1  H consistent: True
+case 494: m=4 |I|=3  degeneracies=0  H consistent: True
+case 495: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 496: m=3 |I|=1  degeneracies=1  H consistent: True
+case 497: m=6 |I|=4  degeneracies=0  H consistent: True
+case 498: m=6 |I|=3  degeneracies=0  H consistent: True
+case 499: m=5 |I|=4  degeneracies=0  H consistent: True
+case 500: m=5 |I|=4  degeneracies=0  H consistent: True
+case 501: m=6 |I|=3  degeneracies=0  H consistent: True
+case 502: m=5 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[4/9, 2/3, 1] lam=(1, 3/2): all faces individually degenerate: True
+case 503: m=5 |I|=1  degeneracies=1  H consistent: True
+case 504: m=6 |I|=5  degeneracies=0  H consistent: True
+case 505: m=3 |I|=2  degeneracies=0  H consistent: True
+case 506: m=6 |I|=4  degeneracies=0  H consistent: True
+case 507: m=3 |I|=2  degeneracies=0  H consistent: True
+case 508: m=5 |I|=4  degeneracies=0  H consistent: True
+case 509: m=4 |I|=2  degeneracies=0  H consistent: True
+case 510: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 511: m=5 |I|=1  degeneracies=1  H consistent: True
+case 512: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 513: m=4 |I|=1  degeneracies=1  H consistent: True
+case 514: m=4 |I|=3  degeneracies=0  H consistent: True
+case 515: m=5 |I|=4  degeneracies=0  H consistent: True
+case 516: m=5 |I|=3  degeneracies=0  H consistent: True
+case 517: m=4 |I|=2  degeneracies=0  H consistent: True
+case 518: m=5 |I|=3  degeneracies=0  H consistent: True
+case 519: m=5 |I|=2  degeneracies=0  H consistent: True
+case 520: m=6 |I|=3  degeneracies=0  H consistent: True
+case 521: m=4 |I|=2  degeneracies=0  H consistent: True
+case 522: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=5 I=[2] degenerate h=[9/49, 3/7, 1] lam=(1, 7/3): all faces individually degenerate: True
+case 523: m=5 |I|=1  degeneracies=1  H consistent: True
+case 524: m=4 |I|=2  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[9/4, 3/2, 1] lam=(1, 2/3): all faces individually degenerate: True
+case 525: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[1] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 526: m=6 |I|=1  degeneracies=1  H consistent: True
+case 527: m=5 |I|=3  degeneracies=0  H consistent: True
+case 528: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=3 I=[1] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 529: m=3 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[0] degenerate h=[1, 1, 1] lam=(1, 1): all faces individually degenerate: True
+case 530: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=6 I=[1] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 531: m=6 |I|=1  degeneracies=1  H consistent: True
+case 532: m=5 |I|=2  degeneracies=0  H consistent: True
+case 533: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[9, -3, 1] lam=(1, -1/3): all faces individually degenerate: True
+case 534: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=5 I=[0] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 535: m=5 |I|=1  degeneracies=1  H consistent: True
+case 536: m=6 |I|=3  degeneracies=0  H consistent: True
+case 537: m=5 |I|=2  degeneracies=0  H consistent: True
+case 538: m=6 |I|=5  degeneracies=0  H consistent: True
+case 539: m=6 |I|=5  degeneracies=0  H consistent: True
+case 540: m=4 |I|=3  degeneracies=0  H consistent: True
+case 541: m=5 |I|=3  degeneracies=0  H consistent: True
+case 542: m=5 |I|=3  degeneracies=0  H consistent: True
+case 543: m=5 |I|=4  degeneracies=0  H consistent: True
+case 544: m=4 |I|=2  degeneracies=0  H consistent: True
+case 545: m=4 |I|=2  degeneracies=0  H consistent: True
+case 546: m=4 |I|=3  degeneracies=0  H consistent: True
+case 547: m=5 |I|=3  degeneracies=0  H consistent: True
+case 548: m=6 |I|=3  degeneracies=0  H consistent: True
+case 549: m=4 |I|=2  degeneracies=0  H consistent: True
+case 550: m=6 |I|=3  degeneracies=0  H consistent: True
+case 551: m=6 |I|=4  degeneracies=0  H consistent: True
+case 552: m=6 |I|=3  degeneracies=0  H consistent: True
+case 553: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[5] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 554: m=6 |I|=1  degeneracies=1  H consistent: True
+case 555: m=6 |I|=4  degeneracies=0  H consistent: True
+case 556: m=4 |I|=3  degeneracies=0  H consistent: True
+case 557: m=6 |I|=2  degeneracies=0  H consistent: True
+case 558: m=6 |I|=2  degeneracies=0  H consistent: True
+case 559: m=6 |I|=5  degeneracies=0  H consistent: True
+case 560: m=6 |I|=5  degeneracies=0  H consistent: True
+case 561: m=5 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[1] degenerate h=[9/4, -3/2, 1] lam=(1, -2/3): all faces individually degenerate: True
+case 562: m=5 |I|=1  degeneracies=1  H consistent: True
+  m=4 I=[2] degenerate h=[1/64, 1/8, 1] lam=(1, 8): all faces individually degenerate: True
+case 563: m=4 |I|=1  degeneracies=1  H consistent: True
+case 564: m=5 |I|=2  degeneracies=0  H consistent: True
+case 565: m=4 |I|=2  degeneracies=0  H consistent: True
+case 566: m=5 |I|=2  degeneracies=0  H consistent: True
+case 567: m=5 |I|=3  degeneracies=0  H consistent: True
+case 568: m=5 |I|=4  degeneracies=0  H consistent: True
+case 569: m=5 |I|=2  degeneracies=0  H consistent: True
+case 570: m=6 |I|=4  degeneracies=0  H consistent: True
+case 571: m=6 |I|=3  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[25/9, -5/3, 1] lam=(1, -3/5): all faces individually degenerate: True
+case 572: m=4 |I|=1  degeneracies=1  H consistent: True
+case 573: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=6 I=[0] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 574: m=6 |I|=1  degeneracies=1  H consistent: True
+case 575: m=5 |I|=2  degeneracies=0  H consistent: True
+case 576: m=6 |I|=2  degeneracies=0  H consistent: True
+case 577: m=6 |I|=2  degeneracies=0  H consistent: True
+case 578: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=6 I=[3] degenerate h=[1/25, 1/5, 1] lam=(1, 5): all faces individually degenerate: True
+case 579: m=6 |I|=1  degeneracies=1  H consistent: True
+case 580: m=4 |I|=3  degeneracies=0  H consistent: True
+  m=5 I=[4] degenerate h=[1, 0, 0] lam=(1, 0): all faces individually degenerate: True
+case 581: m=5 |I|=1  degeneracies=1  H consistent: True
+case 582: m=6 |I|=2  degeneracies=0  H consistent: True
+case 583: m=6 |I|=2  degeneracies=0  H consistent: True
+case 584: m=6 |I|=2  degeneracies=0  H consistent: True
+  m=3 I=[0] degenerate h=[0, 0, 1] lam=(0, 1): all faces individually degenerate: True
+case 585: m=3 |I|=1  degeneracies=1  H consistent: True
+case 586: m=6 |I|=3  degeneracies=0  H consistent: True
+case 587: m=5 |I|=2  degeneracies=0  H consistent: True
+case 588: m=6 |I|=3  degeneracies=0  H consistent: True
+case 589: m=3 |I|=2  degeneracies=0  H consistent: True
+case 590: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=4 I=[3] degenerate h=[1/4, -1/2, 1] lam=(1, -2): all faces individually degenerate: True
+case 591: m=4 |I|=1  degeneracies=1  H consistent: True
+case 592: m=5 |I|=2  degeneracies=0  H consistent: True
+case 593: m=6 |I|=3  degeneracies=0  H consistent: True
+case 594: m=5 |I|=2  degeneracies=0  H consistent: True
+case 595: m=6 |I|=5  degeneracies=0  H consistent: True
+case 596: m=5 |I|=2  degeneracies=0  H consistent: True
+case 597: m=5 |I|=3  degeneracies=0  H consistent: True
+case 598: m=5 |I|=3  degeneracies=0  H consistent: True
+case 599: m=4 |I|=2  degeneracies=0  H consistent: True
+case 600: m=5 |I|=2  degeneracies=0  H consistent: True
+case 601: m=6 |I|=4  degeneracies=0  H consistent: True
+case 602: m=6 |I|=3  degeneracies=0  H consistent: True
+case 603: m=6 |I|=5  degeneracies=0  H consistent: True
+case 604: m=6 |I|=3  degeneracies=0  H consistent: True
+case 605: m=6 |I|=2  degeneracies=0  H consistent: True
+case 606: m=4 |I|=2  degeneracies=0  H consistent: True
+case 607: m=6 |I|=4  degeneracies=0  H consistent: True
+case 608: m=4 |I|=2  degeneracies=0  H consistent: True
+case 609: m=6 |I|=3  degeneracies=0  H consistent: True
+case 610: m=5 |I|=4  degeneracies=0  H consistent: True
+case 611: m=5 |I|=2  degeneracies=0  H consistent: True
+case 612: m=5 |I|=3  degeneracies=0  H consistent: True
+case 613: m=5 |I|=2  degeneracies=0  H consistent: True
+case 614: m=4 |I|=2  degeneracies=0  H consistent: True
+case 615: m=4 |I|=3  degeneracies=0  H consistent: True
+case 616: m=5 |I|=2  degeneracies=0  H consistent: True
+  m=4 I=[0] degenerate h=[4/9, 2/3, 1] lam=(1, 3/2): all faces individually degenerate: True
+case 617: m=4 |I|=1  degeneracies=1  H consistent: True
+case 618: m=6 |I|=4  degeneracies=0  H consistent: True
+  m=5 I=[0] degenerate h=[1/36, 1/6, 1] lam=(1, 6): all faces individually degenerate: True
+case 619: m=5 |I|=1  degeneracies=1  H consistent: True
+case 620: m=6 |I|=5  degeneracies=0  H consistent: True
+  m=4 I=[1] degenerate h=[1/16, -1/4, 1] lam=(1, -4): all faces individually degenerate: True
+case 621: m=4 |I|=1  degeneracies=1  H consistent: True
+case 622: m=4 |I|=3  degeneracies=0  H consistent: True
