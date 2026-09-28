@@ -85,7 +85,7 @@ Let $V_h^{R,\flat}:=\{v\in\VR:\int_{\Gh}v\cdot n=0\}$, which has codimension one
 
 Theorem~\ref{thm:D} gives $\norm{\nabla(\ut-u_h)}\le\tnorm{\ut-u_h}\le C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$ for $\CNS$, and Theorem~\ref{thm:A} gives the same bound for $\GS$ when $G=0$. Here we prove the reverse inequality in the $H^1$ seminorm whenever the wall shear is not identically zero.
 
-\emph{Status of the hypothesis.} The proof needs a local condition (M3) on the boundary stars (Assumption~\ref{lb:ass}). For $k\ge7$ it holds on every mesh satisfying (M0)--(M2) (Lemma~\ref{lb:k7}), so the lower bound is unconditional there. For $4\le k\le6$ we have \emph{not} proved (M3). It is a finite-dimensional, scale-invariant condition that we verified numerically for $k=4$ at every boundary vertex of the meshes of Section~\ref{sec:numerics} (Table~\ref{lb:tab:stars}); since the space it involves grows with $k$, this verification also covers $k=5,6$ on those meshes (Remark~\ref{lb:k4}). For $4\le k\le6$ on other meshes, the lower bound is conditional on (M3). The proof does \emph{not} go through the transposed-gradient term of Lemma~\ref{lem:transposed}; see Section~\ref{lb:sec:route} for why that route fails for $\CNS$.
+\emph{Status of the hypothesis.} The proof uses a local condition (M3) on the boundary stars (Assumption~\ref{lb:ass}). For $k\ge7$ a single-triangle field gives it on every mesh satisfying (M0)--(M2) (Lemma~\ref{lb:k7}). For every $k\ge4$ it is proved in Section~\ref{m3:sec} (Theorem~\ref{m3:thm}) under (M0)--(M2) and the smallness condition (S): $\hG\le2\sin(\theta_{\min}/4)$, with an explicit $P_4$ witness on three triangles of each boundary star, a positive constant $\kappa_0$ by compactness, and certified numerical values for two angle bounds. So the lower bound is unconditional for every $k\ge4$. (Earlier versions of this paper proved it only for $k\ge7$ and verified (M3) numerically for $k=4$.) The proof does \emph{not} go through the transposed-gradient term of Lemma~\ref{lem:transposed}; see Section~\ref{lb:sec:route} for why that route fails for $\CNS$.
 
 \subsubsection{Notation}
 On $\Gamma$ let $n$ be the unit normal pointing into $D$ and $\tau$ the unit tangent, oriented so that $\tau(x^\ast)\cdot\tau_e>0$ for $x\in e$ ($\tau_e$ is $n_e$ rotated in the same sense). By Lemma~\ref{lem:wall}, $\dn u=W\tau$ on $\Gamma$, where
@@ -134,13 +134,15 @@ For $k=4$ no field in $Y_h^1$ can be supported in a single triangle, or in the t
 
 Write $v=\curl\phi$ with $\phi$ a $C^1$ piecewise quintic; since $v=0$ on $\partial\omega_z$ and on $\Gh$, we may take $\phi=0$ and $\nabla\phi=0$ on $\partial\omega_z$ and on the two edges $e,e'$ of $\Gh$ at $z$. On such an edge $e$, $\dn v\cdot\tau_e=\pm\partial_{n_en_e}\phi|_{T_e}$ is a cubic with zero mean ($v\in Y_h^1$). At the far endpoint of $e$ the gradient of $\phi|_{T_e}$ vanishes along two independent lines, so its Hessian vanishes there. If also $\partial_{n_en_e}\phi|_{T_e}(z)=0$, the cubic vanishes at both ends of $e$ and has zero mean, so it is odd about the midpoint and $\int_es^2\,\dn v\cdot\tau_e=0$. Hence (M3) requires $\partial_{n_en_e}\phi|_{T_e}(z)\ne0$ for at least one of the two edges $e$ at $z$, the value being taken from the triangle $T_e$. This is possible only because $C^1$ quintics can have Hessians that jump across the interior edges at $z$: an Argyris ($C^2$-vertex) stream function has a single Hessian at $z$, which vanishes on both boundary directions and hence is zero. Such jumps exist at a boundary vertex with at least three triangles, which is (M1$'$).
 
-We have not proved (M3) for $k=4$ on general meshes. It is a finite-dimensional, scale-invariant condition on each boundary star, and we verified it numerically:
+Section~\ref{m3:sec} proves (M3) for $k=4$ (hence every $k\ge4$) by constructing such a field explicitly. As a check, the floating-point star computation of the earlier versions gives:
 \begin{itemize}
 \item for every boundary vertex of every production mesh ($N=8$, $12$, $16$, $20$, $24$, $32$, $48$, $64$, $96$, $128$, $192$, $256$) and also for $N=512$ and $1024$ (Table~\ref{lb:tab:stars}): $\dim Y^1(\omega_z)=1$, $\min_z\kappa_z\ge0.00288$ in every case, and $\min_z\kappa_z$ converges to about $0.0029$ as $N$ grows;
 \item for randomly generated three- and four-triangle boundary stars: $\dim Y^1(\omega_z)=2m-5$ for $m$ triangles, and $\kappa_z>0$ in every sample.
 \end{itemize}
-(M3) is monotone in the degree: a field in $Y_h^1$ for degree $k$ is continuous piecewise $P_{k'}$ for every $k'\ge k$, and $\mathcal M$ and $\norm{\nabla\cdot}$ do not depend on $k$. So (M3) for $k=4$ on a mesh implies (M3) for $k=5,6$ on the same mesh, and the numerical verification above covers $4\le k\le6$ on the meshes of Section~\ref{sec:numerics}. It is a numerical verification in floating point, not a proof.
+(M3) is monotone in the degree: a field in $Y_h^1$ for degree $k$ is continuous piecewise $P_{k'}$ for every $k'\ge k$, and $\mathcal M$ and $\norm{\nabla\cdot}$ do not depend on $k$. So (M3) for $k=4$ on a mesh implies (M3) for every $k\ge4$ on the same mesh. The exact star constants of Section~\ref{m3:sec:mesh} reproduce the table below to all printed digits.
 \end{remark}
+
+\input{sections/07e_m3}
 
 \subsubsection{Three lemmas}
 
@@ -249,7 +251,7 @@ For $\hG\le h_1$ we have $\Sigma_W\ge\frac34\norm{W}^2_{L^2(\Gamma)}$, and the n
 \subsubsection{The theorem}
 
 \begin{theorem}[$H^1$ lower bound]\label{lb:thm}
-Assume (M0)--(M2) and (D), and assume (M3); for $k\ge7$ the latter holds automatically (Lemma~\ref{lb:k7}), while for $4\le k\le6$ it is a hypothesis. Let $W=\dn u\cdot\tau\not\equiv0$ on $\Gamma$. Let $u_h$ be the velocity of $\CNS$ with $\gamma\ge\gamma_2$, or of $\GS$ with $\gamma\ge\gamma_0$ and any $G$. Then, for $\hG\le h_1$,
+Assume (M0)--(M2), (D) and (M3). By Theorem~\ref{m3:thm}, (M3) holds for every $k\ge4$ when $\hG\le2\sin(\theta_{\min}/4)$, with $\kappa_0=\kappa_\ast(\theta_{\min},\theta_{\min}/2)$, $K_{\mathrm{ov}}=3$ and $C_s=(\sin\theta_{\min})^{-3}$. Let $W=\dn u\cdot\tau\not\equiv0$ on $\Gamma$. Let $u_h$ be the velocity of $\CNS$ with $\gamma\ge\gamma_2$, or of $\GS$ with $\gamma\ge\gamma_0$ and any $G$. Then, for $\hG\le h_1$,
 \[
 \norm{\nabla(\ut-u_h)}_{\Oh}\ \ge\ c_{\mathrm{LB}}\,\kappa_0\,\norm{W}_{L^2(\Gamma)}\,\hG^{3/2}-C\hG^{2},\qquad c_{\mathrm{LB}}:=\frac{c_0^{5/2}}{2\Lambda_0K_{\mathrm{ov}}^{1/2}} .
 \]
@@ -265,7 +267,7 @@ Lemma~\ref{lb:assemble} bounds the first term from below.
 \end{proof}
 
 \begin{corollary}[Sharpness of Theorem~\ref{thm:D} and of Theorem~\ref{thm:A} at $G=0$]\label{lb:cor}
-Assume (M0)--(M3), $W\not\equiv0$, $\gamma\in[\gamma_2,\gamma_{\max}]$ and $\eps\le C\hG^{3/2}$ (for instance $\hO^k\le\hG^{3/2}$ and the flux condition of Theorem~\ref{thm:D}). Then for $\CNS$, and for $\GS$ when $p$ is constant on $\Gamma$,
+Assume (M0)--(M2) (so (M3) holds for small $\hG$ by Theorem~\ref{m3:thm}), $W\not\equiv0$, $\gamma\in[\gamma_2,\gamma_{\max}]$ and $\eps\le C\hG^{3/2}$ (for instance $\hO^k\le\hG^{3/2}$ and the flux condition of Theorem~\ref{thm:D}). Then for $\CNS$, and for $\GS$ when $p$ is constant on $\Gamma$,
 \[
 c\,\hG^{3/2}\ \le\ \norm{\nabla(\ut-u_h)}\ \le\ \tnorm{\ut-u_h}\ \le\ C\,\hG^{3/2}.
 \]
@@ -310,7 +312,7 @@ All computations use $k=4$ and the meshes of Section~\ref{sec:numerics}. The scr
 
 \begin{table}[h]
 \centering
-\caption{(M3) on the production meshes: star constants $\kappa_z:=\mathcal M(v_z)/|e_z|^2$, with $\norm{\nabla v_z}=1$ and $v_z$ supported in the three triangles at $z$. All production levels $N=8,\dots,256$ were checked; selected rows are shown.}\label{lb:tab:stars}
+\caption{(M3) on the production meshes: star constants $\kappa_z:=\mathcal M(v_z)/|e_z|^2$, with $\norm{\nabla v_z}=1$ and $v_z$ supported in the three triangles at $z$ (floating-point star computation; the exact witness of Section~\ref{m3:sec} reproduces every entry). All production levels $N=8,\dots,256$ were checked; selected rows are shown.}\label{lb:tab:stars}
 \begin{tabular}{rcccc}
 \toprule
 $N$ & $\dim Y^1(\omega_z)$ & $\min_z\kappa_z$ & mean & $\max_z\kappa_z$\\

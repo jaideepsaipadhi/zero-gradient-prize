@@ -1,4 +1,5 @@
 % refs.bib -- bibliography for letter/letter.tex (AML). Only cited entries.
+% v6 (2026-09-28): Cavalcante author name fixed; NeilanOtus2021 (from paper/refs.bib) and ChenLiu2026 added.
 % Built 2026-09-28 from notes/v5/refs_letter.bib (VERIFY lines kept) and paper/refs.bib (MorganScott1975).
 
 
@@ -37,8 +38,11 @@
   doi       = {10.1007/978-3-319-96415-7_15},
 }
 
+% Zenodo record 22262466 re-read 2026-09-28 (notes/v6/cites/FINDINGS.txt [9]): author on the record is
+% "Claudemir de Souza Cavalcante"; mu* = 60.3383 confirmed on the record.
+%% VERIFY: the record description does not mention Clough--Tocher; check any Clough--Tocher k>=2 attribution against his PDF.
 @misc{Cavalcante2026,
-  author       = {Cavalcante, Claudemir},
+  author       = {de Souza Cavalcante, Claudemir},
   title        = {{S}cott--{V}ogelius--{N}itsche convergence for a zero-pressure-gradient problem on a polygonally approximated boundary},
   howpublished = {Preprint, Zenodo},
   year         = {2026},
@@ -164,6 +168,25 @@
   number  = {1},
   year    = {1985},
   pages   = {111--143}
+}
+
+@article{NeilanOtus2021,
+  author  = {Neilan, Michael and Otus, M. Baris},
+  title   = {Divergence-free {S}cott--{V}ogelius elements on curved domains},
+  journal = {SIAM J. Numer. Anal.},
+  volume  = {59},
+  number  = {2},
+  year    = {2021},
+  pages   = {1090--1116},
+  doi     = {10.1137/20M1360098}
+}
+
+% Read in full (notes/v6/lit/chen_liu_2609.30008.txt); arXiv v1, 24 Sep 2026. It cites Neilan-Otus [Theorem 6.1].
+@misc{ChenLiu2026,
+  author       = {Chen, Wei and Liu, Zhen},
+  title        = {Pressure-robust finite elements for the {S}tokes problem on three-dimensional curved domains},
+  howpublished = {arXiv:2609.30008},
+  year         = {2026}
 }
 
 % The extended version, to be posted as Zenodo v3 (it also archives the code and data).

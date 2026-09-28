@@ -1,0 +1,204 @@
+%% Pressure robustness. Sources: notes/v6/robust (splitting, GS, CNS*, CNS*-R, numerics), robust2 (energy lower bound),
+%% robust3 (pressure-blind certificate), robust4 (invisible plane K_T), robust5/robust6 ((P^T), (V), Theorem R-final),
+%% with the fixes of referee2, referee5, referee7, referee9, referee11.
+
+\section{Pressure robustness}\label{rb:sec}
+
+A Stokes discretisation is \emph{pressure-robust} (or gradient-robust) if a change of the force by a gradient changes only the discrete pressure; equivalently, its velocity error does not depend on the pressure and does not grow like $\nu^{-1}$ as $\nu\to0$ \cite{JohnEtAl2017}. Divergence-free pairs such as Scott--Vogelius are pressure-robust with strongly imposed boundary conditions on the true domain. Weak imposition of $u\cdot n$ destroys this: Liu, Neilan and Otus note it and mitigate it with a Lagrange multiplier for the normal trace \cite{LiuNeilanOtus2023}, and Frachon, Nilsson and Zahedi observe the loss numerically for unfitted methods \cite{FrachonNilssonZahedi2024}. On curved domains with exactly imposed conditions, pressure robustness is restored by reconstructing the load with a commuting interpolant: Neilan and Otus in two dimensions \cite[Theorem~6.1]{NeilanOtus2021}, Chen and Liu in three \cite{ChenLiu2026}. This section quantifies how far $\GS$ and $\CNS$ are from pressure-robust on the inscribed polygon, and gives a one-line load correction ($\CNSR$) that makes $\CNS$ exactly gradient-robust. The correction is a Linke-type reconstruction localised to the boundary triangles; we claim no novelty for the device.
+
+Throughout, the methods are those of Section~\ref{ns:sec} with the convective term removed and viscosity $\nu$:
+\[
+\nu N_h(u_h,v)+B_M(p_h,v)=(\ft,T_Mv)\quad\forall v\in\VR,\qquad(q,\div u_h)=0\quad\forall q\in\Pih,
+\]
+with $B_{\GS}(q,v)=-(q,\div v)$, $B_{\CNS}=B_{\CNSR}=B^\ast$, $T_M=\mathrm{id}$ for $\GS$ and $\CNS$ and $T_{\CNSR}=\Rop$ (Definition~\ref{rb:def:R}). The penalty is $\nu\mu/h$ (Remark~\ref{ns:conv}), $\pi_h$ is the elementwise $L^2$ projection onto $\Pih$, and $F:=\ft+\nu\Delta\ut-\nabla\pt$ is the extension defect; it is smooth and vanishes on $\overline\Omega$. All numerical constants are at $\mu=100$ ($\gamma\approx30$), which is only $1.37$--$1.41$ times the coercivity threshold on $\Zh$ (Table~\ref{tab:thresh}); the thresholds $\gamma_0,\gamma_2,\gamma_3$ of the proofs are not shown to hold there, so the computations illustrate the theorems rather than being covered by them.
+
+\subsection{Splitting}
+
+\begin{lemma}[Scaling]\label{rb:scale}
+$(u_h,p_h)$ solves method $M$ at viscosity $\nu$ with data $(\ft,\gI)$ iff $(u_h,p_h/\nu)$ solves $M$ at $\nu=1$ with data $(\ft/\nu,\gI)$.
+\end{lemma}
+
+For a smooth $\phi$ let $W_M(\phi)$ be the $\nu=1$ velocity of $M$ with data $(\nabla\phi,0)$ (the \emph{hydrostatic test}). $M$ is gradient-robust iff $W_M\equiv0$.
+
+\begin{theorem}[Splitting]\label{rb:split}
+$\ut-u_h^{M,\nu}=E_M-\nu^{-1}W_M(\pt)$, where $E_M:=\ut-u_h^{M,1}[-\Delta\ut+F/\nu,\gI]$ is the $\nu=1$ error for the problem with exact solution $(u,0)$ and extension defect $F/\nu$. $E_M$ is independent of $p$ and $\nu$ up to a term of size $C\hG^4\norm{\nabla F}_{L^\infty(S_h)}/\nu$ (Lemma~\ref{rb:strip}), and exactly when $F=0$.
+\end{theorem}
+
+\begin{proof}
+$\ft=-\nu\Delta\ut+\nabla\pt+F$; use linearity and Lemma~\ref{rb:scale}.
+\end{proof}
+
+So the theorems of Sections~\ref{sec:printed}--\ref{sec:consistent} apply to $E_M$ with $p\equiv0$ ($G=0$, $\Rc\equiv0$), with constants depending only on $u$; the whole pressure dependence is in $W_M$.
+
+\begin{lemma}[Strip defect]\label{rb:strip}
+\[
+|(F,v)|\le C\hG^4\norm{\nabla F}_{L^\infty(S_h)}\bigl(\norm v_{\Gh}+\hG\norm{\nabla v}\bigr)\le C\hG^4\norm{\nabla F}_{L^\infty(S_h)}\norm{\nabla v}.
+\] This sharpens the $\hG^2$ bound of Lemma~\ref{lem:ext}.
+\end{lemma}
+
+\begin{proof}
+Radial segments in $S_h$ have length $\le\hG^2/4$ and $F=0$ on $\Gamma$, so $|F|\le\frac14\hG^2\norm{\nabla F}_\infty$ on $S_h$. In polar coordinates $\norm v_{L^1(S_h)}\le C\hG^2(\norm v_{L^1(\Gh)}+\norm{\nabla v}_{L^1(S_h)})$; then $|S_h|\le C\hG^2$, Cauchy--Schwarz and Lemma~\ref{lem:korn}.
+\end{proof}
+
+\begin{lemma}[Nitsche-harmonic fields]\label{rb:harm}
+If $w\in\Zh$ and $a_h(w,y)-\ip w{\dn y}=0$ for all $y\in\Yh$, then $\norm w_{L^2(\Gamma)}/C_{\rm tr}\le\norm{\nabla w}\le C_Y\hG^{-1/2}\norm w_{\Gh}$, uniformly in $\mu$, $\gamma$ and $\nu$. Every $W_M(\phi)$ satisfies the hypothesis.
+\end{lemma}
+
+\begin{proof}
+Let $L$ be the lift of $w|_{\Gh}$ (Lemma~\ref{rs:lift}) and $y:=w-L\in\Yh$. Then $a_h(y,y)=\ip w{\dn y}-a_h(L,y)$; use Lemma~\ref{lem:inverse} and Korn. For $v\in\Yh$, $(\nabla\phi,v)=0$, $B_M(\cdot,v)=0$ and $\Rop v=v$.
+\end{proof}
+
+\subsection{The printed method is not pressure-robust}
+
+\begin{theorem}[$\GS$]\label{rb:gs}
+Let $G_\phi:=\norm{\phi-\bar\phi}_{L^2(\Gamma)}$.
+\begin{enumerate}[label=(\alph*)]
+\item $c_1\tnorm{W_{\GS}(\phi)}\le(h/\mu)^{1/2}(G_\phi+C\hG^2)$ and $\norm{\nabla W_{\GS}(\phi)}\le C\hG^{-1/2}(h/\mu)(G_\phi+C\hG^2)$, for every $\mu\ge\mu_0$.
+\item $\tnorm{W_{\GS}(\phi)}\ge(2M)^{-1}(h/\mu)^{1/2}G_\phi$, and in the regime of Theorem~\ref{thm:B}, $\norm{\nabla W_{\GS}(\phi)}\ge c(h/\mu)G_\phi$.
+\item In the regime of Corollaries~\ref{cor:Bp} and~\ref{hc:cor}, the normalised slip and energy tend to $1$ and $\norm{\nabla W_{\GS}}/((h/\mu)G_\phi)\to K_\phi$.
+\end{enumerate}
+Hence, at viscosity $\nu$, $\ut-u_h=E_{\GS}-(h/\nu\mu)v_{\pt}+o(h/\nu\mu)$: the pressure part of the $\GS$ error is the leak flow divided by $\nu$.
+\end{theorem}
+
+\begin{proof}
+(a) is the proof of Theorem~\ref{thm:A} with $\ut=z=0$ and $\Gc=0$, plus Lemma~\ref{rb:harm}. (b) and (c) are Theorems~\ref{thm:B}, \ref{thm:C}, Corollaries~\ref{cor:Bp}, \ref{hc:cor} with $u=0$.
+\end{proof}
+
+With an unscaled penalty $\hat\mu/h$ ($\mu=\hat\mu/\nu$) the bounds of (a) become $\nu$-uniform: $\nu^{-1}\norm{W}_{\Gh}\le(h/\hat\mu)(G+C\hG^2)/c_1$. The leak law $(h/\hat\mu)(p-\pbar)$ itself is then not proved (it needs $\gamma\hG\to0$, Remark~\ref{hc:regime}); numerically the slip equals $(h/\hat\mu)G$ to $10^{-3}$ at $N=32,64$.
+
+\subsection{The pressure-consistent method has one pressure defect}
+
+\begin{proposition}[Error identity]\label{rb:one}
+On $\Zh$ the $\CNS$ error $e_u=\ut-u_h$ satisfies $\nu N_h(e_u,v)+\ip\eta{v\cdot n}+\ip{\xi-\bar\xi}{v\cdot n}=\Gc_\nu(v)$, with $\eta:=p^\ast-\pi_hp^\ast$ on $\Gh$ and $\xi$ the discrete pressure error of Theorem~\ref{thm:D}. There is no pressure traction mismatch: Lemma~\ref{lem:erroreq} integrates $\ip{\pt}{v\cdot n}$ exactly with the chord normal $n_e$; the tilt $n_e-n(x^\ast)$ appears only in the velocity term $\ip{(\nabla\ut)^{\mathsf T}n}v$ of $\Gc$, which does not involve $p$. Flux and mean terms vanish on $\Zh$, the strip enters only through $F$ (Lemma~\ref{rb:strip}), and $\xi$ has no independent pressure source (step~3 of Theorem~\ref{thm:D}). So $\eta$ is the only pressure-dependent term.
+\end{proposition}
+
+\begin{theorem}[$\CNS$: upper bounds]\label{rb:cns}
+For $\gamma\ge\gamma_2$ and $\phi\in W^{k,\infty}$ near $\Gamma$:
+\begin{enumerate}[label=(\alph*)]
+\item $\tnorm{W_{\CNS}(\phi)}\le(2/c_1)(h/\mu)^{1/2}\norm{\eta_\phi}_{\Gh}\le C\gamma^{-1/2}\hG^{k+1/2}|\phi|_{W^{k,\infty}}$;
+\item $\norm{\nabla W_{\CNS}(\phi)}\le C\hG^{-1/2}(h/\mu)\norm{\eta_\phi}_{\Gh}\le C\gamma^{-1}\hG^{k+1/2}|\phi|_{W^{k,\infty}}$;
+\item $W_{\CNS}(\phi)=0$ if $\phi|_T\in P_{k-1}$ on every boundary triangle.
+\end{enumerate}
+Consequently $\tnorm{\ut-u_h}\le C_u[(1+\gamma^{1/2})\hG^{3/2}+\eps]+C\hG^4\norm{\nabla F}/\nu+(2/c_1)\nu^{-1}(h/\mu)^{1/2}\norm{\pt-\pi_h\pt}_{\Gh}$, with the analogous $H^1$ statement.
+\end{theorem}
+
+\begin{proof}
+With $u=0$, $F=0$ and $v=W$ in Proposition~\ref{rb:one}: $c_1\tnorm W^2\le|\ip\eta{W\cdot n}|+C(c_0\gamma)^{-1/2}\norm{\xi-\bar\xi}\tnorm W$ and $\beta\norm{\xi-\bar\xi}\le C\tnorm W$; absorb for $\gamma\ge\gamma_2$. $\norm\eta_{L^\infty(T)}\le Ch_T^k|\phi|_{k,\infty}$ with $h_T\le C\hG$ on boundary triangles. (b) is Lemma~\ref{rb:harm}.
+\end{proof}
+
+Part (c) explains why the cubic pressure of test~P gives errors at round-off for $\CNS$ (Section~\ref{sec:numerics}). With an unscaled penalty $\nu^{-1}\norm{\nabla W_{\CNS}}\le C\hG^{k-1/2}(h/\hat\mu)|p|$, which is $\nu$-uniform.
+
+\subsection{An exactly gradient-robust variant}
+
+\begin{definition}[$\CNSR$]\label{rb:def:R}
+For a boundary triangle $T_e$ and $w\in P_k(e)$ let $b_e(w)\in\mathrm{BDM}_k(T_e)$ satisfy $b\cdot n=w$ on $e$, $b\cdot n=0$ on the other two edges, and $(\div b,r)_{T_e}=\ip wr_e$ for $r\in P_{k-1}(T_e)$ (for proofs fixed by Piola-mapping a reference right inverse). Put $\Rop v:=v-\sum_{e\in\EG}b_e(v\cdot n_e)$. $\CNSR$ is $\CNS$ with the load $(\ft,\Rop v)$; the system matrix is unchanged.
+\end{definition}
+
+The $b_e$ exist by BDM unisolvence, satisfy $\int_{T_e}b\cdot\nabla r=0$ for $r\in P_{k-1}$ (in particular $\int_{T_e}b=0$), and $\norm b_{T_e}\le C|e|^{1/2}\norm w_e$ by Piola scaling.
+
+\begin{theorem}[$\CNSR$ is gradient-robust]\label{rb:R}
+Let $\gamma\ge\gamma_2$ and let the load be integrated exactly.
+\begin{enumerate}[label=(\alph*)]
+\item If $\ft=\nabla\phi$ on $\Oh$ (including the strip), the solution is $(0,\pi_h\phi-\pbG(\pi_h\phi))$. Hence $W_{\CNSR}\equiv0$. For a non-gradient extension a residual $(F,\Rop v)=O(\hG^4)$ remains.
+\item $E_{\CNSR}$ satisfies the bounds of Theorems~\ref{thm:D} and~\ref{rs:unif} and the lower bound of Theorem~\ref{lb:thm}; the extra load $H(v)=\sum_e(-\Delta\ut+F/\nu,b_e(v\cdot n_e))$ satisfies $|H(v)|\le C(\hG^2+\hG^{7/2}\norm{\nabla F}/\nu)\norm v_{\Gh}$ and vanishes on $\VO$ and on $\Yh$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) For $v\in\VR$, $(\nabla\phi,v)=-(\pi_h\phi,\div v)+\ip\phi{v\cdot n}$, since $\div\Vh\subset\Pih$ and $v=0$ on $\partial R$. On $T_e$, $(\nabla\phi,b_e)=-(\phi,\div b_e)+\ip\phi{v\cdot n}_e=-\ip{\pi_{T_e}\phi}{v\cdot n}_e+\ip\phi{v\cdot n}_e$ (no triangle has two edges on $\Gh$). So $(\nabla\phi,\Rop v)=-(\pi_h\phi,\div v)+\ip{\pi_h\phi}{v\cdot n}=B^\ast(\pi_h\phi-\pbG(\pi_h\phi),v)$. The continuity row holds for $u_h=0$; uniqueness is Theorem~\ref{thm:D}. (b) $b_e\perp$ constants ($k\ge2$) gives $\sum_e\hG^{5/2}\norm{v\cdot n}_e\le C\hG^2\norm v_{\Gh}$; $H$ vanishes where $v\cdot n=0$ on $\Gh$.
+\end{proof}
+
+The same correction does nothing for $\GS$: $\GS$ has no traction term, and $W_{\GS\text{-}R}(\phi)=W_{\GS}(\pi_h\phi)$ still leaks. The method needs $\ft$ on the boundary triangles, which the paper assumes anyway.
+
+\subsection{Sharpness for $\CNS$}\label{rb:sec:lower}
+
+The upper bounds of Theorem~\ref{rb:cns} are attained, but the structure is subtler than the bounds suggest: some directions of $\nabla^k\phi$ are invisible to the defect functional.
+
+\paragraph{Energy.} Let $V_R^0$ be the zero-flux fields of $\VR$ (not necessarily divergence-free).
+
+\begin{theorem}[Energy duality]\label{rb:energy}
+For $\mu\ge\mu_0$ and every $v\in V_R^0$, $|\ip\eta{v\cdot n}|\le K_1\tnorm{W_{\CNS}}\tnorm v$ with
+$K_1:=M+\beta^{-1}(2+C_Ic_0^{-1/2}\gamma^{-1/2})(\sqrt2+C_Ic_0^{-1/2}\gamma^{-1/2})$. So $\tnorm{W_{\CNS}}\ge K_1^{-1}D^0_h$, $D^0_h:=\sup_{V_R^0}\ip\eta{v\cdot n}/\tnorm v$, with no absorption.
+\end{theorem}
+
+\begin{proof}
+For $v\in V_R^0$, $N_h(W,v)=\ip\eta{v\cdot n}+\ip{\xi-\xi_\Omega}{v\cdot n}-(\xi-\xi_\Omega,\div v)$ (constants drop out since $\int_{\Gh}v\cdot n=0$). Testing with $v\in\VO$, $\div v=\xi-\xi_\Omega$ (Lemma~\ref{lem:infsup}), gives $\norm{\xi-\xi_\Omega}\le\beta^{-1}(2\norm{\nabla W}+C_Ic_0^{-1/2}\hG^{-1/2}\norm W_{\Gh})$; use $\hG^{-1/2}\norm W_{\Gh}\le\gamma^{-1/2}\tnorm W$.
+\end{proof}
+
+For every $k$, $D^0_h\ge c(1+\gamma)^{-1/2}\hG^{1/2}\norm{Y}_{\Gh}$ with $Y$ the zero-flux projection of $\eta n$; and for even $k$ an exact Rodrigues identity, $\ip\eta{L^e_k}_e=|e|^{k+1}\frac{k!}{(2k+1)!}\,\mathrm{avg}_{\mathrm{Beta}(k+1,k+1)}(\partial^k_{\tau_e}\phi)$ (valid for every $k$ and independent of the triangle shape), yields $D^0_h\ge c(\phi)(1+\gamma)^{-1/2}\hG^{k+1/2}$ whenever $\nabla^k\phi[\tau^{\otimes k}]\not\equiv0$ on $\Gamma$. For odd $k$ the corresponding global test field does not exist ($L^e_k$ has opposite signs at the two ends). So the energy order $\gamma^{-1/2}\hG^{k+1/2}$ is sharp for even $k$ under that condition (details: \texttt{notes/v6/robust2}).
+
+\paragraph{$H^1$ for every penalty.} Call $v\in\VR$ \emph{pressure-blind} if $B^\ast(q,v)=0$ for all $q\in\Pih$; equivalently, $\int_{\Gh}v\cdot n=0$, $\div v=0$ on triangles without a $\Gh$ edge, and $(\div v,r)_{T_e}=\ip{v\cdot n}r_e$ for $r\in P_{k-1}(T_e)$ (the moment condition of Definition~\ref{rb:def:R}). For such $v$, exactly,
+\begin{equation}\label{rb:pf}
+N_h(W_{\CNS}(\phi),v)=\ip\eta{v\cdot n}:
+\end{equation}
+the pressure error disappears from the equation. If moreover, on a patch $\omega$, (M) $\sum_{e\subset\partial\omega\cap\Gh}\int_ev=0$ and (D) $\sum_e\int_e\dn v=0$, then $N_h(c,v)=0$ for constants $c$, so $|N_h(w,v)|\le\Phi^\ast_\omega(v)\norm{\nabla w}_\omega$ with $\Phi^\ast_\omega\le\Phi^0_\omega+\gamma\Phi^1_\omega$ explicit.
+
+\begin{theorem}[Certificate for every $\gamma>0$]\label{rb:cert}
+Let patches $\omega_j$ with overlap $K$ and pressure-blind $v_j$ satisfying (M), (D) on $\omega_j$ be given. Then for every $\gamma>0$ and every $\CNS$ solution velocity $W$ of the hydrostatic problem,
+$\norm{\nabla W}^2\ge K^{-1}\sum_j\ip\eta{v_j\cdot n}^2/\Phi^\ast_{\omega_j}(v_j)^2$. With boundary stars and $H_z$ the degree-$k$ Taylor term of $\phi$ at $z$,
+\[
+\norm{\nabla W}\ge\frac{1}{2\sqrt K(1+\gamma)}\Bigl(\sum_zs_z^{2k+2}\bigl(\sigma_z(H_z)-C_Rs_z|\phi|_{W^{k+1,\infty}}\bigr)_+^2\Bigr)^{1/2},
+\]
+where $s_z=|e_z|$ and $\sigma_z$ is a scale-invariant seminorm on homogeneous degree-$k$ polynomials, computable from the star.
+\end{theorem}
+
+\begin{proof}
+By \eqref{rb:pf} and the patch bound, $|\ip\eta{v_j\cdot n}|\le\Phi^\ast_j\norm{\nabla W}_{\omega_j}$; square and sum. For the second bound take $v$ optimal for $\sigma_z(H_z)$; the Taylor remainder on each boundary triangle is $(I-\pi_T)(\phi-T^k_z\phi)=O(s^{k+1})$, the trace of $v$ is controlled by $\Phi^1$, and $\Phi^\ast\le\sqrt2(1+\gamma)\hat\Phi$.
+\end{proof}
+
+Only the momentum row is used: neither $W\in\Zh$, uniqueness, nor $\gamma\ge\gamma_0$ enters, and the bound holds below the coercivity threshold. Numerically ($k=4$, $\phi=\sin2x\cos y$, $\mu=100$) the certificate times $\gamma/\hG^{4.5}$ converges to $\approx0.015$ ($N=8,\dots,256$), and $\norm{\nabla W}$ is $3.2$--$4.6$ times the certificate.
+
+\paragraph{Invisible directions.} For a boundary triangle $T$ with $\Gh$-edge $e=[L,R]$ and apex $c$, let $\ell_w$ be the linear part of the barycentric coordinate $\lambda_w$, $\Ker_T:=\operatorname{span}\{\ell_c^k,\ell_L^k,\ell_R^k\}$ and $K_T:=\operatorname{span}\{\ell_c^k,\ell_L^k-\ell_R^k\}$. Then $(I-\pi_T)\lambda_w^k=J_k(\lambda_w)$ with $J_k$ the monic Jacobi-type polynomial orthogonal to $P_{k-1}$ with weight $1-s$; the restriction of $H\mapsto((I-\pi_T)H)|_e$, projected onto the zero-mean, zero-end part of $P_k(e)$, has kernel exactly $\Ker_T$; and for $H=\ell_L^k-\ell_R^k$ the edge defect $d_k$ satisfies $\ip{d_k}g_e=\beta_k|e|(g(L)-g(R))$ for all $g\in P_k(e)$, $\beta_k=(-1)^kJ_k(0)/(k+1)$ ($\beta_4=1/630$). All three facts are proved in \texttt{notes/v6/robust2}, \texttt{robust4} and were checked in exact arithmetic for $k=4,\dots,8$. Consequently a $K_T$-component of $\nabla^k\phi$ produces only an edge constant and a vertex-difference functional, and on a straight, translation-periodic boundary $\ip{\eta_H}{v\cdot n}=\mathrm{const}\cdot\int v\cdot n$ for every $v\in\Vh$ and $H\in K_T$: no test field of any kind sees $K_T$. The production meshes converge to such a configuration. And the effect is real, not a limitation of the certificates: on the equispaced family \textsf{UP} (radial first layer of constant height ratio), the datum $\phi_B$ with $\nabla^4\phi_B/4!=\cos4\theta\,(x^4-(x-y/\rho)^4)$ on $\Gamma$ (not purely normal) has $\norm{\nabla W_{\CNS}(\phi_B)}\le C\gamma^{-1}\hG^{k+3/2}$ (proved), with observed order $5.45$--$5.48$.
+
+\begin{theorem}[Order of the $\CNS$ pressure part, $k=4$]\label{rb:final}
+Let $\theta$ be the minimum angle, assume (M0)--(M2), quasi-uniformity along $\Gh$, and that each $\Gh$ vertex has a neighbouring triangle without a $\Gh$ edge adjacent to the boundary triangle (condition (G)). Let $K$ be the patch overlap and $W=W_{\CNS}(\phi)$ with $\phi\in C^{k+3}$.
+\begin{enumerate}[label=(\alph*)]
+\item (Proved; all meshes, $\gamma\ge\gamma_2$.) $\norm{\nabla W}\le C\gamma^{-1}\hG^{k+1/2}|\phi|_{W^{k,\infty}}$.
+\item (Proved; all meshes, every $\gamma>0$.)
+\[
+\norm{\nabla W}\ge\frac{\kappa_T(\theta)}{4\sqrt K(1+\gamma)}\Bigl(\sum_z|e_z|^{2k+2}\operatorname{dist}_F\Bigl(\frac{\nabla^k\phi(z)}{k!},\Ker_{T_{e_z}}\Bigr)^2\Bigr)^{1/2}-\frac{C|\phi|_{W^{k+1,\infty}}}{1+\gamma}\hG^{k+3/2},
+\]
+with certified $\kappa_T(30^\circ)\ge2.1\cdot10^{-6}$, $\kappa_T(20^\circ)\ge5.6\cdot10^{-7}$, and $\kappa_T(\theta)>0$ for all $\theta\in(0,\pi/3]$.
+\item (Proved; LP$^+$ families, $\gamma\ge\max(\gamma_2,1)$.) Suppose there are Lipschitz maps $\mathcal K$ (normalised shape) and $\ell>0$ on $\Gamma$ with $|\mathrm{shape}(T_e)-\mathcal K(x_e)|+||e|/\hG-\ell(x_e)|\le C\hG$ (production and \textsf{UP} satisfy this). With $K(x):=K_{\mathcal K(x)}$ and $D(\phi)^2:=\int_\Gamma\ell^{2k+1}\operatorname{dist}_F(\nabla^k\phi/k!,K(x))^2\,ds$,
+\[
+c\gamma^{-1}D(\phi)\le\liminf_{\hG\to0}\frac{\norm{\nabla W}}{\hG^{k+1/2}}\le\limsup_{\hG\to0}\frac{\norm{\nabla W}}{\hG^{k+1/2}}\le C\gamma^{-1}D(\phi)+C\gamma^{-3/2}\norm\phi_{C^{k+3}} .
+\]
+\item (Proved; LP$^+$, $D(\phi)=0$.) $\norm{\nabla W}\le C\gamma^{-1}\hG^{k+1}+C\gamma^{-3/2}\hG^{k+1/2}$, and $\le C\gamma^{-1}\hG^{k+3/2}$ if the edge-constant part of $\eta$ is constant along $\Gamma$ up to $O(\hG^{k+1})$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof outline]
+(a) is Theorem~\ref{rb:cns}(b) sharpened to $C\gamma^{-1}\hG^{1/2}\Xi$ with $\Xi$ the norm of the edge-oscillating part of $\eta$. (b) is Theorem~\ref{rb:cert} with pressure-blind fields supported in the boundary triangle and its neighbour across the spoke $[z,c]$: their normal traces are shape independent and span the zero-flux part of $P_k(e)$, their pairing with $\ell_z^j\ell_a^{4-j}$ is a constant rational matrix whose kernel is exactly $\Ker_T$, and only the norms depend on the shape; $\kappa_T$ is a certified lower bound of the resulting generalised Rayleigh quotient over all admissible shapes (interval arithmetic; negative controls at $2.17\cdot10^{-6}$ and $5.7\cdot10^{-7}$ are refuted). (c) The lower bound adds a vertex field $v_z$ with $v_z(z)=\nu_z$, zero flux on each wall edge and bounded (M), (D) corrections uniformly through the flat locus; this makes the vertex functional of $\Ker_T/K_T$ visible, and a Riemann sum gives $D(\phi)$. The upper bound splits $\eta$ into edge-oscillating, vertex and edge-constant parts; the last is a smooth trace of size $\hG^k$, handled by the bound $\norm{\nabla W^a}\le C\gamma^{-1}\hG+C\beta^{-1}\gamma^{-3/2}\hG^{1/2}\norm a$ for smooth boundary data $a$, whose second term comes from the Nitsche pressure layer $\xi_b$ of Lemma~\ref{pd:lem:rep} with trace $k(k+1)(W\cdot n)/H_e$. (d) follows from the same split. Full details, scripts and certificates: \texttt{notes/v6/robust3}--\texttt{robust6}.
+\end{proof}
+
+Parts (b)--(d) are proved for $k=4$. For $5\le k\le8$, (b) holds with a non-explicit $\kappa_T$; this rests on rank computations for $k=5,\dots,8$ of which only the dimensions were independently re-checked. (P$^T$) and the vertex field for $k\ge9$ are unverified.
+
+\begin{conjecture}[S$_{\rm LP}$]\label{rb:conj}
+On LP$^+$ families with smoothly varying heights, $\norm{\nabla W^a}\le C\gamma^{-1}\hG\norm a_{C^3}$ for smooth boundary data $a$. This would remove the $\gamma^{-3/2}$ terms in Theorem~\ref{rb:final}(c),(d) and give order $k+1$ for general $K$-degenerate $\phi$.
+\end{conjecture}
+
+The evidence is numerical (\textsf{UP}). On a non-LP mesh with alternating first-layer heights the $\gamma^{-3/2}\hG^{1/2}$ term appears to be real ($\norm{\nabla W^a}\gamma/\hG=6.40,8.46,10.28,11.92$ for $N=16,\dots,64$ at $\mu=300$), but its amplitude is inflated by near-criticality, so this is not a proved counterexample. The orders $k+1$ (generic $K$-degenerate $\phi$, observed $5.28$ and falling) and $k+3/2$ (observed $5.48$--$5.51$) are numerical.
+
+\paragraph{The residual leak law.} For large $\gamma$ the $\CNS$ pressure part is itself a leak flow: with $\varepsilon=h/\mu$ and $Y$ as above, $\norm{W-\varepsilon Y}_{\Gh}\le C_2\gamma^{-1}\norm W_{\Gh}$, and for $\gamma\ge\gamma_3:=\max(2C_2,4C_2/\sigma)$ ($\sigma$ the edge-oscillation fraction of $Y$) $\norm{\nabla W}\asymp\hG^{1/2}\gamma^{-1}\norm Y$ (proved, \texttt{notes/v6/robust2}). Numerically $C_2\gtrsim180$, so $\gamma_3\gtrsim10^3$ ($\mu\gtrsim4000$): the law is not informative at $\mu=100$, where it indeed fails by a factor $1.1$--$4$ in the slip. The $H^1$ order is unaffected; Theorems~\ref{rb:cert} and~\ref{rb:final}(b) cover every $\gamma$.
+
+\subsection{Computations}
+
+Table~\ref{rb:tab} shows the hydrostatic test $\ft=\nabla\phi$, $\phi=\sin2x\cos y$, $\nu=1$, $k=4$, $\mu=100$ on the production meshes. $\GS$ is first order with slip ratio tending to $1$; $\CNS$ has rate tending to $4.5=k+\frac12$ (the measured rates are reproduced to $\pm0.2$ by $4.5$ plus the drift of $\norm\eta_{\Gh}/\hG^4$); $\CNSR$ is at the quadrature floor. For a cubic $\phi$, $\CNS$ and $\CNSR$ are $\le10^{-13}$ (Theorem~\ref{rb:cns}(c)). With the $\nu$-scaled penalty $\nu\norm{\nabla u_h}$ is constant to $10^{-12}$ over $\nu\in\{1,10^{-2},10^{-4},10^{-6}\}$ (a floating-point check of Lemma~\ref{rb:scale}); with an unscaled penalty $\hat\mu=100$ the $\GS$ and $\CNS$ values are $\nu$-uniform ($2.0$--$2.1\cdot10^{-2}$ and $0.9$--$2.2\cdot10^{-7}$ at $N=64$). On general data $\CNSR$ changes the error of test~B$_1$ by at most $0.3\%$, and $\CNSR$ errors for two problems with the same velocity and different pressures agree to $3\cdot10^{-12}$ (for $\CNS$ they differ by $7\cdot10^{-8}$).
+
+\begin{table}[t]
+\centering\small
+\caption{Hydrostatic test, $k=4$, $\mu=100$, $\nu=1$: $\norm{\nabla u_h}$ (the exact velocity is $0$), $\GS$ slip and energy normalised by their leading terms, and $\CNS$ energy norm (\texttt{notes/v6/robust/hydro\_all.jsonl}).}\label{rb:tab}
+\begin{tabular}{rcccccc}
+\toprule
+$N$ & $\GS$ & slip ratio & energy ratio & $\CNS$ (rate) & $\CNS$ energy (rate) & $\CNSR$\\
+\midrule
+8 & $1.074\cdot10^{-1}$ & 0.857 & 1.226 & $2.29\cdot10^{-3}$ & $7.07\cdot10^{-3}$ & $6.3\cdot10^{-9}$\\
+16 & $6.733\cdot10^{-2}$ & 0.910 & 1.090 & $1.23\cdot10^{-4}$ (5.73) & $3.86\cdot10^{-4}$ (5.70) & $2.4\cdot10^{-12}$\\
+32 & $3.805\cdot10^{-2}$ & 0.948 & 1.017 & $5.34\cdot10^{-6}$ (4.97) & $1.88\cdot10^{-5}$ (4.79) & $6.9\cdot10^{-15}$\\
+64 & $2.027\cdot10^{-2}$ & 0.972 & 0.998 & $2.22\cdot10^{-7}$ (4.71) & $9.53\cdot10^{-7}$ (4.41) & $1.3\cdot10^{-14}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What is not proved.} The leak law for the unscaled penalty as $\nu\to0$; Conjecture~\ref{rb:conj}; the sharpness of orders $k+1$ and $k+3/2$ in the $K$-degenerate case; explicit $\kappa_K$ in Theorem~\ref{rb:final}(c); Theorem~\ref{rb:final}(b)--(d) for $k\ne4$ beyond the caveat above; exactness of $\CNSR$ under quadrature (numerical floor only); Navier--Stokes and Oseen versions.
+\cert{notes/v6/robust/hydro.py, cert.py; notes/v6/robust2--6/*.py}{notes/v6/robust/hydro\_all.jsonl, rates.jsonl; notes/v6/robust3/cert\_sin\_*.jsonl; notes/v6/robust6/cert\_fix\_*.log}

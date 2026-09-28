@@ -1,0 +1,83 @@
+\section{Setting, methods and assumptions}\label{sec:setting}
+
+\subsection{Domain}
+\begin{assumption}[Domain]\label{set:dom}
+$\Omega\subset\R^3$ is a bounded connected Lipschitz domain with $\partial\Omega=\Gamma\sqcup\Sigma$. The wall $\Gamma=\Gamma_1\sqcup\dots\sqcup\Gamma_m$ is a union of closed, connected, embedded surfaces of class $C^{k+3}$, each a whole component of $\partial\Omega$. The outer boundary $\Sigma\ne\emptyset$ is a finite union of closed polyhedral surfaces (whole components of $\partial\Omega$) and carries strongly imposed Dirichlet data.
+\end{assumption}
+
+The model case is $\Omega=R\setminus\overline D$ with $R=(-L,L)^3$, $L>1$, and $D$ the open unit ball.
+
+$N$ denotes the unit normal of $\Gamma$ pointing into $\Omega$ and $n:=-N$ the outward normal of $\Omega$ on $\Gamma$. Let $d$ be the signed distance to $\Gamma$, positive in $\Omega$, $\pi$ the closest-point projection, and $\hh_y(X,Y):=-\ip{D_XN}{Y}$ the second fundamental form with respect to $N$, so that $\hh>0$ where $\Omega$ is locally convex; for the exterior of the unit ball, $\hh=-I$. Put $\kappa_\infty:=\sup_\Gamma|\hh|$. We use two standard facts about the fixed surface $\Gamma$.
+\begin{enumerate}
+\item[(T)] There is $r>0$ with $r\kappa_\infty\le\frac12$ such that $\Psi(y,s):=y+sN(y)$ is a $C^{k+2}$ diffeomorphism of $\Gamma\times(-r,r)$ onto a tube $\mathcal T_r$, with $d(\Psi(y,s))=s$, $\pi(\Psi(y,s))=y$ and $\nabla d=N\circ\pi$. The volume element is $dx=J\,dA\,ds$ with $J=\det(I-sS_y)\in[\frac14,\frac94]$, $S$ the shape operator. $\mathcal T_r$ has positive distance from $\Sigma$, and the tubes around different $\Gamma_i$ are disjoint.
+\item[(Gr)] There is $a_0\le r/4$ with $\kappa_\infty a_0\le\frac1{40}$ such that, for each $y\in\Gamma$, in the frame $(y;\tau_1,\tau_2,N(y))$ with coordinates $(\xi,\eta)\in\R^2\times\R$, the set $\Gamma\cap(-2a_0,2a_0)^3$ is the graph of $f_y\in C^{k+3}$ with $f_y(0)=0$, $\nabla f_y(0)=0$, $D^2f_y(0)=\hh_y$, $|\nabla f_y(\xi)|\le2\kappa_\infty|\xi|$ and $|f_y(\xi)|\le\kappa_\infty|\xi|^2$, and $\Omega\cap(-2a_0,2a_0)^3=\{\eta>f_y(\xi)\}$.
+\end{enumerate}
+
+\subsection{Inscribed surface and mesh}
+\begin{assumption}[Inscribed surface and mesh]\label{set:mesh}\leavevmode
+\begin{enumerate}[label=(G\arabic*)]
+\item $\Gh$ is a closed triangulated surface (each edge lies in exactly two faces) whose vertices lie on $\Gamma$. Its faces have diameter in $[c_0\hG,\hG]$ and minimal angle at least $\theta_0>0$.
+\item[(G3)] $\hG\le h_\ast$, a constant depending on $\Gamma$, $c_0$, $\theta_0$ and the shape regularity below.
+\end{enumerate}
+\begin{enumerate}[label=(M0$^3$)]
+\item $\Oh$ is a bounded connected open polyhedral set with $\partial\Oh=\Sigma\sqcup\Gh$, and $\Th$ is a conforming, shape-regular tetrahedral mesh of $\Oh$ (inradius $\ge c_s\diam T$) whose boundary faces on $\Gh$ are exactly the faces of $\Gh$. We write $\FG$ for this set of faces.
+\end{enumerate}
+\begin{enumerate}[label=(OB)]
+\item For each $i$, the parallel surface $\Gamma_i^-:=\{y-\frac r2N(y):y\in\Gamma_i\}$ on the obstacle side is not contained in $\Oh$.
+\end{enumerate}
+\end{assumption}
+
+(OB) holds whenever $\Oh$ agrees with $\Omega$ away from a thin neighbourhood of $\Gamma$, for example for every mesh that only modifies $\Omega$ near $\Gamma$. In the model case, $P_h$ is a convex polyhedron with triangular faces and vertices on the unit sphere, and $\Oh=R\setminus P_h$; then $P_h\supset B(0,1-C\hG^2)\supset\Gamma^-$, so (OB) holds. The two-dimensional analogue of (G1) and (OB) is discussed in \cite{PadhiLong2D}. Section~\ref{sec:geometry} shows that (G1), (M0$^3$) and (OB) imply that $\pi|_{\Gh}$ is a homeomorphism onto $\Gamma$; in surface finite elements this lift property is usually assumed.
+
+Put
+\[
+h:=\max_{T\in\Th}\diam T,\qquad \hG:=\max_{F\in\FG}\diam F,\qquad \rho:=\frac h{\min_{F\in\FG}\diam F},\qquad \gamma:=\frac{\mu\hG}h .
+\]
+Here $h$ is the $h$ in Scott's penalty $\mu/h$, and $\gamma$ is the effective wall penalty, $\mu/h=\gamma/\hG$. By (G1), $\rho/h\le1/(c_0\hG)$. No quasi-uniformity is assumed.
+
+\begin{definition}[Alfeld refinement]\label{set:alfeld}
+$\Th$ is an \emph{Alfeld refinement} if it is obtained from a conforming shape-regular macro mesh $\Th^M$ of $\Oh$ by splitting every macro-tetrahedron into four at its barycentre. The faces of the macro-tetrahedra on $\Gh$ are not subdivided, so each $F\in\FG$ is a face of exactly one macro-tetrahedron $T_F$ and of one of its four sub-tetrahedra.
+\end{definition}
+
+\textbf{(D)} $\ft$ is a smooth bounded extension of $f$ to a fixed neighbourhood of $\overline\Omega$, and $h\le h_\ast$.
+
+\subsection{Spaces and forms}
+Fix $k\ge3$. $\Vh$ is the space of continuous piecewise-$P_k$ vector fields on $\Th$, $\VR:=\{v\in\Vh:v|_\Sigma=0\}$ and $\VO:=\{v\in\Vh:v|_{\partial\Oh}=0\}$. $\Pih$ is the space of discontinuous piecewise-$P_{k-1}$ functions and $\Zh:=\{v\in\VR:\div v=0\}$. With $g:=u|_\Sigma$ and $\gI$ its $P_k$ Lagrange interpolant, $\Wh:=\{z\in\Vh:z|_\Sigma=\gI,\ \div z=0\}$.
+
+On $\Gh$, $n$ is the outward unit normal of $\Oh$ (on the face $F$ we also write $n_F$), $\dn v:=(\nabla v)n$ and $\ip\cdot\cdot$ is the $L^2(\Gh)$ pairing. Let
+\begin{align*}
+a_h(u,v)&:=\tfrac12(Du,Dv),\qquad Du:=\nabla u+(\nabla u)^{\mathsf T},\\
+N_h(u,v)&:=a_h(u,v)-\ip{\dn u}{v}-\ip{u}{\dn v}+\frac\mu h\ip uv .
+\end{align*}
+
+\begin{definition}[Method $\GS$ {\cite[(28)]{GjerdeScott2024}}, as printed]\label{set:GS}
+Find $u_h\in\Vh$ with $u_h|_\Sigma=\gI$ and $p_h\in\Pih$ such that
+\[
+N_h(u_h,v)-(p_h,\div v)=(\ft,v)\quad\forall v\in\VR,\qquad (q,\div u_h)=0\quad\forall q\in\Pih .
+\]
+\end{definition}
+The transcription conventions (the sign of the pressure, and the test space $\VR$) are those of \cite{PadhiLong2D}.
+
+\begin{definition}[Method $\CNS$]\label{set:CNS}
+As $\GS$, with momentum row
+\[
+N_h(u_h,v)-(p_h,\div v)+\ip{p_h-\pbG(p_h)}{v\cdot n}=(\ft,v),\qquad \pbG(q):=|\Gh|^{-1}\int_{\Gh}q .
+\]
+\end{definition}
+The mean is over all of $\Gh$, also when $\Gamma$ has several components; per-component means are inconsistent (Remark~\ref{er:rem:global}). The added term appears in the momentum row only, so the velocity stays exactly divergence-free. Its velocity is that of the zero-net-flux formulation of \cite[Section~5.1]{FrachonNilssonZahedi2024} (see \cite{PadhiLong2D} for the transcription; the argument is dimension-free).
+
+\begin{enumerate}[label=(IS3)]
+\item There is $\beta>0$, independent of $h$, such that for every $q\in\Pih\cap L^2_0(\Oh)$ there is $v\in\VO$ with $\div v=q$ and $\norm{\nabla v}\le\beta^{-1}\norm q$.
+\end{enumerate}
+On Alfeld refinements with $k\ge3$, (IS3) is a theorem (Lemma~\ref{st:IS3}). On other meshes it is an assumption; see Remark~\ref{st:rem:status}.
+
+\subsection{Exact solution, extensions and norms}
+$(u,p)$ is a Stokes solution, $-\Delta u+\nabla p=f$, $\div u=0$ in $\Omega$, $u|_\Gamma=0$, $u|_\Sigma=g$, with $u\in C^{k+1}(\overline\Omega)$ and $p\in C^k(\overline\Omega)$. Lemma~\ref{geom:ext} provides extensions $\ut\in C^{k+1}$ and $\pt\in C^k$ to a fixed neighbourhood $\mathcal O\supset\overline\Oh$ with $\div\ut=0$. The defect
+\[
+F:=\ft+\Delta\ut-\nabla\pt
+\]
+vanishes on $\Omega$ and is supported in $\overline{\Oh\setminus\Omega}$. For fields with traces on $\Gh$,
+\[
+\tnorm v^2:=\norm{\nabla v}^2_{\Oh}+\frac\mu h\norm v^2_{\Gh}+\sum_{F\in\FG}\diam F\,\norm{\dn v}^2_{L^2(F)} .
+\]
+We write $\pbar:=|\Gamma|^{-1}\int_\Gamma p$ and $G:=\norm{p-\pbar}_{L^2(\Gamma)}$. $C$ and $c$ depend on $k$, the constants in (G1) and (M0$^3$), $\Omega$, and norms of $(u,p,\ut,\pt)$; they never depend on $h,\hG,\mu,\gamma,\rho$ unless displayed. $C_p$ may also depend on $\norm{p-\pbar}_{W^{1,\infty}(\Gamma)}$.

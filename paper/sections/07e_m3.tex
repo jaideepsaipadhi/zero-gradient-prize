@@ -1,0 +1,264 @@
+% (M3) proof, from notes/v4/m3_proof.tex as audited in notes/v6/m3 and notes/v6/referee3_ns_m3.md.
+\subsubsection{Proof of (M3) for every \texorpdfstring{$k\ge4$}{k>=4}}\label{m3:sec}
+
+This subsection removes the hypothesis (M3) of Theorem~\ref{lb:thm} for $4\le k\le 6$. The construction was first drafted in version~4 of this work; the two geometric steps marked \emph{exact} below replace ``for $\hG$ small'' arguments of that draft, and the witness identities were re-verified independently (\texttt{notes/v6/m3/verify\_witness.py}). Throughout, $z$ is a vertex of $\Gh$, and the triangles at $z$ form a fan $T_j=(z,p_{j-1},p_j)$, $j=1,\dots,m$, listed counterclockwise, with $[z,p_0]$ and $[z,p_m]$ the two edges of $\Gh$ at $z$. We write $\alpha_j$ for the angle of $T_j$ at $z$, $\beta_j$ and $\gamma_j$ for its angles at $p_{j-1}$ and $p_j$, and $\Theta_z=\sum_j\alpha_j$ for the angle of $\Oh$ at $z$. Put $z=0$, and for points $a,b$ let $a\times b:=a_1b_2-a_2b_1$ and $D_{ij}:=p_i\times p_j$.
+
+\paragraph{Hypotheses.} Besides (M1$'$) we use:
+\begin{itemize}
+\item[(M0$_\theta$)] every triangle with a vertex on $\Gh$ has all its angles $\ge\theta_{\min}$, where $0<\theta_{\min}\le\pi/3$;
+\item[(S)] $\hG\le2\sin(\theta_{\min}/4)$.
+\end{itemize}
+(M0$_\theta$) is the quantitative form of the shape regularity in (M0), and (S) is a smallness condition of the type allowed by (D). (M2) is used only through (M1$'$).
+
+\begin{lemma}[Exact boundary geometry]\label{m3:geom}
+\begin{enumerate}[label=(\alph*)]
+\item At every vertex $z$ of $\Gh$, with $\ell_1,\ell_2$ the lengths of the two chords at $z$, $\Theta_z-\pi=\arcsin(\ell_1/2)+\arcsin(\ell_2/2)$. Under (S), $|\Theta_z-\pi|\le\theta_{\min}/2$, so the condition
+\begin{itemize}
+\item[(A$_\delta$)] $|\Theta_z-\pi|\le\delta$ at every vertex $z$ of $\Gh$
+\end{itemize}
+holds with $\delta=\theta_{\min}/2<\theta_{\min}$.
+\item On every mesh, the only edges of $\Gh$ contained in the star of $z$ are $[z,p_0]$ and $[z,p_m]$:
+\begin{itemize}
+\item[(G)] no other edge of the star lies on $\Gh$.
+\end{itemize}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) A chord of length $\ell$ of the unit circle subtends the central angle $2\arcsin(\ell/2)$, and the angle between the chord and the tangent at either endpoint is half of it. The interior angle of $\Oh=R\setminus P_h$ at $z$ is $\pi$ plus the two tangent--chord angles. Under (S), $\arcsin(\ell_i/2)\le\arcsin(\sin(\theta_{\min}/4))=\theta_{\min}/4$.
+
+(b) A triangle of the star with an edge on $\Gh$ not through $z$ has all three vertices on $\partial P_h$, so it lies in the convex polygon $\overline{P_h}$; its interior would then be disjoint from $\Oh$. An edge of $\Gh$ through $z$ is one of the two chords at $z$.
+\end{proof}
+\begin{theorem}[(M3) holds for $k\ge4$]\label{m3:thm}
+Assume (M0$_\theta$), (M1$'$) and (A$_\delta$) with $0\le\delta<\theta_{\min}$, and let $k\ge4$. (By Lemma~\ref{m3:geom}, (A$_\delta$) holds with $\delta=\theta_{\min}/2$ under (S), and (G) holds on every mesh.) Then (M3) holds with $K_{\mathrm{ov}}=3$, $C_s=(\sin\theta_{\min})^{-3}$ and
+\[
+\kappa_0=\kappa_\ast(\theta_{\min},\delta)>0,
+\]
+where $\kappa_\ast$ is the minimum of the explicit continuous function $\kappa_w$ of Lemma~\ref{m3:norm} over the compact families $F_3(\theta_{\min},\delta)$ and $F_s(\theta_{\min},\delta)$ of Definition~\ref{m3:fam}. The patch $\omega_z$ is the star of $z$ if $m=3$, and the three triangles $T_1,T_2,T_3$ of the star next to $e_z$ if $m\ge4$. Moreover:
+\begin{enumerate}[label=(\alph*)]
+\item $\kappa_\ast(\theta_{\min},\delta)\ge\kappa_{\rm el}(\theta_{\min},\delta)$, the closed-form expression of Corollary~\ref{m3:el};
+\item rigorous interval certificates give $\kappa_\ast(30^\circ,10^\circ)\ge0.0012$ and $\kappa_\ast(20^\circ,15^\circ)\ge0.0003$ (Section~\ref{m3:sec:cert}). The certificate parameters $(\theta_{\min},\delta)$ are separate from (S): the value at $(30^\circ,10^\circ)$ applies when $\theta_{\min}\ge30^\circ$ and $\sup_z|\Theta_z-\pi|\le10^\circ$, e.g.\ for $\hG\le2\sin5^\circ$;
+\item on every mesh of Section~\ref{sec:numerics} ($N=8,\dots,1024$) every boundary star carries a field with $\kappa_z\ge0.00287$, for either choice of $e_z$ (Section~\ref{m3:sec:mesh}); these are the exact star constants of Table~\ref{lb:tab:stars}.
+\end{enumerate}
+\end{theorem}
+
+Consequently Theorem~\ref{lb:thm} and Corollary~\ref{lb:cor} hold for every $k\ge4$ under (M0)--(M2), (D) and (S), with $\kappa_0=\kappa_\ast(\theta_{\min},\theta_{\min}/2)$. For $k\ge7$, Lemma~\ref{lb:k7} gives a single-triangle field as well. The witness below is a $P_4$ field, so by the monotonicity in Remark~\ref{lb:k4} it serves for all $k\ge4$.
+
+\paragraph{The idea.} Remark~\ref{lb:k4} shows that a field in $Y_h^1$ can have $\mathcal M\ne0$ only if the Hessian of its stream function at $z$ jumps across the interior edges at $z$. On a fan of three triangles the homogeneous quadratic $C^1$ splines vanishing doubly on the two outer rays form a one-dimensional space, spanned by a spline whose Hessians are given by a classical Pl\"ucker-type identity; all its coefficients have a sign when $\alpha_1+\alpha_2<\pi$ and $\alpha_2+\alpha_3<\pi$. We complete this quadratic part by a cubic part, in closed form, to a $C^1$ quintic stream function with zero boundary data and zero means on the chords. Its second moment is a sum of two terms of the same sign.
+
+\paragraph{Stream functions.}
+Let $F$ be a fan of triangles at $z$ as above, a simply connected polygon. A continuous piecewise-$P_k$ field $v$ on $F$ with $v=0$ on $\partial F$ and $\div v=0$ is $v=\curl\phi$ with $\phi\in C^1(F)$ piecewise $P_{k+1}$ and $\phi=|\nabla\phi|=0$ on $\partial F$, and conversely; moreover $\norm{\nabla v}_F=\norm{D^2\phi}_F$. If $e=[z,p]\subset\partial F$, then $\partial_t\partial_n\phi=0$ on $e$, so $\dn v=(\partial_{nn}\phi)\,R n$ with $R$ the rotation by $-\pi/2$. Since $\tau_e$ is $n_e$ rotated in a fixed sense for all edges,
+\begin{equation}\label{m3:dnv}
+\dn v\cdot\tau_e=\sigma\,\partial_{nn}\phi\quad\text{on every edge }e\subset\partial F\cap\Gh,\qquad\sigma\in\{\pm1\}\text{ the same for all edges}.
+\end{equation}
+So $\int_e\dn v=0$ if and only if $\int_e\partial_{nn}\phi=0$ (the normal component vanishes by Lemma~\ref{lb:normal}), and $\mathcal M(v)=-\tfrac\sigma2\sum_e\int_e s^2\partial_{nn}\phi$.
+
+\paragraph{$C^1$ quintics on a fan.}
+On $T_j$ let $L_j$ be the barycentric coordinate of $z$; it is affine, $L_j(z)=1$, and $L_j=0$ on the line $p_{j-1}p_j$. Put $N_j(x):=p_j\times x$, a linear form vanishing on the ray through $p_j$.
+
+\begin{lemma}[Gluing]\label{m3:glue}
+Let $\phi$ be piecewise quintic on the fan with $\phi=|\nabla\phi|=0$ on its boundary, and $\phi_j:=\phi|_{T_j}$. Then $\phi_j=L_j^2(Q_j+C_j)$ with $Q_j$, $C_j$ homogeneous of degrees $2$ and $3$. On the boundary rays, $Q_1=aN_0^2$, $C_1=N_0^2\ell_1$, $Q_m=a'N_m^2$, $C_m=N_m^2\ell_m$ with $a,a'\in\R$ and $\ell_1,\ell_m$ linear. Write $L_{j+1}-L_j=\beta_jN_j$ ($\beta_j=0$ iff $p_{j-1},p_j,p_{j+1}$ are collinear). Then $\phi$ is $C^1$ across the ray through $p_j$ if and only if
+\begin{enumerate}[label=(G\arabic*)]
+\item $Q_j-Q_{j+1}\in\R N_j^2$;
+\item $C_j(p_j)=C_{j+1}(p_j)$;
+\item $\nabla(C_j-C_{j+1})(p_j)=2\beta_jQ_j(p_j)\,\nabla N_j$;
+\item $\beta_j\bigl(Q_j(p_j)+C_j(p_j)\bigr)=0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+$\phi_j$ vanishes to first order on the line $p_{j-1}p_j$, so $L_j^2$ divides it; the quotient $q_j$ is a cubic, and $q_j(0)=0$, $\nabla q_j(0)=0$ because $\phi$ and $\nabla\phi$ vanish at $z$ and $L_j(z)=1$. On the boundary ray through $p_0$, $N_0^2$ divides $q_1$, hence each homogeneous part. For the gluing, $L_{j+1}-L_j$ is linear and vanishes at $p_j$, so it is a multiple of $N_j$. Modulo $N_j^2$, $L_{j+1}^2\equiv L_j^2+2\beta_jN_jL_j$, so
+\[
+\phi_j-\phi_{j+1}\equiv L_j^2(q_j-q_{j+1})-2\beta_jN_jL_jq_{j+1}\pmod{N_j^2}.
+\]
+This vanishes iff $q_j-q_{j+1}=N_jg$ and $L_jg-2\beta_jq_{j+1}=0$ on the ray. Write $g=G_1+G_2$ (degrees 1, 2). On the ray, $x=tp_j$, $L_j=1-t$, and the second condition reads $tG_1(p_j)+t^2\bigl(G_2(p_j)-G_1(p_j)-2\beta_jQ_{j+1}(p_j)\bigr)-t^3\bigl(G_2(p_j)+2\beta_jC_{j+1}(p_j)\bigr)=0$. Hence $G_1(p_j)=0$, which with $N_j\mid Q_j-Q_{j+1}$ is (G1). $N_j\mid C_j-C_{j+1}$ is (G2). $G_2(p_j)=2\beta_jQ_j(p_j)$ is (G3), because $\nabla(N_jG_2)(p_j)=G_2(p_j)\nabla N_j$ and $Q_j(p_j)=Q_{j+1}(p_j)$ by (G1). Finally $G_2(p_j)=-2\beta_jC_{j+1}(p_j)$ gives (G4) with (G2). Every step reverses.
+\end{proof}
+
+\paragraph{The witness.} From now on $F=(0;p_0,p_1,p_2,p_3)$ is a fan of three triangles with $D_{01},D_{12},D_{23}>0$. Put
+\[
+A:=D_{13}D_{23},\qquad A_3:=D_{01}D_{02}.
+\]
+If $p_i=r_i(\cos\vartheta_i,\sin\vartheta_i)$ with $\vartheta_0=0$, $\vartheta_j=\alpha_1+\dots+\alpha_j$, then
+\begin{equation}\label{m3:signs}
+A=r_1r_2r_3^2\sin(\alpha_2+\alpha_3)\sin\alpha_3,\qquad A_3=r_0^2r_1r_2\sin\alpha_1\sin(\alpha_1+\alpha_2),
+\end{equation}
+so $A,A_3>0$ whenever $\alpha_1+\alpha_2<\pi$ and $\alpha_2+\alpha_3<\pi$.
+
+\begin{definition}[Witness]\label{m3:wit}
+Let $\ell_1$ be the linear form with $\ell_1(p_0)=-4A$, $\ell_1(p_1)=-A$, and $\ell_3$ the one with $\ell_3(p_3)=-4A_3$, $\ell_3(p_2)=-A_3$. Let
+\[
+Q_1=AN_0^2,\qquad Q_2=AN_0^2-\frac{D_{02}D_{03}D_{23}}{D_{12}}N_1^2,\qquad Q_3=A_3N_3^2,\qquad C_1=N_0^2\ell_1,\qquad C_3=N_3^2\ell_3,
+\]
+and let $C_2$ be the cubic form with polar values
+\begin{gather*}
+C_2(p_1,p_1,p_1)=-AD_{01}^2,\qquad C_2(p_2,p_2,p_2)=-A_3D_{23}^2,\\
+C_2(p_1,p_1,p_2)=\tfrac{A D_{01}}{3}(6D_{12}-5D_{02}+2D_{01}),\qquad C_2(p_1,p_2,p_2)=\tfrac{A_3D_{23}}{3}(6D_{12}-5D_{13}+2D_{23}).
+\end{gather*}
+Set $\phi_j:=L_j^2(Q_j+C_j)$ on $T_j$ and $w:=\curl\phi$. In the barycentric coordinates $(\lambda_0,\lambda_1,\lambda_2)$ of $T_j$ ($\lambda_0=L_j$ at $z$, $\lambda_1$ at $p_{j-1}$, $\lambda_2$ at $p_j$),
+\begin{align*}
+\phi_1&=AD_{01}^2\,\lambda_0^2\lambda_2^2(\lambda_0-3\lambda_1),\qquad \phi_3=A_3D_{23}^2\,\lambda_0^2\lambda_1^2(\lambda_0-3\lambda_2),\\
+\phi_2&=\lambda_0^2\Bigl[AD_{01}^2\lambda_1^2(\lambda_0+\lambda_2)+A_3D_{23}^2\lambda_2^2(\lambda_0+\lambda_1)+2AD_{01}D_{02}\,\lambda_1\lambda_2(\lambda_0+\lambda_1+\lambda_2)\\
+&\qquad\ +AD_{01}(6D_{12}-5D_{02}+2D_{01})\,\lambda_1^2\lambda_2+A_3D_{23}(6D_{12}-5D_{13}+2D_{23})\,\lambda_1\lambda_2^2\Bigr].
+\end{align*}
+\end{definition}
+
+\begin{lemma}[The witness is admissible]\label{m3:witlem}
+$\phi\in C^1(F)$ is piecewise quintic with $\phi=|\nabla\phi|=0$ on $\partial F$. On both outer rays $\int\partial_{nn}\phi=0$, and
+\[
+\int_{[0,p_0]}s^2\,\partial_{nn}\phi\,ds=\frac{|p_0|^5A}{30},\qquad \int_{[0,p_3]}s^2\,\partial_{nn}\phi\,ds=\frac{|p_3|^5A_3}{30}.
+\]
+Hence $w$ is a continuous, divergence-free, piecewise $P_4$ field vanishing on $\partial F$. Extended by zero it lies in $Y_h^1$, both when $F$ is the whole star ($m=3$) and when $F=T_1\cup T_2\cup T_3$ with $m\ge4$. In the first case $|\mathcal M(w)|=\bigl||p_0|^5A+|p_3|^5A_3\bigr|/60$. In the second, $|\mathcal M(w)|=|p_0|^5|A|/60$.
+\end{lemma}
+
+\begin{proof}
+\emph{Boundary.} The factor $L_j^2$ gives first-order vanishing on the outer edges, and $N_0^2\mid q_1$, $N_3^2\mid q_3$ on the outer rays.
+
+\emph{Ray through $p_1$.} (G1) holds by construction, and (G2)$+$(G4) read $C_1(p_1)=C_2(p_1)=-Q_1(p_1)=-AD_{01}^2$. This holds since $\ell_1(p_1)=-A$ and $N_0(p_1)=D_{01}$. (G3) is an identity between two vectors, so we test it with $p_1$ and with $p_2$.
+\begin{itemize}
+\item The $p_1$-component. By Euler's identity it reads $3(C_1-C_2)(p_1)=2\beta_1Q_1(p_1)N_1(p_1)$. Both sides vanish, by (G2) and because $N_1(p_1)=0$.
+\item The $p_2$-component. It reads $3C_1(p_1,p_1,p_2)-3C_2(p_1,p_1,p_2)=2\beta_1AD_{01}^2D_{12}$. Here $3C_1(p_1,p_1,p_2)=D_{01}^2\ell_1(p_2)+2D_{01}D_{02}\ell_1(p_1)=AD_{01}(4D_{12}-3D_{02})$, using $p_2=(D_{02}p_1-D_{12}p_0)/D_{01}$. Also $\beta_1=(D_{02}-D_{12}-D_{01})/(D_{01}D_{12})$, obtained by evaluating $L_2-L_1$ at $p_2$.
+\end{itemize}
+Substituting gives exactly the prescribed $C_2(p_1,p_1,p_2)$.
+
+\emph{Ray through $p_2$.} This is symmetric. (G1) is the identity
+\begin{equation}\label{m3:plucker}
+AN_0^2-\frac{D_{02}D_{03}D_{23}}{D_{12}}N_1^2+\frac{D_{01}D_{03}D_{13}}{D_{12}}N_2^2-A_3N_3^2\equiv0,
+\end{equation}
+a three-term Pl\"ucker relation among the squares of four linear forms in two variables. In angular form it is $\sum_j N_j^2/\bigl(r_j^2\prod_{k\ne j}\sin(\vartheta_j-\vartheta_k)\bigr)=0$.
+
+\emph{Means and moments.} On $[0,p_0]$ we have $\phi_1=L_1^2N_0^2(A+\ell_1)$ and $N_0=0$. With $n$ the unit normal, $\partial_{nn}\phi=2|\nabla N_0|^2L_1^2(A+\ell_1)=2|p_0|^2L_1^2(A+\ell_1)$. At $x=tp_0$ this is $2|p_0|^2A\,(1-t)^2(1-4t)$, because $\ell_1(tp_0)=-4At$. Now $\int_0^1(1-t)^2(1-4t)\,dt=0$ and $\int_0^1(t-\frac12)^2(1-t)^2(1-4t)\,dt=\frac1{60}$, and $ds=|p_0|\,dt$, $s=|p_0|(t-\frac12)$. The ray $[0,p_3]$ is symmetric. The formula for $\mathcal M$ follows from \eqref{m3:dnv}. By (G), the only chords meeting $F$ are $[0,p_0]$ and, when $m=3$, $[0,p_3]$; on all others the trace of $\dn w$ from $T_e$ vanishes.
+
+All identities in this proof are verified as identities of rational functions of the free coordinates of $p_1,p_2,p_3$ (with $p_0=(1,0)$, which is no loss by similarity) in \texttt{m3\_certify.py symbolic}. The barycentric form is checked there as well.
+\end{proof}
+
+\emph{Reflection.} Reflect the fan in a line through $z$ and reverse the order of the rays. Then $D_{ij}\mapsto D_{3-j,3-i}$, so $A\leftrightarrow A_3$, $N_1\leftrightarrow N_3$ and $N_2$ is unchanged in Lemma~\ref{m3:norm} below. Hence the witness data are reflection invariant; this is checked exactly in the log, including a fan with $\beta_1=0$.
+
+\begin{lemma}[The norm]\label{m3:norm}
+For a polynomial $f$ in the barycentrics of a triangle $T$ with angles $g_0,g_1,g_2$,
+\[
+\norm{D^2f}_{L^2(T)}^2=\frac{P_f(\cot g_0,\cot g_1,\cot g_2)}{2|T|}
+\]
+with $P_f$ a quadratic form with rational coefficients. This follows from $2|T|\nabla\lambda_a\cdot\nabla\lambda_a=\cot g_b+\cot g_c$, $2|T|\nabla\lambda_a\cdot\nabla\lambda_b=-\cot g_c$ and $\int_T\lambda^\alpha=2|T|\alpha!/(|\alpha|+2)!$. Consequently
+\begin{gather*}
+\norm{\nabla w}^2=N_1+N_2+N_3,\qquad N_1=A^2D_{01}^3P_1(\cot T_1),\qquad N_3=A_3^2D_{23}^3P_3(\cot T_3),\\ N_2=\frac{k^{\mathsf T}K(\cot T_2)\,k}{D_{12}},\\
+k=\bigl(AD_{01}^2,\ A_3D_{23}^2,\ 2AD_{01}D_{02},\ AD_{01}(6D_{12}-5D_{02}+2D_{01}),\ A_3D_{23}(6D_{12}-5D_{13}+2D_{23})\bigr),
+\end{gather*}
+where $\cot T_j$ lists the cotangents at $(z,p_{j-1},p_j)$. The forms are
+\[
+P_1=\tfrac{19}{70}k_0^2+\tfrac1{10}k_0k_1+\tfrac{17}{35}k_0k_2+\tfrac3{70}k_1^2+\tfrac17k_1k_2+\tfrac3{10}k_2^2,
+\]
+$P_3=P_1$ with $k_1\leftrightarrow k_2$, and $K$ is the $5\times5$ Gram matrix of the five bracketed terms of $\phi_2$ printed in the log. For a star with $m=3$ put
+\[
+\kappa_w:=\frac{|p_0|^5A+|p_3|^5A_3}{60\,\max(|p_0|,|p_3|)^2\sqrt{N_1+N_2+N_3}},
+\]
+and for $m\ge4$ put $\kappa_w:=|p_0|^5A/\bigl(60|p_0|^2\sqrt{N_1+N_2+N_3}\bigr)$. Then $w/\norm{\nabla w}$, with sign chosen, satisfies (M3)(iii) with constant $\kappa_w$.
+\end{lemma}
+
+The formula is checked in the log against direct exact integration of $|D^2\phi|^2$ on random rational fans.
+
+\begin{lemma}[Uniqueness for $m=3$]\label{m3:dim}
+Let $m=3$, $\beta_1\beta_2\ne0$, and suppose no two of the rays through $p_0,\dots,p_3$ lie on one line, except possibly those through $p_0$ and $p_3$. Then $Y^1(\omega_z):=\{v\in Y_h^1:\ \operatorname{supp}v\subset\omega_z\}$ is spanned by $w$. In particular the star constant is $\kappa_z=\kappa_w$ (normalised by $|e_z|$), and $\kappa_z=0$ iff $|p_0|^5A+|p_3|^5A_3=0$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{m3:glue}, the quadratic parts satisfy $aN_0^2+c_1N_1^2+c_2N_2^2-a'N_3^2=0$. The squares of three pairwise independent linear forms in two variables are linearly independent. So this relation is unique up to scale, and it is \eqref{m3:plucker} (if $N_3\parallel N_0$, it forces $c_1=c_2=0$, $a=a'$). If the quadratic part vanishes, (G4) with $\beta_j\ne0$ gives $C_{j+1}(p_j)=C_j(p_j)=0$, so each $C_j$ is divisible by the forms of both of its rays: $C_1=\alpha N_0^2N_1$, $C_2=N_1N_2\mu$, $C_3=\alpha_3N_3^2N_2$. The means on the two chords are $\propto\alpha N_1(p_0)$ and $\alpha_3N_2(p_3)$, so $\alpha=\alpha_3=0$. Then (G3) at $p_1$ and $p_2$ gives $\mu(p_1)=\mu(p_2)=0$, so $\mu=0$. Hence $\dim Y^1(\omega_z)\le1$, and $w\ne0$.
+\end{proof}
+
+The hypotheses of Lemma~\ref{m3:dim} are checked exactly for every star of the production meshes (Section~\ref{m3:sec:mesh}). The exact dimension counts in the log agree: $\dim Y(\omega_z)=2m-3$ and $\dim Y^1(\omega_z)=2m-5$. Two cases behave differently: when $\beta_1=0$ the dimension jumps to $2$, and the witness is still admissible; a fan of one or two triangles carries nothing.
+
+\begin{remark}[The hypothesis $\alpha_1+\alpha_2,\alpha_2+\alpha_3<\pi$ is needed]\label{m3:neg}
+If $\alpha_1+\alpha_2>\pi$, then $A_3<0<A$ and the two terms of $\mathcal M(w)$ compete. The log exhibits a segment of $m=3$ stars on which $|p_0|^5A+|p_3|^5A_3$ changes sign, with $\beta_1\beta_2\ne0$. At the zero, by Lemma~\ref{m3:dim}, no field supported in the star satisfies (M3). Such stars have $\Theta_z>\pi+\alpha_3$, which (A$_\delta$) excludes. The coarsest production mesh $N=8$ has $\alpha_1+\alpha_2>\pi$ at every vertex ($\Theta_z=225^\circ$), but there the sum is still positive: $\kappa_z\ge0.00287$.
+\end{remark}
+
+\paragraph{Qualitative statement and compactness.}
+\begin{definition}[Families]\label{m3:fam}
+$F_3(\theta_{\min},\delta)$ is the set of three-triangle fans with all nine angles $\ge\theta_{\min}$ and $|\alpha_1+\alpha_2+\alpha_3-\pi|\le\delta$. $F_s(\theta_{\min},\delta)$ is the set with all nine angles $\ge\theta_{\min}$ and $\alpha_1+\alpha_2+\alpha_3\le\pi+\delta-\theta_{\min}$. Both are taken modulo similarity, normalised by $|p_0|=1$ and parametrised by $(\alpha_j,\beta_j)_{j=1}^3$. They are compact.
+\end{definition}
+
+Under (M0$_\theta$), (M1$'$), (A$_\delta$) the star is in $F_3$ if $m=3$. If $m\ge4$, then $T_1\cup T_2\cup T_3$ (numbered from $e_z$, after a reflection if necessary) is in $F_s$, since the remaining $m-3\ge1$ angles at $z$ are $\ge\theta_{\min}$. On both families every pair sum $\alpha_j+\alpha_{j+1}$ lies in $[2\theta_{\min},\pi+\delta-\theta_{\min}]\subset(0,\pi)$, so $A,A_3>0$ by \eqref{m3:signs}. Hence $\mathcal M(w)\ne0$, $w\ne0$ and $\kappa_w>0$. $\kappa_w$ is a continuous function of $(\alpha_j,\beta_j)$, since $D_{01},D_{12},D_{23}$ stay positive. So
+\[
+\kappa_\ast(\theta_{\min},\delta):=\min\Bigl(\min_{F_3}\kappa_w,\ \min_{F_s}\kappa_w\Bigr)>0 .
+\]
+By the reflection invariance, $\min_{F_3}\kappa_w=\min_{F_3\cap\{|p_3|\le|p_0|\}}\kappa_w$, and on the latter set $\kappa_w$ is normalised by $|p_0|$.
+
+\emph{Proof of Theorem~\ref{m3:thm}, main part.} Take $v_z=\pm w/\norm{\nabla w}$ on $\omega_z$. For $m=3$, $\kappa_w$ is normalised by the longer chord, so (iii) holds whichever chord is $e_z$. (i) holds by construction, and (iii) by Lemmas~\ref{m3:witlem} and \ref{m3:norm}. For (ii), $\omega_z$ lies within $\max_jr_j\le(\sin\theta_{\min})^{-3}|e_z|$ of $z$ (law of sines, three triangles), and a triangle lies in at most three patches, one per vertex. \qed
+
+\paragraph{A decomposed bound.}
+For the certificates and for (a) we bound $\kappa_w$ from below by an expression whose factors each involve only one or two triangles. Normalise $|p_0|=1$. Let $q_j:=r_j/r_{j-1}=\sin\beta_j/\sin\gamma_j$, $s_j:=\sin\alpha_j$, $s_{12}:=\sin(\alpha_1+\alpha_2)$, $s_{23}:=\sin(\alpha_2+\alpha_3)$ and $\rho:=s_1s_{12}/(s_{23}s_3)$. Write $\norm{u}_K^2:=u^{\mathsf T}K(\cot T_2)u$.
+
+\begin{lemma}[Decomposition]\label{m3:dec}
+On $F_3\cap\{r_3\le1\}$ and on $F_s$,
+\[
+\kappa_w\ \ge\ \frac{b}{\sqrt{3600\bigl(F_1+(\sqrt U+\sqrt W)^2+\Phi_3\bigr)}},
+\]
+with $b=1+r_3^3\rho$ on $F_3$ and $b=1$ on $F_s$, where
+\begin{align*}
+F_1&=(q_1s_1)^3P_1(\cot T_1),\qquad U=\frac{q_1^2}{q_2s_2}\norm{\tilde u}_K^2,\qquad W=\frac{\rho^2q_1^2q_2}{s_2}\norm{\tilde w}_K^2,\\
+\Phi_3&=\frac{\rho^2(q_1q_2)^2s_3^3}{q_3}P_3(\cot T_3),\qquad \tilde u=\bigl(s_1^2,\,0,\,2s_1q_2s_{12},\,s_1(6q_1q_2s_2-5q_2s_{12}+2s_1),\,0\bigr),\\
+\tilde w&=\bigl(0,\,q_2s_3^2,\,0,\,0,\,s_3(6s_2/q_3-5s_{23}+2q_2s_3)\bigr).
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+By \eqref{m3:signs}, $A=r_1r_2\,X$ with $X=r_3^2s_{23}s_3$ and $A_3=r_1r_2\,X\rho/r_3^2$. So $|p_0|^5A+|p_3|^5A_3=r_1r_2X(1+r_3^3\rho)$, and the common factor $(r_1r_2)^2$ cancels between $\mathcal M^2$ and $N_1+N_2+N_3$. Dividing the latter by $(r_1r_2X)^2$ gives:
+\begin{itemize}
+\item $N_1$ gives $F_1$ ($D_{01}=q_1s_1$) and $N_3$ gives $\Phi_3$.
+\item $N_2=\norm{k}_K^2/D_{12}$. Substituting $D_{01}=q_1s_1$, $D_{12}=q_1^2q_2s_2$, $D_{02}=q_1q_2s_{12}$, $D_{13}=r_1r_3s_{23}$, $D_{23}=r_2r_3s_3$ gives $k/(r_1r_2X)=q_1^2(\tilde u+\rho\,q_2\tilde w)$. Minkowski's inequality in the seminorm $\norm\cdot_K$ ($K$ is a Gram matrix) then gives $\sqrt{N_2}/(r_1r_2X)\le\sqrt U+\sqrt W$.
+\end{itemize}
+On $F_3\cap\{r_3\le1\}$ the normalising chord is $|p_0|=1$.
+\end{proof}
+
+\begin{corollary}[Elementary bound]\label{m3:el}
+Let $\sigma=\sin\theta_{\min}$, $c=\cot\theta_{\min}$, $\sigma_\ast=\min(\sin2\theta_{\min},\sin(\theta_{\min}-\delta))$, $Q=1/\sigma$, $R=1/(\sigma\sigma_\ast)$. For a polynomial $p$ let $\norm p_1$ be the sum of the absolute values of its coefficients, and $\kappa_{ij}:=\norm{K_{ij}}_1$. Then $\kappa_\ast(\theta_{\min},\delta)\ge\kappa_{\rm el}:=\bigl(3600(\bar F_1+(\sqrt{\bar U}+\sqrt{\bar W})^2+\bar\Phi_3)\bigr)^{-1/2}$, with
+\begin{gather*}
+\bar F_1=Q^3\norm{P_1}_1c^2,\qquad \bar U=Q^4\,c^2\sum_{i,j}\bar u_i\kappa_{ij}\bar u_j,\\ \bar W=R^2Q^4c^2\sum_{i,j}\bar w_i\kappa_{ij}\bar w_j,\qquad \bar\Phi_3=R^2Q^5\norm{P_3}_1c^2,\\
+\bar u=(1,0,2Q,6Q^2+5Q+2,0),\qquad \bar w=(0,Q,0,0,8Q+5).
+\end{gather*}
+For instance $\kappa_{\rm el}(30^\circ,10^\circ)=5.1\cdot10^{-5}$ and $\kappa_{\rm el}(20^\circ,15^\circ)=2.4\cdot10^{-6}$ (log).
+\end{corollary}
+
+\begin{proof}
+Every angle lies in $[\theta_{\min},\pi-2\theta_{\min}]$, so $\sin\ge\sigma$ and $|\cot|\le c$. Hence $q_j\in[\sigma,1/\sigma]$, and $\rho\le R$ because the pair sums lie in $[2\theta_{\min},\pi+\delta-\theta_{\min}]$. Also $|P(k)|\le\norm P_1c^2$ for the quadratic forms involved. Insert these into Lemma~\ref{m3:dec} with $b\ge1$. This uses only $A_3\ge0$, not $r_3\le1$, so it bounds $\kappa_w$ normalised by $|p_0|$ on all of $F_3$ and $F_s$; for $F_3$ use reflection when $e_z=[z,p_3]$.
+\end{proof}
+
+The elementary bound is valid for all $\theta_{\min}\le\pi/3$ and $\delta<\theta_{\min}$. It is pessimistic: about $25$ times below the certified value at $(30^\circ,10^\circ)$ and about $125$ times below at $(20^\circ,15^\circ)$.
+
+\paragraph{Interval certificates.}\phantomsection\label{m3:sec:cert}
+For fixed $(\theta_{\min},\delta)$ we certify $\kappa_w\ge\kappa_0$ on $F_3\cap\{r_3\le1\}$ and on $F_s$ by branch and bound over boxes in $(\alpha_1,\alpha_2,S\text{ or }\alpha_3,\beta_1,\beta_2,\beta_3)$, where $S=\alpha_1+\alpha_2+\alpha_3$ for $F_3$. Each box is first \emph{contracted}: its upper and lower ends are moved inwards using the linear constraints of the family ($\alpha_j+\beta_j\le\pi-\theta_{\min}$; $\theta_{\min}\le S-\alpha_1-\alpha_2\le\pi-2\theta_{\min}$ for $F_3$; $\sum\alpha_j\le\pi+\delta-\theta_{\min}$ for $F_s$). The new ends are rounded outward, so the contracted box still contains every point of the family that the original box contained. A box is then
+\begin{itemize}
+\item \emph{discarded} if it provably misses the family: it is empty after contraction, or some $\gamma_j<\theta_{\min}$ on the whole box, or $\alpha_3<\theta_{\min}$, or $S$ out of range;
+\item \emph{covered by symmetry} ($F_3$ only) if $r_3>1$ on the whole box, since its reflection has $r_3<1$;
+\item \emph{certified} if an interval evaluation of Lemma~\ref{m3:dec} gives $b^2\ge3600\kappa_0^2\,(F_1+(\sqrt U+\sqrt W)^2+\Phi_3)$ on the whole box;
+\item \emph{bisected} along its widest side otherwise.
+\end{itemize}
+Rigour rests on the following.
+\begin{itemize}
+\item All arithmetic is in IEEE double precision with every result widened outward by one ulp; basic operations are correctly rounded.
+\item $\sin$ and $\cos$ at box endpoints are Taylor polynomials of degree $41$ evaluated in interval arithmetic, plus the Lagrange remainder. They are extended to intervals by monotonicity, including the extrema at $\pi/2$ and $3\pi/2$.
+\item $\cot$ is enclosed by monotonicity on $(0,\pi)$. $q_j$ is enclosed by its exact corner values when $\gamma_j$ stays on one side of $\pi/2$, where it is monotone in $\alpha_j$ and $\beta_j$.
+\item $\pi$ is enclosed by the two doubles adjacent to it.
+\item The rational coefficients of $P_1,P_3,K$ come from exact \texttt{SymPy} derivations and are enclosed in outward-rounded doubles.
+\end{itemize}
+Results (log, section 5):
+\begin{center}
+\small
+\begin{tabular}{llll}
+\toprule
+family & certified $\kappa_w\ge$ & boxes (cert./disc./sym./total) & float min.\\
+\midrule
+$F_3(30^\circ,10^\circ)$ & $0.0020$ & $203150/154/6503/419613$ & $0.002558$\\
+$F_s(30^\circ,10^\circ)$ & $0.0012$ & $209555/0/0/419109$ & $0.001400$\\
+$F_3(20^\circ,15^\circ)$ & $0.0005$ & $1326711/9699/38333/2749485$ & $0.000880$\\
+$F_s(20^\circ,15^\circ)$ & $0.0003$ & $452009/0/0/904017$ & $0.000395$\\
+\bottomrule
+\end{tabular}
+\end{center}
+As a negative control, the same code with $\kappa_0$ set $5\%$ above the float minimum of the bound on $F_s(30^\circ,10^\circ)$ does not certify. It is refuted when a box of width $<10^{-9}$ cannot be certified.
+
+\paragraph{The production meshes.}\phantomsection\label{m3:sec:mesh}
+For the meshes of Section~\ref{sec:numerics} we evaluate $\kappa_w$ exactly. The double-precision vertex coordinates are read as exact rationals, $D_{ij}$ and all cotangents are rational, and $|p_0|$, $|p_3|$ are enclosed by rational square roots. We check exactly that $D_{01},D_{12},D_{23}>0$, $D_{02}D_{13}\ne0$ and $\beta_1\beta_2\ne0$ at every boundary vertex. By Lemma~\ref{m3:dim} the resulting numbers are therefore the exact star constants. They reproduce the floating-point Table~\ref{lb:tab:stars} to all printed digits, for example $\min_z\kappa_z=0.002879$ ($N=8$), $0.005551$ ($N=16$), $0.003663$ ($N=64$), $0.002876$ ($N=1024$). The minimum over both choices of $e_z$ is $\ge0.00287$ on all levels.
+
+\cert{code/m3\_certify.py all; notes/v6/m3/recert.py}{logs/m3\_certify.log, notes/v6/m3/recert\_30\_10.log}
+The interval code is hand-written outward-rounded double arithmetic, not a verified library; Theorem~\ref{m3:thm} itself (positivity of $\kappa_\ast$) does not depend on it.
+
+\paragraph{What is not covered.} The certified numerical constants are for $(\theta_{\min},\delta)$ as listed; for other values Theorem~\ref{m3:thm} gives $\kappa_\ast>0$ by compactness and the explicit, pessimistic $\kappa_{\rm el}$. The theorem needs $\delta<\theta_{\min}$, which (S) guarantees; coarse meshes with $\Theta_z-\pi\ge\min(\alpha_1,\alpha_3)$ need the star-by-star check of Section~\ref{m3:sec:mesh}. By Remark~\ref{m3:neg} (M3) can fail on such stars for star-supported fields. For $m\ge4$ we use only three of the $m$ triangles, which is enough but not optimal.

@@ -316,8 +316,8 @@ $\Gc$ contain $\ut$. (iv) $r_h=\delta_R-(h/\mu)v_\varphi$ and $\norm{\nabla(v_\v
 The hypothesis $\gamma\hG=\mu\hG^2/h\to0$ is the one of Corollary~\ref{cor:Bp}. It fails for the large-$\mu$ runs of
 Table~\ref{tab:P} ($\gamma\hG\approx240$ at $N=96$, $\mu=10^4$). There the discrete problem is close to its $\mu\to\infty$ limit,
 a discrete Dirichlet problem whose data $-(p-\pbar)n_e$ jumps in direction at every vertex of $\Gh$. The computations below
-show that $(\mu/h)\delta_R\to U$ in that regime too, with relative $H^1$ distance $d_h$ decaying roughly like $\hG^{0.6}$--$\hG^{0.8}$, the decay slowing as $N$ grows, but
-Theorem~\ref{hc:thm} does not cover it. Proving convergence uniformly in $\mu\ge\mu_0$ is open.
+show that $(\mu/h)\delta_R\to U$ in that regime too, with relative $H^1$ distance $d_h$ decaying roughly like $\hG^{0.6}$--$\hG^{0.8}$, the decay slowing as $N$ grows.
+Theorem~\ref{hc:thm} does not cover it, but Section~\ref{u:sec} does: $(\mu/h)\delta_R\to U$ in $H^1$ uniformly in $\mu\ge\mu_0$, and $d_h\asymp\hG^{1/2}$ for every penalty (Corollary~\ref{u:two}); the observed exponents are pre-asymptotic.
 \end{remark}
 
 \subsubsection{Rigorous bracket and exact asymptotics}
@@ -400,12 +400,11 @@ $N$ & $K_h$ & $d_h$ & $K_h$ & $d_h$ & $K_h$ & $d_h$ & $K_h$ & $d_h$\\
 
 The measured values $2.71$--$2.79$ bracket the limit $2.7565$ from both sides. The approach runs in two directions.
 \begin{itemize}
-\item At $\mu=100$, $K_h$ increases towards $K$ and $d_h$ decays like $h^{0.6}$ ($0.193\to0.067$ as $h$ drops by a factor $5.3$).
-This is consistent with Theorem~\ref{hc:thm}: for fixed $\mu$, the terms $(h/\mu)^{1/2}$ and $\hG^{1/2}$ are both
-$\propto h^{1/2}$, and $(\gamma\hG)^{1/2}\propto h^{1/2}$ too.
+\item At $\mu=100$, $K_h$ increases towards $K$ and $d_h$ decays like $h^{0.6}$ ($0.193\to0.067$ as $h$ drops by a factor $5.3$), with local rates $0.64\to0.54$.
+The asymptotic rate is exactly $\frac12$ (Corollary~\ref{u:two}); for fixed $\mu$ the terms $(h/\mu)^{1/2}$, $\hG^{1/2}$ and $(\gamma\hG)^{1/2}$ of Theorem~\ref{hc:thm} are all $\propto h^{1/2}$.
 \item At large $\mu$ (Remark~\ref{hc:regime}), $K_h$ decreases towards $K$ from above. The excess is the energy of an
-element-scale oscillation that is nearly orthogonal to $U$: $K_h^2\approx K^2(1+d_h^2)$, for example $2.7565\sqrt{1+0.175^2}=2.798$
-against $2.796$ at $N=96$.
+element-scale oscillation that is nearly orthogonal to $U$: $K_h^2=K^2(1+d_h^2)+O(\hG^2)$ as $\gamma\to\infty$ (Corollary~\ref{u:K}), for example $2.7565\sqrt{1+0.175^2}=2.798$
+against $2.796$ at $N=96$. So $K_h\to K$ at rate one although $d_h\asymp\hG^{1/2}$.
 \end{itemize}
 At fixed $N=96$ the $\mu$-dependence of Table~\ref{tab:P} ($2.708\to2.770\to2.790$) is the crossover between the two regimes,
 not a sign of a different limit.

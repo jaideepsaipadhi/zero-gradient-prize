@@ -2,17 +2,22 @@ To the Editor, Applied Mathematics Letters
 
 Dear Editor,
 
-I submit the manuscript "The missing pressure traction in Scott-Vogelius-Nitsche methods on polygonal approximations of a curved wall" for consideration as a letter in Applied Mathematics Letters.
+We submit the manuscript "The missing pressure traction in Scott-Vogelius-Nitsche methods on polygonal approximations of a curved wall" for consideration as a letter in Applied Mathematics Letters. It is joint work of Claudemir de Souza Cavalcante and Jaideep Sai Padhi.
 
 Exactly divergence-free finite elements are attractive for incompressible flow, but they are sensitive to how a curved wall is approximated, and weak imposition of boundary conditions is a common remedy. The letter should therefore interest readers working on divergence-free discretisations, Nitsche's method and boundary approximation.
 
-Gjerde and Scott (Adv. Comput. Sci. Eng., 2024) proposed imposing no-slip weakly, by Nitsche's method, for Scott-Vogelius elements on a polygon inscribed in a curved wall, and L. R. Scott asked whether the method attains the error h_Gamma^{3/2} + h_Omega^k for general Stokes data, and if not, why not. I show that for the printed method the answer is no whenever the pressure varies along the wall. Its Nitsche form has no pressure traction, and I prove that the resulting leak through the wall is the leading error, with sharp rates and constant 1. I prove that a mean-free traction term (transcribed from Frachon, Nilsson and Zahedi, whom I credit) attains the conjectured rate for general data. I also show that a Nitsche penalty scaling with h/min|e| is sufficient, and necessary under a shape condition on a boundary triangle. A short numerical study supports each result.
+Gjerde and Scott (Adv. Comput. Sci. Eng., 2024) proposed imposing no-slip weakly, by Nitsche's method, for Scott-Vogelius elements on a polygon inscribed in a curved wall, and L. R. Scott asked whether the method attains the error h_Gamma^{3/2} + h_Omega^k for general Stokes data, and if not, why not. We show that for the printed method the answer is no whenever the pressure varies along the wall. Its Nitsche form has no pressure traction, and we prove that the resulting leak through the wall is the leading error, with sharp rates and constant 1. We prove that a mean-free traction term (transcribed from Frachon, Nilsson and Zahedi, whom we credit) attains the conjectured rate for general data, and that the exponent 3/2 is sharp, unconditionally for every polynomial degree k >= 4 (under only a mild bound on the wall edge length). We also show that a Nitsche penalty scaling with h/min|e| is sufficient, and necessary under a shape condition on a boundary triangle. A short numerical study supports each result.
+[FILL: one sentence on Cavalcante's contribution (constant-pressure analysis; Clough-Tocher results), to be written by him.]
 
-The question was posed by L. R. Scott as a prize problem (PPL 115). I intend to submit this work for it, and have declared this in the manuscript.
+The question was posed by L. R. Scott as a prize problem (PPL 115). The authors intend to submit this work for it, and have declared this in the manuscript.
 
 The letter states its results and proves the key steps. Longer proofs and extensions (Clough-Tocher refinements, general domains, Navier-Stokes, three dimensions) are in an extended preprint, to be posted as version 3 of a Zenodo record (DOI to be inserted: 10.5281/zenodo.XXXXXXXX), which will also archive the code and data. If the extended version is later submitted to a journal, its overlap with this letter will be declared. This manuscript is not under consideration elsewhere. The use of generative AI is declared in the manuscript.
 
 Sincerely,
+
+Claudemir de Souza Cavalcante
+[FILL: affiliation and e-mail]
+
 Jaideep Sai Padhi
 Department of Computer Science, Purdue University
 West Lafayette, IN 47907, USA

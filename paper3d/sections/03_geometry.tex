@@ -1,0 +1,171 @@
+\section{Geometry of inscribed surfaces}\label{sec:geometry}
+
+\subsection{Faces}
+For a face $F\in\FG$ with vertices $z_1,z_2,z_3\in\Gamma$ we write $\mu_1,\mu_2,\mu_3$ for its barycentric coordinates, $e_{ij}:=z_i-z_j$, $\ell:=\diam F$, $x_F$ for its centroid, $y_F:=\pi(x_F)$, $P_y$ for the orthogonal projection onto $T_y\Gamma$ and $\hh_F:=\hh_{y_F}\circ P_{y_F}$. For $x\in F$ put $x^\ast:=\pi(x)$.
+
+\begin{lemma}[Faces on a general surface]\label{geom:face}
+Assume (G1) and (G3). Then for every $F\in\FG$ and $x\in F$:
+\begin{enumerate}[label=(\alph*)]
+\item $d(x)=\frac12\sum_{i<j}\hh_F(e_{ij},e_{ij})\,\mu_i\mu_j+O(\ell^3)$; in particular $|d(x)|\le C\ell^2$.
+\item There is $\sigma_F\in\{\pm1\}$, independent of $x\in F$, with $|\sigma_Fn_F-n(x^\ast)|\le C\ell$ (where $n=-N$); hence $|n_F\cdot N(x^\ast)|\ge1-C\ell^2$.
+\item $\pi|_F$ is a $C^2$ diffeomorphism onto $\pi(F)$, with area Jacobian $1+O(\ell^2)$.
+\item With $w_F:=(\hh_F(e_{ij},e_{ij}))_{i<j}\in\R^3$ and $|\hh|$ the operator norm, $|w_F|\ge c(\theta_0)\,\ell^2\,|\hh_{y_F}|-C\ell^3$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Use the frame (Gr) at $y:=z_1$. Then $z_j=(\xi_j,f(\xi_j))$ with $|\xi_j|\le\ell$; the vertical parts are at most $\kappa_\infty\ell^2$, so the projected triangle $\tilde F=\conv(\xi_j)$ has minimal angle at least $\theta_0/2$ for $h_\ast$ small, and $F$ is the graph over $\tilde F$ of the linear interpolant $L:=I_1f$, with the same barycentrics.
+
+(a) Write $f=\frac12\xi^{\mathsf T}H\xi+R_3$ with $H=\hh_{z_1}$ and $|R_3|\le C\ell^3$ on $\tilde F$. For a quadratic form, $I_1Q-Q=\sum_{i<j}\mu_i\mu_j\,Q(\xi_i-\xi_j)$; this is the polarised variance identity $\sum_i\mu_i|\xi_i-o|^2-|\xi-o|^2=\sum_{i<j}\mu_i\mu_j|\xi_i-\xi_j|^2$. For $x=(\xi,L(\xi))$ we have $d(x)=(L-f)(\xi)N_3+O((L-f)^2)=(L-f)(\xi)+O(\ell^4)$, since $N_3=(1+|\nabla f|^2)^{-1/2}=1+O(\ell^2)$. Finally $\xi_i-\xi_j=P_{z_1}e_{ij}$, and replacing $(z_1,P_{z_1})$ by $(y_F,P_{y_F})$ changes $\hh(e,e)$ by $O(\ell)|e|^2$ because $\Gamma\in C^3$.
+
+(b) $n_F\parallel(\nabla L,-1)$ and $N(x^\ast)\parallel(-\nabla f(\xi^\ast),1)$. On $\tilde F$, $|\nabla L-\nabla f|\le C\ell/\sin(\theta_0/2)$ (linear interpolation), and $|\xi^\ast-\xi|\le C\ell^2$.
+
+(c) $D\pi(x)=(I-d\,S)^{-1}P_{x^\ast}$. Restricted to the plane of $F$ its Jacobian is $|n_F\cdot N(x^\ast)|(1+O(d))=1+O(\ell^2)$ by (a) and (b). Injectivity on $F$: $\pi|_F$ is a $C^1$-small perturbation of the vertical projection, which is injective.
+
+(d) The map $H\mapsto(H(u_{ij},u_{ij}))_{i<j}$ with $u_{ij}:=P_{y_F}e_{ij}/|P_{y_F}e_{ij}|$, from symmetric forms on $T_{y_F}\Gamma$ to $\R^3$, is invertible with inverse bounded by $C(\theta_0)$: the three directions are pairwise non-parallel with angles bounded below, and three distinct doubled angles give three non-collinear points on a circle. Also $|P_{y_F}e_{ij}|\ge c\ell$.
+\end{proof}
+
+For the model case the sagitta is exactly a circumsphere function, and the face mean of the normal tilt measures the offset of the centroid from the circumcentre.
+
+\begin{lemma}[Faces inscribed in the unit sphere]\label{geom:sag}
+Let $F$ be a face of a convex polyhedron inscribed in the unit sphere, with circumcentre $o_F$, circumradius $r_F$, outward (from the centre) unit normal $\nu_F$, and $d_F:=(1-r_F^2)^{1/2}$. Write $\ell_{ij}:=|e_{ij}|$, and let $x_c$ be the centroid.
+\begin{enumerate}[label=(\alph*)]
+\item For $x\in F$, $1-|x|=\frac12(r_F^2-|x-o_F|^2)+\delta(x)=\frac12\sum_{i<j}\ell_{ij}^2\mu_i\mu_j+\delta(x)$ with $0\le\delta\le r_F^4/4$.
+\item $n(x^\ast)-n_F=-(x-o_F)+O(r_F^2)$, where $n(x^\ast)=-x^\ast$ and $n_F=-\nu_F$. The leading term is tangential to $F$ and vanishes at the circumcentre.
+\item $|F|^{-1}\int_F(n(x^\ast)-n_F)\,dA=-(x_c-o_F)+O(r_F^2)$. The leading term vanishes if and only if $F$ is equilateral.
+\item With $e_{12},e_{23},e_{31}$ the cyclically oriented edge vectors, $\sum_{\rm cyc}\ell_{ij}^2e_{ij}=\pm12|F|\,R_{\pi/2}(x_c-o_F)$, where $R_{\pi/2}$ is the rotation by $\pi/2$ in the plane of $F$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) With $s:=r_F^2-|x-o_F|^2\in[0,r_F^2]$ we have $|x|^2=d_F^2+|x-o_F|^2=1-s$, and $1-\sqrt{1-s}\in[\frac s2,\frac s2+\frac{s^2}4]$ for $s\le\frac12$. For $x=\sum\mu_iz_i$, $\sum_i\mu_i|z_i-o_F|^2-|x-o_F|^2=\sum_{i<j}\mu_i\mu_j\ell_{ij}^2$, and $|z_i-o_F|=r_F$.
+(b) $n(x^\ast)-n_F=-(o_F+y)/|x|+\nu_F=-y/|x|+\nu_F(1-d_F/|x|)$ with $y:=x-o_F\perp\nu_F$, $|x|^{-1}=1+O(r_F^2)$ and $0\le1-d_F/|x|\le1-d_F$. (c) integrates (b); centroid and circumcentre coincide exactly for equilateral triangles. (d) With $a+b+c=0$ the cyclic edge vectors, $|a|^2a+|b|^2b+|c|^2c=(|a|^2-|c|^2)a+(|b|^2-|c|^2)b$; the identity with $x_c-o_F$ is an elementary computation in the plane (we checked it symbolically and on random triangles).
+\end{proof}
+In two dimensions the circumcentre of a chord is its midpoint, so the tilt of a chord is odd about its midpoint; this is the cancellation used in \cite{PadhiLong2D}. By (c) it is lost on every non-equilateral face. We never use it (Lemma~\ref{er:G}).
+
+\subsection{The closest-point projection is a homeomorphism}\label{geom:sec:lift}
+Lemma~\ref{geom:face} is a statement about single faces. It does not exclude folds: two faces sharing an edge can have $\sigma_F=-\sigma_{F'}$ and project to the same side of the image of the edge. In surface finite elements the lift $\pi|_{\Gh}$ is therefore assumed to be bijective \cite{Dziuk1988,DziukElliott2013}; in discrete differential geometry, polyhedral surfaces that are normal graphs are assumed as well \cite{HildebrandtPolthierWardetzky2006,MorvanThibert2004}. We show that in our setting it is a consequence of the volume mesh.
+
+For $y\in\Gamma$ let $\ell_y:=\{\Psi(y,s):|s|\le r/2\}$ be the normal segment. Let $S_1$ be the union of the edges of $\Gh$ and $V:=\Gamma\setminus\pi(S_1)$, which is open and dense by Lemma~\ref{geom:face}(c). For $y\in V$, the set $\ell_y\cap\Gh$ is finite and consists of interior points of faces; let $k(y)$ be its cardinality. By Lemma~\ref{geom:face}(a), $\Gh\subset\{|d|\le C_1\hG^2\}\subset\mathcal T_{r/4}$, and a normal segment meets a face at most once and transversally (Lemma~\ref{geom:face}(b)).
+
+\begin{lemma}[Crossing rule]\label{geom:cross}
+Let $y\in V$ and $\ell_y\cap\Gh=\{\Psi(y,s_j)\}_{j=1}^k$ with $s_1<\dots<s_k$, the $j$-th point interior to the face $F_j$. On each open interval of $(-\frac r2,\frac r2)\setminus\{s_j\}$ the property $\Psi(y,s)\in\Oh$ is constant. Crossing $s_j$ upwards goes from outside to inside $\Oh$ if $\sigma_{F_j}=+1$, and from inside to outside if $\sigma_{F_j}=-1$.
+\end{lemma}
+
+\begin{proof}
+$\ell_y$ does not meet $\Sigma$, so the only points of $\partial\Oh$ on it are the $\Psi(y,s_j)$. Near an interior point of $F_j$, $\Oh$ is the open half-space side into which $-n_{F_j}$ points, and $\sigma_{F_j}=+1$ means that this is the side of increasing $s$.
+\end{proof}
+
+\begin{theorem}[Orientation implies the lift]\label{geom:orient}
+Assume (G1), (G3), that $\Oh$ is a bounded open polyhedral set with $\partial\Oh=\Sigma\sqcup\Gh$ lying on one side of each face, and
+\begin{enumerate}[label=(OR)]
+\item $\sigma_F=+1$ for every $F\in\FG$, i.e.\ $n_F\cdot n(\pi(x))>0$ on $F$.
+\end{enumerate}
+Then for each $i$, $\pi$ maps $\Gamma_h^{(i)}:=\Gh\cap\mathcal T_r(\Gamma_i)$ homeomorphically onto $\Gamma_i$, piecewise as a $C^2$ diffeomorphism, and $n_F\cdot n(\pi(x))\ge1-C\hG^2$ on every face.
+\end{theorem}
+
+\begin{proof}
+\emph{Step 1: $k\le1$ on $V$.} By Lemma~\ref{geom:cross} and (OR) every crossing goes from outside to inside. If $k(y)\ge2$, the status just above $s_1$ is inside and just below $s_2$ is outside, which contradicts constancy on $(s_1,s_2)$.
+
+\emph{Step 2: faces.} $\pi$ is injective on each face (Lemma~\ref{geom:face}(c)).
+
+\emph{Step 3: edges.} Let $x_0$ be interior to the edge $E=F\cap F'$ and $\gamma:=\pi(E)$, a $C^2$ arc. $\pi$ maps half-disc neighbourhoods of $x_0$ in $F$ and in $F'$ onto one-sided neighbourhoods of $\pi(x_0)$ bounded by $\gamma$. If they lay on the same side of $\gamma$, they would overlap in an open set, which contains a point $y\in V$ with a preimage in the interior of $F$ and one in the interior of $F'$, so $k(y)\ge2$. Hence they lie on opposite sides, and $\pi$ is injective near $x_0$ in $F\cup F'$, a neighbourhood of $x_0$ in $\Gh$.
+
+\emph{Step 4: vertices.} Let $v$ be a vertex and $St(v)$ its closed star. On $St(v)$, $|\pi(x)-v|\ge\frac12|x-v|$ (segments stay inside faces), and $\dist(v,\partial St(v))\ge c(\theta_0)c_0\hG$. Fix $\varepsilon<\frac14c(\theta_0)c_0\hG$ such that $B:=\{y\in\Gamma:0<|y-v|<\varepsilon\}$ is a punctured topological disc, and let $A:=\{x\in St(v):0<|\pi(x)-v|<\varepsilon\}$. By Steps~2--3 and invariance of domain, $\pi|_A:A\to B$ is a local homeomorphism; it is proper, since preimages of compact sets are closed in the compact $St(v)$ and contained in $A$. A proper local homeomorphism onto a connected, locally compact Hausdorff space is a finite covering \cite[Theorem~4.22]{Forster1981}. Its number of sheets is at most $k(y)\le1$ for $y\in B\cap V$, so it is one, and $\pi$ is injective near $v$.
+
+\emph{Step 5: global.} By Steps~2--4 and invariance of domain, $\pi:\Gamma_h^{(i)}\to\Gamma_i$ is a local homeomorphism. It is proper ($\Gamma_h^{(i)}$ is compact), so its image is open and closed, hence all of the connected $\Gamma_i$, and it is a covering with a constant number of sheets. That number is $k(y)\le1$ at any $y\in V\cap\Gamma_i$. A continuous bijection of a compact space onto a Hausdorff space is a homeomorphism. The normal bound is Lemma~\ref{geom:face}(b) with $\sigma_F=+1$.
+\end{proof}
+
+\begin{corollary}[Normal graph]\label{geom:graph}
+Under the assumptions of Theorem~\ref{geom:orient}, $\eta_h:=d\circ(\pi|_{\Gh})^{-1}$ is Lipschitz and piecewise $C^2$ on $\Gamma$, $\Gh=\{\Psi(y,\eta_h(y)):y\in\Gamma\}$, $\norm{\eta_h}_\infty\le C\hG^2$, $\norm{\nabla_\Gamma\eta_h}_\infty\le C\hG$, and
+\[
+\Oh\cap\mathcal T_{r/2}=\{x\in\mathcal T_{r/2}:d(x)>\eta_h(\pi(x))\}.
+\]
+In particular $\Gamma_i^-\cap\Oh=\emptyset$ and $\Gamma_i^+:=\{y+\frac r2N(y)\}\subset\Oh$, so (OB) holds. Moreover $|\Omega\triangle\Oh|\le C\hG^2$, and both $\Omega\setminus\Oh$ and $\Oh\setminus\Omega$ lie in $\{|d|\le C\hG^2\}$.
+\end{corollary}
+
+\begin{proof}
+The bounds on $\eta_h$ follow from Lemma~\ref{geom:face}: on $\pi(F)$, $\nabla_\Gamma\eta_h=D(\pi|_F)^{-\mathsf T}\nabla_Fd$ and $|\nabla_Fd|=|N-(N\cdot n_F)n_F|\le C\hG$. For $y\in V$ the single crossing of $\ell_y$ is at $s=\eta_h(y)$ and goes from outside to inside, so $\Oh\cap\ell_y=\{\Psi(y,s):\eta_h(y)<s<\frac r2\}$. The two sets in the display are open in $\mathcal T_{r/2}$, disjoint from $\Gh$, have $\Gh$ as relative boundary, and agree on the dense set $\bigcup_{y\in V}\ell_y\setminus\Gh$; two such sets coincide ($U_1\setminus\overline{U_2}$ is open and misses a dense set). For $\Gamma_i^-$: it does not meet $\partial\Oh$, and points of $\mathcal T_{r/2}$ close to it have $d<\eta_h\circ\pi$, so no point of $\Gamma_i^-$ lies in the open set $\Oh$. The same argument gives $\Gamma_i^+\subset\Oh$.
+\end{proof}
+
+\begin{theorem}[The volume mesh implies the orientation]\label{geom:mesh}
+Assume (G1), (G3), (M0$^3$) and (OB). Then (OR) holds, and hence the conclusions of Theorem~\ref{geom:orient} and Corollary~\ref{geom:graph}.
+\end{theorem}
+
+\begin{proof}
+\emph{(OB) is global on each component.} $\Gamma_i^-$ is connected and disjoint from $\partial\Oh$, so it lies entirely inside or entirely outside $\Oh$; by (OB), $\Gamma_i^-\cap\Oh=\emptyset$.
+
+\emph{Each face sees the side it faces.} Let $T\in\Th$ be the tetrahedron with face $F$, $c_T$ its incentre and $\varrho_T\ge c_s\diam T\ge c_sc_0\hG$ its inradius. Then $c_T=t-\varrho_Tn_F$, with $t\in F$ the point where the insphere touches $F$, and $c_T\in\mathcal T_{r/4}$. By Lemma~\ref{geom:face}(b), $n_F=-\sigma_FN(\pi t)+O(\hG)$, and with $\nabla d=N\circ\pi$,
+\[
+d(c_T)=d(t)-\varrho_T\int_0^1N(\pi(t-\tau\varrho_Tn_F))\cdot n_F\,d\tau=\sigma_F\varrho_T+O(\hG^2)+O(\varrho_T\hG).
+\]
+So $\sigma_Fd(c_T)\ge c_sc_0\hG-C\hG^2>C_1\hG^2$ for $\hG\le h_\ast$. With $y:=\pi(c_T)$, the normal segment from $c_T$ to $\Psi(y,\sigma_F\frac r2)$ misses $\Sigma$ and, since $|s|>C_1\hG^2$ along it, misses $\Gh$. It starts in $\operatorname{int}T\subset\Oh$, so $\Psi(y,\sigma_F\frac r2)\in\Oh$.
+
+\emph{Conclusion.} If $\sigma_F=-1$ for some $F$, then $\Psi(y,-\frac r2)\in\Gamma_i^-\cap\Oh=\emptyset$, a contradiction.
+\end{proof}
+
+\begin{remark}\label{geom:rem}
+(1) Only the tetrahedra touching $\Gh$ are used, through $\varrho_T\ge c\diam F$. (2) Without (OB) the same proof shows that on each $\Gamma_i$ either all $\sigma_F=+1$, or all $\sigma_F=-1$ (a mirror statement), or both occur, and then every generic crossing number is even; Example~\ref{ex:filled} is of the third kind. (3) The manifold condition in (G1) is not needed for Theorem~\ref{geom:orient}: an edge in three or more faces, or a vertex whose star is not a disc, would produce $k(y)\ge2$. (4) The structure of the proof (local homeomorphism plus properness gives a covering; one sheet from a single fibre) is that of Amenta, Choi, Dey and Leekha \cite[Theorem~15]{AmentaChoiDeyLeekha2000}, who assume that adjacent triangles meet at an angle greater than $\pi/2$. Here the fibre count comes from the in/out crossing rule of $\partial\Oh$, and the orientation from the tetrahedra touching $\Gh$; no angle condition between neighbouring faces is needed.
+\end{remark}
+
+Both hypotheses are necessary. In the next two examples $\Omega=R\setminus\overline D$ with $D$ the unit ball, $N(y)=y$ and $r=\frac12$.
+
+\begin{example}[(G1) and (OB) do not suffice: an inscribed sliver]\label{ex:sliver}
+Let $P_h$ be a convex polyhedron inscribed in the unit sphere satisfying (G1) with $\hG=h$, and let $F$ be a face with $\diam F=h$, so that its circumradius satisfies $r_F\ge h/2$. Consider the square $Q$ of side $h/3$ in the plane of $F$ whose centre lies at distance $h/20$ from $o_F$, and let $q_1,q_2,q_3$ be the points of the spherical cap over $F$ whose orthogonal projections onto the plane of $F$ are three vertices of $Q$. The plane through $q_1,q_2,q_3$ meets the sphere in a circle; choose $q_4$ on the cap, within $h^2$ of the point over the fourth vertex of $Q$, and not on that circle. (The square is placed off-centre, and $q_4$ is perturbed, because four points of the sphere over a square centred on the axis are concyclic, hence coplanar.) All $q_j$ project to within $\frac{\sqrt2}6h+\frac h{20}+h^2<\frac h2\le r_F$ of $o_F$, so they lie strictly beyond the plane of $F$. Let $P':=\conv\{q_j\}$, a genuine tetrahedron of thickness $O(h^2)$, and put $\Oh:=R\setminus(P_h\cup P')$, $\Gh:=\partial P_h\sqcup\partial P'$.
+\begin{itemize}
+\item $P'\cap P_h=\emptyset$, since $P_h$ lies in the closed half-space bounded by the plane of $F$ and $P'$ in the open complementary one.
+\item The faces of $P'$ are, up to a relative perturbation of order $h$, right isosceles triangles with legs $h/3$; their minimal angles tend to $45^\circ$ and their diameters to $\frac{\sqrt2}3h$. So (G1) holds with $c_0\le0.47$, and $\Gh$ is embedded. Two faces of $P'$ face away from the centre and two face towards it.
+\item (OB) holds: $\Gamma^-=\{|x|=\frac34\}\subset P_h$ for small $h$.
+\item $\pi|_{\Gh}$ is not injective: a generic point of $\pi(P')$ has three preimages, one on $\partial P_h$ and one on each side of $P'$. The faces of $P'$ facing the centre have $\sigma=-1$; the thin lens between $F$ and $P'$ belongs to $\Oh$.
+\end{itemize}
+By Theorem~\ref{geom:mesh}, this $\Oh$ admits no shape-regular conforming tetrahedral mesh with the faces of $\Gh$ as boundary faces, once $h$ is small: the lens has thickness $O(h^2)$ and is bounded by faces of diameter at least $c_0h$. So a volume hypothesis such as (M0$^3$) is needed if (OR) or the lift itself is not assumed. We have not constructed an example with connected $\Gh$.
+\end{example}
+
+\begin{example}[(G1) and (M0$^3$) do not suffice: a filled obstacle]\label{ex:filled}
+Let $P'$ be as in Example~\ref{ex:sliver}, $\Oh:=R\setminus P'$ and $\Gh:=\partial P'$. Then $\Gh$ is connected and homeomorphic to $\Gamma$, (G1) and (G3) hold, $\partial\Oh=\partial R\sqcup\Gh$ and $\Oh$ is connected; but $\pi|_{\Gh}$ covers a patch of diameter $O(h)$ twice and misses the rest of $\Gamma$, and (OB) fails. A shape-regular mesh exists: with $o$ the centre of $Q$ and $p_\pm:=o\pm hN(o)$, the bipyramid $\conv(P'\cup\{p_+,p_-\})\setminus\operatorname{int}P'$ is the union of four shape-regular tetrahedra $\conv(G,p_\pm)$, $G$ the faces of $P'$. Completing this to a shape-regular conforming mesh of the box minus a convex polyhedron of fixed shape at scale $h$ is routine; we do not write it out. So even ``$\Gh$ is a triangulation of $\Gamma$'' does not give the lift; a global condition tying $\Oh$ to $\Omega$, such as (OB), is needed.
+\end{example}
+
+\subsection{Consequences}
+From now on (G1), (G3), (M0$^3$) and (OB) hold. By Theorem~\ref{geom:mesh}, $\sigma_F=+1$ for every face, $\pi|_{\Gh}$ is a homeomorphism and Corollary~\ref{geom:graph} applies. Since $\Oh$ is connected by (M0$^3$), $\Oh\setminus\overline{\mathcal T_{r/2}}=\Omega\setminus\overline{\mathcal T_{r/2}}$: a component $C$ of $\R^3\setminus(\Sigma\cup\overline{\mathcal T_{r/2}})$ misses $\partial\Oh\cup\partial\Omega$, so it lies in or outside each set; if $\overline C$ meets $\partial\mathcal T_{r/2}$, it lies in both or in neither by Corollary~\ref{geom:graph}, and if not, then $\partial C\subset\Sigma$ and $C$ would be a relatively closed and open proper subset of the connected sets $\Oh$ and $\Omega$, so it lies in neither.
+
+\begin{lemma}[One boundary face per tetrahedron]\label{geom:one}
+For $\hG\le h_\ast$, no tetrahedron of $\Th$ has two faces in $\Gh$. The same holds for the macro-tetrahedra of an Alfeld refinement.
+\end{lemma}
+
+\begin{proof}
+Two such faces would share an edge $E$ of $\Gh$, and the dihedral angle of the tetrahedron at $E$ would equal the dihedral angle of $\Oh$ at $E$, which is $\pi+O(\hG)$ because the normals of the two faces agree with $n$ up to $O(\hG)$ (Theorem~\ref{geom:orient}). Shape regularity bounds the dihedral angles of tetrahedra by $\pi-\delta$.
+\end{proof}
+
+\begin{lemma}[Uniform Korn, trace and Friedrichs inequalities]\label{geom:korn}
+There is a bi-Lipschitz homeomorphism $\Phi_h:\overline\Omega\to\overline\Oh$, the identity outside $\mathcal T_{r/4}$, mapping $\Gamma$ onto $\Gh$, with
+\[
+\norm{D\Phi_h-I}_{L^\infty}+\norm{D\Phi_h^{-1}-I}_{L^\infty}\le C\hG .
+\]
+Consequently there are $C_{\rm tr},C_F,\kappa$, independent of $h$, such that every $v\in H^1(\Oh)^3$ with $v|_\Sigma=0$ satisfies
+\[
+\norm v_{L^2(\Gh)}\le C_{\rm tr}\norm{\nabla v},\qquad\norm v\le C_F\norm{\nabla v},\qquad\norm{\nabla v}^2\le\kappa\,a_h(v,v).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\chi\in C^\infty(\R)$ with $\chi=1$ near $0$, $\chi=0$ on $[r/4,\infty)$, and put $\Phi_h(\Psi(y,s)):=\Psi(y,s+\chi(s)\eta_h(y))$ for $0\le s<r/2$, and $\Phi_h:=\mathrm{id}$ elsewhere on $\overline\Omega$. Since $|\chi'\eta_h|\le C\hG^2<1$, $s\mapsto s+\chi(s)\eta_h(y)$ is increasing and maps $[0,r/2)$ onto $[\eta_h(y),r/2)$; by Corollary~\ref{geom:graph} and the preceding paragraph, $\Phi_h$ maps $\overline\Omega$ onto $\overline\Oh$ and $\Gamma$ onto $\Gh$. In $(y,s)$ coordinates, $D\hat\Phi_h=I+\begin{psmallmatrix}0&0\\\chi\nabla_\Gamma\eta_h&\chi'\eta_h\end{psmallmatrix}$, and $D\Psi(y,s')D\Psi(y,s)^{-1}=I+O(|s-s'|)$; with Corollary~\ref{geom:graph} this gives the bound. For $w:=v\circ\Phi_h$, $D(w)=D(v)\circ\Phi_h+E$ with $|E|\le C\hG|\nabla v\circ\Phi_h|$. On the fixed Lipschitz domain $\Omega$, $w$ vanishes on $\Sigma$, a set of positive surface measure, so Korn's first inequality, the trace inequality and the Friedrichs inequality hold; changing variables back and absorbing $C\hG\norm{\nabla v}$ for $\hG\le h_\ast$ gives the claim.
+\end{proof}
+
+\begin{lemma}[Divergence-free extension]\label{geom:ext}
+Let $u\in C^{k+1}(\overline\Omega)$ be divergence free and $p\in C^k(\overline\Omega)$, with $\Gamma\in C^{k+3}$. There are $\ut\in C^{k+1}(\mathcal O)$ and $\pt\in C^k(\mathcal O)$ on $\mathcal O:=\Omega\cup\mathcal T_{r/2}$, with $\ut=u$, $\pt=p$ on $\Omega$ and $\div\ut=0$ on $\mathcal O$. Moreover $\norm{\ut}_{L^\infty(\Gh)}\le C\hG^2$, and $|(F,v)|\le C\hG^2\norm{\nabla v}$ for $v\in\VR$.
+\end{lemma}
+
+\begin{proof}
+Let $\omega:=\iota_u\mathrm{vol}$, a closed $C^{k+1}$ $2$-form on $\overline\Omega$ ($d\omega=(\div u)\mathrm{vol}$). On a collar $\Gamma_i\times[0,r)$ the pull-back $\beta:=\Psi^\ast\omega$ is closed and of class $C^{k+1}$ up to $s=0$, since $\Psi\in C^{k+2}$. In local coordinates $(\sigma_1,\sigma_2)$ on $\Gamma_i$, $\beta=a\,d\sigma_1\wedge d\sigma_2+b_1\,d\sigma_2\wedge ds+b_2\,ds\wedge d\sigma_1$. For $\lambda>0$ let $R_\lambda(y,s):=(y,-\lambda s)$; then $R_\lambda^\ast\beta$ has coefficients $a(\sigma,-\lambda s)$ and $-\lambda b_\alpha(\sigma,-\lambda s)$. Choose distinct $\lambda_j\in(0,1]$, $j=1,\dots,k+3$, and $c_j$ with $\sum_jc_j(-\lambda_j)^m=1$ for $m=0,\dots,k+2$ (a Vandermonde system), and set $\tilde\beta:=\sum_jc_jR_{\lambda_j}^\ast\beta$ for $s\in(-r/2,0)$ \cite{Hestenes1941}. The coefficients of $\tilde\beta$ and $\beta$ and all their derivatives of order at most $k+1$ agree at $s=0$ (for $a$ this uses $m\le k+1$, for $b_\alpha$ the shifted conditions $m+1\le k+2$), so the glued form is $C^{k+1}$ on $\Gamma_i\times(-r/2,r)$. It is closed on each side, because pull-backs commute with $d$, hence closed everywhere. Pushing forward by $\Psi^{-1}$ and taking the vector field $\ut$ with $\iota_{\ut}\mathrm{vol}$ equal to the result gives $\ut\in C^{k+1}$ with $\div\ut=0$. For $\pt$ use the scalar Hestenes reflection.
+
+Since $\ut|_\Gamma=0$ and $|d|\le C\hG^2$ on $\Gh$, $\norm{\ut}_{L^\infty(\Gh)}\le C\hG^2$. $F$ vanishes on $\Omega$ and is supported in $S_h:=\overline{\Oh\setminus\Omega}=\{\eta_h\circ\pi\le d\le0\}$, a layer of width at most $C\hG^2$ in the normal direction. A one-dimensional Poincar\'e inequality along normal segments, with the Jacobian $J$ of (T), gives $\norm v_{L^2(S_h)}\le C\hG(\norm v_{\Gh}+\hG\norm{\nabla v})$, and $|(F,v)|\le\norm F_\infty|S_h|^{1/2}\norm v_{L^2(S_h)}$ with $|S_h|\le C\hG^2$; conclude with Lemma~\ref{geom:korn}.
+\end{proof}
+The extension needs neither a vector potential nor the zero-flux condition on $\Gamma$, and it works verbatim in two dimensions. Only $\ut\in C^2$ near $\Gamma$ is used in the geometric lemmas.
+
+\begin{lemma}[Wall structure]\label{geom:wall}
+On $\Gamma$: $\nabla u=\dn u\otimes n$, $\dn u\cdot n=0$ and $(\nabla u)^{\mathsf T}n=0$. In particular $W:=\partial_Nu|_\Gamma$, the wall shear, is a tangential field.
+\end{lemma}
+
+\begin{proof}
+The tangential derivatives of $u$ vanish on $\Gamma$, and $0=\div u=n\cdot\dn u$.
+\end{proof}

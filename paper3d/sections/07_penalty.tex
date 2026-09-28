@@ -1,0 +1,92 @@
+\section{The penalty threshold scales with \texorpdfstring{$\rho$}{rho}}\label{sec:penalty}
+
+Sufficiency is Lemma~\ref{st:coercive}: $\mu\ge\mu_0=4\kappa C_I^2\rho$ implies coercivity of $N_h$ on $\VR$. This section shows that a threshold proportional to $\rho$ is also necessary, on the divergence-free space $\Zh$ on which the methods actually need coercivity, under conditions on the cells at a smallest boundary face.
+
+\paragraph{Scaling.} For $v\in\Zh$ put $A:=a_h(v,v)$, $B:=\ip{\dn v}v$ and $C:=\norm v^2_{\Gh}$, so that $N_h(v,v)=A-2B+(\mu/h)C$. Under dilation by $\ell$, $A$ and $B$ scale like $\ell$ and $C$ like $\ell^2$. For a field of length scale $\ell$,
+\begin{equation}\label{pen:scale}
+N_h(v,v)=\frac C\ell\Bigl[\frac{\mu\ell}h-\frac{\ell(2B-A)}C\Bigr],
+\end{equation}
+and the quotient $\ell(2B-A)/C$ is dilation invariant. So $N_h$ is indefinite on $\Zh$ as soon as some $v\in\Zh$ has $\ell(2B-A)/C>\mu\ell/h$.
+
+\subsection{A witness in one Alfeld macro-element}
+Let $\Th$ be an Alfeld refinement, $T=\conv(P_0,\dots,P_3)$ a macro-tetrahedron with $F=\conv(P_1,P_2,P_3)\in\FG$ and $T\cap\Sigma=\emptyset$, and
+\[
+W_k(T):=\bigl\{v\in C^0(T)^3:\ v|_S\in P_k^3\ \forall S\in T^A,\ \div v=0,\ v=0\text{ on }\partial T\setminus F\bigr\},
+\]
+with $A_T,B_T,C_T$ the forms above restricted to $T$ and $F$, and
+\[
+\lambda_T:=\diam F\cdot\sup_{v\in W_k(T),\,C_T(v)>0}\frac{2B_T-A_T}{C_T}.
+\]
+
+\begin{lemma}[Piola invariance]\label{pen:piola}
+Let $\Phi(\hat x)=J\hat x+b$ map $\hat T$ onto $T$ with $\hat F\mapsto F$. Then $\hat v\mapsto(\det J)^{-1}J\,\hat v\circ\Phi^{-1}$ is a bijection $W_k(\hat T)\to W_k(T)$. Hence $\dim W_k(T)$ does not depend on the shape. Pulled back to $W_k(\hat T)$, $A_T$ and $B_T$ are rational functions of $J$, and $C_T$ is a rational function of $J$ times $|J^{-\mathsf T}\hat\nu|$, the square root of a rational function; all three are continuous where $\det J\ne0$. So a strict inequality $(2B_T-A_T-cC_T)(v)>0$ at a fixed pulled-back witness persists on an open set of shapes.
+\end{lemma}
+
+\begin{proof}
+$\Phi$ maps barycentre to barycentre, hence $\hat T^A$ onto $T^A$; continuity, degree and vanishing on faces are preserved, and $\div v=(\det J)^{-1}(\widehat\div\,\hat v)\circ\Phi^{-1}$. In $B_T$ the normalisation of $n$ cancels against Nanson's factor; in $C_T$ it does not.
+\end{proof}
+
+\begin{theorem}[Single-cell necessity]\label{pen:single}
+If $\mu\diam F/h<\lambda_T$, then $N_h$ is indefinite on $\Zh$, for every $k\ge3$. In particular, if the macro-tetrahedron on a smallest face $F_\ast$ of $\Gh$ has $\lambda_T\ge\lambda_0>0$, coercivity on $\Zh$ requires $\mu\ge\lambda_0\rho$. Exact rational certificates give, for $k=3$:
+\begin{center}\footnotesize
+\begin{tabular}{lcccc}
+\toprule
+shape (apex) & $\dim W_3$ & $\sup\frac{2B-A}C$ & $\lambda_T$ & exact certificate\\
+\midrule
+near-regular, $(\frac12,\frac7{24},\frac{13}{16})$ & 8 & 32.2481 & 32.50 & $2B-A-\frac{28060}{871}C>0$\\
+right corner$^\dagger$, $(0,0,1)$ & 8 & 22.9834 & 32.50 & $2B-A-\frac{9850}{429}C>0$\\
+flat, height $\frac12$ & 8 & 61.4449 & 61.92 & $2B-A-\frac{51071}{832}C>0$\\
+flat, height $\frac14$ & 8 & 134.356 & 135.40 & $2B-A-\frac{133014}{991}C>0$\\
+skew, $(\frac32,\frac13,\frac34)$ & 8 & 32.3856 & 32.64 & $2B-A-\frac{14656}{453}C>0$\\
+tall, height $2$ & 8 & $-10.381$ & $-10.46$ & $A-2B-10C\succ0$\\
+tall, height $3$ & 8 & $-57.454$ & $-57.90$ & $A-2B-57C\succ0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The base is $(0,0,0),(1,0,0),(\frac12,\frac78,0)$ except for $^\dagger$, where it is $(0,0,0),(1,0,0),(0,1,0)$; flat and tall cells have their apex above $(\frac12,\frac7{24},0)$. By Lemma~\ref{pen:piola}, each positive certificate also holds on an open set of shapes around the tabulated one. \status{computer-assisted, exact}
+\end{theorem}
+
+\begin{proof}
+A field $v\in W_k(T)$ extended by zero is continuous (it vanishes on the faces shared with other cells), piecewise $P_k$, zero on $\Sigma$ and divergence free, so $v\in\Zh$, and its forms are $A_T,B_T,C_T$. Apply \eqref{pen:scale} with $\ell=\diam F$ to the maximiser, and $h/\diam F_\ast=\rho$.
+\end{proof}
+\cert{notes/v6/td\_pen/alfeld\_tet.py, verify\_alfeld.py, neg\_cert.py}{alfeld\_k3.log, verify\_*.log, neg\_cert.log}
+The null space is computed exactly over $\mathbb Q$; the suprema are found by floating-point bisection on the $8$-dimensional pencil, and the \emph{certificates} are rational witnesses checked in exact arithmetic. An independent quadrature check reproduces the near-regular quotient $32.24809277$ against $32.24809278$ from the exact pipeline. For tall cells, the exact $LDL^{\mathsf T}$ factorisation shows that $A-2B-10C$ (height $2$) is positive definite on $W_3(T)$, so no single-cell witness of degree $3$ exists (higher degrees were not tested); a height scan puts the change of sign at height $\approx1.69$ times the base size (the regular tetrahedron has height $0.816$). This is the three-dimensional analogue of the tall-cell limitation in two dimensions \cite{PadhiLong2D}.
+
+\subsection{A continuum witness}
+\paragraph{Half-space constant.} Take the fluid in $\{z>0\}$, $n=(0,0,-1)$ and $\dn=-\partial_z$. Let $g(t)=t(1-t)^6$ on $[0,1]$ (zero for $t\ge1$), $\phi(s)=(1-s^2)^6$ on $[-1,1]$, and
+\[
+\mathcal F:=Y\phi(x/X)\phi(y/X)g(z/Y),\qquad w:=\curl(\mathcal Fe_y)=(-\partial_z\mathcal F,0,\partial_x\mathcal F).
+\]
+Then $\div w=0$ and $w\cdot n=0$ on $z=0$; at $z=0$, $w_1=-\phi\phi$ and $\dn w\cdot w=12\phi^2\phi^2/Y>0$. Exact integration gives, for $X=2Y$,
+\[
+\hat\lambda:=\frac{Y(2B-A)}C=\frac{2327591}{151008}=15.41369\ldots,
+\]
+with $15.53940$, $15.58222$, $15.62292$ for $X/Y=3,4,8$, and $\hat\lambda\to-2g'(0)g''(0)-\int_0^1|g''|^2=\frac{172}{11}=15.636\ldots$ as $X/Y\to\infty$ (the one-dimensional limit). \status{exact}
+\cert{notes/v6/td\_pen/continuum3d.py}{continuum3d.log}
+
+\begin{enumerate}[label=(LQ)]
+\item Let $F_\ast\in\FG$ have minimal diameter, $x_0\in F_\ast$, and $Y:=C_q\diam F_\ast/\kappa$. Every tetrahedron of $\Th$ meeting $B(x_0,4Y)$ has diameter at most $C_q\diam F_\ast=\kappa Y$, and $B(x_0,4Y)\cap\Sigma=\emptyset$.
+\end{enumerate}
+
+\begin{theorem}[Continuum-witness necessity]\label{pen:cont}
+Assume (IS3) with constant $\beta$ (on Alfeld refinements, $k\ge3$, Lemma~\ref{st:IS3}). There are $\kappa_0,Y_0>0$, depending on $C_q$, $\beta$, $k$, $\Gamma$ and shape regularity, such that under (LQ) with $\kappa\le\kappa_0$ and $Y\le Y_0$, $N_h$ is indefinite on $\Zh$ whenever $\mu<15h/Y$. Hence the coercivity threshold on $\Zh$ satisfies $\mu^\ast\ge(15\kappa_0/C_q)\rho$. No condition on the shapes of the boundary cells beyond shape regularity is needed.
+\end{theorem}
+
+\begin{proof}
+Constants $C$ depend on the profile, $k$, $\Gamma$ and shape regularity.
+\begin{enumerate}
+\item \emph{Field.} Use the frame (Gr) at $x_0^\ast:=\pi(x_0)$, with $z$ pointing into $\Omega$, $X=2Y$, and the field $w$ above; for $z<0$ extend $g$ polynomially and multiply by a cutoff equal to $1$ on $z\ge-Y/2$. Then $w\in W^{4,\infty}$ with $|D^jw|\le C_jY^{-j}$, $\div w=0$ and $\operatorname{supp}w\subset B(x_0,4Y)$. Near $x_0$, $\Gh$ is a graph $z=\gamma_h(x,y)$ with $|\gamma_h|\le CY^2$ and $|\nabla\gamma_h|\le CY$ (Corollary~\ref{geom:graph} and (Gr)).
+\item \emph{Comparison with the half-space.} On $\operatorname{supp}w$, $\Oh$ and $\{z>0\}$ differ in a set of volume $\le CY^4$ where $|\nabla w|^2\le CY^{-2}$, and moving the integrands of $B$ and $C$ from $z=0$ to $z=\gamma_h$ (with $n_F$ in place of $(0,0,-1)$) changes them by $O(1)$ and $O(Y)$ pointwise. So $|A_{\Oh}(w)-Y\hat A|+|B_{\Gh}(w)-Y\hat B|\le CY^2$ and $|C_{\Gh}(w)-Y^2\hat C|\le CY^3$, with $\hat A,\hat B,\hat C$ the half-space values at $Y=1$.
+\item \emph{Discrete field.} Let $I$ be degree-$3$ Lagrange interpolation, so $Iw\in\Vh$ and $\norm{w-Iw}_{L^\infty}\le C\kappa^4$, $\norm{\nabla(w-Iw)}_{L^\infty}\le C\kappa^3/Y$. Let $b:=\sum_{F\subset\Gh\cap B(x_0,Y)}b_Fn_F$; then $\int_{\Gh}b\cdot n\ge cY^2$, $|\nabla b|\le CC_q/(\kappa Y)$ and $\norm{\nabla b}^2\le CC_q^2Y/\kappa$. Since $\int_{\Gh}w\cdot n=\int_{\Oh}\div w=0$, $m:=\int_{\Gh}Iw\cdot n$ satisfies $|m|\le CY^2\kappa^4$; with $a:=m/\int_{\Gh}b\cdot n$, $|a|\le C\kappa^4$. (IS3) gives $v_0\in\VO$ with $\div v_0=\div(Iw-ab)$ and $\norm{\nabla v_0}\le\beta^{-1}\sqrt3\bigl(\norm{\nabla(Iw-w)}+|a|\norm{\nabla b}\bigr)\le C\beta^{-1}(\kappa^3+C_q\kappa^{7/2})Y^{1/2}$. Put $v:=Iw-ab-v_0\in\Zh$.
+\item \emph{Perturbation.} On $\Gh$, $v=Iw-ab$. So $|C(v)^{1/2}-C_{\Gh}(w)^{1/2}|\le C\kappa^4Y$ and $|A(v)^{1/2}-A_{\Oh}(w)^{1/2}|\le C(1+\beta^{-1})C_q\kappa^3Y^{1/2}$. In $B$, the terms $\dn(Iw-w)$ and $a\dn b$ change $B$ by at most $C(1+C_q)\kappa^3Y$, and by the inverse trace inequality and $\sum_F|F|/\diam F\le CC_qY/\kappa$, $|\ip{\dn v_0}{Iw-ab}|\le C(C_qY/\kappa)^{1/2}\norm{\nabla v_0}\le C\beta^{-1}C_q^{3/2}\kappa^{5/2}Y$.
+\item \emph{Conclusion.} $Y(2B(v)-A(v))/C(v)\ge\hat\lambda-C[(1+\beta^{-1})C_q^{3/2}\kappa^{5/2}+Y]$. Choose $\kappa_0,Y_0$ so that the bracket is at most $0.4$; then $\mu<15h/Y$ gives $N_h(v,v)<0$ by \eqref{pen:scale}. Finally $Y=C_q\diam F_\ast/\kappa$ and $h/\diam F_\ast=\rho$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}[The threshold scales with $\rho$]\label{pen:rho}
+On Alfeld refinements with $k\ge3$, the coercivity threshold $\mu^\ast$ of $N_h$ on $\Zh$ satisfies $c\,\rho\le\mu^\ast\le4\kappa C_I^2\rho$ whenever the mesh is locally quasi-uniform over $O(1/\kappa_0)$ layers at a smallest boundary face in the sense of (LQ), or the macro-cell on a smallest boundary face has a certified $\lambda_T>0$ (Theorem~\ref{pen:single}).
+\end{corollary}
+
+The constant $\kappa_0$ in Theorem~\ref{pen:cont} is not explicit, and the statement without (LQ) or a shape condition is open, as in two dimensions. If commuting projections onto the Alfeld velocity space with $W^{1,\infty}$-local bounds were used in step~3 in place of the interpolate-and-correct construction \cite{FuGuzmanNeilan2020}, (IS3) would not be needed; we have not checked those bounds.
+
+In our computations (Section~\ref{sec:numerics}) the threshold on $\Zh$ grows with $h/\hG$: $\mu^\ast=76.3$ and $148.0$ at the two sphere levels for $k=3$, $193.6$ at the first level for $k=4$.

@@ -1,0 +1,40 @@
+\section{What is proved and what is open}\label{sec:open}
+
+We list the status of the main claims. ``Proved'' means proved in this paper from the stated mesh hypotheses and standard cited results. ``Proved modulo X'' means proved except for the named hypothesis X. ``Numerical'' means observed only.
+
+\paragraph{Proved.}
+\begin{itemize}
+\item The leak analysis of the printed method: Theorems~A--C, Corollary~B$'$, Theorem~B$''$ (fixed $\gamma$, bounded $\rho$), its penalty-uniform version at the exact rate $\frac12$ (Theorem~U), and Theorem~R.
+\item Scott's rate $\hG^{3/2}+h^k$ for $\CNS$ (Theorem~D) and its sharpness for every $k\ge4$ (Theorem~D$'$, with (M3) proved in Theorem~\ref{m3:thm} for $\hG\le2\sin(\theta_{\min}/4)$).
+\item The pressure bounds and the drag, lift and torque expansions of Section~\ref{pd:sec} (the $\CNS$ drag leading term as $\gamma\to\infty$), and the $L^2$ lower bound $c\hG^2$ (Theorem~\ref{l2:thm:L3}).
+\item The penalty threshold: sufficiency, the single-triangle certificates, Theorem~\ref{pb:thmA} with explicit constants, and the exact counterexamples to a local necessity statement (Proposition~\ref{pb:counter}).
+\item Strong imposition: the two-sided rate under (M2), the counting lower bound, uniform constrained inf-sup, the sharp stability at locked vertices, the two-sided rate with locks and the pressure filter (Section~\ref{st:sec}); the needle-angle law as a lower bound.
+\item Pressure robustness: the splitting, non-robustness of $\GS$, the single $\CNS$ defect with its upper bounds, exact gradient robustness of $\CNSR$, the energy duality, the certificate for every $\gamma>0$, and Theorem~\ref{rb:final}(a)--(d) for $k=4$.
+\item Navier--Stokes on nonsingular branches (Theorems~\ref{nb:L}, \ref{n2:Ldag}); Clough--Tocher refinements and general domains (Theorems~F, G).
+\end{itemize}
+
+\paragraph{Proved modulo a named hypothesis.}
+\begin{itemize}
+\item The $L^2$ upper bounds (Theorems~\ref{l2:thm:L1}, \ref{l2:thm:L2}) modulo Stokes $H^2$ regularity (R); the graded-mesh bound modulo (LF), (IE).
+\item The $\CNS$ pressure lower bounds modulo the boundary moment hypothesis (P) (Theorem~\ref{pd:thm:P}); (P) is numerical.
+\item Navier--Stokes: explicit thresholds, the Oseen leak flow, $K_{NS}$, the $\GS$ and $\CNS$ drag and the penalty-uniform leak limit, all modulo Stokes regularity (R$_S$).
+\item Strong imposition at needles at the wall: the upper bound modulo the stability hypothesis (L$_\Nset$) and cited anisotropic interpolation estimates.
+\end{itemize}
+
+\paragraph{Numerical only.}
+\begin{itemize}
+\item Convergence of the leak constant in the regime $\gamma\hG\to\infty$; the existence of $\lim d_h/\hG^{1/2}$ on a given mesh family.
+\item Hypothesis (P); the sign and size of the $\CNS$ drag lower bound at fixed $\gamma$; the fixed-$\gamma$ torque lower bound.
+\item Strong imposition on split-edge stars (shape~II), where the stability hypothesis is numerically false and only the error bound is observed.
+\item Conjecture~\ref{rb:conj} and the orders $k+1$, $k+\frac32$ for $K$-degenerate pressures.
+\item The limit $\gamma^\ast_\infty\approx21.4$ of the coercivity threshold.
+\end{itemize}
+
+\paragraph{Open.}
+\begin{itemize}
+\item A proof of (P), which needs a two-scale description of the discrete first layer; the limit of $\Pm/\hG$.
+\item A $\CNS$ pressure lower bound without (P); sharpness of the $\CNS$ drag rate $2$ at fixed $\gamma$; the Navier--Stokes constants $C_R$, $\beta_O$ for any test case.
+\item Penalty necessity for tall boundary triangles on coarse meshes, and a global mesh realising the counterexamples of Proposition~\ref{pb:counter}.
+\item Nonsymmetric and penalty-free Nitsche variants; slip conditions; other divergence-free families; cut meshes.
+\item Three-dimensional versions of the results of this paper are treated separately \cite{PadhiThreeD}.
+\end{itemize}

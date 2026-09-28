@@ -147,7 +147,7 @@ the second for every $\gamma\ge\gamma_2$, with $C$ independent of $\gamma$, and 
 The consistency identities (Lemma~\ref{lem:erroreq}, \eqref{eq:cnserr}) involve only test functions vanishing on $\partial R$ and are unaffected. The proof of Theorem~\ref{thm:D} uses the data only through $E_h$, now bounded by Lemma~\ref{rs:approx}. For bounded $\gamma$, $\tilde\varepsilon_h\le C(h^k+\hG^{k+1/2}+h^{k+1})$. For the $H^1$ bound uniform in $\gamma$, repeat Theorem~\ref{rs:unif} with $\tilde g_I$ in place of $\gI$. In Lemma~\ref{rs:dir} now $a=0$ ($u^D$ vanishes on $\Gh$), the comparison field of step 1 is $z_0=I_h\ut-c\,I_h(\zeta x)-L_0$ with $L_0$ the nodal extension of $I_h\ut|_{\Gh}$, and $\int_{\Oh}\div z_0=\int_{\partial R}\tilde g_I\cdot\nu=0$; so $\norm{\nabla(\ut-u^D)}\le C(\hG^{3/2}+h^k+|m_R|)$. In step 3 of Theorem~\ref{rs:unif}, $\gamma^{-1/2}\tilde\varepsilon_h\le C(h^k+\hG^{\sigma_k-1/2}+|m_R|)$, and in step 4 the term $|m_R|\hG^{-1/2}$ is absent. Altogether $\norm{\nabla(\ut-u_h)}\le C(\hG^{3/2}+h^k+\hG^{\sigma_k-1/2}+|m_R|)\le C(\hG^{3/2}+h^k)$. The $L^2$ part uses the lift of $(g-\tilde g_I)|_{\partial R}$, of size $C(h^{k+1/2}+|m_R|)$.
 \end{proof}
 
-With Theorem~\ref{lb:thm} (which is indifferent to the outer data), Corollary~\ref{lb:cor} now holds with no flux condition: under (M3) and $W\not\equiv0$, $c\hG^{3/2}\le\norm{\nabla(\ut-u_h)}\le C\hG^{3/2}$ whenever $h^k\le\hG^{3/2}$, for every $\hG\le h$.
+With Theorem~\ref{lb:thm} (which is indifferent to the outer data), Corollary~\ref{lb:cor} now holds with no flux condition: for $W\not\equiv0$ and small $\hG$ ((M3) by Theorem~\ref{m3:thm}), $c\hG^{3/2}\le\norm{\nabla(\ut-u_h)}\le C\hG^{3/2}$ whenever $h^k\le\hG^{3/2}$, for every $\hG\le h$.
 
 \subsubsection{A growing penalty for the printed method}
 
@@ -158,7 +158,7 @@ Let $\gamma\ge\gamma_0$ and $\gamma\ge c\,\hG^{-1/2}$, that is,
 \[
 \mu\ \ge\ c\,h\,\hG^{-3/2}\qquad(\text{for }h\asymp\hG:\ \mu\gtrsim h^{-1/2},\ \mu/h\gtrsim h^{-3/2}).
 \]
-Then $\GS$ satisfies $\norm{\ut-u_h}_{H^1(\Oh)}\le C_p(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$, and with flux-corrected data $\norm{\ut-u_h}_{H^1(\Oh)}\le C_p(\hG^{3/2}+h^k)$. Under the hypotheses of Theorem~\ref{lb:thm} ((M3), $W\not\equiv0$), $\norm{\nabla(\ut-u_h)}\ge c\hG^{3/2}$ as well, so for $h^k\le\hG^{3/2}$ (and, for uncorrected data, $\hG\ge h^{2(\sigma_k-k)}$) the $H^1$ rate of $\GS$ is exactly $\frac32$, for general Stokes data. The $L^2$ part of the $H^1$ norm is handled by the lift $E$ of Theorem~\ref{thm:B}(ii).
+Then $\GS$ satisfies $\norm{\ut-u_h}_{H^1(\Oh)}\le C_p(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$, and with flux-corrected data $\norm{\ut-u_h}_{H^1(\Oh)}\le C_p(\hG^{3/2}+h^k)$. Under the hypotheses of Theorem~\ref{lb:thm} ($W\not\equiv0$; (M3) holds by Theorem~\ref{m3:thm}), $\norm{\nabla(\ut-u_h)}\ge c\hG^{3/2}$ as well, so for $h^k\le\hG^{3/2}$ (and, for uncorrected data, $\hG\ge h^{2(\sigma_k-k)}$) the $H^1$ rate of $\GS$ is exactly $\frac32$, for general Stokes data. The $L^2$ part of the $H^1$ norm is handled by the lift $E$ of Theorem~\ref{thm:B}(ii).
 \end{corollary}
 
 \begin{proof}
@@ -203,7 +203,7 @@ Combined with Theorem~\ref{thm:A} (upper bound, and lower bound $(2M)^{-1}(\hG/\
 with $\lambda_0$ small and $\Lambda_0$ large, both depending on the data. In the window $\lambda_0<\gamma\hG<\Lambda_0$ the upper bound is $\asymp\hG$ and we have no matching lower bound (the leak is normal and the geometric slip tangential, so we expect none is lost, but the constant in step 2 above is not controlled finely enough to exclude a partial cancellation). The same theorem shows that for $\CNS$, and for $\GS$ with $G=0$, the energy error grows like $\gamma^{1/2}\hG^{3/2}$: bounded $\gamma$ is optimal in the energy norm.
 
 \begin{corollary}[Rates of $\GS$ under a power-law penalty]\label{rs:rates}
-Let $h/\hG$ and $\rho$ be bounded, $\gamma\asymp\hG^{-\alpha}$ with $\alpha\ge0$, $G>0$, $W\not\equiv0$, (M3) (for $\alpha\ge\frac12$), $h^k\le\hG^{3/2}$. Then, as $\hG\to0$:
+Let $h/\hG$ and $\rho$ be bounded, $\gamma\asymp\hG^{-\alpha}$ with $\alpha\ge0$, $G>0$, $W\not\equiv0$, $h^k\le\hG^{3/2}$. Then, as $\hG\to0$:
 \begin{center}
 \begin{tabular}{lll}
 \toprule

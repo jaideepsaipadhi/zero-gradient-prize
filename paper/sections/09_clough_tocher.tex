@@ -172,8 +172,7 @@ The rate in (ii) is Theorem~\ref{thm:D} combined with Lemma~\ref{ct:lem:approx}.
 \end{proof}
 
 \begin{remark}
-For $k=2$ the bulk term $h^2$ dominates $\hG^{3/2}$ exactly when $\hG\le h^{4/3}$. So for quasi-uniform meshes the $\CNS$ error is $O(h^{3/2})$ for every $k\ge2$, and the degree matters only through $\eps$. The constant-pressure benchmark of \cite{GjerdeScott2024} is the case $G=0$ of Theorem~\ref{thm:A}. %% VERIFY: the claim that Cavalcante treats Clough--Tocher splits with k >= 2 is not confirmed by the Zenodo record description (notes/v5/lit_report.md).
-It is also analysed in \cite{Cavalcante}; the proof here does not use \cite{Cavalcante}.
+For $k=2$ the bulk term $h^2$ dominates $\hG^{3/2}$ exactly when $\hG\le h^{4/3}$. So for quasi-uniform meshes the $\CNS$ error is $O(h^{3/2})$ for every $k\ge2$, and the degree matters only through $\eps$. The constant-pressure benchmark of \cite{GjerdeScott2024} is the case $G=0$ of Theorem~\ref{thm:A}. For quartic velocities on unsplit meshes it is also analysed in \cite{Cavalcante}; that record does not mention Clough--Tocher splits, and the proof here does not use \cite{Cavalcante}.
 \end{remark}
 
 \subsection{The penalty threshold on Clough--Tocher stars}
@@ -234,6 +233,10 @@ Hence $\dim\ker\div=\dim V_\cS-\dim\Pi_\cS$ does not depend on the vertex positi
 The local thresholds on split stars are much larger than on unsplit ones: the exact witness quotients, which are lower bounds for $\lambda^\ast$, are $48.8$ versus $9.98$ on $\cS_3$ for $k=4$. They grow with $k$ ($7.5$, $24.8$, $48.8$ for $k=2,3,4$). This is consistent with the inverse-trace constant of the thinner boundary triangle $K_e$, whose height is one third of that of $T_e$, and with its growth in $k$. Sufficiency (Lemma~\ref{lem:coercive}) and necessity (Proposition~\ref{ct:prop:penalty}) still both scale with $\rho$, so the conclusion $\mu_0\asymp\rho$ of Section~\ref{sec:penalty} holds for Clough--Tocher meshes whose shortest boundary edge carries such a star. The threshold $\gamma^\ast\approx18$--$21$ measured on unsplit $k=4$ meshes does not transfer. On the Clough--Tocher refinements of the same meshes we measured $\gamma^\ast\approx11.5$ ($k=2$), $34.6$ ($k=3$) and $65.5$ ($k=4$) at the finest levels (Table~\ref{tab:threshv3}), each above the corresponding local certificate of Table~\ref{ct:tab:lam}.
 \end{remark}
 
+\begin{remark}[Tall split stars]
+The local certificates of Table~\ref{ct:tab:lam} are for layer height $1$ per unit chord. On split column stars of height $H$ they fail: in exact arithmetic no field supported in the split star is a witness at any $\mu\ge0$ for $k=2$ at $H=2$ (macro minimum angle $26.6^\circ$), $k=3$ at $H=4$ and $k=4$ at $H=8$ (Proposition~\ref{pb:counter}(c)). The explicit-constant necessity of Theorem~\ref{pb:thmA} transfers to Clough--Tocher meshes with the HCT basis, but its constants have not been computed.
+\end{remark}
+
 \begin{remark}[Scope]\label{ct:rem:scope}
-Theorem~\ref{ct:thm:main} covers Sections~\ref{sec:geometry}--\ref{sec:consistent} up to and including Theorem~\ref{thm:D}, and Proposition~\ref{prop:penalty}. We have not re-checked the identification of the $H^1$ constant (Section~\ref{hc:sec}), the lower bound (Section~\ref{lb:sec}), the single-triangle witness of Section~\ref{pb:sec}, or Sections~\ref{gd:sec}--\ref{td:sec} on Clough--Tocher meshes, and make no claim about them there.
+Theorem~\ref{ct:thm:main} covers Sections~\ref{sec:geometry}--\ref{sec:consistent} up to and including Theorem~\ref{thm:D}, and Proposition~\ref{prop:penalty}. We have not re-checked the identification of the $H^1$ constant (Section~\ref{hc:sec}), the lower bound (Section~\ref{lb:sec}), the single-triangle witness of Section~\ref{pb:sec}, the uniform-in-penalty leak limit (Section~\ref{u:sec}), the $L^2$ theory (Section~\ref{l2:sec}), strong imposition (Section~\ref{st:sec}), or Sections~\ref{gd:sec}--\ref{rb:sec} on Clough--Tocher meshes, and make no claim about them there.
 \end{remark}

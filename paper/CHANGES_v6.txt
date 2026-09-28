@@ -1,0 +1,157 @@
+paper/ -- v6 changes (Paper B: long 2D paper)
+===========================================
+
+Build: `make paper` at the repository root (= cd paper && latexmk -pdf -interaction=nonstopmode main.tex).
+There is no Makefile inside paper/. Result: main.pdf, 138 pages (v5: 95). No LaTeX errors, no undefined
+references or citations. Four overfull boxes remain, all under 5pt (07e_m3 l.212, 08_penalty l.351, two in the
+Appendix A longtable). The hyperref "Token not allowed in a PDF string" warnings come from math in section titles,
+as in v5. Nothing was committed; letter/ and paper3d/ were not touched.
+
+1. Three dimensions removed
+---------------------------
+- main.tex no longer \input's sections/12_three_d.tex. The file is kept unchanged for Paper C.
+- 3D-only macros \FG and \epsd removed from main.tex.
+- 3D claims replaced by a pointer to \cite{PadhiThreeD} (refs.bib: @misc, "In preparation", 2026) in: the abstract
+  (main.tex), the introduction (Scope paragraph; Theorem I deleted; Theorem H rewritten; "Theorems F--I" -> "F--H"),
+  03_geometry (energy-dual remark; td:nocancel2d reference removed), 11c_ns_branch (closing paragraph), and
+  14_open (Open list).
+- 11_navier_stokes: sentence "The same holds in three dimensions." deleted.
+- A_reproducibility: the td:faces row and bullet (notes/v3/face_mean_check.py) removed.
+
+2. New files (sections/)
+------------------------
+- 07e_m3.tex (\input from 07 after Remark lb:k4; subsection m3:sec). Proof that (M3) holds for every k>=4, from
+  notes/v4/m3_proof.tex with the referee3 tightened steps: hypotheses (M0_theta), (M1'), (A_delta); smallness
+  condition (S) hG <= 2 sin(theta_min/4); exact geometry Lemma m3:geom; explicit P4 witness on three triangles;
+  Theorem m3:thm; elementary bound Cor m3:el; interval certificates table (F3/Fs at (30,10) and (20,15)); mesh
+  check (N = 8..1024, kappa_z >= 0.00287). Certificate parameters (theta_min, delta) are stated separately from (S).
+- 07d_uniform_mu.tex (subsection u:sec, \input after 07a). Leak limit uniform in the penalty (unifmu + unifmu2 with
+  referee4/7 fixes): Lemmas u:proj, u:canc, u:size, u:XD; Theorem u:up; Lemma u:field (three-triangle Argyris
+  field); Theorem u:low for all mu except a finite set per mesh, (M2) at every vertex; Cor u:two (exact rate 1/2 for
+  every gamma, Dirichlet limit included); Cor u:gen; Cor u:K (gamma^{-1/2}); Remark u:rem (constants, capture
+  fraction, kappa_1 drift, what is not proved).
+- 07c_l2.tex (section l2:sec). L2 theory: hypothesis (R) (Dauge1989); Lemmas l2:strip, l2:ext, l2:Y;
+  Theorem l2:thm:L1 (CNS*: hG^2 + h hG^{3/2} + h^{k+1}, uniform in gamma, modulo (R)); Remark l2:rem:adj (adjoint
+  inconsistency of the algebraic transpose); Theorem l2:thm:L3 (sharp hG^2, with the corrected hypothesis
+  (1+gamma) hG <= delta0, h^k <= delta0 hG^2; no (M3), no regularity needed); Theorem l2:thm:L2 (GS rate exactly 1,
+  ||U||/G = 1.2736341); graded meshes modulo (LF), (IE), (G_kappa) (Lemma l2:lem:G1, Theorem l2:thm:G); Table l2:tab.
+- 08b_strong.tex (section st:sec). Strong imposition: attainable-gradient dimension (L1), Theta at wall vertices
+  (L2), near attainability for m>=3 (L3), exact vertex-gradient error (P1); Theorem st:S1 (upper bound under (M2),
+  with the referee1 fixes: nodal zeroing count via |e| >= c0 hG, pressure step via Pi p°); Theorem st:S2 (lower bound
+  for every v vanishing on Gamma_h, remainder C hG^{5/2}); Cor st:two0 (two-sided hG^{3/2}); the Gjerde--Scott remark
+  and the (labelled) inference about their meshes; Theorem st:S3 (counting lower bound, gamma_k^2 = 4/(k^2(k+1)^2)
+  exact for k = 4..8, arc-fraction and n-lock consequences = S3'); locked vertices from strong2: Lemma st:K, vertex
+  Lemma st:V, Theorem st:thmL (uniform constrained inf-sup), Theorem st:sharp (two-sided N(q), beta_h ~ min phi_z),
+  Theorem st:S4, Cor st:two, Theorem st:P (pressure bounds, filter). Prior art credited as referee4 asked:
+  Scott prize Thm 1, Gjerde--Scott, Grassle--Bohne--Sauter 2024 (constrained inf-sup), Park 2020 and
+  Bohne--Grassle--Sauter 2025 (spurious pressures, filters). Nearly singular stars from nearsing: area-weighted
+  distance Theorem st:N2 (two-sided, both shapes), Prop st:N4 (beta <= C(phi + sqrt eps)), Theorem st:N3: (i)
+  lower bound proved for shapes I and II; (ii) upper bound proved modulo (L_N) and cited anisotropic interpolation,
+  shape I ONLY (referee11 GAP); shape II upper bound NUMERICAL only, with the slit instability beta ~ 0.5 eps stated.
+  Tables st:tab:drift (drift fit, from strong/fit_rates.log) and st:tab:lock (one lock / mesh (a), from
+  strong2/tab_filter.tex); needle rates quoted from nearsing/tab_fe.tex. All numbers were checked against the logs.
+- 11b_robust.tex (section rb:sec). Pressure robustness: Lemma rb:scale; Theorem rb:split (referee2 fix: E_M
+  depends on F/nu, exactly p- and nu-free only when F = 0); Lemma rb:strip (hG^4 strip bound); Lemma rb:harm
+  (L1.3); Theorem rb:gs (GS not robust); Prop rb:one ("no PRESSURE traction mismatch", referee2 wording);
+  Theorem rb:cns (upper bounds, zero for P_{k-1} pressures); Definition rb:def:R and Theorem rb:R (CNS*-R exactly
+  gradient-robust when f~ = grad phi on the strip as well, else O(hG^4) residual; referee2 caveat); Theorem
+  rb:energy (energy duality, K_1); Rodrigues identity stated for every k with the odd-k obstruction attached to the
+  global test field (referee5 wording fix); pressure-blind identity and Theorem rb:cert (every gamma > 0); invisible
+  plane K_T with pi_h elementwise stated (referee9); phi_B upper bound; Theorem rb:final (R-final (a)-(d), k = 4,
+  certified kappa_T(30) >= 2.1e-6, kappa_T(20) >= 5.6e-7 after the robust6 bug fix; LP+ rate hypothesis
+  |K_Te - K(x)| <= C h built into the definition (referee9); h^{+1/2} prefactor fix (referee9)); k = 5..8 caveat
+  (referee11); Conjecture rb:conj (S_LP); residual leak law with gamma_3 >~ 10^3 (referee5 constants fix);
+  Table rb:tab (hydrostatic test); credits JohnEtAl2017, Liu--Neilan--Otus 2023, Frachon--Nilsson--Zahedi 2024,
+  Neilan--Otus 2021 [Theorem 6.1], Chen--Liu 2026. No novelty claimed for the reconstruction device.
+- 11c_ns_branch.tex (\input at the end of 11, replacing Remark ns:branch). Navier--Stokes from ns/ns_branch.tex and
+  ns2/REPORT.tex (Gaps 1-3) with referee3 and referee10 fixes: c_N notation note; Lemma nb:K; Lemma nb:limit
+  (strip constant 2, not sqrt 2; test fields; compactness); Theorem nb:L ((L) and (L*) merged; wording on u|_Gamma = 0
+  fixed: it is used via Lemma lem:ext, and without it the term still tends to 0); (R_S) with %% VERIFY on the
+  Dauge/Galdi locators; Lemma n2:reg (Theta_R bound with max(1,(1+C_F)C_F), referee10); Lemma n2:dual reusing
+  l2:ext / l2:Y (the ns2 copies n2:ext, n2:Y were not duplicated); (L-dagger), (L_D); Theorem n2:L with explicit
+  threshold; Oseen leak flow, Theorem nb:hc, Cor nb:KNS, Cor nb:gsdrag (GS drag, label as required by 07b);
+  subsection n2:adj ("which adjoint"), Theorem n2:Ldag, Lemma n2:aux, Theorem n2:cnsdrag with hypothesis
+  gamma >= max(1, gamma_2, gamma_2') and "geometric as gamma -> infinity" (referee10); uniform Oseen leak
+  Theorem n2:up (upper and lower), Theorem n2:unif:thm with the linearised geometric part stated MODULO (L_D) in
+  quantitative form, i.e. under (R_S) (referee10: n2:lin was relabelled), Cor n2:gen with the remark that the
+  nonlinear lower bound still needs gamma hG^{1/2} -> 0 (referee10). Ends with "What remains for Navier--Stokes".
+- 14_open.tex (section sec:open). Proved / proved modulo X / numerical / open lists.
+
+3. Edits to existing files
+--------------------------
+- main.tex: new starred theorems (S, L, T, U, M), \newtheorem{conjecture}; new macros \Pm, \Sm, \Phih, \Ql, \Lk,
+  \Nset, \Tsp, \PT, \Yh, \Ker, \rot, \CNSR, \Rop; input order 01..07, 07a, 07d, 07b, 07c, 08, 08b, 09, 10, 11, 11b,
+  13, 14; abstract rewritten (M3 for all k>=4, L2, uniform leak limit, penalty Theorem A and counterexamples, NS on
+  nonsingular branches, strong imposition framing, pressure robustness, one 3D pointer).
+- 01_introduction: "Curved walls" paragraph rewritten with the honest framing (under (M2) strong imposition already
+  attains hG^{3/2}; the lock is a two-triangle / nearly-singular-star phenomenon; Nitsche's advantages are robustness
+  to such meshes and a ~2.5x smaller constant); Theorem D' now for every k>=4; Proposition E updated (Theorem
+  pb:thmA, Proposition pb:counter); Cavalcante sentence corrected (abstract states the bound for quartic velocities;
+  the Clough--Tocher claim and the "Cor. 5.3" locator removed, per cites/FINDINGS [9]); Theorem P gains the
+  (P)-conditional lower bounds; new Theorems U, L, S, T; "what is new" list extended; prior-art paragraph crediting
+  Grassle--Bohne--Sauter, Park, Bohne--Grassle--Sauter, Neilan--Otus [Thm 6.1], Chen--Liu (positioning: low-cost
+  straight-sided alternative, not a competitor on rate); Theorem H rewritten; computations list updated with the
+  mu = 100 caveat; organisation paragraph rewritten.
+- 03_geometry: pointer to PadhiThreeD, "for every k>=4".
+- 04_discrete: Galdi "Lemma III.3.4" (UNVERIFIABLE) replaced by the explicit gluing argument (Lemma gd:lem:bog)
+  plus \cite[Theorem 4.6]{BCDG2016}; %% VERIFY kept on the theorem number (preprint layout).
+- 06_printed_method: Remark hc:regime points to u:sec; numerics bullets updated (rate 1/2; K_h^2 formula, Cor u:K).
+- 07_consistent_method: status paragraph "(M3) proved for every k>=4"; Remark lb:k4, Theorem lb:thm, Cor lb:cor and
+  the star-table caption updated.
+- 07a_rescue: (M3) conditions replaced by Theorem m3:thm.
+- 07b_pressure_drag (referee10's five changes): (1) Lemma pd:lem:rep(c): c^_k = k(k+1) for all k, d^_k = k^2(k+1)^2,
+  r^_k = 2P_k'(1-2y^), with proof, cites WarburtonHesthaven2003; the obsolete bullet deleted; (2) "as gamma -> inf
+  (gamma hG -> 0); at fixed gamma an additional -(h/mu) P_h(rho_psi) term of order hG^2"; (3) summary rows
+  "drag/lift (translations)" and a torque row; (4) Prop pd:prop:E (torque) with the fixed-gamma lower bound marked
+  NUMERICAL and Table pd:tab:e; (5) NS paragraph now cites nb:gsdrag, n2:cnsdrag, n2:Ldag. New subsection
+  pd:sec:lower: Prop pd:prop:A1 (with the |e_p bar| <= C hG^{3/2} requirement), Lemmas pd:lem:A2, pd:lem:A3 (modulo
+  (R)), Prop pd:prop:B1, Lemma pd:lem:C1, Assumption pd:ass:P with numerical status, Theorem pd:thm:P, Remark
+  pd:rem:obstr, Table pd:tab:a (now \resizebox'ed), Theorem pd:thm:B2, Remark pd:rem:B2; Prop pd:prop:D with Xi_h;
+  "What is not proved" rewritten; Gjerde--Scott locators (3), (7); one consolidated %% VERIFY on ACSE numbering.
+- 08_penalty: Remark pb:limits rewritten (the local conjecture is false); Prop pb:counter (exact counterexamples,
+  wider windows still work; statement that it does not refute c(Theta_0, theta_min) for theta_min >~ 20 deg and that a
+  global mesh was not written); explicit Argyris Lemma pb:lem:arg, geometry Lemma pb:lem:geom (graph renamed varpi),
+  Theorem pb:thmA with the kappa_0 table, Cor pb:corA (c_0 kept; can be dropped when e is a shortest edge),
+  realistic-kappa and graded numerics, Prop pb:obst (half-plane obstruction); two displays split for width.
+- 09_clough_tocher: unsupported Cavalcante CT claim removed; Remark "Tall split stars"; scope remark lists the new
+  sections.
+- 10_general_domains: Galdi Lemma III.3.1 locator marked CORRECTED per secondary source (FINDINGS [2]); II.1.3 and
+  III.3.3 %% VERIFY kept (UNVERIFIABLE).
+- 11_navier_stokes: intro paragraph (branches, explicit h0, new subsections), Remark ns:H1const now names K_NS,
+  Remark ns:drag cites nb:gsdrag, Remark ns:branch replaced by \input{sections/11c_ns_branch}.
+- 13_numerics: mu = 100 caveat paragraph (1.37--1.41 mu*, Z_h threshold 50.3 -> 70.7, limit ~73; amplification
+  (1 - mu*/mu)^{-1} ~2.5 -> 3.4; quote larger-mu constants where available) -- referee5 (d); the V_R "mu_c" claim and
+  the amplification "explanation" of robust2 are NOT used; Remark num:rem:strong rewritten from theory (removes "we
+  have not analysed strong imposition" and "we do not claim three triangles suffice"); new subsection num:further
+  pointing to the tables placed next to their theorems.
+- A_reproducibility: rows for the v6 notes scripts (m3, unifmu, l2, misc, penalty, strong, strong2, nearsing,
+  robust*).
+- refs.bib (63 entries): Cavalcante author "Cavalcante, Claudemir de Souza"; its mu* VERIFY resolved (CONFIRMED
+  60.3383), note that the record does not mention Clough--Tocher. Added GrassleBohneSauter2024,
+  BohneGrassleSauter2025, Park2020, ChenLiu2026, BCDG2016, FuGuzmanNeilan2020, BRR1980, GiraultRaviart, Temam
+  (Thm I.1.6 locator PLAUSIBLE comment), Schatz1974, Dauge1989 (%% VERIFY on the statement used), PadhiThreeD,
+  and, from memory with %% VERIFY (unresolved): WarburtonHesthaven2003, ArnoldLiu1995, BabuskaAziz1976, Apel1999.
+  A stray comment wrongly attached to WarburtonHesthaven2003 was removed.
+
+4. Not integrated, or integrated only in part
+---------------------------------------------
+- ns2 Gap 4 (3D Navier--Stokes) and all 3D material: for Paper C.
+- 12_three_d.tex: kept on disk, not compiled; its VERIFY (Neilan2015 Prop 6.5, Galdi III.3.4 in 3D) untouched.
+- Theorem rb:final: stated in full with its status, but its proof is an outline pointing to notes/v6/robust3--6
+  (pressure-blind fields in closed form, interval certificate, vertex field (V), decomposition Lemma dec, weak form
+  of (S)). The Jacobi/trace/kernel lemmas of robust2 and Lemmas dk/KT of robust4 are summarised, not reproduced.
+- robust2 Theorem Dlower (i)-(iii), the residual leak law and its H1 two-sided bound: stated in prose with the
+  corrected constants (gamma_3 >~ 10^3), proofs referenced to notes/v6/robust2.
+- robust2's V_R "mu_c = 59.6..76.1" and the (1 - mu_c/mu)^{-1} amplification explanation: dropped (referee5: WRONG
+  space / GAP); the numerics section uses the Z_h thresholds instead.
+- robust5's certified constants 4.9e-6 / 1.3e-6: superseded by robust6 (bug) and not used.
+- nearsing family III (numerical only) and the full inf-sup table tab_infsup (only its range 0.126--0.159 and the
+  constrained-constant statement are quoted); the needle table tab_fe is quoted in prose, not reproduced.
+- strong/local_jets attainability check: mentioned as a computation, not used in any proof.
+- unifmu "Theorem low" with the /4 fix: superseded by the unifmu2 theorem (u:low), so not included.
+- referee11's remark that c_0 is unnecessary in Corollary rho (pb:corA): not adopted; c_0 is needed unless e is a
+  shortest edge, which the text now says.
+- The Theorem M and Theorem I environments are defined but unused ((M3) is folded into Theorem D'; Theorem I was 3D).
+- Remaining %% VERIFY (UNVERIFIABLE or unchecked): HCT/Ciarlet 6.1 (old), FreundStenberg1995/Becker2002 content,
+  GjerdeScott2022 slip form, Galdi II.1.3 and III.3.3, BCDG2016 theorem number, (R_S) locators (Dauge1989, Galdi
+  Ch. IV), ACSE numbering in 07b, and the four from-memory bib entries listed above.

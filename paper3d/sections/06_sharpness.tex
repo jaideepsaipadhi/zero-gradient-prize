@@ -1,0 +1,386 @@
+\section{Sharpness of \texorpdfstring{$\hG^{3/2}$}{hG^{3/2}}}\label{sec:sharp}
+
+Theorem~\ref{er:D} gives $\norm{\nabla(\ut-u_h)}\le C[(1+\gamma^{1/2})\hG^{3/2}+\epsd]$ for $\CNS$, and Theorem~\ref{er:A} the same for $\GS$ when $G=0$. We prove the reverse inequality whenever $|\hh|\,\partial_Nu\not\equiv0$ on $\Gamma$. The lower bound does not use (IS3), except to guarantee that $u_h$ exists.
+
+\subsection{An abstract lower bound}
+Let $Y_h:=\Zh\cap\VO$ and
+\[
+Y_h^1:=\Bigl\{v\in Y_h:\ \int_F\dn v\,dA=0\ \ \forall F\in\FG\Bigr\}.
+\]
+For $F\in\FG$ let $T_F$ be the tetrahedron of $\Th$ with face $F$; the $T_F$ are distinct (Lemma~\ref{geom:one}).
+
+\begin{lemma}\label{sh:normal}
+If $v\in Y_h$ and $F\in\FG$, then on $F$ (trace from $T_F$) $\nabla v=\dn v\otimes n_F$ and $\dn v\cdot n_F=0$.
+\end{lemma}
+
+\begin{proof}
+$v|_{T_F}$ is a polynomial vanishing on the plane of $F$, so its tangential derivatives vanish there, and $0=\div v=\dn v\cdot n_F$.
+\end{proof}
+
+\begin{lemma}[Error identity on $Y_h$]\label{sh:identity}
+Let $u_h$ be the velocity of $\CNS$ ($\gamma\ge\gamma_2$) or of $\GS$ ($\gamma\ge\gamma_0$, any $G$), and $e_u:=\ut-u_h$. For $v\in Y_h$, $a_h(e_u,v)-\ip{e_u}{\dn v}=-\ip{\ut}{\dn v}-(F,v)$.
+\end{lemma}
+
+\begin{proof}
+By \eqref{er:cnserr}, resp.\ Corollary~\ref{er:GSZ}, $N_h(e_u,v)=\Gc(v)$ on $Y_h$: the pressure terms vanish because $\div v=0$ and $v=0$ on $\Gh$. Since $v=0$ on $\Gh$, $N_h(e_u,v)=a_h(e_u,v)-\ip{e_u}{\dn v}$, and the transposed and penalty parts of $\Gc(v)$ vanish.
+\end{proof}
+
+\begin{lemma}[Trace control on $Y_h^1$]\label{sh:poinc}
+Let $C_{PT}$ be the constant in the scaled Poincar\'e trace inequality $\norm{w-\bar w_T}_{L^2(F)}\le C_{PT}(\diam T)^{1/2}\norm{\nabla w}_T$ for a face $F$ of a tetrahedron $T$, where $\bar w_T$ is the mean of $w$ over $T$. Then $|\ip w{\dn v}|\le C_{PT}C_I\norm{\nabla w}\norm{\nabla v}$ for $w\in H^1(\Oh)^3$ and $v\in Y_h^1$.
+\end{lemma}
+
+\begin{proof}
+$\int_Fw\cdot\dn v=\int_F(w-\bar w_{T_F})\cdot\dn v$; use Cauchy--Schwarz on each $F$, the local form of Lemma~\ref{st:inverse}, and Cauchy--Schwarz over the distinct $T_F$.
+\end{proof}
+
+\begin{corollary}[Abstract lower bound]\label{sh:abstract}
+With $\Lambda_0:=2+C_{PT}C_I$,
+\[
+\Lambda_0\norm{\nabla e_u}\ge\sup_{0\ne v\in Y_h^1}\frac{|\ip\ut{\dn v}+(F,v)|}{\norm{\nabla v}} .
+\]
+\end{corollary}
+
+\begin{proof}
+$|a_h(e_u,v)|\le2\norm{\nabla e_u}\norm{\nabla v}$, and Lemmas~\ref{sh:identity} and~\ref{sh:poinc}.
+\end{proof}
+
+Neither the pressure nor the penalty enters: the identity is the discrete momentum equation on $Y_h$, which $\ut$ violates through Nitsche's symmetric term acting on the nonzero trace of $\ut$ on $\Gh$.
+
+\subsection{The leading term: three edge moments per face}
+Let $W:=\partial_Nu|_\Gamma$, a tangential field (Lemma~\ref{geom:wall}), and $W_F:=W(y_F)$. For $F\in\FG$ put $w^F_{ij}:=\hh_F(e_{ij},e_{ij})$, $Q_F:=\frac12\sum_{i<j}w^F_{ij}\mu_i\mu_j$ (so $d=Q_F+O(\ell^3)$ on $F$ by Lemma~\ref{geom:face}(a)), and for $v\in Y_h$
+\[
+\M_F(v):=\int_FQ_F\,\dn v\,dA=\frac12\sum_{i<j}w^F_{ij}\int_F\mu_i\mu_j\,\dn v\,dA,\qquad \ell_W(v):=\sum_{F\in\FG}W_F\cdot\M_F(v).
+\]
+By Lemma~\ref{sh:normal}, $\M_F(v)$ is parallel to $F$. In the model case $w^F_{ij}=-\ell_{ij}^2$ (Lemma~\ref{geom:sag}).
+
+\begin{lemma}[Leading term]\label{sh:lead}
+For $v\in Y_h$, $|\ip\ut{\dn v}-\ell_W(v)|\le C\hG^{5/2}\norm{\nabla v}$ and $|(F,v)|\le C\hG^2\norm{\nabla v}$.
+\end{lemma}
+
+\begin{proof}
+On $\Gh$, $x=x^\ast+d(x)N(x^\ast)$ and $\ut(x^\ast)=0$, so $\ut(x)=d(x)W(x^\ast)+O(d^2)$. With $|d-Q_F|\le C\hG^3$, $|W(x^\ast)-W_F|\le C\hG$ and $|Q_F|\le C\hG^2$, $\ut=Q_FW_F+R$ on $F$ with $|R|\le C\hG^3$. Hence $\int_F\ut\cdot\dn v=W_F\cdot\M_F(v)+O(\hG^3)\norm{\dn v}_{L^1(F)}$, and $\sum_F\norm{\dn v}_{L^1(F)}\le\sum_F|F|^{1/2}C_I(\diam F)^{-1/2}\norm{\nabla v}_{T_F}\le C\hG^{-1/2}\norm{\nabla v}$ since $\#\FG\le C\hG^{-2}$. The bound on $(F,v)$ is Lemma~\ref{geom:ext}.
+\end{proof}
+
+\subsection{The local condition and the lower bound}
+\begin{assumption}[(M3$^3$)]\label{sh:M3}
+There are $\kappa_0>0$ and $K_{\rm ov},C_s,C_1$ such that for every $F\in\FG$ and every unit $t\in T_{y_F}\Gamma$ there is $v_{F,t}\in Y_h^1$ with
+\begin{enumerate}[label=(\roman*)]
+\item $\norm{\nabla v_{F,t}}=1$;
+\item $\operatorname{supp}v_{F,t}\subset\omega_F$, a union of tetrahedra within distance $C_s\hG$ of $F$, each tetrahedron lying in at most $K_{\rm ov}$ of the sets $\omega_F$;
+\item $t\cdot\sum_{F'\subset\omega_F\cap\Gh}\M_{F'}(v_{F,t})\ \ge\ \kappa_0\,|\hh_{y_F}|\,(\diam F)^{5/2}-C_1(\diam F)^{7/2}$.
+\end{enumerate}
+\end{assumption}
+Condition (iii) is scale invariant: under $x\mapsto\lambda x$ (with $v$ renormalised) $\norm{\nabla v}$ scales like $\lambda^{1/2}$, $w^F$ like $\lambda^2$ and $\M_F$ like $\lambda^3$. Since (iii) is linear in $v$, only the sign of $v$ is at our disposal; statements about $-\M_F$ are equivalent. The vector $t$ is tangent to $\Gamma$ at $y_F$, not to $F$; this is the form in which the witnesses are assembled.
+
+\begin{theorem}[$H^1$ lower bound]\label{sh:lb}
+Assume the setting of Section~\ref{sec:setting}, (M3$^3$), and $|\hh|\,W\not\equiv0$. Let $u_h$ be the velocity of $\CNS$ ($\gamma\ge\gamma_2$) or of $\GS$ ($\gamma\ge\gamma_0$, any $G$). Then for $\hG\le h_1$
+\[
+\norm{\nabla(\ut-u_h)}_{\Oh}\ \ge\ c\,\hG^{3/2}\,\bigl\|\,|\hh|\,W\bigr\|_{L^2(\Gamma)}-C\hG^2,
+\]
+with $c=c(\kappa_0,K_{\rm ov},\Lambda_0,c_0,\theta_0)$ and $C$ independent of $\gamma,\mu,\rho,h$, the pressure and $\epsd$. Here $h_1$ depends also on $C_s$, $C_1$, $\norm W_{W^{1,\infty}}$ and $\norm{|\hh|W}_{L^2}$. In the model case $|\hh|=1$.
+\end{theorem}
+
+\begin{proof}
+For each $F$ with $W_F\ne0$ let $t_F:=W_F/|W_F|\in T_{y_F}\Gamma$ and $v_F:=|\hh_{y_F}|\,|W_F|\,v_{F,t_F}$ (else $v_F:=0$), and $v:=\sum_Fv_F\in Y_h^1$. By linearity,
+\[
+\ell_W(v)=\sum_F\Bigl[W_F\cdot\sum_{F'}\M_{F'}(v_F)+\sum_{F'}(W_{F'}-W_F)\cdot\M_{F'}(v_F)\Bigr],
+\]
+the inner sums running over the (boundedly many) faces $F'\subset\omega_F$. Since $|\M_{F'}(v)|\le C\hG^2|F'|^{1/2}\norm{\dn v}_{L^2(F')}\le C\hG^{5/2}\norm{\nabla v}$ and $|W_{F'}-W_F|\le CC_s\hG\norm W_{W^{1,\infty}}$, (M3$^3$)(iii) gives
+\[
+\ell_W(v)\ge\kappa_0c_0^{5/2}\hG^{5/2}\sum_F|\hh_{y_F}|^2|W_F|^2-C\hG^{7/2}\sum_F|\hh_{y_F}||W_F|\bigl(|W_F|+\norm W_{W^{1,\infty}}\bigr),
+\]
+and $\norm{\nabla v}^2\le K_{\rm ov}\sum_F|\hh_{y_F}|^2|W_F|^2$. The projections $\pi(F)$ tile $\Gamma$ with area Jacobian $1+O(\hG^2)$ (Theorem~\ref{geom:orient}, Lemma~\ref{geom:face}(c)), and $|\hh|,|W|$ are Lipschitz, so $S:=\sum_F|F||\hh_{y_F}|^2|W_F|^2=\norm{|\hh|W}^2_{L^2(\Gamma)}+O(\hG)$; with $c_A\hG^2\le|F|\le\hG^2$ ($c_A$ from $c_0,\theta_0$) we get $\hG^{-2}S\le\sum_F|\hh_{y_F}|^2|W_F|^2\le(c_A\hG^2)^{-1}S$, and the error sum is at most $C\#\FG\le C\hG^{-2}$. Hence
+\[
+\frac{\ell_W(v)}{\norm{\nabla v}}\ge\kappa_0c_0^{5/2}\Bigl(\frac{c_A}{K_{\rm ov}}\Bigr)^{1/2}\hG^{3/2}S^{1/2}-C\frac{\hG^{5/2}}{S^{1/2}},
+\]
+and for $\hG\le h_1$ the second term is at most half the first and $S\ge\frac34\norm{|\hh|W}^2$. Conclude with Corollary~\ref{sh:abstract} and Lemma~\ref{sh:lead}.
+\end{proof}
+
+On flat parts of $\Gamma$ the faces lie in $\Gamma$ and the chordal bump vanishes, so the weight $|\hh|$ cannot be removed.
+
+\subsection{Witnesses by affine transport}\label{sh:sec:transport}
+Let $T$ be a tetrahedron with a face $F$ and apex $p_0$, $\hat T=\conv(\hat p_0,\dots,\hat p_3)$ with $\hat p_0=e_3$, $\hat p_1=0$, $\hat p_2=e_1$, $\hat p_3=e_2$ and $\hat F=\hat T\cap\{\hat x_3=0\}$, and $x=A\hat x+a$ the affine map with $\hat F\mapsto F$, $\det A>0$. Let $\nu=-n_F$ be the inward unit normal of $T$ on $F$ and $h_T$ the height of $T$ over $F$. For $\hat v$ vanishing on $\hat F$ let $v:=(\det A)^{-1}A\,\hat v\circ A^{-1}$ (Piola) and $\gh:=\partial_{\hat\nu}\hat v|_{\hat F}$.
+
+\begin{lemma}[Piola transport]\label{sh:piola}
+(a) The Piola map preserves continuity, zero boundary values and piecewise-$P_k$ structure on affinely corresponding subdivisions, and $\div v=(\det A)^{-1}(\widehat\div\,\hat v)\circ A^{-1}$; it maps the Alfeld split of $\hat T$ onto that of $T$.
+(b) For every polynomial weight $\phi$ in the barycentrics of $F$, $\int_F\phi\,\partial_\nu v\,dA=h_T^{-2}A\int_{\hat F}\phi\,\gh\,d\hat A$.
+(c) $\norm{\nabla v}_T\le(\det A)^{-1/2}\norm A\norm{A^{-1}}\norm{\hat\nabla\hat v}_{\hat T}$.
+\end{lemma}
+
+\begin{proof}
+(a) is standard ($A$ is constant and maps barycentre to barycentre). (b) On $\hat F$, $\hat\nabla\hat v=\gh\otimes e_3$, so $\partial_\nu v=(\det A)^{-1}A\gh\,(A^{-\mathsf T}e_3\cdot\nu)$ with $A^{-\mathsf T}e_3=|A^{-\mathsf T}e_3|\nu$. By Nanson's formula $dA=\det A\,|A^{-\mathsf T}e_3|\,d\hat A$, so the factor is $|A^{-\mathsf T}e_3|^2=|\nabla\lambda_0|^2=h_T^{-2}$. (c) $\nabla v=(\det A)^{-1}A(\hat\nabla\hat v)A^{-1}$.
+\end{proof}
+Since $\dn=-\partial_\nu$ on $F$, $\M_F(v)=-\frac12\sum w_{ij}\int_F\mu_i\mu_j\partial_\nu v$; the sign is absorbed by $v\mapsto-v$.
+
+\begin{proposition}[Joint criterion]\label{sh:joint}
+Let $\hat{\mathcal Y}$ be a space of continuous piecewise-polynomial divergence-free fields on a subdivision of $\hat T$ vanishing on $\partial\hat T$, $\hat{\mathcal Y}^1:=\{\hat v\in\hat{\mathcal Y}:\int_{\hat F}\gh=0\}$, and suppose the joint edge-moment map
+\[
+\hat E:\hat{\mathcal Y}^1\to(\R^2)^3,\qquad\hat v\mapsto\Bigl(\int_{\hat F}\mu_1\mu_2\gh,\ \int_{\hat F}\mu_1\mu_3\gh,\ \int_{\hat F}\mu_2\mu_3\gh\Bigr)
+\]
+is onto, with right inverse $\hat R$ (Euclidean norm on $\R^6$ to $\norm{\hat\nabla\cdot}_{L^2(\hat T)}$). Then for every tetrahedron $T$ with face $F$, every real weight vector $w\ne0$ and every unit $t\parallel F$ there is $v$ in the Piola image, supported in $T$, with $\norm{\nabla v}=1$ and
+\[
+t\cdot\frac12\sum_{i<j}w_{ij}\int_F\mu_i\mu_j\,\partial_\nu v\ \ge\ \frac{|w|\,(\det A)^{1/2}}{2h_T^2\norm A\norm{A^{-1}}^2\norm{\hat R}}\ \ge\ c(\text{shape})\,\frac{|w|\,(\diam F)^{1/2}}{\norm{\hat R}} .
+\]
+\end{proposition}
+
+\begin{proof}
+$s:=A^{-1}t$ is parallel to $\hat F$. Take $\hat v:=\hat R\bigl((w_{ij}s/|w|^2)_{i<j}\bigr)$, so that $\sum_{i<j}w_{ij}\hat E_{ij}(\hat v)=s$ and $\norm{\hat\nabla\hat v}\le\norm{\hat R}\norm{A^{-1}}/|w|$. By Lemma~\ref{sh:piola}(b), $\frac12\sum w_{ij}\int_F\mu_i\mu_j\partial_\nu v=\frac12h_T^{-2}As=\frac12h_T^{-2}t$; normalise with (c). Shape regularity gives $\norm A\lesssim\diam T$, $\norm{A^{-1}}\lesssim(\diam T)^{-1}$, $\det A\gtrsim(\diam T)^3$ and $h_T\lesssim\diam T\lesssim\diam F$.
+\end{proof}
+No compactness over shapes is used: $\hat{\mathcal Y}^1$ and $\hat E$ are fixed, and the shape enters only through $A$ and $w$.
+
+\begin{theorem}[(M3$^3$) on Alfeld refinements, $k\ge4$]\label{sh:alfeld}
+Let $\Th$ be an Alfeld refinement and $k\ge4$. Then (M3$^3$) holds with $\omega_F=T_F$ (the macro-tetrahedron containing $F$), $K_{\rm ov}=1$ and $\kappa_0=c(\text{shape regularity},\theta_0)/\norm{\hat R}$. \status{computer-assisted, exact}
+\end{theorem}
+
+\begin{proof}
+Let $\hat{\mathcal Y}_k$ be the continuous piecewise-$P_k$ divergence-free fields on the Alfeld split of $\hat T$ vanishing on $\partial\hat T$. An exact rational computation in the Bernstein--B\'ezier basis ($35$ interior domain points, $105$ unknowns, $80$ divergence equations) gives, for $k=4$: the divergence has rank $79$ (onto the mean-free piecewise $P_3$), $\dim\hat{\mathcal Y}_4=26$, and the eight functionals ($\int_{\hat F}\gh$ and the three edge moments, two tangential components each) have rank $8$ on $\hat{\mathcal Y}_4$. So $\hat E$ is onto on $\hat{\mathcal Y}^1_4$ ($\dim=24$), and $\hat{\mathcal Y}_4\subset\hat{\mathcal Y}_k$. By Lemma~\ref{sh:piola}(a),(b) the Piola image on $T_F$, extended by zero, lies in $Y_h^1$: it is continuous and piecewise $P_k$ on the Alfeld refinement, divergence-free, zero on $\partial T_F\supset F$, has $\int_F\dn v=0$, and $T_F\cap\Gh=F$ (Lemma~\ref{geom:one}), so no other face constraint or moment is affected. For unit $t\in T_{y_F}\Gamma$ apply Proposition~\ref{sh:joint} to $t':=P_Ft/|P_Ft|$, $P_F$ the projection onto the plane of $F$; $|P_Ft|\ge\frac12$ because the angle between $T_{y_F}\Gamma$ and $F$ is $O(\hG)$, and $t\cdot\M_F=|P_Ft|\,t'\cdot\M_F$ because $\M_F\parallel F$. Finally $|w^F|\ge c\ell^2|\hh_{y_F}|-C\ell^3$ (Lemma~\ref{geom:face}(d)).
+\end{proof}
+\cert{notes/v6/td\_sharp/alfeld\_witness.py 4}{alfeld\_k4.log}
+The rank computation was repeated independently (\texttt{notes/v6/referee6/aw.py}), and the Piola identity of Lemma~\ref{sh:piola}(b) was checked symbolically on a random affine map. In floating point, the singular values of $\hat E$ on $\hat{\mathcal Y}^1_4$ in the $H^1$-seminorm are $0.240$, $0.175$, $0.123$, $0.069$, $0.0211$, $0.0109$, so $\norm{\hat R}=91.7$ (\texttt{k4\_constant.py}).
+
+\begin{proposition}[(M3$^3$) on any mesh, $k\ge9$]\label{sh:bubble}
+Let $K=T_F$, $\lambda_0$ its barycentric coordinate vanishing on $F$, $B:=(\lambda_1\lambda_2\lambda_3)^2$, $\tau\parallel F$ a unit vector and $w\ne0$ real weights. With $Q_w:=\sum_{i<j}w_{ij}\mu_i\mu_j$ written in $\lambda_1,\lambda_2,\lambda_3$, $\bar Q_w:=\int_FBQ_w/\int_FB$ and $\psi:=\lambda_0^2B(Q_w-\bar Q_w)(\nu\times\tau)$, the field $v:=\curl\psi\in P_9^3$, extended by zero, lies in $Y_h^1$ and
+\[
+\frac12\sum_{i<j}w_{ij}\int_F\mu_i\mu_j\partial_\nu v=-|\nabla\lambda_0|^2\,\tau\int_FB(Q_w-\bar Q_w)^2,\qquad\frac1{|F|}\int_FB(Q_w-\bar Q_w)^2\ge\frac{|w|^2}{8316000}.
+\]
+Hence (M3$^3$) holds for $k\ge9$ on every shape-regular mesh, with $\omega_F=T_F$ and $K_{\rm ov}=1$.
+\end{proposition}
+
+\begin{proof}
+$\psi$ vanishes to second order on $\partial K$, so $v$ vanishes on $\partial K$, is continuous after extension by zero, and is divergence free. With $f:=\lambda_0^2B(Q_w-\bar Q_w)$, $\curl(f\Phi)=\nabla f\times\Phi+f\curl\Phi$, and on $F$ only the term with $2\lambda_0\nabla\lambda_0$ survives one normal derivative: $\partial_\nu v|_F=2|\nabla\lambda_0|^2B(Q_w-\bar Q_w)\,\nu\times(\nu\times\tau)=-2|\nabla\lambda_0|^2B(Q_w-\bar Q_w)\tau$, which has mean zero. The identity is $\int B(Q_w-\bar Q_w)Q_w=\int B(Q_w-\bar Q_w)^2$. The lower bound is $w^{\mathsf T}\mathcal Vw$, where $\mathcal V=\frac1{1188000}I-\frac1{2772000}(J-I)$ is the exact $B$-weighted covariance matrix of the three edge bubbles on $F$ ($J$ the all-ones matrix), with eigenvalues $1/831600$ (twice) and $1/8316000$. By scaling, $\norm{\nabla v}\le C|w|(\diam K)^{-1/2}$ and the moment is at least $c|w|^2|F|/h_K^2$, so the ratio is at least $c|w|(\diam F)^{1/2}$. Transfer to $t\in T_{y_F}\Gamma$ as in Theorem~\ref{sh:alfeld}.
+\end{proof}
+\cert{notes/v6/td\_sharp/bubble\_variance.py}{bubble\_variance.log}
+
+\begin{proposition}[$k=3$: one macro-element is not enough]\label{sh:k3single}
+On the Alfeld split with $k=3$, $\dim\hat{\mathcal Y}_3=6$, $\dim\hat{\mathcal Y}^1_3=4$, and the image of $\hat E$ on $\hat{\mathcal Y}^1_3$ is the line spanned by $(\hat p_1-\hat p_2,\ \hat p_3-\hat p_1,\ \hat p_2-\hat p_3)$. Consequently, for a field supported in one macro-tetrahedron $T_F$, the physical moment $\M_F(v)$ is a multiple of $\sum_{\rm cyc}w_{ij}e_{ij}$; on the sphere this is a multiple of $R_{\pi/2}(x_c-o_F)$ (Lemma~\ref{geom:sag}(d)), which vanishes on equilateral faces, and it spans one direction only. So (M3$^3$) cannot be verified with $\omega_F=T_F$ for $k=3$. \status{computer-assisted, exact}
+\end{proposition}
+\cert{notes/v6/td\_sharp/alfeld\_witness.py 3}{alfeld\_k3.log}
+
+\subsection{Degree three: edge stars}\label{sh:sec:k3}
+Throughout this subsection $\Th$ is an Alfeld refinement with minimal angle $\theta$ of the macro mesh, and $k=3$ (larger $k$ follow, since the witnesses are also piecewise $P_k$ and the moments do not depend on $k$).
+
+\paragraph{Edge stars.} Let $z$ be a vertex of $\Gh$ and $q$ a macro vertex with $[z,q]$ a macro edge and $q\notin\Gh$. For the apex $q_F$ of $T_F$ this holds for each vertex $z$ of $F$: $q_F$ has distance at least $c\,\diam F$ from the plane of $F$, on the side of $\Oh$, while $\Gh$ lies within $C(\diam F)^2$ of that plane near $F$ (as in the proof of Theorem~\ref{geom:mesh}). The relative interior of $[z,q]$ lies in $\Oh$, so the \emph{edge star} $R=R(z,q)$, the union of the macro-tetrahedra containing $[z,q]$, has a link that is a cycle $x_0,\dots,x_{m-1}$ with $3\le m\le m_{\max}(\theta)$:
+\[
+T_j=\conv(q,z,x_j,x_{j+1}),\qquad f_j=\conv(q,z,x_j)\ \text{(interior faces)},\qquad F_j:=\conv(z,x_j,x_{j+1}).
+\]
+The faces of the $T_j$ on $\Gh$ are among the $F_j$; let $I:=\{j:F_j\in\FG\}$. Let $Y(R)$ be the continuous piecewise-$P_3$ divergence-free fields on the Alfeld refinement of $R$ vanishing on $\partial R$, and $Y^1(R):=\{v\in Y(R):\int_{F_i}\partial_\nu v=0,\ i\in I\}$. Extension by zero maps $Y^1(R)$ into $Y_h^1$.
+
+\paragraph{Traces.} Fix $i\in I$, write $F=F_i=\conv(z,a,b)$, $T=T_i$ with barycentre $B$, and $H:=\dist(q,\text{plane of }F)$. The Alfeld sub-tetrahedra of $T$ at $z$ are $s_1=\conv(B,z,a,b)\supset F$, $s_2=\conv(B,q,z,b)$ and $s_3=\conv(B,q,z,a)$. Since $v|_{s_1}$ vanishes on $F$, $\nabla v|_{s_1}=\gh\otimes\nabla\lambda_B^{s_1}$ on $F$ with $\gh(x):=\partial_{B-x}v(x)\in P_2(F;\R^3)$, and $\partial_\nu v=\frac4H\gh$. In this subsection we work with
+\[
+\hat\M_F(v):=\frac4H\int_FQ_F\,\gh\,dA=-\M_F(v),
+\]
+which is harmless because only the sign of the witnesses changes. With $m_{xy}$ the midpoint of $[x,y]$ and $n_S$ a normal of the plane of $S$, define
+\begin{align*}
+U_F&:=\{\gh\in P_2(F;\R^3):\gh\cdot n_F\equiv0,\ \gh(a)=\gh(b)=0,\ \gh(m_{ab})\cdot n_{qab}=0\}\qquad(\dim7),\\
+S_F&:=\{\gh\in U_F:\gh(z)=0,\ \gh(m_{za})\cdot n_{f_a}=0,\ \gh(m_{zb})\cdot n_{f_b}=0\}\qquad(\dim3),
+\end{align*}
+with $f_a=\conv(q,z,a)$, $f_b=\conv(q,z,b)$. The map $\pi_F:U_F\to T_F\times\R\times\R$, $\gh\mapsto(\gh(z),\gh(m_{za})\cdot n_{f_a},\gh(m_{zb})\cdot n_{f_b})$, is onto with kernel $S_F$ (here $T_F$ also denotes the tangent plane of $F$).
+
+\begin{lemma}[Necessary relations]\label{k3:nec}
+Let $v\in Y(R)$ and $\delta:=\partial_{q-z}v(z)$, which is common to all $T_j$. Then:
+\begin{enumerate}[label=(\alph*)]
+\item $\gh_i\in U_{F_i}$ for every $i\in I$.
+\item On $f_j$, in its barycentrics, $v|_{f_j}=\lambda_q\lambda_z(p_q\lambda_q+\delta\lambda_z+p_j\lambda_x)$ with $p_q\in\R^3$ common to all $j$. The fluxes $A_j\cdot(\frac{\delta+p_q}{30}+\frac{p_j}{60})$, $A_j:=\frac12(q-z)\times(x_j-z)$, are equal for all $j$. Along $[z,x_j]$, $h_j:=\partial_{q-x}(v|_{f_j})$ satisfies $h_j(m_{zx_j})=\frac14(\delta+p_j)$.
+\item $\delta_i:=\partial_{B-z}v|_{T_i}(z)$ satisfies $\delta_i\cdot\nabla\lambda_B^{s_1}=0$ and $\delta\cdot\nabla\lambda_q^s+\delta_i\cdot\nabla\lambda_B^s=0$ for $s=s_2,s_3$, and $\gh_i(z)=\delta_i$.
+\item $\gh_i\cdot\nabla\lambda_B^{s_3}+h_i\cdot\nabla\lambda_q^{s_3}=0$ on $[z,a]$, and likewise on $[z,b]$ with $s_2$ and $h_{i+1}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) At $a$, the three edges of $T$ at $a$ lie in $\partial R$, so in each sub-tetrahedron at $a$, $\nabla v(a)=\delta'\otimes\nabla\lambda_B$ with a common $\delta'$; $\div v=0$ makes $\delta'$ orthogonal to three independent normals, so $\gh(a)=0$, and likewise $\gh(b)=0$. On $[a,b]$, in $\conv(B,q,a,b)$, $\nabla v=\gh\otimes\nabla\lambda_B$ and $\div v=0$ gives $\gh\cdot n_{qab}=0$; tangency is $\div v|_{s_1}=\gh\cdot\nabla\lambda_B^{s_1}=0$. (b) $v|_{f_j}\in P_3$ vanishes on $[z,x_j]$ and $[q,x_j]$, and its restriction to $[z,q]$ is shared. With $\int_T\lambda_q^2\lambda_z=|T|/30$ and $\int_T\lambda_q\lambda_z\lambda_x=|T|/60$, and $\int_{\partial T_j}v\cdot n=0$ with $\partial T_j\setminus\partial R=f_j\cup f_{j+1}$, the fluxes agree. (c), (d): at $z$ in $s_2$, $v$ vanishes on $[z,b]$, so $\nabla v(z)=\delta\otimes\nabla\lambda_q+\delta_i\otimes\nabla\lambda_B$ with zero trace; similarly in $s_3$, $s_1$ and along $[z,a]$.
+\end{proof}
+
+\begin{lemma}[Single macro-element]\label{k3:single}
+For one Alfeld macro-tetrahedron $T$ with $v=0$ on $\partial T$, the trace space $\{\gh\}$ is exactly $S_F$, and $\gh\mapsto\int_F\gh$ has rank $2$ on $S_F$. \status{computer-assisted}
+\end{lemma}
+
+\begin{proof}
+$\subseteq$: Lemma~\ref{k3:nec} with $\delta=0$ and $h\equiv0$; then $\delta_i=0$. $\supseteq$: the trace rank on $Y(T)$ is at least $3$ (a rank computation modulo a prime, which is a lower bound for the rank over $\mathbb Q$; the rank $39$ of the divergence is its a priori maximum). The Piola map multiplies $\gh$ by a constant matrix and preserves $S_F$, so the statement is shape independent. The mean statement is exact on the reference triangle.
+\end{proof}
+\cert{notes/v6/td\_k3/trace1.py, ref\_K.py}{trace1.log, ref\_K.log}
+
+\begin{lemma}[Realisability]\label{k3:suff}
+Given $\delta,p_q,p_0,\dots,p_{m-1}\in\R^3$ with equal fluxes as in Lemma~\ref{k3:nec}(b), and $s_i\in S_{F_i}$ ($i\in I$), there is $v\in Y(R)$ with these interior-face data such that, for each $i\in I$, $\gh_i$ differs from a fixed element of $U_{F_i}$ with $\pi_{F_i}$-value determined by (c), (d) by exactly $s_i$.
+\end{lemma}
+
+\begin{proof}
+Let $v_0$ be the continuous piecewise-$P_3$ field whose Bernstein coefficients on the domain points of the faces $f_j$ are those of the prescribed $v|_{f_j}$ ($\delta/3$ at $\frac{q+2z}3$, $p_q/3$ at $\frac{2q+z}3$, $p_j/6$ at $\frac{q+z+x_j}3$), and zero elsewhere. Then $v_0=0$ on $\partial R$ and $\int_{T_j}\div v_0=0$ by the equal fluxes. On each Alfeld macro-element, $\div$ maps the piecewise-$P_3$ fields vanishing on $\partial T_j$ onto the mean-free piecewise $P_2$ (Fact~\ref{st:gn}; exact rank $39$ on the reference element), which gives $w_j$ with $\div w_j=-\div v_0$ on $T_j$ and $w_j=0$ on $\partial T_j$. $v_1:=v_0+\sum_jw_j\in Y(R)$ has the prescribed data, and adding single-macro fields (Lemma~\ref{k3:single}) adjusts the $S_{F_i}$-components independently.
+\end{proof}
+
+\begin{theorem}[Ring Trace Theorem]\label{k3:trace}
+The joint trace space $\{(\gh_i)_{i\in I}:v\in Y(R)\}$ consists exactly of the tuples with $\gh_i\in U_{F_i}$ and $\pi_{F_i}(\gh_i)$ given by Lemma~\ref{k3:nec}(c), (d) for some data $(\delta,p_q,(p_j))$ with all fluxes equal.
+\end{theorem}
+
+\begin{proof}
+Lemma~\ref{k3:nec} and Lemma~\ref{k3:suff}.
+\end{proof}
+An exact implementation of this reduced model agrees with the full finite element computation in dimension and moment rank on eight configurations, including the rank-$0$ octahedral fan below (\texttt{notes/v6/td\_k3/validate\_reduced.log}).
+
+For $i\in I$ let $n_i$ be a unit normal of $F_i$, $P_i:=I-n_i\otimes n_i$, $H_i:=|(q-z)\cdot n_i|$, and
+\[
+r_i:=(a_i-z)+(b_i-z)+P_i(q-z),\qquad G_i\delta:=P_i\delta-\frac{n_i\cdot\delta}{(q-z)\cdot n_i}\,r_i,\qquad c_i:=\frac{|F_i|\,w^{F_i}_{ab}}{H_i},
+\]
+where $w^{F_i}_{ab}$ is the weight of the edge of $F_i$ opposite $z$.
+
+\begin{lemma}[Jet map]\label{k3:jet}
+In Lemma~\ref{k3:nec}(c), $\gh_i(z)=\delta_i=\frac14G_i\delta$.
+\end{lemma}
+
+\begin{proof}
+The solution is unique, so it suffices to check $\delta=q-z$ and $\delta\in T_{F_i}$. For $\delta=q-z$: $\nabla\lambda_q^s\cdot(q-z)=1$, and $y=-(B-z)+t(q-z)$ satisfies $\nabla\lambda_B^s\cdot y=-1$; tangency forces $t=\frac14$ (heights $H/4$ and $H$), so $\delta_i=-\frac14((a-z)+(b-z))=\frac14G_i(q-z)$. For $\delta\in T_{F_i}$: $\varphi:=\frac14\lambda_B^s+\lambda_q^s$ is affine, vanishes at $z$ and at $b$ (resp.\ $a$), and equals $\frac14$ at $B$ and $1$ at $q$, so $\varphi=\dist_\pm(\cdot,F)/H$ and $\nabla\varphi\perp T_F$; hence $\delta_i=\frac14\delta$.
+\end{proof}
+
+\begin{lemma}[Face moment of the vertex representative]\label{k3:K}
+Let $e\in T_F$. The set $\{\gh\in U_F:\pi_F(\gh)=(e,0,0),\ \int_F\gh=0\}$ is a line parallel to $S_F\cap\{\int\gh=0\}$, and it contains an element $r_F(e)$, linear in $e$, with $\int_FQ_F\,r_F(e)\,dA=-\frac{|F|\,w^F_{ab}}{360}\,e$. \status{computer-assisted, exact}
+\end{lemma}
+
+\begin{proof}
+On the reference triangle (exact): a representative has moment $Ke$ with $K=\frac1{720}\begin{psmallmatrix}-w_{ab}&2(w_{ab}-w_{za})\\0&-3w_{ab}+2w_{zb}\end{psmallmatrix}$ in the basis $(a-z,b-z)$, and the line direction has moment $D=\frac1{720}(w_{za}-w_{ab},\,w_{ab}-w_{zb})$. Since $K\binom01+2D=-\frac{w_{ab}}{720}\binom01$, $K\equiv-\frac{w_{ab}}{720}I$ modulo $D$; fix $r_F$ accordingly. Transport: $\int_FQ\gh\,dA=2|F|A\int_{\rm ref}Q\hat e$ for $\gh=A\hat e$.
+\end{proof}
+\cert{notes/v6/td\_k3/ref\_K.py; independent re-derivation notes/v6/referee8/ref8\_lemmaK.py}{ref\_K.log, ref8\_lemmaK.log}
+
+\begin{theorem}[Vertex witness]\label{k3:vertex}
+For every edge star $R(z,q)$ with $I\ne\emptyset$, any geometry and any real weights, and every $\delta\in\R^3$, there is $v_\delta\in Y^1(R)$ with
+\[
+\sum_{i\in I}\hat\M_{F_i}(v_\delta)=-\frac1{360}\sum_{i\in I}c_i\,G_i\,\delta,\qquad\norm{\nabla v_\delta}_R\le C_E(\theta)\,|\delta|\,(\diam R)^{1/2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Take $p_q=-\delta/2$ and $p_j=-\delta$ for all $j$. All fluxes are $A_j\cdot(\frac\delta{60}-\frac\delta{60})=0$ and $h_j(m_{zx_j})=0$, so both $\nu$-components of $\pi_{F_i}$ vanish (Lemma~\ref{k3:nec}(d)). By Lemmas~\ref{k3:suff} and~\ref{k3:jet} there is $v\in Y(R)$ with $\pi_{F_i}(\gh_i)=(\frac14G_i\delta,0,0)$ for all $i\in I$. Subtracting single-macro fields (Lemma~\ref{k3:single}) makes $\gh_i=r_{F_i}(\frac14G_i\delta)$, which has mean zero, and Lemma~\ref{k3:K} gives the moment. The energy bound: the Bernstein data are $O(|\delta|)$, and the Alfeld right inverse and the single-macro right inverses are fixed reference maps transported affinely, so their norms depend only on $\theta$ ($m\le m_{\max}(\theta)$); scaling gives $(\diam R)^{1/2}$.
+\end{proof}
+\cert{notes/v6/td\_k3/vertex\_formula\_general.py, fe\_vertex\_check.py; notes/v6/referee8/ref8\_vertex\_fe.py}{vertex\_formula\_general.log, fe\_vertex\_check.log, ref8\_vertex\_fe\_eqw.log}
+In the exact reduced model the formula holds in all $30$ test cases. Where the weights are generic, the test ``modulo the span of the single-macro directions'' can be vacuous; the non-vacuous checks are the equal-weight cases and an independent full finite element computation on three non-flat stars inscribed in the sphere with distinct per-face equal weights, where the finite element moment agrees with the closed form to $10^{-15}$.
+
+\paragraph{Flat stars and the octahedral degeneracy.} If all $F_i$ lie in one plane $T$, then $G_i|_T=I$ and the tangential moment of $v_\delta$ is $-\frac1{360}(\sum_ic_i)\delta$, a multiple of the identity. For the octahedral fan ($z=e_3$, $q=2e_3$, link $\pm e_1,\pm e_2$, all four faces in $\Gh$, equal weights), $\sum_ic_iP_TG_i|_T=0$ exactly and the full finite element rank is $0$; its faces are tilted by $\arccos(1/\sqrt3)$ against $T$. On shape-regular inscribed meshes with small $\hG$ such tilts do not occur.
+
+\subsubsection{The sphere: an explicit criterion}
+For a vertex $z$ of $\Gh$ with unit normal $n_z$ of $\Gamma$ and an edge star $R=R(z,q)$ put
+\[
+\tau_z:=\max_{i\in I}\angle(n_{F_i},n_z),\qquad\rho_z:=\max_{i\in I}|r_i|/H_i .
+\]
+On the unit sphere $\angle(n_F,z)=\arcsin r_F$ for every vertex $z$ of $F$, so $\tau_z\le C(\theta)\hG$, while $\rho_z\le C(\theta)$.
+
+\begin{theorem}[(M3$^3$) for $k=3$ on the sphere, explicit]\label{k3:sphere}
+In the model case, let $\Th$ be an Alfeld refinement and $k\ge3$. Suppose every $F\in\FG$ has a vertex $z$ with $\tau_z(\tau_z+\rho_z)\le\frac12$ for $R(z,q_F)$; this holds for $\hG\le h_\ast(\theta)$. Then (M3$^3$) holds for $\hG\le h_\ast(\theta)$ with $\omega_F=R(z,q_F)$, $K_{\rm ov},C_s\le C(\theta)$ and $\kappa_0=c(\theta)/C_E(\theta)$.
+\end{theorem}
+
+\begin{proof}
+For unit $t'\in n_z^\perp$: $|n_i\cdot t'|\le\sin\tau_z$ and $|P_it'|^2\ge1-\sin^2\tau_z$, so
+\[
+t'\cdot G_it'=|P_it'|^2-\frac{(n_i\cdot t')(r_i\cdot t')}{(q-z)\cdot n_i}\ge1-\tau_z(\tau_z+\rho_z)\ge\tfrac12 .
+\]
+Given a unit $t\in T_{y_F}\Gamma$, let $t'$ be its normalised projection onto $n_z^\perp$; $|t-t'|\le C\hG$, so $t\cdot G_it'\ge\frac12-C\hG(1+\rho_z)\ge\frac14$ for $\hG\le h_\ast(\theta)$. On the sphere all $c_i$ have the same sign ($w_{ab}=-\ell_{ab}^2$); take $\delta:=\pm t'$ in Theorem~\ref{k3:vertex} with the sign that makes $t\cdot\sum_i\hat\M_{F_i}(v_\delta)=\frac1{360}\sum_i|c_i|\,t\cdot G_it'\ge\frac1{1440}|c_F|\ge c(\theta)(\diam F)^3$, using $\ell_{ab}\ge c\diam F$, $|F|\ge c(\diam F)^2$ and $H\le C\diam F$. Divide by $\norm{\nabla v_\delta}\le C_E(\diam F)^{1/2}$. A macro-tetrahedron lies in $R(z,q_F)$ only if $[z,q_F]$ is one of its six edges, so $K_{\rm ov}\le C(\theta)$.
+\end{proof}
+The only non-explicit constant is $C_E(\theta)$, a finite combination of right-inverse norms of fixed reference maps. On icosphere meshes with a radial prism layer (Alfeld-refined), the criterion holds from the second or third level on, and the matrix $\sum_ic_iP_TG_i|_T$ is nonsingular at every level (\texttt{notes/v6/td\_k3/icosphere\_check.log}). \status{numerical}
+
+\subsubsection{General surfaces}
+On a general surface the weights $w_{ab}$ of the vertex move can cancel, $\sum_ic_i=0$, at saddle points. Two further families of moves in the Ring Trace Theorem repair this. For a face $F=F_i=\conv(z,a,b)$ write $e_a=a-z$, $e_b=b-z$, $P_a=\delta+p_a$, $P_b=\delta+p_b$ (the spoke data), $u_a=\nabla\lambda_q^{s_3}$, $u_b=\nabla\lambda_q^{s_2}$, $w=(w_{za},w_{zb},w_{ab})$ its weights, and
+\[
+D_F:=(w_{za}-w_{ab})\,e_a+(w_{ab}-w_{zb})\,e_b,
+\]
+the single-macro direction of Proposition~\ref{sh:k3single}.
+
+\begin{lemma}[Per-face moment]\label{k3:face}
+For every $v\in Y^1(R)$ with interior-face data $(\delta,p_q,(p_j))$ and every $i\in I$,
+\[
+\hat\M_{F_i}(v)\equiv\frac{8|F_i|}{H_i}\Bigl[-\frac{w_{ab}}{2880}G_i\delta-\frac{w_{za}-w_{zb}}{2880}\Bigl((P_a\cdot u_a)e_b-(P_b\cdot u_b)e_a\Bigr)\Bigr]\pmod{\R D_{F_i}},
+\]
+and every value of the right-hand side, plus any multiple of $D_{F_i}$ chosen independently for each $i$, is attained. \status{computer-assisted, exact}
+\end{lemma}
+
+\begin{proof}
+On the reference triangle $z=0$, $a=e_1$, $b=e_2$, for $\gh\in U_F\cap\{\int\gh=0\}$ with $\gh(z)=e$, $\tilde\alpha:=\gh(m_{za})\cdot\nabla\mu_b$ and $\tilde\beta:=\gh(m_{zb})\cdot\nabla\mu_a$, an exact computation gives $\int_{\rm ref}Q\gh\equiv-\frac{w_{ab}}{720}e+\frac{w_{za}-w_{zb}}{180}(\tilde\alpha\hat e_2-\tilde\beta\hat e_1)$ modulo $D$. Under $\gh=A\gh_{\rm ref}$ the quantities $\tilde\alpha,\tilde\beta$ are affine invariants, so $\int_FQ\gh\equiv2|F|[-\frac{w_{ab}}{720}\gh(z)+\frac{w_{za}-w_{zb}}{180}(\tilde\alpha e_b-\tilde\beta e_a)]$ modulo $\R D_F$. By Lemma~\ref{k3:jet}, $\gh(z)=\frac14G_i\delta$; by Lemma~\ref{k3:nec}(d) with $h_i(m_{za})=\frac14P_a$, and since the tangential part of $\nabla\lambda_B^{s_3}$ equals $4\nabla\mu_b$, $\tilde\alpha=-\frac1{16}P_a\cdot u_a$, and likewise $\tilde\beta=-\frac1{16}P_b\cdot u_b$. Multiply by $4/H_i$. Realisability is Theorem~\ref{k3:trace}, and Lemma~\ref{k3:single} leaves exactly the $D_{F_i}$-freedom on each face.
+\end{proof}
+\cert{notes/v6/td\_k3b/ref\_nu.py, face\_formula.py}{ref\_nu.log, face\_formula.log (29/29 faces; rerun with a fresh seed in notes/v6/referee9)}
+The check compares face by face modulo the single line $\R D_{F_i}$, so it is never vacuous.
+
+A star is \emph{$\Gamma$-flat} if its $\Gamma$-faces lie in one plane $T$. Put $z=0$, $T=\{x_3=0\}$, $q=(q',H)$ with $H>0$; let $J$ be the rotation by $\frac\pi2$ in $T$, and orient so that $s_i\wedge s_{i+1}=2|F_i|>0$ for $i\in I$, where $s_j:=x_j$ are the spokes. Let $\hh$ be a symmetric form on $T$ with weights $w^F_{ij}=\hh(e_{ij},e_{ij})$; put $\omega_j:=\hh(s_j,s_j)$, $w_i:=w^{F_i}_{ab}$, $\hat\tau_i:=\omega_i-\omega_{i+1}$, write $P_j=(\pi_j,\nu_j)\in T\times\R$, and $\sigma_j:=Js_j\cdot(\pi_j-\nu_jq'/H)$.
+
+\begin{lemma}[Flat reduction]\label{k3:flat}
+On a $\Gamma$-flat star:
+\begin{enumerate}[label=(\alph*)]
+\item $P_a\cdot u_a=-\sigma_a/(2|F|)+\nu_a/H$ and $P_b\cdot u_b=\sigma_b/(2|F|)+\nu_b/H$, hence, modulo $\operatorname{span}\{D_{F_i}\}$,
+\[
+\sum_{i\in I}\hat\M_{F_i}\equiv\frac1{360H}\sum_{i\in I}\Bigl[-|F_i|w_iG_i\delta+\hat\tau_i\Bigl(\tfrac12(\sigma_is_{i+1}+\sigma_{i+1}s_i)-\tfrac{|F_i|}H(\nu_is_{i+1}-\nu_{i+1}s_i)\Bigr)\Bigr].
+\]
+\item The flux condition for spoke $j$ reads $A_j\cdot P_j=\frac H2\sigma_j$. The admissible data are exactly: $\nu_j\in\R$ free for each $\Gamma$-spoke, and $\sigma_j=\gamma-s_j\wedge\eta$ with $(\gamma,\eta)\in\R\times\R^2$ free; the data $\delta$, $(\nu_j)$, $(\gamma,\eta)$ and the $D$-coefficients are mutually independent.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) In the flat case $u_a=(-\nabla\mu_b,(1+\nabla\mu_b\cdot q')/H)$, $u_b=(-\nabla\mu_a,(1+\nabla\mu_a\cdot q')/H)$, $\nabla\mu_b=Js_a/(2|F|)$ and $\nabla\mu_a=-Js_b/(2|F|)$; substitute into Lemma~\ref{k3:face}. (b) $A_j=\frac12q\times x_j=\frac12(HJs_j,q'\wedge s_j)$ gives $A_j\cdot P_j=\frac H2\sigma_j$. Lemma~\ref{k3:nec}(b) with $p_j=P_j-\delta$ gives $A_j\cdot P_j=60\Phi-A_j\cdot\psi$ with $\psi:=\delta+2p_q$ and $\Phi$ the common flux, both free; so $\sigma_j=\frac{120\Phi}H-s_j\wedge(\psi'-\psi_nq'/H)$. Given $\nu_j$ and $\sigma_j$, the component $Js_j\cdot\pi_j$ is fixed; the component along $s_j$ is invisible.
+\end{proof}
+\cert{notes/v6/td\_k3b/flat\_algebra.py}{flat\_algebra.log}
+
+\begin{definition}
+A $\Gamma$-face $F=\conv(z,a,b)$ is \emph{degenerate at $z$} if $w_{ab}=0$ and $w_{za}=w_{zb}$.
+\end{definition}
+
+\begin{lemma}\label{k3:degface}
+$F$ is degenerate at $z$ iff $\hh=0$ or $\hh=\pm\nu\otimes\nu$ with $\nu\perp b-a$. In particular no face is degenerate at any vertex if $\det\hh\ne0$, and if $\hh\ne0$, $F$ is nondegenerate at the vertex opposite any edge $e$ with $\hh(e,e)\ne0$; such an edge exists.
+\end{lemma}
+
+\begin{proof}
+With $e=b-a$, $\hh(e_b,e_b)=\hh(e_a,e_a)+2\hh(e_a,e)+\hh(e,e)$, so degeneracy means $\hh(e,e)=\hh(e_a,e)=0$. If $\det\hh\ne0$, the $\hh$-orthogonal complement of a null vector $e$ is $\R e$, forcing $e_a\parallel e$. If $\hh=\pm\nu\otimes\nu$ both conditions reduce to $\nu\cdot e=0$. A quadratic form vanishing on three pairwise non-parallel vectors is zero.
+\end{proof}
+
+\begin{theorem}[Star Nondegeneracy]\label{k3:nondeg}
+Let $R$ be a $\Gamma$-flat edge star, $\hh\ne0$ a symmetric form on $T$ with weights $\hh(e,e)$, and assume the $\Gamma$-spokes are pairwise distinct as directions. If some $\Gamma$-face of $R$ is nondegenerate at $z$, then $v\mapsto P_T\sum_{i\in I}\hat\M_{F_i}(v)$ maps $Y^1(R)$ onto $T$.
+\end{theorem}
+
+\begin{proof}
+Suppose $0\ne\lambda\in T$ annihilates the image; put $\ell_j:=\lambda\cdot s_j$, $\mu:=J\lambda$ and $\tau_i:=|F_i|\hat\tau_i$, and write $\mathbf 1_i=[i\in I]$. By Lemma~\ref{k3:flat} the families are independent, so $\lambda$ annihilates each:
+\begin{align*}
+&(\delta_T)\ \textstyle\sum_{i\in I}|F_i|w_i=0\quad(\delta\in T,\ G_i|_T=I);\qquad(D)\ \lambda\cdot D_{F_i}=0\ \ \forall i\in I;\\
+&(\nu_j)\ \tau_{j-1}\ell_{j-1}\mathbf 1_{j-1}=\tau_j\ell_{j+1}\mathbf 1_j\ \text{ for every $\Gamma$-spoke $j$};\\
+&(\sigma)\ \textstyle\sum_{i\in I}\hat\tau_i\bigl[\gamma(\ell_i+\ell_{i+1})+L(s_i)\ell_{i+1}+L(s_{i+1})\ell_i\bigr]=0\quad\forall\gamma\in\R,\ L\in T^\ast .
+\end{align*}
+\emph{Step 1: $\tau\equiv0$.} Let $\varpi_i:=\tau_i\ell_i\ell_{i+1}$. Multiplying $(\nu_j)$ by $\ell_j$ shows that $\varpi$ is constant on each run of consecutive $\Gamma$-faces and zero at the ends of a non-cyclic run. If $I$ is the whole cycle, $(\sigma)$ with $\gamma=0$, $L=\lambda\cdot$ gives $2\sum_i\varpi_i/|F_i|=0$. So $\varpi\equiv0$, and $\tau_i=0$ whenever $\ell_i\ell_{i+1}\ne0$. Let $Z$ be the set of $\Gamma$-spokes with $\ell_p=0$, i.e.\ $s_p\parallel\mu$; $|Z|\le2$, two such spokes point in opposite directions, and no face has both spokes in $Z$. For $p\in Z$, $(\nu_p)$ defines $X_p:=\tau_{p-1}\ell_{p-1}\mathbf 1_{p-1}=\tau_p\ell_{p+1}\mathbf 1_p$, which vanishes unless both adjacent faces are $\Gamma$-faces, and the only possibly nonzero $\tau$'s are $\tau_{p-1}=X_p/\ell_{p-1}$ and $\tau_p=X_p/\ell_{p+1}$. With $k_p:=|F_{p-1}|^{-1}+|F_p|^{-1}$, $(\sigma)$ with $L=0$ and with $L=\mu\cdot$ gives $\sum_{p\in Z}k_pX_p=0$ and $\sum_{p\in Z}(\mu\cdot s_p)k_pX_p=0$. The numbers $\mu\cdot s_p$ are nonzero and of opposite signs if there are two, so $X_p=0$.
+\emph{Step 2: $w_i=0$ for all $i\in I$.} Now $\omega_i=\omega_{i+1}=:\Omega_i$, and $(D)$ reads $(\Omega_i-w_i)(\ell_i-\ell_{i+1})=0$. Suppose $w_i\ne0$. If $w_i=\Omega_i$, then $\hh$ takes the same nonzero value $c$ on $s_i$, $s_{i+1}$ and $s_{i+1}-s_i$, so $\hh=c\begin{psmallmatrix}1&1/2\\1/2&1\end{psmallmatrix}$ in that basis is definite; then all $w_{i'}$ have the sign of $c$, contradicting $(\delta_T)$. Otherwise $\ell_i=\ell_{i+1}$, i.e.\ $s_{i+1}-s_i\parallel\mu$, and $w_i=|s_{i+1}-s_i|^2\hh(\hat\mu,\hat\mu)$. So all nonzero $w_i$ have the sign of $\hh(\hat\mu,\hat\mu)$, and $(\delta_T)$ forces them to vanish. Hence every $\Gamma$-face is degenerate at $z$, a contradiction.
+\end{proof}
+An exact search over all real $\hh\ne0$ (eliminating $\hh$ through $3\times3$ minors) on $7$ structured and $3034$ random $\Gamma$-flat stars found degeneracy only when every $\Gamma$-face is degenerate, and full finite element ranks confirm the predictions on seven stars, including a saddle with $\sum_iw_{ab}=0$ (\texttt{notes/v6/td\_k3b/degen*.log, fe\_cross.log}). \status{numerical, exact arithmetic}
+
+For $F\in\FG$ let $z_F$ be the vertex of $F$ opposite an edge $e_F$ that maximises $|\hh_{y_F}(P_{y_F}e,P_{y_F}e)|$ over the edges of $F$, and $\omega_F:=R(z_F,q_F)$.
+
+\begin{theorem}[Uniform witness, $k=3$]\label{k3:witness}
+On Alfeld refinements there are $\kappa_0=\kappa_0(\theta,\theta_0)>0$, $C_1$ and $h_\ast$ such that for $\hG\le h_\ast$, (M3$^3$) holds with $\omega_F=R(z_F,q_F)$ and $K_{\rm ov},C_s\le C(\theta)$.
+\end{theorem}
+
+\begin{proof}
+Let $\ell:=\diam F$ and $\hh_0:=\hh_{y_F}\circ P_{y_F}$.
+\emph{(1) Weights.} Every $\Gamma$-face $F'$ of $\omega_F$ lies within $C\ell$ of $y_F$, so $w^{F'}_{ij}=\hh_0(e_{ij},e_{ij})+O(\ell^3)$ (Lemma~\ref{geom:face}(a), $\Gamma\in C^3$). Moments are linear in the weights with $|\hat\M_{F'}(v)|\le C|w|\ell^{1/2}\norm{\nabla v}$, so replacing the weights costs $C\ell^{7/2}\norm{\nabla v}$, the $C_1$ term. If $\hh_0=0$ there is nothing to prove; otherwise write $\hh_0=|\hh_0|\hat\hh$ with $|\hat\hh|=1$.
+\emph{(2) The parameter map.} For admissible data $x=(\delta,p_q,(p_j),(s_i))$, Lemmas~\ref{k3:suff} and~\ref{k3:single} give $v(x)\in Y^1(R)$ with $\norm{\nabla v(x)}\le C_E(\theta)|x|\ell^{1/2}$, where $C_E$ is uniform for configurations in a compact set of normalised shapes. Let $\Pi(\mathcal C;\hat\hh)$ be the linear map from admissible data to $\ell^{-3}P_t\sum\hat\M_{F'}(v(x))\in\R^2$, for the normalised configuration $\mathcal C$ and weights $\hat\hh(e,e)$. By Lemma~\ref{k3:face}, which holds for every geometry, $\Pi$ is an explicit rational function of $\mathcal C$, linear in $\hat\hh$, on an admissible subspace of constant dimension (each flux equation contains its own $p_j$ with $A_j\ne0$). So $s(\mathcal C,\hat\hh):=\sigma_2(\Pi)$, the second singular value of a map into $\R^2$, is continuous.
+\emph{(3) Compactness.} Let $\mathcal K$ be the set of normalised $\Gamma$-flat configurations with $m\le m_{\max}(\theta)$, containing the face $F_{i_0}$ of diameter $1$, macro-tetrahedra of minimal angle at least $\theta/2$, $\Gamma$-spokes separated by angles at least $\theta_0/2$ and consistently oriented, $|\hat\hh|=1$ and $|\hat\hh(\hat e_F,\hat e_F)|\ge c_1(\theta_0)$. The last condition can be imposed because $\hh\mapsto(\hh(e,e))_e$ is invertible with inverse bounded by $C(\theta_0)\ell^{-2}$ (Lemma~\ref{geom:face}(d)), so the maximising edge has $|\hat\hh(\hat e_F,\hat e_F)|\ge c_1$. The spoke separation holds because the $\Gamma$-spokes at $z$ are distinct edges of the embedded surface $\Gh$ around $z$ (Theorem~\ref{geom:orient}) and (G1) bounds their angles below. $\mathcal K$ is compact. On $\mathcal K$, $F_{i_0}$ is nondegenerate at $z$ (Lemma~\ref{k3:degface}), so $s>0$ by Theorem~\ref{k3:nondeg}, and $s\ge s_0(\theta,\theta_0)>0$.
+\emph{(4) Actual meshes.} Projecting the $\Gamma$-vertices of $\omega_F$ onto $T_{y_F}\Gamma$ moves them by $O(\ell^2)$, i.e.\ $O(\ell)$ after normalisation, and $\hh_0(Pe,Pe)=\hh_0(e,e)$; the distinction between $t\in T_{y_F}\Gamma$ and the plane of the projected faces is also $O(\ell)$. By uniform continuity of $\Pi$ on a compact neighbourhood of $\mathcal K$, $\sigma_2(\Pi_{\rm actual})\ge s_0/2$ for $\ell\le h_\ast$. For a unit $t$ choose $x\propto\Pi^{\mathsf T}t$ normalised; then $t\cdot\sum\hat\M\ge\frac{s_0}{2C_E}|\hh_{y_F}|\ell^{5/2}-C\ell^{7/2}$.
+\end{proof}
+The constant $\kappa_0$ comes from compactness and is not explicit; the explicit criterion of Theorem~\ref{k3:sphere} is available on the sphere.
+
+\begin{theorem}[Lower bound for $k\ge3$ on Alfeld refinements]\label{sh:k3main}
+Under the assumptions of Section~\ref{sec:setting}, on an Alfeld refinement with $k\ge3$, if $|\hh|\,\partial_Nu\not\equiv0$ and $\hG\le h_1$, then for $\CNS$ ($\gamma\ge\gamma_2$) and for $\GS$ ($\gamma\ge\gamma_0$)
+\[
+\norm{\nabla(\ut-u_h)}_{\Oh}\ge c\,\hG^{3/2}\bigl\|\,|\hh|\,\partial_Nu\bigr\|_{L^2(\Gamma)}-C\hG^2,
+\]
+with $c=c(\theta,\theta_0,\Lambda_0)$. It covers saddle points, parabolic points and flat regions.
+\end{theorem}
+
+\begin{proof}
+Theorem~\ref{k3:witness} and Theorem~\ref{sh:lb}; for $k>3$ use $Y_3\subset Y_k$.
+\end{proof}
+At a parabolic point the choice of vertex matters: for $\hh=(x+y)^2$ a fixed vertex can give a degenerate star (\texttt{degen.log}, ``flat square, 1''). This affects semidefinite regions such as cylinders.
+
+\begin{corollary}[Sharpness of Scott's rate]\label{sh:sharp}
+On Alfeld refinements with $k\ge3$, or on any mesh with $k\ge9$ satisfying (IS3), if $|\hh|\,\partial_Nu\not\equiv0$, $\gamma\in[\gamma_2,\gamma_{\max}]$ and $\epsd\le C\hG^{3/2}$, then for $\CNS$
+\[
+c\,\hG^{3/2}\le\norm{\nabla(\ut-u_h)}\le\tnorm{\ut-u_h}\le C\hG^{3/2}.
+\]
+The same holds for $\GS$ when $G=0$.
+\end{corollary}
+
+\begin{proof}
+Theorems~\ref{er:D}, \ref{er:A} and~\ref{sh:lb} with Theorems~\ref{sh:alfeld}, \ref{sh:k3main} or Proposition~\ref{sh:bubble}.
+\end{proof}
+
+\begin{remark}[Worsey--Farin splits]\label{sh:rem:wf}
+On Worsey--Farin splits the boundary faces are subdivided. Proposition~\ref{sh:bubble} still applies for $k\ge9$. For $k=3$ a single Worsey--Farin macro-element gives rank $0$ and Worsey--Farin edge stars give rank $2$ in all our tests (ranks modulo a prime; \texttt{notes/v6/td\_k3/wf*.log}). \status{numerical} The trace analysis above has not been redone for split faces.
+\end{remark}

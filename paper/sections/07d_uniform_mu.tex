@@ -1,0 +1,167 @@
+\subsection{The leak limit uniformly in the penalty}\label{u:sec}
+
+Theorem~\ref{hc:thm} identifies the limit $(\mu/h)\delta_R\to U$ only when $\gamma\hG\to0$, and Remark~\ref{hc:regime} left the Dirichlet-dominated regime open. Here we close it: the convergence holds uniformly in $\mu\ge\mu_0$, at the \emph{exact} $H^1$ rate $\frac12$, and the lower bound holds for every penalty for which the discrete problem is solvable. We also prove that the $H^1$ constant converges at rate one, which was an empirical observation in Section~\ref{hc:sec}.
+
+Notation: $\lambda:=\mu/h=\gamma/\hG$, $X:=\lambda\delta_R$ with $\delta_R\in\Zh$ the solution of $N_h(\delta_R,v)=\Rc(v)$ on $\Zh$ (Theorem~\ref{thm:C}, step~1), $W:=X-\tilde U$, and $d_h:=\norm{\nabla W}_{\Oh}/\norm{\nabla U}_\Omega$. On each $e\in\EG$ put $g:=-(\pt-\pbar)n_e$; since $\int_{\Gh}v\cdot n=0$ on $\Zh$, $\Rc(v)=\ip gv$ there. Put $\zeta:=\tilde U-g=(\pt-\pbar)n_e+\tilde U$; by step~3 of the proof of Theorem~\ref{hc:thm},
+\begin{equation}\label{u:zeta}
+\zeta|_e=c_e\,s\,\tau_e+r_e,\qquad c_e=\pm(p-\pbar)(m_e^\ast),\qquad |r_e|\le C\hG^2 ,
+\end{equation}
+with a fixed orientation sign, so $\norm\zeta_{\Gh}\le C\hG$: the smooth leak flow, which is normal to the \emph{arc}, has a tangential sawtooth of amplitude $O(\hG)$ on every chord. Let $\Tsp:=\{t\in C^0(\Gh)^2:t|_e\in P_k(e)^2,\ \int_{\Gh}t\cdot n=0\}$ and $\PT$ the $L^2(\Gh)$-orthogonal projection onto $\Tsp$. Finally
+\[
+E^0_U:=h\norm U_{H^2(\Omega)}+h^k+\hG^{\sigma_k-1/2}.
+\]
+The field $z_U\in\Zh$ of Lemma~\ref{hc:approx} satisfies the penalty-free bounds $\norm{\nabla(\tilde U-z_U)}\le CE^0_U$ and $\norm{\tilde U-z_U}_{L^\infty(\Gh)}\le C\hG^{k+1}$: on $\Gh$, $z_U=I_h\tilde U-ab$ with $|a|\le C\hG^{\sigma_k}$, and the $\gamma$-dependent parts of $E_U$ come only from the penalty weight. In this subsection $C$ depends on (M0)--(M2), $k$, $L$, $\norm{p-\pbar}_{W^{1,\infty}}$ near $\Gamma$ and norms of $U$; never on $h,\hG,\mu,\gamma,\rho$. (M2) is used at \emph{every} vertex: it is what makes the trace lift of Lemma~\ref{rs:lift} uniform. At a wall vertex in only two triangles the lift constant grows like $\hG^{-1}$ (Section~\ref{st:sec}).
+
+\subsubsection{The mechanism}
+
+\begin{lemma}[Traces of $\Zh$; the projection identity]\label{u:proj}
+$\{v|_{\Gh}:v\in\Zh\}=\Tsp$. With $t^\ast:=\PT g$, $N_h(X,v)=\lambda\ip{t^\ast}v$ for all $v\in\Zh$.
+\end{lemma}
+
+\begin{proof}
+For $v\in\Zh$, $v|_{\Gh}$ is continuous piecewise $P_k$ with $\int_{\Gh}v\cdot n=\int_{\Oh}\div v=0$. Conversely Lemma~\ref{rs:lift} lifts every $t\in\Tsp$ into $\Zh$. Hence $\ip{g-\PT g}v=0$ for $v\in\Zh$.
+\end{proof}
+
+So for \emph{every} $\mu$ the printed method imposes on $\Zh$ the projection $\PT g$ of the edgewise leak data; the penalty never sees the part $g-\PT g$ that $\Zh$ cannot represent. The vertex-gradient constraints of Section~\ref{st:sec} restrict full gradients at wall vertices, not traces, and play no role here.
+
+\begin{lemma}\label{u:canc}
+For $v\in\Zh$, $|\ip g{\dn v}|\le C\norm v_{\Gh}$; for $v\in Y_h$, $\ip g{\dn v}=0$.
+\end{lemma}
+
+\begin{proof}
+$g$ is exactly normal on each edge, with $\sigma_e:=g\cdot n_e=-(\pt-\pbar)$. On $T_e$, $\div v=0$ gives $\dn v\cdot n_e=-\dt(v\cdot\tau_e)$, so $\int_e\sigma_e\,\dn v\cdot n_e=\int_e\dt\sigma_e\,(v\cdot\tau_e)-[\sigma_e\,v\cdot\tau_e]_{\partial e}$. If $v=0$ on $\Gh$ everything vanishes. Otherwise, at a vertex $x$ shared by $e,e'$ the endpoint terms combine to $\sigma(x)\,v(x)\cdot(\tau_{e'}-\tau_e)$ ($\pt$ is continuous), of size $\le C\hG|v(x)|$, and $\sum_x\hG|v(x)|\le C\norm v_{\Gh}$ by (M0).
+\end{proof}
+
+Unlike Lemma~\ref{lem:cancel} there is no $\hG^{1/2}\norm{\nabla v}$ term, because $g$ has no tangential part.
+
+\begin{lemma}\label{u:size}
+$\norm{t^\ast-g}_{\Gh}\le C\hG$ and $\norm{t^\ast-\tilde U}_{\Gh}\le C\hG$.
+\end{lemma}
+
+\begin{proof}
+$z_U|_{\Gh}\in\Tsp$, so $\norm{\PT g-g}\le\norm{z_U-g}\le\norm{z_U-\tilde U}_{\Gh}+\norm\zeta_{\Gh}\le C\hG$; and $t^\ast-\tilde U=(t^\ast-g)-\zeta$.
+\end{proof}
+
+Let $X^D\in\Zh$ be the discrete Stokes--Dirichlet field with $X^D|_{\Gh}=t^\ast$ and $a_h(X^D,v)=0$ for all $v\in Y_h$. It exists and is unique: the affine set $\{z\in\Zh:z|_{\Gh}=t^\ast\}$ is nonempty (Lemma~\ref{u:proj}), its direction is $Y_h$, and $a_h$ is coercive on $Y_h$ (Lemma~\ref{lem:korn}).
+
+\begin{lemma}\label{u:XD}
+$\norm{\nabla(X^D-\tilde U)}\le C(\hG^{1/2}+E^0_U)$.
+\end{lemma}
+
+\begin{proof}
+$W_0:=X^D-z_U\in\Zh$ has trace in $\Tsp$ of norm $\le\norm{t^\ast-\tilde U}_{\Gh}+\norm{\tilde U-z_U}_{\Gh}\le C\hG$. Its lift $L$ (Lemma~\ref{rs:lift}) has $\norm{\nabla L}\le C\hG^{1/2}$, and $y:=W_0-L\in Y_h$ satisfies $a_h(y,y)=-a_h(z_U,y)-a_h(L,y)$. Green's formula on $\Oh$ gives $a_h(\tilde U,y)=(F_U,y)$ for $y\in Y_h$, with $|(F_U,y)|\le C\hG^2\norm{\nabla y}$ (Lemma~\ref{lem:ext}). By Korn, $\norm{\nabla y}\le\kappa(2\norm{\nabla(z_U-\tilde U)}+C\hG^2+2\norm{\nabla L})$.
+\end{proof}
+
+\subsubsection{Two-sided bounds, uniform in the penalty}
+
+\begin{theorem}[Uniform upper bound]\label{u:up}
+Let $\gamma\ge\gamma_0$, with no upper bound, and $D:=X-X^D\in\Zh$. Then
+\[
+\tnorm D\le C\Bigl[\Bigl(\frac\hG\gamma\Bigr)^{1/2}+\gamma^{-1/2}E^0_U+\hG^{1/2}\Bigr],\qquad
+\Bigl\|\nabla\Bigl(\frac\mu h\delta_R-\tilde U\Bigr)\Bigr\|_{\Oh}\le C\bigl(\hG^{1/2}+E^0_U\bigr),
+\]
+and $\norm D_{\Gh}\le C\hG\gamma^{-1/2}(1+\hG^{-1/2}E^0_U)$. So $(\mu/h)\delta_R\to U$ in $H^1$ uniformly in $\mu\ge\mu_0$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{u:proj} and $X^D|_{\Gh}=t^\ast$, for $v\in\Zh$ the two penalty terms cancel \emph{exactly}:
+\[
+N_h(D,v)=\lambda\ip{t^\ast}v-N_h(X^D,v)=-a_h(X^D,v)+\ip{\dn X^D}v+\ip{t^\ast}{\dn v}=:\ell(v).
+\]
+\begin{enumerate}
+\item Let $L_v\in\Zh$ lift $v|_{\Gh}$ (Lemma~\ref{rs:lift}); $v-L_v\in Y_h$, so $a_h(X^D,v)=a_h(\tilde U,L_v)+a_h(X^D-\tilde U,L_v)$. Green's formula ($\div L_v=0$, $L_v|_{\partial R}=0$, $\int_{\Gh}L_v\cdot n=0$) gives $a_h(\tilde U,L_v)=(F_U,L_v)+\ip{(D(\tilde U)-(\tilde P-c))n}v$, of size $\le C\norm v_{\Gh}$. By Lemma~\ref{u:XD}, $|a_h(X^D-\tilde U,L_v)|\le C(1+\hG^{-1/2}E^0_U)\norm v_{\Gh}$.
+\item $\norm{\dn(X^D-I_h\tilde U)}_{\Gh}\le C\hG^{-1/2}\norm{\nabla(X^D-I_h\tilde U)}$ (Lemma~\ref{lem:inverse}, (M0)) and $\norm{\dn I_h\tilde U}_{\Gh}\le C$; so $|\ip{\dn X^D}v|\le C(1+\hG^{-1/2}E^0_U)\norm v_{\Gh}$.
+\item $\ip{t^\ast}{\dn v}=\ip g{\dn v}+\ip{t^\ast-g}{\dn v}$; Lemma~\ref{u:canc} bounds the first by $C\norm v_{\Gh}$, and Lemma~\ref{u:size} with $\norm{\dn v}_{\Gh}\le(c_0\hG)^{-1/2}\tnorm v$ bounds the second by $C\hG^{1/2}\tnorm v$.
+\end{enumerate}
+With $\norm v_{\Gh}\le(\hG/\gamma)^{1/2}\tnorm v$ and coercivity (Lemma~\ref{lem:coercive}, $c_1$ independent of $\mu$), test with $v=D$. Then $\norm{\nabla W}\le\tnorm D+\norm{\nabla(X^D-\tilde U)}$.
+\end{proof}
+
+The terms $\min(\gamma\hG^{1/2},(\gamma\hG)^{1/2})$ and $(h/\mu)^{1/2}$ of Theorem~\ref{hc:thm} are artefacts of estimating $\lambda\ip\zeta v$ directly instead of using Lemma~\ref{u:proj}.
+
+For the lower bound we test with fields that \emph{vanish} on $\Gh$. On $Y_h$ the penalty and the data drop out, and the bound is carried by Nitsche's symmetric term acting on the sawtooth \eqref{u:zeta}: the first-moment analogue of the mechanism of Theorem~\ref{lb:thm}.
+
+\begin{lemma}[A three-triangle field with odd normal derivative]\label{u:field}
+Assume (M0), (M1$'$) and $k\ge4$. Let $e=[x_0,x_1]\in\EG$, $T_e=[x_0,x_1,z]$, and let $T_0'=[x_0,z,y_0]$, $T_1'=[x_1,z,y_1]$ be the triangles across $[x_0,z]$ and $[x_1,z]$; they are distinct, and each meets $\Gh$ only in $x_0$, resp.\ $x_1$. With $\lambda_0,\lambda_1,\lambda_2$ the barycentrics of $T_e$ (vertices $x_0,x_1,z$) and $\mu^{(i)}$ those of $T_i'$, put
+\[
+\psi_e=\lambda_0\lambda_1\lambda_2^2(\lambda_1-\lambda_0)\ \text{on }T_e,\qquad
+\psi_e=\alpha_i\,(\mu^{(i)}_{x_i})^2(\mu^{(i)}_z)^2\mu^{(i)}_{y_i}\ \text{on }T_i',
+\]
+$\psi_e=0$ elsewhere, with $\alpha_0\nabla\mu^{(0)}_{y_0}=-\nabla\lambda_1$ and $\alpha_1\nabla\mu^{(1)}_{y_1}=\nabla\lambda_0$. Then $\psi_e\in C^1$ is piecewise $P_5$, $v_e:=\curl\psi_e\in Y_h$, and on $e$: $\dn v_e\cdot n_e=0$, $\dn v_e\cdot\tau_e=\pm2H_e^{-2}\lambda_0\lambda_1(\lambda_1-\lambda_0)$ (odd about $m_e$; in particular $v_e\in Y_h^1$), and $\int_es\,\dn v_e\cdot\tau_e=\pm|e|^2/(30H_e^2)$. There is $\kappa_1>0$, depending only on the minimum angle in (M0), with $m_e:=|\int_es\,\dn v_e\cdot\tau_e|\ge\kappa_1|e|\,\norm{\nabla v_e}$.
+\end{lemma}
+
+\begin{proof}
+\emph{Combinatorics.} $z\notin\Gh$ (a triangle with three vertices on the convex polygon lies in $\overline{P_h}$). By (M1$'$), $x_0$ has at least three triangles, so $T_0'$ is a middle triangle of the fan at $x_0$: $y_0=x_{-1}$ would leave only $T_{e_{-1}}$ and $T_e$ at $x_0$. So $T_0',T_1'$ contain no edge of $\Gh$ and are distinct.
+
+\emph{$C^1$.} On $T_e$, $\psi_e=\lambda_0\lambda_1^2\lambda_2^2-\lambda_0^2\lambda_1\lambda_2^2$; each term is the Argyris edge bubble $\lambda_a^2\lambda_b^2\lambda_E$ of one edge ($[x_1,z]$, resp.\ $[x_0,z]$). It vanishes to second order on the other two edges and to third order at the vertices; on its edge it vanishes with its tangential derivative and has normal derivative $\lambda_a^2\lambda_b^2\dn\lambda_E$. The pieces on $T_i'$ are the bubbles of the same edges from the other side, and the choice of $\alpha_i$ matches the normal derivatives (the gradients are normal to the common edge). All other edges carry second-order zeros from both sides.
+
+\emph{Traces and moments.} $\psi_e$ and $\nabla\psi_e$ vanish on $e$ and at $x_0,x_1$, the only points of $\Gh$ in the support, so $v_e\in Y_h$. On $e$, $\nabla\psi_e\equiv0$, so $\dn v_e=\pm\partial_{nn}\psi_e\,\tau_e$ and $\partial_{nn}(f\lambda_2^2)=2f/H_e^2$. With $\sigma=2s/|e|$, $\lambda_0\lambda_1=(1-\sigma^2)/4$, $\lambda_1-\lambda_0=\sigma$, and $\frac{|e|^2}{16}\int_{-1}^1\sigma^2(1-\sigma^2)\,d\sigma=|e|^2/60$.
+
+\emph{$\kappa_1$.} $m_e/(|e|\norm{\nabla v_e})$ is similarity-invariant, continuous and positive on the compact set of normalised five-vertex configurations allowed by the minimum angle.
+\end{proof}
+
+The field has odd $\dn v\cdot\tau_e$, so its \emph{second} moment vanishes; it does not give (M3), and the star fields of (M3) are not needed here.
+
+\begin{theorem}[Uniform lower bound]\label{u:low}
+Assume (M0)--(M2), (D), $k\ge4$ and $G>0$, and let $\mu>0$ be any penalty for which $\delta_R$ exists. $N_h$ on $\Zh$ is an affine pencil in $\mu$, invertible for $\mu\ge\mu_0$; so its determinant is a nonzero polynomial and $\delta_R$ exists (uniquely) for all $\mu$ outside a finite set on each mesh; at an exceptional $\mu$ the statement holds for any solution. Then
+\[
+\Bigl\|\nabla\Bigl(\frac\mu h\delta_R-\tilde U\Bigr)\Bigr\|_{\Oh}\ \ge\ c_\flat\,G\,\hG^{1/2}-C\hG^{3/2},\qquad c_\flat:=\frac{\kappa_1c_0^{1/2}}{\sqrt2\,\Lambda_0},
+\]
+with $\Lambda_0=2+C_{PT}C_I$ of Corollary~\ref{lb:abstract} and $\kappa_1$ of Lemma~\ref{u:field}. Neither $c_\flat$ nor $C$ depends on $\mu,\gamma,h,\rho$; $C$ depends on $G^{-1}$.
+\end{theorem}
+
+\begin{proof}
+\emph{Identity.} For $v\in Y_h$, $N_h(\delta_R,v)=\Rc(v)=0$ and $N_h(\delta_R,v)=a_h(\delta_R,v)-\ip{\delta_R}{\dn v}$; so $a_h(X,v)=\ip X{\dn v}$ for every such $\mu$. With $a_h(\tilde U,v)=(F_U,v)$ this gives
+\[
+a_h(W,v)-\ip W{\dn v}=\ip{\tilde U}{\dn v}-(F_U,v)\qquad\forall v\in Y_h .
+\]
+\emph{Sawtooth.} On $e$, $|x-x^\ast|\le\hG^2/4$ and $e_r(x^\ast)\cdot\tau_e=\epsilon s/|x|$, so $\tilde U\cdot\tau_e=c_es+E_e$ with $c_e=\epsilon(p-\pbar)(m_e^\ast)$, $|E_e|\le C_E\hG^2$, and $\Sigma:=\sum_ec_e^2|e|=G^2+O(\hG)$.
+
+\emph{Test field.} Normalise $\norm{\nabla v_e}=1$ with the sign making $\int_es\,\dn v_e\cdot\tau_e=m_e\ge\kappa_1|e|$, and put $v:=\sum_ec_ev_e\in Y_h^1$. Every triangle lies in at most two patches, so $\norm{\nabla v}^2\le2\sum_ec_e^2\le2\Sigma/(c_0\hG)$; on $e$ only $v_e$ is nonzero in $T_e$. By Lemma~\ref{lb:normal},
+\[
+\ip{\tilde U}{\dn v}=\sum_ec_e\int_e(c_es+E_e)\,\dn v_e\cdot\tau_e\ge\kappa_1\Sigma-C_EC_I\hG^2\sum_e|c_e|\ge\kappa_1\Sigma-C\hG,
+\]
+and $|(F_U,v)|\le C\hG^2\norm{\nabla v}$. By Lemma~\ref{lb:poinc} and $|a_h(W,v)|\le2\norm{\nabla W}\norm{\nabla v}$, $\Lambda_0\norm{\nabla W}\norm{\nabla v}\ge\ip{\tilde U}{\dn v}-|(F_U,v)|$. If $\kappa_1\Sigma>C\hG$, divide by the bound for $\norm{\nabla v}$ and insert $\Sigma=G^2+O(\hG)$; otherwise $\hG\ge cG^2$ and the claim is trivial after enlarging $C$.
+\end{proof}
+
+\begin{corollary}[Exact rate $\frac12$ for every penalty]\label{u:two}
+For all $\gamma\in[\gamma_0,\infty)$, the Dirichlet limit $\mu=\infty$ included, and $\hG\le h_1(G)$,
+\[
+\tfrac12c_\flat G\,\hG^{1/2}\le\norm{\nabla((\mu/h)\delta_R-\tilde U)}\le C(\hG^{1/2}+E^0_U).
+\]
+On test P ($\ut=0$), $d_h\asymp\hG^{1/2}$ uniformly in $\gamma$. The observed $\hG^{0.6}$--$\hG^{0.8}$ of Section~\ref{hc:sec} are pre-asymptotic.
+\end{corollary}
+
+\begin{proof}
+Theorems~\ref{u:low} and~\ref{u:up}; the Dirichlet limit $X^\infty$ satisfies the same identity on $Y_h$.
+\end{proof}
+
+\begin{corollary}[General data]\label{u:gen}
+For $\GS$ with general data and every $\gamma\ge\gamma_0$,
+\begin{gather*}
+\Bigl\|\nabla\Bigl(\ut-u_h-\frac h\mu\tilde U\Bigr)\Bigr\|\le C\frac h\mu(\hG^{1/2}+E^0_U)+C(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2}),\\
+\Bigl\|\nabla\Bigl(\frac\mu h(\ut-u_h)-\tilde U\Bigr)\Bigr\|\ge c_\flat G\hG^{1/2}-C(1+\gamma)\hG^{3/2}.
+\end{gather*}
+Hence $\norm{\nabla(\ut-u_h)}\mu/(hG)\to K$ whenever $h/\mu\to0$, $E^0_U\to0$ and $\frac\mu h(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})\to0$; the geometric part of the last condition is $\gamma\hG^{1/2}\to0$, which replaces $\gamma\hG\to0$ and $\gamma(1+\gamma^{1/2})\hG^{1/2}\to0$ in Corollary~\ref{hc:cor}(ii). For test P no condition is needed. (With flux-corrected data, $h^{\sigma_k}\hG^{-1/2}$ becomes $\hG^{\sigma_k-1/2}+|m_R|$.)
+\end{corollary}
+
+\begin{proof}
+Upper bound: in the proof of Theorem~\ref{rs:unif}, $\ut-u_h=(\ut-u_h')+\delta_R$ with $\norm{\nabla(\ut-u_h')}\le C(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$ uniformly in $\gamma$; apply Theorem~\ref{u:up}. Lower bound: Lemma~\ref{lb:identity} gives $a_h(e_u,v)-\ip{e_u}{\dn v}=-\ip{\ut}{\dn v}-(F,v)$ on $Y_h$; multiply by $\mu/h$ and subtract the identity for $\tilde U$. For the test field above, $\ut\cdot\tau_e$ is even in $s$ up to $O(\hG^3)$ (Lemma~\ref{lb:expand}) and $\dn v_e\cdot\tau_e$ is exactly odd, so $|\ip\ut{\dn v}|\le C\hG^2$; and $|(F,v)|\le C\hG^3$. Times $\mu/h=\gamma/\hG$ the numerator loses at most $C\gamma\hG$.
+\end{proof}
+
+We expect that $\gamma\hG^{1/2}\to0$ cannot be dropped for general data (for $\gamma\gtrsim\hG^{-1/2}$ the geometric error $\asymp\hG^{3/2}$ is at least the leak), but we have not excluded a cancellation between the two parts.
+
+\begin{corollary}[The $H^1$ constant converges at rate one]\label{u:K}
+On test P let $K_h:=\norm{\nabla X}_{\Oh}/G$. For every $\gamma\ge\gamma_0$,
+\[
+\bigl|K_h^2-K^2(1+d_h^2)\bigr|\le C\bigl(\hG^2+\hG\gamma^{-1/2}(1+\hG^{-1/2}E^0_U)\bigr),
+\]
+hence $|K_h-K|\le C(\hG+(E^0_U)^2)$ uniformly in $\gamma$, although $d_h\asymp\hG^{1/2}$.
+\end{corollary}
+
+\begin{proof}
+$\norm{\nabla X}^2=\norm{\nabla\tilde U}^2_{\Oh}+2(\nabla\tilde U,\nabla W)+\norm{\nabla W}^2$, and $\norm{\nabla\tilde U}^2_{\Oh}-\norm{\nabla U}^2_\Omega=O(\hG^2)$. Since $\div W=0$, $W|_{\partial R}=0$ and $\int_{\Gh}W\cdot n=0$, Green gives $(\nabla\tilde U,\nabla W)=(F_U,W)+\ip\sigma W$ with $\sigma:=\dn\tilde U-(\tilde P-c)n$, edgewise smooth with $O(\hG)$ jumps at vertices, so $\norm{\sigma-\PT\sigma}_{\Gh}\le C\hG$. On $\Gh$, $W=D+(\PT\tilde U-\tilde U)-\PT\zeta$. Then $|\ip\sigma{\PT\zeta}|\le|\ip\sigma\zeta|+C\hG^2\le C\hG^2$ by \eqref{u:zeta} and $\int_es\,ds=0$; $|\ip\sigma{\PT\tilde U-\tilde U}|\le C\hG^{k+1}$; and $|\ip\sigma D|\le C\norm D_{\Gh}$ is bounded by Theorem~\ref{u:up}.
+\end{proof}
+
+\begin{remark}[What the constants are, and what is not proved]\label{u:rem}
+With the sawtooth removed from the data (Dirichlet data $\PT\tilde U$ instead of $t^\ast$) the discrete Dirichlet field is accurate to $5\cdot10^{-5}$ on the production meshes, so the $\hG^{1/2}$ error is entirely the sawtooth. At $\mu=10^8$, $d_h\approx0.55\,\hG^{1/2}(1+0.96\hG+3.0\hG^2)$ (fit residual $10^{-3}$), with predicted local rates $0.58$ at $N=192$ and $0.53$ at $N=384$; at $\mu=100$, $d_h\approx0.225\,\hG^{1/2}(1+0.39\hG+0.30\hG^2)$, local rates $0.64\to0.54$. The ratio $0.41$ of the two amplitudes is the fraction of the sawtooth that the Robin problem at $\gamma\approx30$ captures. At $\mu=10^8$ the paper's table gives $K_h^2-K^2(1+d_h^2)\approx-1.87\hG^2$ from $N=48$ on, the $\gamma\to\infty$ form of Corollary~\ref{u:K}. A periodic one-edge cell problem reproduces these capture fractions ($0.47,0.89,0.99$ at $\gamma=30,300,3000$ for first-layer aspect $1$, against $0.43,0.86,0.98$ measured) and shows that $d_h/\hG^{1/2}$ is \emph{not} monotone in $\mu$: its minimum lies near the coercivity threshold. The certificate of Theorem~\ref{u:low}, evaluated with all remainders, gives $d_h\ge0.012$--$0.014\,\hG^{1/2}$ for every $\mu$ on the production meshes ($N\le128$), about $5\%$ of the truth. (NUMERICAL: \texttt{notes/v6/unifmu}, \texttt{notes/v6/unifmu2}.) Not proved: that $d_h/\hG^{1/2}$ converges on a given mesh family. The minimum star constant $\kappa_1$ of Lemma~\ref{u:field} drifts slowly downward on the production family ($0.0199\to0.0123$ for $N=16\to128$, with shrinking decrements), so we use only that the family is uniformly shape regular.
+\end{remark}

@@ -1,0 +1,107 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,longtable,array,enumitem}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[expansion=false]{microtype}
+
+\setlist{leftmargin=2em}
+\emergencystretch=2em
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{fact}[theorem]{Fact}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}[theorem]{Example}
+
+% Pointer to the script that produced a number
+\newcommand{\cert}[2]{\par\smallskip{\raggedright\noindent\emph{Computation:} \texttt{#1}; output \texttt{#2}.\par}}
+% Status label for statements that are computer-assisted or numerical
+\newcommand{\status}[1]{\textup{\textsc{[#1]}}}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Th}{\mathcal T_h}
+\newcommand{\FG}{\mathcal F_h^\Gamma}
+\newcommand{\Vh}{V_h}
+\newcommand{\VR}{V_h^R}
+\newcommand{\VO}{V_h^0}
+\newcommand{\Pih}{\Pi_h}
+\newcommand{\Zh}{Z_h}
+\newcommand{\Wh}{W_h}
+\newcommand{\gI}{g_I}
+\newcommand{\dn}{\partial_n}
+\newcommand{\ut}{\tilde u}
+\newcommand{\pt}{\tilde p}
+\newcommand{\ft}{\tilde f}
+\newcommand{\pbar}{\bar p}
+\newcommand{\pbG}{\bar p_{\Gamma}}
+\newcommand{\ip}[2]{\langle #1,\, #2\rangle}
+\newcommand{\tnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\GS}{\mathrm{GS}}
+\newcommand{\CNS}{\mathrm{CNS}^\ast}
+\newcommand{\epsd}{\varepsilon_h^{(3)}}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\Gc}{\mathcal G}
+\newcommand{\M}{\mathcal M}
+\newcommand{\hh}{\mathfrak h}
+\newcommand{\gh}{\hat g}
+\newcommand{\Aop}{\mathfrak A}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\conv}{conv}
+
+\begin{document}
+
+%% TBD: authorship may become joint; author list, affiliations and CRediT statement to be settled before submission.
+\title[Scott--Vogelius--Nitsche on inscribed polyhedra]{Scott--Vogelius--Nitsche on inscribed polyhedra:\\ convergence, sharpness and the penalty threshold in three dimensions}
+\author{Jaideep Sai Padhi}
+\address{Department of Computer Science, Purdue University, West Lafayette, IN 47907, USA}
+\email{jpadhi@purdue.edu}
+\date{\today}
+\subjclass[2020]{Primary 65N30; Secondary 65N12, 65N15, 76D07}
+\keywords{Stokes equations, Navier--Stokes equations, Scott--Vogelius elements, Nitsche's method, curved boundaries, inscribed polyhedra, Alfeld splits, divergence-free finite elements}
+
+\begin{abstract}
+We analyse the Scott--Vogelius--Nitsche method of Gjerde and Scott in three dimensions, when a smooth no-slip surface $\Gamma$ is replaced by a triangulated surface $\Gh$ with vertices on $\Gamma$: continuous $P_k$ velocities with discontinuous $P_{k-1}$ pressures on straight-sided tetrahedra, exactly divergence-free, with the wall condition imposed weakly by Nitsche's method. This is the three-dimensional form of Scott's zero-gradient prize question, which asks whether the error behaves like $\hG^{3/2}+h^k$.
+
+For the method as printed, the answer is no as soon as the wall pressure is not constant. The printed Nitsche form has no pressure traction, and the discrete velocity leaks through the wall with normal velocity $(h/\mu)(p-\pbar)$; the constant is exactly $1$ in the slip and energy norms. The method converges at rate $h/\mu$ in $H^1$ and $(h/\mu)^{1/2}$ in energy, and both rates are attained. Adding the traction with the wall mean of the discrete pressure removed gives a well-posed, exactly divergence-free method (the device is that of Frachon, Nilsson and Zahedi), and it attains $\hG^{3/2}+h^k$. On Alfeld refinements, for every $k\ge3$, the only stability input, a discrete inf-sup constant uniform over the perturbed domains, is proved here from a local result of Guzm\'an and Neilan and a Lipschitz-perturbation argument of Bernardi, Costabel, Dauge and Girault.
+
+The term $\hG^{3/2}$ is sharp. We prove $\norm{\nabla(\ut-u_h)}\ge c\,\hG^{3/2}\norm{|\hh|\,\partial_Nu}_{L^2(\Gamma)}-C\hG^2$, where $\hh$ is the second fundamental form, on Alfeld refinements for every $k\ge3$ and on arbitrary shape-regular meshes for $k\ge9$. For $k\ge4$ the local witnesses come from one exact rank computation on a reference macro-element; for $k=3$ a single macro-element provably does not suffice, and the witnesses live on the star of an interior edge, where the relevant moment has a closed form.
+
+The setting covers general smooth obstacles, nonconvex and with several components. The closest-point projection $\Gh\to\Gamma$, usually assumed in surface finite elements, is a homeomorphism as soon as the tetrahedral mesh is shape regular and does not reach the far side of the obstacle; we show by examples that neither condition can be dropped. The Nitsche penalty must grow like the ratio $\rho$ of bulk to boundary mesh size: exact certificates on single Alfeld macro-elements, and a continuum witness with half-space constant $2327591/151008\approx15.41$, show this under local fineness. The upper bounds and the leak law extend to steady Navier--Stokes flow under a linearised-stability assumption. A first three-dimensional implementation confirms exact incompressibility, the optimal rate on a manufactured box problem and the leak law with constant tending to $1$; at the mesh levels we could run, the sphere tests are still pre-asymptotic for the $\hG^{3/2}$ rate.
+\end{abstract}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_setting}
+\input{sections/03_geometry}
+\input{sections/04_stability}
+\input{sections/05_error}
+\input{sections/06_sharpness}
+\input{sections/07_penalty}
+\input{sections/08_navier_stokes}
+\input{sections/09_numerics}
+\input{sections/10_open}
+
+\appendix
+\input{sections/A_reproducibility}
+
+\input{sections/Z_declarations}
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+\end{document}

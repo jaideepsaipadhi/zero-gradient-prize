@@ -28,11 +28,17 @@
 \newtheorem*{theoremI}{Theorem I}
 \newtheorem*{theoremP}{Theorem P}
 \newtheorem*{theoremR}{Theorem R}
+\newtheorem*{theoremS}{Theorem S}
+\newtheorem*{theoremL}{Theorem L}
+\newtheorem*{theoremT}{Theorem T}
+\newtheorem*{theoremU}{Theorem U}
+\newtheorem*{theoremM}{Theorem M}
 \newtheorem{fact}[theorem]{Fact}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{conjecture}[theorem]{Conjecture}
 
 % Pointer to the script that produced a number
 \newcommand{\cert}[2]{\par\smallskip{\raggedright\noindent\emph{Computation:} \texttt{#1}; output \texttt{#2}.\par}}
@@ -76,16 +82,28 @@
 \newcommand{\kap}{\varkappa}
 \newcommand{\kapi}{\norm{\kap}_\infty}
 \newcommand{\Tr}{\mathcal T_r}
-% Navier--Stokes and 3D sections
+% Navier--Stokes section
 \newcommand{\Aop}{\mathfrak A}
-\newcommand{\FG}{\mathcal F_h^\Gamma}
-\newcommand{\epsd}{\varepsilon_h^{(3)}}
 % Pressure, stress and drag section
 \newcommand{\Lay}{L_1}
 \newcommand{\RM}{\mathrm{RM}}
 \newcommand{\Bh}{B_h}
 \newcommand{\xib}{\xi_{\mathrm b}}
 \newcommand{\chat}{\hat c_k}
+% v6 additions: pressure moments, strong imposition, trace space, robustness
+\newcommand{\Pm}{\mathsf P_h}
+\newcommand{\Sm}{\mathsf S_h}
+\newcommand{\Phih}{\Phi_h}
+\newcommand{\Ql}{Q_{\mathrm{lock}}}
+\newcommand{\Lk}{\mathcal L}
+\newcommand{\Nset}{\mathcal N}
+\newcommand{\Tsp}{\mathsf T_h}
+\newcommand{\PT}{\Pi_{\mathsf T}}
+\newcommand{\Yh}{Y_h}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\rot}{rot}
+\newcommand{\CNSR}{\mathrm{CNS}^\ast\text{-R}}
+\newcommand{\Rop}{\mathcal R_{\mathrm b}}
 
 \begin{document}
 
@@ -102,11 +120,13 @@ We analyse the Scott--Vogelius--Nitsche method of Gjerde and Scott for two-dimen
 
 For the method as printed, the answer is no as soon as the pressure is not constant on the boundary. The printed Nitsche form omits the traction $-pn$. We prove that the method converges, at the sharp rate $h/\mu$ in the $H^1$ seminorm and at the exact rate $(h/\mu)^{1/2}$ in the mesh-dependent energy norm. To leading order the error is an explicit field: the discrete velocity leaks through the wall with normal velocity $(h/\mu)(p-\bar p)$, with constant exactly $1$ in the slip and energy norms. The $H^1$ rate is $1$ and not $1/2$ only because incompressibility turns the normal part of the missing traction into a tangential derivative. For fixed $\gamma$ and bounded $\rho$, $(\mu/h)$ times the error converges in $H^1$ to the Stokes flow driven by the leak as Dirichlet data; the resulting constant depends on the domain ($2.7565$ for our test, tending to $3/\sqrt7$ as the outer box grows). A penalty growing like $\mu\gtrsim h\,h_\Gamma^{-3/2}$ restores the $H^1$ rate $3/2$ of the printed method, but no power-law scaling of the penalty lifts its energy rate above $1$. When the wall pressure varies, its pressure converges in $L^2$ only at rate $1/2$, because of an explicit boundary layer in the first row of triangles, and its drag error is, to leading order, $-(h/\mu)$ times an explicit reciprocity constant.
 
-Adding the plain pressure term makes the square system singular. Subtracting the wall mean of the discrete pressure gives a well-posed, exactly divergence-free method; this mean-free correction is not new, since its velocity coincides with that of the zero-net-flux formulation of Frachon, Nilsson and Zahedi, and what we contribute is its analysis. We prove that it attains $h_\Gamma^{3/2}+h_\Omega^k$ for general Stokes data, for every fixed $k\ge4$ on meshes satisfying (M0)--(M2) and every $k\ge2$ on Clough--Tocher refinements. With flux-corrected outer data the $H^1$ bound holds uniformly in the penalty and with no relation between $h_\Gamma$ and $h_\Omega$; its pressure then converges at the same rate and its drag at rate $2$. Whenever the wall shear is not identically zero, we prove a matching lower bound $c\,h_\Gamma^{3/2}$ for the $H^1$ error, so the $h_\Gamma^{3/2}$ term of Scott's rate is sharp. The lower bound is unconditional for $k\ge7$; for $4\le k\le6$ it is conditional on a local condition on the boundary stars, which we verified numerically on all our meshes but have not proved.
+Adding the plain pressure term makes the square system singular. Subtracting the wall mean of the discrete pressure gives a well-posed, exactly divergence-free method; this mean-free correction is not new, since its velocity coincides with that of the zero-net-flux formulation of Frachon, Nilsson and Zahedi, and what we contribute is its analysis. We prove that it attains $h_\Gamma^{3/2}+h_\Omega^k$ for general Stokes data, for every fixed $k\ge4$ on meshes satisfying (M0)--(M2) and every $k\ge2$ on Clough--Tocher refinements. With flux-corrected outer data the $H^1$ bound holds uniformly in the penalty and with no relation between $h_\Gamma$ and $h_\Omega$; its pressure then converges at the same rate and its drag at rate $2$. Whenever the wall shear is not identically zero, we prove a matching lower bound $c\,h_\Gamma^{3/2}$ for the $H^1$ error, so the $h_\Gamma^{3/2}$ term of Scott's rate is sharp. The lower bound holds for every $k\ge4$; the local star condition it needs is proved with certified constants. In $L^2$ the method converges at the sharp rate $h_\Gamma^2$ (upper bound modulo Stokes regularity), while the printed method has $L^2$ rate exactly $1$. The leak limit of the printed method holds uniformly in the penalty at the exact rate $h_\Gamma^{1/2}$.
 
-The Nitsche penalty must scale like $\rho=h_\Omega/\min_e|e|$ on the meshes we can certify. Sufficiency is proved on every mesh; necessity is certified in exact rational arithmetic for every mesh whose shortest boundary edge carries a triangle with apex angle at least $35^\circ$ and base angles at least $5^\circ$, and is open in general. The convergence theory extends to general smooth curved boundaries in two dimensions (nonconvex and multiply connected, with a nonempty polygonal component carrying strongly imposed data), to steady Navier--Stokes under a linearised-stability assumption that we prove for small data, and to three dimensions for a spherical obstacle, under a uniform inf-sup assumption. That assumption is known on Alfeld splits for $k\ge3$, modulo the uniformity of the published constants over the perturbed domains, which we have not re-audited.
+The Nitsche penalty must scale like $\rho=h_\Omega/\min_e|e|$. Sufficiency is proved on every mesh. Necessity is certified in exact rational arithmetic for every mesh whose shortest boundary edge carries a triangle with apex angle at least $35^\circ$ and base angles at least $5^\circ$, and is proved with explicit constants on every mesh that is locally fine enough near one boundary edge; a purely local necessity statement is false, by exact counterexamples. The convergence theory extends to general smooth curved boundaries in two dimensions and to steady Navier--Stokes on nonsingular solution branches, with the Oseen leak flow, $K_{NS}$ and rate-$2$ drag for the corrected method (these three modulo Stokes regularity).
 
-A computational study up to $N=256$ boundary chords, for $k=4,5,6$ and for Clough--Tocher refinements with $k=2,3$, confirms the rates and constants. It includes a pure-pressure test that isolates the traction response exactly, pressure errors, a penalty study in which the threshold is linear in $h_\Omega/h_\Gamma$, with $\mu^\ast h_\Gamma/h_\Omega\approx20$ for $k=4$, and a comparison with strong imposition: in our computations the $h^{1/2}$ locking of strongly imposed no-slip appears on a mesh with wall vertices in only two triangles, but not on our production meshes.
+We also analyse strongly imposed no-slip on the same polygon. Under our mesh condition it already attains $h_\Gamma^{3/2}+h_\Omega^k$, two-sided; the zero-gradient lock is caused by wall vertices in only two triangles, each costing $h_\Gamma|\partial_nu|$, or by nearly singular wall stars, where the cost follows a needle-angle law. The advantages of Nitsche imposition on an inscribed polygon are therefore robustness to such meshes and a smaller constant, not a better rate. Finally, the printed method is not pressure-robust, the corrected method has a single pressure defect of order $h_\Gamma^{k+1/2}/\nu$, and a local $\mathrm{BDM}_k$ load correction on the boundary triangles makes it exactly gradient-robust. The three-dimensional analysis is given in a companion paper \cite{PadhiThreeD}.
+
+A computational study up to $N=256$ boundary chords, for $k=4,5,6$ and for Clough--Tocher refinements with $k=2,3$, confirms the rates and constants. It includes a pure-pressure test that isolates the traction response exactly, pressure errors, a penalty study in which the threshold is linear in $h_\Omega/h_\Gamma$, with $\mu^\ast h_\Gamma/h_\Omega\approx20$ for $k=4$, strong imposition with and without locked vertices, and a hydrostatic pressure-robustness test.
 \end{abstract}
 
 \maketitle
@@ -119,13 +139,17 @@ A computational study up to $N=256$ boundary chords, for $k=4,5,6$ and for Cloug
 \input{sections/06_printed_method}
 \input{sections/07_consistent_method}
 \input{sections/07a_rescue}
+\input{sections/07d_uniform_mu}
 \input{sections/07b_pressure_drag}
+\input{sections/07c_l2}
 \input{sections/08_penalty}
+\input{sections/08b_strong}
 \input{sections/09_clough_tocher}
 \input{sections/10_general_domains}
 \input{sections/11_navier_stokes}
-\input{sections/12_three_d}
+\input{sections/11b_robust}
 \input{sections/13_numerics}
+\input{sections/14_open}
 
 \appendix
 \input{sections/A_reproducibility}

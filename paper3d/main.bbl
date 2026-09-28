@@ -1,0 +1,174 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{10}
+
+\bibitem{AmentaChoiDeyLeekha2000}
+Nina Amenta, Sunghee Choi, Tamal~K. Dey, and Naveen Leekha, \emph{A simple
+  algorithm for homeomorphic surface reconstruction}, Proceedings of the
+  Sixteenth Annual Symposium on Computational Geometry (SoCG 2000), ACM, 2000,
+  pp.~213--222.
+
+\bibitem{BCDG2016}
+Christine Bernardi, Martin Costabel, Monique Dauge, and Vivette Girault,
+  \emph{Continuity properties of the inf-sup constant for the divergence}, SIAM
+  J. Math. Anal. \textbf{48} (2016), no.~2, 1250--1271, arXiv:1510.03978.
+
+\bibitem{BernardiRaugel1985}
+Christine Bernardi and Genevi\`eve Raugel, \emph{Analysis of some finite
+  elements for the {S}tokes problem}, Math. Comp. \textbf{44} (1985), no.~169,
+  71--79.
+
+\bibitem{ChenLiu2026}
+Wei Chen and Zhen Liu, \emph{Pressure-robust finite elements for the {S}tokes
+  problem on three-dimensional curved domains}, arXiv:2609.30008, 2026.
+
+\bibitem{CostabelMcIntosh2010}
+Martin Costabel and Alan McIntosh, \emph{On {B}ogovski\u{\i} and regularized
+  {P}oincar\'e integral operators for de {R}ham complexes on {L}ipschitz
+  domains}, Math. Z. \textbf{265} (2010), no.~2, 297--320.
+
+\bibitem{Dauge1989}
+Monique Dauge, \emph{Stationary {S}tokes and {N}avier--{S}tokes systems on two-
+  or three-dimensional domains with corners. {P}art {I}. {L}inearized
+  equations}, SIAM J. Math. Anal. \textbf{20} (1989), no.~1, 74--97.
+
+\bibitem{Dziuk1988}
+Gerhard Dziuk, \emph{Finite elements for the {B}eltrami operator on arbitrary
+  surfaces}, Partial Differential Equations and Calculus of Variations, Lecture
+  Notes in Math., vol. 1357, Springer, Berlin, 1988, pp.~142--155.
+
+\bibitem{DziukElliott2013}
+Gerhard Dziuk and Charles~M. Elliott, \emph{Finite element methods for surface
+  {PDE}s}, Acta Numer. \textbf{22} (2013), 289--396.
+
+\bibitem{FarrellMitchellScott2024}
+Patrick~E. Farrell, Lawrence Mitchell, and L.~Ridgway Scott, \emph{Two
+  conjectures on the {S}tokes complex in three dimensions on {F}reudenthal
+  meshes}, SIAM J. Sci. Comput. \textbf{46} (2024), no.~2, A629--A644,
+  arXiv:2211.05494.
+
+\bibitem{Forster1981}
+Otto Forster, \emph{Lectures on {R}iemann surfaces}, Graduate Texts in
+  Mathematics, vol.~81, Springer, New York, 1981.
+
+\bibitem{FrachonNilssonZahedi2024}
+Thomas Frachon, Erik Nilsson, and Sara Zahedi, \emph{Divergence-free cut finite
+  element methods for {S}tokes flow}, BIT Numer. Math. \textbf{64} (2024),
+  Paper No. 39, arXiv:2304.14230.
+
+\bibitem{FuGuzmanNeilan2020}
+Guosheng Fu, Johnny Guzm\'an, and Michael Neilan, \emph{Exact smooth piecewise
+  polynomial sequences on {A}lfeld splits}, Math. Comp. \textbf{89} (2020),
+  no.~323, 1059--1091, arXiv:1807.05883.
+
+\bibitem{Galdi}
+Giovanni~P. Galdi, \emph{An introduction to the mathematical theory of the
+  {N}avier--{S}tokes equations. steady-state problems}, 2 ed., Springer
+  Monographs in Mathematics, Springer, New York, 2011.
+
+\bibitem{GjerdeScott2024}
+Ingeborg~G. Gjerde and L.~Ridgway Scott, \emph{Verification and validation of
+  cylinder drag: Pressure and stress approximations on curved boundaries}, Adv.
+  Comput. Sci. Eng. \textbf{2} (2024), no.~3, 295--319, arXiv:2306.12362.
+
+\bibitem{GuzmanLischkeNeilan2022}
+Johnny Guzm\'an, Anna Lischke, and Michael Neilan, \emph{Exact sequences on
+  {W}orsey--{F}arin splits}, Math. Comp. \textbf{91} (2022), no.~338,
+  2571--2608, arXiv:2008.05431.
+
+\bibitem{GuzmanNeilan2018}
+Johnny Guzm\'an and Michael Neilan, \emph{Inf-sup stable finite elements on
+  barycentric refinements producing divergence-free approximations in arbitrary
+  dimensions}, SIAM J. Numer. Anal. \textbf{56} (2018), no.~5, 2826--2844.
+
+\bibitem{GuzmanScott2019}
+Johnny Guzm\'an and L.~Ridgway Scott, \emph{The {S}cott--{V}ogelius finite
+  elements revisited}, Math. Comp. \textbf{88} (2019), no.~316, 515--529.
+
+\bibitem{Hestenes1941}
+Magnus~R. Hestenes, \emph{Extension of the range of a differentiable function},
+  Duke Math. J. \textbf{8} (1941), 183--192.
+
+\bibitem{HildebrandtPolthierWardetzky2006}
+Klaus Hildebrandt, Konrad Polthier, and Max Wardetzky, \emph{On the convergence
+  of metric and geometric properties of polyhedral surfaces}, Geom. Dedicata
+  \textbf{123} (2006), no.~1, 89--112.
+
+\bibitem{LiuNeilanOtus2023}
+Haoran Liu, Michael Neilan, and M.~Baris Otus, \emph{A divergence-free finite
+  element method for the {S}tokes problem with boundary correction}, J. Numer.
+  Math. \textbf{31} (2023), no.~2, 105--123, arXiv:2105.10409.
+
+\bibitem{MorvanThibert2004}
+Jean-Marie Morvan and Boris Thibert, \emph{Approximation of the normal vector
+  field and the area of a smooth surface}, Discrete Comput. Geom. \textbf{32}
+  (2004), no.~3, 383--400.
+
+\bibitem{Neilan2015}
+Michael Neilan, \emph{Discrete and conforming smooth de {R}ham complexes in
+  three dimensions}, Math. Comp. \textbf{84} (2015), no.~295, 2059--2081.
+
+\bibitem{Neilan2020}
+\bysame, \emph{The {S}tokes complex: a review of exactly divergence-free finite
+  element pairs for incompressible flows}, 75 Years of Mathematics of
+  Computation (Susanne~C. Brenner, Igor Shparlinski, Chi-Wang Shu, and
+  Daniel~B. Szyld, eds.), Contemp. Math., vol. 754, Amer. Math. Soc.,
+  Providence, RI, 2020, pp.~141--158.
+
+\bibitem{NeilanOtus2021}
+Michael Neilan and M.~Baris Otus, \emph{Divergence-free {S}cott--{V}ogelius
+  elements on curved domains}, SIAM J. Numer. Anal. \textbf{59} (2021), no.~2,
+  1090--1116.
+
+\bibitem{Nitsche1971}
+Joachim Nitsche, \emph{\"{U}ber ein {V}ariationsprinzip zur {L}\"osung von
+  {D}irichlet-{P}roblemen bei {V}erwendung von {T}eilr\"aumen, die keinen
+  {R}andbedingungen unterworfen sind}, Abh. Math. Sem. Univ. Hamburg
+  \textbf{36} (1971), no.~1, 9--15.
+
+\bibitem{PadhiLong2D}
+Jaideep~Sai Padhi, \emph{Scott--{V}ogelius--{N}itsche on a polygonally
+  approximated boundary: convergence, the missing pressure traction, and the
+  penalty threshold}, Zenodo preprint (DOI to be assigned), 2026.
+
+\bibitem{Schatz1974}
+Alfred~H. Schatz, \emph{An observation concerning {R}itz--{G}alerkin methods
+  with indefinite bilinear forms}, Math. Comp. \textbf{28} (1974), no.~128,
+  959--962.
+
+\bibitem{ScottPrize}
+L.~Ridgway Scott, \emph{Relaxing gradient constraints for exactly
+  divergence-free spaces}, Prize problem statement, University of Chicago,
+  November 13, 2023,
+  \url{https://people.cs.uchicago.edu/~ridg/prizes/zerogradprize.pdf}, 2023,
+  Listed as Prize Problem Ledger problem PPL~115.
+
+\bibitem{ScottVogelius1985}
+L.~Ridgway Scott and Michael Vogelius, \emph{Norm estimates for a maximal right
+  inverse of the divergence operator in spaces of piecewise polynomials}, RAIRO
+  Mod\'el. Math. Anal. Num\'er. \textbf{19} (1985), no.~1, 111--143.
+
+\bibitem{ScottZhang1990}
+L.~Ridgway Scott and Shangyou Zhang, \emph{Finite element interpolation of
+  nonsmooth functions satisfying boundary conditions}, Math. Comp. \textbf{54}
+  (1990), no.~190, 483--493.
+
+\bibitem{Temam}
+Roger Temam, \emph{Navier--{S}tokes equations: Theory and numerical analysis},
+  AMS Chelsea Publishing, Providence, RI, 2001, Reprint with corrections of the
+  3rd revised edition (North-Holland, 1984).
+
+\bibitem{Zhang2005}
+Shangyou Zhang, \emph{A new family of stable mixed finite elements for the {3D}
+  {S}tokes equations}, Math. Comp. \textbf{74} (2005), no.~250, 543--554.
+
+\bibitem{Zhang2011}
+\bysame, \emph{Divergence-free finite elements on tetrahedral grids for
+  $k\ge6$}, Math. Comp. \textbf{80} (2011), no.~274, 669--695.
+
+\end{thebibliography}

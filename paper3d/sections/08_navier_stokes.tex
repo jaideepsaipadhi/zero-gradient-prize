@@ -1,0 +1,49 @@
+\section{Steady Navier--Stokes flow}\label{sec:ns}
+
+Gjerde and Scott's application is cylinder drag, a Navier--Stokes computation \cite{GjerdeScott2024}. Consider
+\[
+-\nu\Delta u+(u\cdot\nabla)u+\nabla p=f,\qquad\div u=0\ \text{in }\Omega,\qquad u|_\Gamma=0,\quad u|_\Sigma=g,
+\]
+and, with $c_1(w;u,v):=((w\cdot\nabla)u,v)$ or $c_s(w;u,v):=\frac12[((w\cdot\nabla)u,v)-((w\cdot\nabla)v,u)]$ (denoted $c$), the methods: find $u_h\in\Vh$ with $u_h|_\Sigma=\gI$ and $p_h\in\Pih$ such that for all $v\in\VR$, $q\in\Pih$,
+\[
+\nu N_h(u_h,v)+c(u_h;u_h,v)-(p_h,\div v)\;\bigl[+\ip{p_h-\pbG(p_h)}{v\cdot n}\bigr]=(\ft,v),\qquad(q,\div u_h)=0 .
+\]
+Without the bracket this is $\GS$, with it $\CNS$. The wall penalty is then $\nu\mu/h$ (see \cite{PadhiLong2D} for the conversion to an unscaled penalty).
+
+\paragraph{Assumptions.} (NS1) $(u,p)$ is a solution with $u\in C^{k+1}(\overline\Omega)$, $p\in C^k(\overline\Omega)$, $\ft$ is a smooth extension of $f$, and the assumptions of Section~\ref{sec:setting} hold. (NS2) $\ut,\pt$ are the extensions of Lemma~\ref{geom:ext}; the defect $F:=\ft+\nu\Delta\ut-(\ut\cdot\nabla)\ut-\nabla\pt$ vanishes on $\Omega$, is supported in $\overline{\Oh\setminus\Omega}$ and is bounded. Let $\Aop(w,v):=\nu N_h(w,v)+c(w;\ut,v)+c(\ut;w,v)$ be the linearisation at $\ut$, $\norm\ell_{\ast,X}:=\sup_{0\ne v\in X}\ell(v)/\tnorm v$, and $B^\ast$ as in the proof of Theorem~\ref{er:D}. The discrete stability conditions are:
+\begin{enumerate}
+\item[(L)] there is $\beta_L>0$, independent of $h$, with $\beta_L\tnorm\delta\le\norm{\Aop(\delta,\cdot)}_{\ast,\Zh}$ for all $\delta\in\Zh$;
+\item[(L$^\ast$)] there is $\beta_\ast>0$, independent of $h$, such that for every linear functional $\ell$ on $\VR$ the problem $(\delta,\xi)\in\Zh\times\Pih$, $\Aop(\delta,v)+B^\ast(\xi,v)=\ell(v)$ for all $v\in\VR$, has a unique solution with $\beta_\ast\tnorm\delta\le\norm\ell_{\ast,\VR}$.
+\end{enumerate}
+They are the discrete forms of ``$u$ lies on a nonsingular branch'' for $\GS$ and $\CNS$. Let $X_3:=h/\mu+(1+\gamma^{1/2})\hG^{3/2}+\epsd$.
+
+\begin{corollary}[Navier--Stokes in three dimensions]\label{ns:cor}
+Assume (NS1)--(NS2) and (IS3); on Alfeld refinements with $k\ge3$ (IS3) holds by Lemma~\ref{st:IS3}.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Small data.} Let $N$ be the constant in $|c(w;u,v)|\le N\norm w_{H^1}\norm u_{H^1}\norm v_{H^1}$ and $C_1$ that in $\norm v_{H^1(\Oh)}\le C_1\tnorm v$ for $v\in\VR$; both are uniform in $h$. If $\lambda:=NC_1^2\norm\ut_{H^1(\Oh)}/(\nu c_1)\le\frac14$, then (L) holds with $\beta_L=\nu c_1/2$, and (L$^\ast$) holds for $\gamma\ge\gamma_2'$ with $\beta_\ast=\nu/C_\ast$, $\gamma_2'$ and $C_\ast$ independent of $\nu$ and $h$.
+\item \emph{Nonsingular solutions.} If $u$ is a nonsingular solution (the linearisation at $u$ is an isomorphism of the divergence-free $H^1_0$ fields onto their dual), then there is $h_0$, independent of $\mu,\gamma,\rho$, such that (L), and (L$^\ast$) for $\gamma\ge\gamma_2'$, hold for $h\le h_0$.
+\item \emph{$\GS$.} Under (L), for either convective form and $X_3\le c_\ast$: $\GS$ has a locally unique solution, $\norm{\nabla(\ut-u_h)}\le C[h/\mu+(1+\gamma^{1/2})\hG^{3/2}+\epsd]$, $\tnorm{\ut-u_h}\le\nu^{-1}(h/\mu)^{1/2}G+CX_3$, and under the hypotheses of Corollary~\ref{er:Bp}
+\[
+\ut-u_h=\frac h{\nu\mu}v_\varphi+\vartheta_h,\qquad\tnorm{\vartheta_h}=o\bigl((h/\mu)^{1/2}\bigr),
+\]
+so that $u_h\cdot n\approx(h/\nu\mu)(p-\pbar)$ on $\Gh$ with the Navier--Stokes pressure.
+\item \emph{$\CNS$.} Under (L$^\ast$) and $(1+\gamma^{1/2})\hG^{3/2}+\epsd\le c_\ast$, $\CNS$ has a locally unique solution with $\tnorm{\ut-u_h}\le C[(1+\gamma^{1/2})\hG^{3/2}+\epsd]$, and $\norm{\ut-u_h}_{H^1(\Oh)}\le C(\hG^{3/2}+h^k)$ for bounded $\gamma$ and $\hG\ge h^2$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+The two-dimensional proofs \cite{PadhiLong2D} consist of a fixed-point argument around the linearisation at $\ut$, the Stokes estimates of Section~\ref{sec:error}, and, for (ii), a compactness argument. We list every dimension-dependent input and its three-dimensional replacement.
+\begin{enumerate}
+\item \emph{Sobolev constants.} $H^1\subset L^4$ in three dimensions; transferred to $\Oh$ by the bi-Lipschitz map $\Phi_h$ of Lemma~\ref{geom:korn}, the constant $N$ in $|c(w;u,v)|\le N\norm w_{H^1}\norm u_{H^1}\norm v_{H^1}$ is uniform in $h$. The convective boundary identities and the wall P\'eclet estimate are dimension-free (divergence theorem; $\norm v^2_{\Gh}\le(h/\mu)\tnorm v^2$).
+\item \emph{Error equation.} The identity is dimension-free. The geometric term $\nu\Gc$ is bounded by Lemma~\ref{er:G} (the Navier--Stokes defect enters only through $\norm F_\infty$ and its support), and the convective consistency term by $C\hG^4\norm{\nabla v}$, since $\norm\ut_{L^\infty(\Gh)}\le C\hG^2$.
+\item \emph{(i).} Coercivity, continuity and the inverse traces are Lemmas~\ref{st:inverse}, \ref{st:coercive}; the inf-sup condition is (IS3); the square count and the uniqueness of the constant use the face bubble (Lemma~\ref{st:divrange}). The absorption has the same form, so $\gamma_2'$ depends on $C_I,c_0,\beta,c_1$ as in two dimensions.
+\item \emph{(ii).} The compactness argument uses: a strip of volume $|S_h|\le C\hG^2$ (Corollary~\ref{geom:graph}); trace transfer by $\Phi_h$; discrete test fields $I_h\varphi-w_h$ with $w_h\in\VO$ from (IS3) and $|\ip{\delta_j}{\dn w_h}|\le(\rho/\mu)^{1/2}C_I\norm{\nabla w_h}$; Rellich's theorem and compact traces on the fixed Lipschitz domain $\Omega$; density of smooth solenoidal fields in the divergence-free $H^1_0$ fields on Lipschitz domains in $\R^3$ \cite{Temam}; and compactness of $L^2\hookrightarrow V'$. All hold in three dimensions.
+\item \emph{(iii).} Steps of the $\GS$ proof: the approximation step uses Lemmas~\ref{er:G} and~\ref{er:approx}; the leak step uses $m(v)=\Rc(v)-\ip{v_\varphi}v$, bounded only in the energy dual, $|m(v)|\le C_p\hG(h/\mu)^{1/2}\tnorm v$ (proof of Theorem~\ref{er:C}), which suffices because (L) is stated in the energy dual; the load $\ell$ is bounded by Lemma~\ref{er:cancel} with $S=w$ and Lemma~\ref{er:vphi}, and the convective term by $C(h/\mu)\norm{\nabla v}$ since $\norm{v_\varphi}_{H^1}\le C$. This gives $\tnorm r\le C\beta_L^{-1}(h/\mu+\hG^2+\epsd)\le CX_3$. The leading-term statement follows as Corollary~\ref{er:Bp}, with \eqref{er:riemann}.
+\item \emph{(iv).} $|B^\ast(\eta,v)|\le2\norm\eta_{\Gh}(h/\mu)^{1/2}\tnorm v$ with $\norm\eta_{L^\infty(\Gh)}\le C\hG^k$; the fixed point is as for $\GS$ with $\beta_\ast$; the $H^1$ statement uses the flux proviso of Theorem~\ref{er:D}.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{remark}\label{ns:rem}
+An explicit threshold $h_0$ in (ii) by a Schatz-type duality argument \cite{Schatz1974} is possible in two dimensions under Stokes $H^2$-regularity \cite{PadhiLong2D}. In three dimensions the same argument needs the corresponding regularity on $\Omega$, which for a box minus an obstacle involves the edges and corners of the box \cite{Dauge1989}; it also needs a divergence-free extension of the $H^2$ dual solution across $\Gamma$, for which the Piola--Hestenes construction of Lemma~\ref{geom:ext} applies with Sobolev coefficients. We have not written this out. %% VERIFY: Dauge1989 H^2 x H^1 on convex polyhedra; statement not checked.
+The identification of the $H^1$ leak constant, uniformly in $\mu$, and the drag and torque statements of \cite{PadhiLong2D} are not treated in three dimensions.
+\end{remark}

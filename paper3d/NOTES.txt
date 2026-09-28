@@ -1,0 +1,69 @@
+paper3d/NOTES.txt -- Paper C (3D companion), built 2026-09-28. Not committed.
+
+BUILD
+  cd paper3d && pdflatex main && bibtex main && pdflatex main && pdflatex main
+  -> main.pdf, 37 pages, zero undefined references/citations, no LaTeX errors (two overfull boxes of ~2pt).
+  Sources: main.tex, sections/*.tex, refs.bib (paper/refs.bib snapshot + notes/v6/cites/refs_additions.bib
+  + entries added here).
+
+SOURCES USED (checklist: notes/v6/MERGE_MANIFEST.txt, "PAPER C")
+  paper/main.tex (preamble/macros), paper/sections/12_three_d.tex, 02_setting, 04_discrete, 05_error_equation,
+    06_printed_method, 07_consistent_method, 08_penalty, 11_navier_stokes, Z_ai_declaration (snapshot copied to
+    the scratchpad at the start; paper/ and letter/ were only read).
+  notes/v6/td_sharp/REPORT.tex   Part A (lower bound, (M3^3), Alfeld k>=4, bubble k>=9, k=3 single-macro failure)
+                                 Part B (general obstacles, Piola-Hestenes extension, test field, fluxes, B:lb)
+  notes/v6/td_k3/REPORT.tex      edge stars, Ring Trace Theorem, jet lemma, Lemma K, vertex witness, sphere criterion
+  notes/v6/td_k3b/REPORT.tex     per-face moment, flat reduction, Star Nondegeneracy, uniform witness, k>=3 main
+  notes/v6/td_lift/REPORT.tex    (OB) => (OR) => lift homeomorphism, normal graph, Examples 1-2
+  notes/v6/td_pen/REPORT.tex     single-tet certificates, tall cells, half-space constant, continuum witness, Lemma IS3
+  notes/v6/num3d/REPORT.txt + tables_local.txt + logs; code3d/run_pod3d.sh
+  notes/v6/ns2/REPORT.tex gap 4  (3D Navier-Stokes corollary)
+  notes/v6/lit/FINDINGS.txt, notes/v6/lit/chen_liu_2609.30008.txt, notes/v6/cites/FINDINGS.txt + refs_additions.bib
+  Referees: referee6_3d.md, referee8_td_k3_lift.md (+referee8/notes.md), referee9_robust4_td_k3b.md (+NOTES.txt),
+            referee10_ns2_misc.md, referee11_robust6_nearsing_consts_num3d.md.
+
+REFEREE FIXES APPLIED
+  referee6: C_T carries a square root (Lemma pen:piola says so); sqrt(3) factor added in the continuum witness;
+            sharpness corollary uses Lemma st:IS3 (with the GN18-wording caveat stated) instead of the old caveat.
+  referee8: (M3^3)/patch lemma stated with t tangent to Gamma at y_F (the t||F absorption gap is gone); sphere
+            criterion transfers from n_z^perp to T_{y_F}Gamma with an explicit O(hG) absorption; Example 1 uses an
+            off-centre square AND a perturbed fourth point (centred square gives coplanar points); one-line argument
+            for Gamma^- cap Omega_h = empty added in Cor geom:graph; "mod D-span" vacuity caveat stated after Thm k3:vertex.
+  referee9: uniform-witness proof says Pi is defined for all geometries via the per-face lemma, C_E uniform on the
+            compact neighbourhood, spoke separation justified by embeddedness of Gamma_h at z.
+  referee10: gap 4 vector-potential citation issue avoided: extensions come from the Piola-Hestenes 2-form
+            reflection (Lemma geom:ext); quantitative h0 left as a remark (Dauge1989 flagged VERIFY).
+  referee11: numerics scoped as pre-asymptotic; energy norm weights d_n by diam F (stated in the setting).
+  cites/lit: Galdi star-shaped route replaced by a BCDG16-type perturbation argument (Lemma st:bog); Chen-Liu
+            Lemma 3.9 cited as precedent; Neilan-Otus cited as Theorem 6.1 (not Cor 6.2); GN18 Thm 3.1 wording
+            quoted with a %% VERIFY (read via summarising fetch tool).
+
+NEW MATERIAL WRITTEN HERE (not in any refereed report -- should be refereed)
+  * Lemma st:bog: short proof of the uniform continuous inf-sup constant by transporting Bogovskii fields through the
+    bi-Lipschitz map Phi_h (BCDG16 Thm 4.4 assumes a diffeomorphism; Phi_h is only piecewise smooth).
+  * Added to (M0^3): Omega_h connected; used to show Omega_h \ T_{r/2} = Omega \ T_{r/2}, needed for Phi_h.
+  * Lemma er:w, multi-component case: Bogovskii correction in a connected interior region with H^{k+1} regularity
+    cited to Costabel-McIntosh 2010 / Galdi (flagged VERIFY). Single component / sphere: no correction needed.
+  * Theorem er:C: the (h/mu) h^k hG^{-1/2} term (<= C h^k) is kept explicitly in the r_h bound.
+  * Theorem sh:alfeld / Prop sh:bubble: transfer from t||F to t in T_{y_F}Gamma and the -C1 l^{7/2} term via
+    Lemma geom:face(d) -- straightforward, but written here.
+  * NS Corollary (i): lambda defined with explicit N, C_1 (2D paper's C_1 was not visible in the snapshot).
+
+OMITTED / NOT CARRIED OVER
+  * 2D-only results (H^1 leak constant K and its bracket, pressure/drag/torque, L^2 estimates, strong imposition,
+    gamma-uniform flux-corrected bound, uniform-in-mu leak limit, Clough-Tocher) -- only referenced to PadhiLong2D.
+  * Star-shaped cover proofs td:bog and B:cover (Galdi route): replaced by Lemma st:bog; mentioned in Remark st:rem:galdi.
+  * td_k3 Cor c:single (single-face-star rank 5 relation) and the pair/fan exploration logs: not needed for the proofs.
+  * td_k3 icosphere table: summarised in one sentence (NUMERICAL).
+  * ns2 gap 4 quantitative route (H^3 vector potential, Lemma n2:ext/n2:Y/n2:dual in 3D), (L-dagger), (L_D): not
+    stated; Remark ns:rem says what would be needed. The NS corollary (ii) relies on PadhiLong2D's compactness proof.
+  * td_pen FGN20 commuting-projection variant: one sentence only.
+  * Example ex:filled: the shape-regular mesh of box minus bipyramid is asserted as routine, not constructed (as in td_lift).
+  * Proposition er:singular part (b)/(c) (L^2_0 variant) and the FNZ equivalence proof: cited to PadhiLong2D.
+
+PLACEHOLDERS / FLAGS IN THE SOURCE
+  %% TBD authorship may become joint (main.tex title block; Z_declarations.tex); %% TBD script paths (appendix).
+  PadhiLong2D bib entry is a placeholder (Zenodo DOI to be assigned).
+  %% VERIFY: GN18 Thm 3.1 wording; Neilan 2015 via FMS24; Bogovskii H^{k+1} regularity (Lemma er:w); Dauge1989.
+  Bib entries added from memory (VERIFY metadata): CostabelMcIntosh2010, Hestenes1941, Dauge1989, BernardiRaugel1985
+  (DOI), Forster1981 (Theorem 4.22 locator taken from td_lift), AmentaChoiDeyLeekha2000 (SoCG pages).

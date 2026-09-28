@@ -1,0 +1,94 @@
+\section{Stability}\label{sec:stability}
+
+\begin{lemma}[Inverse traces]\label{st:inverse}
+There is $C_I$, depending only on $k$ and shape regularity, such that for $v\in\Vh$
+\[
+\sum_{F\in\FG}\diam F\,\norm{\dn v}^2_{L^2(F)}\le C_I^2\norm{\nabla v}^2,\qquad\text{hence}\qquad\norm{\dn v}_{\Gh}\le C_I(\rho/h)^{1/2}\norm{\nabla v},
+\]
+and for $q\in\Pih$, $\norm q^2_{\Gh}\le C_I^2\sum_{F}(\diam F)^{-1}\norm q^2_{T_F}\le C_I^2(\rho/h)\norm q^2$, where $T_F$ is the tetrahedron with face $F$.
+\end{lemma}
+
+\begin{proof}
+Scaling on each $T_F$; the $T_F$ are distinct by Lemma~\ref{geom:one}, and $(\diam F)^{-1}\le\rho/h$.
+\end{proof}
+
+\begin{lemma}[Coercivity and continuity]\label{st:coercive}
+Let $\mu_0:=4\kappa C_I^2\rho$. The condition $\gamma\ge\gamma_0:=4\kappa C_I^2/c_0$ implies $\mu\ge\mu_0$. If $\mu\ge\mu_0$, then $N_h(v,v)\ge c_1\tnorm v^2$ for all $v\in\VR$ and $|N_h(w,v)|\le M\tnorm w\tnorm v$, with $c_1=1/\max(2\kappa(1+C_I^2),2)$ and $M=3+(\kappa C_I^2)^{-1/2}$.
+\end{lemma}
+
+\begin{proof}
+As in two dimensions \cite{PadhiLong2D}: $2|\ip{\dn v}v|\le\frac12a_h(v,v)+2\kappa\rho C_I^2h^{-1}\norm v^2_{\Gh}$ by Lemma~\ref{st:inverse}, Young's inequality and Lemma~\ref{geom:korn}; add $\sum_F\diam F\norm{\dn v}^2_F\le C_I^2\norm{\nabla v}^2$. For continuity, each $\dn$-term is at most $(\rho/\mu)^{1/2}\tnorm w\tnorm v$.
+\end{proof}
+
+\subsection{The continuous inf-sup constant}
+Let $C_B(U)$ denote the Bogovski\u{\i} constant of a bounded connected Lipschitz domain $U$: the smallest $C$ such that every $q\in L^2_0(U)$ is the divergence of some $v\in H^1_0(U)^3$ with $\norm{\nabla v}\le C\norm q$. By the closed range theorem, $C_B(U)^{-1}$ is the continuous inf-sup constant of $U$.
+
+\begin{lemma}[Uniform continuous inf-sup constant]\label{st:bog}
+For $\hG\le h_\ast$, $C_B(\Oh)\le2C_B(\Omega)$.
+\end{lemma}
+
+This is an instance of the continuity of the inf-sup constant under Lipschitz-close perturbations, due to Bernardi, Costabel, Dauge and Girault \cite[Theorem~4.4]{BCDG2016}: if $F$ is a diffeomorphism with $\norm{DF-I}_\infty,\norm{DF^{-1}-I}_\infty\le\varepsilon$, the inf-sup constants of $U$ and $F(U)$ differ by at most $c(d)\varepsilon$. Our map $\Phi_h$ of Lemma~\ref{geom:korn} is only bi-Lipschitz and piecewise smooth, so we include the short argument, which uses nothing more.
+
+\begin{proof}
+Let $\Phi:=\Phi_h$, $\varepsilon:=\norm{D\Phi-I}_\infty+\norm{D\Phi^{-1}-I}_\infty\le C\hG$ and $J:=\det D\Phi$, so $|J-1|\le C\varepsilon$. Given $q\in L^2_0(\Oh)$, put $\hat q:=J\,(q\circ\Phi)$. Then $\int_\Omega\hat q=\int_{\Oh}q=0$ and $(1-C\varepsilon)\norm q\le\norm{\hat q}\le(1+C\varepsilon)\norm q$. Let $\hat w\in H^1_0(\Omega)^3$ with $\div\hat w=\hat q$ and $\norm{\nabla\hat w}\le C_B(\Omega)\norm{\hat q}$, and $w:=\hat w\circ\Phi^{-1}\in H^1_0(\Oh)^3$. By the chain rule $(\nabla w)\circ\Phi=\nabla\hat w\,(D\Phi)^{-1}$, so
+\[
+(\div w)\circ\Phi=\div\hat w+\operatorname{tr}\bigl(\nabla\hat w\,((D\Phi)^{-1}-I)\bigr),
+\]
+and, changing variables,
+\begin{align*}
+(q,\div w)_{\Oh}&=(\hat q,\div\hat w)_\Omega+\int_\Omega\hat q\,\operatorname{tr}\bigl(\nabla\hat w((D\Phi)^{-1}-I)\bigr)\\
+&\ge\norm{\hat q}^2-\sqrt3\,\varepsilon\norm{\hat q}\norm{\nabla\hat w}\ge\norm{\hat q}^2\bigl(1-\sqrt3\,\varepsilon C_B(\Omega)\bigr).
+\end{align*}
+Also $\norm{\nabla w}\le(1+C\varepsilon)\norm{\nabla\hat w}\le(1+C\varepsilon)C_B(\Omega)\norm{\hat q}$. Hence $\sup_w(q,\div w)/\norm{\nabla w}\ge(1-C\varepsilon)\norm q/C_B(\Omega)$ for every $q\in L^2_0(\Oh)$, which is the inf-sup condition on $\Oh$ with constant $(1-C\varepsilon)/C_B(\Omega)$. For $\hG\le h_\ast$ this is at least $1/(2C_B(\Omega))$.
+\end{proof}
+
+\begin{remark}\label{st:rem:galdi}
+A second route covers $\Oh$ by finitely many pieces that are star-shaped with respect to balls, uniformly in $h$, and applies the corresponding estimates for Bogovski\u{\i}'s operator \cite{Galdi,CostabelMcIntosh2010}. We carried this out for the model case and for general obstacles, with explicit cones and graph charts, but Lemma~\ref{st:bog} makes it unnecessary.
+\end{remark}
+
+\subsection{The discrete inf-sup constant on Alfeld refinements}
+For a macro-tetrahedron $K$ with Alfeld split $K^r$ let $\mathring P^c_k(K^r)$ be the continuous piecewise-$P_k$ vector fields on $K^r$ vanishing on $\partial K$, and $\mathring P_{k-1}(K^r)$ the piecewise-$P_{k-1}$ functions on $K^r$ with mean zero on $K$. We use the following local result.
+
+\begin{fact}[{Guzm\'an and Neilan \cite[Theorem~3.1]{GuzmanNeilan2018}}]\label{st:gn}
+Let $k\ge1$ and $d=3$. For every macro-tetrahedron $K$ and every $p\in\mathring P_{k-1}(K^r)$ there is $v\in\mathring P^c_k(K^r)$ with $\div v=p$ on $K$ and $\norm v_{H^1(K)}\le C_{\rm loc}\norm p_{L^2(K)}$, where $C_{\rm loc}$ depends only on $k$ and the shape regularity of $K^r$.
+\end{fact}
+
+We read the wording of this theorem, and the statements of \cite[Proposition~4.1, Proposition~6.1, Corollary~6.2]{GuzmanNeilan2018}, through a text-extraction tool rather than directly from the typeset PDF; the wording should be rechecked against the published version before submission. %% VERIFY: GN18 Thm 3.1 wording (notes/v6/lit/FINDINGS.txt, read via a summarising fetch tool).
+The global stability result of \cite{GuzmanNeilan2018} (Proposition~6.1 and Corollary~6.2, $k\ge d$) combines Fact~\ref{st:gn} with the stability of the Bernardi--Raugel pair \cite[Proposition~4.1]{GuzmanNeilan2018}, \cite{BernardiRaugel1985}, for which no dependence of the constant on the domain is stated there. For a family of domains $\Oh$ that dependence is exactly what matters, and the following lemma supplies it. Zhang \cite{Zhang2005} proves stability on Alfeld refinements for $d=3$, $k\ge3$; we do not use his proof.
+
+\begin{lemma}[(IS3) on Alfeld refinements, uniformly in $h$]\label{st:IS3}
+Let $\Th$ be the Alfeld refinement of a conforming macro mesh $\Th^M$ of $\Oh$ with shape-regularity constant $\sigma$, and $k\ge3$. For every $q\in\Pih\cap L^2_0(\Oh)$ there is $v\in\VO$ with $\div v=q$ and
+\[
+\norm{\nabla v}\le\bigl[C_{\rm loc}+C_\Pi\,C_B(\Oh)\,(1+\sqrt3\,C_{\rm loc})\bigr]\norm q,
+\]
+where $C_\Pi=C_\Pi(\sigma)$ is the constant of the Fortin operator in step~1. By Lemma~\ref{st:bog}, (IS3) holds with $\beta^{-1}\le C_{\rm loc}+2C_\Pi C_B(\Omega)(1+\sqrt3C_{\rm loc})$, independent of $h$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{A local Fortin operator for the Bernardi--Raugel pair.} Let $I_{SZ}$ be the Scott--Zhang $P_1$ interpolant on $\Th^M$ that preserves homogeneous boundary values \cite{ScottZhang1990}. For $u\in H^1_0(\Oh)^3$, $|I_{SZ}u|_{1,K}\le C|u|_{1,\omega_K}$ and $\norm{u-I_{SZ}u}_K\le Ch_K|u|_{1,\omega_K}$, with $C=C(\sigma)$ and $\omega_K$ the patch of $K$. For every interior face $F$ of $\Th^M$ let $b_F$ be its cubic face bubble; $b_Fn_F$ is piecewise $P_3$ on the Alfeld split and continuous, so it lies in $\VO$ because $k\ge3$. Set
+\[
+\Pi u:=I_{SZ}u+\sum_{F\ \text{interior}}\alpha_Fb_Fn_F,\qquad\alpha_F:=\frac{\int_F(u-I_{SZ}u)\cdot n_F}{\int_Fb_F}.
+\]
+Then $\int_F\Pi u\cdot n_F=\int_Fu\cdot n_F$ on interior faces, and both vanish on boundary faces. With $|\alpha_F|\le C|F|^{-1/2}\norm{u-I_{SZ}u}_{L^2(F)}$ and the scaled trace inequality, $|\Pi u|_{1,K}\le C(\sigma)|u|_{1,\omega'_K}$, hence $\norm{\nabla\Pi u}\le C_\Pi\norm{\nabla u}$ by finite overlap. No constant of the domain enters: every estimate is on a patch, and $u\in H^1_0$ is used only through the preserved zero trace.
+\item \emph{Macro means.} Let $\bar q$ be the $L^2$ projection of $q$ onto macro-piecewise constants, so $\bar q\in L^2_0(\Oh)$ and $\norm{\bar q}\le\norm q$. Take $u\in H^1_0(\Oh)^3$ with $\div u=\bar q$ and $\norm{\nabla u}\le C_B(\Oh)\norm{\bar q}$, and $v_1:=\Pi u\in\VO$. By the divergence theorem and the flux property, $\int_K\div v_1=\int_Kq$ for every $K\in\Th^M$, and $\norm{\nabla v_1}\le C_\Pi C_B(\Oh)\norm q$.
+\item \emph{Local fluctuations.} $r:=q-\div v_1$ is piecewise $P_{k-1}$ on each $K^r$ and has zero mean on every $K$. Fact~\ref{st:gn} gives $w_K\in\mathring P^c_k(K^r)$ with $\div w_K=r|_K$ and $\norm{\nabla w_K}_K\le C_{\rm loc}\norm r_K$; extended by zero, $w:=\sum_Kw_K\in\VO$.
+\item \emph{Sum.} $v:=v_1+w$ satisfies $\div v=q$, and with $\norm r\le\norm q+\sqrt3\norm{\nabla v_1}$ the bound follows.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{remark}[Where the domain could enter]\label{st:rem:chenliu}
+Only through $C_B(\Oh)$ in step~2. The local problem in step~3 is posed on one macro-element with zero data on its whole boundary, so boundary vertices of $\Oh$ play no role, and there is no analogue of the two-dimensional singular-vertex condition. The same combination (uniform continuous inf-sup via \cite{BCDG2016}, Bernardi--Raugel face fluxes, and \cite[Theorem~3.1]{GuzmanNeilan2018}) is used by Chen and Liu \cite[Lemma~3.9]{ChenLiu2026} for polyhedral approximations of curved domains.
+\end{remark}
+
+\begin{remark}[(IS3) on other meshes]\label{st:rem:status}
+For the Scott--Vogelius pair with discontinuous $P_{k-1}$ pressures in three dimensions, the known stability results are for split meshes: Alfeld refinements with $k\ge3$ \cite{Zhang2005,GuzmanNeilan2018}, and Worsey--Farin splits with lower degrees \cite{GuzmanLischkeNeilan2022}; see \cite[Table~2.1]{FarrellMitchellScott2024}. On Freudenthal meshes stability holds for $k\ge6$ \cite{Zhang2011}; such meshes cannot be fitted to an inscribed surface. According to \cite{FarrellMitchellScott2024}, Neilan \cite[Proposition~6.5]{Neilan2015} extends Zhang's $k\ge6$ result to more general meshes satisfying a condition that he states as a conjecture. We know of no unconditional result on general unsplit tetrahedral meshes, and on such meshes (IS3) remains an assumption. %% VERIFY: Neilan 2015 read only through FMS24 (notes/v6/cites/FINDINGS.txt [5]).
+\end{remark}
+
+\begin{lemma}[Divergence range]\label{st:divrange}
+Under (IS3), $\div\VR=\Pih$ and $\Wh\ne\emptyset$, and the velocities of $\GS$ and $\CNS$ are pointwise divergence-free.
+\end{lemma}
+
+\begin{proof}
+$\div\VO=\Pih\cap L^2_0$ is (IS3). For $F\in\FG$, the cubic face bubble $b_F$ of the tetrahedron $T_F$ gives $b_Fn_F\in\VR$ ($k\ge3$), and $\int_{\Oh}\div(b_Fn_F)=\int_Fb_F\ne0$; this adds the constants. The rest is as in two dimensions \cite{PadhiLong2D}: for any $\mathcal G\in\Vh$ with trace $\gI$ on $\Sigma$ there is $v\in\VR$ with $\div v=\div\mathcal G$, so $\mathcal G-v\in\Wh$, and the continuity row forces $\div u_h=0$.
+\end{proof}

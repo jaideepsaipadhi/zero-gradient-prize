@@ -22,7 +22,6 @@ Added in this version:
 \item \texttt{h1\_limit.py}: the annulus bracket, the series solution and the finite element comparison for the $H^1$ constant (Section~\ref{hc:sec}).
 \item \texttt{lower\_bound\_tests.py}: the (M3) star constants, the assembled test field and the dual norms (Section~\ref{lb:sec}).
 \item \texttt{plot\_leak.py}: Figure~\ref{fig:leak}.
-\item \texttt{notes/v3/face\_mean\_check.py}: the face-mean check of Lemma~\ref{td:faces}(d).
 \end{itemize}
 Added in this version (v4):
 \begin{itemize}
@@ -56,10 +55,16 @@ Patch thresholds (Section~\ref{pb:sec}) & \texttt{python3 lamstar\_family.py mes
 Level-set and tall-triangle values of $\lambda_T$ (Section~\ref{pb:sec}) & \texttt{python3 lamstar\_family.py levels} & \texttt{logs/lamstar\_family\_}\allowbreak\texttt{levels.log}\\
 $H^1$ constant (Section~\ref{hc:sec}) & \texttt{python3 h1\_limit.py annulus} and \texttt{\ldots\ mps} (series log); \texttt{\ldots\ fem} & \texttt{logs/h1\_limit\_}\allowbreak\texttt{series.log}, \texttt{\ldots\_fem.log}\\
 (M3) and Tables~\ref{lb:tab:stars}, \ref{lb:tab:field} & \texttt{python3 lower\_bound\_tests.py} with \texttt{stars 8,12,\ldots,1024}, \texttt{field 16,\ldots,512}, \texttt{global 16,\ldots,64} & \texttt{logs/lower\_bound\_}\allowbreak\texttt{stars.log}, \texttt{\ldots\_field.log}, \texttt{\ldots\_global.log}\\
-Lemma~\ref{td:faces}(d) & \texttt{python3 notes/v3/}\allowbreak\texttt{face\_mean\_check.py} (from the root) & standard output\\
 Tables~\ref{rs:tab:rates}, \ref{rs:tab:flux}; Section~\ref{rs:sec:num} & \texttt{bash rescue\_run.sh all}, then \texttt{python3 rescue\_report.py} & \texttt{logs/rescue\_*.log}, \texttt{results/v4/}\allowbreak\texttt{rescue/}, \texttt{\ldots/summary.md}\\
 Tables~\ref{tab:strong}--\ref{tab:pA}; Section~\ref{pd:sec:num} & the commands in \texttt{results/v5/jobs*.txt} (\texttt{pressure\_err.py}, \texttt{strong\_bc.py}), then \texttt{python3 report\_v5.py} & \texttt{results/v5/}\allowbreak\texttt{letter\_tables.txt}\\
 Layer, drag and traction checks (Section~\ref{pd:sec:num}) & \texttt{python3 notes/v4/}\allowbreak\texttt{pressure\_drag\_check.py} \texttt{main|xi|K|lam|chi|torque \ldots} (from the root) & \texttt{notes/v4/}\allowbreak\texttt{pressure\_drag\_report.md}\\
+Section~\ref{m3:sec} ((M3) for $k\ge4$) & the certificate and witness scripts in \texttt{notes/v4/} and \texttt{notes/v6/m3/} & \texttt{notes/v6/m3/*.log}\\
+Section~\ref{u:sec} & \texttt{notes/v6/unifmu/*.py}, \texttt{notes/v6/unifmu2/*.py} & logs in the same directories\\
+Section~\ref{l2:sec}, Table~\ref{l2:tab} & \texttt{notes/v6/l2/*.py} & \texttt{notes/v6/l2/existing\_l2.txt}\\
+Section~\ref{pd:sec:lower} & \texttt{notes/v6/misc/*.py} & logs in the same directory\\
+Section~\ref{pb:sec} (Theorem~\ref{pb:thmA}, Proposition~\ref{pb:counter}) & \texttt{notes/v6/penalty/*.py} & logs in the same directory\\
+Section~\ref{st:sec}, Tables~\ref{st:tab:drift}, \ref{st:tab:lock} & \texttt{notes/v6/strong/*.py}, \texttt{notes/v6/strong2/*.py}, \texttt{notes/v6/nearsing/*.py} & \texttt{fit\_rates.log}, \texttt{lock\_bound.log}, \texttt{tab\_filter.tex}, \texttt{tab\_fe.tex}\\
+Section~\ref{rb:sec}, Table~\ref{rb:tab} & \texttt{notes/v6/robust/hydro.py}; \texttt{notes/v6/robust2}--\texttt{robust6/*.py} & \texttt{hydro\_all.jsonl}, \texttt{cert\_fix\_*.log}\\
 \bottomrule
 \end{longtable}
 }

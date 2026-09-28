@@ -1,0 +1,117 @@
+letter/CHANGES_v6.txt -- Paper A (AML letter), v6 edit, 2026-09-28
+======================================================================
+Checklist: notes/v6/MERGE_MANIFEST.txt, section "PAPER A". Only letter/ was edited. Nothing committed.
+
+BUILD (letter/build.sh)
+  3p (letter.pdf):     6 pages. Page 6 is FULL, with no spare lines.
+  5p (letter_5p.pdf):  5 pages. The same two overfull displays as before (6.6 pt, 8.3 pt); they are fine in 3p.
+  Checks:
+    - No undefined references or citations; bibtex reports 0 warnings.
+    - 3p has no overfull boxes and no Type 3 fonts.
+  Abstract 230 words (limit 250). Keywords 5. Highlights 5, 64-84 characters each. 18 references.
+
+1. JOINT AUTHORSHIP
+  - Authors, alphabetical: Claudemir de Souza Cavalcante [cav], then Jaideep Sai Padhi [pur].
+    Cavalcante's \ead and \address are the visible text "FILL" (marked %% FILL). The corresponding author
+    (\cortext) has not been chosen yet (%% FILL).
+  - New section "CRediT authorship contribution statement":
+    - Cavalcante: "FILL" (%% FILL).
+    - Padhi: Formal analysis, Software, Validation, Writing - original draft. This list was shortened for
+      space; %% CHECK whether to add more roles.
+  - Competing interest: "The question studied is the subject of a prize offered by L. R. Scott; the authors
+    intend to submit this work for it. The authors declare no other competing interests."
+  - AI declaration is now plural ("the authors ... take full responsibility"). The reasons are slightly
+    shortened. %% VERIFY with Cavalcante whether it covers his parts.
+  - Data availability is shortened; the DOI placeholder is unchanged (%% FILL v3 DOI).
+  - The PadhiExt entry is unchanged (sole author, DOI XXXXXXXX placeholder kept).
+
+2. SHARPNESS IS NOW UNCONDITIONAL FOR k >= 4 (Remark 1(3))
+  Sources: notes/v4/m3_proof.tex, notes/v6/m3/REPORT.md, notes/v6/referee3_ns_m3.md.
+  - The (M3) condition "for 4<=k<=6 ... verified numerically but not proved" is removed.
+  - New hypotheses: theta_min, the smallest angle of the triangles touching Gamma_h; (S) h_Gamma <= 2 sin(theta_min/4);
+    and h_Gamma small. (M1') is implied by (M2).
+  - A 3-sentence proof sketch is added:
+    - on fields in Z_h that vanish on Gamma_h with zero chord means, the pressure and penalty terms drop out;
+    - the chordal bump -s^2 W_e/2 pairs with the second moment of the normal derivative;
+    - a P4 witness, the curl of an explicit C^1 piecewise-P5 stream function on 3 triangles at each wall
+      vertex, has positive moment by an exact identity when the angle of Omega_h is below pi + theta_min,
+      which (S) ensures.
+  - The pointer \ext{Thm. 7.13} is kept, with a %% note to re-check it once Paper B merges m3:thm.
+  - Sharpness is also stated in the abstract, in contribution (ii), in highlight 4 and in the cover letter.
+
+3. CAVALCANTE PLACEHOLDERS (comments only, nothing invented)
+  - Intro, after "(since analysed in [Cavalcante2026])": %% CAVALCANTE, his constant-pressure result.
+  - Intro, after the Clough--Tocher/extended-version sentence: %% CAVALCANTE, his Clough--Tocher k>=2 results,
+    plus %% VERIFY that this attribution is not visible in the Zenodo record description (FINDINGS [9]).
+    The same VERIFY is in refs.bib.
+  - The existing citation of Cavalcante2026 is kept.
+  - Bib author is now {de Souza Cavalcante, Claudemir}, which prints "C. de Souza Cavalcante".
+    {Cavalcante, Claudemir de Souza} printed "C. d. S. Cavalcante". Change it if he prefers another form.
+  - A comment records that mu* = 60.3383 is confirmed on the record.
+  - Cover letter: a [FILL] line for his contribution, and a [FILL] signature block.
+
+4. STRONG IMPOSITION, AND CURVED-ELEMENT ALTERNATIVES
+  Sources: notes/v6/strong, referee1.
+  - Intro: "This lock is a two-triangle phenomenon: under (M2) below, which puts every wall vertex in at least
+    three triangles, strong no-slip also attains h_G^{3/2}+h^k [PadhiExt]; see Section 4."
+  - Section 4: "On our standard mesh, which satisfies (M2), strong imposition does not lock".
+  - Intro: Neilan--Otus is cited as [Theorem 6.1] (not Cor. 6.2) and Chen--Liu arXiv:2609.30008 as the 3D
+    isoparametric Piola SV alternative (pressure-robust, order h^k). New bib entries: NeilanOtus2021 (copied
+    from paper/refs.bib) and ChenLiu2026.
+  - Positioning: "Our object is the straight-sided Gjerde--Scott method, for which h_G^{3/2} is the sharp target."
+
+5. PENALTY
+  Sources: notes/v6/penalty, consts, referee1, referee11.
+  - The letter never stated the star-positivity conjecture, so there was nothing to retract.
+  - Added: "even one-star witnesses can fail \ext{\S9}" (exact certificates at a minimum angle of 11.3 deg).
+  - The explicit constant was drafted but cut for space. It is kept as a %% comment in the proof of
+    Proposition 4:
+    - N_h is indefinite on Z_h for mu < 15h/Y;
+    - hypothesis: all triangles meeting B(x0,3Y), with x0 a wall-edge midpoint and Y <= 1e-6, have diameter
+      <= kappa0(theta) Y;
+    - kappa0(30 deg) = 0.0117.
+
+6. CUTS MADE TO STAY AT 6 PAGES
+  - Abstract: dropped the sentence "The H^1 rate is 1, not 1/2, because ..."; it is still in the intro.
+  - Keywords: dropped "divergence-free finite elements".
+  - Table 2 (threshold sweep) is folded into the text:
+    - kept: the N=16 row in full, the N=32 range, gamma* ~ 18-21, and the refinement values 14.7-20.8;
+    - dropped: the "mu*/rho drifts 14.7 -> 11.1" clause.
+    - The old table source is kept as a %% comment block in letter.tex.
+  - Table 1:
+    - the N=256 row became a caption clause (1.55 and 1.56);
+    - the caption is shorter;
+    - the float source was moved before Proposition 4, so it lands on page 4 and no page is left underfull.
+  - Remark 1:
+    - (1) GS pressure is compressed, dropping "error sits in the triangles along Gamma_h";
+    - (2) is compressed;
+    - (4) growing penalty is reduced to its conclusion (the explicit bound, energy lower bound and
+      conditioning are dropped; pointer to Prop. 7.26 removed).
+  - Proposition 2: the remark after it now keeps only div u_h = 4.5e-3. The 4e-13 comparison and "so the naive
+    system had no solution" are dropped.
+  - Proposition 4: dropped "The same test fails for lambda=9.4 at 60 deg".
+  - Section 4:
+    - dropped the non-polynomial pressure sentence (8e-7);
+    - shortened the pure-pressure test sentence;
+    - shortened the solver-health and threshold sentences.
+  - Theorem 3(c): the g_I condition now refers back to Section 2.
+  - Intro:
+    - the Liu--Neilan--Otus / Neilan--Otus / Chen--Liu sentences are merged;
+    - (iv) is shortened;
+    - the (M2)/strong sentence is compact.
+
+OPEN / FOR THE AUTHORS
+  - Cavalcante: affiliation, e-mail, CRediT roles, constant-pressure and Clough--Tocher text, and the cover-letter
+    line. Page 6 is full, so every addition needs an equal cut. Candidates:
+    - Remark 1(1)-(2);
+    - the Section 4 threshold numbers;
+    - the Babuska or Eickmann--Scott--Tscherpel citations.
+  - Choose the corresponding author.
+  - Insert the v3 DOI (two places, %% FILL v3 DOI).
+  - Re-check every \ext pointer after Paper B renumbers. In particular:
+    - Thm. 7.13 (sharpness);
+    - \S9 (penalty);
+    - the strong-imposition result, which is cited only as [PadhiExt].
+  - The declarations .docx must match the new competing-interest wording.
+  - The paper/ directory shows modifications in git status. Those are not from this edit; the Paper B work
+    touches paper/.

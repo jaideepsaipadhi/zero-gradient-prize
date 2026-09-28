@@ -1,0 +1,55 @@
+\section{Reproducibility}\label{app:repro}
+
+All code, logs and raw records are in the repository \url{https://github.com/jaideepsaipadhi/zero-gradient-prize}. Paths are relative to its root. %% TBD: the notes/v6/* scripts may be moved to a stable location (e.g. certificates3d/) before the Zenodo release; update the paths below accordingly.
+
+\subsection*{Exact and computer-assisted certificates}
+{\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}}
+\toprule
+Result & Command & Output\\
+\midrule
+Theorem~\ref{sh:alfeld} (rank $8$, $k=4$) & \path{python3 notes/v6/td_sharp/alfeld_witness.py 4} & \texttt{alfeld\_k4.log}\\
+$\norm{\hat R}=91.7$ & \path{python3 notes/v6/td_sharp/k4_constant.py} & \texttt{k4\_constant.log}\\
+Proposition~\ref{sh:bubble} & \path{python3 notes/v6/td_sharp/bubble_variance.py} & \texttt{bubble\_variance.log}\\
+Proposition~\ref{sh:k3single} & \path{python3 notes/v6/td_sharp/alfeld_witness.py 3} & \texttt{alfeld\_k3.log}\\
+Lemmas~\ref{k3:single}, \ref{k3:K} & \path{notes/v6/td_k3/trace1.py}, \texttt{ref\_K.py}; \path{notes/v6/referee8/ref8_lemmaK.py} & logs alongside\\
+Theorem~\ref{k3:trace} (reduced model) & \path{notes/v6/td_k3/validate_reduced.py} & \texttt{validate\_reduced.log}\\
+Theorem~\ref{k3:vertex} & \path{notes/v6/td_k3/vertex_formula_general.py}, \texttt{fe\_vertex\_check.py}; \path{notes/v6/referee8/ref8_vertex_fe.py} & logs alongside\\
+Icosphere criterion & \path{notes/v6/td_k3/icosphere_check.py} & \texttt{icosphere\_check.log}\\
+Lemmas~\ref{k3:face}, \ref{k3:flat} & \path{notes/v6/td_k3b/ref_nu.py}, \texttt{face\_formula.py}, \texttt{flat\_algebra.py} & logs alongside\\
+Theorem~\ref{k3:nondeg} checks & \path{notes/v6/td_k3b/degen.py}, \texttt{degen\_random.py}, \texttt{degen\_gflat.py}, \texttt{fe\_cross.py} & logs alongside\\
+Theorem~\ref{pen:single} & \path{python3 notes/v6/td_pen/alfeld_tet.py 3 [shape]}, \texttt{verify\_alfeld.py}, \texttt{neg\_cert.py} & \texttt{alfeld\_k3.log}, \texttt{neg\_cert.log}\\
+Half-space constant & \path{python3 notes/v6/td_pen/continuum3d.py} & \texttt{continuum3d.log}\\
+\bottomrule
+\end{longtable}}
+\noindent Each script runs in under five minutes on two cores, except the height scan and the $k=4$ single-cell pencils (\texttt{alfeld\_tet.py 4}), estimated at 10--30 minutes per shape and not run.
+
+\subsection*{Three-dimensional solver (\texttt{code3d/})}
+\begin{itemize}
+\item \texttt{svn3d.py}: the solver (Section~\ref{sec:numerics}); \texttt{exact3d.py}: the exact solutions; \texttt{run3d.py}: drivers (box, sphere, interpolation); \texttt{table3d.py}: tables; \texttt{penalty3d.py}: the threshold $\mu_Z^\ast$ (PARDISO inertia); \texttt{infsup3d.py}: the discrete inf-sup constant (dense, coarse meshes only); \texttt{patch\_test.py}.
+\item \texttt{local\_*.sh}: exactly the runs of Section~\ref{sec:numerics}. Records: \path{notes/v6/num3d/results.jsonl}; tables: \path{notes/v6/num3d/tables_local.txt}.
+\item Requirements: Python~3 with numpy, scipy, sympy and pypardiso (MKL; \texttt{PYPARDISO\_MKL\_RT} points to \texttt{libmkl\_rt.so.3}).
+\end{itemize}
+
+\subsection*{Finer levels}
+The levels that did not fit our machine are scripted in \path{code3d/run_pod3d.sh}. From the repository root:
+\begin{verbatim}
+sh code3d/run_pod3d.sh            # all stages, sequentially
+sh code3d/run_pod3d.sh STAGE      # one of: box4 pen k3a k3b k3c pen4 k4
+python3 code3d/table3d.py         # tables from results.jsonl
+\end{verbatim}
+Memory was measured locally for $k=3$ (PARDISO $LDL^{\mathsf T}$ of the velocity matrix, peak resident size): sphere $N=4$ ($70$k velocity unknowns) $1.0$\,GB; box $N=6$ ($79$k) $1.15$\,GB. Extrapolated with fill $\propto n^{4/3}$: sphere $N=6$ ($233$k) $5$--$6$\,GB, $N=8$ ($550$k) $\approx17$\,GB, $N=10$ ($1.07$M) $\approx40$\,GB, $N=12$ ($1.85$M) $\approx80$\,GB; $k=4$ multiplies the unknowns by about $2.4$.
+\begin{center}\small
+\begin{tabular}{ll}
+\toprule
+stage & content\\
+\midrule
+\texttt{box4} & $k=4$ box verification, $N=2,\dots,5$\\
+\texttt{pen} & $\mu_Z^\ast$ on the sphere meshes $N=6,8$ (run first: confirms $\mu=400>\mu_Z^\ast$)\\
+\texttt{k3a} & tests P, sph, rot; $k=3$, $\mu=400$, $N=6,8$\\
+\texttt{k3b} & the same at $N=10,12$\\
+\texttt{k3c} & test P at $\mu=1000$, $N=2,\dots,8$ (penalty independence of the leak constant)\\
+\texttt{pen4}, \texttt{k4} & $\mu_Z^\ast$ for $k=4$, then tests P, sph, rot with $k=4$, $\mu=1000$, $N=2,4,6$\\
+\bottomrule
+\end{tabular}
+\end{center}

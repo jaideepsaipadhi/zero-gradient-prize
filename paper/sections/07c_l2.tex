@@ -1,0 +1,178 @@
+\section{The \texorpdfstring{$L^2$}{L2} error}\label{l2:sec}
+
+The $H^1$ theory of Sections~\ref{sec:printed}--\ref{pd:sec} leaves open the $L^2$ error of the velocity. For $\CNS$ it is of order $\hG^2$, and this rate is sharp; for $\GS$ it is of order $h/\mu$, with an explicit leading term. The pressure term of $\CNS$ is not adjoint consistent (Remark~\ref{l2:rem:adj}), so the duality arguments below test only with fields in $Y_h=\Zh\cap\VO$ (upper bound) or with a dual problem whose pressure vanishes (lower bound). The dual problem is posed on $\Omega$, not on $\Oh$: the vertices of $\Gh$ are re-entrant corners of $\Oh$ with Stokes singular exponent below $1$, so there is no $h$-uniform $H^2$ bound on $\Oh$.
+
+\begin{enumerate}
+\item[(R)] There is $C_R$ such that for every $g\in L^2(\Omega)^2$ the solution of $-\Delta\varphi+\nabla\pi=g$, $\div\varphi=0$ in $\Omega$, $\varphi=0$ on $\partial\Omega$, satisfies $\norm\varphi_{H^2(\Omega)}+\norm{\pi-\bar\pi_\Omega}_{H^1(\Omega)}\le C_R\norm g$.
+\end{enumerate}
+(R) concerns only the smooth circle $\Gamma$ and the right-angled corners of $R$; it is standard \cite{Dauge1989} and is the same regularity used for $U$ (Definition~\ref{hc:def}) and $Z_\psi$ (Section~\ref{pd:sec:drag}). We state it as a hypothesis because we have not checked the exact form of the cited result.
+
+\subsection{Tools}
+
+\begin{lemma}[Strip]\label{l2:strip}
+Let $N$ be a fixed collar of $\Gamma$ containing $S_h$. For $w\in H^1(\Oh\cup\Omega)$:
+\begin{enumerate}[label=(\alph*)]
+\item $\norm w_{S_h}\le C(\hG\norm w_{\Gh}+\hG^2\norm{\nabla w}_{S_h})$ and $\norm w_{\Gh}\le C\norm w_{H^1(N)}$;
+\item if $w\in H^2(N)$ and $w|_\Gamma=0$, then $\norm w_{\Gh}\le C\hG^2\norm w_{H^2(N)}$ and $\norm w_{\Gh}\le C\hG\norm{\nabla w}_{S_h}\le C\hG^{3/2}\norm w_{H^2(N)}$;
+\item if $w|_{\Gh}=0$, then $\norm w_{S_h}\le C\hG^2\norm{\nabla w}_{S_h}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Write $\Gh$ in polar form $r=\rho_h(\theta)$ with $0\le1-\rho_h\le C\hG^2$ (Lemma~\ref{lem:korn}) and integrate along radial segments. For (b), $|\nabla w|\le C\hG^2\norm{w}_{W^{2,\infty}}$ is not available, but $\norm{\nabla w}_{S_h}\le|S_h|^{1/4}\norm{\nabla w}_{L^4(N)}\le C\hG^{1/2}\norm w_{H^2(N)}$.
+\end{proof}
+
+\begin{lemma}[Extension of the dual]\label{l2:ext}
+Every $\varphi\in H^1_0(\Omega)^2\cap H^2(\Omega)^2$ with $\div\varphi=0$ and every $\pi\in H^1(\Omega)$ have extensions $\tilde\varphi\in H^2(\Omega\cup N)^2$, $\tilde\pi\in H^1(\Omega\cup N)$ with $\div\tilde\varphi=0$, $\norm{\tilde\varphi}_{H^2}\le C_E\norm\varphi_{H^2(\Omega)}$ and $\norm{\tilde\pi}_{H^1}\le C_E\norm\pi_{H^1(\Omega)}$.
+\end{lemma}
+
+\begin{proof}
+$\int_\Gamma\varphi\cdot n=0$, so $\varphi=\curl\zeta$ with $\zeta$ single valued near $\Gamma$, $\zeta|_\Gamma=0$, $\nabla\zeta|_\Gamma=0$ and $\norm\zeta_{H^3}\le C\norm\varphi_{H^2}$ on a collar. Extend $\zeta$ across $r=1$ by a Hestenes reflection of order $3$ in the radial variable, and put $\tilde\varphi:=\curl\tilde\zeta$; extend $\pi$ by a first-order reflection.
+\end{proof}
+
+\begin{lemma}[Approximation in $Y_h$]\label{l2:Y}
+Let $\varphi$ and $\tilde\varphi$ be as in Lemma~\ref{l2:ext}. There is $y_h\in Y_h$ with
+\[
+\norm{\nabla(\tilde\varphi-y_h)}_{\Oh}\le C_Y(h+\hG)\norm\varphi_{H^2},\quad
+\norm{\dn y_h}_{\Gh}\le C_Y\bigl(1+h\hG^{-1/2}\bigr)\norm\varphi_{H^2},\quad
+\norm{\nabla y_h}\le C_Y\norm\varphi_{H^2},
+\]
+with $C_Y$ depending only on $C_E$, $k$, (M0)--(M2) and $\beta$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item By Lemma~\ref{l2:strip}(b), $\norm{\tilde\varphi}_{\Gh}\le C\hG^{3/2}\norm\varphi_{H^2}$; the scaled trace inequality on $T_e$ gives $\norm{\tilde\varphi-I_h\tilde\varphi}_{L^2(e)}\le C|e|^{3/2}|\tilde\varphi|_{H^2(T_e)}$. So $\norm{I_h\tilde\varphi}_{\Gh}\le C\hG^{3/2}\norm\varphi_{H^2}$.
+\item Let $L_0\in\Vh$ take the nodal values of $I_h\tilde\varphi$ at the Lagrange nodes on $\Gh$ and vanish at all other nodes. By step~2 of Lemma~\ref{rs:lift}, $\norm{\nabla L_0}\le C\hG^{-1/2}\norm{I_h\tilde\varphi}_{\Gh}\le C\hG\norm\varphi_{H^2}$, and $z_0:=I_h\tilde\varphi-L_0\in\VO$.
+\item $\div z_0\in\Pih$ has zero mean and $\norm{\div z_0}\le C(h+\hG)\norm\varphi_{H^2}$; Lemma~\ref{lem:infsup} gives $v_B\in\VO$ with $\div v_B=\div z_0$. Put $y_h:=z_0-v_B$.
+\item $\norm{\dn\tilde\varphi}_{\Gh}\le C\norm{\tilde\varphi}_{H^2}$ (uniform trace from the collar), $\norm{\nabla(I_h\tilde\varphi-\tilde\varphi)}_{L^2(e)}\le C|e|^{1/2}|\tilde\varphi|_{H^2(T_e)}$, and $L_0+v_B$ is discrete, so Lemma~\ref{lem:inverse} gives $\norm{\dn(L_0+v_B)}_{\Gh}\le C\hG^{-1/2}(h+\hG)\norm\varphi_{H^2}$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsection{Upper bound: rate \texorpdfstring{$2$}{2} for \texorpdfstring{$\CNS$}{CNS*}}
+
+\begin{theorem}[$L^2$ error of $\CNS$; proved modulo (R)]\label{l2:thm:L1}
+Let $\CNS$ use flux-corrected data $\tilde g_I$ and $\gamma\ge\gamma_2$ (no upper bound), and let $e:=\ut-u_h$. Then
+\[
+\norm e_{L^2(\Oh)}\le C\bigl(\hG^2+h\,\hG^{3/2}+h^{k+1}\bigr),
+\]
+with $C$ independent of $\gamma$. On quasi-uniform meshes ($h\le C\hG$) this is $C(\hG^2+h^{k+1})$. The same bound holds for $\GS$ when $G=0$.
+\end{theorem}
+
+\begin{proof}
+Put $\phi:=e|_\Omega$, let $(z,r)$ solve the dual Stokes problem of (R) with $g=\phi$, and extend by Lemma~\ref{l2:ext}. On $\Omega$, $-\Delta\tilde z+\nabla\tilde r=\phi$; on $S_h$ the left side is some $L^2$ field of norm $\le C\norm z_{H^2}$. Since $\div e=0$ pointwise, $-\Delta\tilde z=-\div D(\tilde z)$ and $e=g-\tilde g_I$ on $\partial R$, integration by parts on $\Oh$ gives
+\[
+\norm\phi^2=a_h(e,\tilde z)-\ip{\sigma(\tilde z,\tilde r)n}e_{\Gh}-\ip{\sigma(\tilde z,\tilde r)\nu}{g-\tilde g_I}_{\partial R}-(e,-\Delta\tilde z+\nabla\tilde r)_{S_h}.
+\]
+Let $y_h\in Y_h$ be as in Lemma~\ref{l2:Y}. By Lemma~\ref{lb:identity}, $a_h(e,y_h)=\ip e{\dn y_h}-\ip\ut{\dn y_h}-(F,y_h)=-\ip{u_h}{\dn y_h}-(F,y_h)$. Hence
+\[
+\norm\phi^2=a_h(e,\tilde z-y_h)-\ip{u_h}{\dn y_h}-(F,y_h)-\ip{\sigma n}e_{\Gh}-\ip{\sigma\nu}{g-\tilde g_I}_{\partial R}-(e,-\Delta\tilde z+\nabla\tilde r)_{S_h}.
+\]
+Two inputs, both uniform in $\gamma$: $\norm{\nabla e}\le C(\hG^{3/2}+h^k)$ (Theorem~\ref{rs:Dfc}), and $\norm e_{\Gh}\le(\hG/\gamma)^{1/2}\tnorm e\le C(\hG^2+\hG^{1/2}h^k)$ (Theorem~\ref{rs:Dfc} and $(\hG/\gamma)^{1/2}\tilde\varepsilon_h\le C(\hG^{1/2}h^k+\hG^{\sigma_k})$). So $\norm{u_h}_{\Gh}\le\norm\ut_{\Gh}+\norm e_{\Gh}\le C(\hG^2+\hG^{1/2}h^k)$. The six terms are bounded, in order, by $C\norm z_{H^2}$ times
+\begin{enumerate}
+\item $h(\hG^{3/2}+h^k)$ (Lemma~\ref{l2:Y});
+\item $(\hG^2+\hG^{1/2}h^k)(1+h\hG^{-1/2})$;
+\item $\hG^3$ ($F$ is bounded on $S_h$, $|S_h|\le C\hG^2$, and Lemma~\ref{l2:strip}(c) for $y_h$);
+\item $\hG^2+\hG^{1/2}h^k$ (uniform trace of $\sigma\in H^1$);
+\item $h^{k+1}$ ($|g-\tilde g_I|\le Ch^{k+1}+|m_R|$);
+\item $\hG(\norm e_{\Gh}+\hG\norm{\nabla e})\le C(\hG^3+\hG^{3/2}h^k)$ (Lemma~\ref{l2:strip}(a)).
+\end{enumerate}
+With $\norm z_{H^2}\le C_R\norm\phi$ and Young's inequality $\hG^{1/2}h^k\le\hG^2+h^{4k/3}\le\hG^2+Ch^{k+1}$ ($k\ge3$), $\norm e_{L^2(\Omega)}\le C(\hG^2+h\hG^{3/2}+h^{k+1})$. Finally $\norm e_{S_h}\le C\hG(\norm e_{\Gh}+\hG\norm{\nabla e})$.
+
+For $\GS$ with $G=0$, apply the same argument to $u_h':=u_h+\delta_R$ of the proof of Theorem~\ref{rs:unif}, which satisfies the identity of Lemma~\ref{lb:identity} on $Y_h$; the proof of Theorem~\ref{rs:unif} supplies both inputs, and $\norm{\delta_R}\le C\hG^2$ when $|\pt-\pbar|\le C\hG^2$ on $\Gh$.
+\end{proof}
+
+\begin{remark}[Adjoint inconsistency]\label{l2:rem:adj}
+The pressure term of $\CNS$, with the $\Gh$-mean removed, is not adjoint consistent. The algebraic transpose of the $\CNS$ saddle system has the plain $\GS$ pressure form in its momentum row, and relative to a smooth dual pair its consistency defect is the $\GS$ leak functional $v\mapsto\ip{r-\bar r}{v\cdot n}$ driven by the dual pressure (Corollary~\ref{cor:GSerr}). The proof above avoids it by testing only with $y_h\in Y_h$, on which every pressure and penalty term vanishes. The same issue, and the same cure, appear in the Navier--Stokes drag analysis (Section~\ref{n2:adj}).
+\end{remark}
+
+\subsection{Lower bound: the rate \texorpdfstring{$2$}{2} is sharp}
+
+\begin{theorem}[Sharpness of the $L^2$ rate]\label{l2:thm:L3}
+Let $W=\dn u\cdot\tau\not\equiv0$, and let $u_h$ be the $\CNS$ velocity with flux-corrected data, or the $\GS$ velocity with $G=0$. There are $\delta_0,c>0$ such that if $(1+\gamma)\hG\le\delta_0$ (in particular for bounded $\gamma$ and small $\hG$) and $h^k\le\delta_0\hG^2$, then
+\[
+\norm{\ut-u_h}_{L^2(\Oh)}\ \ge\ c\,\norm W^2_{L^2(\Gamma)}\,\hG^2/C_W,\qquad C_W:=\norm{\Delta(\chi(r-1)^2W)}_{H^1}.
+\]
+No (M3) and no regularity theory are needed: the dual problem is explicit.
+\end{theorem}
+
+\begin{proof}
+\emph{Dual.} Let $\zeta:=\pm\frac12\chi(r)(r-1)^2W(\theta)$, with $\chi$ a smooth cut-off equal to $1$ near $\Gamma$ and $0$ near $\partial R$, the sign chosen so that $z:=\curl\zeta$ has $\dn z\cdot\tau=W$ on $\Gamma$. Then $z$ is smooth on $\overline\Oh$, $z|_\Gamma=0$, $z|_{\partial R}=0$, $\div z=0$, and with $\tilde\phi:=-\Delta z$ the pair $(z,0)$ is an exact Stokes pair on $\Oh$: $-\Delta z+\nabla0=\tilde\phi$. Let $(z_h,r_h)\in\Zh\times\Pih$ be the $\CNS$ (resp.\ $\GS$) solution with body force $\tilde\phi$ and zero data. By Lemma~\ref{lem:erroreq} applied to $(z,0)$ (with $F\equiv0$), $\tnorm{z-z_h}\le CY_z$, $Y_z:=(1+\gamma^{1/2})\hG^{3/2}+h^k$, and, since the dual pressure vanishes, step~3 of Theorem~\ref{thm:D} gives $\beta\norm{r_h-\bar r_h}\le CY_z$.
+
+\emph{Identity.} Let $Z\in\tilde W_h$ attain Lemma~\ref{rs:approx} and $e_h:=Z-u_h\in\Zh$. Testing the dual problem with $e_h$ and the error equation \eqref{eq:cnserr} with $z_h$ gives, since $\div e_h=\div z_h=0$ and $N_h$ is symmetric,
+\[
+(e,\tilde\phi)=\underbrace{(\ut-Z,\tilde\phi)-N_h(\ut-Z,z_h)}_{T_1}+\Gc(z_h)-\ip{e_p-\pbG(e_p)}{z_h\cdot n}+\ip{r_h-\bar r_h}{e_h\cdot n}.
+\]
+\emph{Bounds.} $|T_1|\le Ch^k$. By Lemma~\ref{pd:lem:G}, $|\Gc(z_h)-\Gc(z)|\le C(1+\gamma^{1/2})\hG^{3/2}Y_z$. On $\Gh$, $|z|\le C\hG^2$, $|(\nabla\ut)^{\mathsf T}n|\le C\hG$, and $\ut$ and $z$ are both tangential to leading order ($\ut\cdot z=O(\hG^4)$), so $\Gc(z)=-\ip\ut{\dn z}+O((1+\gamma)\hG^3)$. For the third term, $\norm{e_p-\pbG(e_p)}_{\Gh}\le C\hG^{-1/2}Y$ (step~3 of Theorem~\ref{thm:D} and Lemma~\ref{lem:inverse}) and $\norm{z_h\cdot n}_{\Gh}\le\norm{z\cdot n}_{\Gh}+\norm{z_h-z}_{\Gh}\le C\hG^3+(\hG/\gamma)^{1/2}CY_z$; the product is $O((1+\gamma)\hG^3+h^k)$. (Pointwise $z\cdot n=O(\hG^3)$, but $z_h\cdot n$ is only $O(\hG^2)$ in $L^2(\Gh)$; it is the $\hG^{-1/2}$ trace factor of the pressure that makes the product small.) For the last term, $\norm{r_h-\bar r_h}_{\Gh}\le C\hG^{-1/2}Y_z$ and $\norm{e_h\cdot n}_{\Gh}\le(\hG/\gamma)^{1/2}CY$, so it is $O(\gamma^{-1/2}YY_z)=O((1+\gamma)\hG^3+h^k)$. For $\GS$ with $G=0$ the leak term of the dual vanishes because its pressure is zero, and there are no pressure terms.
+
+\emph{Leading term.} On $e$, $\ut=d\,W(x^\ast)\tau(x^\ast)+O(d^2)$ with $d=\frac12(|e|^2/4-s^2)+O(|e|^4)$ (Lemma~\ref{lb:expand}), $\dn z=W\tau+O(\hG)$ and $\int_ed=|e|^3/12+O(|e|^5)$. So $\ip\ut{\dn z}=\sum_e\frac{|e|^3}{12}W^2(m_e^\ast)+O(\hG^3)\ge\frac{c_0^2}{12}\hG^2\bigl(\norm W^2_{L^2(\Gamma)}-C\hG\bigr)$ by the Riemann sum of Lemma~\ref{lb:assemble}. Altogether $|(e,\tilde\phi)|\ge\frac{c_0^2}{12}\hG^2\norm W^2-C((1+\gamma)\hG^3+h^k)$; divide by $\norm{\tilde\phi}\le C_W$.
+\end{proof}
+
+The proof shows more: to leading order $e$ is the Stokes flow driven by the chord-mean slip $\frac{|e|^2}{12}\dn u$, a smooth tangential boundary datum of size $\hG^2$, plus a normal-slip remainder of size $O(\gamma^{-1/2}\hG^2)$. Numerically (test A, $N=96$, $\mu=100$), $(e,\tilde\phi)/(-\Lambda_h)=0.980$ for $\CNS$ and $0.987$ for $\GS$, where $\Lambda_h=\sum_e\frac{|e|^3}{12}W^2(m_e^\ast)$, and the difference settles at a constant times $\hG^3$.
+
+\subsection{The printed method: rate exactly \texorpdfstring{$1$}{1}}
+
+\begin{theorem}[$L^2$ error of $\GS$]\label{l2:thm:L2}
+For $\GS$ with fixed $\gamma\ge\gamma_0$ and bounded $\rho$,
+\[
+\norm{\ut-u_h}_{L^2(\Oh)}=\frac h\mu\,\norm U_{L^2(\Omega)}\bigl(1+O(h^{1/2})\bigr)+O(\hG^2+h\hG^{3/2}+h^{k+1}),
+\]
+where $U$ is the leak flow of Definition~\ref{hc:def}; the remainder is proved modulo (R). Hence the $L^2$ rate of $\GS$ is exactly $1$ whenever $G>0$. Uniformly in $\gamma\ge\gamma_0$, $\norm{\ut-u_h}_{L^2}\le C_p\hG/\gamma+C(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$.
+\end{theorem}
+
+\begin{proof}
+Write $\ut-u_h=(\ut-u_h')+\delta_R$ as in the proof of Theorem~\ref{rs:unif}. By Friedrichs' inequality (Lemma~\ref{lem:korn}; $\delta_R=0$ on $\partial R$) and Theorem~\ref{hc:thm}, $\norm{(\mu/h)\delta_R-\tilde U}_{L^2(\Oh)}\le C_F\norm{\nabla((\mu/h)\delta_R-\tilde U)}\le Ch^{1/2}$ at fixed $\gamma$ and bounded $\rho$, and $\norm{\tilde U}_{S_h}\le C\hG$. The part $\ut-u_h'$ satisfies the identity of Lemma~\ref{lb:identity} on $Y_h$ and the bounds of steps 1--4 of Theorem~\ref{rs:unif}, so the proof of Theorem~\ref{l2:thm:L1} bounds it by $C(\hG^2+h\hG^{3/2}+h^{k+1})$. The uniform bound is Theorem~\ref{rs:unif} with Friedrichs' inequality.
+\end{proof}
+
+For test P, $\norm U_{L^2(\Omega)}/G=1.2736341$ (series solution of Section~\ref{hc:sec}). The ratio $\norm{\ut-u_h}/((h/\mu)\norm U)$ at $N=96$ is $0.980$, $0.997$ and $0.999$ for $\mu=10^2,10^3,10^4$, and $\norm{(\mu/h)e-U}_{L^2}/\norm U$ decays like $h$ at $\mu=100$ (\texttt{notes/v6/l2/leak.log}).
+
+\subsection{Graded meshes}\label{l2:sec:graded}
+
+The term $h\hG^{3/2}$ of Theorem~\ref{l2:thm:L1} matters only when $h\gg\hG^{1/2}$, i.e.\ on strongly graded meshes. It arises twice: in $\ip{u_h}{\dn y_h}$, through the global divergence correction of $y_h$, and in $a_h(e,\tilde z-y_h)$, through the global product $\norm{\nabla e}\norm{\nabla(\tilde z-y_h)}\le\hG^{3/2}\cdot h$. It can be removed under two further hypotheses.
+
+\begin{assumption}\label{l2:ass:G}
+\textbf{(LF)} (local divergence correction) There is $C_{\mathrm{loc}}$ such that every $q\in\Pih$ with $\int_Tq=0$ for all $T$ equals $\div v$ for some $v\in\VO$ with $\norm{\nabla v}_T\le C_{\mathrm{loc}}\norm q_{\omega_T}$, $\omega_T$ a patch of boundedly many layers around $T$. This is what the vertex and edge-patch steps of the Guzm\'an--Scott construction provide once the piecewise-constant part is removed; we have not re-verified the locality of their constants.
+\textbf{(IE)} (interior energy estimate \cite{ArnoldLiu1995}) For unions of elements $\Omega_0\subset\Omega_1$ with $\dist(\Omega_0,\partial\Omega_1)\ge d$, $\dist(\Omega_1,\Gh)\ge d$ and $\max_{T\subset\Omega_1}h_T\le\kappa_0d$, $\norm{\nabla e}_{\Omega_0}\le C_{\mathrm{IE}}(d^{-1}\norm e_{L^2(\Omega_1)}+h_{\Omega_1}^k)$, and the analogous estimate up to $\partial R$.
+\textbf{(G$_\kappa$)} (grading) $h_T\le\max(C_g\hG,\ \kappa\dist(T,\Gh))$ for all $T$.
+\end{assumption}
+
+\begin{lemma}[Proved modulo (LF)]\label{l2:lem:G1}
+There is $y_h\in Y_h$ with $\norm{\nabla(\tilde z-y_h)}_T\le C(h_T|\tilde z|_{H^2(\omega_T)}+\norm{\nabla L_0}_{\omega_T})$ and $\norm{\dn y_h}_{\Gh}\le C\norm z_{H^2}$, with $L_0$ the nodal lift of $I_h\tilde z|_{\Gh}$ ($\norm{\nabla L_0}\le C\hG\norm z_{H^2}$).
+\end{lemma}
+
+\begin{proof}
+Start from $y^0:=I_h\tilde z-L_0$, which vanishes on $\partial\Oh$. On each interior edge $E$ add $\alpha_Eb_En_E$ ($b_E$ the quadratic edge bubble) so that $\int_E(y^1-\tilde z)\cdot n_E=0$. \emph{Key fact:} on every $e\in\EG$, $\int_e\tilde z\cdot n_e=-\int_e\dt\tilde\zeta=0$ exactly, because both endpoints of $e$ lie on $\Gamma$, where $\zeta=0$. Hence $\int_T\div y^1=\int_T\div\tilde z=0$ for \emph{every} $T$, including those on $\Gh$, and (LF) gives a local $b$ with $\div b=\div y^1$. Put $y_h:=y^1-b$; the trace bound follows from the trace inequality for $\tilde z-I_h\tilde z$ and the inverse trace inequality for the discrete remainder.
+\end{proof}
+
+\begin{theorem}[Graded meshes; proved modulo (LF), (IE)]\label{l2:thm:G}
+Let $\CNS$ use flux-corrected data with $\gamma\in[\gamma_2,\gamma_{\max}]$, and assume (R), (LF), (IE) and (G$_\kappa$) with $\kappa\le\kappa_\ast$ (depending only on the constants). Then $\norm{\ut-u_h}_{L^2(\Omega)}\le C(\hG^2+h^{k+1})$.
+\end{theorem}
+
+\begin{proof}
+Run the proof of Theorem~\ref{l2:thm:L1} with $y_h$ of Lemma~\ref{l2:lem:G1}. Term~2 becomes $\norm{u_h}_{\Gh}C\norm z_{H^2}\le C\hG^2\norm z_{H^2}$; terms~3--6 are unchanged; term~1 is at most $C(\norm{h_T\nabla e}+\hG\norm{\nabla e})\norm z_{H^2}$. Split $\Oh$ into the near zone $\dist\le d_0:=C_g\hG/\kappa$, where $h_T\le C\hG$, and dyadic zones $Z_j=\{2^{j-1}d_0\le\dist<2^jd_0\}$ with $h_T\le\kappa2^jd_0$. (IE) on $\Omega_1=Z_{j-1}\cup Z_j\cup Z_{j+1}$, $d=2^{j-2}d_0$ (admissible if $8\kappa\le\kappa_0$) gives $\norm{h_T\nabla e}_{Z_j}\le C\kappa\norm e_{\Omega_1}+Ch^{k+1}_{\Omega_1}$. Summing, $\norm{h_T\nabla e}\le C(\hG^{5/2}+h^{k+1}+\kappa\norm e_{L^2(\Oh)})$, and the last term is absorbed for $\kappa\le\kappa_\ast$.
+\end{proof}
+
+With only global energy information the product $h\hG^{3/2}$ in term~1 cannot be improved, since both factors are attained; some localisation of $\nabla e$, here (IE), is necessary. We did not test graded meshes numerically.
+
+\subsection{Computations}\label{l2:sec:num}
+
+The stored runs of Section~\ref{sec:numerics} contain the $L^2$ errors (Table~\ref{l2:tab}). For $\CNS$, $\norm e_{L^2}/\hG^2$ is constant to two digits from $N=32$ on, independently of $\mu$ and of the pressure (B$_1$, B$_{100}$ and C agree). For $\GS$, the $L^2$ rate is $2$ on test A ($G=0$) and $0.95$--$0.98$ on P, B$_1$ and C, and $\norm e\,\mu/h$ on B$_1$ tends to $2.085$ at $N=256$, close to $\norm U_{L^2}=2.112$ for the common wall pressure of B$_1$ and P.
+
+\begin{table}[t]
+\centering\small
+\caption{$L^2$ velocity errors, $\mu=100$, $k=4$ (\texttt{notes/v6/l2/existing\_l2.txt}). Rates between consecutive runs of the full sequence.}\label{l2:tab}
+\begin{tabular}{rcccccccc}
+\toprule
+ & \multicolumn{3}{c}{$\CNS$, test A} & \multicolumn{3}{c}{$\CNS$, test B$_1$} & \multicolumn{2}{c}{$\GS$, test B$_1$}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-9}
+$N$ & $\norm e$ & rate & $\norm e/\hG^2$ & $\norm e$ & rate & $\norm e/\hG^2$ & $\norm e$ & $\norm e\,\mu/h$\\
+\midrule
+16 & $4.58\cdot10^{-2}$ & -- & 0.217 & $1.32\cdot10^{-2}$ & -- & 0.0625 & $2.94\cdot10^{-2}$ & 1.950\\
+32 & $1.24\cdot10^{-2}$ & 2.03 & 0.208 & $2.95\cdot10^{-3}$ & 2.05 & 0.0494 & $1.58\cdot10^{-2}$ & 1.943\\
+64 & $3.21\cdot10^{-3}$ & 1.99 & 0.208 & $7.87\cdot10^{-4}$ & 1.95 & 0.0510 & $8.51\cdot10^{-3}$ & 2.015\\
+128 & $8.15\cdot10^{-4}$ & 1.99 & 0.209 & $2.04\cdot10^{-4}$ & 1.97 & 0.0523 & $4.44\cdot10^{-3}$ & 2.060\\
+256 & $2.05\cdot10^{-4}$ & 1.99 & 0.210 & $5.18\cdot10^{-5}$ & 1.98 & 0.0531 & $2.27\cdot10^{-3}$ & 2.085\\
+\bottomrule
+\end{tabular}
+\end{table}
+\cert{notes/v6/l2/collect\_l2.py; notes/v6/l2/l2\_numerics.py}{notes/v6/l2/existing\_l2.txt, leak.log, pair.log, slip.log}

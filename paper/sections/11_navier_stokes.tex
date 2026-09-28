@@ -4,7 +4,7 @@ Gjerde and Scott's application is cylinder drag, which is a Navier--Stokes compu
 \[
 -\nu\Delta u+(u\cdot\nabla)u+\nabla p=f,\qquad \div u=0\quad\text{in }\Omega,\qquad u|_\Gamma=0,\quad u|_{\partial R}=g .
 \]
-All results of this section assume a discrete stability property of the linearisation at the exact solution, (L) for $\GS$ or (L$^\ast$) for $\CNS$. We prove these only under a small-data condition (SD) (Lemma~\ref{ns:SD}); deriving them from nonsingularity of a large-data solution branch is open (Remark~\ref{ns:branch}). The Stokes estimates are reused, in particular steps~4--5 of the proof of Theorem~\ref{thm:C}. The only new ingredients are a fixed-point argument around the linearisation at the exact solution, and a check that the Stokes estimates are stable under lower-order perturbations that are bounded in the $H^1$ dual norm.
+All results of this section assume a discrete stability property of the linearisation at the exact solution, (L) for $\GS$ or (L$^\ast$) for $\CNS$. They follow from a small-data condition (SD) (Lemma~\ref{ns:SD}) and, more generally, from nonsingularity of the solution branch, with a threshold $h_0$ independent of the penalty (Theorem~\ref{nb:L}); under Stokes regularity $h_0$ is explicit (Theorem~\ref{n2:L}). Sections~\ref{nb:oseen}--\ref{n2:unif} identify the Navier--Stokes leak flow and $H^1$ constant, give the $\GS$ and $\CNS$ drag expansions, and make the leak limit uniform in the penalty. The Stokes estimates are reused, in particular steps~4--5 of the proof of Theorem~\ref{thm:C}. The only new ingredients are a fixed-point argument around the linearisation at the exact solution, and a check that the Stokes estimates are stable under lower-order perturbations that are bounded in the $H^1$ dual norm.
 
 \subsection{What Gjerde--Scott print}\label{ns:gsprint}
 The arXiv version of \cite{GjerdeScott2024} (arXiv:2306.12362) states the continuous problem $-\nu\Delta u+u\cdot\nabla u+\nabla p=0$. The drag functional (their (7)) contains the standard convective term $(u\cdot\nabla u)\cdot v$. The discrete Nitsche system (27)--(28) is printed for the Stokes operator only. No discrete convective form is printed, and in particular there is no skew-symmetrisation and no inflow/outflow boundary term. The nonlinear solve is described only as the iterated penalty method. We therefore analyse both natural choices below, and show that the conclusions are the same for both.
@@ -55,7 +55,7 @@ Set $\norm{\ell}_{\ast,X}:=\sup_{0\ne v\in X}\ell(v)/\tnorm v$ for $X=\Zh$ or $X
 \]
 with $B^\ast(q,v)=-(q,\div v)+\ip{q-\pbG(q)}{v\cdot n}$, has a unique solution, and $\beta_\ast\tnorm\delta\le\norm\ell_{\ast,\VR}$.
 \end{enumerate}
-(L) and (L$^\ast$) are the discrete forms of ``$u$ lies on a nonsingular branch'' for $\GS$ and $\CNS$ respectively; see Remark~\ref{ns:branch}.
+(L) and (L$^\ast$) are the discrete forms of ``$u$ lies on a nonsingular branch'' for $\GS$ and $\CNS$ respectively; see Theorem~\ref{nb:L}.
 
 \subsection{Tools}
 
@@ -65,7 +65,6 @@ There are $C_1$ and $N$, independent of $h$, such that
 \item $\norm v_{H^1(\Oh)}\le C_1\norm{\nabla v}$ for all $v\in H^1(\Oh)^2$ with $v|_{\partial R}=0$;
 \item $|c(w;u,v)|\le N\norm w_{H^1(\Oh)}\norm u_{H^1(\Oh)}\norm{\nabla v}$ for all $w,u\in H^1(\Oh)^2$ and all $v\in H^1(\Oh)^2$ with $v|_{\partial R}=0$, for $c=c_1$ and $c=c_s$.
 \end{enumerate}
-The same holds in three dimensions.
 \end{lemma}
 
 \begin{proof}
@@ -225,11 +224,11 @@ Hence $\tnorm{\vartheta_h}=o((h/\mu)^{1/2})$ and $\norm{\vartheta_h}_{\Gh}\le(h/
 \end{proof}
 
 \begin{remark}\label{ns:H1const}
-The slip and energy constants are universal ($=1$), exactly as for Stokes. The $H^1$ constant $\lim\norm{\nabla(\ut-u_h)}\,\nu\mu/(hG)$, if it exists, is not universal. It now depends on the \emph{Oseen} response: $r$ solves the linearised problem, including $c(v_\varphi;\ut,\cdot)+c(\ut;v_\varphi,\cdot)$, which is of the same order as $\nabla v_\varphi$. So the Stokes value $K=\norm{\nabla U}/G$ of Corollary~\ref{hc:cor} ($2.7565$ for test P) is not expected to carry over; we have not identified the Navier--Stokes analogue.
+The slip and energy constants are universal ($=1$), exactly as for Stokes. The $H^1$ constant $\lim\norm{\nabla(\ut-u_h)}\,\nu\mu/(hG)$, if it exists, is not universal. It now depends on the \emph{Oseen} response: $r$ solves the linearised problem, including $c(v_\varphi;\ut,\cdot)+c(\ut;v_\varphi,\cdot)$, which is of the same order as $\nabla v_\varphi$. So the Stokes value $K=\norm{\nabla U}/G$ of Corollary~\ref{hc:cor} does not carry over in general. The Navier--Stokes analogue is $K_{NS}=\norm{\nabla U_O}/G$ with the Oseen leak flow $U_O$, and $K_{NS}\ge K_S$ (Corollary~\ref{nb:KNS}).
 \end{remark}
 
 \begin{remark}[Cylinder drag forces $G>0$]\label{ns:drag}
-Under (L) and the hypotheses of Corollary~\ref{ns:Bp}, the following holds. For flow past the cylinder, the pressure drag is $D_p=\int_\Gamma p\,n_1$, up to the orientation of $n$. Since $\int_\Gamma n_1=0$, $|D_p|=|\int_\Gamma(p-\pbar)n_1|\le|\Gamma|^{1/2}G$, so $G\ge|D_p|/\sqrt{2\pi}$. In Gjerde--Scott's own application, the printed method therefore always leaks, at velocity $(h/\nu\mu)(p-\pbar)$, and its asymptotic $H^1$ rate at fixed $\mu$ is $1$, not $3/2$. With their $\mu=10^6$ the leak is small in absolute terms, which is consistent with their accurate drag values. For Stokes, the effect of the leak on the computed drag is quantified in Section~\ref{pd:sec} (Theorem~\ref{pd:thm:gsdrag}, Remark~\ref{pd:rem:eps}); for Navier--Stokes only the unconditional $O(h/\mu)$ bound of Proposition~\ref{pd:prop:ns} is proved.
+Under (L) and the hypotheses of Corollary~\ref{ns:Bp}, the following holds. For flow past the cylinder, the pressure drag is $D_p=\int_\Gamma p\,n_1$, up to the orientation of $n$. Since $\int_\Gamma n_1=0$, $|D_p|=|\int_\Gamma(p-\pbar)n_1|\le|\Gamma|^{1/2}G$, so $G\ge|D_p|/\sqrt{2\pi}$. In Gjerde--Scott's own application, the printed method therefore always leaks, at velocity $(h/\nu\mu)(p-\pbar)$, and its asymptotic $H^1$ rate at fixed $\mu$ is $1$, not $3/2$. With their $\mu=10^6$ the leak is small in absolute terms, which is consistent with their accurate drag values. For Stokes, the effect of the leak on the computed drag is quantified in Section~\ref{pd:sec} (Theorem~\ref{pd:thm:gsdrag}, Remark~\ref{pd:rem:eps}); for Navier--Stokes the leading term $-(h/\nu\mu)K^\dagger_\psi$ is identified in Corollary~\ref{nb:gsdrag}.
 \end{remark}
 
 \subsection{The pressure-consistent method}
@@ -283,6 +282,5 @@ Consequences:
 \item \emph{When a correction would matter.} Lemma~\ref{ns:pe} degrades only when $\mathrm{Pe}_\Gamma(w)\gtrsim\nu c_1$ for iterates $w$ far from $\ut$. This happens on coarse meshes, at large Reynolds number with fixed $\mu$, or in Picard or iterated-penalty sweeps that start far from the solution. There $c_s$ (for which $c_s(w;v,v)=0$ identically), or an upwind inflow term $-\ip{(w\cdot n)_-u}{v}$ in the style of Nitsche methods for Oseen problems (consistent to $O(\hG^4)$ at $\ut$), restores the energy inequality. For the asymptotic statements above neither is needed. $c_s$ is also the natural choice for proving existence for arbitrary data, which we do not attempt: that would need a discrete Hopf extension of $\gI$ inside $\Wh$.
 \end{enumerate}
 
-\begin{remark}[What a Brezzi--Rappaz--Raviart version needs]\label{ns:branch}
-(SD) is sufficient but not necessary for (L) and (L$^\ast$). To derive (L) from continuous nonsingularity (the linearised Navier--Stokes operator at $u$ is an isomorphism on the divergence-free subspace of $H^1_0$) one would run a Schatz/G\aa rding argument. Write $\Aop=\nu N_h+K_h$ with $K_h$ of lower order. It would then suffice that the discrete Nitsche--Stokes solution operators $S_h$ (on $\Zh$, respectively $\Zh\times\Pih$) converge to the continuous one $S$ on the moving domains $\Oh\to\Omega$, in operator norm on the compact set $\{K\delta:\norm{\nabla\delta}\le1\}$. For data that are only in $L^{3/2}$ or $H^{-1+s}$, this requires Theorems~\ref{thm:A} and~\ref{thm:D} without a rate but with rough data. There the pressure is only in $W^{1,3/2}$ near $\Gamma$, and Lemma~\ref{lem:transposed} must be replaced by an $o(1)$ statement for $\nabla w\in H^{s}$. We expect this to go through for $\CNS$, and for $\GS$ in the energy norm (whose inconsistency is $(h/\mu)^{1/2}\norm{p-\pbar}_{L^2(\Gamma)}\to0$), but we have not written it out. It is the only gap between the small-data theorems above and a nonsingular-branch theorem.
-\end{remark}
+\input{sections/11c_ns_branch}
+

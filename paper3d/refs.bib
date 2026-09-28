@@ -1,3 +1,4 @@
+% paper3d/refs.bib -- copied from paper/refs.bib (snapshot 2026-09-28) + notes/v6/cites/refs_additions.bib + entries for this paper.
 % refs.bib -- merged bibliography (v4 audit notes/v4/refs_verified.bib + v5 literature notes/v5/refs_letter.bib).
 % Comment lines '% AUDIT:' (v4) and '% VERIFY' (v5) record what was checked; see notes/v4/bib_audit.md and
 % notes/v5/lit_report.md. Unresolved items carry a '% VERIFY (unresolved)' comment; no TODO text is printed.
@@ -115,12 +116,11 @@
   doi     = {10.1515/jnma-2023-0135}
 }
 
-% VERIFY V: Zenodo record 22262466 re-read 2026-09-28 (notes/v6/cites/FINDINGS.txt [9]): author
-%           "Claudemir de Souza Cavalcante", published 3 Sep 2026, v1. The record describes the constant-pressure
-%           benchmark with quartic velocities on an inscribed polygon; it does NOT mention Clough--Tocher splits.
-%           The coercivity transition "near mu=60.3383" is CONFIRMED on the record (resolves the v5 flag).
+% VERIFY V: Zenodo record 22262466 read 2026-09-28 (notes/v5/lit_report.md): author "Cavalcante, Claudemir",
+%           published 3 Sep 2026, v1. The record describes only the constant-pressure benchmark.
+% VERIFY (unresolved): the value mu* = 60.338 quoted in Section 13 was not re-checked against the record.
 @misc{Cavalcante,
-  author       = {Cavalcante, Claudemir de Souza},
+  author       = {Cavalcante, Claudemir},
   title        = {{S}cott--{V}ogelius--{N}itsche convergence for a zero-pressure-gradient problem on a polygonally approximated boundary},
   howpublished = {Preprint, Zenodo},
   year         = {2026},
@@ -597,8 +597,8 @@
   year         = {2025}
 }
 
-
-% ---- v6 additions (notes/v6/cites/refs_additions.bib; metadata sources in notes/v6/cites/FINDINGS.txt, Part 2) ----
+% notes/v6/cites/refs_additions.bib -- proposed additions to paper/refs.bib (2026-09-28).
+% Metadata sources: see notes/v6/cites/FINDINGS.txt Part 2. No key collides with paper/refs.bib.
 
 @article{GrassleBohneSauter2024,
   author  = {Gr\"a{\ss}le, Benedikt and Bohne, Nis-Erik and Sauter, Stefan},
@@ -711,66 +711,159 @@
   doi     = {10.1090/S0025-5718-1974-0373326-0}
 }
 
-% Temam Ch. I, Thm 1.6 (density of smooth solenoidal fields): locator PLAUSIBLE but not seen (FINDINGS [14]).
-% Girault--Raviart Ch. IV, Sec. 3 "Approximation of branches of nonsingular solutions": CONFIRMED from the table of contents.
+@article{DziukElliott2013,
+  author  = {Dziuk, Gerhard and Elliott, Charles M.},
+  title   = {Finite element methods for surface {PDE}s},
+  journal = {Acta Numer.},
+  volume  = {22},
+  year    = {2013},
+  pages   = {289--396},
+  doi     = {10.1017/S0962492913000056}
+}
 
-@misc{PadhiThreeD,
+% Pages from memory (unconfirmed); DOI from the Springer chapter URL.
+@incollection{Dziuk1988,
+  author    = {Dziuk, Gerhard},
+  title     = {Finite elements for the {B}eltrami operator on arbitrary surfaces},
+  booktitle = {Partial Differential Equations and Calculus of Variations},
+  series    = {Lecture Notes in Math.},
+  volume    = {1357},
+  publisher = {Springer},
+  address   = {Berlin},
+  year      = {1988},
+  pages     = {142--155},
+  doi       = {10.1007/BFb0082865}
+}
+
+@article{HildebrandtPolthierWardetzky2006,
+  author  = {Hildebrandt, Klaus and Polthier, Konrad and Wardetzky, Max},
+  title   = {On the convergence of metric and geometric properties of polyhedral surfaces},
+  journal = {Geom. Dedicata},
+  volume  = {123},
+  number  = {1},
+  year    = {2006},
+  pages   = {89--112},
+  doi     = {10.1007/s10711-006-9109-5}
+}
+
+% Pages unconfirmed (from memory); optional secondary source for the normal-graph definition (Def. 3.1).
+@incollection{Wardetzky2008,
+  author    = {Wardetzky, Max},
+  title     = {Convergence of the cotangent formula: an overview},
+  booktitle = {Discrete Differential Geometry},
+  editor    = {Bobenko, Alexander I. and Schr\"oder, Peter and Sullivan, John M. and Ziegler, G\"unter M.},
+  series    = {Oberwolfach Semin.},
+  volume    = {38},
+  publisher = {Birkh\"auser},
+  address   = {Basel},
+  year      = {2008},
+  pages     = {275--286},
+  doi       = {10.1007/978-3-7643-8621-4_15}
+}
+
+@article{MorvanThibert2004,
+  author  = {Morvan, Jean-Marie and Thibert, Boris},
+  title   = {Approximation of the normal vector field and the area of a smooth surface},
+  journal = {Discrete Comput. Geom.},
+  volume  = {32},
+  number  = {3},
+  year    = {2004},
+  pages   = {383--400},
+  doi     = {10.1007/s00454-004-1096-4}
+}
+
+% Theorem 15 verified in the SoCG 2000 version (doi 10.1145/336154.336207); journal numbering not checked.
+@article{AmentaChoiDeyLeekha2002,
+  author  = {Amenta, Nina and Choi, Sunghee and Dey, Tamal K. and Leekha, Naveen},
+  title   = {A simple algorithm for homeomorphic surface reconstruction},
+  journal = {Internat. J. Comput. Geom. Appl.},
+  volume  = {12},
+  number  = {1--2},
+  year    = {2002},
+  pages   = {125--141},
+  doi     = {10.1142/S0218195902000773}
+}
+
+% Vol/article no. as printed in GrassleBohneSauter2024 ref. [5]; DOI assumed from Elsevier pattern (unresolved).
+@article{AinsworthParker2022,
+  author  = {Ainsworth, Mark and Parker, Charles},
+  title   = {Unlocking the secrets of locking: finite element analysis in planar linear elasticity},
+  journal = {Comput. Methods Appl. Mech. Engrg.},
+  volume  = {395},
+  year    = {2022},
+  pages   = {Paper No. 115034},
+  doi     = {10.1016/j.cma.2022.115034}
+}
+
+% ---- entries added for paper3d ----
+% PLACEHOLDER: companion 2D paper (Paper B); Zenodo DOI to be assigned.
+@misc{PadhiLong2D,
   author       = {Padhi, Jaideep Sai},
-  title        = {{S}cott--{V}ogelius--{N}itsche on inscribed polyhedra: convergence, sharpness and the penalty threshold in three dimensions},
-  howpublished = {In preparation},
+  title        = {Scott--{V}ogelius--{N}itsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold},
+  howpublished = {Zenodo preprint (DOI to be assigned)},
   year         = {2026}
 }
 
-@article{WarburtonHesthaven2003,
-  author  = {Warburton, Timothy and Hesthaven, Jan S.},
-  title   = {On the constants in $hp$-finite element trace inverse inequalities},
-  journal = {Comput. Methods Appl. Mech. Engrg.},
-  volume  = {192},
-  number  = {25},
-  year    = {2003},
-  pages   = {2765--2773},
-  doi     = {10.1016/S0045-7825(03)00294-9}
+@article{BernardiRaugel1985,
+  author  = {Bernardi, Christine and Raugel, Genevi\`eve},
+  title   = {Analysis of some finite elements for the {S}tokes problem},
+  journal = {Math. Comp.},
+  volume  = {44},
+  number  = {169},
+  year    = {1985},
+  pages   = {71--79},
+  doi     = {10.2307/2007793}
 }
-% VERIFY (unresolved): WarburtonHesthaven2003 metadata cited from memory (notes/v6/misc merge notes); not re-checked.
 
-@article{ArnoldLiu1995,
-  author  = {Arnold, Douglas N. and Liu, Xiaobo},
-  title   = {Local error estimates for finite element discretizations of the {S}tokes equations},
-  journal = {RAIRO Mod\'el. Math. Anal. Num\'er.},
-  volume  = {29},
-  number  = {3},
-  year    = {1995},
-  pages   = {367--389}
-}
-% VERIFY (unresolved): ArnoldLiu1995 metadata cited from memory (notes/v6/misc merge notes); not re-checked.
-
-@article{BabuskaAziz1976,
-  author  = {Babu\v{s}ka, Ivo and Aziz, A. Kadir},
-  title   = {On the angle condition in the finite element method},
-  journal = {SIAM J. Numer. Anal.},
-  volume  = {13},
+% VERIFY: pages/DOI recalled, not re-fetched.
+@article{CostabelMcIntosh2010,
+  author  = {Costabel, Martin and McIntosh, Alan},
+  title   = {On {B}ogovski\u{\i} and regularized {P}oincar\'e integral operators for de {R}ham complexes on {L}ipschitz domains},
+  journal = {Math. Z.},
+  volume  = {265},
   number  = {2},
-  year    = {1976},
-  pages   = {214--226},
-  doi     = {10.1137/0713021}
+  year    = {2010},
+  pages   = {297--320},
+  doi     = {10.1007/s00209-009-0517-8}
 }
-% VERIFY (unresolved): BabuskaAziz1976 metadata from memory (notes/v6/nearsing prior-art list); not re-checked.
 
-@book{Apel1999,
-  author    = {Apel, Thomas},
-  title     = {Anisotropic Finite Elements: Local Estimates and Applications},
-  series    = {Advances in Numerical Mathematics},
-  publisher = {Teubner},
-  address   = {Stuttgart},
-  year      = {1999}
+% VERIFY: recalled.
+@article{Hestenes1941,
+  author  = {Hestenes, Magnus R.},
+  title   = {Extension of the range of a differentiable function},
+  journal = {Duke Math. J.},
+  volume  = {8},
+  year    = {1941},
+  pages   = {183--192},
+  doi     = {10.1215/S0012-7094-41-00813-0}
 }
-% VERIFY (unresolved): Apel1999 metadata from memory; not re-checked.
 
-% VERIFY (unresolved): Dauge1989 cited (notes/v6/ns2) for H^2 Stokes regularity at convex corners; the exact
-%                      statement used for (R_S)(a) was not re-checked.
+@book{Forster1981,
+  author    = {Forster, Otto},
+  title     = {Lectures on {R}iemann Surfaces},
+  series    = {Graduate Texts in Mathematics},
+  volume    = {81},
+  publisher = {Springer},
+  address   = {New York},
+  year      = {1981},
+  doi       = {10.1007/978-1-4612-5961-9}
+}
+
+% Theorem 15 verified in this (SoCG 2000) version, see notes/v6/cites/FINDINGS.txt [13].
+@inproceedings{AmentaChoiDeyLeekha2000,
+  author    = {Amenta, Nina and Choi, Sunghee and Dey, Tamal K. and Leekha, Naveen},
+  title     = {A simple algorithm for homeomorphic surface reconstruction},
+  booktitle = {Proceedings of the Sixteenth Annual Symposium on Computational Geometry (SoCG 2000)},
+  publisher = {ACM},
+  year      = {2000},
+  pages     = {213--222},
+  doi       = {10.1145/336154.336207}
+}
+
+% VERIFY: statement used (H^2 x H^1 regularity on convex polyhedra) not checked; metadata recalled.
 @article{Dauge1989,
   author  = {Dauge, Monique},
-  title   = {Stationary {S}tokes and {N}avier--{S}tokes systems on two- or three-dimensional domains with corners. {P}art {I}: {L}inearized equations},
+  title   = {Stationary {S}tokes and {N}avier--{S}tokes systems on two- or three-dimensional domains with corners. {P}art {I}. {L}inearized equations},
   journal = {SIAM J. Math. Anal.},
   volume  = {20},
   number  = {1},
