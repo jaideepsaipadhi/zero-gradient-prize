@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the preprint."
+title: "Scott–Vogelius–Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold"
+authors:
+  - family-names: Padhi
+    given-names: Jaideep Sai
+    affiliation: Purdue University
+version: v1
+date-released: 2026-09-28
+doi: 10.5281/zenodo.23006372
+repository-code: "https://github.com/jaideepsaipadhi/zero-gradient-prize"
+type: article

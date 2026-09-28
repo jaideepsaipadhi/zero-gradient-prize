@@ -1,5 +1,9 @@
 # Scott–Vogelius–Nitsche on a polygonally approximated boundary
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23006372.svg)](https://doi.org/10.5281/zenodo.23006372)
+
+**Preprint:** J. S. Padhi, *Scott–Vogelius–Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold*, Zenodo (2026), [doi:10.5281/zenodo.23006372](https://doi.org/10.5281/zenodo.23006372). `paper/main.pdf` in this commit is the deposited v1.
+
 This repository holds a paper, the code behind it and all the raw results, answering Ridgway Scott's **zero-gradient prize question (PPL 115)**. The method in question uses exactly divergence-free P4 velocities, with the no-slip condition imposed weakly by Nitsche's method on an inscribed polygon, as in Gjerde–Scott (2024). The prize asks whether the error behaves like `h_Γ^{3/2} + h_Ω^k` for general Stokes data, *and if not, why not*.
 
 **Short answer:** for the method as printed, no. The printed Nitsche form has no `−pn` traction term, so whenever the pressure varies along the wall, the penalty balances the pressure instead of a traction. The discrete velocity then leaks through the wall with normal velocity `(h/μ)(p − p̄)`. A mean-corrected pressure-consistent variant restores Scott's rate.
