@@ -1,0 +1,19 @@
+trial 0  Q = T1 u T2        k=4  dim=3  trace rank=2  (dim P_e=2)
+trial 0  Q = T1 u T2        k=5  dim=9  trace rank=3  (dim P_e=3)
+trial 0  3-star, v=0 on e'  k=4  dim=4  trace rank=2  (dim P_e=2)
+trial 0  3-star, v=0 on e'  k=5  dim=13  trace rank=3  (dim P_e=3)
+trial 1  Q = T1 u T2        k=4  dim=3  trace rank=2  (dim P_e=2)
+trial 1  Q = T1 u T2        k=5  dim=9  trace rank=3  (dim P_e=3)
+trial 1  3-star, v=0 on e'  k=4  dim=4  trace rank=2  (dim P_e=2)
+trial 1  3-star, v=0 on e'  k=5  dim=13  trace rank=3  (dim P_e=3)
+trial 2  Q = T1 u T2        k=4  dim=3  trace rank=2  (dim P_e=2)
+trial 2  Q = T1 u T2        k=5  dim=9  trace rank=3  (dim P_e=3)
+trial 2  3-star, v=0 on e'  k=4  dim=4  trace rank=2  (dim P_e=2)
+trial 2  3-star, v=0 on e'  k=5  dim=13  trace rank=3  (dim P_e=3)
+trial 3  Q = T1 u T2        k=4  dim=3  trace rank=2  (dim P_e=2)
+trial 3  Q = T1 u T2        k=5  dim=9  trace rank=3  (dim P_e=3)
+trial 3  3-star, v=0 on e'  k=4  dim=4  trace rank=2  (dim P_e=2)
+trial 3  3-star, v=0 on e'  k=5  dim=13  trace rank=3  (dim P_e=3)
+reference U(T^), k=4: dim 3, trace rank 2
+reference U(T^), k=5: dim 6, trace rank 3
+reference U(T^), k=6: dim 10, trace rank 4

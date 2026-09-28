@@ -1,0 +1,3 @@
+mA = x1 + y1  mC = 0  dA = 10*(x1 + y1)**2  dC = -5*(x1 + y1)**2
+residuals checked: 128  nonzero: 0
+trace of zeta on e: 20

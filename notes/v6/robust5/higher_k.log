@@ -1,0 +1,5 @@
+k=4: dim U(T^)=3, trace rank=2 (dim P_e=2), all traces in P_e: True, zeta^ trace on e: 20
+k=5: dim U(T^)=6, trace rank=3 (dim P_e=3), all traces in P_e: True, zeta^ trace on e: 30
+k=6: dim U(T^)=10, trace rank=4 (dim P_e=4), all traces in P_e: True, zeta^ trace on e: 42
+k=7: dim U(T^)=15, trace rank=5 (dim P_e=5), all traces in P_e: True, zeta^ trace on e: 56
+k=8: dim U(T^)=21, trace rank=6 (dim P_e=6), all traces in P_e: True, zeta^ trace on e: 72

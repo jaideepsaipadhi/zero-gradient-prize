@@ -1,0 +1,508 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,booktabs,geometry}
+\geometry{margin=2.3cm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\tn}[1]{|\!|\!|#1|\!|\!|}
+\title{notes/v6/robust5: $(P^T)$ proved (explicit two-triangle fields, interval certificate);\\
+$(P^K)$ reduced to one visibility hypothesis; (S) partly proved, and false as stated on non-LP meshes}
+\date{2026-09-28 (subagent report; nothing in paper/ or letter/ touched, nothing committed)}
+\begin{document}\maketitle
+
+\noindent Labels: \textbf{PROVED}; \textbf{PROVED MODULO X}; \textbf{NUMERICAL}. A computer certificate is counted as a
+proof only when it is exact rational/symbolic algebra, or outward-rounded ball arithmetic with a covering
+branch-and-bound. Notation follows robust3 (\S1--4) and robust4 (\S1--4). Scripts and logs are in
+\texttt{notes/v6/robust5/}. All runs took $\le1$ minute on one core, except \texttt{run\_S.py} ($N=96$: about 50\,s per solve).
+
+\section*{Summary}
+\begin{enumerate}
+\item \textbf{$(P^T)$ is PROVED for $k=4$} (Thm~\ref{thm:PT}). It holds under three hypotheses only:
+ \begin{itemize}
+ \item the boundary triangle $T_1=T_{e_z}$ and its neighbour $T_2$ across $[z,c]$ have all angles $\ge\theta$;
+ \item (M1$'$), so that $T_2\ne T_{e'}$;
+ \item (G): $T_2$ has no $\Gh$ edge.
+ \end{itemize}
+ No condition on the angle at $z$ (tilt $\delta$), on $m$, or on the other triangles is needed. Rigorous certified constants:
+ \[
+ \kappa_T(30^\circ)\ge4.9\times10^{-6},\qquad\kappa_T(20^\circ)\ge1.3\times10^{-6},
+ \]
+ and $\kappa_T(\theta)>0$ for every $\theta\in(0,\pi/3]$ by compactness. The certificate is sharp for its bound
+ function: a negative control at $5.01\times10^{-6}$ is refuted at the corner $x_1=y_1=\cot30^\circ$, where the bound function has
+ its minimum $5.002\times10^{-6}$. It is conservative against the truth: the optimal numerical $\kappa_T$ of robust4 exceeds it by a factor
+ $1.43$--$64$ (median $\approx3$) on 360 random stars. Hence robust4 Thm~4.1 (the mesh-uniform $H^1$ lower bound modulo $\operatorname{Ker}_{T_e}$) is now
+ \textbf{PROVED} for $k=4$ on (M0)--(M2)+(G) meshes, for every $\gamma>0$ in the lower bound.
+\item \textbf{Key structure (PROVED).} Pressure-blind fields supported in $T_1\cup T_2$ exist in closed form, rational in the
+ shape. Their normal traces are shape independent, $B_1-B_2$ and $B_1-B_3$, and span $P_e$.
+ \begin{itemize}
+ \item The pairing with $\ell_z^j\ell_a^{4-j}$ is a \emph{constant} rational matrix that annihilates $\operatorname{Ker}_T$.
+ \item The only shape dependence is in the norms. The kernel is exactly $\operatorname{Ker}_T$, of constant dimension 3, for every shape.
+ \item The obstruction noted in robust4 (the jump in $\dim V^\sharp$) is avoided, because we never use $V^\sharp$ itself.
+ \end{itemize}
+ For $k=5,\dots,8$ the single triangle $T_1$ suffices, and $(P^T)$ is PROVED with a non-explicit constant (\S\ref{sec:hk}).
+\item \textbf{$(P^K)$: PROVED MODULO one hypothesis (V)} (Thm~\ref{thm:PK}). (V) asks that the vertex functional
+ $v\mapsto v(z)\cdot n$ be uniformly visible to $V^\sharp$ on near-periodic stars. The following are PROVED:
+ \begin{itemize}
+ \item on exactly periodic stars, the only $\operatorname{Ker}_T/K_T$-sensitive functional is $\beta_k(b_L+b_R)\,v(z)\cdot n$;
+ \item on tilted stars, per-edge (M),(D) force $v(z)=0$. So any certificate must use the combined (D), whose rank drops exactly on the flat locus. This is why plain compactness cannot work.
+ \end{itemize}
+ NUMERICAL: (V) holds with visibility $\ge0.16$ on 100 periodic and near-periodic stars. Its limit depends on the direction of
+ approach (blow-up), so it is bounded but not continuous.
+\item \textbf{(S): false as stated; a weaker form is PROVED.}
+ \begin{itemize}
+ \item PROVED (Thm~\ref{thm:S1}): $\|\nabla W^a\|\le C_a\gamma^{-1}\hG+C\beta^{-1}\gamma^{-3/2}\hG^{1/2}\|a\|$. The second term comes from a
+ Nitsche pressure layer $\xi_b$ with trace $k(k+1)\,(W\cdot n)/H_e$ (Lemma~\ref{lem:layer}).
+ \item NUMERICAL: the $\hG^{1/2}$ term is real on non-LP meshes. On a mesh with alternating first-layer heights (M0--M2 hold),
+ $\|\nabla W^a\|\gamma/\hG=6.40,8.46,10.28,11.92$ for $N=16..64$ at $\mu=300$, i.e.\ growth $\propto\hG^{-1/2}$. On the uniform mesh it converges
+ ($5.46\to6.22$ and $4.41$).
+ \item So (S) holds at best on LP families with smoothly varying heights (the production and \textsf{UP} meshes), which is where
+ robust4 uses it. That restricted form is argued but not proved.
+ \end{itemize}
+\end{enumerate}
+
+\section{Setting}
+$k=4$ unless stated otherwise. For a boundary vertex $z$:
+\begin{itemize}
+\item $e=e_z=[z,a]$ is the following $\Gh$ edge, $T_1=(z,a,c)$ its boundary triangle, and $T_2=(z,c,b)$ the neighbour of $T_1$ across $[z,c]$.
+\item Normalise by a similarity: $z=0$, $a=(1,0)$, interior above $e$, so $s=|e|=1$ and $n=(0,-1)$.
+\item Shape parameters are cotangents: $x_1,y_1$ are the cotangents of the angles of $T_1$ at $z,a$, and $x_2,y_2$ those of $T_2$ at $z,c$.
+ Then $c=(x_1,1)/s_1$ with $s_1=x_1+y_1$, and $b=(x_2c+Rc)/s_2$, $R$ the rotation by $+\pi/2$.
+\item The angles of a triangle are all $\ge\theta$ iff $x,y\le\cot\theta$ and $1-xy\le\cot\theta\,(x+y)$. This implies $x+y\ge\sin\theta$.
+\end{itemize}
+$\sigma_z$, $V^\sharp(\omega_z)$, $\Phi^0,\Phi^1,\hat\Phi_Q$ are as in robust3 \S3--4, and $\operatorname{Ker}_T$, $K_T$ as in robust4 \S2. With
+$\ell_w$ the linear part of $\lambda_w$ on $T_1$: $\ell_a=x-x_1y$, $\ell_z=-x-y_1y$, $\ell_c=-\ell_z-\ell_a$, and
+$\operatorname{Ker}_T=\operatorname{span}\{\ell_z^4,\ell_a^4,\ell_c^4\}$. The goals are
+\[
+(P^T)\ \ \sigma_z(H)\ge\kappa_T\operatorname{dist}_F(H,\operatorname{Ker}_{T_1}),\qquad
+(P^K)\ \ \sigma_z(H)\ge\kappa_K\operatorname{dist}_F(H,K_{T_1})-C_dd_z|H|_F .
+\]
+
+\section{$(P^T)$}
+\subsection{Reduction to the patch $Q=T_1\cup T_2$ (PROVED)}
+\begin{definition}
+$F(Q)$ is the set of continuous piecewise-$P_4$ fields $v$ on $Q$ such that:
+\begin{itemize}
+\item $v=0$ on $\partial Q\setminus e$;
+\item $(\operatorname{div}v,r)_{T_1}=\ip{v\cdot n}{r}_e$ and $(\operatorname{div}v,r)_{T_2}=0$ for all $r\in P_3$;
+\item $\int_ev=0$ and $\int_e\partial_nv=0$ (vectors).
+\end{itemize}
+\end{definition}
+
+\begin{lemma}\label{lem:sub}
+Assume (M1$'$) and (G). Then every $v\in F(Q)$, extended by $0$, lies in $V^\sharp(\omega_z)$. Its trace $v\cdot n|_e$ lies in
+$P_e$, and for every $H\in\mathrm{Hom}_4$
+\[
+\ip{(I-\pi_h)H}{v\cdot n}_{\Gamma_\omega}=\ip{(I-\pi_{T_1})H}{v\cdot n}_e .
+\]
+In particular this vanishes for $H\in\operatorname{Ker}_{T_1}$.
+\end{lemma}
+\begin{proof}
+\emph{Pressure-blind.} Apply robust3 Lemma char. There is zero flux because $\int_ev\cdot n=0$, and on triangles outside $Q$ we have $v=0$.
+
+\emph{(M),(D).} They hold because they hold on $e$ and $v\equiv0$ on $T_{e'}\ne T_2$, by (M1$'$).
+
+\emph{Trace.} $v(z)=v(a)=0$, since both lie on $\partial Q\setminus e^\circ$, so $v\cdot n|_e$ vanishes at both ends and has zero mean.
+
+\emph{Kernel.} $\operatorname{Ker}_{T_1}\perp P_e$ is robust2 Thm kernel.
+\end{proof}
+
+\begin{lemma}[explicit bound for $\hat\Phi_Q$]\label{lem:phi}
+For $v\in F(Q)$ (with $s=1$), $\hat\Phi_Q(v)^2\le\mathcal Q(v)$, where
+\[
+\mathcal Q(v):=13\|\nabla v\|_Q^2+(3C_I^2+C_T^2)\|v\|_e^2+3C_T^2\|\partial_nv\|_e^2,
+\]
+\[
+C_I^2=\frac{10}{|T_1|}=20s_1,\qquad
+C_T^2=\frac2h\Big(\frac{D^2}{\pi^2}+\frac{RD}\pi\Big),\qquad
+h=\frac1{s_1},\quad R^2=\frac{\max(x_1^2,y_1^2)+1}{s_1^2},\quad D=\max(1,R).
+\]
+\end{lemma}
+\begin{proof}
+$v$ vanishes off $Q$ and on $e'$. So $N_h(w,v)$ and $\ip wv_{\Gamma_\omega}$ depend only on $w|_Q$, and
+$\|\nabla w\|_\omega\ge\|\nabla w\|_Q$. Hence the sups defining $\Phi^0,\Phi^1$ may be taken over $w$ on $Q$, with the
+constant $w_0=$ the mean of $w$ on $T_1$ subtracted. This is allowed because (M),(D) hold on $e$. The four terms are bounded as follows.
+\begin{itemize}
+\item $a_h(w,v)\le2\|\nabla w\|\|\nabla v\|$.
+\item $|\ip{\partial_nw}v_e|\le\|\nabla w\|_e\|v\|_e\le\sqrt{c_3/|T_1|}\,\|\nabla w\|_{T_1}\|v\|_e$. Here $c_3=10$ is the per-edge inverse trace
+ constant of $P_3$: $\|u\|_e^2\le c_3(|e|/|T|)\|u\|_T^2$. It is affine invariant, and was computed exactly on $\hat T$ (\texttt{c3const.py}: largest
+ root of $x^4-60x^3+1308x^2-12176x+40320$ is $20=2c_3$).
+\item $|\ip{w-w_0}{\partial_nv}_e|$ and $|\ip{w-w_0}v_e|$ use $\|u-\bar u_{T_1}\|_e^2\le C_T^2\|\nabla u\|_{T_1}^2$. This follows from
+ \[
+ h\int_eu^2=\int_{T}\operatorname{div}((x-c)u^2)=2\|u\|^2+2\!\int u(x-c)\cdot\nabla u
+ \]
+ and Payne--Weinberger (Bebendorf 2003): $\|u-\bar u\|_T\le(D/\pi)\|\nabla u\|$ on convex $T$.
+\end{itemize}
+So $\hat\Phi_Q^2\le\|\nabla v\|^2+(2\|\nabla v\|+C_I\|v\|_e+C_T\|\partial_nv\|_e)^2+C_T^2\|v\|_e^2$. Finally use $(a+b+c)^2\le3(a^2+b^2+c^2)$.
+\end{proof}
+
+\subsection{Explicit fields (PROVED; exact and symbolic verification)}
+\begin{lemma}[Piola invariance]\label{lem:piola}
+Let $F(\hat x)=J\hat x$ map $\hat T=(0,0),(1,0),(0,1)$ onto $T_1$, and $u=J\hat u\circ F^{-1}/\det J$. Then:
+\begin{itemize}
+\item $(u,\nabla r)_{T_1}=\operatorname{sign}(\det J)\,(\hat u,\hat\nabla\hat r)_{\hat T}$;
+\item $u$ vanishes on the edge images where $\hat u$ vanishes;
+\item $u\cdot n\,ds=\hat u\cdot\hat n\,d\hat s$ on $e$.
+\end{itemize}
+For $v$ vanishing on the two edges other than $e$, pressure-blindness on $T_1$ is equivalent to $(v,\nabla r)_{T_1}=0$ for all $r\in P_3$.
+\end{lemma}
+\begin{proof}
+Change of variables, $\nabla r=J^{-\mathsf T}\hat\nabla\hat r$, and $(\operatorname{div}v,r)=-(v,\nabla r)+\ip{v\cdot n}r_e$.
+\end{proof}
+
+\noindent\textbf{Reference fields (exact, \texttt{fan.py}, \texttt{dims.log}).} $U(\hat T)=\{u\in\lambda_z\lambda_aP_2^2:(u,\nabla r)=0\ \forall r\in P_3\}$
+has dimension 3. Its normal traces span exactly $P_e$: they are $B_1-B_2$ and $B_1-B_3$ (quartic Bernstein in $s=\lambda_a$), and the
+third field is $\operatorname{curl}(30\lambda_z^2\lambda_a^2\lambda_c)$. Let $\hat u_1,\hat u_2$ be the fields with these traces (coefficients in
+\texttt{pt\_fields.py}), and $u_f:=$ their Piola images.
+
+\begin{lemma}[stream functions on $Q$]\label{lem:SQ}
+The $C^1$ piecewise quintics on $Q$ with $\psi=0$ on $e$ and $\psi=\nabla\psi=0$ on $\partial Q\setminus e$ form a
+3-dimensional space $S(Q)$ (\texttt{sq.py}, symbolic in $\beta$). With $b=\beta_zz+\beta_aa+\beta_cc$ ($\beta_a<0$) and Bernstein coefficients
+$d^{T_1}_{(i_z,i_a,i_c)}$, $d^{T_2}_{(j_z,j_c,j_b)}$, it contains:
+\begin{itemize}
+\item $\psi_A$: $d^{T_1}_{221}=1$, and zero on $T_2$;
+\item $\psi_C$: $d^{T_1}_{212}=1$, $d^{T_2}_{221}=\beta_a$.
+\end{itemize}
+\end{lemma}
+\begin{proof}
+The boundary conditions are the vanishing of the coefficients with $i_z\le1$ or $i_c=0$ on $T_1$, and $j_z\le1$ or $j_c\le1$ on $T_2$. The standard
+Bernstein--B\'ezier $C^1$ conditions across $[z,c]$ are
+\[
+d^{T_1}_{(i,0,j)}=d^{T_2}_{(i,j,0)},\qquad d^{T_2}_{(i,j,1)}=\beta_zd^{T_1}_{(i+1,0,j)}+\beta_ad^{T_1}_{(i,1,j)}+\beta_cd^{T_1}_{(i,0,j+1)} .
+\]
+For $\psi_C$ the only nontrivial one is $d^{T_2}_{221}=\beta_ad^{T_1}_{212}$. $\psi_A$ has no coefficient in the stencil.
+\end{proof}
+
+\begin{proposition}[the fields]\label{prop:fields}
+Put $w_A=\operatorname{curl}\psi_A$, $w_C=\operatorname{curl}\psi_C$ and
+\[
+v_f:=u_f+g_A^fw_A+g_C^fw_C,\qquad g_A^f=-\frac{M_t(u_f)}{M_t(w_A)},\qquad
+g_C^f=-\frac{D_t(u_f)+g_A^fD_t(w_A)}{D_t(w_C)},
+\]
+with $M_t(v)=\int_ev\cdot t$ and $D_t(v)=\int_e\partial_nv\cdot t$. Then, for every nondegenerate $T_1,T_2$:
+\begin{itemize}
+\item $M_t(w_C)=0$, $M_t(w_A)=s_1\ne0$, $D_t(w_C)=-5s_1^2\ne0$, $D_t(w_A)=10s_1^2$;
+\item $g_C=(-\tfrac1{20},-\tfrac1{10})$ is shape independent;
+\item $v_1,v_2\in F(Q)$, with $v_f\cdot n|_e=B_1-B_2$, resp.\ $B_1-B_3$.
+\end{itemize}
+\end{proposition}
+\begin{proof}
+The $w$'s are divergence free, vanish with $\psi$ on $\partial Q\setminus e$, and have zero normal trace on $e$. Hence they do not affect
+pressure-blindness or the normal trace.
+
+The normal components of (M) and (D) are automatic. $\int_ev\cdot n=\int(B_1-B_2)=0$. Also
+$\int_e\partial_nv\cdot n=\int_e\operatorname{div}v-[v\cdot t]_z^a=\ip{v\cdot n}{\zeta_T}_e$, where $\zeta_T$ is the Riesz representer in $P_3(T_1)$ of
+$r\mapsto\int_er$. Its trace is the constant $20/H_e$ (exact on $\hat T$ and affine invariant; \texttt{sym\_verify.py}), so the integral is
+$0$ by zero flux.
+
+The tangential parts hold by the choice of $g_A,g_C$. The system is triangular because $M_t(w_C)=0$.
+
+All claims are verified \emph{symbolically in $(x_1,y_1,x_2,y_2)$}: 128 residuals simplify to $0$ (\texttt{sym\_verify.log}). They are also checked
+exactly against the independent assembler \texttt{fan.py} (continuity, BCs, pressure-blindness, full vector (M),(D)) at 12 rational shapes
+(\texttt{verify\_fields.log}).
+\end{proof}
+
+\begin{lemma}[constant pairing]\label{lem:pair}
+Let $m_j:=\ell_z^j\ell_a^{4-j}$. Then $\ip{(I-\pi_{T_1})m_j}{v_f\cdot n}_e=P_{fj}$ for every shape, with
+\[
+P=\begin{pmatrix}0&0&-\frac1{3780}&\frac1{2520}&0\\[2pt]0&-\frac1{2520}&0&\frac1{2520}&0\end{pmatrix}.
+\]
+$P$ annihilates $m_0=\ell_a^4$, $m_4=\ell_z^4$ and $\ell_c^4=\sum_j\binom4jm_j$. Its restriction $P_W$ to $W=\operatorname{span}\{m_1,m_2\}$ is invertible.
+\end{lemma}
+\begin{proof}
+$m_j\equiv\lambda_z^j\lambda_a^{4-j}$ mod $P_3$, and $L^2$ projection onto polynomials commutes with affine pullback. So
+$(I-\pi_{T_1})m_j|_e$ is the reference polynomial in $s$, and the trace is shape independent. The matrix is computed exactly
+(\texttt{ref\_pairing.py}), and recomputed independently on three non-reference triangles (\texttt{check\_pairing.log}).
+\end{proof}
+
+\begin{lemma}[distance to $\operatorname{Ker}_T$]\label{lem:dist}
+Write $H=\kappa+\omega_1m_1+\omega_2m_2$ with $\kappa\in\operatorname{Ker}_{T_1}$. Then $\operatorname{dist}_F(H,\operatorname{Ker}_{T_1})^2=\omega^{\mathsf T}\tilde G\omega$, where
+$\tilde G=G_{WW}-BG_{KK}^{-1}B^{\mathsf T}$ is the Frobenius Gram matrix of the projections of $m_1,m_2$ onto $\operatorname{Ker}^\perp$.
+Here $B_{ji}=m_j(g_i)$ and $(G_{KK})_{il}=(g_i\cdot g_l)^4$, with $g_i$ the barycentric gradients. In closed form,
+\[
+\tilde G_{11}=\frac{s_1^4A_1}{4\Delta},\quad\tilde G_{12}=-\frac{s_1^4A_2}{2\Delta},\quad\tilde G_{22}=\frac{s_1^4A_3}{3\Delta},
+\]
+with explicit polynomials $A_i,\Delta$ of degree $\le8$ (\texttt{cert\_PT.py}, \texttt{GWperp\_cf}; checked exactly and against a numerical QR
+projection).
+\end{lemma}
+\begin{proof}
+The Frobenius inner product of a symmetric tensor with $g^{\otimes4}$ is evaluation at $g$. Then take the Schur complement.
+\end{proof}
+
+\subsection{The theorem}
+\begin{theorem}[$(P^T)$, $k=4$; PROVED]\label{thm:PT}
+Assume (M1$'$) and (G) at $z$, and that all angles of $T_1$ and $T_2$ are $\ge\theta$, $0<\theta\le\pi/3$. Then
+$\sigma_z(H)\ge\kappa_T\operatorname{dist}_F(H,\operatorname{Ker}_{T_1})$ for all $H\in\mathrm{Hom}_4$, with
+\[
+\kappa_T^2\ \ge\ \Big[\,2520^2\,\mathcal Q_{22}\tilde G_{11}+2\cdot2520\cdot3780\,\mathcal Q_{12}\tilde G_{12}+3780^2\,\mathcal Q_{11}\tilde G_{22}\Big]^{-1}=:k_\ast(x_1,y_1,x_2,y_2)
+\]
+($\mathcal Q_{fg}$ the Gram matrix of Lemma~\ref{lem:phi} on $v_1,v_2$). Moreover:
+\begin{enumerate}
+\item[(a)] $\kappa_T(\theta):=\min k_\ast^{1/2}>0$ over the compact admissible set, for every $\theta$;
+\item[(b)] $\kappa_T(30^\circ)\ge4.9\times10^{-6}$ and $\kappa_T(20^\circ)\ge1.3\times10^{-6}$ (rigorous certificate).
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+By Lemmas~\ref{lem:sub} and \ref{lem:phi}, $\sigma_z(H)^2\ge\sup_{c\in\mathbb R^2}\frac{(c^{\mathsf T}P_W\omega)^2}{c^{\mathsf T}\mathcal Qc}=\omega^{\mathsf T}X\omega$,
+with $X=P_W^{\mathsf T}\mathcal Q^{-1}P_W$. By Lemma~\ref{lem:dist},
+\[
+\kappa_T^2\ge\lambda_{\min}(X,\tilde G)=\frac1{\lambda_{\max}(X^{-1}\tilde G)}\ge\frac1{\operatorname{tr}(P_W^{-1}\mathcal QP_W^{-\mathsf T}\tilde G)},
+\]
+which is the displayed formula ($P_W^{-1}=\left(\begin{smallmatrix}0&-2520\\-3780&0\end{smallmatrix}\right)$).
+
+(a) All ingredients are rational in the shape. Their denominators are powers of $s_1,s_2$ and $\Delta$, which do not vanish:
+$\Delta>0$ because the three edge directions are distinct, so $\dim\operatorname{Ker}_T=3$ for \emph{every} shape. The trace is positive. So
+$k_\ast$ is continuous and positive on the compact admissible set.
+
+(b) By Prop.~\ref{prop:fields}, $\mathcal Q=\mathcal Q^{(1)}(x_1,y_1)+13(x_1^2+1)F(x_2,y_2)\,g_Cg_C^{\mathsf T}$, where
+\[
+F=\frac{10\,(9x_2^4+27x_2^3y_2+39x_2^2y_2^2+4x_2^2+27x_2y_2^3+2x_2y_2+9y_2^4+4y_2^2+3)}{7\,s_2^3}
+\]
+equals $\|\nabla w_C\|^2_{T_2}/(x_1^2+1)$. The certificate has two steps.
+\begin{itemize}
+\item \emph{Step 1} certifies $F\le43$ ($\theta=30^\circ$) and $F\le113$ ($20^\circ$) over admissible $T_2$.
+\item \emph{Step 2.} Since $\mathcal Q$ increases with $F$ and $k_\ast$ decreases with $\mathcal Q$ in the PSD order ($\tilde G\succeq0$), it is enough
+ to certify $k_\ast\ge\kappa_0^2$ on admissible $(x_1,y_1)$ with $F:=F_{\max}$.
+\end{itemize}
+Both steps are a 2-D branch and bound over rational boxes. A box is discarded only if it provably contains no admissible point, and
+accepted only if a ball enclosure over the whole box proves the inequality. The enclosures have three parts.
+\begin{itemize}
+\item \emph{Polynomials.} $k_\ast=\big(P_0/s_1+C_T^2P_1\big)^{-1}\Delta$, with $P_0,P_1,\Delta$ polynomials in $(x_1,y_1)$ (exact rational
+ coefficients from \texttt{sym\_Q.py}). Each is enclosed by its exact Taylor expansion at the box centre (\texttt{flint.fmpq\_mpoly.compose}) plus the
+ exact bound $\sum|c_{ij}|r_x^ir_y^j$.
+\item \emph{Nonpolynomial parts.} $C_T$ and $\pi$ in \texttt{arb} ball arithmetic.
+\item \emph{Closed forms.} Checked equal to the generic exact pipeline at 16 rational points (\texttt{check\_closed\_forms.log}).
+\end{itemize}
+Results (\texttt{cert\_PT\_30.log}, \texttt{cert\_PT\_20.log}):
+\begin{itemize}
+\item $30^\circ$: 648 accepted, 60 discarded, 707 splits.
+\item $20^\circ$: 1297 accepted, 106 discarded, 1402 splits.
+\item Negative control $\kappa_0=5.01\times10^{-6}$ at $30^\circ$: refuted at $(x_1,y_1)\approx(1.73205,1.73205)$, where $k_\ast^{1/2}=5.0019\times10^{-6}$.
+\end{itemize}
+\end{proof}
+
+\begin{remark}
+\begin{itemize}
+\item \emph{Soundness check} (\texttt{sanity\_PT.log}, floating point). On 360 random admissible 3/4-triangle stars (tilted, min angle
+ $12^\circ/20^\circ/30^\circ$), the optimal $\kappa_T$ of robust4 (\texttt{stars.py}) is always $\ge k_\ast^{1/2}$. The ratio is $\ge1.43$, with median $2.8$--$3.3$.
+\item \emph{Where the bound is weak.} The worst shape is the obtuse $T_1$ with base angles $\theta$. The loss comes from $C_T$, $C_I$ and $\|\partial_nv\|_e$.
+\item \emph{Consequence.} robust4 Thm~4.1 (lower bound $\ge\frac{\kappa_T}{4\sqrt K(1+\gamma)}(\sum_zs_z^{2k+2}\operatorname{dist}(H_z,\operatorname{Ker}_{T_{e_z}})^2)^{1/2}-C\gamma^{-1}\hG^{k+3/2}$)
+ is now PROVED for $k=4$ on (M0)--(M2)+(G) meshes, with the certified $\kappa_T$.
+\end{itemize}
+\end{remark}
+
+\subsection{$k=5,\dots,8$: one triangle suffices (PROVED, constant not computed)}\label{sec:hk}
+\begin{itemize}
+\item \texttt{higher\_k.log}, exact: for $k=5..8$, $\dim U(\hat T)=6,10,15,21$, its traces span exactly $P_e$ (rank $k-2$), and $\zeta_{\hat T}$ has
+ constant trace $k(k+1)$.
+\item The corrections $\psi_z=\lambda_z^{k-2}\lambda_a^2\lambda_c$ and $\psi_c=\lambda_z^{k-3}\lambda_a^2\lambda_c^2$ live on $T_1$ alone. They give a triangular
+ $2\times2$ system:
+ \[
+ M_t(\operatorname{curl}\psi_c)=0,\qquad M_t(\operatorname{curl}\psi_z)\propto\partial_n\lambda_c\ne0,\qquad
+ D_t(\operatorname{curl}\psi_c)\propto(\partial_n\lambda_c)^2\ne0 .
+ \]
+\item Lemmas~\ref{lem:sub}--\ref{lem:pair} carry over verbatim, with $Q$ replaced by $T_1$. The pairing on $\mathrm{Hom}_k/\operatorname{Ker}_T\times P_e$ is
+ nondegenerate (robust2 Thm kernel), and constant in the $\ell_z^j\ell_a^{k-j}$ basis.
+\item So $(P^T)$ holds for $5\le k\le8$ with $\kappa_T(k,\theta)>0$ by compactness. Neither (M1$'$) nor (G) is needed.
+\item For general $k$ the two exact rank facts are unverified.
+\end{itemize}
+
+\section{$(P^K)$}
+\begin{lemma}[PROVED, all $k$]\label{lem:J}
+For $g\in P_k[0,1]$: $\int_0^1J_k(s)g\,ds=\beta_kg(1)$ and $\int_0^1J_k(1-s)g\,ds=\beta_kg(0)$, with $\beta_k=\int J_k$.
+\end{lemma}
+\begin{proof}
+$g=g(1)+(1-s)q$ with $q\in P_{k-1}$, and $J_k\perp P_{k-1}$ for the weight $1-s$. (This reproves robust4 Lemma~2.1.
+\texttt{sym\_vertex.log} checks $S_k=J_k(s)+J_k(1-s)$: $g\mapsto\beta_k(g(0)+g(1))$ for $k\le8$.)
+\end{proof}
+
+\begin{lemma}[periodic stars; PROVED]\label{lem:K1}
+Let the star be flat and periodic ($T'=T-t$, $e'=e-t$). Let $H=a\ell_c^k+b_L\ell_L^k+b_R\ell_R^k\in\operatorname{Ker}_T$ and $v\in V^\sharp(\omega_z)$. Then
+\[
+\ip{(I-\pi_h)H}{v\cdot n}_{\Gamma_\omega}=\beta_k(b_L+b_R)\,v(z)\cdot n .
+\]
+Hence $K_T=\{b_L+b_R=0\}$ is exactly invisible, and $\operatorname{Ker}_T/K_T$ is seen only through the vertex functional $v\mapsto v(z)\cdot n$.
+\end{lemma}
+\begin{proof}
+The trace is $\eta_H=aJ_k(0)+b_LJ_k(1-s)+b_RJ_k(s)$ on both edges (translation invariance). Apply Lemma~\ref{lem:J} and use:
+\begin{itemize}
+\item $v=0$ at the far ends $a$ and $g_2$;
+\item zero total flux;
+\item $n_e=n_{e'}$.
+\end{itemize}
+\end{proof}
+
+\begin{lemma}[why compactness fails; PROVED]\label{lem:K2}
+Let $v$ be pressure-blind with $\int_ev\cdot n_e=0$, and $v(a)=0$. Then $\int_e\partial_nv\cdot n_e=v(z)\cdot t_e$. Hence:
+\begin{itemize}
+\item on a tilted star ($t_e\nparallel t_{e'}$), per-edge (D) forces $v(z)=0$, so per-edge fields are blind to $\operatorname{Ker}_T/K_T$;
+\item on a flat star the normal part of the \emph{combined} (D) is vacuous.
+\end{itemize}
+So the constraint rank drops exactly on the flat locus (robust4's jump of $\dim V^\sharp$ from 10 to 11/12), along the very functional
+that couples $v(z)$. No continuous field family through the flat locus can see $\operatorname{Ker}_T/K_T$.
+\end{lemma}
+\begin{proof}
+$\int_e\partial_nv\cdot n=\int_e\operatorname{div}v-[v\cdot t]_z^a$. The first term is $\ip{v\cdot n}{\zeta_T}_e=\mathrm{const}\cdot\int_ev\cdot n=0$
+(constant trace of $\zeta_T$).
+\end{proof}
+
+\begin{theorem}[$(P^K)$; PROVED MODULO (V)]\label{thm:PK}
+\begin{quote}
+(V) There are $d_0,a_0>0$ such that every admissible star with $d_z\le d_0$ carries $v_z\in V^\sharp(\omega_z)$ with $\hat\Phi_Q(v_z)\le1$ and
+$|v_z(z)\cdot n_{e}|\ge a_0$ (with $s=1$).
+\end{quote}
+Under (V) and Thm~\ref{thm:PT}, $(P^K)$ holds with explicit $\kappa_K,C_d$ in terms of $\kappa_T,a_0,d_0$ and the Lipschitz constants of
+robust4 Lemma~2.3.
+\end{theorem}
+\begin{proof}
+Write $H=h_1+h_2+k$ with $h_1\perp\operatorname{Ker}_T$, $h_2\in\operatorname{Ker}_T\ominus K_T$ and $k\in K_T$. Then
+$\operatorname{dist}(H,K_T)\le|h_1|+|h_2|$, and Thm~\ref{thm:PT} gives $\sigma_z\ge\kappa_T|h_1|$.
+
+For $v_z$, the pairing is Lipschitz in the star shape (rational in it). Lemma~\ref{lem:K1} holds at the nearest periodic star, and
+robust4 Lemma~2.3 bounds the $A$, vertex and $r_{e'}$ terms by $Cd_z|k|$. Together they give
+\[
+\sigma_z(H)\ge a_1|h_2|-b_1|h_1|-C'd_z|H|\qquad(d_z\le d_0),
+\]
+Here $a_1=\beta_ka_0c_\ast$, where $c_\ast>0$ is the minimum of $|b_L+b_R|$ over unit $h_2\in\operatorname{Ker}_T\ominus K_T$ and over the
+compact periodic family; $b_1$ bounds the pairing of $v_z$ with $\mathrm{Hom}_k$. Take the convex combination with weight $b_1/(\kappa_T+b_1)$. For $d_z>d_0$, choose $C_d\ge\kappa_K/d_0$, so the right-hand side of $(P^K)$ is $\le0$.
+\end{proof}
+
+\noindent\textbf{NUMERICAL evidence for (V)} (\texttt{vis\_K.py}, \texttt{vis\_K.jsonl}). The quantity is
+$\mathrm{vis}=\sup_{V^\sharp}|v(z)\cdot n|/\hat\Phi_Q$, computed with robust3's exact dual norms. The test set is:
+\begin{itemize}
+\item four periodic $m=3$ stars, with $c=(1,1),(0.5,0.9),(1.3,0.6),(0.2,1.2)$;
+\item approaches along five tilt directions $(\epsilon_1,\epsilon_2)=t(u_1,u_2)$, $t=10^{-1,-2,-3}$;
+\item nine random shape+tilt perturbations.
+\end{itemize}
+Results:
+\begin{itemize}
+\item In all 100 stars, $\mathrm{vis}\ge0.162$ and $\kappa_K\ge1.9\times10^{-5}$.
+\item The limits depend on the direction. At $c=(1,1)$, vis$=0.312$ periodic, and $0.250,\ 0.308,\ 0.282,\ 0.214$ along $(1,1),(1,-1),(1,0),(0,1)$.
+ The corresponding $\kappa_K$ are $4.3,1.6,3.2,1.1,2.1\times10^{-4}$.
+\end{itemize}
+This confirms Lemma~\ref{lem:K2}: the admissible set must be blown up along the flat locus. A proof of (V) would parametrise
+$(\epsilon,[\epsilon_1:\epsilon_2])$ and repeat \S2 on the blown-up compact set. That was not done.
+
+\section{(S)}
+\begin{quote}
+\textbf{(S)} For $a$ the trace on $\Gh$ of a smooth $\alpha$ with $\int_\Gamma\alpha=0$, let $(W^a,\xi^a)$ solve CNS$^\ast$ with load $v\mapsto\ip a{v\cdot n}_{\Gh}$:
+\[
+N_h(W,v)+B^\ast(\xi,v)=\ip a{v\cdot n}\ \ \forall v\in V_R,\qquad W\in Z_h .
+\]
+Then $\|\nabla W^a\|\le C\gamma^{-1}\hG\|\alpha\|_{C^3}$ for $\gamma\ge\gamma_2$.
+\end{quote}
+(robust4's version with $W^{1,\infty}$ is weaker than what its use needs. For $K$-degenerate $\phi$, $a=A-\bar A$ is
+edge-constant and equals a smooth function only on families with smoothly varying heights.)
+
+\begin{theorem}[PROVED, given paper Thm~hc:thm, Thm~D step 3, Lemmas inverse and infsup]\label{thm:S1}
+For $\gamma\ge\gamma_S\asymp\max(\gamma_2,\beta^{-2})$,
+\[
+\|\nabla W^a\|\le(1+C\gamma^{-1/2}\beta^{-1})\|\nabla\delta_a\|+C\beta^{-1}c_1^{-1}\gamma^{-3/2}\hG^{1/2}\|a\|_{\Gh},
+\]
+where $\delta_a\in Z_h$ solves $N_h(\delta_a,v)=\ip a{v\cdot n}$ on $Z_h$. This is the GS leak problem of hc:thm, with $p-\bar p=-\alpha$. So
+$\|\nabla\delta_a\|\le\frac{\hG}{\gamma}\big(\|\nabla\tilde U_\alpha\|+C_U[\min(\gamma\hG^{1/2},(\gamma\hG)^{1/2})+\hG^{1/2}+(h/\mu)^{1/2}+E_U]\big)$.
+\end{theorem}
+\begin{proof}
+\emph{(1) $\varepsilon$.} $\varepsilon:=W-\delta_a\in Z_h$. For $v\in Z_h$, $B^\ast(\xi,v)=\ip{\xi-\bar\xi}{v\cdot n}$ (div-free, zero flux), so
+$N_h(\varepsilon,v)=-\ip{\xi-\bar\xi}{v\cdot n}$. With $v=\varepsilon$, the inverse trace estimate for $\Pi_h$ on boundary triangles and
+$\|\varepsilon\|_{\Gh}\le(h/\mu)^{1/2}\tn\varepsilon$:
+\[
+\tn\varepsilon\le C\gamma^{-1/2}\|\xi-\bar\xi\| .
+\]
+
+\emph{(2) Pressure.} For $v\in V_O$ the load vanishes, and $N_h(W,v)=a_h(W,v)-\ip W{\partial_nv}$. By Lemma infsup,
+$\beta\|\xi-\bar\xi\|\le2\|\nabla W\|+C_I\hG^{-1/2}\|W\|_{\Gh}$.
+
+\emph{(3) Combine.} Insert $W=\delta_a+\varepsilon$, use $\hG^{-1/2}\|\varepsilon\|_{\Gh}\le\gamma^{-1/2}\tn\varepsilon$, and absorb for
+$C\gamma^{-1/2}\beta^{-1}\le\frac12$. Finally, $c_1\tn{\delta_a}^2\le\|a\|\,\|\delta_a\|_{\Gh}$ gives
+$\hG^{-1/2}\|\delta_a\|_{\Gh}\le c_1^{-1}\gamma^{-1}\hG^{1/2}\|a\|$.
+\end{proof}
+
+\begin{lemma}[Nitsche pressure layer; PROVED]\label{lem:layer}
+Let $\xi_b[g]\in\Pi_h$ be supported in the boundary triangles, with $(\xi_b[g],r)_{T_e}=\ip gr_e$ for all $r\in P_{k-1}$. Then for all $v\in V_O$:
+\[
+(\xi+\xi_b[W\cdot n],\operatorname{div}v)=a_h(W,v)-\ip{W\cdot\tau}{\partial_nv\cdot\tau} .
+\]
+For $g$ constant on $e$, $\xi_b[g]|_e=k(k+1)g/H_e$ ($H_e$ the height of $T_e$).
+\end{lemma}
+\begin{proof}
+For $v\in V_O$, $\partial_nv\cdot n=\operatorname{div}v$ on $\Gh$. The trace formula follows from the reference value $k(k+1)$
+(\texttt{higher\_k.log}) and affine scaling.
+\end{proof}
+
+\noindent\textbf{Consequence (heuristic, not PROVED).}
+\begin{itemize}
+\item Since $W\cdot n\approx(h/\mu)\alpha$, the layer feeds back into $\varepsilon$ as the load $\frac{k(k+1)}\gamma\frac{\hG}{H_e}\alpha$.
+\item If $\hG/H_e$ varies smoothly along $\Gh$ (the production and \textsf{UP} families), this load is smooth and of relative size $\gamma^{-1}$. Iterating the
+ argument with hc:thm then gives (S).
+\item If $\hG/H_e$ oscillates, the load has an $O(\gamma^{-1})$ oscillating part. Its response is generic: $\gamma^{-1}\hG^{1/2}\cdot\gamma^{-1}$. So (S) fails.
+\end{itemize}
+
+\noindent\textbf{NUMERICAL} (\texttt{run\_S.py}, $k=4$, $a=\cos2\theta$, logs \texttt{S\_*.jsonl}). The two meshes are:
+\begin{itemize}
+\item `u': \textsf{UP}, first layer height $1\cdot|e|$;
+\item `alt': first-layer height alternating $0.6|e|,1.5|e|$. Min angle $10.5^\circ$ and (M0)--(M2) hold; the mesh is not LP.
+\end{itemize}
+The table gives $\|\nabla W^a\|\gamma/\hG$.
+
+\smallskip
+\begin{tabular}{llrrrrr}\toprule
+mesh & $\mu$ & $N=16$ & 32 & 48 & 64 & 80/96\\\midrule
+u & 300 & 5.46 & 5.83 & 6.02 & 6.14 & 6.22\\
+u & 1000 & 4.46 & 4.43 & 4.42 & 4.41 & 4.41\\
+alt & 300 & 6.40 & 8.46 & 10.28 & 11.92 & --\\
+alt & 1000 & 4.53 & 4.57 & 4.62 & 4.67 & --\\
+alt & 3000 & -- & 4.19 & -- & 4.13 & 4.12\\\bottomrule
+\end{tabular}
+\smallskip
+
+\noindent Reading:
+\begin{itemize}
+\item On `alt' at $\mu=300$ the ratio grows by $\sqrt2$ from $N=32$ to $64$, i.e.\ $\|\nabla W^a\|\asymp\hG^{1/2}$. (S) fails there.
+\item On `u' it converges, as (S) predicts on smooth-height families.
+\item The effect is strongly $\gamma$-dependent. The excess over `u' at $N=64$ is 5.8 at $\mu=300$ and 0.26 at $\mu=1000$. That is
+ faster than $\gamma^{-3/2}$ (partly near-criticality; $\mu=150$ is noncoercive and was discarded).
+\end{itemize}
+Consequences for robust4:
+\begin{itemize}
+\item PROVED: $K$-degenerate $\phi$ on LP families with smooth heights satisfy $\|\nabla W\|\le C\gamma^{-1}\hG^{k+1}+C\gamma^{-3/2}\hG^{k+1/2}$.
+\item Order $k+1$ itself remains conditional on (S) restricted to smooth-height LP families.
+\end{itemize}
+
+\section{Status}
+\begin{itemize}
+\item \textbf{PROVED:}
+ \begin{itemize}
+ \item $(P^T)$ for $k=4$ (Thm~\ref{thm:PT}), with certified $\kappa_T(30^\circ)\ge4.9\times10^{-6}$ and $\kappa_T(20^\circ)\ge1.3\times10^{-6}$;
+ \item $(P^T)$ qualitatively for $5\le k\le8$;
+ \item hence robust4 Thm~4.1 for $k=4$;
+ \item Lemmas~\ref{lem:J}, \ref{lem:K1}, \ref{lem:K2} and \ref{lem:layer}, and Thm~\ref{thm:S1}.
+ \end{itemize}
+\item \textbf{PROVED MODULO (V):} $(P^K)$, hence robust4 Thm~4.2.
+\item \textbf{NUMERICAL:} (V); the failure of (S) on non-LP meshes; the validity of (S) on \textsf{UP}.
+\item \textbf{Open:}
+ \begin{itemize}
+ \item (V) via blow-up at the flat locus;
+ \item (S) on smooth-height LP families (the iteration sketched above);
+ \item exact rank facts for $k\ge9$.
+ \end{itemize}
+\end{itemize}
+
+\noindent\textbf{Files} (\texttt{notes/v6/robust5/}).
+\begin{itemize}
+\item \texttt{fan.py}: exact Bernstein assembler of all constraints.
+\item \texttt{pt\_fields.py}: explicit fields; generic number type.
+\item \texttt{sq.py}: $S(Q)$.
+\item \texttt{sym\_verify.py}, \texttt{verify\_fields.py}, \texttt{ref\_pairing.py}, \texttt{check\_pairing.py}, \texttt{c3const.py}, \texttt{dims.py},
+ \texttt{higher\_k.py}, \texttt{sym\_vertex.py}, \texttt{sym\_Q.py}: exact and symbolic checks and derivations.
+\item \texttt{cert\_PT.py} with \texttt{taylor2.py}: the certificate. Run \texttt{python cert\_PT.py 30 4.9e-6 --check}, about 15\,s.
+\item \texttt{sanity\_PT.py}, \texttt{vis\_K.py}, \texttt{run\_S.py}: numerics.
+\item Logs: \texttt{*.log}, \texttt{*.jsonl}.
+\end{itemize}
+\end{document}

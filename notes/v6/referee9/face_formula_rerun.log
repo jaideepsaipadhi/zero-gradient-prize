@@ -1,0 +1,8 @@
+trial 0 Gamma-flat m=6 I=[0] face 0: per-face formula holds mod R D_i: True flat u-forms ok: True
+trial 1 curved m=4 I=[0] face 0: per-face formula holds mod R D_i: True
+trial 2 Gamma-flat m=6 I=[1, 3, 4, 5] face 1: per-face formula holds mod R D_i: True flat u-forms ok: True
+trial 2 Gamma-flat m=6 I=[1, 3, 4, 5] face 3: per-face formula holds mod R D_i: True flat u-forms ok: True
+trial 2 Gamma-flat m=6 I=[1, 3, 4, 5] face 4: per-face formula holds mod R D_i: True flat u-forms ok: True
+trial 2 Gamma-flat m=6 I=[1, 3, 4, 5] face 5: per-face formula holds mod R D_i: True flat u-forms ok: True
+trial 3 curved m=5 I=[4] face 4: per-face formula holds mod R D_i: True
+TOTAL 7/7 faces agree

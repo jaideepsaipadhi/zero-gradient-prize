@@ -1,0 +1,7 @@
+flat square, all 4 : degenerate (lam, h in basis h11,h12,h22): []
+flat square, 1 : degenerate (lam, h in basis h11,h12,h22): [((1, 1), [[1, 1, 1]])]
+flat square, 2 adj : degenerate (lam, h in basis h11,h12,h22): []
+flat square, 2 opp : degenerate (lam, h in basis h11,h12,h22): [((1, 1), [[1, 1, 1]])]
+flat pentagon all : degenerate (lam, h in basis h11,h12,h22): []
+flat hexagon all : degenerate (lam, h in basis h11,h12,h22): []
+flat m=3 all : degenerate (lam, h in basis h11,h12,h22): []
