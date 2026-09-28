@@ -13,7 +13,7 @@ The notation is fixed in Section~\ref{sec:setting}. Throughout, $h=\hO$ is the b
 \begin{theoremA}[Theorem~\ref{thm:A}]
 The printed method $\GS$ converges, and its error in the mesh-dependent energy norm is
 \[
-\tnorm{\ut-u_h}\;\asymp\;(h/\mu)^{1/2}\,G\;+\;O\bigl(\hG^{3/2}+\eps\bigr),
+\tnorm{\ut-u_h}\;\asymp\;(h/\mu)^{1/2}\,G\;+\;O\bigl((1+\gamma^{1/2})\hG^{3/2}+\eps\bigr),
 \]
 with matching upper and lower bounds.
 \end{theoremA}
@@ -39,19 +39,19 @@ $\ut-u_h=(h/\mu)\,v_\varphi+o\bigl((h/\mu)^{1/2}\bigr)$ in the energy norm, wher
 \begin{theoremD}[Theorem~\ref{thm:D}]
 The naive consistent form, which adds $\ip{p_h}{v\cdot n}$, is singular (Proposition~\ref{prop:singular}). The corrected method $\CNS$, which adds $\ip{p_h-\pbG(p_h)}{v\cdot n}$, is well posed for $\gamma\ge\gamma_2$ and satisfies
 \[
-\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^{4}\bigr)
+\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^{k}\bigr)
 \]
-for general Stokes data and bounded $\gamma$. This is Scott's expected rate.
+for general Stokes data, every fixed $k\ge4$ and bounded $\gamma$, provided the boundary edges are not too short relative to the bulk ($\hG\ge\hO^4$ for even $k$, $\hG\ge\hO^2$ for odd $k$). This is Scott's expected rate. Without that proviso a single lower-order term, due to the net flux of the interpolated outer data, remains.
 \end{theoremD}
 
 \begin{propositionE}[Proposition~\ref{prop:penalty}]
 The coercivity threshold of the Nitsche penalty scales like $\rho=h/\min_{e\in\EG}|e|$. The condition $\mu\ge 4\kappa C_I^2\rho$ is sufficient. The condition $\mu\gtrsim\rho$ is necessary on meshes whose boundary stars are close to two reference stars, certified in exact rational arithmetic.
 \end{propositionE}
 
-Theorem~A with $G=0$ gives $\tnorm{\ut-u_h}\le C((1+\gamma^{1/2})\hG^{3/2}+\eps)$. This recovers, for the printed method, the constant-pressure benchmark studied numerically in \cite{GjerdeScott2024} and analysed in \cite{Cavalcante}. Our proof does not use \cite{Cavalcante}.
+Theorem~A with $G=0$ gives $\tnorm{\ut-u_h}\le C((1+\gamma^{1/2})\hG^{3/2}+\eps)$. This recovers, for the printed method, the constant-pressure benchmark studied numerically in \cite{GjerdeScott2024} and analysed in \cite{Cavalcante}, which covers $k\ge4$ and also Clough--Tocher splits with $k\ge2$. Our proof does not use \cite{Cavalcante}. All results hold for every fixed $k\ge4$; the computations use $k=4$.
 
 \subsection*{Computations}
-Section~\ref{sec:numerics} reports $P_4$ computations with up to $N=256$ boundary chords. They show the following.
+Section~\ref{sec:numerics} reports $k=4$ computations with up to $N=256$ boundary chords. They show the following.
 \begin{itemize}
 \item The $\CNS$ $H^1$ rate decreases monotonically to $3/2$, independently of the pressure.
 \item The printed method has rate $1$ whenever $G>0$.

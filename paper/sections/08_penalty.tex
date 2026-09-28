@@ -35,5 +35,6 @@ The Nitsche boundary is $\{y=0\}$, and the rim chords carry zero Dirichlet data.
 \item A rational witness in the kernel satisfies $2B-A-9C>0$ \emph{exactly} on each star. Its exact Rayleigh quotients $(2B-A)/C$ are $9.97854\ldots$ ($\cS_3$) and $9.26747\ldots$ ($\cS_4'$).
 \end{itemize}
 \cert{code/lamstar\_exact.py, code/lamstar\_exact\_v2.py}{logs/lamstar\_exact\_*.log}
+The witnesses are continuous piecewise-$P_4$ and divergence-free, so they lie in $\Zh$ for every $k\ge4$. The necessity statement therefore holds for all $k\ge4$; for $k>4$ the true local threshold is at least as large.
 
 In floating point, the largest Rayleigh quotient $\lambda^\ast$ is about $15$ on uniform fans with $m=3,4$ and ranges over $14.8$--$38.5$ on random $4$-fans (\texttt{code/lamstar.py}). As a global check, the measured threshold $\gamma^\ast=\mu^\ast/\rho$ stays in $18.1$--$20.1$ as $\rho$ varies over $3.3$--$44$ on two mesh levels. Under refinement at fixed $\rho$ it lies in $14.7$--$20.8$, with increments that roughly halve per doubling (Table~\ref{tab:thresh}).

@@ -14,27 +14,18 @@ The continuity row vanishes at $u=0$.
 
 The system is solvable only for right-hand sides orthogonal to a left null vector, which this argument does not identify. With generic data (Section~\ref{sec:numerics}), an iterated-penalty solver and a bordered direct solve both returned discrete velocities that are not divergence-free (discrete divergence about $4.5\cdot10^{-3}$). This is consistent with incompatibility.
 
-\subsection*{Uniform inf-sup constant}
-Let $\beta$ be the Guzm\'an--Scott inf-sup constant for $(\VO,\Pih\cap L^2_0)$ \cite{GuzmanScott2019}; here $k\ge4$, and $\beta$ depends on $\Theta_0$, $k$ and shape regularity. It is uniform in $h$, and its domain dependence enters only through the continuous (Bogovskii) constant.
-
-Guzm\'an--Scott build the discrete Fortin operator locally from vertex and edge patches, using shape regularity and (M2) only, with no quasi-uniformity. They combine it with the continuous inf-sup constant of the domain. We check that the latter is uniform for the domains $\Oh$.
-\begin{itemize}
-\item Cover $\Oh$ by the $h$-dependent pieces $W_j\cap\Oh$, where the $W_j$ are fixed angular wedges of half-angle $\alpha$, together with fixed pieces near $\partial R$.
-\item Each $W_j\cap\Oh$ is star-shaped with respect to a ball $B(c_j,r_B)$ with $|c_j|=r_b$, provided every chord line meeting $W_j$ leaves the ball on its outer side. This holds uniformly when $(r_b-r_B)\cos(\alpha+r_B/r_b+\hG)>1$, which can be arranged with fixed $\alpha,r_b,r_B$ because $P_h\subset D$.
-\item The pieces have diameters, ball radii and pairwise overlap measures bounded above and below independently of $h$.
-\end{itemize}
-Galdi's Lemma~III.3.4 \cite{Galdi} then gives a Bogovskii constant, and hence a continuous inf-sup constant, independent of $h$.
+Let $\beta$ be the uniform inf-sup constant of Lemma~\ref{lem:infsup}.
 
 \begin{theorem}[$\CNS$: well posed, with Scott's rate]\label{thm:D}
 There is $\gamma_2\asymp\max(\gamma_0,\beta^{-2})$ such that for $\gamma\ge\gamma_2$ the method $\CNS$ has a unique solution and
 \[
 \tnorm{\ut-u_h}\le C\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
 \]
-Consequently, for $\gamma$ in a bounded range $[\gamma_2,\gamma_{\max}]$ and $\hG\ge\hO^4$,
+Consequently, for every fixed $k\ge4$, for $\gamma$ in a bounded range $[\gamma_2,\gamma_{\max}]$ and $\hG\ge\hO^{2(\sigma_k-k)}$ (that is, $\hG\ge\hO^4$ for even $k$ and $\hG\ge\hO^2$ for odd $k$),
 \[
-\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^4\bigr).
+\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^k\bigr).
 \]
-The condition $\hG\ge\hO^4$ ensures that the flux floor satisfies $\mu^{1/2}h^{5.5}\le Ch^4$; without it, that single extra term is kept. This is the rate Scott conjectured, for general Stokes data. The $L^2$ part of the $H^1$ norm uses the lift $E$ from the proof of Theorem~\ref{thm:B}(ii).
+This condition ensures that the flux term of $\eps$ is at most $Ch^k$. Without it, that single extra term is kept, and by the remark after Lemma~\ref{lem:approx} it is then genuinely present unless $\gI$ is flux-corrected. This is the rate Scott conjectured, for general Stokes data. The $L^2$ part of the $H^1$ norm uses the lift $E$ from the proof of Theorem~\ref{thm:B}(ii).
 \end{theorem}
 
 \begin{proof}
@@ -54,14 +45,14 @@ N_h(e_u,v)+B^\ast(e_p,v)=\Gc(v)\qquad\forall v\in\VR .
 \[
 (\xi-\bar\xi,\div v)=N_h(e_u,v)-\Gc(v)=a_h(e_u,v)-\ip{e_u}{\dn v}-\Gc(v).
 \]
-Using $(\rho/\mu)^{1/2}\le C$ and Lemma~\ref{lem:Gbound}, the right-hand side is at most $C(\tnorm{e_u}+\hG^{3/2})\norm{\nabla v}$. The Guzm\'an--Scott inf-sup condition then gives $\beta\norm{\xi-\bar\xi}\le C(\tnorm{e_u}+\hG^{3/2})$.
+Using $(\rho/\mu)^{1/2}\le C$ and Lemma~\ref{lem:Gbound}, the right-hand side is at most $C(\tnorm{e_u}+\hG^{3/2})\norm{\nabla v}$. Lemma~\ref{lem:infsup} then gives $\beta\norm{\xi-\bar\xi}\le C(\tnorm{e_u}+\hG^{3/2})$.
 \item \emph{Velocity.} For $z\in\Wh$, $e_h:=z-u_h\in\Zh$. Test \eqref{eq:cnserr} with $v=e_h$. Since $(e_p,\div e_h)=0$ and $\ip{\pbG(e_p)}{e_h\cdot n}=0$,
 \[
 c_1\tnorm{e_h}^2\le ME_h\tnorm{e_h}+|\Gc(e_h)|+|\ip{\eta}{e_h\cdot n}|+|\ip{\xi-\bar\xi}{e_h\cdot n}|,
 \]
 where
 \begin{align*}
-|\ip{\eta}{e_h\cdot n}|&\le C\hG^4(h/\mu)^{1/2}\tnorm{e_h},\\
+|\ip{\eta}{e_h\cdot n}|&\le C\hG^k(h/\mu)^{1/2}\tnorm{e_h},\\
 |\ip{\xi-\bar\xi}{e_h\cdot n}|&\le C_I(\rho/h)^{1/2}\norm{\xi-\bar\xi}\,(h/\mu)^{1/2}\tnorm{e_h}\le C(c_0\gamma)^{-1/2}\norm{\xi-\bar\xi}\,\tnorm{e_h}.
 \end{align*}
 \item \emph{Absorb.} Insert step~3 and $\tnorm{e_u}\le E_h+\tnorm{e_h}$. If $\gamma\ge\gamma_2$ with $C(c_0\gamma_2)^{-1/2}\beta^{-1}\le c_1/2$, the pressure term is absorbed.

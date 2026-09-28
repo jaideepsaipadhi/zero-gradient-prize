@@ -2,9 +2,11 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23006372.svg)](https://doi.org/10.5281/zenodo.23006372)
 
-**Preprint:** J. S. Padhi, *Scott–Vogelius–Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold*, Zenodo (2026), [doi:10.5281/zenodo.23006372](https://doi.org/10.5281/zenodo.23006372). `paper/main.pdf` in this commit is the deposited v1.
+**Preprint:** J. S. Padhi, *Scott–Vogelius–Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold*, Zenodo (2026), [doi:10.5281/zenodo.23006372](https://doi.org/10.5281/zenodo.23006372). v1 is the version deposited on 2026-09-28; `paper/main.pdf` here is the current version (v2: extended to every k ≥ 4, see `verification/REFEREE_ROUND3_k_general.md`).
 
 This repository holds a paper, the code behind it and all the raw results, answering Ridgway Scott's **zero-gradient prize question (PPL 115)**. The method in question uses exactly divergence-free P4 velocities, with the no-slip condition imposed weakly by Nitsche's method on an inscribed polygon, as in Gjerde–Scott (2024). The prize asks whether the error behaves like `h_Γ^{3/2} + h_Ω^k` for general Stokes data, *and if not, why not*.
+
+All theorems hold for every fixed polynomial degree k ≥ 4 (v2); the computations use k = 4, as Gjerde–Scott do.
 
 **Short answer:** for the method as printed, no. The printed Nitsche form has no `−pn` traction term, so whenever the pressure varies along the wall, the penalty balances the pressure instead of a traction. The discrete velocity then leaks through the wall with normal velocity `(h/μ)(p − p̄)`. A mean-corrected pressure-consistent variant restores Scott's rate.
 
@@ -19,7 +21,7 @@ Notation: `h = h_Ω` is the bulk mesh size, `γ = μh_Γ/h` and `G = ‖p − p�
 | **Theorem B** | Slip `≍ (h/μ)G` and H¹ error `≍ h/μ`, so Theorem C is sharp. |
 | **Corollary B′** | `ũ − u_h = (h/μ)·v_φ + o(·)` for an explicit field `v_φ` with boundary values `≈ −(p − p̄)n`. The slip and energy errors divided by `(h/μ)G` and `(h/μ)^{1/2}G` tend to **exactly 1**. |
 | **Prop. 7.1** | The naive consistent form `+⟨p_h, v·n⟩` is singular, with kernel `(0, 1)`. |
-| **Theorem D** | The corrected method `CNS*`, which uses `+⟨p_h − p̄_Γ(p_h), v·n⟩`, is well posed and has `‖ũ − u_h‖_{H¹} ≤ C(h_Γ^{3/2} + h_Ω^4)` for general data. This is Scott's rate. |
+| **Theorem D** | The corrected method `CNS*`, which uses `+⟨p_h − p̄_Γ(p_h), v·n⟩`, is well posed and has `‖ũ − u_h‖_{H¹} ≤ C(h_Γ^{3/2} + h_Ω^k)` for general data and **every fixed k ≥ 4** (with boundary edges not too short: h_Γ ≥ h_Ω⁴ for even k). This is Scott's rate. |
 | **Prop. E / 8.1** | The penalty threshold scales like `ρ = h_Ω / min|e|`. `μ ≥ 4κC_I²ρ` suffices, and `μ ≳ ρ` is necessary, certified in exact rational arithmetic. |
 
 The computations run up to N = 256 boundary chords.
@@ -112,4 +114,4 @@ TODO: no licence has been chosen. See `LICENSE`.
 
 - Choose a licence and a venue.
 - `refs.bib`: Cavalcante's preprint has no arXiv number yet, and the edition and page numbers of Galdi's lemma should be double-checked against the book.
-- Optional: a flux-corrected `g_I` removes the `μ^{1/2}h^{5.5}` floor in Lemma 4.5 and the `h_Γ ≥ h_Ω⁴` proviso in Theorem D.
+- Optional: a flux-corrected `g_I` removes the flux term in Lemma 4.6 and the `h_Γ ≥ h_Ω⁴` proviso in Theorem D.

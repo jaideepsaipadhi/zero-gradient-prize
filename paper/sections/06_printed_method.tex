@@ -8,14 +8,14 @@ Then $w:=\curl\varphi$ has components $w_r=\partial_\theta\varphi/r$ and $w_\the
 \[
 w=(p-\pbar)e_r=-(p-\pbar)n .
 \]
-Let $v_\varphi:=\curl\Pi_A\varphi\in\Zh$. Then $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^4$.
+Let $\Pi_{k+1}$ be the $C^1$ piecewise-$P_{k+1}$ interpolant of Morgan and Scott \cite{MorganScott1975} (for $k=4$, the Argyris interpolant \cite{Argyris1968}), which exists because $k+1\ge5$; its constants depend on the angles, hence on (M0) and (M2). Since $\varphi\equiv0$ near $\partial R$ and $h\le h_\ast$, $v_\varphi:=\curl\Pi_{k+1}\varphi\in\Zh$, and $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^k$.
 
 \begin{theorem}[Energy norm: exact rate $1/2$]\label{thm:A}
 The error satisfies the upper bound
 \[
 \tnorm{\ut-u_h}\le C\Bigl[(\hG/\gamma)^{1/2}G+(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
 \]
-If $G>0$ and $\hG\le h_0(G)$, with $h_0$ independent of $\gamma\ge\gamma_0$, it also satisfies the lower bound
+If $G>0$ and $h\le h_0(G)$, with $h_0$ independent of $\gamma\ge\gamma_0$, it also satisfies the lower bound
 \[
 \tnorm{\ut-u_h}\ge(2M)^{-1}(\hG/\gamma)^{1/2}G-C\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
 \]
@@ -32,13 +32,13 @@ Using the Jacobian bound of Lemma~\ref{lem:chords}, $|\Rc(e_h)|\le(G+C\hG^2)(h/\
 
 \begin{proof}[Proof of the lower bound]
 \begin{enumerate}
-\item We have $v_\varphi\cdot n_e=-(p-\pbar)(x^\ast)\,n(x^\ast)\cdot n_e+O(h^4)$, $\Rc=-\ip{\pt-\pbar}{v\cdot n}$ and $n(x^\ast)\cdot n_e=1+O(s^2)$. Hence
+\item We have $v_\varphi\cdot n_e=-(p-\pbar)(x^\ast)\,n(x^\ast)\cdot n_e+O(h^k)$, $\Rc=-\ip{\pt-\pbar}{v\cdot n}$ and $n(x^\ast)\cdot n_e=1+O(s^2)$. Hence
 \[
-\Rc(v_\varphi)=\ip{(\pt-\pbar)\,(p-\pbar)(x^\ast)}{n(x^\ast)\cdot n_e}+O(h^4)=G^2+O(\hG^2+h^4).
+\Rc(v_\varphi)=\ip{(\pt-\pbar)\,(p-\pbar)(x^\ast)}{n(x^\ast)\cdot n_e}+O(h^k)=G^2+O(\hG^2+h^k).
 \]
-\item $\tnorm{v_\varphi}^2\le(\mu/h)(G^2+C\hG^2)+C$.
+\item $\tnorm{v_\varphi}^2\le(\mu/h)(G+C\hG^2+Ch^k)^2+C$.
 \item By continuity, $M\tnorm{\ut-u_h}\ge(|\Rc(v_\varphi)|-|\Gc(v_\varphi)|)/\tnorm{v_\varphi}$, and Lemma~\ref{lem:Gbound} bounds $\Gc$.
-\item $|\Rc|/\tnorm{v_\varphi}\ge(h/\mu)^{1/2}G\bigl(1-C\hG^2/G^2-C(\hG/\gamma_0)^{1/2}/G\bigr)$, which is at least $\frac12(h/\mu)^{1/2}G$ for $\hG\le h_0(G)$.\qedhere
+\item $|\Rc|/\tnorm{v_\varphi}\ge(h/\mu)^{1/2}G\bigl(1-C(\hG^2+h^k)/G^2-C(\hG^2+h^k)/G-C(\hG/\gamma_0)^{1/2}/G\bigr)$, which is at least $\frac12(h/\mu)^{1/2}G$ for $h\le h_0(G)$.\qedhere
 \end{enumerate}
 \end{proof}
 
@@ -92,19 +92,19 @@ m(v)&:=\Rc(v)-\ip{S_h}{v}=-\ip{(\pt-\pbar)n+S_h}{v},\\
 \end{align*}
 \item \emph{Bound on $m$.} On $e$,
 \[
-(\pt-\pbar)n_e+S_h=(p-\pbar)(x^\ast)(n_e-n(x^\ast))+O(\hG^2)+O(h^4)=(p-\pbar)(m_e^\ast)\,s\,\tau_e+O(\hG^2)+O(h^4).
+(\pt-\pbar)n_e+S_h=(p-\pbar)(x^\ast)(n_e-n(x^\ast))+O(\hG^2)+O(h^k)=(p-\pbar)(m_e^\ast)\,s\,\tau_e+O(\hG^2)+O(h^k).
 \]
-The leading term is odd in $s$ with a constant coefficient. The argument of Lemma~\ref{lem:transposed} handles it, and the $O(h^4)$ remainder contributes $Ch^4\norm{v}_{L^1(\Gh)}$. Hence $|m(v)|\le C_p(\hG^{3/2}+h^4)\norm{\nabla v}$.
+The leading term is odd in $s$ with a constant coefficient. The argument of Lemma~\ref{lem:transposed} handles it, and the $O(h^k)$ remainder contributes $Ch^k\norm{v}_{L^1(\Gh)}$. Hence $|m(v)|\le C_p(\hG^{3/2}+h^k)\norm{\nabla v}$.
 \item \emph{Bound on $\ell$.} $|a_h(S_h,v)|+|\ip{\dn S_h}{v}|\le C_p\norm{\nabla v}$. By Lemma~\ref{lem:cancel} applied to $S=w$,
 \[
-|\ip{S_h}{\dn v}|\le|\ip{w}{\dn v}|+|\ip{S_h-w}{\dn v}|\le C_p\norm{\nabla v}+Ch^4\hG^{-1/2}\norm{\nabla v}.
+|\ip{S_h}{\dn v}|\le|\ip{w}{\dn v}|+|\ip{S_h-w}{\dn v}|\le C_p\norm{\nabla v}+Ch^k\hG^{-1/2}\norm{\nabla v}.
 \]
-So $|\ell(v)|\le(h/\mu)(C_p+Ch^4\hG^{-1/2})\norm{\nabla v}$.
+So $|\ell(v)|\le(h/\mu)(C_p+Ch^k\hG^{-1/2})\norm{\nabla v}$.
 \item \emph{Close.} Testing with $v=r_h$,
 \[
-c_1\tnorm{r_h}^2\le\bigl[C_p(h/\mu+\hG^{3/2}+h^4)+C(h/\mu)h^4\hG^{-1/2}\bigr]\norm{\nabla r_h}.
+c_1\tnorm{r_h}^2\le\bigl[C_p(h/\mu+\hG^{3/2}+h^k)+C(h/\mu)h^k\hG^{-1/2}\bigr]\norm{\nabla r_h}.
 \]
-The last two terms are at most $C\eps$, since $(h/\mu)h^4\hG^{-1/2}=\gamma^{-1}h^4\hG^{1/2}\le Ch^4$. Hence
+The last two terms are at most $C\eps$, since $(h/\mu)h^k\hG^{-1/2}=\gamma^{-1}h^k\hG^{1/2}\le Ch^k$. Hence
 \[
 \norm{\nabla\delta_R}\le(h/\mu)\norm{\nabla S_h}+\norm{\nabla r_h}\le C_p(\hG/\gamma)+C(\hG^{3/2}+\eps).\qedhere
 \]
@@ -123,7 +123,7 @@ X\le\delta\,G\min(G,\hG^{1/2}),\qquad \hG/\gamma\le\delta G,\qquad \hG\le h_0(G)
 All three hold for fixed $\gamma$ and bounded $\rho$ as $\hG\to0$. Then
 \begin{enumerate}[label=(\roman*)]
 \item $c(\hG/\gamma)G\le\norm{\ut-u_h}_{L^2(\Gh)}\le C(\hG/\gamma)^{1/2}\tnorm{\ut-u_h}$;
-\item $\norm{\nabla(\ut-u_h)}\ge c(\hG/\gamma)G-Ch^{4.5}$.
+\item $\norm{\nabla(\ut-u_h)}\ge c(\hG/\gamma)G-Ch^{k+1/2}$.
 \end{enumerate}
 Combined with Theorem~\ref{thm:C}, $\norm{\nabla(\ut-u_h)}\asymp h/\mu$ in this regime.
 \end{theorem}
@@ -133,10 +133,10 @@ Let $e:=\ut-u_h$ and $v:=v_\varphi$. Corollary~\ref{cor:GSerr} rearranges to
 \[
 \frac\mu h\ip{e}{v}=\Rc(v)+\Gc(v)-a_h(e,v)+\ip{\dn e}{v}+\ip{e}{\dn v}.
 \]
-We bound the terms, using that $v$ is smooth up to $O(h^4)$.
+We bound the terms, using that $v$ is smooth up to $O(h^k)$.
 \begin{enumerate}
-\item $\Rc(v)=G^2+O(\hG^2+h^4)$.
-\item $|\Gc(v)|\le C(\hG^{3/2}+\gamma\hG^3+\gamma\hG h^4)$. On the chord, $\ut=\pm d\,\dn u(x^\ast)+O(d^2)$ is tangential while $v\approx-(p-\pbar)n$ is normal. Hence $\ut\cdot v=O(\hG^4+\hG^2h^4)$, the second term coming from $v_\varphi-w$.
+\item $\Rc(v)=G^2+O(\hG^2+h^k)$.
+\item $|\Gc(v)|\le C(\hG^{3/2}+\gamma\hG^3+\gamma\hG h^k)$. On the chord, $\ut=\pm d\,\dn u(x^\ast)+O(d^2)$ is tangential while $v\approx-(p-\pbar)n$ is normal. Hence $\ut\cdot v=O(\hG^4+\hG^2h^k)$, the second term coming from $v_\varphi-w$.
 \item $|a_h(e,v)|\le C_p\norm{\nabla e}\le C_pX\le C_p\delta G^2$, by Theorem~\ref{thm:C}.
 \item By Theorem~\ref{thm:A} and $h/\mu=\hG/\gamma\le\delta G$,
 \[
@@ -152,7 +152,7 @@ For $\delta$ small, $|\ip{e}{v}|\ge\frac12(h/\mu)G^2$. Dividing by $\norm{v}_{\G
 \end{proof}
 
 \begin{proof}[Proof of (ii)]
-Let $E\in H^1(\Oh)$ lift $(g-\gI)|_{\partial R}$, supported near $\partial R$, with $E|_{\Gh}=0$ and $\norm{E}_{H^1}\le C\norm{g-\gI}_{H^{1/2}(\partial R)}\le Ch^{4.5}$. By Lemma~\ref{lem:korn}, $\norm{e}_{\Gh}=\norm{e-E}_{\Gh}\le C_{\mathrm{tr}}(\norm{\nabla e}+\norm{\nabla E})$.
+Let $E\in H^1(\Oh)$ lift $(g-\gI)|_{\partial R}$, supported near $\partial R$, with $E|_{\Gh}=0$ and $\norm{E}_{H^1}\le C\norm{g-\gI}_{H^{1/2}(\partial R)}\le Ch^{k+1/2}$. By Lemma~\ref{lem:korn}, $\norm{e}_{\Gh}=\norm{e-E}_{\Gh}\le C_{\mathrm{tr}}(\norm{\nabla e}+\norm{\nabla E})$.
 \end{proof}
 
 \begin{corollary}[Exact leading term]\label{cor:Bp}
@@ -181,7 +181,7 @@ So $\tnorm{r_h}\le C_p(h/\mu+\hG^{3/2})+C\eps$ and $\norm{r_h}_{\Gh}\le(h/\mu)^{
 \[
 O\bigl((h/\mu)^{1/2}/G+(\gamma^{1/2}+\gamma)\hG/G+\eps(\gamma/\hG)^{1/2}/G\bigr)\to0 .
 \]
-\item By Lemma~\ref{lem:chords} (Jacobian and displacement of $\Gh$ from $\Gamma$), $\norm{v_\varphi}_{\Gh}=G(1+O(\hG^2))+O(h^4)$ and $\tnorm{v_\varphi}^2=(\mu/h)\norm{v_\varphi}^2_{\Gh}+O(1)$.\qedhere
+\item By Lemma~\ref{lem:chords} (Jacobian and displacement of $\Gh$ from $\Gamma$), $\norm{v_\varphi}_{\Gh}=G(1+O(\hG^2))+O(h^k)$ and $\tnorm{v_\varphi}^2=(\mu/h)\norm{v_\varphi}^2_{\Gh}+O(1)$.\qedhere
 \end{enumerate}
 \end{proof}
 

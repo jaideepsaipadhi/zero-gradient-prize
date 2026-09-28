@@ -21,13 +21,13 @@ Here $h$ is the $h$ in Scott's penalty $\mu/h$, and $\gamma$ is the effective bo
 \item[(M1$'$)] Every vertex of $\Gh$ has at least three incident triangles. The angle of $\Oh$ at a vertex of $\Gh$ is $\pi+O(\hG)$, so with two triangles $\Theta(z)=O(\hG)\to0$, contradicting (M2).
 \item $\Theta(z):=\max_j|\sin(\theta_j+\theta_{j+1})|\ge\Theta_0>0$ at every vertex $z$, in the notation of Guzm\'an--Scott \cite{GuzmanScott2019}. At boundary vertices the wrap-around term is omitted.
 \end{enumerate}
-\textbf{(D)} $\ft$ is smooth and bounded on a fixed neighbourhood of $\overline\Omega$, $\ft=f$ on $\Omega$, and $\hG\le h_\ast$ is small.
+\textbf{(D)} $\ft$ is smooth and bounded on a fixed neighbourhood of $\overline\Omega$, $\ft=f$ on $\Omega$, and $h\le h_\ast$ is small (hence so is $\hG\le h$).
 \end{assumption}
 
 \subsection*{Spaces}
-$\Vh$ is the space of continuous piecewise-$P_4$ vector fields, $\VR:=\{v\in\Vh:v|_{\partial R}=0\}$ and $\VO:=\{v\in\Vh:v|_{\partial\Oh}=0\}$.
-$\Pih$ is the space of discontinuous piecewise-$P_3$ functions and $\Zh:=\{v\in\VR:\div v=0\}$.
-$\Wh:=\{z\in\Vh:z|_{\partial R}=\gI,\ \div z=0\}$, where $\gI$ is the $P_4$ Lagrange interpolant of $g$.
+Fix $k\ge4$. $\Vh$ is the space of continuous piecewise-$P_k$ vector fields, $\VR:=\{v\in\Vh:v|_{\partial R}=0\}$ and $\VO:=\{v\in\Vh:v|_{\partial\Oh}=0\}$.
+$\Pih$ is the space of discontinuous piecewise-$P_{k-1}$ functions and $\Zh:=\{v\in\VR:\div v=0\}$.
+$\Wh:=\{z\in\Vh:z|_{\partial R}=\gI,\ \div z=0\}$, where $\gI$ is the $P_k$ Lagrange interpolant of $g$. Gjerde and Scott, and all computations in Section~\ref{sec:numerics}, use $k=4$.
 
 \subsection*{Forms}
 $n$ is the outward unit normal of $\Oh$ on $\Gh$ (pointing into $P_h$), and $\ip\cdot\cdot$ is the $L^2(\Gh)$ pairing. Let
@@ -61,4 +61,4 @@ For $v$ with traces on $\Gh$,
 \]
 This is used for discrete fields and for errors $\ut-z$; since $\ut$ is smooth, every trace exists. We write $G:=\norm{p-\pbar}_{L^2(\Gamma)}$, with $\pbar$ the mean of $p$ over $\Gamma$.
 
-$C$ and $c$ depend on (M0)--(M2), $k=4$, $L$ and norms of $(u,p,\psit)$. They are independent of $h,\hG,\mu,\gamma,\rho$ unless displayed. $C_p$ is a constant that may also depend on $\norm{p-\pbar}_{W^{1,\infty}(\Gamma)}$. Where $G$ is tracked explicitly, ``$\delta$ small'' means $\delta\le\delta_0(C_p)$.
+$C$ and $c$ depend on (M0)--(M2), $k$, $L$ and norms of $(u,p,\psit)$. They are independent of $h,\hG,\mu,\gamma,\rho$ unless displayed. $C_p$ is a constant that may also depend on $\norm{p-\pbar}_{W^{1,\infty}(\Gamma)}$. Where $G$ is tracked explicitly, ``$\delta$ small'' means $\delta\le\delta_0(C_p)$.

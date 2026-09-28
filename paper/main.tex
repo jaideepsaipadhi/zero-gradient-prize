@@ -75,11 +75,11 @@
 \keywords{Stokes equations, Scott--Vogelius elements, Nitsche's method, curved boundaries, divergence-free finite elements}
 
 \begin{abstract}
-We analyse the Scott--Vogelius--Nitsche method of Gjerde and Scott for two-dimensional Stokes flow whose no-slip curve is replaced by an inscribed polygon: continuous $P_4$ velocities that are exactly divergence-free, with Dirichlet data imposed weakly on the polygon by Nitsche's method. This answers Scott's zero-gradient prize question, which asks whether the $H^1$ error behaves like $h_\Gamma^{3/2}+h_\Omega^k$ for general Stokes data and, if not, why not.
+We analyse the Scott--Vogelius--Nitsche method of Gjerde and Scott for two-dimensional Stokes flow whose no-slip curve is replaced by an inscribed polygon: continuous $P_k$ velocities ($k\ge4$) that are exactly divergence-free, with Dirichlet data imposed weakly on the polygon by Nitsche's method. This answers Scott's zero-gradient prize question, which asks whether the $H^1$ error behaves like $h_\Gamma^{3/2}+h_\Omega^k$ for general Stokes data and, if not, why not.
 
 For the method as printed, the answer is no as soon as the pressure is not constant on the boundary. The printed Nitsche form omits the traction $-pn$. We prove that the method converges, at the sharp rate $h/\mu$ in the $H^1$ seminorm and at the exact rate $(h/\mu)^{1/2}$ in the mesh-dependent energy norm. To leading order the error is an explicit field: the discrete velocity leaks through the wall with normal velocity $(h/\mu)(p-\bar p)$, with constant exactly $1$ in the slip and energy norms. The $H^1$ rate is $1$ and not $1/2$ only because incompressibility turns the normal part of the missing traction into a tangential derivative.
 
-The naive pressure-consistent correction is singular. A mean-corrected variant is well posed and attains $h_\Gamma^{3/2}+h_\Omega^4$ for general data, using the Guzm\'an--Scott inf-sup constant made uniform over the perturbed domains.
+The naive pressure-consistent correction is singular. A mean-corrected variant is well posed and attains $h_\Gamma^{3/2}+h_\Omega^k$ for general data and every fixed $k\ge4$, provided the boundary edges are not too short relative to the bulk mesh, using the Guzm\'an--Scott inf-sup constant made uniform over the perturbed domains.
 
 We also show that the Nitsche penalty must scale like $\rho=h_\Omega/\min_e|e|$, with necessity certified in exact rational arithmetic. A computational study up to $N=256$ boundary chords confirms every rate and constant. It includes a pure-pressure test that isolates the traction response exactly, and a penalty study in which the threshold is linear in $\rho$ with slope about $20$.
 \end{abstract}
