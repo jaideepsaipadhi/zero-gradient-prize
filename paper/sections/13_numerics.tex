@@ -5,7 +5,7 @@ Except in Section~\ref{sec:numv3}, we use $P_4$ Scott--Vogelius elements with Ni
 
 Saddle-point systems are solved by SuperLU \cite{SuperLU} with partial pivoting and three steps of iterative refinement. Over the $148$ production solves ($74$ cases, two methods each), the relative residual is at most $3.8\cdot10^{-15}$ and the discrete divergence at most $7\cdot10^{-11}$ (median $9\cdot10^{-12}$).
 
-For the zero-pressure-gradient benchmark of \cite{Cavalcante}, the code gives the coercivity threshold $\mu^\ast=60.343$ at $N=20$ (\texttt{results/pod/thresh/}\allowbreak\texttt{N20\_L2.5\_m5.json}), against the $60.338$ reported there.
+For the zero-pressure-gradient benchmark of \cite{Cavalcante}, the code gives the coercivity threshold $\mu^\ast=60.343$ at $N=20$ (\texttt{results/pod/thresh/}\allowbreak\texttt{N20\_L2.5\_m5.json}), against the transition $60.33821<\mu^\ast<60.33831$ reported there.
 
 The vertices of $\Gh$ are the radial projections of $N$ equispaced points on the square, so the boundary chords are \emph{not} equal (except for $N=8$): $\max|e|/\min|e|$ is $1.43$, $1.72$, $1.87$ and $1.97$ at $N=16$, $32$, $64$ and $256$. The ratio $h/\hG=\hO/\max|e|$ stays in $3.28$--$3.48$, while $\rho=h/\min|e|$ of Section~\ref{sec:setting} is $4.70$, $5.73$ and $6.35$ at $N=16$, $32$ and $64$. $\hO$ decreases from $1.505$ to $0.109$ for $N=16\to256$; since $h/\hG$ is nearly constant, rates in $\hO$ and $\hG$ coincide. Penalty thresholds are reported as $\gamma^\ast=\mu^\ast\hG/h$, which is the $\gamma$ of Section~\ref{sec:setting}. Rates in the tables are computed between consecutive runs of the full sequence $N=16,24,32,48,64,96,128,192,256$, some of which are omitted from the tables.
 
@@ -130,7 +130,8 @@ The exact certificate $\lambda\ge9$ on $\cS_3$ and $\cS_4'$ is a local lower bou
 \toprule
 $N$ & 8 & 12 & 16 & 20 & 24 & 32 & 48 & 64\\
 \midrule
-$h/\hG$ & 3.41 & 3.02 & 3.28 & 3.17 & 3.30 & 3.33 & 3.37 & 3.40\\
+$h/\hG$ & 3.41 & 3.02 & 3.28 & 3.16 & 3.30 & 3.33 & 3.37 & 3.40\\
+$\rho$ & 3.41 & 4.16 & 4.70 & 5.08 & 5.36 & 5.73 & 6.13 & 6.35\\
 $\mu^\ast$ & 50.3 & 51.8 & 59.3 & 60.3 & 63.3 & 66.0 & 69.1 & 70.7\\
 $\gamma^\ast$ & 14.7 & 17.1 & 18.1 & 19.1 & 19.2 & 19.9 & 20.5 & 20.8\\
 \bottomrule
@@ -173,6 +174,167 @@ $\ip{S}{\dn v}$, $S$ normal & $\Zh$ & $+0.05$ (bounded, $\approx1.75$)\\
 $\ip{S}{\dn v}$, $S$ normal & $\VR$ & $-0.52$\\
 $\ip{S}{\dn v}$, $S$ tangential & $\Zh$ & $-0.52$\\
 $\ip{(\nabla\ut)^{\mathsf T}n}{v}$, tests A / B & $\VR$ & $1.57$ / $1.56$ (Lemma~\ref{lem:transposed}: $3/2$)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Strong imposition and the \texorpdfstring{$h^{1/2}$}{h^(1/2)} phenomenon}\label{num:strong}
+Table~\ref{tab:strong} compares strongly imposed no-slip, $u_h=0$ at every node of $\Gh$ with no Nitsche terms and the same $P_4$--$P_3^{\rm disc}$ pair, with $\GS$ and $\CNS$ on test A.
+\cert{code/strong\_bc.py; code/report\_v5.py}{results/v5/strong/, results/v5/letter\_tables.txt (T1, T1$'$)}
+\begin{itemize}
+\item \emph{Mesh (a): the rate $h^{1/2}$ is reproduced.} On mesh (a) the first-layer diagonals alternate, so every other polygon vertex lies in only two triangles. The $H^1$ rate of strong imposition falls from $0.75$ to $0.56$ at $N=128$, towards $\frac12$. The largest vertex-gradient error $\max_{z,T\ni z}|\nabla u_h|_T(z)-\nabla u(z)|$ tends to $1.99$, which is $|\dn u\cdot\tau|=2$ at $r=1$ for this flow: the discrete gradient vanishes at those vertices. The pressure norm grows like $h^{-1/2}$ ($\norm{p_h}=14.0\to35.7$, although $p\equiv0$).
+\item \emph{Mesh (s): no locking in the range computed.} On the mesh of the rest of this section every polygon vertex lies in three triangles. Strong imposition then converges with $H^1$ rates $1.93\to1.61$ ($N=24\to128$), like the Nitsche methods and with an error about $2.5$ times larger; the vertex-gradient error decays like $h$ ($1.28\to0.16$), and $\norm{p_h}$ decays. Imposing $u_h=\ut$ at the nodes of $\Gh$ instead of $u_h=0$ gives rate $\approx4$, so the defect of strong imposition is entirely the transfer of the no-slip value $u=0$ from $\Gamma$ to $\Gh$.
+\item \emph{$\GS$ and $\CNS$ do not see the change of mesh.} On mesh (a) their $H^1$ errors at $N=128$ are $6.00\cdot10^{-3}$ and $7.17\cdot10^{-3}$, against $6.11\cdot10^{-3}$ and $6.96\cdot10^{-3}$ on mesh (s); at every $N\le128$ the two meshes differ by at most $6\%$.
+\end{itemize}
+\begin{remark}[How to read Table~\ref{tab:strong}]\label{num:rem:strong}
+These are observations for one flow and two mesh families, not theorems; we have not analysed strong imposition. They are consistent with the local count of Section~\ref{sec:intro}: at a wall vertex in two triangles, a conforming piecewise-polynomial divergence-free field vanishing on both boundary edges has zero gradient, while at a vertex in three triangles a one-parameter family of vertex gradients remains. We did not test three-triangle stars that are nearly singular, nor other flows, so we do not claim that three triangles per wall vertex prevent locking in general. Mesh (a) violates (M1$'$) and (M2) at its two-triangle vertices ($\Theta(z)=O(\hG)$ there), so it lies outside the hypotheses of our theorems for $\GS$ and $\CNS$ as well; that these methods are unaffected on it is an observation. The comparison does support the conclusion of Gjerde and Scott that weak imposition removes the zero-gradient defect, and it shows that the size of that defect for strong imposition depends on the mesh at the wall.
+\end{remark}
+\begin{table}[t]
+\centering
+\caption{Strong imposition against Nitsche. Test A, $k=4$, $\mu=100$: $H^1$ seminorm error $|\ut-u_h|_{1,\Oh}$. \emph{Strong}: $u_h=0$ at all nodes of $\Gh$, no Nitsche terms, on mesh (s), the mesh of Section~\ref{sec:numerics} (every polygon vertex in three triangles), and on mesh (a), the same mesh with alternating first-layer diagonals (polygon vertices in two or four triangles). $\GS$ and $\CNS$ on mesh (s).}\label{tab:strong}
+\small
+\begin{tabular}{rrrrrrrrrr}
+\toprule
+$N$ & $h$ & \multicolumn{2}{c}{strong, mesh (a)} & \multicolumn{2}{c}{strong, mesh (s)} & \multicolumn{2}{c}{$\GS$} & \multicolumn{2}{c}{$\CNS$}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+ & & error & rate & error & rate & error & rate & error & rate\\
+\midrule
+16 & 1.5052 & $9.03\cdot10^{-1}$ & -- & $4.62\cdot10^{-1}$ & -- & $1.72\cdot10^{-1}$ & -- & $1.98\cdot10^{-1}$ & --\\
+24 & 1.0559 & $6.91\cdot10^{-1}$ & 0.75 & $2.33\cdot10^{-1}$ & 1.93 & $8.87\cdot10^{-2}$ & 1.86 & $1.03\cdot10^{-1}$ & 1.85\\
+32 & 0.8127 & $5.72\cdot10^{-1}$ & 0.72 & $1.43\cdot10^{-1}$ & 1.86 & $5.55\cdot10^{-2}$ & 1.79 & $6.41\cdot10^{-2}$ & 1.80\\
+48 & 0.5560 & $4.44\cdot10^{-1}$ & 0.67 & $7.29\cdot10^{-2}$ & 1.78 & $2.88\cdot10^{-2}$ & 1.73 & $3.31\cdot10^{-2}$ & 1.74\\
+64 & 0.4224 & $3.75\cdot10^{-1}$ & 0.62 & $4.56\cdot10^{-2}$ & 1.71 & $1.81\cdot10^{-2}$ & 1.68 & $2.08\cdot10^{-2}$ & 1.69\\
+96 & 0.2853 & $2.98\cdot10^{-1}$ & 0.59 & $2.38\cdot10^{-2}$ & 1.65 & $9.57\cdot10^{-3}$ & 1.63 & $1.09\cdot10^{-2}$ & 1.64\\
+128 & 0.2153 & $2.54\cdot10^{-1}$ & 0.56 & $1.52\cdot10^{-2}$ & 1.61 & $6.11\cdot10^{-3}$ & 1.59 & $6.96\cdot10^{-3}$ & 1.60\\
+192 & 0.1445 & -- & -- & -- & -- & $3.27\cdot10^{-3}$ & 1.57 & $3.71\cdot10^{-3}$ & 1.58\\
+256 & 0.1087 & -- & -- & -- & -- & $2.10\cdot10^{-3}$ & 1.55 & $2.38\cdot10^{-3}$ & 1.56\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Pressure errors, stress and drag}\label{pd:sec:num}
+All runs use $k=4$ and $\mu=100$, and measure $\norm{p^\circ-p_h}_{L^2(\Oh)}$ with $p^\circ=\pt-\pbG(\pt)$, the target of Theorems~\ref{pd:thm:cnsp} and~\ref{pd:thm:gsp}, for both methods. Removing the optimal constant instead changes these errors in the third digit at most; the discrete pressures are thus $\pbG$-normalised up to a vanishing constant, even though $\pbG(p_h)\ne0$ ($\pbG(p_h)=-4.6\cdot10^{-3}\to-9.7\cdot10^{-4}$ for $\CNS$ on B$_1$, $N=16\to96$). The velocity $H^1$ errors of these runs reproduce the stored ones to a relative $2.1\cdot10^{-7}$. The results are in Tables~\ref{tab:B100}--\ref{tab:pA}.
+\cert{code/pressure\_err.py; code/report\_v5.py}{results/v5/pressure/, results/v5/letter\_tables.txt (T2, T4)}
+\begin{itemize}
+\item \emph{$\CNS$.} The pressure error does not depend on the pressure data: for B$_1$, B$_{100}$ and C it agrees to $10^{-6}$ at $N=16$ and $3\cdot10^{-11}$ at $N=96$. Its $L^2$ rates $3.0,3.0,2.6,2.1,1.8$ decrease towards $\frac32$, as Theorem~\ref{pd:thm:cnsp} predicts; the first-layer part already has rate about $1.6$, and the $L^\infty$ error on the first layer has rate about $1$ ($0.98$ at $N=96$), for which we have no proof.
+\item \emph{$\GS$ with $G>0$.} The $L^2$ rate decreases towards $\frac12$ ($0.60$, $0.62$, $0.63$ at $N=96$ for B$_1$, B$_{100}$, C). The first-layer part has rate $0.48$--$0.50$ and the rest rate $0.9$--$1.0$; the $L^\infty$ error on the first layer does not converge ($0.78$ for B$_1$, $77$ for B$_{100}$). This is Theorem~\ref{pd:thm:gsp}. For B$_{100}$ the $\GS$ pressure error is $9.2$ at $N=96$, against $8\cdot10^{-3}$ for $\CNS$.
+\item \emph{$\GS$ with $G=0$} (test A) behaves like $\CNS$: $L^2$ rate $1.68$ at $N=96$ and still decreasing, and the first layer converges.
+\end{itemize}
+\emph{Layer, drag and traction.} On test P with $\GS$ at $N=64$ and $96$, the first-layer pressure error is $0.0958$ and $0.0793$, against $\norm{\xib}=0.0961$ and $0.0796$ from Definition~\ref{pd:def:xib}; the rest is $0.069$ and $0.047$. The Nitsche-flux drag defect $J^N_h-J_{e_1}+\Theta_f$ is $0.970$ and $0.981$ times the prediction $-(h/\mu)K_{e_1}$ of Theorem~\ref{pd:thm:gsdrag} ($K_{e_1}\approx17.16$, $K_{e_2}\approx-25.36$); for Gjerde--Scott's volume formula the ratio to $-2(h/\mu)K_{e_1}$ is $0.905$ and $0.952$ at $N=32$ and $64$ (Proposition~\ref{pd:prop:chi}). The pointwise-traction drag error does not converge: $J^\beta_h-J_{e_1}=-1.211$ and $-1.225$ at $N=64$ and $96$, against $\Xi_h=-1.192$ at $N=64$ (Proposition~\ref{pd:prop:beta}). For $\CNS$ on B$_1$, the lift defect divided by $-\Theta_f-\Lambda_h$ is $0.788,0.895,0.941,0.955$ for $N=16$--$96$, and on test A the torque ratio is $0.84,0.92,0.95$ (Theorem~\ref{pd:thm:cnsdrag}). At fixed $N=64$ the $\CNS$ pressure error on B$_1$ grows with the penalty ($0.016$, $0.039$, $0.059$ for $\mu=10^2,10^3,10^4$), which is the non-uniformity in $\gamma$ of Remark~\ref{pd:rem:cnsp}.
+\cert{notes/v4/pressure\_drag\_check.py}{notes/v4/pressure\_drag\_report.md, Section~3 (no log file)}
+\begin{table}[t]
+\centering
+\caption{Test B$_{100}$ (large pressure variation, $p=100(x^2y-y+x/2)$), $k=4$, $\mu=100$: velocity error $|\ut-u_h|_{1,\Oh}$ and pressure error $\norm{p^\circ-p_h}_{L^2(\Oh)}$, $p^\circ=\pt-\pbG(\pt)$.}\label{tab:B100}
+\small
+\begin{tabular}{rrrrrrrrrr}
+\toprule
+$N$ & $h$ & \multicolumn{2}{c}{$\GS$, $|\cdot|_1$} & \multicolumn{2}{c}{$\CNS$, $|\cdot|_1$} & \multicolumn{2}{c}{$\GS$, $L^2$ pressure} & \multicolumn{2}{c}{$\CNS$, $L^2$ pressure}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+ & & error & rate & error & rate & error & rate & error & rate\\
+\midrule
+16 & 1.5052 & $6.14$ & -- & $1.29\cdot10^{-1}$ & -- & $2.75\cdot10^{1}$ & -- & $4.97\cdot10^{-1}$ & --\\
+24 & 1.0559 & $4.48$ & 0.89 & $4.42\cdot10^{-2}$ & 3.02 & $2.17\cdot10^{1}$ & 0.67 & $1.69\cdot10^{-1}$ & 3.04\\
+32 & 0.8127 & $3.51$ & 0.93 & $2.34\cdot10^{-2}$ & 2.43 & $1.82\cdot10^{1}$ & 0.68 & $7.67\cdot10^{-2}$ & 3.03\\
+48 & 0.5560 & $2.45$ & 0.95 & $1.11\cdot10^{-2}$ & 1.97 & $1.41\cdot10^{1}$ & 0.67 & $2.87\cdot10^{-2}$ & 2.59\\
+64 & 0.4224 & $1.88$ & 0.97 & $6.83\cdot10^{-3}$ & 1.76 & $1.18\cdot10^{1}$ & 0.65 & $1.62\cdot10^{-2}$ & 2.08\\
+96 & 0.2853 & $1.28$ & 0.98 & $3.54\cdot10^{-3}$ & 1.68 & $9.23$ & 0.62 & $8.01\cdot10^{-3}$ & 1.80\\
+128 & 0.2153 & $9.71\cdot10^{-1}$ & 0.98 & $2.24\cdot10^{-3}$ & 1.63 & -- & -- & -- & --\\
+192 & 0.1445 & $6.54\cdot10^{-1}$ & 0.99 & $1.18\cdot10^{-3}$ & 1.60 & -- & -- & -- & --\\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[t]
+\centering
+\caption{Test B$_1$, $\mu=100$: pressure error $\norm{p^\circ-p_h}_{L^2(\Oh)}$ ($p^\circ=\pt-\pbG(\pt)$); the off-layer column is the error on $\Oh\setminus\Lay$ with the optimal constant removed.}\label{tab:pB1}
+\small
+\begin{tabular}{rrrrrrrr}
+\toprule
+$N$ & $h$ & \multicolumn{2}{c}{$\GS$} & \multicolumn{2}{c}{$\GS$, off first layer} & \multicolumn{2}{c}{$\CNS$}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8}
+ & & error & rate & error & rate & error & rate\\
+\midrule
+16 & 1.5052 & $5.30\cdot10^{-1}$ & -- & $5.00\cdot10^{-1}$ & -- & $4.97\cdot10^{-1}$ & --\\
+24 & 1.0559 & $2.47\cdot10^{-1}$ & 2.15 & $1.96\cdot10^{-1}$ & 2.63 & $1.69\cdot10^{-1}$ & 3.04\\
+32 & 0.8127 & $1.80\cdot10^{-1}$ & 1.22 & $1.21\cdot10^{-1}$ & 1.84 & $7.67\cdot10^{-2}$ & 3.03\\
+48 & 0.5560 & $1.37\cdot10^{-1}$ & 0.72 & $8.05\cdot10^{-2}$ & 1.08 & $2.87\cdot10^{-2}$ & 2.59\\
+64 & 0.4224 & $1.15\cdot10^{-1}$ & 0.61 & $6.32\cdot10^{-2}$ & 0.88 & $1.62\cdot10^{-2}$ & 2.08\\
+96 & 0.2853 & $9.13\cdot10^{-2}$ & 0.60 & $4.45\cdot10^{-2}$ & 0.89 & $8.01\cdot10^{-3}$ & 1.80\\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[t]
+\centering
+\caption{Test A ($p\equiv0$), $\mu=100$: pressure error $\norm{p^\circ-p_h}_{L^2(\Oh)}$ ($p^\circ=\pt-\pbG(\pt)$); the off-layer column is the error on $\Oh\setminus\Lay$ with the optimal constant removed. Here $G=0$, and $\GS$ behaves like $\CNS$.}\label{tab:pA}
+\small
+\begin{tabular}{rrrrrrrr}
+\toprule
+$N$ & $h$ & \multicolumn{2}{c}{$\GS$} & \multicolumn{2}{c}{$\GS$, off first layer} & \multicolumn{2}{c}{$\CNS$}\\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8}
+ & & error & rate & error & rate & error & rate\\
+\midrule
+16 & 1.5052 & $2.05\cdot10^{-1}$ & -- & $1.36\cdot10^{-1}$ & -- & $3.78\cdot10^{-1}$ & --\\
+24 & 1.0559 & $1.05\cdot10^{-1}$ & 1.88 & $7.03\cdot10^{-2}$ & 1.86 & $1.95\cdot10^{-1}$ & 1.87\\
+32 & 0.8127 & $6.48\cdot10^{-2}$ & 1.85 & $4.34\cdot10^{-2}$ & 1.84 & $1.21\cdot10^{-1}$ & 1.81\\
+48 & 0.5560 & $3.29\cdot10^{-2}$ & 1.79 & $2.20\cdot10^{-2}$ & 1.79 & $6.23\cdot10^{-2}$ & 1.75\\
+64 & 0.4224 & $2.04\cdot10^{-2}$ & 1.73 & $1.36\cdot10^{-2}$ & 1.74 & $3.92\cdot10^{-2}$ & 1.69\\
+96 & 0.2853 & $1.06\cdot10^{-2}$ & 1.68 & $6.99\cdot10^{-3}$ & 1.70 & $2.05\cdot10^{-2}$ & 1.65\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{A growing penalty and flux-corrected data}\label{rs:sec:num}
+All runs use $k=4$ on the meshes of Section~\ref{sec:numerics} ($h/\hG\in[3.28,3.43]$, so $\gamma\approx0.29\mu$ and rates in $h$ and $\hG$ agree), SuperLU for $N\le64$ and PARDISO (Section~\ref{sec:numv3}) for $N=96$; relative residuals are at most $1.8\cdot10^{-12}$ and the discrete divergence at most $1.6\cdot10^{-9}$. The $\mu=100$ values for test P reproduce Table~\ref{tab:P} ($\norm{\nabla e}=1.2810\cdot10^{-2}$ at $N=96$).
+\cert{code/rescue.py; code/rescue\_run.sh; code/rescue\_report.py}{logs/rescue\_study.log, rescue\_musweep.log, rescue\_flux.log, rescue\_cond.log; results/v4/rescue/}
+
+\emph{Power-law penalty.} We take $\mu=c\,(h_{16}/h)^\alpha$, $h_{16}=1.505$. Table~\ref{rs:tab:rates} gives the rates between $N=64$ and $96$. On the leak-only test P they are exactly those of Corollary~\ref{rs:rates} ($H^1$: $1+\alpha$; energy: $(1+\alpha)/2$), with the normalised constants of Corollary~\ref{cor:Bp} unchanged ($\norm{\nabla e}\mu/(hG)=2.71$--$2.78$ and $\tnorm e(\mu/h)^{1/2}/G=0.996$--$0.999$ at $N=96$). On B$_1$ the $\GS$ $H^1$ rate moves from $0.96$ (fixed $\mu$) to $1.42$--$1.52$, and the $H^1$ error at $N=96$ halves ($1.27\cdot10^{-2}\to6.4\cdot10^{-3}$, against $3.5\cdot10^{-3}$ for $\CNS$ at $\mu=100$); on B$_{100}$ it drops by a factor $22$ at $c=1000$. The energy rates follow Corollary~\ref{rs:rates}: on B$_1$ with $\alpha=\frac12$, $c=1000$ the measured $1.28$ is the geometric branch $(3-\alpha)/2=1.25$ (the leak branch $0.75$ takes over only later), and with $\alpha=1$ it is $1.06$.
+
+\begin{table}[t]
+\centering\small
+\caption{$\GS$ (and $\CNS$) with $\mu=c(h_{16}/h)^\alpha$: rates between $N=64$ and $N=96$, and the predicted asymptotic rates (Corollary~\ref{rs:rates}; for test P, where $\ut=0$, only the leak is present and the rates are $1+\alpha$ and $(1+\alpha)/2$ for every $\alpha$).}\label{rs:tab:rates}
+\begin{tabular}{llcccccc}
+\toprule
+test & method & $(\alpha,c)$ & $\mu$ at $N=96$ & $\norm{\nabla e}$ at $N=96$ & $H^1$ rate & energy rate & predicted\\
+\midrule
+P & $\GS$ & $(0,100)$ & 100 & $1.28\cdot10^{-2}$ & 0.95 & 0.49 & 1, 0.5\\
+P & $\GS$ & $(\frac12,100)$ & 230 & $5.64\cdot10^{-3}$ & 1.45 & 0.73 & 1.5, 0.75\\
+P & $\GS$ & $(\frac12,1000)$ & 2297 & $5.72\cdot10^{-4}$ & 1.47 & 0.73 & 1.5, 0.75\\
+P & $\GS$ & $(1,100)$ & 528 & $2.47\cdot10^{-3}$ & 1.94 & 0.97 & 2, 1\\
+\midrule
+B$_1$ & $\GS$ & $(0,100)$ & 100 & $1.27\cdot10^{-2}$ & 0.96 & 0.56 & 1, 0.5\\
+B$_1$ & $\GS$ & $(\frac12,100)$ & 230 & $6.42\cdot10^{-3}$ & 1.42 & 0.86 & 1.5, 0.75\\
+B$_1$ & $\GS$ & $(\frac12,1000)$ & 2297 & $5.81\cdot10^{-3}$ & 1.52 & 1.28 & 1.5, 0.75\\
+B$_1$ & $\GS$ & $(1,100)$ & 528 & $5.03\cdot10^{-3}$ & 1.47 & 1.06 & 1.5, 1\\
+B$_1$ & $\CNS$ & $(0,100)$ & 100 & $3.54\cdot10^{-3}$ & 1.64 & 1.53 & 1.5, 1.5\\
+B$_1$ & $\CNS$ & $(1,100)$ & 528 & $5.21\cdot10^{-3}$ & 1.45 & 1.16 & 1.5, 1\\
+\midrule
+A & $\GS$ & $(0,100)$ & 100 & $9.57\cdot10^{-3}$ & 1.59 & 1.54 & 1.5, 1.5\\
+A & $\GS$ & $(\frac12,100)$ & 230 & $1.21\cdot10^{-2}$ & 1.43 & 1.35 & 1.5, 1.25\\
+A & $\GS$ & $(\frac12,1000)$ & 2297 & $1.86\cdot10^{-2}$ & 1.52 & 1.32 & 1.5, 1.25\\
+A & $\GS$ & $(1,100)$ & 528 & $1.48\cdot10^{-2}$ & 1.34 & 1.16 & 1.5, 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\emph{The price when $G$ is small.} On test A ($G=0$) a growing penalty only costs. Theorem~\ref{rs:unif} bounds the $H^1$ error uniformly, but at $N=64$ the constant moves from its value at $\gamma\approx30$ ($\norm{\nabla e}=1.82\cdot10^{-2}$) to the value of the Dirichlet limit $\mu\to\infty$ ($4.56\cdot10^{-2}$), $2.5$ times larger. Along $\alpha=1$ the ratio of the $\GS$ error to the Dirichlet-limit error climbs from $0.37$ to $0.56$ between $N=16$ and $64$; this transient is why the measured $H^1$ rate on A with $\alpha=1$ is $1.34$ rather than $1.5$. The Dirichlet-limit error itself has rates $1.90,1.80,1.72,1.66$, decreasing towards $\frac32$ as for $\CNS$. The energy error, by contrast, grows without bound: at $N=64$, $\tnorm e/(\gamma^{1/2}\hG^{3/2})\to0.339$ (A) and $0.105$ (B$_1$) as $\mu\to\infty$, and these limits are exactly $\norm{\ut}_{\Gh}/\hG^2$: the discrete trace tends to $0$ and the energy error becomes $(\mu/h)^{1/2}\norm{\ut}_{\Gh}$, the mechanism of Theorem~\ref{rs:elower}. $\CNS$ agrees with $\GS$ to four digits for $\mu\ge10^6$.
+
+\emph{Conditioning} (Proposition~\ref{rs:cond}; $N=32,48$, $\mu=10^2$--$10^5$). $\lambda_{\min}(A_\mu)\approx0.03h^2$ does not depend on $\mu$, and $\lambda_{\max}(A_\mu)\approx\max(102\text{--}118,\ 0.47\gamma)$, so for $\gamma\lesssim200$ the $P_4$ stiffness part dominates and a moderate growth of $\mu$ is free. The smallest Schur eigenvalue is the constant-pressure mode and equals $(|\Gh|/|\Oh|)\,h/\mu$ to within $2.5\%$ at every $N$ and $\mu$; the next one ($0.007$--$0.010$, the squared inf-sup constant on $L^2_0$) does not depend on $\mu$. So $\kappa(K_\mu)\approx\lambda_{\max}(A_\mu)\,(|\Oh|/|\Gh|)\,\mu/h$, from $4.9\cdot10^4$ ($N=32$, $\mu=10^2$) to $6.0\cdot10^9$ ($\mu=10^5$): linear in $\mu$ while the stiffness part dominates $\lambda_{\max}$, quadratic after. For the $H^1$-optimal $\alpha=\frac12$ with $c=100$ the whole study ($\mu\le230$) stays in the linear regime.
+
+\emph{Flux correction.} The test data above have $m_R=0$ up to round-off ($|m_R|\le2\cdot10^{-13}$), either because $g\cdot\nu$ is a polynomial of low degree (B, P) or by symmetry (A). Test F uses $\psi=(r^2-1)^3\sin(2x+1)\cos(\frac32y+\frac7{10})/400$ and $p=x^2y-y+x/2$: the cube makes $W\equiv0$, so the geometric slip $\norm{\ut}_{\Gh}=O(\hG^4)$ is small, and the phase shift breaks the symmetries, so $m_R\neq0$; it decays like $h^{6.6}$ ($\sigma_4=6$). Table~\ref{rs:tab:flux} shows the floor of Proposition~\ref{rs:floor} directly. Without correction the $\CNS$ slip error at large $\mu$ is $(|m_R|^2/|\Gh|+\norm{\ut}^2_{\Gh})^{1/2}$ to three digits: the uniform normal flux defect and the tangential geometric slip, orthogonal to each other. With the correction the slip error is $\norm{\ut}_{\Gh}$ to five digits, the flux through $\Gh$ is at most $2.5\cdot10^{-14}$, and the energy error loses the term $(\mu/h)^{1/2}|m_R|/|\Gh|^{1/2}$ (a factor $7$ at $N=16$, $\mu=10^8$). The $H^1$ errors with and without correction agree to a relative $3\cdot10^{-6}$ ($N=16$) down to $10^{-9}$ ($N=64$), as Theorem~\ref{rs:unif} predicts: the flux enters the $H^1$ error only as $|m_R|\hG^{-1/2}$, far below the interpolation error of this steep solution. For the companion test F2 ($(r^2-1)^2$ in place of $(r^2-1)^3$, so $W\not\equiv0$) the geometric slip exceeds the floor by a factor $23$ ($N=16$) to $2\cdot10^4$ ($N=64$), and the correction changes nothing visible.
+
+\begin{table}[t]
+\centering\small
+\caption{Test F, $\CNS$, uncorrected ($\gI$) against flux-corrected ($\tilde g_I$) outer data. Slip errors $\norm{\ut-u_h}_{\Gh}$ at $\mu=10^6$; energy errors at $\mu=10^8$, with the floor $(\mu/h)^{1/2}|m_R|/|\Gh|^{1/2}$ of Proposition~\ref{rs:floor}.}\label{rs:tab:flux}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rcccccccc}
+\toprule
+$N$ & $m_R$ & $\frac{|m_R|}{|\Gh|^{1/2}}$ & $\norm{\ut}_{\Gh}$ & slip, $\gI$ & slip, $\tilde g_I$ & $\tnorm e$, $\gI$ & $\tnorm e$, $\tilde g_I$ & floor\\
+\midrule
+16 & $2.04\cdot10^{-3}$ & $8.19\cdot10^{-4}$ & $2.40\cdot10^{-5}$ & $8.204\cdot10^{-4}$ & $2.396\cdot10^{-5}$ & 6.752 & 0.955 & 6.672\\
+24 & $1.54\cdot10^{-4}$ & $6.14\cdot10^{-5}$ & $5.21\cdot10^{-6}$ & $6.172\cdot10^{-5}$ & $5.210\cdot10^{-6}$ & 0.701 & 0.366 & 0.598\\
+32 & $2.56\cdot10^{-5}$ & $1.02\cdot10^{-5}$ & $1.70\cdot10^{-6}$ & $1.038\cdot10^{-5}$ & $1.697\cdot10^{-6}$ & 0.187 & 0.149 & 0.114\\
+48 & $2.14\cdot10^{-6}$ & $8.55\cdot10^{-7}$ & $3.42\cdot10^{-7}$ & $9.213\cdot10^{-7}$ & $3.422\cdot10^{-7}$ & 0.0372 & 0.0354 & 0.0115\\
+64 & $3.75\cdot10^{-7}$ & $1.50\cdot10^{-7}$ & $1.09\cdot10^{-7}$ & $1.851\cdot10^{-7}$ & $1.091\cdot10^{-7}$ & 0.0123 & 0.0121 & 0.0023\\
 \bottomrule
 \end{tabular}
 \end{table}

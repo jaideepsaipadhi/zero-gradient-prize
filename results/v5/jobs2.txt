@@ -1,0 +1,17 @@
+python3 pressure_err.py 64 B1 100 pardiso
+python3 strong_bc.py 16 A 100 zero lu
+python3 strong_bc.py 16 A 100 interp lu
+python3 strong_bc.py 24 A 100 zero lu
+python3 strong_bc.py 24 A 100 interp lu
+python3 strong_bc.py 32 A 100 zero lu
+python3 strong_bc.py 32 A 100 interp lu
+python3 strong_bc.py 48 A 100 zero lu
+python3 strong_bc.py 48 A 100 interp lu
+python3 pressure_err.py 96 A 100 pardiso
+python3 pressure_err.py 96 B1 100 pardiso
+python3 pressure_err.py 96 B100 100 pardiso
+python3 pressure_err.py 96 C 100 pardiso
+python3 strong_bc.py 96 A 100 zero pardiso
+python3 strong_bc.py 96 A 100 interp pardiso
+python3 strong_bc.py 128 A 100 zero pardiso
+python3 strong_bc.py 128 A 100 interp pardiso

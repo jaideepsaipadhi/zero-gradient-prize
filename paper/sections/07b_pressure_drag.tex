@@ -1,0 +1,553 @@
+\section{Pressure, boundary stress and drag}\label{pd:sec}
+
+All error theorems so far bound the velocity. This section adds pressure, boundary-traction and drag/lift/torque estimates for both methods; drag is what Gjerde and Scott use the method for \cite{GjerdeScott2024}. In brief: the $\CNS$ pressure converges at the velocity rate $\hG^{3/2}+\hO^k$, including its constant, while the $\GS$ pressure carries an explicit first-layer boundary layer and converges in $L^2$ only at the exact rate $\frac12$. The variational (Babu\v{s}ka--Miller) drag equals the integral of the Nitsche flux; for $\GS$ its error is, to leading order, $-(h/\mu)$ times a reciprocity constant, for $\CNS$ it is $O(\hG^2)$. The computations are in Section~\ref{pd:sec:num}.
+
+\subsection{Setting, notation and summary}\label{pd:sec:setting}
+
+\subsubsection{Setting}
+Everything is in the setting of Section~\ref{sec:setting}: $\Omega=R\setminus\overline D$, inscribed polygon $\Gh$, (M0)--(M2), (D), $k\ge4$, the forms $a_h$, $N_h$, the norm $\tnorm\cdot$, the extensions $\ut=\curl\tilde\psi$, $\pt$, and $F=\ft+\Delta\ut-\nabla\pt$ (supported in $\overline{S_h}$, $S_h=\Oh\setminus\overline\Omega$). Section~\ref{pd:sec:ns} treats Navier--Stokes and Remark~\ref{pd:rem:gd} general domains. Throughout, $\gamma\ge\gamma_0$ for $\GS$ and $\gamma\ge\gamma_2$ for $\CNS$ (Theorem~\ref{thm:D}). We use $\theta=0$ for $\GS$ and $\theta=1$ for $\CNS$, so both methods read
+\[
+N_h(u_h,v)-(p_h,\div v)+\theta\ip{p_h-\pbG(p_h)}{v\cdot n}=(\ft,v)\quad\forall v\in\VR,\qquad (q,\div u_h)=0\quad\forall q\in\Pih .
+\]
+Further notation:
+\begin{itemize}
+\item $e_u:=\ut-u_h$; $q:=p-\pbar$ on $\Gamma$; $G=\norm q_{L^2(\Gamma)}$; $C_p$ is as in Theorem~\ref{thm:C}; $x^\ast=x/|x|$ is the nearest point of $\Gamma$ to $x\in\Gh$.
+\item $T_e$ is the triangle with edge $e\in\EG$ (distinct for distinct $e$, Section~\ref{lb:sec}), $H_e:=2|T_e|/|e|$ its height, and $\Lay:=\bigcup_eT_e$ the \emph{first layer}. By (M0), $\diam T_e\le C\hG$, $c\le |e|/H_e\le C$ and $c\hG\le|\Lay|\le C\hG$.
+\item $p^\circ:=\pt-\pbG(\pt)$, where $\pbG(\cdot)$ is the mean over $\Gh$ (this is the $p^\ast$ of Theorem~\ref{thm:D}), and $e_p:=p^\circ-p_h$.
+\item $m_R:=\int_{\partial R}\gI\cdot\nu$. Then $\int_{\Gh}u_h\cdot n=-m_R$ and $\int_{\Gh}\ut\cdot n=0$, so $\int_{\Gh}e_u\cdot n=m_R$; with flux-corrected data (Definition~\ref{rs:def}) the same holds with $m_R$ replaced by $\int_{\partial R}\tilde g_I\cdot\nu=0$; and $m_R=0$ for the test data of Section~\ref{sec:numerics}.
+\item $\Bh(y,w):=N_h(y,w)-a_h(y,w)=-\ip{\dn y}{w}-\ip{y}{\dn w}+\frac\mu h\ip yw$.
+\item The error sizes
+\[
+Y:=(1+\gamma^{1/2})\hG^{3/2}+\eps,\qquad X_1:=\frac h\mu+Y .
+\]
+\end{itemize}
+By Theorem~\ref{thm:D}, $\tnorm{e_u}\le CY$ for $\CNS$. By Theorems~\ref{thm:A} and~\ref{thm:C}, $\tnorm{e_u}\le C[(h/\mu)^{1/2}G+Y]$ and $\norm{\nabla e_u}\le C_pX_1$ for $\GS$.
+
+\subsubsection{Summary}
+The rates below are for fixed $\gamma$ and bounded $\rho$ (so $h\asymp\hG$ and $h/\mu\asymp\hG$), $k\ge4$, and $\eps\le C\hO^k$ (or flux-corrected data); each entry states the upper bound, and ``sharp'' means a matching lower bound is proved.
+\begin{center}\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}}
+\toprule
+quantity & $\GS$ & $\CNS$\\
+\midrule
+$\norm{p^\circ-p_h}_{L^2(\Oh)}$ & $\asymp(h/\mu)\hG^{-1/2}G$: rate $\frac12$, sharp (Thm~\ref{pd:thm:gsp}) & $O(\hG^{3/2})$ (Thm~\ref{pd:thm:cnsp})\\
+$\norm{p^\circ-p_h}_{L^2(\Oh\setminus\Lay)}$ & $O(h/\mu)$ & $O(\hG^{3/2})$\\
+$\norm{p^\circ-p_h-c}_{L^\infty(\Lay)}$, any $c$ & $\ge cG/\gamma$: no convergence & not proved\\
+drag/lift/torque: Nitsche flux $=$ volume formula with $v_\psi$ & $-(h/\mu)K_\psi+O(h^{3/2})$: rate $1$ (Thm~\ref{pd:thm:gsdrag}) & $-\Theta_f-\Lambda_h+O(\gamma^{-1/2}\hG^2)$: rate $2$ (Thm~\ref{pd:thm:cnsdrag})\\
+drag, GS volume formula $\omega_h(\chi_h)$ & $-2(h/\mu)K_e+O(h^{3/2})$ (Prop.~\ref{pd:prop:chi}) & $J^N_h+O(\hG^2)$\\
+drag, pointwise traction $\sigma(u_h,p_h)n$ & $\Xi_h(\psi)=O(1/\gamma)$: no convergence (Prop.~\ref{pd:prop:beta}) & $O(\hG)$\\
+Nitsche traction in $L^2(\Gh)$ & $O(\hG^{1/2})$ & $O(\hG)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Tools}\label{pd:sec:tools}
+
+\begin{lemma}[Pressure identity on $\VO$]\label{pd:lem:v0}
+For both methods and all $v\in\VO$,
+\[
+(p^\circ-p_h,\div v)=a_h(e_u,v)+\ip{u_h}{\dn v}+(F,v).
+\]
+\end{lemma}
+
+\begin{proof}
+For $v\in\VO$ we have $v=0$ on $\Gh$, so $N_h(w,v)=a_h(w,v)-\ip{w}{\dn v}$ and the $\theta$-term vanishes. The method gives $a_h(u_h,v)-\ip{u_h}{\dn v}-(p_h,\div v)=(\ft,v)$. On $\VO$, Lemma~\ref{lem:erroreq} reads $a_h(\ut,v)-\ip{\ut}{\dn v}-(\pt,\div v)=(\ft,v)+\Gc(v)$ with $\Gc(v)=-\ip{\ut}{\dn v}-(F,v)$, i.e.\ $a_h(\ut,v)-(\pt,\div v)=(\ft-F,v)$. Subtract, and note $(c,\div v)=0$ for constants $c$.
+\end{proof}
+
+The term $\ip{u_h}{\dn v}$ is the \emph{Nitsche coupling}: the symmetric Nitsche term applied to the discrete trace. For $v\in\VO$ and $e\in\EG$, $v|_{T_e}$ vanishes on $e$, so $\nabla v=\dn v\otimes n_e$ there and
+\begin{equation}\label{pd:eq:divtrace}
+(\div v)|_{T_e}=\dn v\cdot n_e\quad\text{on }e .
+\end{equation}
+Hence the \emph{normal} part of the discrete trace acts on the pressure exactly like a boundary source $\ip{u_h\cdot n}{\div v}_{\Gh}$.
+
+\begin{lemma}[Edge representers]\label{pd:lem:rep}
+For $e\in\EG$ and $g\in L^\infty(e)$ let $\xi_{e,g}\in P_{k-1}(T_e)$ be defined by $(\xi_{e,g},r)_{T_e}=\int_eg\,r$ for all $r\in P_{k-1}(T_e)$.
+\begin{enumerate}[label=(\alph*)]
+\item For constant $g\equiv1$, $\xi_{e,1}(x)=\frac{|e|}{2|T_e|}\hat r_k(F_e^{-1}x)$, where $F_e$ is an affine map from the reference triangle $\hat T=\{(0,0),(1,0),(0,1)\}$ onto $T_e$ with $F_e(\hat e)=e$, $\hat e=[0,1]\times\{0\}$, and $\hat r_k\in P_{k-1}(\hat T)$ is the representer of $\hat r\mapsto\int_{\hat e}\hat r$. Consequently
+\[
+\norm{\xi_{e,1}}^2_{T_e}=\int_e\xi_{e,1}=\chat\,\frac{|e|}{H_e},\qquad \norm{\xi_{e,1}}^2_{L^2(e)}=\hat d_k\frac{|e|}{H_e^2},
+\]
+with $\chat:=\int_{\hat e}\hat r_k$ and $\hat d_k:=\norm{\hat r_k}^2_{L^2(\hat e)}$ positive and depending only on $k$.
+\item $\norm{\xi_{e,g}-g_e\xi_{e,1}}_{T_e}\le C\norm{g-g_e}_{L^\infty(e)}$ and $\norm{\xi_{e,g}-g_e\xi_{e,1}}_{L^2(e)}\le C|e|^{-1/2}\norm{g-g_e}_{L^\infty(e)}$ for every constant $g_e$.
+\end{enumerate}
+Exact rational computation (\texttt{sympy}) gives $\chat=k(k+1)$ for $1\le k\le8$; in particular $\hat c_4=20$.
+\end{lemma}
+
+\begin{proof}
+(a) With $x=F_e\hat x$, $\int_{T_e}\xi r=2|T_e|\int_{\hat T}\hat\xi\hat r$ and $\int_er=|e|\int_{\hat e}\hat r$, which gives the formula. Then $\norm{\xi_{e,1}}^2_{T_e}=\int_e\xi_{e,1}$ (take $r=\xi_{e,1}$), and the scalings follow from $|e|^2/(2|T_e|)=|e|/H_e$. (b) The map $g\mapsto\xi_{e,g}$ is linear, and $\norm{\xi_{e,g}}_{T_e}=\sup_r\int_egr/\norm r_{T_e}\le\norm g_{L^\infty(e)}|e|^{1/2}\sup_r\norm r_{L^2(e)}/\norm r_{T_e}\le C\norm g_{L^\infty(e)}$ by the inverse trace inequality $\norm r_{L^2(e)}\le C|e|^{-1/2}\norm r_{T_e}$ on $P_{k-1}$; the trace bound follows from the same inequality.
+\end{proof}
+
+\begin{lemma}[Normal-load cancellation without incompressibility]\label{pd:lem:cancel}
+Let $S$ be as in Lemma~\ref{lem:cancel}: edgewise $W^{1,\infty}$ on $\Gh$, continuous at the vertices, with $|S\cdot\tau_e|\le C\hG$. Then for every $\delta\in\VR$,
+\[
+|\ip S{\dn\delta}|\le C\Bigl(\norm{\nabla\delta}+\sum_{e\in\EG}\norm{(\div\delta)|_{T_e}}_{L^1(e)}\Bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Repeat Lemma~\ref{lem:cancel}. The only change is in step 2: on $e$, $\dn\delta\cdot n_e=(\div\delta)|_{T_e}-\dt(\delta\cdot\tau_e)$. This adds the term $\int_e\sigma_e(\div\delta)|_{T_e}$, which is bounded by $\norm S_\infty\norm{(\div\delta)|_{T_e}}_{L^1(e)}$.
+\end{proof}
+
+\begin{lemma}[$\Gc$ on non-discrete fields]\label{pd:lem:G}
+For every $w\in H^1(\Oh)^2$ that is piecewise $H^2$ on $\Th$,
+\[
+|\Gc(w)|\le C(1+\gamma^{1/2})\hG^{3/2}\tnorm w .
+\]
+\end{lemma}
+
+\begin{proof}
+$|(\nabla\ut)^{\mathsf T}n|\le C\hG$ on $\Gh$ (step 1 of Lemma~\ref{lem:transposed}), so $|\ip{(\nabla\ut)^{\mathsf T}n}w|\le C\hG\norm w_{\Gh}\le C\hG(h/\mu)^{1/2}\tnorm w=C\gamma^{-1/2}\hG^{3/2}\tnorm w$. Next, $|\ip\ut{\dn w}|\le C\hG^2\norm{\dn w}_{\Gh}\le C\hG^2(c_0\hG)^{-1/2}\tnorm w$ and $\frac\mu h|\ip\ut w|\le C\gamma^{1/2}\hG^{3/2}\tnorm w$. Finally, the proof of Lemma~\ref{gd:lem:ext} gives $|(F,w)|\le C\hG^2(\norm w_{L^1(\Gh)}+\hG\norm{\nabla w})\le C\hG^2\tnorm w$.
+\end{proof}
+
+\begin{lemma}[$\Bh$ is bounded]\label{pd:lem:Bh}
+$|\Bh(y,w)|\le(1+2(c_0\gamma)^{-1/2})\tnorm y\,\tnorm w$ for all $y,w$ for which the norms are finite.
+\end{lemma}
+
+\begin{proof}
+$\norm{\dn y}_{\Gh}\le(c_0\hG)^{-1/2}\tnorm y$ and $\norm w_{\Gh}\le(h/\mu)^{1/2}\tnorm w$, and $(h/(\mu c_0\hG))^{1/2}=(c_0\gamma)^{-1/2}$.
+\end{proof}
+
+\begin{lemma}[Normal test fields]\label{pd:lem:wphi}
+Let $\chi_0\in C^\infty(\R^2)$ with $\chi_0=1$ on $\{|x|\le r_1\}$ and $\chi_0=0$ on $\{|x|\ge r_2\}$, $1<r_1<r_2<L$. For $\phi\in C^{k+1}(\Gamma)$ put $\hat n(x):=-x/|x|$ and
+\[
+w_\phi:=I_h\bigl(\chi_0\,(\phi\circ\pi)\,\hat n\bigr),\qquad\pi(x):=x/|x|,
+\]
+with $I_h$ the $P_k$ Lagrange interpolant. For $h\le h_\ast$: $w_\phi\in\VR$, $\norm{w_\phi}_{W^{1,\infty}}\le C_\phi$, and on each $e\in\EG$
+\[
+|w_\phi-\phi(x^\ast)n(x^\ast)|\le C_\phi\hG^{k+1},\qquad |w_\phi\cdot\tau_e|\le C_\phi\hG,\qquad |w_\phi\cdot n_e-\phi(x^\ast)|\le C_\phi\hG^2,
+\]
+and $|\int_{\Gh}w_\phi\cdot n-\int_\Gamma\phi|\le C_\phi\hG^2$. For $\phi\equiv1$ also $(\div w_1)|_{T_e}=-1+O(\hG^2)$ on $e$.
+\end{lemma}
+
+\begin{proof}
+The triangles meeting $\Gh$ lie in $\{|x|\le1+C\hG\}\subset\{\chi_0=1\}$, and those meeting $\partial R$ lie in $\{\chi_0=0\}$. On $\Gh$, $\hat n=n\circ\pi$, and the interpolation error is $O(\hG^{k+1})$ in $L^\infty$ and $O(\hG^k)$ in $W^{1,\infty}$ on boundary triangles. By Lemma~\ref{lem:chords}, $|n(x^\ast)\cdot\tau_e|\le C\hG$ and $n(x^\ast)\cdot n_e=1-\frac12|n(x^\ast)-n_e|^2=1+O(\hG^2)$. The arclength Jacobian of $\pi|_{\Gh}$ is $1+O(\hG^2)$. Finally $\div\hat n=-1/|x|=-1+O(\hG^2)$ on $\Gh$.
+\end{proof}
+
+\subsection{The pressure of \texorpdfstring{$\CNS$}{CNS*}}\label{pd:sec:cnsp}
+
+\begin{theorem}[$\CNS$ pressure]\label{pd:thm:cnsp}
+Let $\gamma\ge\gamma_2$. The $\CNS$ pressure $p_h$ (unique by Theorem~\ref{thm:D}) satisfies, with $\bar e_p$ the mean of $e_p=p^\circ-p_h$ over $\Oh$,
+\begin{align*}
+\norm{e_p-\bar e_p}_{L^2(\Oh)}&\le C\,Y,\\
+|\bar e_p|&\le C\bigl[(1+(\gamma\hG)^{1/2})\,Y+(\mu/h)|m_R|\bigr].
+\end{align*}
+Hence $\norm{p^\circ-p_h}_{L^2(\Oh)}\le C[(1+(\gamma\hG)^{1/2})Y+(\mu/h)|m_R|]$. With flux-corrected data (Definition~\ref{rs:def}) the same bounds hold with the term $(\mu/h)|m_R|$ deleted and $\eps$ replaced by $\tilde\varepsilon_h$ of Lemma~\ref{rs:approx} in $Y$; consequently, for $\gamma\in[\gamma_2,\gamma_{\max}]$,
+\[
+\norm{p^\circ-p_h}_{L^2(\Oh)}\le C\bigl(\hG^{3/2}+\hO^k\bigr),
+\]
+with no relation between $\hG$ and $\hO$ required. Here $C$ depends on $\gamma_{\max}$: unlike the $H^1$ bound of Theorem~\ref{rs:Dfc}, this pressure bound is \emph{not} uniform in $\gamma$ (Remark~\ref{pd:rem:cnsp}). Moreover $|\pbG(p_h)|\le C[\hG^{-1/2}Y+(1+(\gamma\hG)^{1/2})Y+(\mu/h)|m_R|]$.
+\end{theorem}
+
+\begin{proof}
+\emph{Mean-free part.} Write $e_p=\xi+\eta$ with $\eta:=p^\circ-\pi_hp^\circ$, so $\norm\eta\le Ch^k$ and $\norm\eta_{L^\infty(\Gh)}\le C\hG^k$. Step 3 of Theorem~\ref{thm:D} gives $\beta\norm{\xi-\bar\xi}\le C(\tnorm{e_u}+\hG^{3/2})\le CY$.
+
+\emph{Constant.} Let $B^\ast(r,v):=-(r,\div v)+\ip{r-\pbG(r)}{v\cdot n}$. Then $B^\ast(c,v)=-c\int_{\Gh}v\cdot n$ for constants $c$, and the error equation \eqref{eq:cnserr} gives, for $v:=w_1$ of Lemma~\ref{pd:lem:wphi},
+\begin{equation}\label{pd:eq:const}
+\bar e_p\int_{\Gh}w_1\cdot n=N_h(e_u,w_1)+B^\ast(e_p-\bar e_p,w_1)-\Gc(w_1).
+\end{equation}
+Here $\int_{\Gh}w_1\cdot n\ge|\Gh|/2$. We bound the three terms on the right.
+\begin{itemize}
+\item $B^\ast(e_p-\bar e_p,w_1)=-(e_p-\bar e_p,\div w_1)+\ip{e_p-\pbG(e_p)}{w_1\cdot n-1}$, because $\ip{e_p-\pbG(e_p)}1=0$. The first term is at most $C\norm{e_p-\bar e_p}$. The second is at most $C\hG^2\norm{e_p-\bar e_p}_{L^1(\Gh)}\le C\hG^{3/2}\norm{\xi-\bar\xi}+C\hG^{k+2}$, by Lemma~\ref{pd:lem:wphi} and the inverse trace inequality Lemma~\ref{lem:inverse}.
+\item $|\Gc(w_1)|\le C(\hG^2+\gamma\hG^3)$. The transposed term is $\sum_e\int_e(sa_e+O(\hG^2))\cdot w_1$ with $a_e\parallel n(m_e^\ast)$; since $sa_e\cdot w_1=sW_e(1+O(s^2))$ and $\int_es\,ds=0$, it is $O(\hG^2)$. Next, $|\ip\ut{\dn w_1}|\le C\hG^2$. On $e$, $\ut(x)=d\,\dn u(x^\ast)+O(d^2)$ with $\dn u(x^\ast)\perp n(x^\ast)$, so $|\ut\cdot w_1|\le C\hG^4$ and $\frac\mu h|\ip\ut{w_1}|\le C\gamma\hG^3$. Finally $|(F,w_1)|\le C\hG^2$.
+\item In $N_h(e_u,w_1)=a_h(e_u,w_1)-\ip{\dn e_u}{w_1}-\ip{e_u}{\dn w_1}+\frac\mu h\ip{e_u}{w_1}$:
+\begin{itemize}
+\item $|a_h(e_u,w_1)|\le C\norm{\nabla e_u}$ and $|\ip{e_u}{\dn w_1}|\le C\norm{e_u}_{\Gh}\le C(h/\mu)^{1/2}\tnorm{e_u}$.
+\item Write $e_u=(\ut-I_h\ut)+\delta$ with $\delta:=I_h\ut-u_h\in\VR$. Then $\div\delta=\div(I_h\ut-\ut)=O(\hG^k)$ on $\Lay$, and $\norm{\nabla\delta}\le\norm{\nabla e_u}+Ch^k$. Lemma~\ref{pd:lem:cancel} with $S=w_1|_{\Gh}$ gives $|\ip{\dn e_u}{w_1}|\le C(\norm{\nabla e_u}+h^k)$.
+\item $\frac\mu h\ip{e_u}{w_1}=\frac\mu h\bigl[m_R+\ip{e_u\cdot n}{w_1\cdot n-1}+\ip{e_u\cdot\tau}{w_1\cdot\tau}\bigr]$, and the last two terms are at most $\frac\mu hC\hG\norm{e_u}_{L^1(\Gh)}\le C(\gamma\hG)^{1/2}\tnorm{e_u}$.
+\end{itemize}
+\end{itemize}
+Collect, using $\tnorm{e_u}\le CY$, $\gamma\hG^3\le(\gamma\hG)^{1/2}Y$ and $h^k\le\eps$.
+
+\emph{Flux-corrected data.} Take $z\in\tilde W_h$ from Lemma~\ref{rs:approx}, so $\tnorm{e_u}\le CY$ with $\tilde\varepsilon_h$ in $Y$ (Theorem~\ref{rs:Dfc}). In the second bullet replace $I_h\ut$ by the field $w_h=I_h\ut-c\,I_h(\zeta x)$ from the proof of Lemma~\ref{rs:approx}: it equals $I_h\ut$ near $\Gh$ and has trace $\tilde g_I$ on $\partial R$, so $\delta:=w_h-u_h\in\VR$, $\div\delta=\div(I_h\ut-\ut)$ on $\Lay$, and $\norm{\nabla\delta}\le\norm{\nabla e_u}+C(h^k+|m_R|)$ with $|m_R|\le Ch^{\sigma_k}$. In the third bullet $\int_{\Gh}e_u\cdot n=0$, so the term $(\mu/h)m_R$ is absent. Finally $h^k\le\tilde\varepsilon_h$, and for bounded $\gamma$, $Y\le C(\hG^{3/2}+h^k)$. For the last claim, $\pbG(p^\circ)=0$, so $|\pbG(p_h)|=|\pbG(e_p)|\le|\bar e_p|+|\Gh|^{-1/2}\norm{e_p-\bar e_p}_{\Gh}$, and $\norm{\xi-\bar\xi}_{\Gh}\le C\hG^{-1/2}\norm{\xi-\bar\xi}$.
+\end{proof}
+
+\begin{remark}[Where the pressure error sits]\label{pd:rem:cnsp}
+The $\hG^{3/2}$ is produced by the right-hand side of Lemma~\ref{pd:lem:v0}: $a_h(e_u,\cdot)$ and the Nitsche coupling $\ip{u_h}{\dn\cdot}$, where $\norm{u_h}_{\Gh}\le\norm\ut_{\Gh}+(h/\mu)^{1/2}\tnorm{e_u}\le C(1+\gamma^{-1/2})\hG^2+C(h/\mu)^{1/2}\eps$ and $\norm{\dn v}_{\Gh}\le C\hG^{-1/2}\norm{\nabla v}$. A $\hG^{3/2}$ \emph{lower} bound for the pressure is not proved. The factor $(1+\gamma^{1/2})$ in $Y$ is real: at fixed $N$ the computed pressure error grows with $\mu$ (Section~\ref{pd:sec:num}).
+\end{remark}
+
+\subsection{The pressure of \texorpdfstring{$\GS$}{GS}}\label{pd:sec:gsp}
+
+\begin{proposition}[The $\GS$ pressure is fully determined]\label{pd:prop:gsunique}
+For $\gamma\ge\gamma_0$, $\GS$ has a unique solution $(u_h,p_h)\in\Wh\times\Pih$. No normalisation of $p_h$ is needed or possible: the constant is fixed by the flux-carrying test functions in $\VR$.
+\end{proposition}
+
+\begin{proof}
+The velocity is the unique Lax--Milgram solution on $\Wh$, because $N_h$ is coercive on $\Zh$ Lemma~\ref{lem:coercive}. The functional $v\mapsto N_h(u_h,v)-(\ft,v)$ vanishes on $\Zh=\ker(\div|_{\VR})$. Since $\div\VR=\Pih$ Lemma~\ref{lem:divrange} and $\Pih$ is finite-dimensional, there is exactly one $p_h\in\Pih$ with $(p_h,\div v)$ equal to that functional on $\VR$. Adding a constant $c$ to $p_h$ changes the momentum row by $-c\int_{\Gh}v\cdot n\not\equiv0$ (edge bubble).
+\end{proof}
+
+\begin{definition}[The Nitsche pressure layer]\label{pd:def:xib}
+With $g:=(h/\mu)\,q\circ\pi$ on $\Gh$, let $\xib\in\Pih$ be $\xi_{e,g}$ (Lemma~\ref{pd:lem:rep}) on each $T_e$ and $0$ outside $\Lay$. Equivalently,
+\[
+(\xib,r)=(h/\mu)\ip{q\circ\pi}{r|_{T_e}}_{\Gh}\qquad\forall r\in\Pih .
+\]
+\end{definition}
+
+\begin{theorem}[$\GS$ pressure]\label{pd:thm:gsp}
+Let $\gamma\ge\gamma_0$ and $\rho_h:=p^\circ-p_h-\xib$. Then:
+\begin{enumerate}[label=(\alph*)]
+\item $\norm{\rho_h-\bar\rho_h}\le C_pX_1$ and
+\[
+\norm{\rho_h}_{L^2(\Oh)}\le C_p\bigl[(1+(\gamma\hG)^{1/2})X_1+(\mu/h)|m_R|\bigr]=:C_pQ .
+\]
+\item $\displaystyle\norm{\xib}^2=\Bigl(\frac h\mu\Bigr)^2\Bigl[\chat\sum_{e\in\EG}\frac{|e|}{H_e}\,q(m_e^\ast)^2+O(C_p)\Bigr]$. In particular $c\,(h/\mu)\hG^{-1/2}G\le\norm\xib\le C\,(h/\mu)\hG^{-1/2}(G+C_p\hG^{1/2})$, the lower bound holding for $\hG\le h_0(G)$.
+\item For every constant $c$,
+\[
+c_1\frac h\mu\hG^{-1/2}G-C_pQ\ \le\ \norm{p^\circ-p_h-c}_{L^2(\Oh)}
+\]
+and $\norm{p^\circ-p_h}_{L^2(\Oh)}\le C(h/\mu)\hG^{-1/2}G+C_pQ$.
+\item $\norm{p^\circ-p_h}_{L^2(\Oh\setminus\Lay)}\le C_pQ$.
+\item For every constant $c$, $\norm{p^\circ-p_h-c}_{L^\infty(\Lay)}\ge c_2G/\gamma-C_p\hG^{-1/2}Q$.
+\end{enumerate}
+For fixed $\gamma$ and bounded $\rho$ with $G>0$: the $L^2$ pressure error converges at the exact rate $1/2$. It is carried by $\xib$ on the first layer, with $\norm{p^\circ-p_h}_{L^2(\Lay)}/\norm\xib\to1$. It is $O(h/\mu)$ elsewhere, and in the first layer it does not converge pointwise. If $G=0$, then $\xib=0$ and the $\CNS$ bounds of Theorem~\ref{pd:thm:cnsp} hold for $\GS$ with $C$ in place of $C_p$.
+\end{theorem}
+
+\begin{proof}
+\emph{Step 1: the equation for $\rho_h$.} By Lemma~\ref{pd:lem:v0}, \eqref{pd:eq:divtrace} and Definition~\ref{pd:def:xib}, for $v\in\VO$,
+\[
+(\rho_h,\div v)=a_h(e_u,v)+\ip{u_h-g\,n}{\dn v}+(F,v).
+\]
+
+\emph{Step 2: the trace $u_h-gn$.} As in the proof of Corollary~\ref{cor:Bp}, $e_u=(h/\mu)v_\varphi+\vartheta$ with $\vartheta:=(\ut-z)+\delta_G+r_h$ and $\tnorm\vartheta\le C_pX_1$. (By Theorem~\ref{thm:C}, steps 2 and 6: $\tnorm{\delta_G}+\tnorm{\ut-z}\le CY$ and $\tnorm{r_h}\le C_p(h/\mu+\hG^{3/2})+C\eps$.) On $e$, $v_\varphi=w+O(h^k)$ and $w(x)=-q(x^\ast)n(x^\ast)+O(\hG^2)$, so
+\[
+v_\varphi+(q\circ\pi)n_e=q(x^\ast)\bigl(n_e-n(x^\ast)\bigr)+O(\hG^2+h^k)=O_p(\hG+h^k).
+\]
+Hence
+\[
+\norm{u_h-gn}_{\Gh}\le\norm\ut_{\Gh}+\frac h\mu C_p(\hG+h^k)+\norm\vartheta_{\Gh}\le C\hG^2+C_p\frac h\mu\hG+(h/\mu)^{1/2}C_pX_1 .
+\]
+
+\emph{Step 3: mean-free part.} With $\norm{\dn v}_{\Gh}\le C\hG^{-1/2}\norm{\nabla v}$, $\norm{\nabla e_u}\le C_pX_1$ Theorem~\ref{thm:C} and $|(F,v)|\le C\hG^2\norm{\nabla v}$, the right-hand side of Step 1 is at most $C_p[X_1+\hG^{3/2}+(h/\mu)\hG^{1/2}+\gamma^{-1/2}X_1]\norm{\nabla v}\le C_pX_1\norm{\nabla v}$. Now $\rho_h-\eta\in\Pih$ with $\eta=p^\circ-\pi_hp^\circ$, and $(\eta,\div v)=0$. Lemma~\ref{pd:lem:infsup_ref} below (Lemma~\ref{lem:infsup}) gives $\norm{\rho_h-\bar\rho_h}\le C_pX_1+Ch^k\le C_pX_1$.
+
+\emph{Step 4: constant.} The $\GS$ error equation on $\VR$ is $N_h(e_u,v)-(p^\circ-p_h,\div v)+\ip{p^\circ}{v\cdot n}=\Gc(v)$; the constant in $p^\circ$ cancels because $\int_{\Oh}\div v=\int_{\Gh}v\cdot n$. With $v=w_1$,
+\[
+\bar\rho_h\int_{\Gh}w_1\cdot n=N_h(e_u,w_1)+\ip{p^\circ}{w_1\cdot n}-\Gc(w_1)-(\xib,\div w_1)-(\rho_h-\bar\rho_h,\div w_1).
+\]
+We bound each term.
+\begin{itemize}
+\item $\ip{p^\circ}{w_1\cdot n}=\ip{p^\circ}{w_1\cdot n-1}=O(\hG^2)$, because $\ip{p^\circ}1=0$.
+\item $|\Gc(w_1)|\le C(\hG^2+\gamma\hG^3)$, as in Theorem~\ref{pd:thm:cnsp}.
+\item $\div w_1\in\Pih$, so $(\xib,\div w_1)=(h/\mu)\ip{q\circ\pi}{-1+O(\hG^2)}=O_p((h/\mu)\hG^2)$, since $\int_\Gamma q=0$ and the Jacobian is $1+O(\hG^2)$.
+\item $|(\rho_h-\bar\rho_h,\div w_1)|\le C_pX_1$.
+\item $N_h(e_u,w_1)$ is treated as in Theorem~\ref{pd:thm:cnsp}, except that $\frac\mu h\ip{e_u\cdot\tau}{w_1\cdot\tau}$ is split along $e_u=(h/\mu)v_\varphi+\vartheta$. On $e$, $v_\varphi\cdot\tau_e$ and $w_1\cdot\tau_e$ are both $O_p(\hG)$, so the first part is $O_p(\hG^2)$. The second is at most $\frac\mu hC\hG(h/\mu)^{1/2}\tnorm\vartheta\le C(\gamma\hG)^{1/2}C_pX_1$. The term $\frac\mu h\ip{e_u\cdot n}{w_1\cdot n-1}$ is at most $C\gamma^{1/2}\hG^{3/2}\tnorm{e_u}\le C_p(\hG^2+(\gamma\hG)^{1/2}Y)$, by Theorem~\ref{thm:A}.
+\end{itemize}
+Hence $|\bar\rho_h|\le C_p[(1+(\gamma\hG)^{1/2})X_1+(\mu/h)|m_R|]$, which proves (a).
+
+\emph{(b)} Apply Lemma~\ref{pd:lem:rep} on each $T_e$ with $g_e=(h/\mu)q(m_e^\ast)$ and $\norm{g-g_e}_{L^\infty(e)}\le C_p(h/\mu)|e|$. Expanding the square, the cross terms are $O_p((h/\mu)^2\sum_e|e|)$. The two-sided bound uses $c\le|e|/H_e\le C$ and the Riemann sum $\sum_eq(m_e^\ast)^2|e|=G^2+O_p(\hG)$, with $\hG^{-1}\sum_eq_e^2|e|\le\sum_eq_e^2\le(c_0\hG)^{-1}\sum_eq_e^2|e|$.
+
+\emph{(c)} $p^\circ-p_h-c=\xib-c+\rho_h$. The $L^2$-closest constant to $\xib$ is its mean, $|\Oh|^{-1}(\xib,1)=|\Oh|^{-1}(h/\mu)\ip{q\circ\pi}1=O_p((h/\mu)\hG^2)$. Hence $\norm{\xib-c}\ge\norm\xib-C_p(h/\mu)\hG^2$. Use (a) and (b).
+
+\emph{(d)} $\xib=0$ off $\Lay$.
+
+\emph{(e)} $\norm{\cdot}_{L^\infty(\Lay)}\ge|\Lay|^{-1/2}\norm\cdot_{L^2(\Lay)}$ with $|\Lay|\le C\hG$. The mean of $\xib$ over $\Lay$ is $|\Lay|^{-1}(h/\mu)\ip{q\circ\pi}1=O_p((h/\mu)\hG)$, so, as in (c), $\norm{\xib-c}_{L^2(\Lay)}\ge\norm\xib-C_p(h/\mu)\hG^{3/2}$. Then use (a), (b) and $(h/\mu)\hG^{-1}=1/\gamma$.
+
+\emph{The regime statement.} For fixed $\gamma$ and bounded $\rho$, $Q=O(\hG)$ while $(h/\mu)\hG^{-1/2}\asymp\hG^{1/2}$. If $G=0$, then $g=0$, and Theorems~\ref{thm:A} and~\ref{thm:C} give $\tnorm{e_u}+\norm{\nabla e_u}\le CY$; Steps 1--4 then run with $X_1$ replaced by $Y$.
+\end{proof}
+
+\begin{lemma}[Lemma~\ref{lem:infsup}, restated]\label{pd:lem:infsup_ref}
+For $r\in\Pih$, $\beta\norm{r-\bar r}\le\sup_{0\ne v\in\VO}(r,\div v)/\norm{\nabla v}$.
+\end{lemma}
+
+\begin{remark}[Mechanism]\label{pd:rem:gsmech}
+The leak $u_h\cdot n\approx(h/\mu)(p-\pbar)$ (Corollary~\ref{cor:Bp}) enters the pressure only through the Nitsche coupling $\ip{u_h}{\dn v}$. By \eqref{pd:eq:divtrace}, that term is a boundary source $\ip{u_h\cdot n}{\div v}_{\Gh}$, which the discontinuous pressure resolves exactly, as the first-layer field $\xib$. Its $L^2$ norm is $(h/\mu)|e|^{-1/2}$ per unit length of boundary, and its pointwise size is $(h/\mu)/H_e\asymp1/\gamma$. The penalty scaling $\mu/h$ is what makes it independent of the mesh at fixed $\gamma$. It is a discrete artefact: it has no counterpart in the leak flow $(U,P)$ of Definition~\ref{hc:def}, whose pressure enters only through $\rho_h\approx(h/\mu)P$.
+\end{remark}
+
+\subsection{Boundary stress and drag}\label{pd:sec:drag}
+
+\subsubsection{Functionals}
+Let $\RM:=\{\psi(x)=a+bx^\perp:\ a\in\R^2,\ b\in\R\}$, $x^\perp=(-x_2,x_1)$. Every $\psi\in\RM$ has $\div\psi=0$, $D(\psi)=0$ and $\nabla\psi$ skew, and $\int_{\Gh}\psi\cdot n=\int_\Gamma\psi\cdot n=0$. For $\psi\in\RM$ put
+\[
+J_\psi:=\int_\Gamma\sigma(u,p)n\cdot\psi\,ds,\qquad\sigma(u,p)=D(u)-pI,
+\]
+%% VERIFY: equation/table locators (3), (10), Table 1b of Gjerde--Scott were read in arXiv:2306.12362 only, not the ACSE version.
+with $n$ the outward normal of $\Omega$ (pointing into $D$). $J_\psi$ does not depend on the pressure constant. With $\psi=e_1,e_2,x^\perp$ it is Gjerde--Scott's $\beta(\chi)$ \cite[(3)]{GjerdeScott2024}, $\chi=\psi$ on $\Gamma$: drag, lift and torque, up to their sign convention.
+
+\begin{definition}[Discrete functionals]\label{pd:def:funct}
+Let $\phi_\psi(x):=a_1x_2-a_2x_1-\frac b2|x|^2$, so that $\curl\phi_\psi=\psi$. Let $\chi_0$ be as in Lemma~\ref{pd:lem:wphi}, and put
+\[
+V_\psi:=\curl(\chi_0\phi_\psi),\qquad v_\psi:=\curl\Pi_{k+1}(\chi_0\phi_\psi)\in\Zh,
+\]
+where $\Pi_{k+1}$ is the $C^1$ interpolant of Section~\ref{sec:printed}. For $w\in\VR$ put
+\[
+\omega_h(w):=a_h(u_h,w)-(p_h,\div w)-(\ft,w)_{\Oh}.
+\]
+We consider:
+\begin{enumerate}[label=(\roman*)]
+\item the \emph{Nitsche-flux (variational) functional} $J^N_h(\psi):=\omega_h(v_\psi)$;
+\item the \emph{pointwise traction functional} $J^\beta_h(\psi):=\int_{\Gh}(D(u_h)n-p_hn)\cdot\psi$;
+\item for translations $\psi=e$, the \emph{Gjerde--Scott volume functional} $J^\chi_h(e):=\omega_h(\chi_h)$. Here $\chi_h\in\Zh$ is the same method's discrete Stokes solution with zero body force, zero data on $\partial R$ and Nitsche data $e$ on $\Gh$: for $\GS$, $N_h(\chi_h,w)-(\pi_h,\div w)=\ell_e(w)$, with $\ell_e(w):=-\ip e{\dn w}+\frac\mu h\ip ew$.
+\end{enumerate}
+Let $\Theta_f(\psi):=\int_{S_h}\ft\cdot\psi$ be the body force carried by the strip.
+\end{definition}
+
+%% VERIFY: equation/table locators (3), (10), Table 1b of Gjerde--Scott were read in arXiv:2306.12362 only, not the ACSE version.
+Gjerde--Scott compute (ii), with $\chi_h$ in place of $\psi$ on $\Gh$, and (iii), with the pressure term dropped because $\div\chi_h=0$. Their inconsistency parameter is $\varepsilon=(\omega-\beta)/\omega$ \cite[(10)]{GjerdeScott2024}.
+
+\begin{lemma}[Flux identity and error identity]\label{pd:lem:dragid}
+Let $t_h:=\dn u_h-\theta(p_h-\pbG(p_h))n-\frac\mu hu_h$ be the Nitsche flux. For both methods:
+\begin{enumerate}[label=(\alph*)]
+\item $\omega_h(w)=\ip{t_h}w+\ip{u_h}{\dn w}$ for all $w\in\VR$. Consequently $v_\psi=\psi$ on $\Lay$,
+\[
+J^N_h(\psi)=\int_{\Gh}t_h\cdot\psi+\ip{u_h}{\dn\psi},
+\]
+and $J^N_h(\psi)=\omega_h(w)$ for every $w\in\VR$ with $w=\psi$ on $\Lay$. For $\GS$, $J^N_h(\psi)$ contains no pressure at all.
+\item $J^N_h(\psi)-J_\psi=-a_h(e_u,v_\psi)-\Theta_f(\psi)$.
+\item $\Theta_f(\psi)=\sum_e\frac{|e|^3}{12}(f\cdot\psi)(m_e^\ast)+O(\hG^3)$, and $\Theta_f=0$ if $f=0$ near $\Gamma$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Subtract the method equation from the definition of $\omega_h$: $\omega_h(w)=a_h(u_h,w)-N_h(u_h,w)-\theta\ip{p_h-\pbG(p_h)}{w\cdot n}$. The triangles of $\Lay$ lie in $\{\chi_0=1\}$, where $\chi_0\phi_\psi=\phi_\psi\in P_2$ is reproduced by $\Pi_{k+1}$, so $v_\psi=\psi$ on $\Lay$ and $\dn v_\psi=\dn\psi$ on $\Gh$ (traces from $T_e$). If $w=\psi$ on $\Lay$, then $w-v_\psi$ has zero trace and zero normal derivative on $\Gh$, so $\omega_h(w-v_\psi)=0$.
+
+(b) For $w\in\VR$ let $\tilde\omega(w):=a_h(\ut,w)-(p^\circ,\div w)-(\ft,w)$. Steps 1--3 of Lemma~\ref{lem:erroreq}, keeping $D(\ut)n$, give $\tilde\omega(w)=\ip{\sigma(\ut,p^\circ)n}w-(F,w)$. The segment between each chord and its arc lies in $T_e$ (the arc leaves the chord at angle $O(\hG)$, while the base angles of $T_e$ are bounded below), so $v_\psi=\psi$ on $S_h$. Since $\sigma(\ut,p^\circ)$ is symmetric and $\nabla\psi$ is skew, $\div(\sigma\psi)=(\div\sigma)\cdot\psi=(F-\ft)\cdot\psi$ on $S_h$. The divergence theorem on $S_h$ (outward normal $n$ on $\Gh$ and $-n$ on $\Gamma$; constants in the pressure drop because $\int\psi\cdot n=0$) gives $\ip{\sigma(\ut,p^\circ)n}\psi_{\Gh}=J_\psi+(F-\ft,\psi)_{S_h}$. Hence $\tilde\omega(v_\psi)=J_\psi-\Theta_f(\psi)$. Finally $\omega_h(v_\psi)-\tilde\omega(v_\psi)=-a_h(e_u,v_\psi)+(e_p,\div v_\psi)=-a_h(e_u,v_\psi)$.
+
+(c) The segment over $e$ has area $\frac{|e|^3}{12}+O(|e|^5)$ and width $O(|e|^2)$, and $\ft$ is smooth.
+\end{proof}
+
+So the Babu\v{s}ka--Miller volume drag, with any discrete test field equal to $\psi$ on the first layer, \emph{is} the Nitsche-flux drag, exactly. By (b), its error is the energy error tested against a fixed field that is rigid near the wall. Since $D(v_\psi)=D(\psi)=0$ on $\{\chi_0=1\}$, $a_h(e_u,v_\psi)$ only sees $e_u$ away from $\Gamma$.
+
+\subsubsection{Dual problems and reciprocity}
+For $\psi\in\RM$ let $(Z_\psi,R_\psi)$ solve the Stokes problem in $\Omega$ with $Z_\psi=\psi$ on $\Gamma$ and $Z_\psi=0$ on $\partial R$. Then $Z_\psi\in H^2(\Omega)$ (the corners of $R$ are convex), $Z_\psi$ is smooth up to $\Gamma$, and $Z_\psi=\curl\Phi_\psi$ with $\Phi_\psi$ single-valued; extend $\Phi_\psi,R_\psi$ smoothly across $\Gamma$ to $\tilde Z_\psi,\tilde R_\psi$. Let $(U,P)$ be the leak flow of Definition~\ref{hc:def}: $U=-q\,n$ on $\Gamma$, $U=0$ on $\partial R$.
+
+\begin{lemma}[Reciprocity]\label{pd:lem:recip}
+$J_\psi(U):=\int_\Gamma\sigma(U,P)n\cdot\psi=\int_\Gamma(p-\pbar)(R_\psi-\bar R_\psi)\,ds=:K_\psi$.
+\end{lemma}
+
+\begin{proof}
+For Stokes pairs with zero body force, $\int_{\partial\Omega}\sigma(U,P)n\cdot Z=\frac12\int_\Omega D(U):D(Z)=\int_{\partial\Omega}\sigma(Z,R)n\cdot U$, using $\div U=\div Z=0$ and the $H^2\times H^1$ regularity. Both fields vanish on $\partial R$. On $\Gamma$, $Z_\psi-\psi$ is divergence-free and zero, so $\dn(Z_\psi-\psi)\cdot n=0$ Lemma~\ref{lem:wall}. Also $(\nabla\psi)n\cdot n=0$ by skewness. Hence $\sigma(Z_\psi,R_\psi)n\cdot n=2\dn Z_\psi\cdot n-R_\psi=-R_\psi$. Since $U=-qn$, the right-hand side equals $\int_\Gamma qR_\psi$; and $\int_\Gamma q=0$.
+\end{proof}
+
+\subsubsection{The printed method}
+
+\begin{theorem}[$\GS$ drag, lift and torque]\label{pd:thm:gsdrag}
+Let $\gamma\ge\gamma_0$ and $\psi\in\RM$. Then
+\[
+J^N_h(\psi)=J_\psi-\frac h\mu K_\psi-\Theta_f(\psi)+\mathcal R_h,\qquad
+|\mathcal R_h|\le C\frac h\mu B_U+C\bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\bigr],
+\]
+where $B_U:=C_U[\min(\gamma\hG^{1/2},(\gamma\hG)^{1/2})+\hG^{1/2}+(h/\mu)^{1/2}+E_U]$ is the bound of Theorem~\ref{hc:thm}. Without that theorem, $|J^N_h(\psi)-J_\psi|\le C_p(h/\mu)+C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$. For fixed $\gamma$ and bounded $\rho$, $J^N_h(\psi)-J_\psi=-(h/\mu)K_\psi+O(h^{3/2})$. So the rate is exactly $1$ whenever $K_\psi\ne0$, and the defect is the force that the leak flow exerts on the body.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{pd:lem:dragid}(b), the claim is about $a_h(e_u,v_\psi)$. Split $e_u=\delta_R+[\delta_G+(\ut-z)]$ as in Theorem~\ref{thm:C}. The bracket contributes at most $2\norm{\nabla v_\psi}\,C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$. Next, $a_h(\delta_R,v_\psi)=\frac h\mu a_h(\tilde U,v_\psi)+a_h(\delta_R-\frac h\mu\tilde U,v_\psi)$, and the second term is at most $C\frac h\mu B_U$ by Theorem~\ref{hc:thm}. By Green's formula with $F_U:=-\Delta\tilde U+\nabla\tilde P$ (supported in $\overline{S_h}$), $\div v_\psi=0$ and $v_\psi=\psi$ on $\Lay\supset S_h$,
+\[
+a_h(\tilde U,v_\psi)=(F_U,\psi)_{S_h}+\ip{\sigma(\tilde U,\tilde P)n}\psi_{\Gh}=(F_U,\psi)_{S_h}+J_\psi(U)-(F_U,\psi)_{S_h}=J_\psi(U).
+\]
+The middle equality is the divergence theorem on $S_h$, as in Lemma~\ref{pd:lem:dragid}(b). Conclude with Lemma~\ref{pd:lem:recip}. The unconditional bound is $|a_h(e_u,v_\psi)|\le C\norm{\nabla e_u}$ together with Theorem~\ref{thm:C}.
+\end{proof}
+
+\begin{remark}[The leak drag is the pressure--pressure correlation]\label{pd:rem:leakdrag}
+The leak $u_h\cdot n\approx(h/\mu)q$ makes the Nitsche flux reproduce the missing traction at leading order: $-\frac\mu hu_h\approx-qn$. That is why $J^N_h$ converges at all, although the $\GS$ flux contains no pressure. The residual $-(h/\mu)K_\psi$ couples the flow's wall pressure with the wall pressure of the dual problem. In Gjerde--Scott's cylinder application, $f=0$ (so $\Theta_f=0$) and both pressures are dipole-like, so $K_e\ne0$ generically. With their $\mu=10^6$ the defect has relative size about $10^{-6}h$ and is invisible.
+\end{remark}
+
+\subsubsection{The pressure-consistent method}
+
+\begin{theorem}[$\CNS$ drag, lift and torque]\label{pd:thm:cnsdrag}
+Let $\gamma\ge\max(1,\gamma_2)$, $\gamma\hG\le1$ and $\psi\in\RM$. Define
+\[
+\Lambda_h(\psi):=\ip{\ut}{\dn(\tilde Z_\psi-\psi)}_{\Gh}=\sum_{e\in\EG}\frac{|e|^3}{12}\bigl(\dn u\cdot\dn(Z_\psi-\psi)\bigr)(m_e^\ast)+O(\hG^3),
+\]
+and $E_Z:=\inf_{z\in\Zh}\tnorm{\tilde\zeta-z}$, where $\tilde\zeta:=V_\psi-\tilde Z_\psi$. Then:
+\begin{enumerate}[label=(\alph*)]
+\item $|J^N_h(\psi)-J_\psi+\Theta_f(\psi)|\le C\norm{\nabla e_u}\le CY$;
+\item $|J^N_h(\psi)-J_\psi+\Theta_f(\psi)+\Lambda_h(\psi)|\le C\bigl[\gamma^{-1/2}\hG^2+\gamma\hG^3+\gamma^{1/2}\hG^{3/2}E_Z+\eps\bigr]$.
+\end{enumerate}
+Consequently $|J^N_h(\psi)-J_\psi|\le C(\hG^2+\eps)$: rate $2$. As $\gamma\to\infty$ with $\gamma\hG\to0$, $J^N_h(\psi)-J_\psi=-\Theta_f(\psi)-\Lambda_h(\psi)+o(\hG^2)+O(\eps)$. Since $E_Z\le Ch$ (argument of Lemma~\ref{hc:approx}), the $E_Z$ term is $o(\hG^2)$ whenever $h\le C\hG$.
+\end{theorem}
+
+The leading term is \emph{geometric} and method-independent. With uniform chords of length $\ell$,
+\[
+\Theta_f+\Lambda_h\approx\frac{\ell^2}{12}\int_\Gamma\bigl(f\cdot\psi+\dn u\cdot\dn(Z_\psi-\psi)\bigr)ds .
+\]
+This is the shape derivative of $J_\psi$ under the inward normal displacement $\frac12(\ell^2/4-s^2)$ of the polygon. $\CNS$ is consistent enough that only the polygonal geometry is left.
+
+\begin{proof}
+(a) is Lemma~\ref{pd:lem:dragid}(b). For (b), write $e_u=(\ut-z)+e_h$, with $z\in\Wh$ attaining Lemma~\ref{lem:approx} and $e_h:=z-u_h\in\Zh$.
+
+\emph{Step 1: the auxiliary problem.} Let $(\zeta_h,\pi_h)\in\Zh\times\Pih$ solve
+\begin{equation}\label{pd:eq:aux}
+N_h(\zeta_h,w)+B^\ast(\pi_h,w)=a_h(v_\psi,w)\qquad\forall w\in\VR .
+\end{equation}
+This is the $\CNS$ Stokes system for the smooth-near-$\Gamma$ solution $(\tilde\zeta,\Pi)$ with $\Pi:=-\tilde R_\psi$, since $-\Delta\tilde\zeta+\nabla\Pi=-\Delta V_\psi$ on $\Omega$, $\tilde\zeta=0$ on $\Gamma\cup\partial R$ and $\div\tilde\zeta=0$. Indeed, Lemma~\ref{lem:erroreq} for $(\tilde\zeta,\Pi)$ gives $N_h(\tilde\zeta,w)+B^\ast(\Pi^\ast,w)=(-\Delta V_\psi,w)+\Gc_\zeta(w)$, where $\Pi^\ast:=\Pi-\pbG(\Pi)$ and $\Gc_\zeta$ is $\Gc$ with $\ut\to\tilde\zeta$ and $F\to F_\zeta:=\Delta\tilde Z_\psi-\nabla\tilde R_\psi$ (supported in $\overline{S_h}$). Moreover $a_h(v_\psi,w)=(-\Delta V_\psi,w)+a_h(v_\psi-V_\psi,w)$, because $D(V_\psi)=0$ near $\Gh$, and $\norm{\nabla(v_\psi-V_\psi)}\le Ch^k$. Existence and uniqueness, and the bounds
+\[
+\tnorm{\tilde\zeta-\zeta_h}\le CY_Z,\qquad\beta\norm{(\Pi^\ast-\pi_h)-c_\Pi}\le CY_Z,\qquad Y_Z:=(1+\gamma^{1/2})\hG^{3/2}+E_Z+h^k,
+\]
+with $c_\Pi$ the appropriate mean, follow from the proof of Theorem~\ref{thm:D}. That proof uses the regularity only near $\Gamma$ (in Lemma~\ref{lem:Gbound} and in $\norm\eta_{L^\infty(\Gh)}\le C\hG^k$), and $\eps$ enters only through $E_h$, here $E_Z$. Also $\tnorm{\zeta_h}+\norm{\nabla\zeta_h}\le C$, since $\tnorm{\tilde\zeta}\le C(1+\gamma^{1/2}\hG^{3/2})$.
+
+\emph{Step 2: the error representation.} Test \eqref{pd:eq:aux} with $w=e_h$ (so $\div e_h=0$, and $B^\ast(\pi_h,e_h)=\ip{\pi_h-\pbG(\pi_h)}{e_h\cdot n}$), and the error equation \eqref{eq:cnserr} with $w=\zeta_h$. By symmetry of $N_h$,
+\[
+\begin{aligned}
+a_h(e_u,v_\psi)&=T_1+\Gc(\zeta_h)-T_4+T_5,\qquad T_1:=a_h(v_\psi-\zeta_h,\ut-z)-\Bh(\ut-z,\zeta_h),\\
+T_4&:=\ip{e_p-\pbG(e_p)}{\zeta_h\cdot n},\qquad T_5:=\ip{\pi_h-\pbG(\pi_h)}{e_h\cdot n}.
+\end{aligned}
+\]
+Hence $J^N_h-J_\psi+\Theta_f+\Lambda_h=-T_1-(\Gc(\zeta_h)-\Lambda_h)+T_4-T_5$.
+
+\emph{Step 3: $T_1$.} $|T_1|\le C\eps$, by $\norm{\nabla(v_\psi-\zeta_h)}\le C$, $\tnorm{\zeta_h}\le C$ and Lemma~\ref{pd:lem:Bh}.
+
+\emph{Step 4: $\Gc(\zeta_h)$.} By Lemma~\ref{pd:lem:G}, $|\Gc(\zeta_h)-\Gc(\tilde\zeta)|\le C(1+\gamma^{1/2})\hG^{3/2}Y_Z$. On $\Gh$, $|\tilde\zeta|\le C\hG^2$, $|(\nabla\ut)^{\mathsf T}n|\le C\hG$ and $|\ut|\le C\hG^2$, and near $\Gh$, $\dn\tilde\zeta=\dn\psi-\dn\tilde Z_\psi$. Hence
+\[
+\Gc(\tilde\zeta)=\ip\ut{\dn(\tilde Z_\psi-\psi)}+O(\hG^3+\gamma\hG^3+\hG^4)=\Lambda_h+O((1+\gamma)\hG^3).
+\]
+For the expansion of $\Lambda_h$: on $e$, $\ut(x)=d\,\dn u(x^\ast)+O(d^2)$ with $d=1-|x|=\frac12(\frac{|e|^2}4-s^2)+O(|e|^4)$. Also $\nabla\tilde Z_\psi(x)n_e=\dn(Z_\psi-\psi)(x^\ast)+\dn\psi+O(\hG^2)$, by Lemma~\ref{lem:wall} applied to $Z_\psi-\psi$ and $n(x^\ast)\cdot n_e=1+O(\hG^2)$. Finally $\int_ed=\frac{|e|^3}{12}+O(|e|^5)$.
+
+\emph{Step 5: $T_4$.} By step 3 of Theorem~\ref{thm:D} and Lemma~\ref{lem:inverse}, $\norm{e_p-\pbG(e_p)}_{\Gh}\le\norm{\xi-\bar\xi}_{\Gh}+\norm\eta_{\Gh}\le C\hG^{-1/2}Y$. By Lemma~\ref{lem:wall} applied to $\zeta$, $\tilde\zeta\cdot n_e=d\,\dn\zeta(x^\ast)\cdot n_e+O(\hG^4)=O(\hG^3)$. So $\norm{\zeta_h\cdot n}_{\Gh}\le C\hG^3+(h/\mu)^{1/2}CY_Z$, and $|T_4|\le C(\hG^{5/2}Y+\gamma^{-1/2}YY_Z)$.
+
+\emph{Step 6: $T_5$.} Since $\int_{\Gh}e_h\cdot n=0$, constants may be subtracted from $\pi_h$ freely. Then
+\[
+|T_5|\le|\ip{(\Pi-\bar\Pi)\circ\pi}{e_u\cdot n}|+C\norm{\ut-z}_{\Gh}+C\hG^2\norm{e_h}_{\Gh}+C(\hG^{-1/2}Y_Z+\hG^k)\norm{e_h}_{\Gh},
+\]
+where $\bar\Pi$ is the mean of $\Pi$ on $\Gamma$ and $\norm{e_h}_{\Gh}\le(h/\mu)^{1/2}CY$. The first term is bounded by Lemma~\ref{pd:lem:slip} below, with $\phi=\Pi-\bar\Pi$.
+
+\emph{Step 7: collect.} Insert $Y\le C(\gamma^{1/2}\hG^{3/2}+\eps)$ and $Y_Z\le C(\gamma^{1/2}\hG^{3/2}+E_Z+h^k)$, and use $\gamma\ge1$, $\gamma\hG\le1$ and $|\bar e_p|\le C$ (Theorem~\ref{pd:thm:cnsp}). Every term is bounded by the right-hand side of (b); the $\gamma^{-1/2}\hG^2$ comes from the term $\frac h\mu\hG^{-1/2}Y$ of Lemma~\ref{pd:lem:slip}.
+\end{proof}
+
+\begin{lemma}[Weighted normal slip of $\CNS$]\label{pd:lem:slip}
+Let $\gamma\ge\gamma_2$ and $\phi\in C^{k+1}(\Gamma)$ with $\int_\Gamma\phi=0$. Then
+\[
+|\ip{\phi\circ\pi}{e_u\cdot n}_{\Gh}|\le C_\phi\Bigl[\frac h\mu\bigl(\hG^{-1/2}Y+h^k+\hG^2+\gamma\hG^3+\hG^2|\bar e_p|\bigr)+\hG\Bigl(\frac h\mu\Bigr)^{1/2}Y\Bigr].
+\]
+\end{lemma}
+
+\begin{proof}
+Test \eqref{eq:cnserr} with $w_\phi$ of Lemma~\ref{pd:lem:wphi}:
+\[
+\frac\mu h\ip{e_u}{w_\phi}=\Gc(w_\phi)-a_h(e_u,w_\phi)+\ip{\dn e_u}{w_\phi}+\ip{e_u}{\dn w_\phi}-B^\ast(e_p,w_\phi).
+\]
+On the left, $w_\phi-(\phi\circ\pi)n=O_\phi(\hG)$ on $\Gh$, so $\frac\mu h\ip{e_u}{w_\phi}=\frac\mu h\ip{e_u\cdot n}{\phi\circ\pi}+O_\phi((\mu/h)^{1/2}\hG\tnorm{e_u})$. On the right:
+\begin{itemize}
+\item $|\Gc(w_\phi)|\le C_\phi(\hG^2+\gamma\hG^3)$, exactly as for $w_1$ in Theorem~\ref{pd:thm:cnsp}.
+\item $|a_h(e_u,w_\phi)|\le C_\phi Y$.
+\item $|\ip{\dn e_u}{w_\phi}|\le C_\phi(Y+h^k)$, by Lemma~\ref{pd:lem:cancel} as in Theorem~\ref{pd:thm:cnsp}.
+\item $|\ip{e_u}{\dn w_\phi}|\le C_\phi(h/\mu)^{1/2}Y$.
+\item $B^\ast(e_p,w_\phi)=-(e_p-\bar e_p,\div w_\phi)-\bar e_p\int_{\Gh}w_\phi\cdot n+\ip{e_p-\pbG(e_p)}{w_\phi\cdot n}$ is at most $C_\phi(Y+|\bar e_p|\hG^2+\hG^{-1/2}Y)$, by Lemma~\ref{pd:lem:wphi} and $\int_\Gamma\phi=0$.
+\end{itemize}
+Multiply by $h/\mu$.
+\end{proof}
+
+\subsubsection{Gjerde--Scott's volume functional}
+
+\begin{proposition}[$J^\chi_h$]\label{pd:prop:chi}
+Let $\psi=e$ be a translation.
+\begin{enumerate}[label=(\alph*)]
+\item ($\CNS$, $\gamma\ge\max(1,\gamma_2)$, $\gamma\hG\le1$.) $|J^\chi_h(e)-J^N_h(e)|\le C[\hG^2+(h/\mu)^{1/2}(Y+Y_Z)(1+\hG^{-1/2}Y_Z)]$, which is $O(\hG^2+(h/\mu)^{1/2}E_Z)$.
+\item ($\GS$, $\gamma\ge\gamma_0$ fixed, bounded $\rho$, and $E_Z+E_U\le Ch$.)
+\[
+J^\chi_h(e)=J_e-2\frac h\mu K_e-\Theta_f(e)+O(h^{3/2}).
+\]
+Gjerde--Scott's own drag formula thus has \emph{twice} the leak defect of the Nitsche flux, because the discrete test field $\chi_h$ leaks as well.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For translations, $\ell_e(w)=N_h(v_e,w)-a_h(v_e,w)$, since $v_e=e$ on $\Lay$. Hence $\zeta_h:=v_e-\chi_h\in\Zh$ satisfies $N_h(\zeta_h,w)-\theta B^\ast(\pi_h,w)=a_h(v_e,w)$ for all $w\in\VR$ (for $\GS$, for all $w\in\Zh$). By Lemma~\ref{pd:lem:dragid}(a), $J^\chi_h-J^N_h=-\omega_h(\zeta_h)$.
+
+(a) For $\CNS$, $\zeta_h$ is the solution of \eqref{pd:eq:aux} (with $\pi_h\to-\pi_h$). Then $|\omega_h(\zeta_h)|\le\norm{t_h}_{\Gh}\norm{\zeta_h}_{\Gh}+\norm{u_h}_{\Gh}\norm{\dn\zeta_h}_{\Gh}$. Here $\norm{t_h}_{\Gh}\le C$ (Proposition~\ref{pd:prop:beta}(a) and $\gamma\hG\le1$), $\norm{\zeta_h}_{\Gh}\le C\hG^2+(h/\mu)^{1/2}CY_Z$, $\norm{u_h}_{\Gh}\le C\hG^2+(h/\mu)^{1/2}CY$ and $\norm{\dn\zeta_h}_{\Gh}\le C+C\hG^{-1/2}Y_Z$.
+
+(b) For $\GS$, write $\omega_h(\chi_h)=\tilde\omega(\chi_h)-a_h(e_u,\chi_h)$ (the pressure terms vanish since $\div\chi_h=0$). With $\tilde\omega(\chi_h)=\ip{\sigma(\ut,p^\circ)n}{\chi_h}-(F,\chi_h)$, $\chi_h=v_e-\zeta_h$ and Lemma~\ref{pd:lem:dragid}(b),
+\[
+J^\chi_h-J^N_h=\ip{\sigma(\ut,p^\circ)n}{\chi_h-e}-(F,\chi_h-e)+a_h(e_u,\zeta_h).
+\]
+By Corollary~\ref{cor:GSerr} with $c=\pbG(\pt)$, $a_h(e_u,\zeta_h)=-\ip{p^\circ}{\zeta_h\cdot n}+\Gc(\zeta_h)-\Bh(e_u,\zeta_h)$, and $-\ip{p^\circ}{\zeta_h\cdot n}$ cancels the pressure part of the first term. Hence
+\[
+J^\chi_h-J^N_h=\ip{D(\ut)n}{\chi_h-e}-(F,\chi_h-e)+\Gc(\zeta_h)-\Bh(e_u,\zeta_h).
+\]
+The dual error $e_Z:=\tilde Z_e-\chi_h$ satisfies $N_h(e_Z,w)=-\ip{\tilde R_e-c}{w\cdot n}+\Gc_Z(w)$ on $\Zh$, where $\Gc_Z$ is $\Gc$ with $\ut\to\tilde Z_e-e$. This is the structure of Corollary~\ref{cor:GSerr}, so Theorems~\ref{thm:A}, \ref{thm:C} and~\ref{hc:thm} and Corollary~\ref{cor:Bp} hold for it, with $p\to R_e$ and $\eps\to E_Z+Ch^k$. In particular $e_Z=(h/\mu)v^R_\varphi+\vartheta^Z$, with $v^R_\varphi\approx-(R_e-\bar R_e)n$ on $\Gh$ and $\tnorm{\vartheta^Z}\le CX_1^Z:=C(h/\mu+Y_Z)$. On $\Gh$, $\zeta_h=(e-\tilde Z_e)+e_Z$, where $e-\tilde Z_e=-d\,\dn Z_e(x^\ast)+O(\hG^4)$ is tangential. Then:
+\begin{itemize}
+\item The penalty part of $-\Bh(e_u,\zeta_h)$ is $-\frac\mu h\ip{(h/\mu)v_\varphi+\vartheta}{(e-\tilde Z_e)+(h/\mu)v^R_\varphi+\vartheta^Z}$. Its leading term is $-\frac h\mu\ip{v_\varphi}{v^R_\varphi}=-\frac h\mu K_e+O((h/\mu)(\hG^2+h^k))$. The other five products are at most $C(\hG^4+\hG^2h^k)$, $C(h/\mu)^{1/2}X_1^Z$, $C\gamma^{1/2}\hG^{3/2}X_1$, $C(h/\mu)^{1/2}X_1$ and $CX_1X_1^Z$, using $v_\varphi\perp(e-\tilde Z_e)$ up to $O(\hG^2+h^k)$.
+\item $|\ip{\dn e_u}{\zeta_h}|\le C\hG^{-1/2}X_1(\hG^2+h/\mu+(h/\mu)^{1/2}X_1^Z)$.
+\item $\ip{e_u}{\dn\zeta_h}=\frac h\mu\ip{v_\varphi}{\dn\zeta_h}+\ip\vartheta{\dn\zeta_h}$. The first part is $O((h/\mu)(\norm{\zeta_h}_{\Gh}+\hG^{1/2}+h^k\hG^{-1/2}))$, by Lemma~\ref{lem:cancel} applied to $w|_{\Gh}$ and $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^k$. For the second, Theorem~\ref{hc:thm} gives $r_h=(h/\mu)(z_U-v_\varphi)+\epsilon$ with $\norm{z_U-v_\varphi}_{\Gh}\le(h/\mu)^{1/2}E_U+C(\hG^2+h^k)$ and $\norm\epsilon_{\Gh}\le(h/\mu)^{3/2}B_U'$ ($B_U'$ the middle bound of that theorem). With $\norm{\dn\zeta_h}_{\Gh}\le C\hG^{-1/2}$ this part is $O((h/\mu)\gamma^{-1/2}(E_U+B'_U)+(h/\mu)(\hG^{3/2}+h^k\hG^{-1/2})+\gamma^{-1/2}Y)$.
+\item $|\ip{D(\ut)n}{\chi_h-e}|\le C(\hG^2+(h/\mu)\hG+(h/\mu)^{1/2}X_1^Z)$, because $D(\ut)n\cdot n_e=2\dn\ut\cdot n_e=O(\hG)$ and the normal part of $\zeta_h$ is $O(h/\mu)$.
+\item $|(F,\chi_h-e)|\le C\hG^3$ and $|\Gc(\zeta_h)|\le C(1+\gamma^{1/2})\hG^{3/2}$.
+\end{itemize}
+In the stated regime every remainder is $O(h^{3/2})$. Combine with Theorem~\ref{pd:thm:gsdrag}.
+\end{proof}
+
+\subsubsection{Pointwise traction versus Nitsche flux}
+
+\begin{proposition}[Tractions on $\Gh$]\label{pd:prop:beta}
+Let $\sigma^\circ:=\sigma(\ut,p^\circ)$ and $T^\beta_h:=D(u_h)n-p_hn$.
+\begin{enumerate}[label=(\alph*)]
+\item $\CNS$ ($\gamma\ge\gamma_2$):
+\begin{align*}
+\norm{t_h-\sigma^\circ n}_{\Gh}&\le C[(1+\gamma^{1/2})\hG^{-1/2}Y+(1+\gamma)\hG],\\
+\norm{T^\beta_h-\sigma^\circ n}_{\Gh}&\le C[\hG^{-1/2}Y+|\bar e_p|+\hG^k],\\
+|J^\beta_h(\psi)-J_\psi|&\le C(\hG^{-1/2}Y+\hG^2).
+\end{align*}
+\item $\GS$ ($\gamma\ge\gamma_0$):
+\begin{align*}
+\norm{t_h-\sigma^\circ n}_{\Gh}&\le C_p[(1+\gamma^{1/2})\hG^{-1/2}X_1+(1+\gamma)\hG],\\
+c\,G/\gamma-C_p\hG^{-1/2}(Q+X_1)\ \le\ \norm{T^\beta_h-\sigma^\circ n}_{\Gh}&\le C\,G/\gamma+C_p\hG^{-1/2}(Q+X_1),
+\end{align*}
+and
+\[
+J^\beta_h(\psi)=J_\psi+\Xi_h(\psi)+O_p(\hG^{-1/2}X_1+\hG^2),\qquad \Xi_h(\psi):=\ip\xib{\psi\cdot n}_{\Gh},
+\]
+where, for translations,
+\[
+\Xi_h(e)=\frac h\mu\,\chat\sum_{e'\in\EG}\frac{|e'|}{H_{e'}}\,q(m_{e'}^\ast)\,n_{e'}\cdot e+O_p(h/\mu),
+\]
+so $|\Xi_h|\le C_p/\gamma$. At fixed $\gamma$ the pointwise traction of $\GS$ does not converge, and $J^\beta_h$ converges to $J_\psi$ only up to the $O(1/\gamma)$ defect $\Xi_h$. The Nitsche flux of $\GS$ converges in $L^2(\Gh)$ at rate at least $1/2$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+On $\Gh$, $\sigma^\circ n=\dn\ut+(\nabla\ut)^{\mathsf T}n-p^\circ n$ with $|(\nabla\ut)^{\mathsf T}n|\le C\hG$ and $|\ut|\le C\hG^2$. For the full gradient, $\norm{\nabla(\ut-u_h)}_{\Gh}\le C\hG^{-1/2}(\norm{\nabla e_u}+h^k)+C\hG^k$ (the inverse trace applied to $I_h\ut-u_h$).
+
+(a) $t_h-\sigma^\circ n=-\dn e_u-(\nabla\ut)^{\mathsf T}n+(e_p-\pbG(e_p))n-\frac\mu h(\ut-e_u)$. Use $\norm{e_p-\pbG(e_p)}_{\Gh}\le C\hG^{-1/2}Y$ and $\frac\mu h\norm{e_u}_{\Gh}\le(\mu/h)^{1/2}\tnorm{e_u}=\gamma^{1/2}\hG^{-1/2}\tnorm{e_u}$. The bound for $T^\beta_h$ is similar, and the constant part of $e_p$ is Theorem~\ref{pd:thm:cnsp}. For $J^\beta_h$, use $\int\psi\cdot n=0$ (so only $e_p-\bar e_p$ enters) and $\ip{\sigma^\circ n}\psi-J_\psi=-\Theta_f+(F,\psi)=O(\hG^2)$ (proof of Lemma~\ref{pd:lem:dragid}).
+
+(b) For $t_h$: $-\frac\mu hu_h+p^\circ n=-\frac\mu h\ut+(v_\varphi+(q\circ\pi)n)+O(\hG^2)+\frac\mu h\vartheta$, and $v_\varphi+(q\circ\pi)n=O_p(\hG+h^k)$ (Step 2 of Theorem~\ref{pd:thm:gsp}). Then $\frac\mu h\norm\vartheta_{\Gh}\le(\mu/h)^{1/2}C_pX_1$. For $T^\beta_h$: $T^\beta_h-\sigma^\circ n=-D(e_u)n+(\xib+\rho_h)n$. Lemma~\ref{pd:lem:rep} gives $\norm{\xib}^2_{L^2(e)}=g_e^2\hat d_k|e|/H_e^2+O_p((h/\mu)^2)$, so $\norm\xib_{\Gh}\asymp(h/\mu)\hG^{-1}G=G/\gamma$ by the Riemann-sum argument of Theorem~\ref{pd:thm:gsp}(b). Also $\norm{\rho_h}_{\Gh}\le C\hG^{-1/2}\norm{\rho_h-\eta}+C\hG^k$. For $J^\beta_h$: only $\rho_h-\bar\rho_h$ enters, $\norm{\rho_h-\bar\rho_h}_{\Gh}\le C_p\hG^{-1/2}X_1$, and $\int_{e'}\xib=\int_{e'}g\,\xi_{e',1}=g_{e'}\chat|e'|/H_{e'}+O_p((h/\mu)|e'|)$.
+\end{proof}
+
+\begin{remark}[Gjerde--Scott's inconsistency parameter]\label{pd:rem:eps}
+The quantity $\beta_h(\chi_h)=\int_{\Gh}T^\beta_h\cdot\chi_h$ differs from $J^\beta_h(e)$ by $O(h/\mu)$ for $\GS$. So Proposition~\ref{pd:prop:beta}(b) and Proposition~\ref{pd:prop:chi}(b) give
+\[
+\varepsilon_{\GS}=\frac{\omega-\beta}{\omega}=-\frac{\Xi_h(e)}{J_e}+O(h/\mu+h^{3/2}).
+\]
+%% VERIFY: equation/table locators (3), (10), Table 1b of Gjerde--Scott were read in arXiv:2306.12362 only, not the ACSE version.
+At fixed $\mu$, and with $h/\hG$ fixed, $\varepsilon_{\GS}$ tends to a nonzero limit of size $\approx\chat(h/\mu\hG)(|e|/H_e)|J^p_e|/|J_e|$, where $J^p_e=-\int_\Gamma qn\cdot e$ is the pressure drag. It measures the Nitsche pressure layer, not the drag error. With $\mu=10^6$, $\hat c_4=20$ and moderate $h/\hG$, this is of order $10^{-5}$--$10^{-4}$. That is the order of the $\varepsilon\approx8\cdot10^{-5}$ in \cite[Table~1b]{GjerdeScott2024}. We have not checked this against their meshes, which we do not have.
+\end{remark}
+
+\begin{remark}[Removing the $\GS$ drag defect]\label{pd:rem:correct}
+To leading order $u_h\cdot n\approx(h/\mu)q$ and $(\chi_h-e)\cdot n\approx(h/\mu)(R_e-\bar R_e)$ on $\Gh$, so $\frac\mu h\ip{u_h\cdot n}{(\chi_h-e)\cdot n}\approx\frac h\mu K_e$. Moreover $J^N_h$ is affine in $1/\mu$ at leading order, so two solves with different $\mu$ allow extrapolation. We have \emph{not} proved rates for either corrected functional. $\CNS$ needs no correction.
+\end{remark}
+
+\subsection{Navier--Stokes}\label{pd:sec:ns}
+
+Assume (NS1)--(NS2) of Section~\ref{ns:sec}, with (L) for $\GS$ and (L$^\ast$) for $\CNS$, and use the convective form $c$ of the scheme also in the drag functional:
+\[
+\omega_h(w):=\nu a_h(u_h,w)+c(u_h;u_h,w)-(p_h,\div w)-(\ft,w),\qquad J_\psi:=\int_\Gamma(\nu D(u)-pI)n\cdot\psi .
+\]
+Put $X:=h/\mu+(1+\gamma^{1/2})\hG^{3/2}+\eps$ as in Section~\ref{ns:sec}, and write $e:=\ut-u_h$.
+
+\begin{proposition}\label{pd:prop:ns}
+\begin{enumerate}[label=(\alph*)]
+\item ($\CNS$, pressure.) Theorem~\ref{pd:thm:cnsp} holds verbatim, with $C$ depending also on $\nu$, $N$, $C_1$ and $\beta_\ast$.
+\item ($\GS$, pressure.) Theorem~\ref{pd:thm:gsp} holds with $X_1\to X$ and the same $\xib$, i.e.\ with $g=(h/\mu)q$ and $q$ the Navier--Stokes pressure. In the convention $\nu N_h$ of Remark~\ref{ns:conv} the layer does not depend on $\nu$. With the unscaled penalty $\hat\mu=\nu\mu$ it is $g=\nu(h/\hat\mu)q$.
+\item (Drag.) Lemma~\ref{pd:lem:dragid}(a) holds with $t_h$ multiplied by $\nu$. Lemma~\ref{pd:lem:dragid}(b) becomes
+\[
+J^N_h(\psi)-J_\psi=-\nu a_h(e,v_\psi)-c(e;\ut,v_\psi)-c(\ut;e,v_\psi)+c(e;e,v_\psi)-\Theta(\psi)+O(\hG^4),
+\]
+where $\Theta(\psi):=(\ft-(\ut\cdot\nabla)\ut,\psi)_{S_h}=\Theta_f(\psi)+O(\hG^4)$. Hence $|J^N_h-J_\psi|\le CX$ for $\GS$ (rate $1$) and $\le CY$ for $\CNS$ (rate $3/2$).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a),(b): Lemma~\ref{pd:lem:v0} acquires $c(\ut;\ut,v)-c(u_h;u_h,v)+\kappa_c(v)$ on the right. By Lemma~\ref{ns:tri} this is at most $C\norm e_{H^1}\norm{\nabla v}$ plus $C\hG^4\norm{\nabla v}$. The same convective terms appear when testing with $w_1$. The decomposition $e=(h/\nu\mu)v_\varphi+\vartheta$ with $\tnorm\vartheta\le CX$, and $\norm{\nabla e}\le CX$, are Theorem~\ref{ns:thmGS} and the proof of Corollary~\ref{ns:Bp}. The layer source is $\nu\ip{u_h}{\dn v}$, whose normal part is $\nu(h/\nu\mu)q$. (c): As in Lemma~\ref{pd:lem:dragid}, now with $\div\sigma(\ut,\pt)=F-\ft+(\ut\cdot\nabla)\ut$; the $c_1$/$c_s$ difference on $v_\psi$ is $\frac12\ip{(\ut\cdot n)\ut}\psi=O(\hG^4)$, and $|\ut|\le C\hG^2$ on $S_h$. The bounds use Lemma~\ref{ns:tri}.
+\end{proof}
+
+\emph{Not proved for Navier--Stokes.} The $\GS$ leading term $-(h/\mu)K_\psi$ would need the Oseen analogue of Theorem~\ref{hc:thm}, which is open Remark~\ref{ns:H1const}. If it holds, the reciprocity argument gives $K^\dagger_\psi=\int_\Gamma(p-\pbar)(R^\dagger_\psi-\bar R^\dagger_\psi)$, with $(Z^\dagger_\psi,R^\dagger_\psi)$ the \emph{adjoint} linearised (Oseen) problem with data $\psi$ on $\Gamma$. The $\CNS$ rate $2$ and the leading term $-\Theta-\Lambda^\dagger_h$ would need Theorem~\ref{pd:thm:cnsdrag} with the adjoint Oseen dual. That requires an adjoint version of (L$^\ast$), which we have not formulated. Proposition~\ref{pd:prop:beta} transfers verbatim for the Stokes part.
+
+\begin{remark}[General domains]\label{pd:rem:gd}
+Theorems~\ref{pd:thm:cnsp}, \ref{pd:thm:gsp} and Proposition~\ref{pd:prop:beta}(a) use only lemmas that Section~\ref{gd:sec} re-proves, together with $|\Lay|\asymp\hG$. They therefore hold on the general domains of Section~\ref{gd:sec}, with the global $\pbar$, with $\hat n:=n\circ\pi$ in Lemma~\ref{pd:lem:wphi}, and with $\div\hat n=\kap+O(\hG^2)$ replacing $-1$ (only $\int_\Gamma q=0$ is used). In the drag identities $S_h$ must be replaced by the signed region $\Oh\triangle\Omega$: $\Theta_f=(\ft,\psi)_{\Oh\setminus\Omega}-(f,\psi)_{\Omega\setminus\Oh}$, and $\Lambda_h$ carries the factor $\kap$ through $d=\frac12\kap(\ell^2/4-t^2)$. Theorem~\ref{pd:thm:gsdrag} uses Theorem~\ref{hc:thm}, which Section~\ref{gd:sec} does not cover, so on general domains only its unconditional $O(h/\mu)$ bound is proved.
+\end{remark}
+
+\subsection{What is not proved}\label{pd:sec:notproved}
+\begin{itemize}
+\item A lower bound for the $\CNS$ pressure error, or for its pointwise size in $\Lay$ (observed: $L^2$ rate $\to3/2$, $L^\infty(\Lay)$ rate $\approx1$).
+\item Sharpness of the $\CNS$ drag rate $2$ at \emph{fixed} $\gamma$. Theorem~\ref{pd:thm:cnsdrag}(b) identifies the leading term only up to $O(\gamma^{-1/2}\hG^2)$; that term (the weighted normal slip $T_5$) is not shown to be smaller. Numerically, for lift and torque, the ratio to $-\Theta_f-\Lambda_h$ tends to $1$ at $\mu=100$.
+\item Lower bounds for the $\CNS$ pointwise traction (observed rate $1$ for one component).
+\item The $\GS$ pointwise-traction defect $\Xi_h$ is not bounded \emph{below} in general. Its weights $|e|/H_e$ are mesh dependent, and a sign-indefinite weighted sum can vanish.
+\item Torque for $J^\chi_h$ (the Nitsche data functional with $\psi=x^\perp$ differs from $\ell$ by $-\ip{\dn\psi}w$).
+\item Everything in Section~\ref{pd:sec:ns} marked as not proved.
+\item The value $\chat=k(k+1)$ for $k>8$.
+\end{itemize}

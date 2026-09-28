@@ -1,0 +1,91 @@
+m3_certify.py -- (M3) for k = 4 on boundary stars; see notes/v4/m3_proof.tex
+== 1. SYMBOLIC: the closed-form witness (free coordinates p1=(X1,Y1), p2=(X2,Y2), p3=(X3,Y3); p0=(1,0))
+   Plucker relation  A N0^2 - (D02 D03 D23/D12) N1^2 + (D01 D03 D13/D12) N2^2 - A3 N3^2 == 0 : True
+   C^1 across the ray [0,p1] (phi1-phi2 and its gradient vanish there): True
+   C^1 across the ray [0,p2]: True
+   phi = grad phi = 0 on [0,p0] and on [0,p3]: True True
+   phi = grad phi = 0 on the outer edges p0p1, p1p2, p2p3: True True True
+   int_{[0,p0]} d_nn phi = 0: True    int_{[0,p3]} d_nn phi = 0: True
+   int_{[0,p0]} s^2 d_nn phi ds = |p0|^5 A/30 : True
+   int_{[0,p3]} s^2 d_nn phi ds = |p3|^5 A3/30: True
+[time] symbolic identities: 7.2s
+   Hessian-norm forms: ||D^2 f||^2_T = P_f(cot g0, cot g1, cot g2)/(2|T|), g_i the angle at the vertex of l_i
+     P1 (T1, f = l0^2 l2^2 (l0-3 l1))  = 19*k0**2/70 + k0*k1/10 + 17*k0*k2/35 + 3*k1**2/70 + k1*k2/7 + 3*k2**2/10
+     P3 (T3, f = l0^2 l1^2 (l0-3 l2))  = 19*k0**2/70 + 17*k0*k1/35 + k0*k2/10 + 3*k1**2/10 + k1*k2/7 + 3*k2**2/70
+     K  (T2, basis l0^2 l1^2(l0+l2), l0^2 l2^2(l0+l1), l0^2 l1 l2(l0+l1+l2), l0^2 l1^2 l2, l0^2 l1 l2^2):
+        ['13*k0**2/210 + 11*k0*k1/315 + 67*k0*k2/630 + k1**2/70 + 11*k1*k2/315 + 13*k2**2/210', '17*k0**2/420 + 17*k0*k1/1260 + 17*k0*k2/1260 + 17*k1*k2/1260', '-8*k0**2/105 - 2*k0*k1/45 - 23*k0*k2/315 - k1**2/70 + k1*k2/315', 'k0**2/420 - 19*k0*k1/1260 + 17*k0*k2/1260 - k1**2/140 - k1*k2/1260 + k2**2/84', '-2*k0**2/105 + k0*k1/630 - k0*k2/45 + k1*k2/630']
+        ['17*k0**2/420 + 17*k0*k1/1260 + 17*k0*k2/1260 + 17*k1*k2/1260', '13*k0**2/210 + 67*k0*k1/630 + 11*k0*k2/315 + 13*k1**2/210 + 11*k1*k2/315 + k2**2/70', '-8*k0**2/105 - 23*k0*k1/315 - 2*k0*k2/45 + k1*k2/315 - k2**2/70', '-2*k0**2/105 - k0*k1/45 + k0*k2/630 + k1*k2/630', 'k0**2/420 + 17*k0*k1/1260 - 19*k0*k2/1260 + k1**2/84 - k1*k2/1260 - k2**2/140']
+        ['-8*k0**2/105 - 2*k0*k1/45 - 23*k0*k2/315 - k1**2/70 + k1*k2/315', '-8*k0**2/105 - 23*k0*k1/315 - 2*k0*k2/45 + k1*k2/315 - k2**2/70', '2*k0**2/15 + k0*k1/9 + k0*k2/9 + k1**2/15 + 2*k1*k2/45 + k2**2/15', '2*k0**2/105 + 13*k0*k1/315 - 2*k0*k2/315 + k1**2/35 + 4*k1*k2/315', '2*k0**2/105 - 2*k0*k1/315 + 13*k0*k2/315 + 4*k1*k2/315 + k2**2/35']
+        ['k0**2/420 - 19*k0*k1/1260 + 17*k0*k2/1260 - k1**2/140 - k1*k2/1260 + k2**2/84', '-2*k0**2/105 - k0*k1/45 + k0*k2/630 + k1*k2/630', '2*k0**2/105 + 13*k0*k1/315 - 2*k0*k2/315 + k1**2/35 + 4*k1*k2/315', 'k0**2/70 + 13*k0*k1/630 + 2*k0*k2/315 + k1**2/70 + 2*k1*k2/315 + k2**2/210', '-k0**2/140 - k0*k1/180 - k0*k2/180 + k1*k2/252']
+        ['-2*k0**2/105 + k0*k1/630 - k0*k2/45 + k1*k2/630', 'k0**2/420 + 17*k0*k1/1260 - 19*k0*k2/1260 + k1**2/84 - k1*k2/1260 - k2**2/140', '2*k0**2/105 - 2*k0*k1/315 + 13*k0*k2/315 + 4*k1*k2/315 + k2**2/35', '-k0**2/140 - k0*k1/180 - k0*k2/180 + k1*k2/252', 'k0**2/70 + 2*k0*k1/315 + 13*k0*k2/630 + k1**2/210 + 2*k1*k2/315 + k2**2/70']
+   exact cross-checks on random rational fans (||grad w||^2 by direct integration of |D^2 phi|^2):
+     fan 0: direct = closed form: True   (||grad w||^2 = 1.238057e+00, A = 1.0172, A3 = 0.5132)
+     fan 1: direct = closed form: True   (||grad w||^2 = 1.125853e+00, A = 1.3308, A3 = 0.4868)
+     fan 2: direct = closed form: True   (||grad w||^2 = 1.474725e+01, A = 2.9325, A3 = 0.4386)
+   reflection invariance of the witness data (A<->A3, N1<->N3, N2 fixed), exact on 4 fans incl. beta_1 = 0: True
+[time] forms and cross-checks: 8.3s
+
+== 2. DIMENSION (exact rational linear algebra on C^1 piecewise quintics, phi = grad phi = 0 on the fan boundary)
+   m=3 star, angle pi+0.1 (generic): dim Y = 3 (2m-3 = 3), dim Y^1 (both chords) = 1;  witness in Y: True, means [0, 0];  A = 11323/12960, A3 = 27/40
+   m=3 star, angle < pi (convex boundary): dim Y = 3 (2m-3 = 3), dim Y^1 (both chords) = 1;  witness in Y: True, means [0, 0];  A = 1079/2000, A3 = 14/25
+   m=3 star, straight boundary (angle = pi): dim Y = 3 (2m-3 = 3), dim Y^1 (both chords) = 1;  witness in Y: True, means [0, 0];  A = 144/125, A3 = 4/5
+   m=3 star, p0 p1 p2 collinear (beta_1 = 0): dim Y = 4 (2m-3 = 3), dim Y^1 (both chords) = 2;  witness in Y: True, means [0, 0];  A = 21/10, A3 = 2
+   m=4 star: dim Y = 5 (2m-3 = 5), dim Y^1 (both chords) = 3 (2m-5 = 3)
+   fan of 1 triangle: dim Y = 0
+   fan of 2 triangles (m = 2, excluded by (M1')): dim Y = 1, dim Y^1 = 0
+[time] dimension: 12.3s
+
+== 3. NEGATIVE CONTROLS
+  (a) m = 3 stars with alpha_1 + alpha_2 > pi (outside the hypothesis): Xi = |p0|^5 A + |p3|^5 A3 changes sign.
+      Since dim Y^1 = 1 there (beta_1 beta_2 != 0) and M = +-Xi/60 on the witness, no star-supported field works at the zero.
+      |p3| scale  0.3: D01,D12,D23 = 1.000,1.005,0.264 (>0), D02 = -0.050 (<0: alpha1+alpha2 > pi), Xi in [3.8695e-02, 3.8695e-02]
+      |p3| scale  2.0: D01,D12,D23 = 1.000,1.005,1.760 (>0), D02 = -0.050 (<0: alpha1+alpha2 > pi), Xi in [2.4211e-01, 2.4211e-01]
+      |p3| scale  6.0: D01,D12,D23 = 1.000,1.005,5.280 (>0), D02 = -0.050 (<0: alpha1+alpha2 > pi), Xi in [-3.4477e+02, -3.4477e+02]
+      rigorous sign change of Xi on the segment: True
+  (b) C^2-at-z (Argyris-type) subspace of the generic m=3 star: dim = 2, with zero means dim = 0, so Y^1 contains no nonzero C^2-at-z field (second moments: [])
+  (c) tampered witness (6 D12 -> 7 D12 in phi_2): C^1 across [0,p1]: False (must be False)
+[time] controls: 1.7s
+
+== 4. PRODUCTION MESHES: exact rational kappa_z (closed form; floats of svn.make_mesh read as exact rationals)
+   kappa_z = |M(w)|/(|e_z|^2 ||grad w||), e_z = [c_i, c_{i+1}] (as in lower_bound_tests.py); since beta_1 beta_2 != 0
+   is checked exactly, dim Y^1(star) = 1 and these are the exact star constants.  Also the min over both chords.
+   N     stars  min kappa_z (rig. lower)   mean      max       min over both chords   all beta!=0  all A,A3>0
+      8      8   0.002879                 0.00546   0.00803   0.002879               True         False   (log: 0.00288)
+     12     12   0.004170                 0.00948   0.01879   0.004170               True         True   (log: 0.00417)
+     16     16   0.005551                 0.01093   0.01790   0.005551               True         True   (log: 0.00555)
+     20     20   0.005251                 0.01199   0.02228   0.005251               True         True   (log: 0.00525)
+     24     24   0.004944                 0.01267   0.02164   0.004944               True         True   (log: 0.00494)
+     32     32   0.004473                 0.01349   0.02331   0.004313               True         True   (log: 0.00447)
+     48     48   0.003941                 0.01419   0.02469   0.003777               True         True   (log: 0.00394)
+     64     64   0.003663                 0.01448   0.02523   0.003534               True         True   (log: 0.00366)
+     96     96   0.003382                 0.01470   0.02565   0.003297               True         True   (log: 0.00338)
+    128    128   0.003241                 0.01479   0.02582   0.003180               True         True   (log: 0.00324)
+    192    192   0.003102                 0.01486   0.02596   0.003062               True         True   (log: 0.00310)
+    256    256   0.003032                 0.01488   0.02601   0.003003               True         True   (log: 0.00303)
+    512    512   0.002928                 0.01492   0.02608   0.002914               True         True   (log: 0.00293)
+   1024   1024   0.002876                 0.01493   0.02610   0.002870               True         True   (log: 0.00288)
+   => (M3) holds on every boundary star of every production mesh, with kappa_0 >= 0.00287 for either choice of e_z.
+[time] meshes: 16.8s
+
+== 5. ELEMENTARY closed-form bound kappa_el(td,dd) (valid on F3 and Fs for every td <= 60, dd < td)
+   td = 10, dd =  5:  kappa_el = 8.456e-08
+   td = 20, dd = 15:  kappa_el = 2.380e-06
+   td = 20, dd =  5:  kappa_el = 6.240e-06
+   td = 30, dd = 10:  kappa_el = 5.115e-05
+   td = 45, dd = 10:  kappa_el = 4.466e-04
+
+== 6. INTERVAL CERTIFICATE of the decomposed bound (m3:dec) on compact families
+   F3(td,dd): m = 3 stars, all angles >= td, |Theta_z - 180| <= dd  [normalised by the longer chord]
+   Fs(td,dd): the 3 triangles next to e_z of an m >= 4 star, all angles >= td, Theta_z <= 180 + dd
+   check: min over 300 random points of kappa_w / (decomposed bound) = 1.012923  (must be >= 1 up to rounding)
+   F3(30,10):  kappa_w >= 0.00200 CERTIFIED=True  {'certified': 203150, 'pruned': 154, 'symmetric': 6503, 'total': 419613, 'depth': 33, 'pending': 0};  float min of the bound 0.002558 at angles(deg) [73.89, 30.03, 69.73, 76.11, 30.0, 30.0]
+[time] certificate F3(30,10): 68.5s
+   Fs(30,10):  kappa_w >= 0.00120 CERTIFIED=True  {'certified': 209555, 'pruned': 0, 'symmetric': 0, 'total': 419109, 'depth': 33, 'pending': 0};  float min of the bound 0.001400 at angles(deg) [68.22, 30.01, 61.46, 81.77, 119.99, 30.0]
+[time] certificate Fs(30,10): 72.9s
+[time]    ... 2007517 boxes, 24460 pending, 236s
+   F3(20,15):  kappa_w >= 0.00050 CERTIFIED=True  {'certified': 1326711, 'pruned': 9699, 'symmetric': 38333, 'total': 2749485, 'depth': 39, 'pending': 0};  float min of the bound 0.000880 at angles(deg) [79.31, 20.0, 78.63, 80.68, 20.0, 20.0]
+[time] certificate F3(20,15): 374.5s
+   Fs(20,15):  kappa_w >= 0.00030 CERTIFIED=True  {'certified': 452009, 'pruned': 0, 'symmetric': 0, 'total': 904017, 'depth': 37, 'pending': 0};  float min of the bound 0.000395 at angles(deg) [61.77, 45.23, 68.0, 98.23, 114.77, 20.0]
+[time] certificate Fs(20,15): 196.1s
+   negative control: Fs(30,10) with kappa_0 = 0.001470 (5% above the float minimum 0.001400 of the bound): certified = False (must be False), {'certified': 185957, 'pruned': 0, 'symmetric': 0, 'total': 1734475, 'depth': 100, 'pending': 1322562, 'refuted_at_deg': [67.2656, 30.0, 62.7344, 82.7344, 120.0, 31.4062]}
+[time] total: 1181.5s

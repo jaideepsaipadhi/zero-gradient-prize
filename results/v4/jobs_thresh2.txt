@@ -1,0 +1,9 @@
+thresh st 24
+thresh st 48
+thresh twodisk 48
+thresh ellipse 96
+thresh star 96
+thresh twodisk 96
+thresh st 96
+thresh star 192
+thresh ellipse 192

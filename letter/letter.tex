@@ -1,0 +1,246 @@
+%% letter.tex -- Applied Mathematics Letters submission.
+%% Build (journal 3p format):   pdflatex letter; bibtex letter; pdflatex letter; pdflatex letter
+%% Build (5p two-column check): see README.md (defines \FIVEP before \input{letter}).
+\ifdefined\FIVEP
+  \documentclass[5p,times]{elsarticle}
+\else
+  \documentclass[3p,times]{elsarticle}
+\fi
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[expansion=false]{microtype}
+\emergencystretch=1.5em
+\renewcommand{\ttdefault}{txtt}
+\ifdefined\FIVEP\def\tabenv{table*}\else\def\tabenv{table}\fi
+
+\journal{Applied Mathematics Letters}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\hO}{h_\Omega}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\EG}{\mathcal E_\Gamma}
+\newcommand{\Vh}{V_h}
+\newcommand{\VR}{V_h^R}
+\newcommand{\VO}{V_h^0}
+\newcommand{\Pih}{\Pi_h}
+\newcommand{\Zh}{Z_h}
+\newcommand{\gI}{g_I}
+\newcommand{\dn}{\partial_n}
+\newcommand{\ut}{\tilde u}
+\newcommand{\pt}{\tilde p}
+\newcommand{\ft}{\tilde f}
+\newcommand{\pbar}{\bar p}
+\newcommand{\pbG}{\bar p_{\Gamma_h}}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\tnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\GS}{\mathrm{GS}}
+\newcommand{\CNS}{\mathrm{CNS}^\ast}
+\newcommand{\eps}{\varepsilon_h}
+\newcommand{\Gc}{\mathcal G}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\ext}[1]{\cite[#1]{PadhiExt}}
+
+\begin{document}
+
+
+\begin{frontmatter}
+\title{The missing pressure traction in Scott--Vogelius--Nitsche methods on polygonal approximations of a curved wall}
+
+\author{Jaideep Sai Padhi}
+\ead{jpadhi@purdue.edu}
+\address{Department of Computer Science, Purdue University, West Lafayette, IN 47907, USA}
+
+\begin{abstract}
+We consider two-dimensional Stokes flow in which a curved no-slip wall is replaced by an inscribed polygon with edges of length at most $h_\Gamma$. Following Gjerde and Scott, the flow is discretised on a mesh of size $h_\Omega$ by exactly divergence-free Scott--Vogelius elements of degree $k\ge4$, with no-slip imposed on the polygon by Nitsche's method with penalty $\mu/h_\Omega$. Scott asked whether the $H^1$ error is $O(h_\Gamma^{3/2}+h_\Omega^k)$ for general Stokes data, and if not, why not. For the method as printed and a fixed penalty, the answer is no whenever the pressure varies along the wall. The Nitsche form has no pressure traction, so the discrete flow leaks through the polygon with normal velocity $(h_\Omega/\mu)(p-\bar p)$, where $\bar p$ is the mean wall pressure. We prove that this leak is the leading error, with constant $1$ in the slip and energy norms, and that the energy and $H^1$ errors are of order $(h_\Omega/\mu)^{1/2}$ and $h_\Omega/\mu$, with lower bounds. The $H^1$ rate is $1$, not $1/2$, because incompressibility turns the normal part of the missing load into a tangential derivative. A mean-free traction term, whose velocity coincides with that of a zero-net-flux formulation of Frachon, Nilsson and Zahedi transcribed to this setting, attains $h_\Gamma^{3/2}+h_\Omega^k$ in $H^1$ for general data. A penalty scaling like $h_\Omega/\min_e|e|$ is sufficient, and necessary under a shape condition on one boundary triangle, by a witness certified in exact arithmetic. Computations with $k=4$ agree with the predicted rates, constants and threshold.
+\end{abstract}
+
+\begin{keyword}
+Stokes equations \sep Scott--Vogelius elements \sep Nitsche's method \sep curved boundaries \sep divergence-free finite elements \sep penalty parameter
+\end{keyword}
+\end{frontmatter}
+
+%% ============================================================================ 1
+\section{Introduction}\label{sec:intro}
+
+For $k\ge4$ on meshes without singular vertices, the divergence maps continuous piecewise-$P_k$ velocities onto discontinuous piecewise-$P_{k-1}$ pressures \cite{ScottVogelius1985,GuzmanScott2019}, so Scott--Vogelius velocities are divergence-free pointwise. On fitted meshes with strong no-slip data this gives exact mass conservation and pressure-robust velocity errors \cite{JohnEtAl2017}. At a curved wall the same property causes trouble. If the wall is replaced by an inscribed polygon and no-slip is imposed strongly, the constraints can force a zero velocity gradient at a polygon vertex (for instance one lying in only two triangles), giving $O(1)$ gradient errors there and an $H^1$ error of order $h^{1/2}$ \cite{ScottPrize,GjerdeScott2024}; Section~\ref{sec:num} shows that this depends on the mesh at the wall. Gjerde and Scott \cite{GjerdeScott2024} keep the polygon and impose the wall condition by Nitsche's method \cite{Nitsche1971}, with penalty $\mu/\hO$, where $\hO$ is the mesh size. Scott observed $H^1$ errors of order $h^{3/2}$ for a benchmark with zero pressure (since analysed in \cite{Cavalcante2026}). He asked for a proof of the error $\hG^{3/2}+\hO^k$, where $\hG$ is the longest polygon edge, for general Stokes data: ``If this does not hold, why not?'' \cite{ScottPrize}.
+
+The consistent Nitsche form for Stokes flow uses the full traction, so it contains $\ip{p}{v\cdot n}$ (see, e.g., \cite{BurmanHansbo2014}), a term that is essential for consistency \cite{BurmanHansboLarson2019Stokes}. The form printed in \cite[(27)--(28)]{GjerdeScott2024} omits it. For exactly divergence-free spaces its placement matters. In both equations it spoils incompressibility near the boundary \cite{LiuNeilanOlshanskii2023}. In the momentum equation alone \cite{BurmanHansboLarson2019Stokes,FrachonNilssonZahedi2024} it leaves the constant pressure mode free, and Frachon, Nilsson and Zahedi handle this by testing the momentum equation only with zero-net-flux velocities \cite[\S5.1]{FrachonNilssonZahedi2024}. Liu, Neilan and Otus \cite{LiuNeilanOtus2023} obtain an exactly divergence-free method inside a curved domain with a boundary multiplier, a zero-flux constraint and a Taylor correction. That method converges at order $h^k$, above the $\hG^{3/2}$ of the method below, which is sharp; our object is the Gjerde--Scott method.
+
+Without a traction, only the penalty balances the wall pressure. The discrete flow therefore leaks through the polygon with normal velocity $(\hO/\mu)(p-\pbar)$, where $\pbar$ is the mean of $p$ on the wall. This is the consistency error of penalty methods \cite{Babuska1973}, acting on the pressure alone; as $\hO/\mu\to0$, the method still converges. \emph{Contributions.} (i) We prove that the leak is the leading error, with constant $1$ in the slip and energy norms, and give two-sided bounds of order $(\hO/\mu)^{1/2}$ (energy) and $\hO/\mu$ ($H^1$) (Theorem~\ref{thm:gs}). The $H^1$ rate is $1$ because incompressibility turns the normal load into a tangential derivative (Lemma~\ref{lem:cancel}). So for fixed penalty, Scott's estimate holds only when $p$ is constant on the wall. (ii) We prove that the mean-free correction $\ip{p_h-\pbG(p_h)}{v\cdot n}$ attains $\hG^{3/2}+\hO^k$ for general data and every $k\ge4$ (Theorem~\ref{thm:cns}). The device is not new: its velocity is that of the zero-net-flux formulation of \cite{FrachonNilssonZahedi2024}, transcribed to this setting. The singularity of the naive form and the loss of incompressibility of the $L^2_0$ alternative (Proposition~\ref{prop:naive}) are elementary; compare \cite[(5.7)--(5.9)]{FrachonNilssonZahedi2024} and \cite[Remark~3.2]{LiuNeilanOtus2023}. (iii) The penalty threshold scales like $\rho=\hO/\min_e|e|$. This is sufficient, and it is necessary under a shape hypothesis, via a single-triangle witness certified in exact arithmetic (Proposition~\ref{prop:penalty}). (iv) A numerical study with $k=4$ confirms the rates, the leak constant $1$ and the penalty scaling; it includes the penalty study requested in the prize. We treat a disk in a square; Clough--Tocher refinements, general domains, Navier--Stokes, 3D and omitted proofs are in \cite{PadhiExt}. The analysis and computations were carried out with an AI research assistant, as declared at the end.
+
+%% ============================================================================ 2
+\section{Setting and the three methods}\label{sec:setting}
+
+Let $R=(-L,L)^2$, $L>1$, $D$ the unit disk, $\Omega=R\setminus\overline D$, $\Gamma=\partial D$, and let $(u,p)$ be smooth with $-\Delta u+\nabla p=f$, $\div u=0$ in $\Omega$, $u|_\Gamma=0$, $u|_{\partial R}=g$. $P_h$ is a convex polygon with vertices on $\Gamma$, $\Gh=\partial P_h$ and $\Oh=R\setminus P_h\supset\Omega$. On $\Gh$ and on $\Gamma$, $n$ is the unit normal pointing out of $\Oh$ (resp.\ $\Omega$); $\nu$ is the outward normal of $R$; $\ip\cdot\cdot$ is the $L^2(\Gh)$ product. A triangulation of $\Oh$ with edges $\EG$ on $\Gh$ has
+$h=\hO:=\max\operatorname{diam}T$, $\hG:=\max_{\EG}|e|$, $\rho:=h/\min_{\EG}|e|$ and $\gamma:=\mu\hG/h$ (the effective boundary penalty, $\mu/h=\gamma/\hG$).
+We assume (M0) shape regularity and $|e|\ge c_0\hG$ on $\EG$, (M1) no singular vertices, and (M2) the angle condition of \cite[Thm.~1]{GuzmanScott2019}; $\hG\ll h$ is allowed. For $k\ge4$, $\Vh$ is the space of continuous piecewise-$P_k$ fields, $\VR$ and $\VO$ are its subspaces vanishing on $\partial R$ and on $\partial\Oh$, $\Pih$ is the space of discontinuous piecewise-$P_{k-1}$ functions, and $\Zh:=\{v\in\VR:\div v=0\}$. Then $\div\VR=\Pih$, and $(\VO,\Pih\cap L^2_0)$ has an inf-sup constant $\beta$ independent of $h$ \cite{GuzmanScott2019}, \ext{Lemmas~4.3, 4.5}. With $Du=\nabla u+(\nabla u)^{\mathsf T}$, $\dn u=(\nabla u)n$ and $\pbG(q):=|\Gh|^{-1}\int_{\Gh}q$, the Nitsche form
+\[
+N_h(u,v)=\tfrac12(Du,Dv)-\ip{\dn u}{v}-\ip{u}{\dn v}+(\mu/h)\ip uv
+\]
+is the symmetric Nitsche form of \cite{GjerdeScott2024}. All methods seek $u_h\in\Vh$ with the outer data on $\partial R$ and $p_h\in\Pih$ with $(q,\div u_h)=0$ for $q\in\Pih$ and
+\begin{equation}\label{eq:methods}
+N_h(u_h,v)-(p_h,\div v)+b_\Gamma(p_h,v)=(\ft,v)\qquad\forall v\in\VR .
+\end{equation}
+The printed method $\GS$ \cite[(28)]{GjerdeScott2024} has $b_\Gamma=0$ (we read its test space as $\VR$ and use the opposite pressure sign; see \ext{\S2}). The naive form has $b_\Gamma=\ip{p_h}{v\cdot n}$, the consistent traction term. The mean-free form $\CNS$ has $b_\Gamma=\ip{p_h-\pbG(p_h)}{v\cdot n}$. The $L^2_0$ variant is the naive form with $p_h,q\in\Pih\cap L^2_0(\Oh)$. The outer data are the $P_k$ interpolant $\gI$ of $g$, or $\tilde g_I:=\gI-(m_R/8L^2)x$ with $m_R:=\int_{\partial R}\gI\cdot\nu$, which has zero net flux, like the exact data (cf.\ \cite{EickmannScottTscherpel2025}). The velocities of $\GS$ and $\CNS$ are divergence-free pointwise.
+
+To compare $u_h$ with $u$ on $\Oh\supset\Omega$ we extend $u$ as a divergence-free field. Let $\ut:=\curl\tilde\psi$ for a smooth extension $\tilde\psi$ of the stream function of $u$, let $\pt$ and $\ft$ extend $p$ and $f$, and let $F:=\ft+\Delta\ut-\nabla\pt$, which vanishes on $\Omega$. Set
+$\tnorm v^2:=\norm{\nabla v}^2+\frac\mu h\norm v^2_{\Gh}+\sum_{e\in\EG}|e|\norm{\dn v}^2_{L^2(e)}$ and $G:=\norm{p-\pbar}_{L^2(\Gamma)}$.
+Let $\eps:=h^k+\inf\tnorm{\ut-z}$, the infimum over divergence-free $z\in\Vh$ with the outer data. For bounded $\gamma$, $\eps\le Ch^k$ with data $\tilde g_I$, and also with $\gI$ if $\hG\ge h^{2(\sigma_k-k)}$, where $\sigma_k=k+2$ ($k$ even) or $k+1$ ($k$ odd) \ext{Lemmas~4.6, 7.21}. Constants $C,c$ do not depend on $h,\hG,\mu,\gamma,\rho$; $C_p$ may also depend on $\norm{p-\pbar}_{W^{1,\infty}(\Gamma)}$.
+
+\begin{lemma}[\ext{Lemma~4.2}]\label{lem:coercive}
+Let $\kappa$ be the Korn constant on $\VR$ (uniform in $h$) and $C_I$ the inverse trace constant. If $\mu\ge4\kappa C_I^2\rho$, which holds when $\gamma\ge\gamma_0:=4\kappa C_I^2/c_0$, then $N_h(v,v)\ge c_1\tnorm v^2$ and $|N_h(w,v)|\le M\tnorm w\tnorm v$ on $\VR$, with $c_1,M$ independent of $h,\mu,\rho$.
+\end{lemma}
+
+%% ============================================================================ 3
+\section{Main results}\label{sec:results}
+
+\begin{lemma}[Consistency]\label{lem:consist}
+For $v\in\VR$, $N_h(\ut,v)-(\pt,\div v)+\ip{\pt}{v\cdot n}=(\ft,v)+\Gc(v)$, where $|\Gc(v)|\le C(1+\gamma^{1/2})\hG^{3/2}\tnorm v$ and
+$\Gc(v):=\ip{(\nabla\ut)^{\mathsf T}n}{v}-\ip{\ut}{\dn v}+\frac\mu h\ip{\ut}{v}-(F,v)$.
+\end{lemma}
+
+\begin{proof}
+Green's formula gives the identity. Chords lie within $\hG^2/4$ of $\Gamma$, so $\ut=O(\hG^2)$ on $\Gh$ and $|(F,v)|\le C\hG^2\norm{\nabla v}$, which bounds the last three terms. On $\Gamma$, $(\nabla u)^{\mathsf T}n=n\,\div u=0$. On a chord $e$ the normal tilts by an angle $s+O(\hG^2)$, where $s$ is the arclength from the midpoint $m_e$, so $(\nabla\ut)^{\mathsf T}n=s\,a_e+O(\hG^2)$ with $a_e$ constant on $e$. The remainder contributes $C\hG^2\norm v_{L^1(\Gh)}$. The leading term is $O(\hG)$ pointwise but odd in $s$: $|\int_es\,a_e\cdot v|=|\int_es\,a_e\cdot(v-v(m_e))|\le|e|^2\norm{\partial_\tau v}_{L^1(e)}$, and an inverse trace inequality gives $C\hG^{3/2}\norm{\nabla v}$.
+\end{proof}
+
+For $v\in\Zh$, $\int_{\Gh}v\cdot n=\int_{\Oh}\div v=0$, so for $\GS$
+\begin{equation}\label{eq:gserr}
+N_h(\ut-u_h,v)=\Rc(v)+\Gc(v),\qquad \Rc(v):=-\ip{\pt-\pbar}{v\cdot n}\qquad\forall v\in\Zh .
+\end{equation}
+To identify the response to the missing load $\Rc$, let $\varphi:=\chi(r)\int_0^\theta(p-\pbar)\,d\theta'$ in polar coordinates, with a cut-off $\chi$ equal to $1$ near $r=1$ and to $0$ near $\partial R$; then $w:=\curl\varphi=-(p-\pbar)n$ on $\Gamma$. With $I_h^{C^1}$ the $C^1$ piecewise-$P_{k+1}$ interpolant of \cite{MorganScott1975}, $v_\varphi:=\curl I_h^{C^1}\varphi\in\Zh$, $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^k$, and $v_\varphi=-(p-\pbar)(x^\ast)n+O(\hG)$ on $\Gh$, where $x^\ast$ is the radial projection of $x$ onto $\Gamma$.
+
+\begin{theorem}[The printed method \ext{\S6}]\label{thm:gs}
+Let $\gamma\ge\gamma_0$ and $Y:=(1+\gamma^{1/2})\hG^{3/2}+\eps$. (a) $\tnorm{\ut-u_h}\le C[(h/\mu)^{1/2}G+Y]$. If $G>0$ and $h\le h_0(G)$, with $h_0$ independent of $\gamma$, then $\tnorm{\ut-u_h}\ge(2M)^{-1}(h/\mu)^{1/2}G-CY$. (b) $\norm{\nabla(\ut-u_h)}\le C_ph/\mu+CY$.
+(c) Let $G>0$, fix $\gamma$, and let $h\to0$ with $\rho$ bounded and $\eps\le Ch^{3/2}$. Then $\ut-u_h=(h/\mu)v_\varphi+\vartheta_h$ with $\tnorm{\vartheta_h}=o((h/\mu)^{1/2})$ and $\norm{\vartheta_h}_{\Gh}=o(h/\mu)$; hence
+\begin{gather*}
+\frac{\norm{\ut-u_h}_{L^2(\Gh)}}{(h/\mu)G}\to1,\qquad \frac{\tnorm{\ut-u_h}}{(h/\mu)^{1/2}G}\to1,\ifdefined\FIVEP\\\else\qquad\fi c\frac h\mu G\le\norm{\nabla(\ut-u_h)}\le C_p\frac h\mu .
+\end{gather*}
+\end{theorem}
+
+The key to (b) is the following lemma; an inverse estimate would only give $|\ip{S}{\dn v}|\le C\hG^{-1/2}\norm{\nabla v}$.
+
+\begin{lemma}[Normal-load cancellation]\label{lem:cancel}
+Let $\tau_e$ and $n_e$ be the unit tangent and normal of $e\in\EG$. Let $S$ be edgewise $W^{1,\infty}$ on $\Gh$ and continuous at its vertices, with $|S\cdot\tau_e|\le C\hG$ on each $e$. Then $|\ip{S}{\dn v}|\le C(\norm v_{\Gh}+\hG^{1/2}\norm{\nabla v})\le C\norm{\nabla v}$ for $v\in\Zh$.
+\end{lemma}
+
+\begin{proof}
+The tangential part is at most $C\hG\norm{\dn v}_{\Gh}\le C\hG^{1/2}\norm{\nabla v}$. On $e$, $\div v=0$ gives $\dn v\cdot n_e=-\partial_\tau(v\cdot\tau_e)$, so with $\sigma_e:=S\cdot n_e$,
+$\int_e\sigma_e\,\dn v\cdot n_e=\int_e\partial_\tau\sigma_e\,(v\cdot\tau_e)-[\sigma_e\,v\cdot\tau_e]_{\partial e}$.
+The integral is at most $C\norm v_{L^1(e)}$. At a vertex $x$ shared by $e$ and $e'$ the endpoint terms combine to $v(x)\cdot(\sigma_{e'}\tau_{e'}-\sigma_e\tau_e)=O(|e|+|e'|)|v(x)|$, since $S$ is continuous and the edge directions differ by $O(|e|+|e'|)$. The one-dimensional inverse inequality $\norm v_{L^\infty(e)}\le C|e|^{-1/2}\norm v_{L^2(e)}$ for polynomials gives $\sum_e|e|\norm v_{L^\infty(e)}\le C|\Gh|^{1/2}\norm v_{\Gh}$, and $\norm v_{\Gh}\le C\norm{\nabla v}$ uniformly in $h$ \ext{Lemma~3.2}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:gs}]
+Since the projection $\Gh\to\Gamma$ has Jacobian $1+O(\hG^2)$, $|\Rc(v)|\le(G+C\hG^2)(h/\mu)^{1/2}\tnorm v$. (a) Test \eqref{eq:gserr} with $z-u_h\in\Zh$, $z$ attaining $\eps$, for the upper bound. For the lower, $\Rc(v_\varphi)=G^2+O(\hG^2+h^k)$, $\tnorm{v_\varphi}\le(\mu/h)^{1/2}(G+C\hG^2+Ch^k)+C$, and $M\tnorm{\ut-u_h}\ge(\Rc(v_\varphi)-|\Gc(v_\varphi)|)/\tnorm{v_\varphi}$.
+(b) Write $z-u_h=\delta_R+\delta_G$ in $\Zh$ with $N_h(\delta_R,\cdot)=\Rc$ and $N_h(\delta_G,\cdot)=\Gc-N_h(\ut-z,\cdot)$ on $\Zh$, so that $\tnorm{\delta_G}\le CY$. For $r_h:=\delta_R-(h/\mu)v_\varphi$ and $v\in\Zh$,
+\[
+N_h(r_h,v)=-\ip{(\pt-\pbar)n+v_\varphi}{v}-\tfrac h\mu\bigl[\tfrac12(Dv_\varphi,Dv)-\ip{\dn v_\varphi}{v}-\ip{v_\varphi}{\dn v}\bigr].
+\]
+On $e$, $(\pt-\pbar)n+v_\varphi=(p-\pbar)(m_e^\ast)s\tau_e+O(\hG^2+h^k)$, with $m_e^\ast$ the projection of $m_e$. This is odd in $s$ to leading order, so the first term is at most $C_p(\hG^{3/2}+h^k)\norm{\nabla v}$, as in Lemma~\ref{lem:consist}. Lemma~\ref{lem:cancel} with $S=w$ gives $|\ip{v_\varphi}{\dn v}|\le(C_p+Ch^k\hG^{-1/2})\norm{\nabla v}$. Testing with $v=r_h$ gives $\tnorm{r_h}\le C_p(h/\mu+\hG^{3/2})+C\eps$, and (b) follows.
+(c) Here $\vartheta_h=(\ut-z)+\delta_G+r_h$, so $\tnorm{\vartheta_h}\le C_ph/\mu+CY$, $\norm{\vartheta_h}_{\Gh}\le(h/\mu)^{1/2}\tnorm{\vartheta_h}$, and $\norm{v_\varphi}_{\Gh}=G+O(\hG^2+h^k)$. Testing \eqref{eq:gserr} with $v_\varphi$, all terms other than $(\mu/h)\ip{\ut-u_h}{v_\varphi}$ and $\Rc(v_\varphi)$ are $o(G^2)$ by (a), (b), so $\norm{\ut-u_h}_{\Gh}\ge c(h/\mu)G$, and a uniform trace inequality gives $\norm{\ut-u_h}_{\Gh}\le C\norm{\nabla(\ut-u_h)}+Ch^{k+1/2}$.
+\end{proof}
+
+\begin{proposition}[Naive and $L^2_0$ forms]\label{prop:naive}
+(i) The naive system is square, and $(0,1)$ lies in the kernel of its matrix. (ii) Every solution of the $L^2_0$ variant has $\div u_h\equiv c$ with $c|\Oh|=\int_{\partial R}\gI\cdot\nu+\int_{\Gh}u_h\cdot n$. It solves the naive system if and only if $c=0$, and then, for $\gamma\ge\gamma_2$, $u_h$ is the $\CNS$ velocity.
+\end{proposition}
+
+\begin{proof}
+(i) $-(1,\div v)+\ip{1}{v\cdot n}=0$ for $v\in\VR$. (ii) $\div u_h\in\Pih$ is orthogonal to $\Pih\cap L^2_0$, hence constant. For $q\in L^2_0$ the naive pressure form equals the $\CNS$ form at $q-\pbG(q)$, by (i). If $c=0$, then $(u_h,p_h-\pbG(p_h))$ solves $\CNS$, whose solution is unique by Theorem~\ref{thm:cns}.
+\end{proof}
+
+Under weak imposition nothing forces $c=0$, even for $\tilde g_I$. In our runs the $L^2_0$ variant was uniquely solvable with $c\ne0$ (test A below, $N=16$: $\norm{\div u_h}_{L^2(\Oh)}=4.5\cdot10^{-3}$, against $4\cdot10^{-13}$ for $\CNS$), so the naive system had no solution.
+
+\begin{theorem}[The mean-free method; \ext{Thm.~7.2, Rem.~7.3}]\label{thm:cns}
+There is $\gamma_2\asymp\max(\gamma_0,\beta^{-2})$ such that for $\gamma\ge\gamma_2$:
+(a) $\CNS$ is uniquely solvable, and its velocity equals that of the naive form tested only with $\{v\in\VR:\int_{\Gh}v\cdot n=0\}$, as in \cite{FrachonNilssonZahedi2024};
+(b) $\tnorm{\ut-u_h}\le C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$;
+(c) consequently, for $\gamma\le\gamma_{\max}$ and data $\tilde g_I$, $\norm{\ut-u_h}_{H^1(\Oh)}\le C(\hG^{3/2}+\hO^k)$, with $C$ depending on $\gamma_{\max}$ (the same holds with $\gI$ if $\hG\ge\hO^{2(\sigma_k-k)}$).
+\end{theorem}
+
+\begin{proof}[Sketch]
+Let $B^\ast(q,v):=-(q,\div v)+\ip{q-\pbG(q)}{v\cdot n}$. Then $B^\ast(q+c,v)=B^\ast(q,v)-c\int_{\Gh}v\cdot n$, and Lemma~\ref{lem:consist} gives $N_h(e_u,v)+B^\ast(e_p,v)=\Gc(v)$ on $\VR$, where $e_u:=\ut-u_h$, $e_p:=p^\ast-p_h$ and $p^\ast:=\pt-\pbG(\pt)$. Write $e_p=\eta+\xi$ with $\eta:=p^\ast-\pi_hp^\ast$, $\pi_h$ the $L^2$ projection onto $\Pih$, and let $\bar\xi$ be the mean of $\xi$ over $\Oh$. Testing with $\VO$ and using the inf-sup condition gives $\beta\norm{\xi-\bar\xi}\le C(\tnorm{e_u}+\hG^{3/2})$. Testing with $z-u_h\in\Zh$ leaves $\ip{\eta+\xi-\bar\xi}{(z-u_h)\cdot n}$, and $|\ip{\xi-\bar\xi}{v\cdot n}|\le C(c_0\gamma)^{-1/2}\norm{\xi-\bar\xi}\tnorm v$ by a discrete trace inequality; this is absorbed for $\gamma\ge\gamma_2$, which proves (b). With zero data the same argument gives $u_h=0$ and $p_h\equiv c$, and an edge bubble with nonzero flux gives $c=0$. On zero-flux test functions $B^\ast$ is the naive form, and adding a constant turns a zero-flux solution into a $\CNS$ solution; this proves (a). (c) follows with a Friedrichs inequality.
+\end{proof}
+
+\begin{remark}[Further results, proved in \cite{PadhiExt}]\label{rem:further}
+
+(1) \emph{Pressure of $\GS$} \ext{Def.~8.10, Thm.~8.11}. Let $G>0$, fix $\gamma$, let $\rho$ be bounded and $h\le h_0(G)$. Then $c\hG^{1/2}G/\gamma-C_p\hG\le\min_{c'\in\R}\norm{p^\ast-p_h-c'}\le\norm{p^\ast-p_h}\le C\hG^{1/2}G/\gamma+C_p\hG$. The error sits in the triangles along $\Gh$, where it does not converge pointwise.
+(2) \emph{$\CNS$ uniformly in $\gamma$, and its pressure} \ext{Thms.~7.19, 7.22, 8.7, Lemma~8.3}. With data $\tilde g_I$, Theorem~\ref{thm:cns}(c) holds with $C$ independent of $\gamma\ge\gamma_2$, and, for $\gamma\le\gamma_{\max}$, $\norm{p^\ast-p_h}_{L^2(\Oh)}\le C(\hG^{3/2}+\hO^k)$ with $C$ depending on $\gamma_{\max}$.
+(3) \emph{Sharpness} \ext{Thm.~7.13}. If $W=\dn u\cdot\tau\not\equiv0$ on $\Gamma$, then $\norm{\nabla(\ut-u_h)}\ge c\norm W\hG^{3/2}-C\hG^2$ for $\CNS$, and for $\GS$ with any $G$, $c$ independent of $\gamma,\rho,p$, for $k\ge7$; for $4\le k\le6$ under a local condition on boundary stars, verified numerically on our meshes but not proved.
+(4) \emph{A growing penalty} \ext{Thm.~7.19, Cor.~7.23, Thm.~7.24, Prop.~7.26}. For $\GS$ with data $\tilde g_I$, $\norm{\nabla(\ut-u_h)}\le C_p\hG/\gamma+C(\hG^{3/2}+\hO^k)$ uniformly in $\gamma\ge\gamma_0$, so $\mu\gtrsim h\hG^{-3/2}$ restores the $H^1$ rate $3/2$. The energy norm cannot be rescued: if $W\not\equiv0$, $\gamma\ge\gamma_1$, $\hG\le h_1$ and $h^k\le\hG$, then $\tnorm{\ut-u_h}\ge c\norm W\gamma^{1/2}\hG^{3/2}-C(\hG/\gamma)^{1/2}$, and with Theorem~\ref{thm:gs}(a) no penalty scaling gives an energy rate above $1$. On quasi-uniform meshes the velocity block and pressure Schur complement condition numbers grow by $1+\gamma$.
+\end{remark}
+
+\begin{proposition}[Penalty threshold \ext{\S9}]\label{prop:penalty}
+(a) $\mu\ge4\kappa C_I^2\rho$ suffices (Lemma~\ref{lem:coercive}). (b) Let $T$ have an edge $e\subset\Gh$ and not meet $\partial R$. Map it by a similarity to the triangle with base $[(0,0),(1,0)]$ and apex $(a,b)$, with barycentric coordinates $\lambda_0$ (apex) and $\lambda_1,\lambda_2$. For $t\in\R^3$ let $v_t:=\curl(\lambda_1^2\lambda_2^2(t_0\lambda_0+t_1\lambda_1+t_2\lambda_2))\in P_4^2$. Let $A_T,B_T,C_T$ be the quadratic forms $\int_T\frac12|Dv_t|^2$, $\int_e\dn v_t\cdot v_t$ and $\int_e|v_t|^2$, and let $\lambda_T$ be the top eigenvalue of the pencil $(2B_T-A_T,C_T)$. If $\mu|e|/h<\lambda_T$, then $N_h$ is indefinite on $\Zh$ for every $k\ge4$. (c) $\lambda_T>1$ if the apex angle is at least $35^\circ$ and the base angles at least $5^\circ$; $\lambda_T>4$ and $\lambda_T>9.3$ for apex angles at least $45^\circ$ and $60^\circ$. So if the triangle on a shortest edge of $\Gh$ has such a shape, coercivity on $\Zh$ requires $\mu>\rho$.
+\end{proposition}
+
+\begin{proof}
+(b) The potential vanishes to second order on the edges through the apex, so $v_t$, extended by zero, lies in $\Zh$. $A_T$ and $B_T$ are invariant under dilation and $C_T$ scales with $|e|$, so $N_h(v_t,v_t)=(\mu|e|/h-\lambda_T)C_T(t)<0$ for the top eigenvector. (c) $A_T,B_T,C_T$ are explicit rational functions of $(a,b)$ \ext{\S9.1}. On dyadic rational boxes covering each shape region we verify $2520\,b^3q^{\mathsf T}(2B_T-A_T-\lambda C_T)q>0$ for a rational $q$ in exact interval arithmetic ($297$ boxes for $\lambda=1$) \ext{Prop.~9.3}. The same test fails for $\lambda=9.4$ at $60^\circ$, as it must. For tall triangles $\lambda_T<0$; necessity under (M0)--(M2) alone is open \ext{Rem.~9.5}.
+\end{proof}
+
+%% ============================================================================ 4
+\section{Numerical study}\label{sec:num}
+
+We take $k=4$, $L=2.5$, and $N$ polygon vertices at the radial projections of $N$ equispaced points on the square; then $h/\hG\approx3.3$, $\max|e|/\min|e|\le1.97$, and each vertex of $\Gh$ lies in three triangles. Direct solves give relative residuals below $10^{-12}$ and $\norm{\div u_h}\le2\cdot10^{-9}$ ($10^{-6}$ for the nearly singular strong solves on mesh (a)). We use $\mu=100$ ($\gamma\approx30$), known to be above the measured coercivity threshold only. Test A is Scott's benchmark $u=(1-r^{-2})(-y,x)$, $p=0$. Test B$_a$ has stream function $(r^2-1)^2(x+y^2/2)/10$ and $p=a(x^2y-y+x/2)$, so $G=a(7\pi/8)^{1/2}$.
+
+\begin{\tabenv}[!tb]
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\caption{$H^1$ seminorm errors (rate), tests A and B$_{100}$, and pressure errors $\norm{p^\ast-p_h}_{L^2(\Oh)}$ for B$_{100}$. Strong: $u_h=0$ at the nodes of $\Gh$, on mesh (a) (alternating first-layer diagonals; polygon vertices in two or four triangles, violating (M2)). $\GS$, $\CNS$: standard mesh, three triangles per polygon vertex. Rates are from the preceding level of $N=16,24,32,48,64,96,128,192,256$.}\label{tab:rates}
+\begin{tabular}{rccccccc}
+\toprule
+ & \multicolumn{3}{c}{test A, velocity} & \multicolumn{2}{c}{test B$_{100}$, velocity} & \multicolumn{2}{c}{test B$_{100}$, pressure}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+$N$ & strong (a) & $\GS$ & $\CNS$ & $\GS$ & $\CNS$ & $\GS$ & $\CNS$\\
+\midrule
+32 & 5.72e-1 (0.72) & 5.55e-2 (1.79) & 6.41e-2 (1.80) & 3.51 (0.93) & 2.34e-2 (2.43) & 18.2 (0.68) & 7.67e-2 (3.03)\\
+64 & 3.75e-1 (0.62) & 1.81e-2 (1.68) & 2.08e-2 (1.69) & 1.88 (0.97) & 6.83e-3 (1.76) & 11.8 (0.65) & 1.62e-2 (2.08)\\
+96 & 2.98e-1 (0.59) & 9.57e-3 (1.63) & 1.09e-2 (1.64) & 1.28 (0.98) & 3.54e-3 (1.68) & 9.23 (0.62) & 8.01e-3 (1.80)\\
+128 & 2.54e-1 (0.56) & 6.11e-3 (1.59) & 6.96e-3 (1.60) & 9.71e-1 (0.98) & 2.24e-3 (1.63) & -- & --\\
+192 & -- & 3.27e-3 (1.57) & 3.71e-3 (1.58) & 6.54e-1 (0.99) & 1.18e-3 (1.60) & -- & --\\
+256 & -- & 2.10e-3 (1.55) & 2.38e-3 (1.56) & -- & -- & -- & --\\
+\bottomrule
+\end{tabular}
+\end{\tabenv}
+
+In Table~\ref{tab:rates} strong imposition locks (rate $\to1/2$), while on test A ($G=0$) both Nitsche methods tend to $3/2$. On our standard mesh strong imposition does not lock (rate $1.61$ at $N=128$). On B$_{100}$ the printed method has $H^1$ rate $1$, an error over $500$ times that of $\CNS$ at $N=192$, pressure rate decreasing towards $1/2$, and a maximum pressure error that does not decrease ($77$ at $N=96$). The $\CNS$ rates decrease monotonically towards $3/2$; its errors for B$_1$ and B$_{100}$ agree to all printed digits, and with the non-polynomial pressure $p=e^{x/2}\cos y$ its $H^1$ error differs from that for B$_1$ by at most $8\cdot10^{-7}$ relative. On the pure-pressure test ($u=0$, $f=\nabla p$, $p$ as in B$_1$), $\CNS$ gives $u_h=0$ to round-off, and $\GS$ reproduces the predicted leak. At $N=96$ the normalised slip and energy errors of Theorem~\ref{thm:gs}(c) are $0.981$ and $0.996$ for $\mu=10^2$; for $\mu=10^4$, which lies outside the regime of Theorem~\ref{thm:gs}(c), they are $0.9993$ and $0.9994$.
+
+\begin{\tabenv}[!tb]
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\caption{Coercivity threshold $\mu^\ast$ and $\gamma^\ast=\mu^\ast\hG/h$, with $h/\hG$ and $\rho$ varied through the outer box $(-L,L)^2$ and $\Gh$ fixed. Under refinement at $L=2.5$, $\gamma^\ast=14.7,18.1,19.9,20.8$ for $N=8,16,32,64$.}\label{tab:thresh}
+\begin{tabular}{lcccccclcccccc}
+\toprule
+$N=16$ & $L$ & 2.5 & 5 & 10 & 20 & 40 & $N=32$ & 2.5 & 5 & 10 & 20 & 40\\
+\midrule
+ & $\rho$ & 4.70 & 8.47 & 16.2 & 31.8 & 63.0 & & 5.73 & 9.98 & 18.7 & 36.3 & 71.5\\
+ & $\mu^\ast$ & 59.3 & 112 & 208 & 411 & 809 & & 66.0 & 114 & 218 & 422 & 836\\
+ & $\gamma^\ast$ & 18.1 & 19.0 & 18.4 & 18.5 & 18.4 & & 19.9 & 19.7 & 20.1 & 20.0 & 20.1\\
+\bottomrule
+\end{tabular}
+\end{\tabenv}
+
+We locate $\mu^\ast$ by bisection on the inertia of the velocity block augmented by a divergence penalty. With $\Gh$ fixed and the far field coarsened (Table~\ref{tab:thresh}), $\mu^\ast$ is linear over more than a decade, with $\gamma^\ast\approx18$--$21$ and $\mu^\ast/\rho\approx11$--$13$. This sweep keeps $\max|e|/\min|e|$ fixed, so it cannot separate $\rho$ from $h/\hG$; under refinement $\mu^\ast/\rho$ drifts from $14.7$ to $11.1$ while $\gamma^\ast$ drifts from $14.7$ to $20.8$. The certified $\lambda_T>9.3$ is a local lower bound consistent with these values; the gap comes from the flatter first layer and from collective boundary modes \ext{\S9.1}. On these meshes ($k=4$), $\mu\ge25\rho$, which implies $\gamma\ge25>\gamma^\ast$, was always coercive, while a fixed $\mu$ fails once $h/\hG\gtrsim\mu/20$.
+
+\section*{Declaration of competing interest}
+The question studied is the subject of a prize offered by L. R. Scott; the author intends to submit this work for it. The author declares no other competing interests.
+
+\section*{Data availability}
+{\sloppy Code, raw outputs and logs for every number reported here are at \url{https://github.com/jaideepsaipadhi/zero-gradient-prize}, and are archived with the extended version on Zenodo, \href{https://doi.org/10.5281/zenodo.XXXXXXXX}{doi:10.5281/zenodo.XXXXXXXX}.\par}
+%% FILL v3 DOI (above and in refs.bib, entry PadhiExt)
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+During the preparation of this work the author used Claude (Anthropic) in order to develop and check proofs, write and run the numerical code, search and verify the literature, and draft and edit the text. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the published article.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{refs}
+
+\end{document}

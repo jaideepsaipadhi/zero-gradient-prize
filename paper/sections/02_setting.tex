@@ -27,7 +27,16 @@ Here $h$ is the $h$ in Scott's penalty $\mu/h$, and $\gamma$ is the effective bo
 \subsection*{Spaces}
 Fix $k\ge4$ (Section~\ref{ct:sec} treats $k\ge2$ on Clough--Tocher refinements). $\Vh$ is the space of continuous piecewise-$P_k$ vector fields, $\VR:=\{v\in\Vh:v|_{\partial R}=0\}$ and $\VO:=\{v\in\Vh:v|_{\partial\Oh}=0\}$.
 $\Pih$ is the space of discontinuous piecewise-$P_{k-1}$ functions and $\Zh:=\{v\in\VR:\div v=0\}$.
-$\Wh:=\{z\in\Vh:z|_{\partial R}=\gI,\ \div z=0\}$, where $\gI$ is the $P_k$ Lagrange interpolant of $g$. Gjerde and Scott use $k=4$, as do the computations of Section~\ref{sec:numerics} except those of Section~\ref{sec:numv3} ($k=5,6$, and $k=2,3$ on Clough--Tocher refinements).
+$\Wh:=\{z\in\Vh:z|_{\partial R}=\gI,\ \div z=0\}$, where $\gI$ is the $P_k$ Lagrange interpolant of $g$.
+
+\begin{definition}[Flux-corrected outer data]\label{rs:def}
+Let $\nu$ be the outward unit normal of $R$, $m_R:=\int_{\partial R}\gI\cdot\nu$, and
+\[
+\tilde g_I:=\gI-\frac{m_R}{8L^2}\,x\qquad\text{on }\partial R,
+\]
+where $x$ is the position field. A method \emph{with flux-corrected data} is the same method with $\gI$ replaced by $\tilde g_I$, and $\tilde W_h:=\{z\in\Vh:z|_{\partial R}=\tilde g_I,\ \div z=0\}$.
+\end{definition}
+Since $x$ is linear, $\tilde g_I$ is again continuous and piecewise $P_k$ on $\partial R$, and $\int_{\partial R}x\cdot\nu=\int_R\div x=8L^2$, so $\int_{\partial R}\tilde g_I\cdot\nu=0$ exactly. This is a simple instance of the flux-corrected Dirichlet interpolants that exactly divergence-free methods require \cite{EickmannScottTscherpel2025}. We recommend it for $\CNS$: it removes the only term in Theorem~\ref{thm:D} that needs a relation between $\hG$ and $\hO$ (Theorem~\ref{rs:Dfc}). Gjerde and Scott use $k=4$, as do the computations of Section~\ref{sec:numerics} except those of Section~\ref{sec:numv3} ($k=5,6$, and $k=2,3$ on Clough--Tocher refinements).
 
 \subsection*{Forms}
 $n$ is the outward unit normal of $\Oh$ on $\Gh$ (pointing into $P_h$), and $\ip\cdot\cdot$ is the $L^2(\Gh)$ pairing. Let
@@ -43,12 +52,16 @@ N_h(u_h,v)-(p_h,\div v)=(\ft,v)\quad\forall v\in\VR,\qquad (q,\div u_h)=0\quad\f
 \]
 \end{definition}
 
-\begin{definition}[Method $\CNS$]
+Two details of the transcription. Gjerde and Scott write $b(v,p)=\int p\,\div v$ with a plus sign; our sign is the substitution $p_h\mapsto-p_h$. They also define $V_h$ earlier as vanishing on $\Gh$; read literally, the Nitsche terms would then drop out of (28), so the evident intended test space is our $\VR$, which vanishes only on $\partial R$.
+
+\begin{definition}[Method $\CNS$: the mean-free correction]\label{def:cns}
 As $\GS$, with momentum row
 \[
 N_h(u_h,v)-(p_h,\div v)+\ip{p_h-\pbG(p_h)}{v\cdot n}=(\ft,v),\qquad \pbG(q):=|\Gh|^{-1}\int_{\Gh}q .
 \]
 \end{definition}
+
+The added term is the missing pressure traction with the wall mean of the discrete pressure removed. It appears in the momentum row only, so the continuity row, and with it the pointwise incompressibility of $u_h$, is unchanged. This device is not new: its velocity is that of the zero-net-flux formulation of Frachon, Nilsson and Zahedi \cite{FrachonNilssonZahedi2024}, transcribed to our setting (Remark~\ref{rem:fnz}). What we add is its analysis for Scott--Vogelius elements on an inscribed polygon.
 
 \subsection*{Exact solution and extensions}
 $(u,p)$ is smooth with $-\Delta u+\nabla p=f$ and $\div u=0$ in $\Omega$, $u|_\Gamma=0$ and $u|_{\partial R}=g$; note $-\div D(u)=-\Delta u$. The stream function $\psi$ with $u=\curl\psi=(\partial_y\psi,-\partial_x\psi)$ is single-valued because $u\cdot n=0$ on $\Gamma$.

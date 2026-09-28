@@ -45,8 +45,10 @@ Using the Jacobian bound of Lemma~\ref{lem:chords}, $|\Rc(e_h)|\le(G+C\hG^2)(h/\
 The lower bound is carried by the boundary parts of $\tnorm\cdot$. By Theorem~\ref{thm:C}, $\norm{\nabla(\ut-u_h)}$ is only $O(h/\mu)$.
 
 \begin{corollary}\label{cor:Aprime}
-If $G>0$, $\gamma\hG\ll G$ and $\eps\ll(\hG/\gamma)^{1/2}G$, then $\tnorm{\ut-u_h}\asymp(h/\mu)^{1/2}$. The mesh-dependent energy rate is exactly $1/2$.
+If $G>0$, $\gamma\hG\ll G$, $\gamma^{1/2}\hG\ll G$ and $\eps\ll(\hG/\gamma)^{1/2}G$, then $\tnorm{\ut-u_h}\asymp(h/\mu)^{1/2}$. The mesh-dependent energy rate is exactly $1/2$.
 \end{corollary}
+
+The two conditions on $\gamma$ make the terms $\gamma^{1/2}\hG^{3/2}$ and $\hG^{3/2}$ of Theorem~\ref{thm:A} small against $(\hG/\gamma)^{1/2}G$. The second is implied by the first when $\gamma\ge1$, which holds for $\gamma\ge\gamma_0$ as soon as $\gamma_0\ge1$.
 
 \begin{lemma}[Normal-load cancellation]\label{lem:cancel}
 Let $S$ be edgewise $W^{1,\infty}$ on $\Gh$, continuous at the vertices of $\Gh$, with $|S\cdot\tau_e|\le C\hG$ on every $e\in\EG$. (For instance, $S$ smooth with $S\cdot\tau=0$ on $\Gamma$.) Then for $v\in\Zh$,

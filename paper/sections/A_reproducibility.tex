@@ -1,6 +1,6 @@
 \section{Reproducibility}\label{app:repro}
 
-All code, raw outputs and logs are in the repository that accompanies this paper. Paths below are relative to its root; commands are run from \texttt{code/}. \texttt{code/regen\_logs.sh} regenerates every log in \texttt{logs/} with the commands below, and \texttt{make report} checks that all three reports are reproduced byte-for-byte.
+All code, raw outputs and logs are in the repository that accompanies this paper. Paths below are relative to its root; commands are run from \texttt{code/}. \texttt{code/regen\_logs.sh} regenerates every log in \texttt{logs/} with the commands below, and \texttt{make report} checks that all five reports (\texttt{report.txt}, \texttt{report\_local.txt}, \texttt{report\_v3.txt}, \texttt{letter\_tables.txt} and \texttt{results/v4/rescue/summary.md}) are reproduced byte-for-byte from the shipped raw records.
 
 \subsection*{Code (\texttt{code/})}
 \begin{itemize}
@@ -24,14 +24,22 @@ Added in this version:
 \item \texttt{plot\_leak.py}: Figure~\ref{fig:leak}.
 \item \texttt{notes/v3/face\_mean\_check.py}: the face-mean check of Lemma~\ref{td:faces}(d).
 \end{itemize}
+Added in this version (v4):
+\begin{itemize}
+\item \texttt{rescue.py}: the growing-penalty study, the $\mu$-sweeps, the flux-corrected data $\tilde g_I$ (tests F and F2) and the spectra of Proposition~\ref{rs:cond} (Section~\ref{rs:sec:num}); it reuses \texttt{svn\_k.py} unchanged. \texttt{rescue\_run.sh} is its batch driver; it writes the four logs \texttt{logs/rescue\_*.log} and the records in \texttt{results/v4/rescue/}. From these records \texttt{rescue\_report.py} writes the summary \texttt{summary.md} in the same directory.
+\item \texttt{pressure\_err.py}: pressure errors of $\GS$ and $\CNS$ against $p^\circ$, with the first-layer split (Section~\ref{pd:sec:num}); writes \texttt{results/v5/pressure/}.
+\item \texttt{strong\_bc.py}: strongly imposed no-slip on $\Gh$, and $\GS$/$\CNS$ on the alternating mesh (a) (Section~\ref{num:strong}); writes \texttt{results/v5/strong/}.
+\item \texttt{report\_v5.py}: writes \texttt{results/v5/letter\_tables.txt} from the JSONL records (and, with argument \texttt{thresh}, recomputes $h/\hG$ and $\rho$ for the threshold runs into \texttt{results/v5/}\allowbreak\texttt{thresh\_rho.jsonl}). The job lists are \texttt{results/v5/jobs*.txt}; see \texttt{results/v5/README.md}.
+\item \texttt{notes/v4/pressure\_drag\_check.py}: the layer, drag and traction checks of Section~\ref{pd:sec:num}; its output is recorded in \texttt{notes/v4/pressure\_drag\_report.md}, Section~3.
+\end{itemize}
 
 \subsection*{Where each number comes from}
-\begin{center}
-\small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}}
+{\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}}
 \toprule
 Result & Command & Output\\
 \midrule
+\endhead
 Tables~\ref{tab:cns}, \ref{tab:gs}, \ref{tab:thresh} & \texttt{SVN\_OUT=../results/pod python3 run\_all.py}, then \texttt{python3 report.py ../results/pod} & \texttt{results/pod/report.txt}\\
 Table~\ref{tab:P}, test C & \texttt{SVN\_OUT=../results/local python3 job.py study N P1 MU} and \texttt{SVN\_OUT=../results/local python3 job.py study N C 100}, then \texttt{python3 report\_local.py} & \texttt{results/local/report\_local.txt}\\
 Certificate for $\cS_3$ & \texttt{python3 lamstar\_exact.py} & \texttt{logs/lamstar\_exact\_\allowbreak S3\_S4singular.log}\\
@@ -49,13 +57,18 @@ Level-set and tall-triangle values of $\lambda_T$ (Section~\ref{pb:sec}) & \text
 $H^1$ constant (Section~\ref{hc:sec}) & \texttt{python3 h1\_limit.py annulus} and \texttt{\ldots\ mps} (series log); \texttt{\ldots\ fem} & \texttt{logs/h1\_limit\_}\allowbreak\texttt{series.log}, \texttt{\ldots\_fem.log}\\
 (M3) and Tables~\ref{lb:tab:stars}, \ref{lb:tab:field} & \texttt{python3 lower\_bound\_tests.py} with \texttt{stars 8,12,\ldots,1024}, \texttt{field 16,\ldots,512}, \texttt{global 16,\ldots,64} & \texttt{logs/lower\_bound\_}\allowbreak\texttt{stars.log}, \texttt{\ldots\_field.log}, \texttt{\ldots\_global.log}\\
 Lemma~\ref{td:faces}(d) & \texttt{python3 notes/v3/}\allowbreak\texttt{face\_mean\_check.py} (from the root) & standard output\\
+Tables~\ref{rs:tab:rates}, \ref{rs:tab:flux}; Section~\ref{rs:sec:num} & \texttt{bash rescue\_run.sh all}, then \texttt{python3 rescue\_report.py} & \texttt{logs/rescue\_*.log}, \texttt{results/v4/}\allowbreak\texttt{rescue/}, \texttt{\ldots/summary.md}\\
+Tables~\ref{tab:strong}--\ref{tab:pA}; Section~\ref{pd:sec:num} & the commands in \texttt{results/v5/jobs*.txt} (\texttt{pressure\_err.py}, \texttt{strong\_bc.py}), then \texttt{python3 report\_v5.py} & \texttt{results/v5/}\allowbreak\texttt{letter\_tables.txt}\\
+Layer, drag and traction checks (Section~\ref{pd:sec:num}) & \texttt{python3 notes/v4/}\allowbreak\texttt{pressure\_drag\_check.py} \texttt{main|xi|K|lam|chi|torque \ldots} (from the root) & \texttt{notes/v4/}\allowbreak\texttt{pressure\_drag\_report.md}\\
 \bottomrule
-\end{tabular}
-\end{center}
+\end{longtable}
+}
 
 \subsection*{Resources}
 The full A/B campaign (74 study jobs up to $N=256$ and 16 threshold jobs) took 36 minutes on 32 cores with 125\,GB of memory. The largest single job ($N=256$, both methods) takes about 23 minutes; the scheduler reserved up to 55\,GB for it. Every job with $N\le96$ runs on a 2-core, 7\,GB machine.
 
 The runs of Section~\ref{sec:numv3} used a 2-core machine with a 5.8\,GB memory limit shared with other jobs; the largest single job used 3.6\,GB (peak RSS is recorded in each record). Each job took at most about $2.5$ minutes.
+
+The v4 and v5 runs (Sections~\ref{num:strong}--\ref{rs:sec:num}) were sequential single-thread jobs on the same 2-core machine; the largest used $2.2$\,GB (SuperLU, $N=64$), and the $N\ge64$ strong-imposition, mesh-(a) and $N=96$ runs used PARDISO as in Section~\ref{sec:numv3}. Over the $83$ v5 records the relative residual is at most $1.3\cdot10^{-13}$ and the discrete divergence at most $9.6\cdot10^{-7}$ (the nearly singular strong system on mesh (a) at $N=128$; SuperLU at $N=64$ agrees to five digits with divergence $1.5\cdot10^{-10}$).
 
 The environment was Python 3.11 with NumPy 2.4, SciPy 1.17 (SuperLU) and SymPy 1.14. The runs of Section~\ref{sec:numv3} also used MKL PARDISO through \texttt{pypardiso}.

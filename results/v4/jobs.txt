@@ -1,0 +1,155 @@
+gd ellipse 16 B 1000
+gd ellipse 16 B100 1000
+gd ellipse 16 P 1000
+gd star 16 B 1000
+gd star 16 B100 1000
+gd star 16 P 1000
+gd star 24 B 1000
+gd star 24 B100 1000
+gd star 24 P 1000
+gd ellipse 24 B 1000
+gd ellipse 24 B100 1000
+gd ellipse 24 P 1000
+gd star 32 B 1000
+gd star 32 B100 1000
+gd star 32 P 1000
+gd twodisk 16 X 1000
+gd twodisk 16 X 10000
+gd ellipse 32 B 1000
+gd ellipse 32 B100 1000
+gd ellipse 32 P 1000
+ns 16 B 100 1 c1
+ns 16 B 100 1 cs
+ns 16 P 100 1 c1
+ns 16 B 100 0.1 c1
+ns 16 B 100 0.1 cs
+ns 16 P 100 0.1 c1
+gd star 48 B 1000
+gd star 48 B100 1000
+gd star 48 P 1000
+gd star 48 B100 300
+gd star 48 P 300
+st 16 1e6
+st 16 1e4
+st 16 1e3
+gd twodisk 24 X 1000
+gd twodisk 24 X 10000
+ns 24 B 100 1 c1
+ns 24 B 100 1 cs
+ns 24 P 100 1 c1
+ns 24 B 100 0.1 c1
+ns 24 B 100 0.1 cs
+ns 24 P 100 0.1 c1
+gd ellipse 48 B 1000
+gd ellipse 48 B100 1000
+gd ellipse 48 P 1000
+gd ellipse 48 B100 300
+gd ellipse 48 P 300
+gd star 64 B 1000
+gd star 64 B100 1000
+gd star 64 P 1000
+gd star 64 B100 300
+gd star 64 P 300
+gd twodisk 32 X 1000
+gd twodisk 32 X 10000
+st 24 1e6
+st 24 1e4
+st 24 1e3
+ns 32 B 100 1 c1
+ns 32 B 100 1 cs
+ns 32 P 100 1 c1
+ns 32 B 100 0.1 c1
+ns 32 B 100 0.1 cs
+ns 32 P 100 0.1 c1
+gd ellipse 64 B 1000
+gd ellipse 64 B100 1000
+gd ellipse 64 P 1000
+gd ellipse 64 B100 300
+gd ellipse 64 P 300
+st 32 1e6
+st 32 1e4
+st 32 1e3
+gd star 96 B 1000
+gd star 96 B100 1000
+gd star 96 P 1000
+gd star 96 B100 300
+gd star 96 P 300
+gd twodisk 48 X 1000
+gd twodisk 48 X 10000
+ns 48 B 100 1 c1
+ns 48 B 100 1 cs
+ns 48 P 100 1 c1
+ns 48 B 100 0.1 c1
+ns 48 B 100 0.1 cs
+ns 48 P 100 0.1 c1
+gd ellipse 96 B 1000
+gd ellipse 96 B100 1000
+gd ellipse 96 P 1000
+gd ellipse 96 B100 300
+gd ellipse 96 P 300
+st 48 1e6
+st 48 1e4
+st 48 1e3
+gd star 128 B 1000
+gd star 128 B100 1000
+gd star 128 P 1000
+gd star 128 B100 300
+gd star 128 P 300
+gd twodisk 64 X 1000
+gd twodisk 64 X 10000
+ns 64 B 100 1 c1
+ns 64 B 100 1 cs
+ns 64 P 100 1 c1
+ns 64 B 100 0.1 c1
+ns 64 B 100 0.1 cs
+ns 64 P 100 0.1 c1
+gd ellipse 128 B 1000
+gd ellipse 128 B100 1000
+gd ellipse 128 P 1000
+gd ellipse 128 B100 300
+gd ellipse 128 P 300
+st 64 1e6
+st 64 1e4
+st 64 1e3
+gd star 192 B 1000
+gd star 192 B100 1000
+gd star 192 P 1000
+gd star 192 B100 300
+gd star 192 P 300
+gd twodisk 96 X 1000
+gd twodisk 96 X 10000
+ns 96 B 100 1 c1
+ns 96 B 100 1 cs
+ns 96 P 100 1 c1
+ns 96 B 100 0.1 c1
+ns 96 B 100 0.1 cs
+ns 96 P 100 0.1 c1
+gd ellipse 192 B 1000
+gd ellipse 192 B100 1000
+gd ellipse 192 P 1000
+gd ellipse 192 B100 300
+gd ellipse 192 P 300
+st 96 1e6
+st 96 1e4
+st 96 1e3
+gd star 256 B 1000
+gd star 256 B100 1000
+gd star 256 P 1000
+gd star 256 B100 300
+gd star 256 P 300
+gd twodisk 128 X 1000
+gd twodisk 128 X 10000
+ns 128 B 100 1 c1
+ns 128 B 100 1 cs
+ns 128 P 100 1 c1
+ns 128 B 100 0.1 c1
+ns 128 B 100 0.1 cs
+ns 128 P 100 0.1 c1
+gd ellipse 256 B 1000
+gd ellipse 256 B100 1000
+gd ellipse 256 P 1000
+gd ellipse 256 B100 300
+gd ellipse 256 P 300
+st 128 1e6
+st 128 1e4
+st 128 1e3

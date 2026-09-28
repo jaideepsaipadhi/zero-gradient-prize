@@ -1,0 +1,128 @@
+START python3 pressure_err.py 16 A 100 lu 14:23:58
+START python3 pressure_err.py 16 B1 100 lu 14:23:58
+DONE python3 pressure_err.py 16 A 100 lu 14:24:02
+START python3 pressure_err.py 16 B100 100 lu 14:24:02
+DONE python3 pressure_err.py 16 B1 100 lu 14:24:03
+START python3 pressure_err.py 16 C 100 lu 14:24:03
+DONE python3 pressure_err.py 16 B100 100 lu 14:24:07
+START python3 strong_bc.py 16 A 100 zero 14:24:07
+DONE python3 pressure_err.py 16 C 100 lu 14:24:08
+START python3 strong_bc.py 16 A 100 interp 14:24:08
+DONE python3 strong_bc.py 16 A 100 zero 14:24:10
+START python3 pressure_err.py 24 A 100 lu 14:24:10
+DONE python3 strong_bc.py 16 A 100 interp 14:24:11
+START python3 pressure_err.py 24 B1 100 lu 14:24:11
+DONE python3 pressure_err.py 24 A 100 lu 14:24:15
+START python3 pressure_err.py 24 B100 100 lu 14:24:15
+DONE python3 pressure_err.py 24 B1 100 lu 14:24:17
+START python3 pressure_err.py 24 C 100 lu 14:24:17
+DONE python3 pressure_err.py 24 B100 100 lu 14:24:20
+START python3 strong_bc.py 24 A 100 zero 14:24:20
+DONE python3 pressure_err.py 24 C 100 lu 14:24:23
+START python3 strong_bc.py 24 A 100 interp 14:24:23
+DONE python3 strong_bc.py 24 A 100 zero 14:24:25
+START python3 pressure_err.py 32 A 100 lu 14:24:25
+DONE python3 strong_bc.py 24 A 100 interp 14:24:28
+START python3 pressure_err.py 32 B1 100 lu 14:24:28
+DONE python3 pressure_err.py 32 A 100 lu 14:24:34
+START python3 pressure_err.py 32 B100 100 lu 14:24:34
+DONE python3 pressure_err.py 32 B1 100 lu 14:24:36
+START python3 pressure_err.py 32 C 100 lu 14:24:36
+DONE python3 pressure_err.py 32 B100 100 lu 14:24:42
+START python3 strong_bc.py 32 A 100 zero 14:24:42
+DONE python3 pressure_err.py 32 C 100 lu 14:24:45
+START python3 strong_bc.py 32 A 100 interp 14:24:45
+DONE python3 strong_bc.py 32 A 100 zero 14:24:51
+START python3 pressure_err.py 48 A 100 lu 14:24:51
+DONE python3 strong_bc.py 32 A 100 interp 14:24:55
+START python3 pressure_err.py 48 B1 100 lu 14:24:55
+DONE python3 pressure_err.py 48 A 100 lu 14:25:18
+START python3 pressure_err.py 48 B100 100 lu 14:25:18
+DONE python3 pressure_err.py 48 B1 100 lu 14:25:22
+START python3 pressure_err.py 48 C 100 lu 14:25:22
+DONE python3 pressure_err.py 48 B100 100 lu 14:25:44
+START python3 strong_bc.py 48 A 100 zero 14:25:44
+DONE python3 pressure_err.py 48 C 100 lu 14:25:48
+START python3 strong_bc.py 48 A 100 interp 14:25:48
+DONE python3 strong_bc.py 48 A 100 zero 14:26:35
+START python3 pressure_err.py 64 A 100 lu 14:26:35
+DONE python3 strong_bc.py 48 A 100 interp 14:26:37
+START python3 pressure_err.py 64 B1 100 lu 14:26:37
+DONE python3 pressure_err.py 64 A 100 lu 14:27:47
+START python3 pressure_err.py 64 B100 100 lu 14:27:47
+DONE python3 pressure_err.py 64 B1 100 lu 14:27:51
+START python3 pressure_err.py 64 C 100 lu 14:27:51
+DONE python3 pressure_err.py 64 B100 100 lu 14:29:11
+START python3 strong_bc.py 64 A 100 zero 14:29:11
+DONE python3 pressure_err.py 64 C 100 lu 14:29:17
+START python3 strong_bc.py 64 A 100 interp 14:29:17
+DONE python3 strong_bc.py 64 A 100 zero 14:29:47
+START python3 pressure_err.py 96 A 100 lu 14:29:47
+DONE python3 strong_bc.py 64 A 100 interp 14:29:54
+START python3 pressure_err.py 96 B1 100 lu 14:29:54
+START python3 strong_bc.py 16 A 100 zero lu 14:31:06
+START python3 strong_bc.py 16 A 100 interp lu 14:31:06
+DONE python3 strong_bc.py 16 A 100 interp lu 14:31:09
+START python3 strong_bc.py 24 A 100 zero lu 14:31:09
+DONE python3 strong_bc.py 16 A 100 zero lu 14:31:10
+START python3 strong_bc.py 24 A 100 interp lu 14:31:10
+DONE python3 strong_bc.py 24 A 100 zero lu 14:31:13
+START python3 strong_bc.py 32 A 100 zero lu 14:31:13
+DONE python3 strong_bc.py 24 A 100 interp lu 14:31:14
+START python3 strong_bc.py 32 A 100 interp lu 14:31:14
+DONE python3 strong_bc.py 32 A 100 zero lu 14:31:19
+START python3 strong_bc.py 48 A 100 zero lu 14:31:19
+DONE python3 strong_bc.py 32 A 100 interp lu 14:31:19
+START python3 strong_bc.py 48 A 100 interp lu 14:31:19
+DONE python3 strong_bc.py 48 A 100 interp lu 14:31:34
+START python3 pressure_err.py 96 A 100 pardiso 14:31:34
+DONE python3 strong_bc.py 48 A 100 zero lu 14:31:34
+START python3 pressure_err.py 96 B1 100 pardiso 14:31:34
+DONE python3 pressure_err.py 96 A 100 pardiso 14:32:36
+START python3 pressure_err.py 96 B100 100 pardiso 14:32:36
+DONE python3 pressure_err.py 96 B1 100 pardiso 14:32:37
+START python3 pressure_err.py 96 C 100 pardiso 14:32:37
+DONE python3 pressure_err.py 96 B100 100 pardiso 14:33:40
+START python3 strong_bc.py 96 A 100 zero pardiso 14:33:40
+DONE python3 pressure_err.py 96 C 100 pardiso 14:33:41
+START python3 strong_bc.py 96 A 100 interp pardiso 14:33:42
+DONE python3 strong_bc.py 96 A 100 zero pardiso 14:34:12
+START python3 strong_bc.py 128 A 100 zero pardiso 14:34:12
+DONE python3 strong_bc.py 96 A 100 interp pardiso 14:34:15
+START python3 strong_bc.py 128 A 100 interp pardiso 14:34:15
+FAIL python3 strong_bc.py 128 A 100 zero pardiso 14:34:53
+DONE python3 strong_bc.py 128 A 100 interp pardiso 14:35:09
+START python3 strong_bc.py 64 A 100 zero pardiso 14:37:22
+START python3 strong_bc.py 64 A 100 interp pardiso 14:37:22
+DONE python3 strong_bc.py 64 A 100 interp pardiso 14:37:30
+START python3 strong_bc.py 16 A 100 zero lu alt 14:37:30
+DONE python3 strong_bc.py 64 A 100 zero pardiso 14:37:31
+START python3 strong_bc.py 24 A 100 zero lu alt 14:37:31
+DONE python3 strong_bc.py 16 A 100 zero lu alt 14:37:33
+START python3 strong_bc.py 32 A 100 zero lu alt 14:37:33
+DONE python3 strong_bc.py 24 A 100 zero lu alt 14:37:33
+START python3 strong_bc.py 48 A 100 zero lu alt 14:37:33
+DONE python3 strong_bc.py 32 A 100 zero lu alt 14:37:36
+START python3 strong_bc.py 16 A 100 nitsche lu alt 14:37:36
+DONE python3 strong_bc.py 16 A 100 nitsche lu alt 14:37:39
+START python3 strong_bc.py 24 A 100 nitsche lu alt 14:37:39
+DONE python3 strong_bc.py 48 A 100 zero lu alt 14:37:41
+START python3 strong_bc.py 32 A 100 nitsche lu alt 14:37:41
+DONE python3 strong_bc.py 24 A 100 nitsche lu alt 14:37:43
+START python3 strong_bc.py 48 A 100 nitsche lu alt 14:37:43
+DONE python3 strong_bc.py 32 A 100 nitsche lu alt 14:37:48
+START python3 strong_bc.py 64 A 100 zero pardiso alt 14:37:48
+DONE python3 strong_bc.py 64 A 100 zero pardiso alt 14:37:56
+START python3 strong_bc.py 64 A 100 nitsche pardiso alt 14:37:56
+DONE python3 strong_bc.py 48 A 100 nitsche lu alt 14:38:01
+START python3 strong_bc.py 96 A 100 zero pardiso alt 14:38:01
+DONE python3 strong_bc.py 64 A 100 nitsche pardiso alt 14:38:10
+START python3 strong_bc.py 96 A 100 nitsche pardiso alt 14:38:10
+DONE python3 strong_bc.py 96 A 100 zero pardiso alt 14:38:20
+DONE python3 strong_bc.py 96 A 100 nitsche pardiso alt 14:38:30
+START python3 strong_bc.py 128 A 100 zero pardiso 14:38:30
+DONE python3 strong_bc.py 128 A 100 zero pardiso 14:38:46
+START python3 strong_bc.py 128 A 100 zero pardiso alt 14:38:46
+DONE python3 strong_bc.py 128 A 100 zero pardiso alt 14:39:03
+START alt-nitsche-128 14:40:02
+DONE python3 strong_bc.py 128 A 100 nitsche pardiso alt 14:40:31

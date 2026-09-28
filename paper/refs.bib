@@ -1,3 +1,10 @@
+% refs.bib -- merged bibliography (v4 audit notes/v4/refs_verified.bib + v5 literature notes/v5/refs_letter.bib).
+% Comment lines '% AUDIT:' (v4) and '% VERIFY' (v5) record what was checked; see notes/v4/bib_audit.md and
+% notes/v5/lit_report.md. Unresolved items carry a '% VERIFY (unresolved)' comment; no TODO text is printed.
+
+% AUDIT: verified against Crossref (10.3934/acse.2024015) and arXiv:2306.12362v1.
+% AUDIT: equation numbers (7), (27), (28) cited in the text were checked against the arXiv version
+%        only; the published ACSE version could not be accessed.
 @article{GjerdeScott2024,
   author  = {Gjerde, Ingeborg G. and Scott, L. Ridgway},
   title   = {Verification and validation of cylinder drag: Pressure and stress approximations on curved boundaries},
@@ -10,6 +17,8 @@
   note    = {arXiv:2306.12362}
 }
 
+% VERIFY V: AMS article page (vol. 91, pp. 597-622, DOI 10.1090/mcom/3682, online 5 Nov 2021);
+%           issue 334 from the AMS URL .../mcom/2022-91-334/... . Full text NOT read (AMS PDF 403).
 @article{GjerdeScott2022,
   author  = {Gjerde, Ingeborg G. and Scott, L. Ridgway},
   title   = {Nitsche's method for {N}avier--{S}tokes equations with slip boundary conditions},
@@ -17,62 +26,84 @@
   volume  = {91},
   number  = {334},
   year    = {2022},
-  pages   = {597--622}
+  pages   = {597--622},
+  doi     = {10.1090/mcom/3682}
 }
 
+% AUDIT: title and date from the PDF itself (dated November 13, 2023). The PDF does not contain
+%        the label "PPL 115"; that number is the Prize Problem Ledger's (prizeproblems.org/problems/115).
+%        The original howpublished "Ridgway Scott Foundation" is not supported by any source: removed.
 @misc{ScottPrize,
   author       = {Scott, L. Ridgway},
-  title        = {Relaxing gradient constraints for exactly divergence-free spaces (Zero gradient prize)},
-  howpublished = {Ridgway Scott Foundation, \url{https://people.cs.uchicago.edu/~ridg/prizes/zerogradprize.pdf}},
-  note         = {Prize problem PPL~115}
+  title        = {Relaxing gradient constraints for exactly divergence-free spaces},
+  howpublished = {Prize problem statement, University of Chicago, November 13, 2023, \url{https://people.cs.uchicago.edu/~ridg/prizes/zerogradprize.pdf}},
+  year         = {2023},
+  note         = {Listed as Prize Problem Ledger problem PPL~115}
 }
 
+% AUDIT: numdam M2AN_1985__19_1_111_0 (issue 1 added).
 @article{ScottVogelius1985,
   author  = {Scott, L. Ridgway and Vogelius, Michael},
   title   = {Norm estimates for a maximal right inverse of the divergence operator in spaces of piecewise polynomials},
   journal = {RAIRO Mod\'el. Math. Anal. Num\'er.},
   volume  = {19},
+  number  = {1},
   year    = {1985},
   pages   = {111--143}
 }
 
+% AUDIT: AMS URL .../mcom/2019-88-316/S0025-5718-2018-03346-4 gives issue 316; pages from FMS 2024
+%        reference list; Theorem 1 checked against arXiv:1705.00020.
 @article{GuzmanScott2019,
   author  = {Guzm\'an, Johnny and Scott, L. Ridgway},
   title   = {The {S}cott--{V}ogelius finite elements revisited},
   journal = {Math. Comp.},
   volume  = {88},
+  number  = {316},
   year    = {2019},
   pages   = {515--529},
   doi     = {10.1090/mcom/3346}
 }
 
+% AUDIT: bibliographic data verified (2nd ed., Springer Monographs in Mathematics, 2011).
+% AUDIT: the numbered results cited in the text (Thm. III.3.1, Thm. III.3.3, Lemma III.3.4,
+%        Lemma II.1.3) could NOT be checked against the 2nd edition -- see bib_audit.md.
 @book{Galdi,
   author    = {Galdi, Giovanni P.},
   title     = {An Introduction to the Mathematical Theory of the {N}avier--{S}tokes Equations. Steady-State Problems},
   edition   = {2},
+  series    = {Springer Monographs in Mathematics},
   publisher = {Springer},
   address   = {New York},
-  year      = {2011}
+  year      = {2011},
+  doi       = {10.1007/978-0-387-09620-9}
 }
 
+% AUDIT: Springer page 10.1007/BF02995904 (issue 1, DOI added).
 @article{Nitsche1971,
   author  = {Nitsche, Joachim},
   title   = {\"{U}ber ein {V}ariationsprinzip zur {L}\"osung von {D}irichlet-{P}roblemen bei {V}erwendung von {T}eilr\"aumen, die keinen {R}andbedingungen unterworfen sind},
   journal = {Abh. Math. Sem. Univ. Hamburg},
   volume  = {36},
+  number  = {1},
   year    = {1971},
-  pages   = {9--15}
+  pages   = {9--15},
+  doi     = {10.1007/BF02995904}
 }
 
+% AUDIT: Cambridge Core page (no. 692, August 1968, DOI added).
 @article{Argyris1968,
   author  = {Argyris, J. H. and Fried, I. and Scharpf, D. W.},
   title   = {The {TUBA} family of plate elements for the matrix displacement method},
   journal = {Aeronaut. J. R. Aeronaut. Soc.},
   volume  = {72},
+  number  = {692},
   year    = {1968},
-  pages   = {701--709}
+  pages   = {701--709},
+  doi     = {10.1017/S000192400008489X}
 }
 
+% AUDIT: Verified via Crossref.
 @article{DupontGuzmanScott2025,
   author  = {Dupont, Todd and Guzm\'an, Johnny and Scott, L. Ridgway},
   title   = {Obtaining higher-order {G}alerkin accuracy when the boundary is polygonally approximated},
@@ -84,14 +115,19 @@
   doi     = {10.1515/jnma-2023-0135}
 }
 
+% VERIFY V: Zenodo record 22262466 read 2026-09-28 (notes/v5/lit_report.md): author "Cavalcante, Claudemir",
+%           published 3 Sep 2026, v1. The record describes only the constant-pressure benchmark.
+% VERIFY (unresolved): the value mu* = 60.338 quoted in Section 13 was not re-checked against the record.
 @misc{Cavalcante,
-  author       = {de Souza Cavalcante, Claudemir},
+  author       = {Cavalcante, Claudemir},
   title        = {{S}cott--{V}ogelius--{N}itsche convergence for a zero-pressure-gradient problem on a polygonally approximated boundary},
   howpublished = {Preprint, Zenodo},
   year         = {2026},
   doi          = {10.5281/zenodo.22262466}
 }
 
+% AUDIT: volume/pages confirmed by a secondary citation (RICAM report 14-51, ref. [20]); issue number
+%        and DOI not confirmed (omitted).
 @article{MorganScott1975,
   author  = {Morgan, John and Scott, Ridgway},
   title   = {A nodal basis for {$C^1$} piecewise polynomials of degree $n\ge5$},
@@ -101,24 +137,31 @@
   pages   = {736--740}
 }
 
+% AUDIT: Crossref: J. Numer. Math., published online 2026-07-28;
+%        no volume/issue/pages assigned yet.
 @article{EickmannGNST2026,
   author  = {Eickmann, F. and Guzm\'an, J. and Neilan, M. and Scott, L. R. and Tscherpel, T.},
   title   = {A local {F}ortin projection for the {S}cott--{V}ogelius elements on general meshes},
   journal = {J. Numer. Math.},
   year    = {2026},
   doi     = {10.1515/jnma-2025-0178},
-  note    = {arXiv:2512.18033}
+  note    = {Published online 28 July 2026. arXiv:2512.18033}
 }
 
+% AUDIT: 3rd ed., Texts in Applied Mathematics 15 (series and DOI added).
 @book{BrennerScott,
   author    = {Brenner, Susanne C. and Scott, L. Ridgway},
   title     = {The Mathematical Theory of Finite Element Methods},
   edition   = {3},
+  series    = {Texts in Applied Mathematics},
+  volume    = {15},
   publisher = {Springer},
   address   = {New York},
-  year      = {2008}
+  year      = {2008},
+  doi       = {10.1007/978-0-387-75934-0}
 }
 
+% AUDIT: ACM DL / NERSC citation page (September 2005; DOI added).
 @article{SuperLU,
   author  = {Li, Xiaoye S.},
   title   = {An overview of {SuperLU}: Algorithms, implementation, and user interface},
@@ -126,9 +169,12 @@
   volume  = {31},
   number  = {3},
   year    = {2005},
-  pages   = {302--325}
+  pages   = {302--325},
+  doi     = {10.1145/1089014.1089017}
 }
 
+% AUDIT: editors/pages/publisher confirmed by the reference list of Guzman--Lischke--Neilan,
+%        Calcolo 57 (2020) (ref. 2) and by Arnold's preprint (imacs92.pdf). TODO removed.
 @incollection{ArnoldQin1992,
   author    = {Arnold, Douglas N. and Qin, Jinshui},
   title     = {Quadratic velocity/linear pressure {S}tokes elements},
@@ -137,29 +183,37 @@
   publisher = {IMACS},
   address   = {New Brunswick, NJ},
   year      = {1992},
-  pages     = {28--34},
-  note      = {TODO verify pages and editors}
+  pages     = {28--34}
 }
 
+% AUDIT: DTIC/IIT Contrails record: pages 515--545 confirmed; the proceedings appeared as
+%        AFFDL-TR-66-80 (November 1966). Conference held at Wright-Patterson AFB in October 1965.
+%        Year changed 1965 -> 1966 (publication year); TODO removed.
 @inproceedings{CloughTocher1965,
   author    = {Clough, R. W. and Tocher, J. L.},
   title     = {Finite element stiffness matrices for analysis of plate bending},
-  booktitle = {Proceedings of the Conference on Matrix Methods in Structural Mechanics},
+  booktitle = {Proceedings of the Conference on Matrix Methods in Structural Mechanics (Wright-Patterson Air Force Base, Ohio, 1965)},
+  series    = {AFFDL-TR-66-80},
+  publisher = {Air Force Flight Dynamics Laboratory},
   address   = {Wright-Patterson Air Force Base, Ohio},
-  year      = {1965},
-  pages     = {515--545},
-  note      = {TODO verify pages}
+  year      = {1966},
+  pages     = {515--545}
 }
 
+% AUDIT: bibliographic data verified (North-Holland 1978; MR0520174; Studies in Mathematics and its
+%        Applications 4). Section 6.1 content NOT checked -- TODO kept.
+% VERIFY (unresolved): TODO verify that the HCT interpolation estimate cited is in Section~6.1
 @book{Ciarlet1978book,
   author    = {Ciarlet, Philippe G.},
   title     = {The Finite Element Method for Elliptic Problems},
+  series    = {Studies in Mathematics and its Applications},
+  volume    = {4},
   publisher = {North-Holland},
   address   = {Amsterdam},
-  year      = {1978},
-  note      = {TODO verify that the HCT interpolation estimate cited is in Section~6.1}
+  year      = {1978}
 }
 
+% AUDIT: Crossref + Neilan CV.
 @article{GuzmanNeilan2018,
   author  = {Guzm\'an, Johnny and Neilan, Michael},
   title   = {Inf-sup stable finite elements on barycentric refinements producing divergence-free approximations in arbitrary dimensions},
@@ -171,6 +225,7 @@
   doi     = {10.1137/17M1153467}
 }
 
+% AUDIT: N. Beebe's mathcomp1990.bib (April 1990).
 @article{ScottZhang1990,
   author  = {Scott, L. Ridgway and Zhang, Shangyou},
   title   = {Finite element interpolation of nonsmooth functions satisfying boundary conditions},
@@ -181,6 +236,8 @@
   pages   = {483--493}
 }
 
+% AUDIT: issue 250 confirmed (CoLab/Crossref metadata; FMS 2024 ref. [52]). Published online 2004,
+%        print 2005. DOI added. TODO removed.
 @article{Zhang2005,
   author  = {Zhang, Shangyou},
   title   = {A new family of stable mixed finite elements for the {3D} {S}tokes equations},
@@ -189,9 +246,10 @@
   number  = {250},
   year    = {2005},
   pages   = {543--554},
-  note    = {TODO verify issue number}
+  doi     = {10.1090/S0025-5718-04-01711-9}
 }
 
+% AUDIT: header of the AMS PDF: Volume 80, Number 274, April 2011, Pages 669--695. DOI added. TODO removed.
 @article{Zhang2011,
   author  = {Zhang, Shangyou},
   title   = {Divergence-free finite elements on tetrahedral grids for $k\ge6$},
@@ -200,9 +258,13 @@
   number  = {274},
   year    = {2011},
   pages   = {669--695},
-  note    = {TODO verify issue number}
+  doi     = {10.1090/S0025-5718-2010-02412-3}
 }
 
+% AUDIT: 84(295):2059--2081 confirmed (AMS issue TOC, Neilan CV, FMS 2024 ref. [36]). Bibliographic TODO
+%        removed. The CONTENT claim made in Section 12 could not be checked against the paper itself
+%        (AMS blocked); FMS 2024 describes Neilan's Prop. 6.5 differently from our text -- see bib_audit.md.
+% VERIFY (unresolved): TODO verify content claim in Section~12 against Prop.~6.5 (see notes/v4/bib\_audit.md)
 @article{Neilan2015,
   author  = {Neilan, Michael},
   title   = {Discrete and conforming smooth de {R}ham complexes in three dimensions},
@@ -210,25 +272,326 @@
   volume  = {84},
   number  = {295},
   year    = {2015},
-  pages   = {2059--2081},
-  note    = {TODO verify issue number and pages. Its three-dimensional Stokes pairs use pressure spaces with extra continuity; verify what, if anything, is proved there for the full $P_{k-1}^{\rm disc}$ Scott--Vogelius pair}
+  pages   = {2059--2081}
 }
 
+% AUDIT: ORA (Oxford) record: SIAM J. Sci. Comput. 46(2), A629--A644, published 5 March 2024. TODO removed.
 @article{FarrellMitchellScott2024,
   author  = {Farrell, Patrick E. and Mitchell, Lawrence and Scott, L. Ridgway},
   title   = {Two conjectures on the {S}tokes complex in three dimensions on {F}reudenthal meshes},
   journal = {SIAM J. Sci. Comput.},
+  volume  = {46},
+  number  = {2},
   year    = {2024},
+  pages   = {A629--A644},
   doi     = {10.1137/22M1533943},
-  note    = {arXiv:2211.05494. TODO verify year, volume and pages}
+  note    = {arXiv:2211.05494}
 }
 
+% AUDIT: 91(338):2571--2608 confirmed (Neilan CV; AMS URL .../mcom/2022-91-338/S0025-5718-2022-03746-7).
+%        DOI not resolved (omitted). TODO removed.
 @article{GuzmanLischkeNeilan2022,
   author  = {Guzm\'an, Johnny and Lischke, Anna and Neilan, Michael},
   title   = {Exact sequences on {W}orsey--{F}arin splits},
   journal = {Math. Comp.},
   volume  = {91},
+  number  = {338},
   year    = {2022},
   pages   = {2571--2608},
-  note    = {TODO verify volume and pages}
+  note    = {arXiv:2008.05431}
+}
+
+% ================================================================ added in v4 (literature, notes/v5/refs_letter.bib)
+
+% VERIFY V: Neilan CV ("SIAM Review, 59(3):492-544, 2017"); DOI from epubs.siam.org landing URL.
+@article{JohnEtAl2017,
+  author  = {John, Volker and Linke, Alexander and Merdon, Christian and Neilan, Michael and Rebholz, Leo G.},
+  title   = {On the divergence constraint in mixed finite element methods for incompressible flows},
+  journal = {SIAM Rev.},
+  volume  = {59},
+  number  = {3},
+  year    = {2017},
+  pages   = {492--544},
+  doi     = {10.1137/15M1047696}
+}
+
+% VERIFY P: Neilan CV gives vol. 754, pp. 141-158, AMS 2020; volume editors from ams.org/books/conm/754.
+%           Chapter DOI not confirmed (omitted).
+@incollection{Neilan2020,
+  author    = {Neilan, Michael},
+  title     = {The {S}tokes complex: a review of exactly divergence-free finite element pairs for incompressible flows},
+  booktitle = {75 Years of Mathematics of Computation},
+  editor    = {Brenner, Susanne C. and Shparlinski, Igor and Shu, Chi-Wang and Szyld, Daniel B.},
+  series    = {Contemp. Math.},
+  volume    = {754},
+  publisher = {Amer. Math. Soc.},
+  address   = {Providence, RI},
+  year      = {2020},
+  pages     = {141--158}
+}
+
+% VERIFY S: entry as printed in the reference list of GjerdeScott2024 (arXiv), ref. [8].
+@article{BergerScottStrang1972,
+  author  = {Berger, Alan and Scott, Ridgway and Strang, Gilbert},
+  title   = {Approximate boundary conditions in the finite element method},
+  journal = {Symposia Mathematica},
+  volume  = {10},
+  year    = {1972},
+  pages   = {295--313}
+}
+
+% VERIFY S: entry as printed in the reference list of GjerdeScott2024 (arXiv), ref. [46].
+@article{Scott1975,
+  author  = {Scott, Ridgway},
+  title   = {Interpolated boundary conditions in the finite element method},
+  journal = {SIAM J. Numer. Anal.},
+  volume  = {12},
+  number  = {3},
+  year    = {1975},
+  pages   = {404--427}
+}
+
+% VERIFY V: Neilan CV (59(2):1090-1116, 2021); DOI from epubs.siam.org URL 10.1137/20M1360098.
+@article{NeilanOtus2021,
+  author  = {Neilan, Michael and Otus, M. Baris},
+  title   = {Divergence-free {S}cott--{V}ogelius elements on curved domains},
+  journal = {SIAM J. Numer. Anal.},
+  volume  = {59},
+  number  = {2},
+  year    = {2021},
+  pages   = {1090--1116},
+  doi     = {10.1137/20M1360098}
+}
+
+% VERIFY V: Springer article page (J. Sci. Comput. 101, Paper No. 33, 2024); issue 2 from Neilan homepage.
+@article{DurstNeilan2024,
+  author  = {Durst, Rebecca and Neilan, Michael},
+  title   = {A general degree divergence-free finite element method for the two-dimensional {S}tokes problem on smooth domains},
+  journal = {J. Sci. Comput.},
+  volume  = {101},
+  number  = {2},
+  year    = {2024},
+  pages   = {Paper No. 33},
+  doi     = {10.1007/s10915-024-02674-3}
+}
+
+% VERIFY P: reference entry verbatim from Burman, SINUM 2012 (UCL preprint): "Proceedings of the Ninth
+%           International Conference on Finite Elements in Fluids, M. Cecchi et al., eds., Universita di
+%           Padova, 1995, pp. 327-336". Listed among Nitsche works on Stokes/Navier-Stokes by
+%           arXiv:2502.09550. Full text not seen; the claim that it treats Stokes rests on that citation.
+@inproceedings{FreundStenberg1995,
+  author    = {Freund, Jouni and Stenberg, Rolf},
+  title     = {On weakly imposed boundary conditions for second order problems},
+  booktitle = {Proceedings of the Ninth International Conference on Finite Elements in Fluids},
+  editor    = {Morandi Cecchi, M. and others},
+  publisher = {Universit\`a di Padova},
+  address   = {Padova},
+  year      = {1995},
+  pages     = {327--336}
+}
+
+% VERIFY V: ScienceDirect record (63(1-3) 139-148, DOI). Mentions Stokes only in passing.
+@article{Stenberg1995,
+  author  = {Stenberg, Rolf},
+  title   = {On some techniques for approximating boundary conditions in the finite element method},
+  journal = {J. Comput. Appl. Math.},
+  volume  = {63},
+  number  = {1--3},
+  year    = {1995},
+  pages   = {139--148},
+  doi     = {10.1016/0377-0427(95)00057-7}
+}
+
+% VERIFY P: title/author/year/DOI from Wiley landing URL; vol. 18, pp. 669-680 from the reference list of
+%           Numer. Algorithms (2023) doi 10.1007/s11075-023-01510-3. Issue number NOT confirmed (omitted).
+%           Content (Nitsche for Navier-Stokes Dirichlet control) not read.
+@article{Becker2002,
+  author  = {Becker, Roland},
+  title   = {Mesh adaptation for {D}irichlet flow control via {N}itsche's method},
+  journal = {Comm. Numer. Methods Engrg.},
+  volume  = {18},
+  year    = {2002},
+  pages   = {669--680},
+  doi     = {10.1002/cnm.529}
+}
+
+% VERIFY V: AMS URL .../mcom/2009-78-267/S0025-5718-08-02183-2 (vol. 78, no. 267); pages 1353-1374
+%           from ADS bibcode 2009MaCom..78.1353J and M2AN 2024 reference list. Poisson with Robin data.
+@article{JuntunenStenberg2009,
+  author  = {Juntunen, Mika and Stenberg, Rolf},
+  title   = {Nitsche's method for general boundary conditions},
+  journal = {Math. Comp.},
+  volume  = {78},
+  number  = {267},
+  year    = {2009},
+  pages   = {1353--1374},
+  doi     = {10.1090/S0025-5718-08-02183-2}
+}
+
+% VERIFY V: numdam M2AN_2014__48_3_859_0.
+@article{BurmanHansbo2014,
+  author  = {Burman, Erik and Hansbo, Peter},
+  title   = {Fictitious domain methods using cut elements: {III}. {A} stabilized {N}itsche method for {S}tokes' problem},
+  journal = {ESAIM Math. Model. Numer. Anal.},
+  volume  = {48},
+  number  = {3},
+  year    = {2014},
+  pages   = {859--874},
+  doi     = {10.1051/m2an/2013123}
+}
+
+% VERIFY P: DOI from SIAM landing URL; vol. 50 / pages from standard citation, not re-read. Poisson (and
+%           convection-diffusion) only.
+@article{Burman2012,
+  author  = {Burman, Erik},
+  title   = {A penalty-free nonsymmetric {N}itsche-type method for the weak imposition of boundary conditions},
+  journal = {SIAM J. Numer. Anal.},
+  volume  = {50},
+  number  = {4},
+  year    = {2012},
+  pages   = {1959--1981},
+  doi     = {10.1137/10081784X}
+}
+
+% VERIFY V: UCL Discovery export record.
+@article{BoiveauBurman2016,
+  author  = {Boiveau, Thomas and Burman, Erik},
+  title   = {A penalty-free {N}itsche method for the weak imposition of boundary conditions in compressible and incompressible elasticity},
+  journal = {IMA J. Numer. Anal.},
+  volume  = {36},
+  number  = {2},
+  year    = {2016},
+  pages   = {770--795},
+  doi     = {10.1093/imanum/drv042}
+}
+
+% VERIFY P: volume 27, issue 122 from the AMS URL (mcom/1973-27-122/S0025-5718-1973-0351118-5);
+%           pages 221-228 from the search snippet, not the page itself.
+@article{Babuska1973,
+  author  = {Babu\v{s}ka, Ivo},
+  title   = {The finite element method with penalty},
+  journal = {Math. Comp.},
+  volume  = {27},
+  number  = {122},
+  year    = {1973},
+  pages   = {221--228},
+  doi     = {10.1090/S0025-5718-1973-0351118-5}
+}
+
+% ---------------------------------------------------------------- boundary-value correction, unfitted
+% VERIFY V: reference entry in Dupont-Guzman-Scott, JNM 33(1) 2025, ref. [8] (vol. 26, no. 120, 869-879).
+@article{BrambleDupontThomee1972,
+  author  = {Bramble, James H. and Dupont, Todd and Thom\'ee, Vidar},
+  title   = {Projection methods for {D}irichlet's problem in approximating polygonal domains with boundary-value corrections},
+  journal = {Math. Comp.},
+  volume  = {26},
+  number  = {120},
+  year    = {1972},
+  pages   = {869--879}
+}
+
+% VERIFY V: UCL Discovery record 1529826.
+@article{BurmanHansboLarson2018,
+  author  = {Burman, Erik and Hansbo, Peter and Larson, Mats G.},
+  title   = {A cut finite element method with boundary value correction},
+  journal = {Math. Comp.},
+  volume  = {87},
+  number  = {310},
+  year    = {2018},
+  pages   = {633--657},
+  doi     = {10.1090/mcom/3240}
+}
+
+% VERIFY V: Springer chapter page. This is the published form of arXiv:1801.07463. Remark 1 there: the
+%           boundary pressure term (in the momentum row only) "is essential for consistency".
+@incollection{BurmanHansboLarson2019Stokes,
+  author    = {Burman, Erik and Hansbo, Peter and Larson, Mats G.},
+  title     = {A cut finite element method with boundary value correction for the incompressible {S}tokes equations},
+  booktitle = {Numerical Mathematics and Advanced Applications {ENUMATH} 2017},
+  editor    = {Radu, Florin Adrian and Kumar, Kundan and Berre, Inga and Nordbotten, Jan Martin and Pop, Iuliu Sorin},
+  series    = {Lect. Notes Comput. Sci. Eng.},
+  volume    = {126},
+  publisher = {Springer},
+  address   = {Cham},
+  year      = {2019},
+  pages     = {183--192},
+  doi       = {10.1007/978-3-319-96415-7_15},
+  note      = {arXiv:1801.07463}
+}
+
+% VERIFY V: ScienceDirect record.
+@article{MainScovazzi2018,
+  author  = {Main, Alex and Scovazzi, Guglielmo},
+  title   = {The shifted boundary method for embedded domain computations. {P}art {I}: {P}oisson and {S}tokes problems},
+  journal = {J. Comput. Phys.},
+  volume  = {372},
+  year    = {2018},
+  pages   = {972--995},
+  doi     = {10.1016/j.jcp.2017.10.026}
+}
+
+% ---------------------------------------------------------------- closest divergence-free prior work
+% VERIFY V: NSF-PAR full text (header "J. Numer. Math. 2023; 31(2):105-123") and Neilan CV; DOI from
+%           De Gruyter URL. arXiv:2105.10409. Key content: V_h has zero net flux, multiplier lambda_h in
+%           P_k(boundary edges) with mean zero approximates the boundary pressure mod constants; Lemma 3.1
+%           div u_h = 0; Remark 3.2 ill-posed without the constraint. Clough-Tocher splits, k >= 2.
+@article{LiuNeilanOtus2023,
+  author  = {Liu, Haoran and Neilan, Michael and Otus, M. Baris},
+  title   = {A divergence-free finite element method for the {S}tokes problem with boundary correction},
+  journal = {J. Numer. Math.},
+  volume  = {31},
+  number  = {2},
+  year    = {2023},
+  pages   = {105--123},
+  doi     = {10.1515/jnma-2021-0125},
+  note    = {arXiv:2105.10409}
+}
+
+% VERIFY V: M2AN PDF header and Neilan CV. arXiv:2110.11456. b(p,v) = -(p, div v) + <v.n, p>_Gamma used in
+%           both rows; div u_h = 0 only away from an O(h) boundary strip (Lemma 2.5).
+@article{LiuNeilanOlshanskii2023,
+  author  = {Liu, Haoran and Neilan, Michael and Olshanskii, Maxim},
+  title   = {A {CutFEM} divergence-free discretization for the {S}tokes problem},
+  journal = {ESAIM Math. Model. Numer. Anal.},
+  volume  = {57},
+  number  = {1},
+  year    = {2023},
+  pages   = {143--165},
+  doi     = {10.1051/m2an/2022072},
+  note    = {arXiv:2110.11456}
+}
+
+% VERIFY V: Springer article page and the published PDF header "BIT Numerical Mathematics (2024) 64:39".
+%           arXiv:2304.14230. Authors are Frachon, Nilsson, Zahedi (NOT Hansbo). Sect. 5.1: eqs (5.7)-(5.9).
+@article{FrachonNilssonZahedi2024,
+  author  = {Frachon, Thomas and Nilsson, Erik and Zahedi, Sara},
+  title   = {Divergence-free cut finite element methods for {S}tokes flow},
+  journal = {BIT Numer. Math.},
+  volume  = {64},
+  year    = {2024},
+  pages   = {Paper No. 39},
+  doi     = {10.1007/s10543-024-01040-x},
+  note    = {arXiv:2304.14230}
+}
+
+% VERIFY V: UCL Discovery record 10191686. arXiv:2207.04734. Normal velocity constrained by a multiplier
+%           "different from the standard pressure approximation"; div u_h = 0 on the whole mesh domain.
+@article{BurmanHansboLarson2024,
+  author  = {Burman, Erik and Hansbo, Peter and Larson, Mats G.},
+  title   = {Cut finite element method for divergence-free approximation of incompressible flow: a {L}agrange multiplier approach},
+  journal = {SIAM J. Numer. Anal.},
+  volume  = {62},
+  number  = {2},
+  year    = {2024},
+  pages   = {893--918},
+  doi     = {10.1137/22M1542933}
+}
+
+% VERIFY V: arXiv abs page (submitted 22 Sep 2025, revised 24 Jun 2026). Not yet published as far as seen.
+%           Flux-corrected interpolant of the Dirichlet data (their eq. (3.9)); polygonal domains only.
+@misc{EickmannScottTscherpel2025,
+  author       = {Eickmann, Franziska and Scott, L. Ridgway and Tscherpel, Tabea},
+  title        = {{S}cott--{V}ogelius element and iterated penalty method for inhomogeneous {D}irichlet boundary conditions},
+  howpublished = {arXiv:2509.17899},
+  year         = {2025}
 }

@@ -1,0 +1,260 @@
+\subsection{Flux-corrected data, a \texorpdfstring{$\gamma$}{gamma}-uniform \texorpdfstring{$H^1$}{H1} bound, and a growing penalty}\label{rs:sec}
+
+This subsection does three things. It proves an $H^1$ estimate that is uniform in the penalty (Theorem~\ref{rs:unif}). With it, it removes the proviso of Theorem~\ref{thm:D} for flux-corrected data (Theorem~\ref{rs:Dfc}). And it asks whether a mesh-dependent penalty can rescue the printed method (Corollary~\ref{rs:rescue}, Theorem~\ref{rs:elower}). The computations are in Section~\ref{rs:sec:num}.
+
+Throughout, $\mu$ may depend on the mesh. All constants below are independent of $\gamma\ge\gamma_0$ (or $\gamma\ge\gamma_2$ for $\CNS$) unless displayed; this is the uniformity of Lemma~\ref{lem:coercive}. When we speak of a \emph{power-law penalty} we assume that $h/\hG$ and $\rho$ are bounded (as on the meshes of Section~\ref{sec:numerics}) and that
+\[
+\gamma=\frac{\mu\hG}{h}\asymp\hG^{-\alpha},\qquad\text{equivalently}\qquad \mu=\mu_0\Bigl(\frac{h_{\mathrm{ref}}}{h}\Bigr)^{\alpha},\qquad \alpha\ge0 .
+\]
+Scott's normalisation, $\mu$ fixed, is $\alpha=0$; the choice $\mu\propto h^{-1/2}$ is $\alpha=\frac12$, i.e.\ $\mu/h\asymp h^{-3/2}$.
+
+\begin{remark}[Larger $\mu$ only helps stability]\label{rs:coercive}
+If $\mu'\ge\mu\ge\mu_0$ then, with $\tnorm\cdot_\mu$ the norm of Section~\ref{sec:setting} at penalty $\mu$,
+\[
+N_h^{\mu'}(v,v)=N_h^{\mu}(v,v)+\frac{\mu'-\mu}{h}\norm{v}^2_{\Gh}\ge c_1\tnorm v_\mu^2+\frac{\mu'-\mu}{h}\norm v^2_{\Gh}\ge\min(c_1,1)\tnorm v_{\mu'}^2 ,
+\]
+and the continuity constant $M$ of Lemma~\ref{lem:coercive} does not depend on $\mu$. The absorption condition $\gamma\ge\gamma_2$ of Theorem~\ref{thm:D} is also monotone. So coercivity, continuity and the $\CNS$ pressure absorption are uniform for all $\mu\ge\mu_0$; a growing penalty never threatens stability. Its costs are in accuracy in the energy norm (Theorem~\ref{rs:elower}) and in conditioning (Proposition~\ref{rs:cond}).
+\end{remark}
+
+\subsubsection{A \texorpdfstring{$\gamma$}{gamma}-uniform \texorpdfstring{$H^1$}{H1} estimate}
+
+Let $Y_h=\Zh\cap\VO$ as in Section~\ref{lb:sec}. Let $b=\sum_{e\in\EG}\beta_en_e$ be the flux bubble of Lemma~\ref{lem:approx}, step~3, with $\int_{\Gh}b\cdot n=|\Gh|/6$, and recall that every $z\in\Wh$ has $\int_{\Gh}z\cdot n=-m_R$, $m_R=\int_{\partial R}\gI\cdot\nu$, $|m_R|\le Ch^{\sigma_k}$ (remark after Lemma~\ref{lem:approx}).
+
+\begin{lemma}[Divergence-free lift of a trace]\label{rs:lift}
+Let $t$ be continuous and piecewise $P_k$ on $\Gh$, with $\int_{\Gh}t\cdot n=0$. There is $L\in\Zh$ with $L|_{\Gh}=t$ and
+\[
+\norm{\nabla L}\le C_L\,\hG^{-1/2}\norm{t}_{L^2(\Gh)} .
+\]
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Let $L_0\in\Vh$ take the nodal values of $t$ at the Lagrange nodes on $\Gh$ and vanish at all other nodes. It is supported in the triangles that meet $\Gh$; for $h\le h_\ast$ these do not meet $\partial R$, so $L_0\in\VR$.
+\item Each such triangle $T$ has diameter $\asymp|e|$ for an adjacent $e\in\EG$ (shape regularity, (M0)). The nodal values on $e$ are bounded by $C|e|^{-1/2}\norm{t}_{L^2(e)}$ (equivalence of norms on $P_k(e)$), and $\norm{\nabla\phi_i}_{L^2(T)}\le C$ for each nodal basis function (scale invariance in two dimensions). Summing over the boundedly overlapping triangles, $\norm{\nabla L_0}\le C\hG^{-1/2}\norm t_{\Gh}$ (using $|e|\ge c_0\hG$).
+\item $q:=\div L_0\in\Pih$, $\norm q\le\sqrt2\norm{\nabla L_0}$, and $\int_{\Oh}q=\int_{\Gh}L_0\cdot n=\int_{\Gh}t\cdot n=0$. Lemma~\ref{lem:infsup} gives $v\in\VO$ with $\div v=q$, $\norm{\nabla v}\le\beta^{-1}\norm q$. Put $L:=L_0-v$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[The discrete polygonal Dirichlet problem]\label{rs:dir}
+Put $a:=-6m_R/|\Gh|$ and $\Wh^D:=\{z\in\Wh:\ z|_{\Gh}=a\,b\}$. Then $\Wh^D\neq\emptyset$, there is a unique $u^D\in\Wh^D$ with
+\[
+a_h(u^D,v)=(\ft,v)\qquad\forall v\in Y_h,
+\]
+and
+\[
+\norm{\nabla(\ut-u^D)}\le C\bigl(\hG^{3/2}+h^k+|m_R|\,\hG^{-1/2}\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{A member of $\Wh^D$ close to $\ut$.} Let $t:=I_h\ut|_{\Gh}-ab$ and let $L_0$ be the nodal extension of $t$ from step~1 of Lemma~\ref{rs:lift}. By Lemma~\ref{lem:ext}, $\norm{I_h\ut}_{\Gh}\le\norm{\ut}_{\Gh}+C\hG^{k+1}\le C\hG^2$, and $|a|\norm b_{\Gh}\le C|m_R|$, so $\norm{\nabla L_0}\le C\hG^{-1/2}(\hG^2+|m_R|)$. The field $z_0:=I_h\ut-L_0$ has trace $\gI$ on $\partial R$ and $ab$ on $\Gh$, and
+\[
+\int_{\Oh}\div z_0=\int_{\partial R}\gI\cdot\nu+\int_{\Gh}ab\cdot n=m_R+a|\Gh|/6=0 .
+\]
+Since $\norm{\div z_0}\le\norm{\div(I_h\ut-\ut)}+\sqrt2\norm{\nabla L_0}\le C(h^k+\hG^{3/2}+|m_R|\hG^{-1/2})$, Lemma~\ref{lem:infsup} gives $v_B\in\VO$ with $\div v_B=\div z_0$ and the same bound. Then $z:=z_0-v_B\in\Wh^D$ and $\norm{\nabla(\ut-z)}\le C(h^k+\hG^{3/2}+|m_R|\hG^{-1/2})$.
+\item \emph{Existence.} $\Wh^D$ is an affine space with direction $Y_h$, and $a_h$ is coercive on $Y_h$ (Lemma~\ref{lem:korn}); so $u^D$ exists and is unique.
+\item \emph{Galerkin orthogonality.} For $v\in Y_h$, as in Lemma~\ref{lem:erroreq} but with $v=0$ on all of $\partial\Oh$ and $\div v=0$: $a_h(\ut,v)=(-\Delta\ut,v)=(\ft-F-\nabla\pt,v)=(\ft-F,v)$. Hence $a_h(\ut-u^D,v)=-(F,v)$.
+\item \emph{C\'ea.} With $z$ from step 1, $y:=z-u^D\in Y_h$ and $a_h(y,y)=a_h(z-\ut,y)-(F,y)$, so by Lemmas~\ref{lem:korn} and~\ref{lem:ext}, $\norm{\nabla y}\le\kappa(2\norm{\nabla(z-\ut)}+C\hG^2)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[$H^1$ error, uniformly in the penalty]\label{rs:unif}
+Let $\gamma\ge\gamma_0$, with no upper bound. Then $\GS$ satisfies, with $C_p$ as in Theorem~\ref{thm:C},
+\[
+\norm{\nabla(\ut-u_h)}\le C_p\,\frac{\hG}{\gamma}+C\Bigl(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2}\Bigr).
+\]
+For $\CNS$ with any $\gamma\ge\gamma_2$,
+\[
+\norm{\nabla(\ut-u_h)}\le C\Bigl(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2}\Bigr).
+\]
+\end{theorem}
+
+Compared with Theorems~\ref{thm:C} and~\ref{thm:D}, the terms $\gamma^{1/2}\hG^{3/2}$, $(\gamma\hG)^{1/2}h^k$ and $h^{\sigma_k}(\mu/h)^{1/2}$ are gone. In particular the $H^1$ statement of Theorem~\ref{thm:D} needs no upper bound $\gamma_{\max}$, and its proviso $\hG\ge h^{2(\sigma_k-k)}$ is exactly the condition $h^{\sigma_k}\hG^{-1/2}\le h^k$, independent of $\mu$.
+
+\begin{proof}
+\emph{$\GS$.}
+\begin{enumerate}
+\item \emph{Remove the traction defect.} Fix $z\in\Wh$ with $\tnorm{\ut-z}\le C\eps$ (Lemma~\ref{lem:approx}) and split $z-u_h=\delta_R+\delta_G$ as in Theorem~\ref{thm:C}. Steps 3--6 of that proof use only coercivity, continuity and Lemma~\ref{lem:cancel}, all uniform in $\gamma\ge\gamma_0$, and give
+\[
+\norm{\nabla\delta_R}\le C_p\bigl(\hG/\gamma+\hG^{3/2}+h^k\bigr).
+\]
+Put $u_h':=u_h+\delta_R=z-\delta_G\in\Wh$. By construction $N_h(\ut-u_h',v)=\Gc(v)$ for all $v\in\Zh$.
+\item \emph{The identity on $Y_h$.} For $v\in Y_h$ the penalty and transposed terms of $N_h$ and $\Gc$ vanish (Lemma~\ref{lb:identity}), leaving $a_h(\ut-u_h',v)-\ip{\ut-u_h'}{\dn v}=-\ip{\ut}{\dn v}-(F,v)$. With step 3 of Lemma~\ref{rs:dir},
+\[
+a_h(u_h',v)-\ip{u_h'}{\dn v}=(\ft,v)=a_h(u^D,v)\qquad\forall v\in Y_h .
+\]
+\item \emph{The trace of $u_h'$ is small.} By Lemma~\ref{lem:ext} and step 2 of Theorem~\ref{thm:C} ($\tnorm{\ut-u_h'}\le\tnorm{\ut-z}+\tnorm{\delta_G}\le C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$),
+\[
+\norm{u_h'}_{\Gh}\le\norm{\ut}_{\Gh}+(h/\mu)^{1/2}\tnorm{\ut-u_h'}\le C\bigl(\hG^2+(\hG/\gamma)^{1/2}\eps\bigr),
+\]
+because $(h/\mu)^{1/2}=(\hG/\gamma)^{1/2}$ and $(\hG/\gamma)^{1/2}\gamma^{1/2}\hG^{3/2}=\hG^2$. Moreover $\hG^{-1/2}(\hG/\gamma)^{1/2}\eps=\gamma^{-1/2}\eps\le C(h^k+h^{\sigma_k}\hG^{-1/2})$: the two $\gamma$-growing parts of $\eps$ are exactly compensated, since $\gamma^{-1/2}(\gamma\hG)^{1/2}=\hG^{1/2}$ and $\gamma^{-1/2}(\mu/h)^{1/2}=\hG^{-1/2}$.
+\item \emph{Compare with $u^D$.} $w:=u_h'-u^D\in\Zh$ (both lie in $\Wh$), with $w|_{\Gh}=u_h'-ab$. Let $L$ be the lift of Lemma~\ref{rs:lift} of this trace (its flux vanishes because $w\in\Zh$), so $\norm{\nabla L}\le C\hG^{-1/2}(\norm{u_h'}_{\Gh}+|m_R|)$. Then $y:=w-L\in Y_h$ and, by step~2, $a_h(y,y)=\ip{u_h'}{\dn y}-a_h(L,y)$. With Lemma~\ref{lem:inverse} and $(\rho/h)^{1/2}\le(c_0\hG)^{-1/2}$,
+\[
+\norm{\nabla w}\le\norm{\nabla L}+\norm{\nabla y}\le C\hG^{-1/2}\bigl(\norm{u_h'}_{\Gh}+|m_R|\bigr)\le C\bigl(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2}\bigr).
+\]
+\item \emph{Assemble.} $\ut-u_h=(\ut-u_h')+\delta_R=(\ut-u^D)-w+\delta_R$; apply Lemma~\ref{rs:dir} and steps 1 and 4.
+\end{enumerate}
+\emph{$\CNS$.} Lemma~\ref{lb:identity} gives step 2 for $u_h$ itself, and Theorem~\ref{thm:D} ($\gamma\ge\gamma_2$, any size) gives step 3 for $u_h$. Steps 4--5 are unchanged, with $\delta_R=0$.
+\end{proof}
+
+The mechanism is the classical one for Nitsche's method as $\mu\to\infty$: on the fields that vanish on $\Gh$ the method is exactly the strongly imposed discrete Dirichlet problem, and the only coupling to the penalty is through the trace of the discrete solution, which the energy estimate makes small by the factor $(h/\mu)^{1/2}$. The $H^1$ seminorm never sees the penalty directly.
+
+\subsubsection{Flux-corrected outer data: Theorem~\ref{thm:D} without the proviso}\label{rs:sec:flux}
+
+Let $\tilde g_I$ and $\tilde W_h$ be as in Definition~\ref{rs:def}. Then $\int_{\partial R}\tilde g_I\cdot\nu=0$ exactly (numerically, $|\int_{\partial R}\tilde g_I\cdot\nu|\le1.3\cdot10^{-15}$ in every run of Section~\ref{rs:sec:num}), and $\norm{\tilde g_I-g}_{L^\infty(\partial R)}\le Ch^{k+1}+C|m_R|\le Ch^{k+1}$, since $|m_R|\le Ch^{\sigma_k}$ and $\sigma_k\ge k+1$; so the accuracy of the boundary data is unchanged. Every $z\in\tilde W_h$ has $\int_{\Gh}z\cdot n=0=\int_{\Gh}\ut\cdot n$: the obstruction of the remark after Lemma~\ref{lem:approx} is removed.
+
+\begin{proposition}[The flux floor]\label{rs:floor}
+For $\GS$ and $\CNS$ with uncorrected data $\gI$ and any $\mu$,
+\[
+\tnorm{\ut-u_h}\ \ge\ \Bigl(\frac\mu h\Bigr)^{1/2}\norm{\ut-u_h}_{\Gh}\ \ge\ \Bigl(\frac\mu h\Bigr)^{1/2}\frac{|m_R|}{|\Gh|^{1/2}},
+\]
+with constant exactly $1$. With flux-corrected data, $\int_{\Gh}(\ut-u_h)\cdot n=0$ and the second inequality is void.
+\end{proposition}
+
+\begin{proof}
+$u_h\in\Wh$, so $\int_{\Gh}(\ut-u_h)\cdot n=0+m_R$; apply Cauchy--Schwarz.
+\end{proof}
+
+\begin{lemma}[Approximation with flux-corrected data]\label{rs:approx}
+Let $k\ge4$. Then $\tilde W_h\neq\emptyset$ and
+\[
+\inf_{z\in\tilde W_h}\tnorm{\ut-z}\le C\tilde\varepsilon_h,\qquad
+\tilde\varepsilon_h:=\bigl(1+(\gamma\hG)^{1/2}\bigr)h^k+\bigl(1+\gamma^{1/2}\bigr)\hG^{\sigma_k-1/2}+|m_R| .
+\]
+\end{lemma}
+
+\begin{proof}
+Follow Lemma~\ref{lem:approx} with one change in step 1. Let $\zeta$ be a smooth cut-off equal to $1$ near $\partial R$ and $0$ for $r\le(1+L)/2$, and put $w_h:=I_h\ut-c\,I_h(\zeta x)$, $c:=m_R/(8L^2)$. Then $w_h|_{\partial R}=\tilde g_I$, $w_h=I_h\ut$ near $\Gh$, and $\tnorm{c\,I_h(\zeta x)}=|c|\norm{\nabla I_h(\zeta x)}\le C|m_R|$ (no boundary terms on $\Gh$). In step 2 the net flux becomes
+\[
+\tilde m:=\int_{\Oh}\div w_h=\int_{\partial R}\tilde g_I\cdot\nu+\int_{\Gh}I_h\ut\cdot n=\int_{\Gh}(I_h\ut-\ut)\cdot n ,
+\]
+using $\int_{\Gh}\ut\cdot n=-\int_{\partial R}g\cdot\nu=0$. On each chord $\ut$ is smooth and $I_h\ut$ is its equispaced $P_k$ interpolant, so the Newton--Cotes argument of step 2 gives $O(|e|^{\sigma_k+1})$ per chord and $|\tilde m|\le C\hG^{\sigma_k}$ (not $h^{\sigma_k}$: only the chords of $\Gh$ contribute). Step 3 then costs $C|\tilde m|(\hG^{-1/2}+(\mu/h)^{1/2})=C(1+\gamma^{1/2})\hG^{\sigma_k-1/2}$, and $\norm{\div w_h}\le C(h^k+|m_R|)$. Steps 4--5 are unchanged.
+\end{proof}
+
+The remaining term $(1+\gamma^{1/2})\hG^{\sigma_k-1/2}$ is the flux of the \emph{interpolation error on $\Gh$}, and it is below $(1+\gamma^{1/2})\hG^{k+1/2}$ since $\sigma_k\ge k+1$. The method itself has no flux defect left (its velocity and $\ut$ both carry zero flux through $\Gh$), so this term is an artefact of the comparison field, not a floor.
+
+\begin{theorem}[Theorem~\ref{thm:D} without the proviso]\label{rs:Dfc}
+Let $\gamma\ge\gamma_2$. $\CNS$ with flux-corrected data satisfies
+\[
+\tnorm{\ut-u_h}\le C\bigl[(1+\gamma^{1/2})\hG^{3/2}+\tilde\varepsilon_h\bigr],\qquad
+\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+h^k\bigr),
+\]
+the second for every $\gamma\ge\gamma_2$, with $C$ independent of $\gamma$, and every $\hG\le h$ (no relation between $\hG$ and $h$ is needed). For bounded $\gamma$ also $\tnorm{\ut-u_h}\le C(\hG^{3/2}+h^k)$. The same replacement $\eps\to\tilde\varepsilon_h$ holds in Theorems~\ref{thm:A}--\ref{thm:C} for $\GS$, and in Theorem~\ref{rs:unif} the term $h^{\sigma_k}\hG^{-1/2}$ becomes $\hG^{\sigma_k-1/2}+|m_R|$.
+\end{theorem}
+
+\begin{proof}
+The consistency identities (Lemma~\ref{lem:erroreq}, \eqref{eq:cnserr}) involve only test functions vanishing on $\partial R$ and are unaffected. The proof of Theorem~\ref{thm:D} uses the data only through $E_h$, now bounded by Lemma~\ref{rs:approx}. For bounded $\gamma$, $\tilde\varepsilon_h\le C(h^k+\hG^{k+1/2}+h^{k+1})$. For the $H^1$ bound uniform in $\gamma$, repeat Theorem~\ref{rs:unif} with $\tilde g_I$ in place of $\gI$. In Lemma~\ref{rs:dir} now $a=0$ ($u^D$ vanishes on $\Gh$), the comparison field of step 1 is $z_0=I_h\ut-c\,I_h(\zeta x)-L_0$ with $L_0$ the nodal extension of $I_h\ut|_{\Gh}$, and $\int_{\Oh}\div z_0=\int_{\partial R}\tilde g_I\cdot\nu=0$; so $\norm{\nabla(\ut-u^D)}\le C(\hG^{3/2}+h^k+|m_R|)$. In step 3 of Theorem~\ref{rs:unif}, $\gamma^{-1/2}\tilde\varepsilon_h\le C(h^k+\hG^{\sigma_k-1/2}+|m_R|)$, and in step 4 the term $|m_R|\hG^{-1/2}$ is absent. Altogether $\norm{\nabla(\ut-u_h)}\le C(\hG^{3/2}+h^k+\hG^{\sigma_k-1/2}+|m_R|)\le C(\hG^{3/2}+h^k)$. The $L^2$ part uses the lift of $(g-\tilde g_I)|_{\partial R}$, of size $C(h^{k+1/2}+|m_R|)$.
+\end{proof}
+
+With Theorem~\ref{lb:thm} (which is indifferent to the outer data), Corollary~\ref{lb:cor} now holds with no flux condition: under (M3) and $W\not\equiv0$, $c\hG^{3/2}\le\norm{\nabla(\ut-u_h)}\le C\hG^{3/2}$ whenever $h^k\le\hG^{3/2}$, for every $\hG\le h$.
+
+\subsubsection{A growing penalty for the printed method}
+
+\emph{What Theorems~\ref{thm:A} and~\ref{thm:C} give.} Insert $\gamma\asymp\hG^{-\alpha}$ into Theorem~\ref{thm:C}: $\norm{\nabla(\ut-u_h)}\lesssim\hG^{1+\alpha}+\hG^{3/2-\alpha/2}+\eps$. The two terms balance at $\alpha=\frac13$, so Theorem~\ref{thm:C} by itself gives at best the $H^1$ rate $\frac43$, and it \emph{loses} rate for $\alpha>\frac13$. The culprit is the term $\gamma^{1/2}\hG^{3/2}$, which Theorem~\ref{thm:C} inherits from the energy estimate of the geometric part $\delta_G$ (Lemma~\ref{lem:Gbound}, penalty term). In the energy norm this term is genuine (Theorem~\ref{rs:elower}); in the $H^1$ seminorm it is not (Theorem~\ref{rs:unif}).
+
+\begin{corollary}[Rescue of the printed method in $H^1$]\label{rs:rescue}
+Let $\gamma\ge\gamma_0$ and $\gamma\ge c\,\hG^{-1/2}$, that is,
+\[
+\mu\ \ge\ c\,h\,\hG^{-3/2}\qquad(\text{for }h\asymp\hG:\ \mu\gtrsim h^{-1/2},\ \mu/h\gtrsim h^{-3/2}).
+\]
+Then $\GS$ satisfies $\norm{\ut-u_h}_{H^1(\Oh)}\le C_p(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$, and with flux-corrected data $\norm{\ut-u_h}_{H^1(\Oh)}\le C_p(\hG^{3/2}+h^k)$. Under the hypotheses of Theorem~\ref{lb:thm} ((M3), $W\not\equiv0$), $\norm{\nabla(\ut-u_h)}\ge c\hG^{3/2}$ as well, so for $h^k\le\hG^{3/2}$ (and, for uncorrected data, $\hG\ge h^{2(\sigma_k-k)}$) the $H^1$ rate of $\GS$ is exactly $\frac32$, for general Stokes data. The $L^2$ part of the $H^1$ norm is handled by the lift $E$ of Theorem~\ref{thm:B}(ii).
+\end{corollary}
+
+\begin{proof}
+Theorems~\ref{rs:unif} and~\ref{rs:Dfc} with $\hG/\gamma\le c^{-1}\hG^{3/2}$; the lower bound is Theorem~\ref{lb:thm}, which holds for $\GS$ with any $\gamma\ge\gamma_0$ and any $G$.
+\end{proof}
+
+\emph{The energy norm cannot be rescued.} Let $W=\dn u\cdot\tau$ be the wall shear (Section~\ref{lb:sec}).
+
+\begin{theorem}[The penalty consistency error is real in the energy norm]\label{rs:elower}
+Let $u_h$ be the velocity of $\GS$ ($\gamma\ge\gamma_0$) or of $\CNS$ ($\gamma\ge\gamma_2$), and $W\not\equiv0$. There are $\gamma_1$ and $h_1$, depending on $\norm W_{L^2(\Gamma)}$ and on the data, such that for $\gamma\ge\gamma_1$, $\hG\le h_1$ and $h^k\le\hG$,
+\[
+\tnorm{\ut-u_h}\ \ge\ \Bigl(\frac\mu h\Bigr)^{1/2}\norm{\ut-u_h}_{\Gh}\ \ge\ c_E\,\norm{W}_{L^2(\Gamma)}\,\gamma^{1/2}\hG^{3/2}-C\,(\hG/\gamma)^{1/2},\qquad c_E:=\frac{c_0^2}{72}.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $e:=\ut-u_h$.
+\begin{enumerate}
+\item \emph{Tangential test field.} Let $\varphi_W:=\pm\chi_1(r)(r-1)W(\theta)$, with $\chi_1$ as in Section~\ref{sec:printed} and the sign chosen so that $w_W:=\curl\varphi_W=W\tau$ on $\Gamma$. As for $v_\varphi$, $v_W:=\curl\Pi_{k+1}\varphi_W\in\Zh$ and $\norm{v_W-w_W}_{W^{1,\infty}}\le Ch^k$. On a chord, $|x-x^\ast|\le C\hG^2$, so $v_W=W(x^\ast)\tau(x^\ast)+O(\hG^2+h^k)$ and $v_W\cdot n_e=O(\hG)$; also $\norm{v_W}_{\Gh}\le2\norm W_{L^2(\Gamma)}$ for small $h$.
+\item \emph{The discrete trace is small along $v_W$.} Test the discrete momentum equation with $v_W$; the pressure term $(p_h,\div v_W)$ vanishes. For $\GS$,
+\[
+\frac\mu h\ip{u_h}{v_W}=(\ft,v_W)-a_h(u_h,v_W)+\ip{\dn u_h}{v_W}+\ip{u_h}{\dn v_W} .
+\]
+Here $\norm{\nabla u_h}\le C+\tnorm e$, $\norm{\dn u_h}_{\Gh}\le\norm{\dn\ut}_{\Gh}+(c_0\hG)^{-1/2}\tnorm e$ (the last part of $\tnorm\cdot$), and $\norm{u_h}_{\Gh}\le C\hG^2+\norm{e}_{\Gh}$. Hence $\frac\mu h|\ip{u_h}{v_W}|\le C(1+\hG^{-1/2}\tnorm e)$. For $\CNS$ the extra term $\ip{p_h-\pbG(p_h)}{v_W\cdot n}$ is at most $C_I(\rho/h)^{1/2}\norm{p_h}\cdot C\hG|\Gh|^{1/2}\le C\hG^{1/2}$, since $\norm{p_h}$ is bounded by Theorem~\ref{thm:D}.
+\item \emph{The exact trace along $v_W$.} By Lemma~\ref{lb:expand}, step 2, $\ut=d\,W(x^\ast)\tau(x^\ast)+O(d^2)$ on $e$ with $d=\frac12(\frac{|e|^2}4-s^2)+O(|e|^4)\ge0$, and $\int_ed\,ds=|e|^3/12+O(|e|^5)$. Hence
+\[
+\ip{\ut}{v_W}=\sum_{e}W_e^2\frac{|e|^3}{12}+O(\hG^3+\hG^2h^k)\ \ge\ \frac{c_0^2\hG^2}{12}\sum_eW_e^2|e|-C\hG^3\ \ge\ \frac{c_0^2\hG^2}{12}\bigl(\norm W^2_{L^2(\Gamma)}-C\hG\bigr),
+\]
+using $|e|\ge c_0\hG$, the Riemann sum of Lemma~\ref{lb:assemble}, step 4, and $h^k\le\hG$.
+\item \emph{Close.} $\ip{e}{v_W}=\ip{\ut}{v_W}-\ip{u_h}{v_W}$, and $\tnorm e\ge(\mu/h)^{1/2}\norm e_{\Gh}\ge(\mu/h)^{1/2}\ip{e}{v_W}/\norm{v_W}_{\Gh}$. With steps 2--3, $(\mu/h)^{1/2}\hG^2=\gamma^{1/2}\hG^{3/2}$ and $(h/\mu)^{1/2}\hG^{-1/2}=\gamma^{-1/2}$,
+\[
+\tnorm e\ge\frac{c_0^2}{24}\norm W\gamma^{1/2}\hG^{3/2}-C\gamma^{1/2}\hG^{5/2}-\frac{C}{\norm W}\Bigl((\hG/\gamma)^{1/2}+\gamma^{-1/2}\tnorm e\Bigr).
+\]
+For $\gamma\ge\gamma_1:=(2C/\norm W)^2$ the last term is at most $\frac12\tnorm e$; move it to the left, and take $\hG\le h_1$ to absorb $C\gamma^{1/2}\hG^{5/2}$ into half of the first term.\qedhere
+\end{enumerate}
+\end{proof}
+
+Combined with Theorem~\ref{thm:A} (upper bound, and lower bound $(2M)^{-1}(\hG/\gamma)^{1/2}G-C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$) this pins down the energy error of $\GS$ for $G>0$, $W\not\equiv0$:
+\[
+\tnorm{\ut-u_h}\ \asymp\ (\hG/\gamma)^{1/2}G+\gamma^{1/2}\hG^{3/2}\norm W\qquad\text{whenever }\gamma\hG\le\lambda_0\text{ or }\gamma\hG\ge\Lambda_0,
+\]
+with $\lambda_0$ small and $\Lambda_0$ large, both depending on the data. In the window $\lambda_0<\gamma\hG<\Lambda_0$ the upper bound is $\asymp\hG$ and we have no matching lower bound (the leak is normal and the geometric slip tangential, so we expect none is lost, but the constant in step 2 above is not controlled finely enough to exclude a partial cancellation). The same theorem shows that for $\CNS$, and for $\GS$ with $G=0$, the energy error grows like $\gamma^{1/2}\hG^{3/2}$: bounded $\gamma$ is optimal in the energy norm.
+
+\begin{corollary}[Rates of $\GS$ under a power-law penalty]\label{rs:rates}
+Let $h/\hG$ and $\rho$ be bounded, $\gamma\asymp\hG^{-\alpha}$ with $\alpha\ge0$, $G>0$, $W\not\equiv0$, (M3) (for $\alpha\ge\frac12$), $h^k\le\hG^{3/2}$. Then, as $\hG\to0$:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+& $H^1$ seminorm & energy norm $\tnorm\cdot$\\
+\midrule
+$0\le\alpha<\frac12$ & $\asymp\hG^{1+\alpha}$ & $\asymp\hG^{(1+\alpha)/2}$\\
+$\frac12\le\alpha<1$ & $\asymp\hG^{3/2}$ & $\asymp\hG^{(1+\alpha)/2}$\\
+$\alpha=1$ & $\asymp\hG^{3/2}$ & $\lesssim\hG$ ($\asymp\hG$ unless $\gamma\hG$ lies in $(\lambda_0,\Lambda_0)$)\\
+$\alpha>1$ & $\asymp\hG^{3/2}$ & $\asymp\hG^{(3-\alpha)/2}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+So the $H^1$ rate is $\min(1+\alpha,\frac32)$, optimal for every $\alpha\ge\frac12$, and the energy rate is $\min(\frac{1+\alpha}2,\frac{3-\alpha}2)\le1$, with maximum $1$ at $\alpha=1$. No penalty scaling gives $\GS$ the energy rate $\frac32$ of $\CNS$.
+\end{corollary}
+
+\begin{proof}
+$H^1$, upper: Theorem~\ref{rs:unif}. $H^1$, lower: for $\alpha<\frac12$, Theorem~\ref{thm:B}(ii); its hypotheses hold as $\hG\to0$ because $X\asymp\hG^{1+\alpha}+\hG^{3/2-\alpha/2}+\eps=o(\hG^{1/2})$ for $\alpha<2$ and $\hG/\gamma=o(1)$. For $\alpha\ge\frac12$, Theorem~\ref{lb:thm}. Energy: Theorem~\ref{thm:A} (both bounds; its lower bound is effective when $\gamma^{1/2}\hG^{3/2}=o((\hG/\gamma)^{1/2})$, i.e.\ $\alpha<1$) and Theorem~\ref{rs:elower} (effective for $\alpha>1$). The flux part of $\eps$ is $h^{\sigma_k}(\hG^{-1/2}+(\mu/h)^{1/2})=o(\hG^{3/2})$ for $\alpha<2\sigma_k-4$.
+\end{proof}
+
+The price, in the energy norm, is the product $(\hG/\gamma)^{1/2}\cdot\gamma^{1/2}\hG^{3/2}=\hG^2$: the leak and the penalty consistency error cannot both be below $\hG$. In the slip norm $\norm{\cdot}_{L^2(\Gh)}$ the growing penalty is harmless: $\norm{\ut-u_h}_{\Gh}\lesssim(\hG/\gamma)G+\hG^2$.
+
+\subsubsection{The price in conditioning}
+
+Work in the Lagrange nodal basis of $\Vh$ (Euclidean norm $|\cdot|$ on the free coefficients) and an $L^2$-orthonormal basis of $\Pih$ on each element. Let $A_\mu$ be the matrix of $N_h$ on $\VR$, $B$ that of $(q,\div v)$, $S_\mu:=BA_\mu^{-1}B^{\mathsf T}$ the pressure Schur complement, and
+\[
+K_\mu=\begin{pmatrix}A_\mu&B^{\mathsf T}\\ B&0\end{pmatrix}
+\]
+the (symmetric form of the) $\GS$ saddle matrix. Then $q^{\mathsf T}S_\mu q=\sup_v(q,\div v)^2/N_h(v,v)$.
+
+\begin{proposition}[Conditioning]\label{rs:cond}
+Let $\mu\ge\mu_0$ and let $\Th$ be quasi-uniform, $h_{\min}\asymp h$.
+\begin{enumerate}[label=(\roman*)]
+\item $c(1+\gamma)\le\lambda_{\max}(A_\mu)\le C(1+\gamma)$ and $ch^2\le\lambda_{\min}(A_\mu)\le Ch^2$, uniformly in $\mu$. Hence $\kappa_2(A_\mu)\asymp(1+\gamma)\,h^{-2}$.
+\item $\lambda_{\max}(S_\mu)\le2/c_1$, and
+\[
+\frac{c\min(\beta^2,1)}{1+\mu/h}\ \le\ \lambda_{\min}(S_\mu)\ \le\ \frac{|\Gh|}{c_1|\Oh|}\min\Bigl(C_{\mathrm{tr}}^2,\frac h\mu\Bigr).
+\]
+The small eigenvalue belongs to the constant pressure; on $L^2_0$ the spectrum stays above $c\beta^2$. Hence $\kappa_2(S_\mu)\asymp1+\mu/h=1+\gamma/\hG$.
+\item Every eigenvalue $\lambda$ of $K_\mu$ satisfies $\min\bigl(\lambda_{\min}(A_\mu),\tfrac12\lambda_{\min}(S_\mu)\bigr)\le|\lambda|\le\lambda_{\max}(A_\mu)+\norm B$, so
+\[
+\kappa_2(K_\mu)\ \le\ C(1+\gamma)\max\bigl(h^{-2},\,1+\mu/h\bigr).
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $|v|^{-2}\tnorm v^2$ is bounded by $C(1+\gamma)$: $\norm{\nabla v}^2+\sum_e|e|\norm{\dn v}^2_e\le C|v|^2$ by scale invariance in two dimensions, and $(\mu/h)\norm v^2_{\Gh}\le(\mu/h)C\sum_e|e||v_e|^2\le C\gamma|v|^2$. With $v^{\mathsf T}A_\mu v\le M\tnorm v^2$ this is the upper bound for $\lambda_{\max}$; the nodal function at a vertex of $\Gh$ gives the lower bound $v^{\mathsf T}A_\mu v\ge c_1(\mu/h)\norm{v}^2_{\Gh}\ge c\gamma$. For $\lambda_{\min}$: $v^{\mathsf T}A_\mu v\ge c_1\norm{\nabla v}^2\ge c_1C_F^{-2}\norm v^2\ge ch^2|v|^2$; an interior nodal function (vanishing on $\Gh$, so the penalty does not see it) gives the upper bound by the standard argument for the stiffness matrix.
+
+(ii) $(q,\div v)^2\le2\norm q^2\norm{\nabla v}^2\le(2/c_1)\norm q^2N_h(v,v)$. Upper bound for $\lambda_{\min}$: take $q\equiv|\Oh|^{-1/2}$; then $(q,\div v)=|\Oh|^{-1/2}\int_{\Gh}v\cdot n$ (as $v=0$ on $\partial R$), and $(\int_{\Gh}v\cdot n)^2\le|\Gh|\norm v^2_{\Gh}\le|\Gh|\min(C_{\mathrm{tr}}^2\norm{\nabla v}^2,(h/\mu)\tnorm v^2)$. Lower bound: write $q=q_0+\bar q$ with $\bar q$ the mean. Lemma~\ref{lem:infsup} gives $v_0\in\VO$ with $\div v_0=q_0$, $N_h(v_0,v_0)=a_h(v_0,v_0)\le\beta^{-2}\norm{q_0}^2$, and $(\bar q,\div v_0)=0$. Let $v_c\in\VR$ be a fixed smooth field (interpolated) with $\int_{\Oh}\div v_c=|\Oh|$, corrected by Lemma~\ref{lem:infsup} so that $\div v_c\equiv1$; then $N_h(v_c,v_c)\le C(1+\mu/h)$. Test with $v=v_0+tv_c$, $t=\bar q/(1+\mu/h)$: with $X=\norm{q_0}^2$ and $Y=\norm{\bar q}^2/(1+\mu/h)$ we get $(q,\div v)=X+Y$ and $N_h(v,v)\le C'(X+Y)$, where $C'$ depends on $\beta^{-2}$ and $|\Oh|$. So $q^{\mathsf T}S_\mu q\ge(X+Y)/C'\ge\norm q^2/(C'(1+\mu/h))$ and, on $L^2_0$, $\ge\norm{q_0}^2/C'$.
+
+(iii) Positive eigenvalues of a symmetric saddle matrix with $A_\mu$ positive definite are at least $\lambda_{\min}(A_\mu)$. For $\lambda<0$ with eigenvector $(x,y)$, $y\ne0$ and $B(A_\mu-\lambda)^{-1}B^{\mathsf T}y=-\lambda y$. Since $(A_\mu-\lambda)^{-1}\succeq(1+|\lambda|/\lambda_{\min}(A_\mu))^{-1}A_\mu^{-1}$, either $|\lambda|\ge\lambda_{\min}(A_\mu)$ or $|\lambda|\ge\frac12\lambda_{\min}(S_\mu)$. The upper bound is $\norm{K_\mu}$, and $\norm B\le C$ in these bases.
+\end{proof}
+
+\emph{Consequences.} Relative to a fixed $\gamma$, the penalty $\gamma\asymp\hG^{-\alpha}$ multiplies $\kappa(A_\mu)$ by $\hG^{-\alpha}$ (so $h^{-2}\to h^{-5/2}$ for the $H^1$-optimal $\alpha=\frac12$) and $\kappa(S_\mu)$ by the same factor ($h^{-1}\to h^{-3/2}$). For $\alpha\le1$ the bound (iii) for the saddle matrix is $\asymp(1+\gamma)h^{-2}$ asymptotically; for $\alpha>1$ the constant-pressure mode dominates and $\kappa(K_\mu)\lesssim\gamma^2/h$, quadratic in the penalty. On the meshes of Section~\ref{sec:numerics} the pressure-mode branch is already the active one (Section~\ref{rs:sec:num}), because $\lambda_{\min}(S_\mu)\approx(|\Gh|/|\Oh|)\,h/\mu$ with constant $\approx1$ while $\lambda_{\min}(A_\mu)\approx0.03h^2$.

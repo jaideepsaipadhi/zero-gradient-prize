@@ -1,18 +1,35 @@
 \section{The pressure-consistent method}\label{sec:consistent}
 
-\begin{proposition}[The naive consistent form is singular]\label{prop:singular}
-Replace $\ip{p_h-\pbG(p_h)}{v\cdot n}$ by $\ip{p_h}{v\cdot n}$. The resulting linear system is square ($\VR\times\Pih$ tested by $\VR\times\Pih$). It has the kernel vector $(0,1)$ and is therefore singular.
+\begin{proposition}[The naive consistent form, and its $L^2_0$ variant]\label{prop:singular}
+\begin{enumerate}[label=(\alph*)]
+\item Replace $\ip{p_h-\pbG(p_h)}{v\cdot n}$ by $\ip{p_h}{v\cdot n}$. The resulting linear system is square ($\VR\times\Pih$ tested by $\VR\times\Pih$). It has the kernel vector $(0,1)$ and is therefore singular. Its left null space is therefore nontrivial as well, and the system is solvable only for data satisfying one linear compatibility condition.
+\item \emph{The $L^2_0$ variant.} Restrict the pressure to $\Pih\cap L^2_0(\Oh)$ and test the continuity row only with $q\in\Pih\cap L^2_0(\Oh)$, keeping the momentum row $N_h(u_h,v)-(p_h,\div v)+\ip{p_h}{v\cdot n}=(\ft,v)$ for all $v\in\VR$. Any solution has $\div u_h\equiv c$, a constant, with
+\[
+c\,|\Oh|=\int_{\partial R}\gI\cdot\nu+\int_{\Gh}u_h\cdot n ,
+\]
+$n$ being the outward normal of $\Oh$. If $c=0$, then $(u_h,p_h)$ solves the naive system of (a).
+\item Let $\gamma\ge\gamma_2$ (Theorem~\ref{thm:D}). The naive system of (a) is solvable if and only if the $\CNS$ pressure satisfies $\pbG(p_h^{\CNS})=0$, and then its solutions are $(u_h^{\CNS},p_h^{\CNS}+\text{const})$. If moreover the $L^2_0$ variant is uniquely solvable, then $c=0$ if and only if the naive system is solvable.
+\end{enumerate}
 \end{proposition}
 
 \begin{proof}
-For $v\in\VR$,
+(a) For $v\in\VR$,
 \[
--(1,\div v)+\ip{1}{v\cdot n}=-\int_{\partial\Oh}v\cdot n+\int_{\Gh}v\cdot n=0 .
+-(1,\div v)+\ip{1}{v\cdot n}=-\int_{\partial\Oh}v\cdot n+\int_{\Gh}v\cdot n=0 ,
 \]
-The continuity row vanishes at $u=0$.
+and the continuity row vanishes at $u=0$. A square matrix with a nontrivial kernel has a nontrivial left kernel.
+
+(b) The momentum rows of (a) and (b) coincide. Since $\div u_h\in\Pih$ (Lemma~\ref{lem:divrange}) and $(q,\div u_h)=0$ for all mean-free $q\in\Pih$, $\div u_h$ is constant; integrate over $\Oh$, using $u_h=\gI$ on $\partial R$. If $c=0$, then $(q,\div u_h)=0$ for all $q\in\Pih$.
+
+(c) Write $B^\ast$ as in the proof of Theorem~\ref{thm:D}. For every $r\in\Pih$ the naive pressure form satisfies $-(r,\div v)+\ip{r}{v\cdot n}=B^\ast(r-\pbG(r),v)$, and it is invariant under $r\mapsto r+\text{const}$. If $(u,p)$ solves the naive system, then $(u,p-\pbG(p))$ solves $\CNS$, so by uniqueness (Theorem~\ref{thm:D}) $u=u_h^{\CNS}$ and $p-\pbG(p)=p_h^{\CNS}$, which has zero mean on $\Gh$. Conversely, if $\pbG(p_h^{\CNS})=0$, the two pressure forms agree at $p_h^{\CNS}$. For the last statement: if the naive system is solvable, shift its pressure into $L^2_0$; this gives a solution of the $L^2_0$ variant with $\div u_h=0$, which by uniqueness is the solution, so $c=0$. The converse is (b).
 \end{proof}
 
-The system is solvable only for right-hand sides orthogonal to a left null vector, which this argument does not identify. With generic data (Section~\ref{sec:numerics}), an iterated-penalty solver and a bordered direct solve both returned discrete velocities that are not divergence-free (discrete divergence about $4.5\cdot10^{-3}$). This is consistent with incompatibility.
+The singularity is the analogue, for our square Scott--Vogelius system, of the ill-posedness that Liu, Neilan and Otus note for their boundary-multiplier method when the zero-flux constraint is omitted \cite[Remark~3.2]{LiuNeilanOtus2023}. The $L^2_0$ variant is the standard way to fix the constant; in the fully weak setting of Frachon, Nilsson and Zahedi the same computation shows that $\div u_h$ equals the multiplier of the mean constraint \cite[(5.7)--(5.9)]{FrachonNilssonZahedi2024}. With weak imposition nothing forces $\int_{\Gh}u_h\cdot n=-\int_{\partial R}\gI\cdot\nu$, even for flux-corrected data, so generically $c\ne0$ and the $L^2_0$ variant is \emph{not} exactly divergence-free. Unique solvability of the $L^2_0$ variant reduces to the nonvanishing of a single scalar (for zero data, write $u_h=u_0+c\,w_c$ with $\div w_c\equiv1$; then $(u_0,p_h-\pbG(p_h))$ is $c$ times a fixed $\CNS$ solution, and the constraint $\pbG(\cdot)=0$ on its pressure must force $c=0$). It is generic and held in every computation below, but we do not prove it.
+
+Numerically ($k=4$, meshes of Section~\ref{sec:numerics}), the kernel of (a) is exactly one-dimensional: in a dense SVD of the naive system for test B with $\mu=20$ and an element-wise $L^2$-orthonormal pressure basis, at $N=8$ and $12$ the smallest singular values are $8\cdot10^{-17}$ and $3\cdot10^{-16}$, the next ones $2.4\cdot10^{-2}$ and $8.1\cdot10^{-3}$. For the $L^2_0$ variant with $\mu=100$ (SuperLU, relative residual about $6\cdot10^{-16}$), $\div u_h$ is constant to round-off. For test A at $N=16$ it has $c=9.69\cdot10^{-4}$, so $\norm{\div u_h}_{L^2(\Oh)}=|c|\,|\Oh|^{1/2}=4.54\cdot10^{-3}$, and the $\CNS$ pressure has $\pbG(p_h)=7.5\cdot10^{-2}\ne0$. For test B at $N=16$ and $32$, $c=-5.98\cdot10^{-5}$ and $-2.94\cdot10^{-5}$; there the $L^2_0$ variant and $\CNS$ have $H^1$ velocity errors that agree to four digits.
+
+Earlier versions of this paper reported that an iterated-penalty solver and a bordered direct solve of the naive form returned discrete divergence ``about $4.5\cdot10^{-3}$'', and read this as a sign of incompatibility. A bordered solve that fixes the pressure mean computes exactly the $L^2_0$ variant of (b), and the value coincides with $|c|\,|\Oh|^{1/2}=4.54\cdot10^{-3}$ for test A, $N=16$, $\mu=100$. The reported divergence is therefore the constant $c$ of (b), not a symptom of an incompatible system. We have not re-run the original solves, so the identification of the test case rests on this numerical coincidence.
+%% VERIFY: the original 4.5e-3 runs (test, N, mu) were not archived; identification with test A, N=16, mu=100 is by value only (notes/v5/lit_report.md).
 
 Let $\beta$ be the uniform inf-sup constant of Lemma~\ref{lem:infsup}.
 
@@ -25,7 +42,7 @@ Consequently, for every fixed $k\ge4$, for $\gamma$ in a bounded range $[\gamma_
 \[
 \norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^k\bigr).
 \]
-This condition ensures that the flux term of $\eps$ is at most $Ch^k$. Without it, that single extra term is kept, and by the remark after Lemma~\ref{lem:approx} it is then genuinely present unless $\gI$ is flux-corrected (which reduces it to a term below $h^k$). This is the rate Scott conjectured, for general Stokes data. The $L^2$ part of the $H^1$ norm uses the lift $E$ from the proof of Theorem~\ref{thm:B}(ii).
+This condition ensures that the flux term of $\eps$ is at most $Ch^k$. Without it, that single extra term is kept, and by the remark after Lemma~\ref{lem:approx} it is then genuinely present for the plain interpolant $\gI$. With the flux-corrected data $\tilde g_I$ of Definition~\ref{rs:def} no proviso is needed: $\norm{\ut-u_h}_{H^1(\Oh)}\le C(\hG^{3/2}+\hO^k)$ for every $\gamma\ge\gamma_2$, with $C$ independent of $\gamma$ and no relation between $\hG$ and $\hO$ (Theorem~\ref{rs:Dfc}). This is the rate Scott conjectured, for general Stokes data. The $L^2$ part of the $H^1$ norm uses the lift $E$ from the proof of Theorem~\ref{thm:B}(ii).
 \end{theorem}
 
 \begin{proof}
@@ -59,6 +76,10 @@ where
 \item \emph{Uniqueness.} Apply steps 3--5 to the homogeneous problem ($\gI=0$, so $z=0\in\Wh$). This gives $u_h=0$, and then $p_h=c$ is constant. Now \eqref{eq:cnserr} reads $-c\int_{\Gh}v\cdot n=0$ for all $v$, and the edge bubble of Lemma~\ref{lem:divrange} gives $c=0$. The system is square, so uniqueness gives existence.\qedhere
 \end{enumerate}
 \end{proof}
+
+\begin{remark}[Relation to the zero-flux formulation of Frachon, Nilsson and Zahedi]\label{rem:fnz}
+Let $V_h^{R,\flat}:=\{v\in\VR:\int_{\Gh}v\cdot n=0\}$, which has codimension one (edge bubble, Lemma~\ref{lem:divrange}). Transcribed to our setting, the device of \cite[Section~5.1]{FrachonNilssonZahedi2024} tests the momentum row with the naive form $-(p_h,\div v)+\ip{p_h}{v\cdot n}$ only for $v\in V_h^{R,\flat}$, keeps the full continuity row, and fixes the pressure constant separately. On $V_h^{R,\flat}$ the naive and the $\CNS$ pressure forms coincide, because $\ip{\pbG(p_h)}{v\cdot n}=\pbG(p_h)\int_{\Gh}v\cdot n=0$; and $B^\ast(p+c,w)=B^\ast(p,w)-c\int_{\Gh}w\cdot n$ for the remaining direction $w$. Hence, for $\gamma\ge\gamma_2$: the $\CNS$ solution solves the zero-flux formulation; conversely, if $(u,p)$ solves the homogeneous zero-flux formulation, then $(u,p+c)$ solves homogeneous $\CNS$ for the $c$ that satisfies the $w$-row, so $u=0$. So the two formulations have the \emph{same velocity}, and pressures that differ by a constant. $\CNS$ is a square packaging of the same device whose constant is fixed automatically, with $p_h\approx\pt-\pbG(\pt)$.
+\end{remark}
 
 \subsection{A matching lower bound: the rate \texorpdfstring{$\hG^{3/2}$}{h^{3/2}} is sharp}\label{lb:sec}
 

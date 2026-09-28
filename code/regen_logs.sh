@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerates every certificate / lemma-test / v3 log in ../logs (sequential, single process).
+# Regenerates every certificate / lemma-test / v3 / v4 log in ../logs (sequential, single process).
 # v2 logs: minutes on 2 cores.  v3 logs: about an hour in total; h1_limit fem needs a few GB (N <= 96, SuperLU).
 set -e
 cd "$(dirname "$0")"
@@ -25,3 +25,7 @@ python3 h1_limit.py fem 2>&1 | tee ../logs/h1_limit_fem.log
 python3 lower_bound_tests.py stars  8,12,16,20,24,32,48,64,96,128,192,256,512,1024 2>&1 | tee ../logs/lower_bound_stars.log
 python3 lower_bound_tests.py field  16,32,64,128,256,512 2>&1 | tee ../logs/lower_bound_field.log
 python3 lower_bound_tests.py global 16,24,32,48,64 2>&1 | tee ../logs/lower_bound_global.log
+# --- v4: growing penalty, mu-sweeps, flux-corrected data, conditioning (Sections 7.2 and 14.10 of the paper):
+#     logs/rescue_{cond,flux,musweep,study}.log.  The JSONL records go to results/rerun/v4_rescue
+#     so the shipped results/v4/rescue is not overwritten (peak 2.2 GB; N = 96 needs pypardiso).
+RESCUE_OUT=../results/rerun/v4_rescue bash rescue_run.sh all

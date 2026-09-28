@@ -62,6 +62,7 @@ Guzm\'an and Scott \cite[Theorem~1]{GuzmanScott2019} prove the inf-sup condition
 \item Each $W_j\cap\Oh$ is star-shaped with respect to a ball $B(c_j,r_B)\subset W_j\cap R$ with $|c_j|=r_b$, provided every chord line meeting $W_j$ leaves the ball on its outer side. This holds uniformly when $(r_b-r_B)\cos(\alpha+\arcsin(r_B/r_b)+\hG)>1$, which can be arranged with fixed $\alpha,r_b,r_B$ because $P_h\subset D$.
 \item The pieces have diameters, ball radii and pairwise overlap measures bounded above and below independently of $h$.
 \end{itemize}
+%% VERIFY: Galdi locator "Lemma III.3.4" (union of star-shaped pieces) not confirmed against the 2nd edition (notes/v4/bib_audit.md).
 Galdi's Lemma~III.3.4 \cite{Galdi} then gives a Bogovskii constant, and hence a continuous inf-sup constant, independent of $h$. The equivalence of the inf-sup condition with a bounded right inverse of $\div$ gives the statement.
 \end{proof}
 
@@ -73,9 +74,9 @@ E_h:=\inf_{z\in\Wh}\tnorm{\ut-z}\le C\eps,\qquad \eps:=(1+(\gamma\hG)^{1/2})\,h^
 \]
 \end{lemma}
 
-The second term comes from the net flux of the interpolated boundary data. It cannot be removed for the method as posed. Let $\nu$ be the outward normal of $R$ and $m_R:=\int_{\partial R}\gI\cdot\nu$. Every $z\in\Wh$ (including the discrete velocity) has $\int_{\Gh}z\cdot n=-m_R$, while $\int_{\Gh}\ut\cdot n=0$. Hence $\tnorm{\ut-z}\ge(\mu/h)^{1/2}|m_R|/|\Gh|^{1/2}$, and $|m_R|\asymp h^{\sigma_k}$ for generic $g$.
+The second term comes from the net flux of the interpolated boundary data. It cannot be removed for the method as posed with $\gI$. Recall $m_R=\int_{\partial R}\gI\cdot\nu$ (Definition~\ref{rs:def}). Every $z\in\Wh$ (including the discrete velocity) has $\int_{\Gh}z\cdot n=-m_R$, while $\int_{\Gh}\ut\cdot n=0$. Hence $\tnorm{\ut-z}\ge(\mu/h)^{1/2}|m_R|/|\Gh|^{1/2}$, and $|m_R|\asymp h^{\sigma_k}$ for generic $g$.
 
-For bounded $\gamma$ the term is at most $Ch^k$ whenever $\hG\ge h^{2(\sigma_k-k)}$: that is, $\hG\ge h^4$ for even $k$ and $\hG\ge h^2$ for odd $k$. If $\gI$ is flux-corrected so that $m_R=0$, or for the test data of Section~\ref{sec:numerics}, where $g\cdot\nu$ is a polynomial of degree at most $5$ on each side and the flux integrals over $\partial R$ are exact, only the contribution of $\Gh$ to the net flux remains. By step~2 of the proof below it is $O(\hG^{\sigma_k})$, so the term reduces to $C(1+\gamma^{1/2})\hG^{\sigma_k-1/2}$, which is below $h^k$ for bounded $\gamma$.
+For bounded $\gamma$ the term is at most $Ch^k$ whenever $\hG\ge h^{2(\sigma_k-k)}$: that is, $\hG\ge h^4$ for even $k$ and $\hG\ge h^2$ for odd $k$. If $\gI$ is replaced by the flux-corrected $\tilde g_I$ of Definition~\ref{rs:def} (Lemma~\ref{rs:approx}), or for the test data of Section~\ref{sec:numerics}, where $g\cdot\nu$ is a polynomial of degree at most $5$ on each side and the flux integrals over $\partial R$ are exact, only the contribution of $\Gh$ to the net flux remains. By step~2 of the proof below it is $O(\hG^{\sigma_k})$, so the term reduces to $C(1+\gamma^{1/2})\hG^{\sigma_k-1/2}$, which is below $h^k$ for bounded $\gamma$.
 
 \begin{proof}
 \begin{enumerate}

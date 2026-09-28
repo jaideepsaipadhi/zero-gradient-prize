@@ -1,0 +1,312 @@
+13:38:55 start 155 jobs
+13:38:55 start est=0.18GB avail=5.46GB gd ellipse 16 B 1000
+13:39:10 rc=0 15s gd ellipse 16 B 1000
+13:39:10 start est=0.18GB avail=5.43GB gd ellipse 16 B100 1000
+13:39:25 rc=0 15s gd ellipse 16 B100 1000
+13:39:25 start est=0.18GB avail=5.44GB gd ellipse 16 P 1000
+13:39:40 rc=0 15s gd ellipse 16 P 1000
+13:39:40 start est=0.18GB avail=5.46GB gd star 16 B 1000
+13:39:55 rc=0 15s gd star 16 B 1000
+13:39:55 start est=0.18GB avail=5.46GB gd star 16 B100 1000
+13:40:10 rc=0 15s gd star 16 B100 1000
+13:40:10 start est=0.18GB avail=5.49GB gd star 16 P 1000
+13:40:25 rc=0 15s gd star 16 P 1000
+13:40:25 start est=0.19GB avail=5.46GB gd star 24 B 1000
+13:40:40 rc=0 15s gd star 24 B 1000
+13:40:40 start est=0.19GB avail=5.43GB gd star 24 B100 1000
+13:40:55 rc=0 15s gd star 24 B100 1000
+13:40:55 start est=0.19GB avail=5.41GB gd star 24 P 1000
+13:41:10 rc=0 15s gd star 24 P 1000
+13:41:10 start est=0.20GB avail=5.46GB gd ellipse 24 B 1000
+13:41:25 rc=0 15s gd ellipse 24 B 1000
+13:41:25 start est=0.20GB avail=5.44GB gd ellipse 24 B100 1000
+13:41:40 rc=0 15s gd ellipse 24 B100 1000
+13:41:40 start est=0.20GB avail=5.46GB gd ellipse 24 P 1000
+13:41:55 rc=0 15s gd ellipse 24 P 1000
+13:41:55 start est=0.20GB avail=5.46GB gd star 32 B 1000
+13:42:10 rc=0 15s gd star 32 B 1000
+13:42:10 start est=0.20GB avail=5.44GB gd star 32 B100 1000
+13:42:25 rc=0 15s gd star 32 B100 1000
+13:42:25 start est=0.20GB avail=5.46GB gd star 32 P 1000
+13:42:40 rc=0 15s gd star 32 P 1000
+13:42:40 start est=0.22GB avail=5.46GB gd twodisk 16 X 1000
+13:42:55 rc=0 15s gd twodisk 16 X 1000
+13:42:55 start est=0.22GB avail=5.44GB gd twodisk 16 X 10000
+13:43:10 rc=0 15s gd twodisk 16 X 10000
+13:43:10 start est=0.22GB avail=5.46GB gd ellipse 32 B 1000
+13:43:25 rc=0 15s gd ellipse 32 B 1000
+13:43:25 start est=0.22GB avail=5.46GB gd ellipse 32 B100 1000
+13:43:40 rc=0 15s gd ellipse 32 B100 1000
+13:43:40 start est=0.22GB avail=5.47GB gd ellipse 32 P 1000
+13:43:55 rc=0 15s gd ellipse 32 P 1000
+13:43:55 start est=0.23GB avail=5.46GB ns 16 B 100 1 c1
+13:44:10 rc=0 15s ns 16 B 100 1 c1
+13:44:10 start est=0.23GB avail=5.44GB ns 16 B 100 1 cs
+13:44:25 rc=0 15s ns 16 B 100 1 cs
+13:44:25 start est=0.23GB avail=5.46GB ns 16 P 100 1 c1
+13:44:40 rc=0 15s ns 16 P 100 1 c1
+13:44:40 start est=0.23GB avail=5.47GB ns 16 B 100 0.1 c1
+13:44:55 rc=0 15s ns 16 B 100 0.1 c1
+13:44:55 start est=0.23GB avail=5.48GB ns 16 B 100 0.1 cs
+13:45:10 rc=0 15s ns 16 B 100 0.1 cs
+13:45:10 start est=0.23GB avail=5.54GB ns 16 P 100 0.1 c1
+13:45:25 rc=0 15s ns 16 P 100 0.1 c1
+13:45:25 start est=0.26GB avail=5.54GB gd star 48 B 1000
+13:45:40 rc=0 15s gd star 48 B 1000
+13:45:40 start est=0.26GB avail=5.54GB gd star 48 B100 1000
+13:45:55 rc=0 15s gd star 48 B100 1000
+13:45:55 start est=0.26GB avail=5.54GB gd star 48 P 1000
+13:46:10 rc=0 15s gd star 48 P 1000
+13:46:10 start est=0.26GB avail=5.47GB gd star 48 B100 300
+13:46:25 rc=0 15s gd star 48 B100 300
+13:46:25 start est=0.26GB avail=5.46GB gd star 48 P 300
+13:46:40 rc=0 15s gd star 48 P 300
+13:46:40 start est=0.27GB avail=5.45GB st 16 1e6
+13:46:55 rc=0 15s st 16 1e6
+13:46:55 start est=0.27GB avail=5.45GB st 16 1e4
+13:47:10 rc=0 15s st 16 1e4
+13:47:10 start est=0.27GB avail=5.44GB st 16 1e3
+13:47:25 rc=0 15s st 16 1e3
+13:47:25 start est=0.27GB avail=5.44GB gd twodisk 24 X 1000
+13:47:40 rc=0 15s gd twodisk 24 X 1000
+13:47:40 start est=0.27GB avail=5.37GB gd twodisk 24 X 10000
+13:47:55 rc=0 15s gd twodisk 24 X 10000
+13:47:55 start est=0.28GB avail=5.54GB ns 24 B 100 1 c1
+13:48:10 rc=0 15s ns 24 B 100 1 c1
+13:48:10 start est=0.28GB avail=5.55GB ns 24 B 100 1 cs
+13:48:25 rc=0 15s ns 24 B 100 1 cs
+13:48:25 start est=0.28GB avail=5.55GB ns 24 P 100 1 c1
+13:48:40 rc=0 15s ns 24 P 100 1 c1
+13:48:40 start est=0.28GB avail=5.46GB ns 24 B 100 0.1 c1
+13:48:55 rc=0 15s ns 24 B 100 0.1 c1
+13:48:55 start est=0.28GB avail=5.47GB ns 24 B 100 0.1 cs
+13:49:10 rc=0 15s ns 24 B 100 0.1 cs
+13:49:10 start est=0.28GB avail=5.46GB ns 24 P 100 0.1 c1
+13:49:25 rc=0 15s ns 24 P 100 0.1 c1
+13:49:25 start est=0.29GB avail=5.54GB gd ellipse 48 B 1000
+13:49:40 rc=0 15s gd ellipse 48 B 1000
+13:49:40 start est=0.29GB avail=5.54GB gd ellipse 48 B100 1000
+13:49:55 rc=0 15s gd ellipse 48 B100 1000
+13:49:55 start est=0.29GB avail=5.54GB gd ellipse 48 P 1000
+13:50:10 rc=0 15s gd ellipse 48 P 1000
+13:50:10 start est=0.29GB avail=5.54GB gd ellipse 48 B100 300
+13:50:25 rc=0 15s gd ellipse 48 B100 300
+13:50:25 start est=0.29GB avail=5.46GB gd ellipse 48 P 300
+13:50:40 rc=0 15s gd ellipse 48 P 300
+13:50:40 start est=0.33GB avail=5.46GB gd star 64 B 1000
+13:50:55 rc=0 15s gd star 64 B 1000
+13:50:55 start est=0.33GB avail=5.46GB gd star 64 B100 1000
+13:51:10 rc=0 15s gd star 64 B100 1000
+13:51:10 start est=0.33GB avail=5.46GB gd star 64 P 1000
+13:51:25 rc=0 15s gd star 64 P 1000
+13:51:25 start est=0.33GB avail=5.46GB gd star 64 B100 300
+13:51:40 rc=0 15s gd star 64 B100 300
+13:51:40 start est=0.33GB avail=5.46GB gd star 64 P 300
+13:51:55 rc=0 15s gd star 64 P 300
+13:51:55 start est=0.34GB avail=5.46GB gd twodisk 32 X 1000
+13:52:10 rc=0 15s gd twodisk 32 X 1000
+13:52:10 start est=0.34GB avail=5.46GB gd twodisk 32 X 10000
+13:52:25 rc=0 15s gd twodisk 32 X 10000
+13:52:25 start est=0.34GB avail=5.46GB st 24 1e6
+13:52:40 rc=0 15s st 24 1e6
+13:52:40 start est=0.34GB avail=5.46GB st 24 1e4
+13:52:55 rc=0 15s st 24 1e4
+13:52:55 start est=0.34GB avail=5.46GB st 24 1e3
+13:53:10 rc=0 15s st 24 1e3
+13:53:10 start est=0.35GB avail=5.46GB ns 32 B 100 1 c1
+13:53:25 rc=0 15s ns 32 B 100 1 c1
+13:53:25 start est=0.35GB avail=5.46GB ns 32 B 100 1 cs
+13:53:40 rc=0 15s ns 32 B 100 1 cs
+13:53:40 start est=0.35GB avail=5.46GB ns 32 P 100 1 c1
+13:53:55 rc=0 15s ns 32 P 100 1 c1
+13:53:55 start est=0.35GB avail=5.46GB ns 32 B 100 0.1 c1
+13:54:10 start est=0.35GB avail=5.25GB ns 32 B 100 0.1 cs
+13:54:25 rc=0 30s ns 32 B 100 0.1 c1
+13:54:25 start est=0.35GB avail=5.25GB ns 32 P 100 0.1 c1
+13:54:45 rc=0 35s ns 32 B 100 0.1 cs
+13:54:45 rc=0 20s ns 32 P 100 0.1 c1
+13:54:45 start est=0.39GB avail=5.46GB gd ellipse 64 B 1000
+13:55:00 rc=0 15s gd ellipse 64 B 1000
+13:55:00 start est=0.39GB avail=5.46GB gd ellipse 64 B100 1000
+13:55:15 rc=0 15s gd ellipse 64 B100 1000
+13:55:15 start est=0.39GB avail=5.42GB gd ellipse 64 P 1000
+13:55:30 rc=0 15s gd ellipse 64 P 1000
+13:55:30 start est=0.39GB avail=5.47GB gd ellipse 64 B100 300
+13:55:45 rc=0 15s gd ellipse 64 B100 300
+13:55:45 start est=0.39GB avail=5.54GB gd ellipse 64 P 300
+13:56:00 rc=0 15s gd ellipse 64 P 300
+13:56:00 start est=0.42GB avail=5.54GB st 32 1e6
+13:56:15 start est=0.42GB avail=5.24GB st 32 1e4
+13:56:30 rc=0 30s st 32 1e6
+13:56:30 start est=0.42GB avail=5.26GB st 32 1e3
+13:56:45 rc=0 30s st 32 1e4
+13:56:45 start est=0.48GB avail=5.33GB gd star 96 B 1000
+13:57:00 rc=0 30s st 32 1e3
+13:57:01 rc=0 15s gd star 96 B 1000
+13:57:01 start est=0.48GB avail=5.54GB gd star 96 B100 1000
+13:57:16 rc=0 15s gd star 96 B100 1000
+13:57:16 start est=0.48GB avail=5.54GB gd star 96 P 1000
+13:57:31 rc=0 15s gd star 96 P 1000
+13:57:31 start est=0.48GB avail=5.54GB gd star 96 B100 300
+13:57:46 rc=0 15s gd star 96 B100 300
+13:57:46 start est=0.48GB avail=5.53GB gd star 96 P 300
+13:58:01 rc=0 15s gd star 96 P 300
+13:58:01 start est=0.55GB avail=5.48GB gd twodisk 48 X 1000
+13:58:16 rc=0 15s gd twodisk 48 X 1000
+13:58:16 start est=0.55GB avail=5.46GB gd twodisk 48 X 10000
+13:58:31 rc=0 15s gd twodisk 48 X 10000
+13:58:31 start est=0.56GB avail=5.46GB ns 48 B 100 1 c1
+13:58:46 start est=0.56GB avail=5.16GB ns 48 B 100 1 cs
+13:59:01 rc=0 30s ns 48 B 100 1 c1
+13:59:01 start est=0.56GB avail=5.22GB ns 48 P 100 1 c1
+13:59:16 rc=0 30s ns 48 B 100 1 cs
+13:59:16 rc=0 15s ns 48 P 100 1 c1
+13:59:16 start est=0.56GB avail=5.54GB ns 48 B 100 0.1 c1
+13:59:31 start est=0.56GB avail=5.26GB ns 48 B 100 0.1 cs
+14:00:11 rc=0 55s ns 48 B 100 0.1 c1
+14:00:11 start est=0.56GB avail=5.12GB ns 48 P 100 0.1 c1
+14:00:36 rc=0 65s ns 48 B 100 0.1 cs
+14:00:36 start est=0.61GB avail=5.19GB gd ellipse 96 B 1000
+14:00:51 rc=0 40s ns 48 P 100 0.1 c1
+14:00:51 start est=0.61GB avail=4.84GB gd ellipse 96 B100 1000
+14:01:06 rc=0 30s gd ellipse 96 B 1000
+14:01:06 rc=0 15s gd ellipse 96 B100 1000
+14:01:06 start est=0.61GB avail=5.46GB gd ellipse 96 P 1000
+14:01:21 rc=0 15s gd ellipse 96 P 1000
+14:01:21 start est=0.61GB avail=5.46GB gd ellipse 96 B100 300
+14:01:36 rc=0 15s gd ellipse 96 B100 300
+14:01:36 start est=0.61GB avail=5.46GB gd ellipse 96 P 300
+14:01:51 rc=0 15s gd ellipse 96 P 300
+14:01:51 start est=0.69GB avail=5.46GB st 48 1e6
+14:02:06 start est=0.69GB avail=5.11GB st 48 1e4
+14:02:36 rc=0 45s st 48 1e6
+14:02:36 start est=0.69GB avail=5.11GB st 48 1e3
+14:02:51 rc=0 45s st 48 1e4
+14:02:51 start est=0.70GB avail=5.19GB gd star 128 B 1000
+14:03:06 rc=0 15s gd star 128 B 1000
+14:03:06 start est=0.70GB avail=5.19GB gd star 128 B100 1000
+14:03:21 rc=0 45s st 48 1e3
+14:03:21 rc=0 15s gd star 128 B100 1000
+14:03:21 start est=0.70GB avail=5.54GB gd star 128 P 1000
+14:03:36 rc=0 15s gd star 128 P 1000
+14:03:36 start est=0.70GB avail=5.46GB gd star 128 B100 300
+14:03:51 rc=0 15s gd star 128 B100 300
+14:03:51 start est=0.70GB avail=5.46GB gd star 128 P 300
+14:04:06 rc=0 15s gd star 128 P 300
+14:04:06 start est=0.81GB avail=5.46GB gd twodisk 64 X 1000
+14:04:21 start est=0.81GB avail=4.88GB gd twodisk 64 X 10000
+14:04:36 rc=0 30s gd twodisk 64 X 1000
+14:04:36 start est=0.85GB avail=4.54GB ns 64 B 100 1 c1
+14:04:51 rc=0 30s gd twodisk 64 X 10000
+14:04:51 start est=0.85GB avail=5.03GB ns 64 B 100 1 cs
+14:05:26 rc=0 50s ns 64 B 100 1 c1
+14:05:26 start est=0.85GB avail=4.87GB ns 64 P 100 1 c1
+14:05:46 rc=0 55s ns 64 B 100 1 cs
+14:05:46 rc=0 20s ns 64 P 100 1 c1
+14:05:46 start est=0.85GB avail=5.47GB ns 64 B 100 0.1 c1
+14:06:01 start est=0.85GB avail=5.07GB ns 64 B 100 0.1 cs
+14:07:31 rc=0 105s ns 64 B 100 0.1 c1
+14:07:31 start est=0.85GB avail=4.91GB ns 64 P 100 0.1 c1
+14:08:11 rc=0 130s ns 64 B 100 0.1 cs
+14:08:11 start est=0.93GB avail=4.94GB gd ellipse 128 B 1000
+14:08:46 rc=0 75s ns 64 P 100 0.1 c1
+14:08:46 rc=0 35s gd ellipse 128 B 1000
+14:08:46 start est=0.93GB avail=5.47GB gd ellipse 128 B100 1000
+14:09:01 start est=0.93GB avail=4.44GB gd ellipse 128 P 1000
+14:09:16 rc=0 30s gd ellipse 128 B100 1000
+14:09:16 start est=0.93GB avail=4.41GB gd ellipse 128 B100 300
+14:09:31 rc=0 30s gd ellipse 128 P 1000
+14:09:31 start est=0.93GB avail=4.57GB gd ellipse 128 P 300
+14:09:46 rc=0 30s gd ellipse 128 B100 300
+14:09:46 start est=1.02GB avail=4.82GB st 64 1e6
+14:10:06 rc=0 35s gd ellipse 128 P 300
+14:10:06 start est=1.02GB avail=4.71GB st 64 1e4
+14:11:56 rc=0 130s st 64 1e6
+14:11:56 start est=1.02GB avail=4.89GB st 64 1e3
+14:12:21 rc=0 135s st 64 1e4
+14:12:21 start est=1.30GB avail=4.84GB gd star 192 B 1000
+14:13:26 rc=0 65s gd star 192 B 1000
+14:13:26 start est=1.30GB avail=4.73GB gd star 192 B100 1000
+14:14:16 rc=0 140s st 64 1e3
+14:14:16 start est=1.30GB avail=3.86GB gd star 192 P 1000
+14:14:31 rc=0 65s gd star 192 B100 1000
+14:14:31 start est=1.30GB avail=4.42GB gd star 192 B100 300
+14:15:11 rc=0 55s gd star 192 P 1000
+14:15:11 start est=1.30GB avail=3.92GB gd star 192 P 300
+14:15:31 rc=0 60s gd star 192 B100 300
+14:15:31 start est=1.56GB avail=4.37GB gd twodisk 96 X 1000
+14:15:56 rc=0 45s gd star 192 P 300
+14:15:56 start est=1.56GB avail=3.91GB gd twodisk 96 X 10000
+14:16:51 rc=0 80s gd twodisk 96 X 1000
+14:16:51 start est=1.69GB avail=3.55GB ns 96 B 100 1 c1
+14:17:26 rc=0 90s gd twodisk 96 X 10000
+14:17:26 start est=1.69GB avail=4.37GB ns 96 B 100 1 cs
+14:18:51 rc=0 120s ns 96 B 100 1 c1
+14:18:51 start est=1.69GB avail=4.04GB ns 96 P 100 1 c1
+14:19:31 rc=0 125s ns 96 B 100 1 cs
+14:19:31 start est=1.69GB avail=4.90GB ns 96 B 100 0.1 c1
+14:19:51 rc=0 60s ns 96 P 100 1 c1
+14:19:51 start est=1.69GB avail=4.27GB ns 96 B 100 0.1 cs
+14:24:11 rc=0 280s ns 96 B 100 0.1 c1
+14:24:11 start est=1.69GB avail=4.47GB ns 96 P 100 0.1 c1
+14:25:01 rc=0 310s ns 96 B 100 0.1 cs
+14:25:01 start est=1.81GB avail=4.12GB gd ellipse 192 B 1000
+14:26:26 rc=-9 85s gd ellipse 192 B 1000
+14:26:26 start est=1.81GB avail=2.72GB gd ellipse 192 B100 1000
+14:28:56 rc=0 150s gd ellipse 192 B100 1000
+14:28:56 start est=1.81GB avail=2.85GB gd ellipse 192 P 1000
+14:29:11 rc=0 300s ns 96 P 100 0.1 c1
+14:29:11 start est=1.81GB avail=2.77GB gd ellipse 192 B100 300
+14:31:07 rc=0 130s gd ellipse 192 P 1000
+14:31:07 start est=1.81GB avail=3.33GB gd ellipse 192 P 300
+14:31:47 rc=0 155s gd ellipse 192 B100 300
+14:31:47 start est=2.05GB avail=2.74GB st 96 1e6
+14:33:37 rc=-9 151s gd ellipse 192 P 300
+14:33:37 start est=2.05GB avail=2.96GB st 96 1e4
+14:34:12 rc=-9 146s st 96 1e6
+14:34:17 start est=2.05GB avail=2.99GB st 96 1e3
+14:38:38 rc=0 301s st 96 1e4
+14:38:38 start est=2.15GB avail=3.91GB gd star 256 B 1000
+14:39:03 rc=0 286s st 96 1e3
+14:39:03 start est=2.15GB avail=3.98GB gd star 256 B100 1000
+14:39:48 rc=-9 70s gd star 256 B 1000
+14:39:48 start est=2.15GB avail=2.84GB gd star 256 P 1000
+14:40:13 rc=0 70s gd star 256 B100 1000
+14:40:13 start est=2.15GB avail=3.44GB gd star 256 B100 300
+14:40:58 rc=0 70s gd star 256 P 1000
+14:40:58 start est=2.15GB avail=3.33GB gd star 256 P 300
+14:41:33 rc=0 80s gd star 256 B100 300
+14:42:03 rc=0 65s gd star 256 P 300
+14:42:03 start est=2.62GB avail=5.57GB gd twodisk 128 X 1000
+14:43:33 rc=0 90s gd twodisk 128 X 1000
+14:43:33 start est=2.62GB avail=5.51GB gd twodisk 128 X 10000
+14:45:08 rc=0 95s gd twodisk 128 X 10000
+14:45:08 start est=2.85GB avail=5.51GB ns 128 B 100 1 c1
+14:47:03 rc=0 115s ns 128 B 100 1 c1
+14:47:03 start est=2.85GB avail=5.31GB ns 128 B 100 1 cs
+14:49:03 rc=0 120s ns 128 B 100 1 cs
+14:49:03 start est=2.85GB avail=5.31GB ns 128 P 100 1 c1
+14:49:58 rc=0 55s ns 128 P 100 1 c1
+14:49:58 start est=2.85GB avail=5.31GB ns 128 B 100 0.1 c1
+14:54:08 rc=0 250s ns 128 B 100 0.1 c1
+14:54:08 start est=2.85GB avail=5.30GB ns 128 B 100 0.1 cs
+14:58:53 rc=0 285s ns 128 B 100 0.1 cs
+14:58:53 start est=2.85GB avail=5.30GB ns 128 P 100 0.1 c1
+15:01:48 rc=0 175s ns 128 P 100 0.1 c1
+15:01:48 start est=3.07GB avail=5.30GB gd ellipse 256 B 1000
+15:03:03 rc=0 75s gd ellipse 256 B 1000
+15:03:03 start est=3.07GB avail=5.30GB gd ellipse 256 B100 1000
+15:04:18 rc=0 75s gd ellipse 256 B100 1000
+15:04:18 start est=3.07GB avail=5.30GB gd ellipse 256 P 1000
+15:05:33 rc=0 75s gd ellipse 256 P 1000
+15:05:33 start est=3.07GB avail=5.30GB gd ellipse 256 B100 300
+15:06:48 rc=0 75s gd ellipse 256 B100 300
+15:06:48 start est=3.07GB avail=5.30GB gd ellipse 256 P 300
+15:08:03 rc=0 75s gd ellipse 256 P 300
+15:08:03 start est=3.45GB avail=5.30GB st 128 1e6
+15:13:23 rc=0 320s st 128 1e6
+15:13:23 start est=3.45GB avail=5.30GB st 128 1e4
+15:18:28 rc=0 305s st 128 1e4
+15:18:28 start est=3.45GB avail=5.30GB st 128 1e3
+15:23:28 rc=0 300s st 128 1e3
+15:23:33 done

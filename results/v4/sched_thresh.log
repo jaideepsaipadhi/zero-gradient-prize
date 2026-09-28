@@ -1,0 +1,124 @@
+13:20:50 start 19 jobs
+13:20:50 start est=0.10GB avail=5.55GB thresh ellipse 16
+13:21:05 rc=0 15s thresh ellipse 16
+13:21:05 start est=0.13GB avail=5.49GB thresh ellipse 32
+13:21:20 rc=0 15s thresh ellipse 32
+13:21:20 start est=0.22GB avail=5.48GB thresh ellipse 64
+13:21:35 rc=0 15s thresh ellipse 64
+13:21:35 start est=0.47GB avail=5.55GB thresh ellipse 96
+13:21:50 rc=0 15s thresh ellipse 96
+13:21:50 start est=0.70GB avail=5.54GB thresh ellipse 128
+13:22:05 start est=0.10GB avail=5.23GB thresh star 16
+13:22:20 rc=0 30s thresh ellipse 128
+13:22:20 rc=0 15s thresh star 16
+13:22:20 start est=0.12GB avail=5.54GB thresh star 32
+13:22:35 rc=0 15s thresh star 32
+13:22:35 start est=0.18GB avail=5.54GB thresh star 64
+13:22:50 rc=0 15s thresh star 64
+13:22:50 start est=0.37GB avail=5.55GB thresh star 96
+13:23:05 rc=0 15s thresh star 96
+13:23:05 start est=0.54GB avail=5.55GB thresh star 128
+13:23:20 rc=0 15s thresh star 128
+13:23:20 start est=0.12GB avail=5.55GB thresh twodisk 16
+13:23:35 rc=0 15s thresh twodisk 16
+13:23:35 start est=0.19GB avail=5.55GB thresh twodisk 32
+13:23:50 rc=0 15s thresh twodisk 32
+13:23:50 start est=0.40GB avail=5.39GB thresh twodisk 48
+13:24:05 rc=0 15s thresh twodisk 48
+13:24:05 start est=0.62GB avail=5.54GB thresh twodisk 64
+13:24:20 rc=0 15s thresh twodisk 64
+13:24:20 start est=0.13GB avail=5.55GB thresh st 16
+13:24:35 rc=0 15s thresh st 16
+13:24:35 start est=0.16GB avail=5.55GB thresh st 24
+13:24:50 rc=0 15s thresh st 24
+13:24:50 start est=0.19GB avail=5.54GB thresh st 32
+13:25:05 rc=0 15s thresh st 32
+13:25:05 start est=0.40GB avail=5.55GB thresh st 48
+13:25:20 rc=0 15s thresh st 48
+13:25:20 start est=0.65GB avail=5.47GB thresh st 64
+13:25:41 start 19 jobs
+13:25:41 start est=0.10GB avail=5.46GB thresh ellipse 16
+13:25:56 rc=0 15s thresh ellipse 16
+13:25:56 start est=0.13GB avail=5.46GB thresh ellipse 32
+13:26:11 rc=0 15s thresh ellipse 32
+13:26:11 start est=0.22GB avail=5.46GB thresh ellipse 64
+13:26:26 rc=0 15s thresh ellipse 64
+13:26:26 start est=0.47GB avail=5.46GB thresh ellipse 96
+13:26:41 rc=0 15s thresh ellipse 96
+13:26:41 start est=0.70GB avail=5.46GB thresh ellipse 128
+13:26:56 start est=0.10GB avail=5.06GB thresh star 16
+13:27:11 rc=0 30s thresh ellipse 128
+13:27:11 rc=0 15s thresh star 16
+13:27:11 start est=0.12GB avail=5.46GB thresh star 32
+13:27:26 rc=0 15s thresh star 32
+13:27:26 start est=0.18GB avail=5.46GB thresh star 64
+13:27:41 rc=0 15s thresh star 64
+13:27:41 start est=0.37GB avail=5.46GB thresh star 96
+13:27:57 rc=0 15s thresh star 96
+13:27:57 start est=0.54GB avail=5.46GB thresh star 128
+13:28:12 rc=0 15s thresh star 128
+13:28:12 start est=0.12GB avail=5.46GB thresh twodisk 16
+13:28:27 rc=0 15s thresh twodisk 16
+13:28:27 start est=0.19GB avail=5.46GB thresh twodisk 32
+13:28:42 rc=0 15s thresh twodisk 32
+13:28:42 start est=0.40GB avail=5.46GB thresh twodisk 48
+13:28:57 rc=0 15s thresh twodisk 48
+13:28:57 start est=0.62GB avail=5.46GB thresh twodisk 64
+13:29:12 rc=0 15s thresh twodisk 64
+13:29:12 start est=0.13GB avail=5.45GB thresh st 16
+13:29:27 rc=0 15s thresh st 16
+13:29:27 start est=0.16GB avail=4.99GB thresh st 24
+13:29:42 rc=0 15s thresh st 24
+13:29:42 start est=0.19GB avail=5.46GB thresh st 32
+13:29:57 rc=0 15s thresh st 32
+13:29:57 start est=0.40GB avail=4.87GB thresh st 48
+13:30:12 rc=0 15s thresh st 48
+13:30:12 start est=0.65GB avail=5.31GB thresh st 64
+13:30:52 rc=0 40s thresh st 64
+13:30:57 done
+13:32:41 start 22 jobs
+13:32:41 start est=0.10GB avail=5.46GB thresh ellipse 16
+13:32:56 rc=0 15s thresh ellipse 16
+13:32:56 start est=0.13GB avail=5.47GB thresh ellipse 32
+13:33:11 rc=0 15s thresh ellipse 32
+13:33:11 start est=0.22GB avail=5.46GB thresh ellipse 64
+13:33:26 rc=0 15s thresh ellipse 64
+13:33:26 start est=0.47GB avail=5.47GB thresh ellipse 96
+13:33:41 rc=0 15s thresh ellipse 96
+13:33:41 start est=0.70GB avail=5.54GB thresh ellipse 128
+13:33:56 rc=0 15s thresh ellipse 128
+13:33:56 start est=2.18GB avail=5.49GB thresh ellipse 192
+13:34:11 start est=0.10GB avail=4.94GB thresh star 16
+13:34:26 rc=0 15s thresh star 16
+13:34:26 start est=0.12GB avail=4.94GB thresh star 32
+13:34:41 rc=0 45s thresh ellipse 192
+13:34:41 rc=0 15s thresh star 32
+13:34:41 start est=0.18GB avail=5.46GB thresh star 64
+13:34:56 rc=0 15s thresh star 64
+13:34:56 start est=0.37GB avail=5.46GB thresh star 96
+13:35:11 rc=0 15s thresh star 96
+13:35:11 start est=0.54GB avail=5.46GB thresh star 128
+13:35:26 rc=0 15s thresh star 128
+13:35:26 start est=1.48GB avail=5.46GB thresh star 192
+13:35:41 start est=0.12GB avail=5.09GB thresh twodisk 16
+13:35:56 rc=0 30s thresh star 192
+13:35:56 rc=0 15s thresh twodisk 16
+13:35:56 start est=0.19GB avail=5.46GB thresh twodisk 32
+13:36:11 rc=0 15s thresh twodisk 32
+13:36:11 start est=0.40GB avail=5.46GB thresh twodisk 48
+13:36:26 rc=0 15s thresh twodisk 48
+13:36:26 start est=0.62GB avail=5.47GB thresh twodisk 64
+13:36:41 rc=0 15s thresh twodisk 64
+13:36:41 start est=1.82GB avail=5.47GB thresh twodisk 96
+13:36:56 start est=0.13GB avail=5.01GB thresh st 16
+13:37:11 rc=0 15s thresh st 16
+13:37:11 start est=0.16GB avail=4.99GB thresh st 24
+13:37:26 rc=0 45s thresh twodisk 96
+13:37:26 rc=0 15s thresh st 24
+13:37:26 start est=0.19GB avail=5.46GB thresh st 32
+13:37:41 rc=0 15s thresh st 32
+13:37:41 start est=0.40GB avail=5.46GB thresh st 48
+13:37:56 rc=0 15s thresh st 48
+13:37:56 start est=0.65GB avail=5.46GB thresh st 64
+13:38:11 rc=0 15s thresh st 64
+13:38:16 done

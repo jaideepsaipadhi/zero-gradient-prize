@@ -1,0 +1,14 @@
+python3 strong_bc.py 64 A 100 zero pardiso
+python3 strong_bc.py 64 A 100 interp pardiso
+python3 strong_bc.py 16 A 100 zero lu alt
+python3 strong_bc.py 24 A 100 zero lu alt
+python3 strong_bc.py 32 A 100 zero lu alt
+python3 strong_bc.py 48 A 100 zero lu alt
+python3 strong_bc.py 16 A 100 nitsche lu alt
+python3 strong_bc.py 24 A 100 nitsche lu alt
+python3 strong_bc.py 32 A 100 nitsche lu alt
+python3 strong_bc.py 48 A 100 nitsche lu alt
+python3 strong_bc.py 64 A 100 zero pardiso alt
+python3 strong_bc.py 64 A 100 nitsche pardiso alt
+python3 strong_bc.py 96 A 100 zero pardiso alt
+python3 strong_bc.py 96 A 100 nitsche pardiso alt

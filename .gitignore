@@ -10,3 +10,11 @@ paper/*.fdb_latexmk
 paper/*.toc
 results/rerun/
 results/results.tar.gz
+letter/*.aux
+letter/*.log
+letter/*.out
+letter/*.bbl
+letter/*.blg
+letter/*.fls
+letter/*.fdb_latexmk
+letter/*.spl

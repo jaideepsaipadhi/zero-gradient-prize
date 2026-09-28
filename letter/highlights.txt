@@ -1,0 +1,5 @@
+The printed Nitsche form lacks a pressure traction, so flow leaks through the wall
+The leak is the leading error, with constant 1 in the slip and energy norms
+A mean-free traction term gives H1 error h_Γ^(3/2) + h^k for general Stokes data
+Nitsche penalty ~ h/min|e| suffices, and is necessary for well-shaped boundary cells
+Computations confirm the rates, the leak constant and the penalty threshold

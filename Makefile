@@ -9,6 +9,8 @@ report:
 	cd code && python3 report.py ../results/pod > ../results/pod/report.regen.txt && diff -q ../results/pod/report.regen.txt ../results/pod/report.txt && echo "report.txt reproduced exactly"
 	cd code && python3 report_local.py > ../results/local/report_local.regen.txt && diff -q ../results/local/report_local.regen.txt ../results/local/report_local.txt && echo "report_local.txt reproduced exactly"
 	cp results/v3/report_v3.txt results/v3/report_v3.shipped.txt && cd code && python3 report_v3.py ../results/v3 > /dev/null && diff -q ../results/v3/report_v3.txt ../results/v3/report_v3.shipped.txt && echo "report_v3.txt reproduced exactly"
+	cp results/v5/letter_tables.txt results/v5/letter_tables.shipped.txt && cd code && python3 report_v5.py > /dev/null && diff -q ../results/v5/letter_tables.txt ../results/v5/letter_tables.shipped.txt && echo "letter_tables.txt reproduced exactly"
+	cp results/v4/rescue/summary.md results/v4/rescue/summary.shipped.md && cd code && python3 rescue_report.py > /dev/null && diff -q ../results/v4/rescue/summary.md ../results/v4/rescue/summary.shipped.md && echo "rescue summary.md reproduced exactly"
 
 figures:
 	cd code && python3 plots.py
@@ -17,7 +19,7 @@ figures:
 smoke:
 	cd code && SVN_OUT=/tmp/svn_smoke python3 job.py study 16 B1 100 && SVN_OUT=/tmp/svn_smoke python3 job.py study 16 P1 100 && cat /tmp/svn_smoke/study/*.jsonl
 
-# All logs: exact certificates, float lambda*, lemma dual-norm tests, and the v3 logs (about an hour)
+# All logs: exact certificates, float lambda*, lemma dual-norm tests, the v3 logs (about an hour) and the v4 rescue logs (a few hours)
 certificates lemma-tests:
 	cd code && ./regen_logs.sh
 

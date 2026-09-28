@@ -26,6 +26,8 @@
 \newtheorem*{theoremG}{Theorem G}
 \newtheorem*{theoremH}{Theorem H}
 \newtheorem*{theoremI}{Theorem I}
+\newtheorem*{theoremP}{Theorem P}
+\newtheorem*{theoremR}{Theorem R}
 \newtheorem{fact}[theorem]{Fact}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
@@ -70,14 +72,20 @@
 \newcommand{\cS}{\mathcal S}
 \DeclareMathOperator{\diam}{diam}
 \DeclareMathOperator{\dist}{dist}
-% Section 10 (general domains): curvature is \kap, since \kappa is the Korn constant
+% General domains section: curvature is \kap, since \kappa is the Korn constant
 \newcommand{\kap}{\varkappa}
 \newcommand{\kapi}{\norm{\kap}_\infty}
 \newcommand{\Tr}{\mathcal T_r}
-% Section 11 (Navier--Stokes) and Section 12 (3D)
+% Navier--Stokes and 3D sections
 \newcommand{\Aop}{\mathfrak A}
 \newcommand{\FG}{\mathcal F_h^\Gamma}
 \newcommand{\epsd}{\varepsilon_h^{(3)}}
+% Pressure, stress and drag section
+\newcommand{\Lay}{L_1}
+\newcommand{\RM}{\mathrm{RM}}
+\newcommand{\Bh}{B_h}
+\newcommand{\xib}{\xi_{\mathrm b}}
+\newcommand{\chat}{\hat c_k}
 
 \begin{document}
 
@@ -90,15 +98,15 @@
 \keywords{Stokes equations, Navier--Stokes equations, Scott--Vogelius elements, Nitsche's method, curved boundaries, divergence-free finite elements, Clough--Tocher splits}
 
 \begin{abstract}
-We analyse the Scott--Vogelius--Nitsche method of Gjerde and Scott for two-dimensional Stokes flow whose no-slip curve is replaced by an inscribed polygon: continuous $P_k$ velocities that are exactly divergence-free, with Dirichlet data imposed weakly on the polygon by Nitsche's method. This answers Scott's zero-gradient prize question, which asks whether the $H^1$ error behaves like $h_\Gamma^{3/2}+h_\Omega^k$ for general Stokes data and, if not, why not.
+We analyse the Scott--Vogelius--Nitsche method of Gjerde and Scott for two-dimensional Stokes flow whose no-slip curve is replaced by an inscribed polygon: continuous $P_k$ velocities that are exactly divergence-free, with Dirichlet data imposed weakly on the polygon by Nitsche's method. This answers Scott's zero-gradient prize question, which asks whether the error behaves like $h_\Gamma^{3/2}+h_\Omega^k$ and, if not, why not.
 
-For the method as printed, the answer is no as soon as the pressure is not constant on the boundary. The printed Nitsche form omits the traction $-pn$. We prove that the method converges, at the sharp rate $h/\mu$ in the $H^1$ seminorm and at the exact rate $(h/\mu)^{1/2}$ in the mesh-dependent energy norm. To leading order the error is an explicit field: the discrete velocity leaks through the wall with normal velocity $(h/\mu)(p-\bar p)$, with constant exactly $1$ in the slip and energy norms. The $H^1$ rate is $1$ and not $1/2$ only because incompressibility turns the normal part of the missing traction into a tangential derivative. We also identify the $H^1$ constant: for fixed $\gamma$ and bounded $\rho$, $(\mu/h)$ times the error converges to the Stokes flow driven by the leak as Dirichlet data. This constant depends on the domain; it is $2.7565$ for our test and tends to $3/\sqrt7$ as the outer box grows.
+For the method as printed, the answer is no as soon as the pressure is not constant on the boundary. The printed Nitsche form omits the traction $-pn$. We prove that the method converges, at the sharp rate $h/\mu$ in the $H^1$ seminorm and at the exact rate $(h/\mu)^{1/2}$ in the mesh-dependent energy norm. To leading order the error is an explicit field: the discrete velocity leaks through the wall with normal velocity $(h/\mu)(p-\bar p)$, with constant exactly $1$ in the slip and energy norms. The $H^1$ rate is $1$ and not $1/2$ only because incompressibility turns the normal part of the missing traction into a tangential derivative. For fixed $\gamma$ and bounded $\rho$, $(\mu/h)$ times the error converges in $H^1$ to the Stokes flow driven by the leak as Dirichlet data; the resulting constant depends on the domain ($2.7565$ for our test, tending to $3/\sqrt7$ as the outer box grows). A penalty growing like $\mu\gtrsim h\,h_\Gamma^{-3/2}$ restores the $H^1$ rate $3/2$ of the printed method, but no power-law scaling of the penalty lifts its energy rate above $1$. When the wall pressure varies, its pressure converges in $L^2$ only at rate $1/2$, because of an explicit boundary layer in the first row of triangles, and its drag error is, to leading order, $-(h/\mu)$ times an explicit reciprocity constant.
 
-The naive pressure-consistent correction is singular. A mean-corrected variant is well posed and attains $h_\Gamma^{3/2}+h_\Omega^k$ for general data, for every fixed $k\ge4$ on meshes satisfying (M0)--(M2) and every $k\ge2$ on Clough--Tocher refinements, provided the boundary edges are not too short relative to the bulk mesh. Whenever the wall shear is not identically zero, we prove a matching lower bound $c\,h_\Gamma^{3/2}$ for the $H^1$ error, so the $h_\Gamma^{3/2}$ term of Scott's rate is sharp. The lower bound is unconditional for $k\ge7$; for $4\le k\le6$ it is conditional on a local condition on the boundary stars, which we verified numerically on all our meshes but have not proved.
+Adding the plain pressure term makes the square system singular. Subtracting the wall mean of the discrete pressure gives a well-posed, exactly divergence-free method; this mean-free correction is not new, since its velocity coincides with that of the zero-net-flux formulation of Frachon, Nilsson and Zahedi, and what we contribute is its analysis. We prove that it attains $h_\Gamma^{3/2}+h_\Omega^k$ for general Stokes data, for every fixed $k\ge4$ on meshes satisfying (M0)--(M2) and every $k\ge2$ on Clough--Tocher refinements. With flux-corrected outer data the $H^1$ bound holds uniformly in the penalty and with no relation between $h_\Gamma$ and $h_\Omega$; its pressure then converges at the same rate and its drag at rate $2$. Whenever the wall shear is not identically zero, we prove a matching lower bound $c\,h_\Gamma^{3/2}$ for the $H^1$ error, so the $h_\Gamma^{3/2}$ term of Scott's rate is sharp. The lower bound is unconditional for $k\ge7$; for $4\le k\le6$ it is conditional on a local condition on the boundary stars, which we verified numerically on all our meshes but have not proved.
 
-The Nitsche penalty must scale like $\rho=h_\Omega/\min_e|e|$. Sufficiency is proved; necessity is certified in exact rational arithmetic for every mesh whose shortest boundary edge carries a triangle with apex angle at least $35^\circ$ and base angles at least $5^\circ$. The convergence theory extends to general smooth curved boundaries in two dimensions (nonconvex and multiply connected, with a nonempty polygonal component carrying strongly imposed data), to steady Navier--Stokes under a linearised-stability assumption that we prove for small data, and to three dimensions for a spherical obstacle, under a uniform inf-sup assumption. That assumption is known on Alfeld splits for $k\ge3$, modulo the uniformity of the published constants over the perturbed domains, which we have not re-audited.
+The Nitsche penalty must scale like $\rho=h_\Omega/\min_e|e|$ on the meshes we can certify. Sufficiency is proved on every mesh; necessity is certified in exact rational arithmetic for every mesh whose shortest boundary edge carries a triangle with apex angle at least $35^\circ$ and base angles at least $5^\circ$, and is open in general. The convergence theory extends to general smooth curved boundaries in two dimensions (nonconvex and multiply connected, with a nonempty polygonal component carrying strongly imposed data), to steady Navier--Stokes under a linearised-stability assumption that we prove for small data, and to three dimensions for a spherical obstacle, under a uniform inf-sup assumption. That assumption is known on Alfeld splits for $k\ge3$, modulo the uniformity of the published constants over the perturbed domains, which we have not re-audited.
 
-A computational study up to $N=256$ boundary chords, for $k=4,5,6$ and for Clough--Tocher refinements with $k=2,3$, confirms the rates and constants. It includes a pure-pressure test that isolates the traction response exactly, and a penalty study in which the threshold is linear in $h_\Omega/h_\Gamma$, with $\mu^\ast h_\Gamma/h_\Omega\approx20$ for $k=4$.
+A computational study up to $N=256$ boundary chords, for $k=4,5,6$ and for Clough--Tocher refinements with $k=2,3$, confirms the rates and constants. It includes a pure-pressure test that isolates the traction response exactly, pressure errors, a penalty study in which the threshold is linear in $h_\Omega/h_\Gamma$, with $\mu^\ast h_\Gamma/h_\Omega\approx20$ for $k=4$, and a comparison with strong imposition: in our computations the $h^{1/2}$ locking of strongly imposed no-slip appears on a mesh with wall vertices in only two triangles, but not on our production meshes.
 \end{abstract}
 
 \maketitle
@@ -110,6 +118,8 @@ A computational study up to $N=256$ boundary chords, for $k=4,5,6$ and for Cloug
 \input{sections/05_error_equation}
 \input{sections/06_printed_method}
 \input{sections/07_consistent_method}
+\input{sections/07a_rescue}
+\input{sections/07b_pressure_drag}
 \input{sections/08_penalty}
 \input{sections/09_clough_tocher}
 \input{sections/10_general_domains}

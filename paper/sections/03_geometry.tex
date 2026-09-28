@@ -56,6 +56,8 @@ For $v\in\VR$,
 \]
 \end{lemma}
 
+Pointwise the transposed term is only $O(\hG)$ on $\Gh$, not $O(\hG^2)$: although $\ut=O(\hG^2)$ there, the chord normal $n_e$ is tilted by $O(\hG)$ against $n(x^\ast)$ (step~1 below). The rate $\hG^{3/2}$ comes from the odd symmetry of the leading term in $s$ (step~2), not from the size of $\ut$. In the energy dual it can also be obtained from the penalty alone, $|\ip{(\nabla\ut)^{\mathsf T}n}{v}|\le C\hG\norm{v}_{\Gh}\le C\gamma^{-1/2}\hG^{3/2}\tnorm v$ (Lemma~\ref{pd:lem:G}); in the plain $H^1$ dual, without odd symmetry, it would be only $O(\hG)$.
+
 The rate $\hG^{3/2}$ is sharp on $\VR$: a first-layer field with odd trace on each chord attains it, and the dual-norm test of Section~\ref{sec:numerics} gives $1.56$--$1.57$. For the method itself, which is tested on $\Zh$, Theorem~\ref{lb:thm} proves the matching lower bound $c\,\hG^{3/2}$ for the $H^1$ error, by a different route (unconditionally for $k\ge7$, and under a local condition on the boundary stars for $4\le k\le6$). The $\CNS$ $H^1$ rates of Table~\ref{tab:cns} decrease monotonically toward $3/2$. Lemma~\ref{lem:transposed} is a sharper dual-norm statement than the upper bounds need: by Remark~\ref{td:nocancel2d}, Lemma~\ref{lem:Gbound} and Theorems~\ref{thm:C} and~\ref{thm:D} also follow from the cruder energy-dual bound that holds without the odd-in-$s$ cancellation.
 
 \begin{proof}
