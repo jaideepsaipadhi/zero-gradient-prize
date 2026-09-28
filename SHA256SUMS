@@ -256,4 +256,5 @@ ac1fc3f728c936ce88392a5bc5dc1b8220e3740b6326ba322449ea23a5c3e426  ./results/pod/
 e310e294e16dc277983abb93b5dd8a6652ff5f4710e4f79db286e798ca03fb15  ./results/pod/thresh/N64_L2.5_m16.json
 6a488e67f26aaa6abf9cefcb869e108d26804aa632d69191356ca22af7541236  ./results/pod/thresh/N8_L2.5_m2.json
 5dac29031f147dcabc3a4aabb94a519145a25d23b3282011beba69dc31d03f69  ./verification/REFEREE_ROUND2.md
+effaf4d435f2f552d66b76e859e79f7aa393555624fff9563695812957d8fa83  ./verification/REFEREE_ROUND3_k_general.md
 b132e944046e981fc54fa6805a144bbfde09c3bb81c9e0b5a2e81782a8c88f7d  ./verification/VALIDATION.md
