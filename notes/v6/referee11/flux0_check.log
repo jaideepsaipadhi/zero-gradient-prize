@@ -1,0 +1,6 @@
+k=4 rank A=9 rows=10; flux in rowspace(A): True
+   flux of the solution for basis of mean-zero g: [0, 0, 0, 0]
+   solvable for all mean-zero g: True
+k=5 rank A=14 rows=15; flux in rowspace(A): True
+   flux of the solution for basis of mean-zero g: [0, 0, 0, 0, 0]
+   solvable for all mean-zero g: True

@@ -1,0 +1,4 @@
+k=3 N=1  Nitsche: H1 err 2.00e-10 L2 4.38e-11 (ipm 40, |div| 6.9e-14) | strong: H1 err 5.28e-11 L2 5.74e-12 (|div| 4.9e-14)
+k=3 N=2  Nitsche: H1 err 2.92e-10 L2 5.47e-11 (ipm 40, |div| 9.8e-14) | strong: H1 err 1.55e-10 L2 1.73e-11 (|div| 9.1e-14)
+k=4 N=1  Nitsche: H1 err 1.90e-09 L2 3.99e-10 (ipm 34, |div| 3.3e-13) | strong: H1 err 4.13e-10 L2 5.86e-11 (|div| 2.5e-13)
+k=4 N=2  Nitsche: H1 err 3.15e-09 L2 4.85e-10 (ipm 32, |div| 9.0e-13) | strong: H1 err 1.41e-09 L2 2.43e-10 (|div| 7.5e-13)

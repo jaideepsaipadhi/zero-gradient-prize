@@ -1,0 +1,15 @@
+k=4: rank A = 9 (of 9 rows, 12 unknowns), dim U = 3, trace rank = 2, dim P_e = 2, trace means = {0}
+shape 1/2,3/4,2/3,1/5 v_1:  {'nonzero': True, 'cont [z,c]': True, '0 on [a,c]': True, '0 on [c,b]': True, '0 on [z,b]': True, 'div=0 on T2': True, 'PB T1: (div v,r)=<v.n,r>_e, 10 r': True, 'PB T1: (v,grad r)=0': True, 'Green consistency': True, 'PB T2 moments': True, '(M) int_e v = 0': True, '(D) int_e d_n v = 0': True, 'trace': True, 'flux e = 0': True}
+shape 1/2,3/4,2/3,1/5 v_2:  {'nonzero': True, 'cont [z,c]': True, '0 on [a,c]': True, '0 on [c,b]': True, '0 on [z,b]': True, 'div=0 on T2': True, 'PB T1: (div v,r)=<v.n,r>_e, 10 r': True, 'PB T1: (v,grad r)=0': True, 'Green consistency': True, 'PB T2 moments': True, '(M) int_e v = 0': True, '(D) int_e d_n v = 0': True, 'trace': True, 'flux e = 0': True}
+mA,mC,dA,dC = 5/4 0 125/8 -125/16  s1 = 5/4
+ALL OK
+k=4: rank A = 9 (of 9 rows, 12 unknowns), dim U = 3, trace rank = 2, dim P_e = 2, trace means = {0}
+shape -1/5,7/4,3/2,-1/7 v_1:  {'nonzero': True, 'cont [z,c]': True, '0 on [a,c]': True, '0 on [c,b]': True, '0 on [z,b]': True, 'div=0 on T2': True, 'PB T1: (div v,r)=<v.n,r>_e, 10 r': True, 'PB T1: (v,grad r)=0': True, 'Green consistency': True, 'PB T2 moments': True, '(M) int_e v = 0': True, '(D) int_e d_n v = 0': True, 'trace': True, 'flux e = 0': True}
+shape -1/5,7/4,3/2,-1/7 v_2:  {'nonzero': True, 'cont [z,c]': True, '0 on [a,c]': True, '0 on [c,b]': True, '0 on [z,b]': True, 'div=0 on T2': True, 'PB T1: (div v,r)=<v.n,r>_e, 10 r': True, 'PB T1: (v,grad r)=0': True, 'Green consistency': True, 'PB T2 moments': True, '(M) int_e v = 0': True, '(D) int_e d_n v = 0': True, 'trace': True, 'flux e = 0': True}
+mA,mC,dA,dC = 31/20 0 961/40 -961/80  s1 = 31/20
+ALL OK
+k=4: rank A = 9 (of 9 rows, 12 unknowns), dim U = 3, trace rank = 2, dim P_e = 2, trace means = {0}
+shape 1,0,5/4,5/9 v_1:  {'nonzero': True, 'cont [z,c]': True, '0 on [a,c]': True, '0 on [c,b]': True, '0 on [z,b]': True, 'div=0 on T2': True, 'PB T1: (div v,r)=<v.n,r>_e, 10 r': True, 'PB T1: (v,grad r)=0': True, 'Green consistency': True, 'PB T2 moments': True, '(M) int_e v = 0': True, '(D) int_e d_n v = 0': True, 'trace': True, 'flux e = 0': True}
+shape 1,0,5/4,5/9 v_2:  {'nonzero': True, 'cont [z,c]': True, '0 on [a,c]': True, '0 on [c,b]': True, '0 on [z,b]': True, 'div=0 on T2': True, 'PB T1: (div v,r)=<v.n,r>_e, 10 r': True, 'PB T1: (v,grad r)=0': True, 'Green consistency': True, 'PB T2 moments': True, '(M) int_e v = 0': True, '(D) int_e d_n v = 0': True, 'trace': True, 'flux e = 0': True}
+mA,mC,dA,dC = 1 0 10 -5  s1 = 1
+ALL OK

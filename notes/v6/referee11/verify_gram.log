@@ -1,0 +1,15 @@
+  (0,0) T1grad/edge/dn closed forms, T2 factorisation: [True, True, True, True]
+  (0,1) T1grad/edge/dn closed forms, T2 factorisation: [True, True, True, True]
+  (1,1) T1grad/edge/dn closed forms, T2 factorisation: [True, True, True, True]
+  P_W = [[Fraction(0, 1), Fraction(-1, 3780)], [Fraction(-1, 2520), Fraction(0, 1)]]  Ker_T pairings all 0: True
+shape 1/2 3/4 2/3 1/5 GRAM/PAIRING OK
+  (0,0) T1grad/edge/dn closed forms, T2 factorisation: [True, True, True, True]
+  (0,1) T1grad/edge/dn closed forms, T2 factorisation: [True, True, True, True]
+  (1,1) T1grad/edge/dn closed forms, T2 factorisation: [True, True, True, True]
+  P_W = [[Fraction(0, 1), Fraction(-1, 3780)], [Fraction(-1, 2520), Fraction(0, 1)]]  Ker_T pairings all 0: True
+shape -1/5 7/4 3/2 -1/7 GRAM/PAIRING OK
+  (0,0) T1grad/edge/dn closed forms, T2 factorisation: [True, True, True, True]
+  (0,1) T1grad/edge/dn closed forms, T2 factorisation: [True, True, True, True]
+  (1,1) T1grad/edge/dn closed forms, T2 factorisation: [True, True, True, True]
+  P_W = [[Fraction(0, 1), Fraction(-1, 3780)], [Fraction(-1, 2520), Fraction(0, 1)]]  Ker_T pairings all 0: True
+shape 1 0 5/4 5/9 GRAM/PAIRING OK

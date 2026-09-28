@@ -1,0 +1,9 @@
+family I: d_z / min(1, phi/sqrt(eps)) in [0.3382, 1.0]  (a=1, h~1, rays in [0.5,1], phi in [1e-5,0.08], eps in [phi^4, 0.5])
+family II: d_z / min(1, phi/sqrt(eps)) in [0.3153, 1.0]  (a=1, h~1, rays in [0.5,1], phi in [1e-5,0.08], eps in [phi^4, 0.5])
+II phi=1e-3 eps=0.001: d=0.02237  phi/sqrt(eps)=0.03162  min(1,phi/eps)=1
+II phi=1e-3 eps=3.16e-5: d=0.1248  phi/sqrt(eps)=0.1778  min(1,phi/eps)=1
+II phi=1e-3 eps=1.0e-6: d=0.5774  phi/sqrt(eps)=1.0  min(1,phi/eps)=1
+II |x2/x1| = 0.310344323205  formula 0.310344323205  |x4/x1+1| = 0.00403486
+I |-x4/x1-1| = 0.306264250094  formula 0.306264250094  |x2/x1| = 4.52126e-5
+II |x2/x1| = 203.269061563  formula 203.269061563  |x4/x1+1| = 0.0329282
+I |-x4/x1-1| = 203.236803243  formula 203.236803243  |x2/x1| = 0.000669846

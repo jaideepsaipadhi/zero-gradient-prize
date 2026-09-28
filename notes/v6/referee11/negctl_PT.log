@@ -1,0 +1,4 @@
+shape 1/2,3/4,2/3,1/5 v_1:  {'nonzero': True, 'cont [z,c]': True, '0 on [a,c]': True, '0 on [c,b]': True, '0 on [z,b]': True, 'div=0 on T2': True, 'PB T1: (div v,r)=<v.n,r>_e, 10 r': False, 'PB T1: (v,grad r)=0': False, 'Green consistency': True, 'PB T2 moments': True, '(M) int_e v = 0': True, '(D) int_e d_n v = 0': True, 'trace': True, 'flux e = 0': True}
+shape 1/2,3/4,2/3,1/5 v_2:  {'nonzero': True, 'cont [z,c]': True, '0 on [a,c]': True, '0 on [c,b]': True, '0 on [z,b]': True, 'div=0 on T2': True, 'PB T1: (div v,r)=<v.n,r>_e, 10 r': False, 'PB T1: (v,grad r)=0': False, 'Green consistency': True, 'PB T2 moments': True, '(M) int_e v = 0': True, '(D) int_e d_n v = 0': True, 'trace': True, 'flux e = 0': True}
+mA,mC,dA,dC = 5/4 0 125/8 -125/16  s1 = 5/4
+FAILURE

@@ -1,0 +1,24 @@
+MERGE MANIFEST (v6) — which result goes into which paper. Every item: read its REPORT and ALL referee files listed; apply referee fixes.
+
+PAPER A: joint letter (letter/, AML, 6 pp) — Cavalcante & Padhi (alphabetical). Scope unchanged: printed method + failure for nonconstant wall pressure, CNS* rate h_G^{3/2}+h^k, sharpness, penalty. Updates:
+ - Sharpness now UNCONDITIONAL for all k>=4: (M3) proved (notes/v4/m3_proof.tex, notes/v6/m3/REPORT.md, referee3 fix: certificate params separate from (S)).
+ - One honest sentence on strong imposition: under (M2) strong no-slip also attains h_G^{3/2} (notes/v6/strong, referee1); zero-gradient lock needs 2-triangle wall vertices. Point to long paper.
+ - Cite Chen–Liu arXiv 2609.30008 (isoparametric Piola SV, optimal h^k in 3D) as the curved-element alternative; Neilan–Otus (Theorem 6.1, not Cor 6.2).
+ - Cavalcante bib: author "Claudemir de Souza Cavalcante"; mu*=60.3383 confirmed; Clough–Tocher claim NOT visible in Zenodo record description -> mark %% VERIFY against his PDF (do not delete).
+ - Penalty necessity: remark pb:limits conjecture false (notes/v6/penalty, referee1: refutes c(Theta0) at min angle 11.3deg only); explicit constant (notes/v6/consts, referee11).
+ - Leave %% placeholders for Cavalcante's contributions (constant-pressure result, CT k>=2) and CRediT statement; DO NOT invent his results.
+
+PAPER B: long 2D paper (paper/). Remove 3D (section 12 and 3D mentions -> pointer to Paper C). Add/revise:
+ - (M3) unconditional k>=4 [m3, referee3].
+ - Strong imposition section: S1,S2,S3,S3',L1-L3,P1 [strong, referee1]; locked vertices Theorem L, sharp stability, S4, pressure filter [strong2, referee4: cite Gräßle–Bohne–Sauter, Park, Bohne–Gräßle–Sauter as prior art for stability/filter]; nearly singular stars N1,N2,N3-lower, family I upper modulo (L_N), family II numerical only [nearsing, referee11 GAP: restrict claims].
+ - Pressure-robustness section: T1 splitting (fix: E_M depends on F/nu), GS not robust, CNS* defect only eta, CNS*-R exactly robust [robust, referee2]; energy lower bounds (N_k) [robust2, referee5]; H1 lower bound all gamma via pressure-blind fields [robust3, referee7]; dichotomy/K_T, Theorem R-final [robust4, robust5, robust6, referee9, referee11] — as a theorem + remark with clear proved/conjectural split. Cite JLMNR 2017, Neilan–Otus, Liu–Neilan–Otus, Chen–Liu.
+ - L2 section: L1 (h_G^2+h h_G^{3/2}+h^{k+1}), L3 sharp (fix gamma hypothesis), L2 GS Theta(h/mu) [l2, referee2]; graded-mesh improvement modulo (LF),(IE) [misc (g), referee10].
+ - Uniform-in-mu leak limit: [unifmu, unifmu2, referee4, referee7 fixes: constant /4, gamma^{-1/2}, all mu except finite set, (M2) at every vertex].
+ - Penalty section: pb:limits conjecture false + Theorem A with explicit kappa0 table [penalty, consts, referee1, referee11].
+ - NS: nonsingular branch (L),(L*) [ns, referee3]; explicit h0, (L-dagger), NS CNS* drag, uniform Oseen leak [ns2, referee10 fixes].
+ - 07b pressure/drag updates: c_hat=k(k+1) all k; drag qualifier 'as gamma->inf'; torque row; (a),(c) modulo (P); (d),(e) [misc, referee10 list of 5 exact paper changes].
+ - Numerics caveat: mu=100 is ~1.4x the Z_h threshold (50->71, limit ~73) [referee5]; quote limiting constants at mu=300 where available.
+ - Citations: notes/v6/cites/FINDINGS.txt + refs_additions.bib; replace Galdi III.3.4 by Bernardi–Costabel–Dauge–Girault 2016 (Thm 4.6 2D); Galdi III.3.1 correction; Gjerde–Scott (3),(7).
+ - Remove the numerics claim on 'we do not claim three triangles suffice' etc.; update intro and abstract.
+
+PAPER C: new 3D paper (paper3d/). Content: section 12 material (td:main etc.) + 3D sharpness k>=4 [td_sharp, referee6] and k=3 [td_k3, td_k3b, referee8, referee9]; general smooth obstacles Part B with (OB) replacing (G2) [td_sharp B, td_lift, referee8 fix on Examples]; 3D penalty necessity [td_pen, referee6]; (IS3) uniformity Lemma via GN18 Thm 3.1 + Bernardi–Raugel + BCDG16/Chen–Liu Lemma 3.9 [td_pen, lit, cites]; 3D NS corollary [ns2 gap 4, referee10]; 3D numerics [num3d, referee11; state pre-asymptotic honestly; pod script]. Setting summary self-contained, citing Paper B (Zenodo) for 2D proofs. Chen–Liu positioning.

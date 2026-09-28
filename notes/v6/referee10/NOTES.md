@@ -1,0 +1,2 @@
+referee10 scratch (2026-09-28). Checked ns2/REPORT.tex and misc/REPORT.tex by hand; chat_fast.py verifies r_k=2P_k'(1-2y), c_k=k(k+1) exactly for k=4..12 (log chat_fast.log); chat_check.py (slow, integrates directly) k=1..9.
+Key findings: see final report. Numerics for misc (e) (tables.log l.31-55) all have gamma*hG >= 3.66, outside Prop E's gamma*hG<=1 regime; at gamma~30 ratio rises 1.55->2.6 with N.
