@@ -1,0 +1,3 @@
+single-macro direction D = Matrix([[-w_ab/720 + w_za/720, w_ab/720 - w_zb/720]])
+K(e) (a particular representative) = Matrix([[-e1*w_ab/720 + e2*w_ab/360 - e2*w_za/360, e2*(-3*w_ab + 2*w_zb)/720]])
+K matrix: Matrix([[-w_ab/720, w_ab/360 - w_za/360], [0, -w_ab/240 + w_zb/360]])

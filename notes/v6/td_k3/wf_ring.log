@@ -1,0 +1,8 @@
+k=3 m=3 single Gamma     {'nunk': 411, 'rank_div': 287, 'div_rows': 360, 'rank_cons': 6, 'moment_rank': 2}
+k=3 m=4 single Gamma     {'nunk': 546, 'rank_div': 383, 'div_rows': 480, 'rank_cons': 6, 'moment_rank': 2}
+k=3 flat square fan      {'nunk': 546, 'rank_div': 383, 'div_rows': 480, 'rank_cons': 24, 'moment_rank': 2}
+k=3 flat pentagon fan    {'nunk': 681, 'rank_div': 479, 'div_rows': 600, 'rank_cons': 30, 'moment_rank': 2}
+k=4 m=3 single Gamma     {'nunk': 999, 'rank_div': 620, 'div_rows': 720, 'rank_cons': 6, 'moment_rank': 2}
+k=4 m=4 single Gamma     {'nunk': 1329, 'rank_div': 827, 'div_rows': 960, 'rank_cons': 6, 'moment_rank': 2}
+k=4 flat square fan      {'nunk': 1329, 'rank_div': 827, 'div_rows': 960, 'rank_cons': 24, 'moment_rank': 2}
+k=4 flat pentagon fan    {'nunk': 1659, 'rank_div': 1034, 'div_rows': 1200, 'rank_cons': 30, 'moment_rank': 2}

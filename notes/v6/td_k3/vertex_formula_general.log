@@ -1,0 +1,30 @@
+octa fan             equal w d=(1, 0, 0): formula holds (mod D-span, D-rank 0): True
+octa fan             equal w d=(0, 1, 0): formula holds (mod D-span, D-rank 0): True
+octa fan             equal w d=(0, 0, 1): formula holds (mod D-span, D-rank 0): True
+octa fan             generic w d=(1, 0, 0): formula holds (mod D-span, D-rank 3): True
+octa fan             generic w d=(0, 1, 0): formula holds (mod D-span, D-rank 3): True
+octa fan             generic w d=(0, 0, 1): formula holds (mod D-span, D-rank 3): True
+octa off-axis        equal w d=(1, 0, 0): formula holds (mod D-span, D-rank 0): True
+octa off-axis        equal w d=(0, 1, 0): formula holds (mod D-span, D-rank 0): True
+octa off-axis        equal w d=(0, 0, 1): formula holds (mod D-span, D-rank 0): True
+octa off-axis        generic w d=(1, 0, 0): formula holds (mod D-span, D-rank 3): True
+octa off-axis        generic w d=(0, 1, 0): formula holds (mod D-span, D-rank 3): True
+octa off-axis        generic w d=(0, 0, 1): formula holds (mod D-span, D-rank 3): True
+curved random m=6    equal w d=(1, 0, 0): formula holds (mod D-span, D-rank 0): True
+curved random m=6    equal w d=(0, 1, 0): formula holds (mod D-span, D-rank 0): True
+curved random m=6    equal w d=(0, 0, 1): formula holds (mod D-span, D-rank 0): True
+curved random m=6    generic w d=(1, 0, 0): formula holds (mod D-span, D-rank 3): True
+curved random m=6    generic w d=(0, 1, 0): formula holds (mod D-span, D-rank 3): True
+curved random m=6    generic w d=(0, 0, 1): formula holds (mod D-span, D-rank 3): True
+curved random m=6    equal w d=(1, 0, 0): formula holds (mod D-span, D-rank 0): True
+curved random m=6    equal w d=(0, 1, 0): formula holds (mod D-span, D-rank 0): True
+curved random m=6    equal w d=(0, 0, 1): formula holds (mod D-span, D-rank 0): True
+curved random m=6    generic w d=(1, 0, 0): formula holds (mod D-span, D-rank 1): True
+curved random m=6    generic w d=(0, 1, 0): formula holds (mod D-span, D-rank 1): True
+curved random m=6    generic w d=(0, 0, 1): formula holds (mod D-span, D-rank 1): True
+curved random m=6    equal w d=(1, 0, 0): formula holds (mod D-span, D-rank 0): True
+curved random m=6    equal w d=(0, 1, 0): formula holds (mod D-span, D-rank 0): True
+curved random m=6    equal w d=(0, 0, 1): formula holds (mod D-span, D-rank 0): True
+curved random m=6    generic w d=(1, 0, 0): formula holds (mod D-span, D-rank 2): True
+curved random m=6    generic w d=(0, 1, 0): formula holds (mod D-span, D-rank 2): True
+curved random m=6    generic w d=(0, 0, 1): formula holds (mod D-span, D-rank 2): True

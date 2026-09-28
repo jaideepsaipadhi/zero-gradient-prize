@@ -1,0 +1,7 @@
+square, apex on axis (singular edge)          (159, 167, 2) [0.016056 0.016056]
+square, apex off axis                         (159, 167, 2) [0.015861 0.015768]
+kite 4-star straight diagonals, apex (1/5,1/7,1) (159, 167, 2) [0.075929 0.034129]
+4-star non-straight, apex on axis             (159, 167, 2) [0.016743 0.015693]
+pentagon-ish, apex on axis                    (199, 209, 2) [0.021703 0.021108]
+hexagon-ish, apex on axis                     (239, 251, 2) [0.023685 0.023588]
+3-star, apex on axis                          (119, 125, 2) [0.007755 0.007664]

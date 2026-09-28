@@ -1,0 +1,8 @@
+single: trace rank 3
+pair: trace rank on F 4
+ring 3 : trace rank 7
+    rank of g(z): 2
+ring 4 : trace rank 7
+    rank of g(z): 2
+ring 4 : trace rank 7
+    rank of g(z): 2

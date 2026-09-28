@@ -1,0 +1,8 @@
+single ring m=3              reduced: J dim 7, moment rank 2 | FE: joint trace rank 7, moment rank 2  (0.1s)
+single ring m=5 generic q    reduced: J dim 7, moment rank 2 | FE: joint trace rank 7, moment rank 2  (0.2s)
+flat square fan              reduced: J dim 22, moment rank 2 | FE: joint trace rank 22, moment rank 2  (0.2s)
+octa fan                     reduced: J dim 19, moment rank 0 | FE: joint trace rank 19, moment rank 0  (0.2s)
+octa fan off-axis            reduced: J dim 22, moment rank 2 | FE: joint trace rank 22, moment rank 2  (0.3s)
+2 adjacent flat              reduced: J dim 13, moment rank 2 | FE: joint trace rank 13, moment rank 2  (0.2s)
+2 non-adjacent               reduced: J dim 13, moment rank 2 | FE: joint trace rank 13, moment rank 2  (0.3s)
+pentagon fan                 reduced: J dim 26, moment rank 2 | FE: joint trace rank 26, moment rank 2  (0.3s)

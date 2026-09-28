@@ -1,0 +1,10 @@
+L=0 h=1.051 delta=0.5: max tau=0.652  max rho=3.60  max tau(tau+rho)=2.771  min sigma_min(V)/sum c=0.051
+L=0 h=1.051 delta=1.0: max tau=0.652  max rho=1.42  max tau(tau+rho)=1.349  min sigma_min(V)/sum c=0.312
+L=1 h=0.618 delta=0.5: max tau=0.365  max rho=3.33  max tau(tau+rho)=1.347  min sigma_min(V)/sum c=0.236
+L=1 h=0.618 delta=1.0: max tau=0.365  max rho=1.47  max tau(tau+rho)=0.670  min sigma_min(V)/sum c=0.382
+L=2 h=0.325 delta=0.5: max tau=0.189  max rho=3.34  max tau(tau+rho)=0.665  min sigma_min(V)/sum c=0.350
+L=2 h=0.325 delta=1.0: max tau=0.189  max rho=1.57  max tau(tau+rho)=0.332  min sigma_min(V)/sum c=0.675
+L=3 h=0.165 delta=0.5: max tau=0.095  max rho=3.38  max tau(tau+rho)=0.331  min sigma_min(V)/sum c=0.671
+L=3 h=0.165 delta=1.0: max tau=0.095  max rho=1.64  max tau(tau+rho)=0.166  min sigma_min(V)/sum c=0.835
+L=4 h=0.083 delta=0.5: max tau=0.048  max rho=3.42  max tau(tau+rho)=0.165  min sigma_min(V)/sum c=0.835
+L=4 h=0.083 delta=1.0: max tau=0.048  max rho=1.69  max tau(tau+rho)=0.083  min sigma_min(V)/sum c=0.917

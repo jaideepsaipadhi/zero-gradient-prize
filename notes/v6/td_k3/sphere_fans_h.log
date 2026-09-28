@@ -1,0 +1,4 @@
+m=5 H=0.5: h=0.5000: rank 2, kappa_hat=0.0340 | h=0.2500: rank 2, kappa_hat=0.0537 | h=0.1250: rank 2, kappa_hat=0.0647 | h=0.0625: rank 2, kappa_hat=0.0702
+m=5 H=1.0: h=0.5000: rank 2, kappa_hat=0.0204 | h=0.2500: rank 2, kappa_hat=0.0282 | h=0.1250: rank 2, kappa_hat=0.0317 | h=0.0625: rank 2, kappa_hat=0.0332
+m=6 H=0.5: h=0.5000: rank 2, kappa_hat=0.0250 | h=0.2500: rank 2, kappa_hat=0.0381 | h=0.1250: rank 2, kappa_hat=0.0463 | h=0.0625: rank 2, kappa_hat=0.0505
+m=6 H=1.0: h=0.5000: rank 2, kappa_hat=0.0156 | h=0.2500: rank 2, kappa_hat=0.0202 | h=0.1250: rank 2, kappa_hat=0.0225 | h=0.0625: rank 2, kappa_hat=0.0236

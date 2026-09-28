@@ -1,0 +1,6 @@
+U              dim 7  rank E 6  annihilator of E-image: []
+U cap mean0    dim 5  rank E 5  annihilator of E-image: [[1, 1, 1, 1, 0, 0]]
+U0             dim 5  rank E 5  annihilator of E-image: [[-1/3, -1/3, -1/3, -1/3, 1, 1]]
+U0 cap mean0   dim 3  rank E 3  annihilator of E-image: [[1, 1, 1, 1, 0, 0], [1, 0, 1, 0, 1, 0], [-1, 0, -1, 0, 0, 1]]
+U cap mean0 weighted 2x2 minors (factored): {(w_za - w_zb)*(5*w_ab - 2*w_za - 2*w_zb)/518400, -(3*w_ab - 2*w_za)*(w_za - w_zb)/259200, (3*w_ab - 2*w_za)*(w_ab + 2*w_za - 2*w_zb)/1036800, -(3*w_ab - 2*w_zb)*(w_ab + 2*w_za - 2*w_zb)/1036800, -(3*w_ab - 2*w_zb)*(w_za - w_zb)/259200, (3*w_ab - 2*w_zb)*(w_ab + 2*w_za - 2*w_zb)/1036800, -(w_ab + 2*w_za - 2*w_zb)*(5*w_ab - 2*w_za - 2*w_zb)/2073600, (3*w_ab - 2*w_zb)*(w_ab - 2*w_za + 2*w_zb)/1036800, (3*w_ab - 2*w_zb)*(w_za - w_zb)/259200}
+U0 cap mean0 weighted 2x2 minors (factored): {(w_ab - w_za)*(w_za - w_zb)/259200, (w_za - w_zb)**2/129600, -(w_ab - w_za)*(w_za - w_zb)/259200}

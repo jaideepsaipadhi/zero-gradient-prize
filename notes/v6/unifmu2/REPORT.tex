@@ -1,0 +1,263 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Zh}{Z_h}
+\newcommand{\Yh}{Y_h}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\dn}{\partial_n}
+\newcommand{\Ut}{\tilde U}
+\newcommand{\ut}{\tilde u}
+\newcommand{\pt}{\tilde p}
+\newcommand{\pbar}{\bar p}
+\newcommand{\lab}[1]{\textbf{[#1]}}
+\newcommand{\EG}{\mathcal E_\Gamma}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\GS}{\mathrm{GS}}
+\renewcommand{\div}{\operatorname{div}}
+\title{notes/v6/unifmu2: the leak error is $\asymp\hG^{1/2}$ for \emph{every} penalty\\
+\large (closes the open item ``$\varphi(\gamma)>0$ for $\gamma_0\le\gamma<\gamma_1$'' of notes/v6/unifmu)}
+\date{2026-09-28}
+\begin{document}\maketitle
+
+\section*{0. Summary}
+Notation of \texttt{paper/sections/02--07a} and \texttt{notes/v6/unifmu/REPORT.tex}: $\lambda=\mu/h=\gamma/\hG$, $X=\lambda\delta_R$, $W:=X-\Ut$, $d_h=\norm{\nabla W}_{\Oh}/\norm{\nabla U}_\Omega$, $\Yh=\Zh\cap V_O$, $G=\norm{p-\pbar}_{L^2(\Gamma)}$.
+
+\begin{enumerate}[label=(\alph*)]
+\item \lab{PROVED} (Theorem~\ref{thm:main}) Under (M0)--(M2), (D), $k\ge4$: for \emph{every} $\mu>0$ for which $\delta_R$ exists (in particular every $\gamma\ge\gamma_0$, and also non-coercive penalties),
+\[
+\norm{\nabla(X-\Ut)}_{\Oh}\ \ge\ c_\flat\,G\,\hG^{1/2}-C\hG^{3/2},\qquad c_\flat=\frac{\kappa_1c_0^{1/2}}{\sqrt2\,\Lambda_0},
+\]
+with $\kappa_1>0$ depending only on (M0) and $\Lambda_0=2+C_{PT}C_I$ the constant of Corollary~\texttt{lb:abstract}. \emph{Neither constant depends on $\gamma$, $\mu$, $h$ or $\rho$.} So $c(\gamma)$ can be taken independent of $\gamma$; no $\gamma_1$ is needed.
+\item \lab{PROVED} (Corollary~\ref{cor:two}) With Theorem~\texttt{thm:up} of unifmu: $c\,\hG^{1/2}\le d_h\le C(\hG^{1/2}+E^0_U)$ uniformly in $\gamma\in[\gamma_0,\infty]$. The \emph{energy} capture fraction $d_h(\gamma)/d_h(\infty)$ is bounded below by a positive constant independent of $\gamma$ and $h$.
+\item \lab{PROVED} (Corollary~\ref{cor:gen}) For general data, $\norm{\nabla(\frac\mu h(\ut-u_h)-\Ut)}\ge c_\flat G\hG^{1/2}-C(1+\gamma)\hG^{3/2}$; effective when $\gamma\hG$ is small.
+\item \emph{Mechanism.} The proof does \emph{not} go through the penalty, the projection $\Pi_T$, the comparison field $X^D$ or the lift Lemma~\texttt{rs:lift}. On $\Yh$ the penalty and data terms vanish identically, and $X$ satisfies $a_h(X,v)=\ip{X}{\dn v}$ for every $\mu$. The smooth leak flow violates this by $\ip{\Ut}{\dn v}$: $\Ut$ is normal to the \emph{arc}, so on each chord it has a tangential sawtooth $c_e s\,\tau_e$, $c_e=\pm(p-\pbar)(m_e^\ast)$, and Nitsche's symmetric term pairs it with $\dn v\cdot\tau_e$. This is the mechanism of Theorem~\texttt{lb:thm} (there the second moment of $\ut$, amplitude $\hG^2$), now with the first moment, amplitude $\hG$. The test field needed (odd $\dn v\cdot\tau_e$) exists on \emph{every} mesh for $k\ge4$ in three triangles (Lemma~\ref{lem:field}). Unlike (M3), this needs no numerical hypothesis.
+\item \lab{NUMERICAL} The certificate of Theorem~\ref{thm:main}, evaluated with all remainders on the production meshes ($N=16$--$128$), gives $d_h\ge0.0118$--$0.0141\,\hG^{1/2}$ for every $\mu$. The measured $d_h/\hG^{1/2}$ over $\mu\in[3,10^8]$ never falls below $0.21$.
+\item \lab{NUMERICAL} \emph{Cell problem} (Section~\ref{sec:cell}). The rotationally symmetric version of the problem (regular $N$-gon, identical sectors) reduces exactly to a one-edge Floquet cell with the true polygonal curvature. It reproduces the unifmu capture fractions (pairing $\varphi_P(30,300,3000)=0.47,0.89,0.99$ for aspect~1 against $0.43,0.86,0.98$ measured), and it is independent of $N$ and of the Fourier mode for $\gamma\ge20$. The coercivity threshold of $N_h$ on $\Zh$, in edge units, is $\gamma_c=21.5,16.0,7.9$ for first-layer aspect $0.75,1,2$. Above $\gamma_c$ the normalised error $A(\gamma)=\norm{\nabla W}/(G\ell^{1/2})$ has a positive minimum on the sampled grid ($0.64$, $0.72$, $0.50$). The energy fraction $\varphi_E=A(\gamma)/A(\infty)$ is not monotone: its minimum sits near $\gamma_c$ ($0.41$, $0.55$, $0.17$), and it grows again below $\gamma_c$.
+\item \lab{NUMERICAL, negative} The \emph{pairing} capture fraction $\varphi_P=\ip W{q_h}/(-\ip\zeta{q_h})$ of unifmu does vanish for some finite penalties. For aspect $1$ it changes sign at $\gamma\approx5$, and for aspect $0.75$ at $\gamma\approx10$, both below $\gamma_c$. For aspect $0.75$ there is also a near-singular resonance at $\gamma\approx2$--$3$. So the suggested route through the cubic test trace $q_h$ cannot give a bound uniform down to arbitrary penalties. Within the coercive range $\varphi_P>0$ in every case computed; this is not proved. The energy statement (a) is the robust one.
+\end{enumerate}
+
+\section{The identity on $\Yh$}
+\begin{lemma}[\lab{PROVED}]\label{lem:id}
+For every $\mu>0$ for which $\delta_R$ exists and every $v\in\Yh$,
+\[
+a_h(W,v)-\ip{W}{\dn v}=\ip{\Ut}{\dn v}-(F_U,v),\qquad F_U=-\Delta\Ut+\nabla\tilde P .
+\]
+\end{lemma}
+\begin{proof}
+$N_h(\delta_R,v)=\Rc(v)=-\ip{\pt-\pbar}{v\cdot n}=0$ for $v\in\Yh$ ($v=0$ on $\Gh$), and $N_h(\delta_R,v)=a_h(\delta_R,v)-\ip{\delta_R}{\dn v}$ there. So $a_h(X,v)=\ip X{\dn v}$, whatever $\mu$ is. Green's formula on $\Oh$ ($\div\Ut=0$ so $\div D(\Ut)=\Delta\Ut$; $v=0$ on $\partial\Oh$; $\div v=0$) gives $a_h(\Ut,v)=(F_U,v)$. Subtract.
+\end{proof}
+Neither $\lambda$ nor the data $g$ appears. This is Lemma~\texttt{lb:identity} applied to $\delta_R$ and compared with $\Ut$ instead of $\ut$.
+
+\section{The sawtooth of the leak flow on the chords}
+\begin{lemma}[\lab{PROVED}]\label{lem:exp}
+On $e\in\EG$, with $s$ the arclength from the midpoint and $\tau_e$ the counterclockwise tangent,
+\[
+\Ut\cdot\tau_e=c_e\,s+E_e(s),\qquad c_e=\epsilon\,(p-\pbar)(m_e^\ast),\qquad |E_e|\le C_E\hG^2,
+\]
+with a fixed sign $\epsilon$ and $C_E$ depending on $\norm{p-\pbar}_{W^{1,\infty}(\Gamma)}$ and $\norm{\nabla\Ut}_{L^\infty}$ near $\Gamma$. Moreover $\sum_ec_e^2|e|=G^2+O(\hG)$.
+\end{lemma}
+\begin{proof}
+$|x-x^\ast|\le\hG^2/4$ (Lemma~\texttt{lem:chords}), so $\Ut(x)=\Ut(x^\ast)+O(\hG^2)=(p-\pbar)(x^\ast)e_r(x^\ast)+O(\hG^2)$. The angle between $e_r(x^\ast)$ and the chord normal is $\arctan(s/\rho_e)$, $\rho_e=(1-|e|^2/4)^{1/2}$, so $e_r(x^\ast)\cdot\tau_e=\epsilon s/|x|=\epsilon s(1+O(\hG^2))$. Finally $(p-\pbar)(x^\ast)=(p-\pbar)(m_e^\ast)+O(|s|)$. The Riemann sum is a midpoint rule; the arc and chord lengths differ by $O(\hG^3)$.
+\end{proof}
+Numerically $\max_e\norm{E_e}_\infty/\hG^2=0.27$--$0.31$ (Table~\ref{tab:cert}).
+
+\section{A three-triangle test field with odd normal derivative}
+Let $e=[x_0,x_1]\in\EG$ and $T_e=[x_0,x_1,z]$ its triangle. Let $T_0'=[x_0,z,y_0]$ and $T_1'=[x_1,z,y_1]$ be the triangles across $[x_0,z]$ and $[x_1,z]$. Let $\lambda_0,\lambda_1,\lambda_2$ be the barycentric coordinates of $T_e$ (vertices $x_0,x_1,z$), and $\mu^{(i)}_{\cdot}$ those of $T_i'$.
+
+\emph{Combinatorics.} $z$ is not on $\Gh$ (a triangle with three vertices of the convex polygon $P_h$ lies in $P_h$). By (M1$'$), which follows from (M2), $x_0$ has at least three triangles. So $T_0'$ is a middle triangle of the fan at $x_0$, and $y_0$ is interior: a vertex of $\Gh$ other than $x_0$'s two neighbours cannot be joined to $x_0$ inside $\Oh$, and $y_0=x_{-1}$ would make $T_0'=T_{e_{-1}}$, so that the fan at $x_0$ would consist of $T_{e_{-1}}$ and $T_e$ only. Hence $T_0'$ and $T_1'$ meet $\Gh$ only in $x_0$, resp.\ $x_1$, contain no edge of $\Gh$, and are distinct.
+
+\begin{lemma}[\lab{PROVED}, $k\ge4$, every mesh with (M0), (M1$'$)]\label{lem:field}
+Define $\psi_e$ by
+\[
+\psi_e=\lambda_0\lambda_1\lambda_2^2(\lambda_1-\lambda_0)\ \text{on }T_e,\qquad
+\psi_e=\alpha_0\,(\mu^{(0)}_{x_0})^2(\mu^{(0)}_z)^2\mu^{(0)}_{y_0}\ \text{on }T_0',\qquad
+\psi_e=\alpha_1\,(\mu^{(1)}_{x_1})^2(\mu^{(1)}_z)^2\mu^{(1)}_{y_1}\ \text{on }T_1',
+\]
+and $\psi_e=0$ elsewhere, where $\alpha_0\nabla\mu^{(0)}_{y_0}=-\nabla\lambda_1$ and $\alpha_1\nabla\mu^{(1)}_{y_1}=\nabla\lambda_0$ (both pairs of gradients are normal to the common edge). Then $\psi_e$ is $C^1$ and piecewise $P_5$. Moreover $v_e:=\operatorname{curl}\psi_e\in\Yh$, and on $e$
+\[
+\dn v_e\cdot n_e=0,\qquad \dn v_e\cdot\tau_e=\pm\frac{2}{H_e^2}\,\lambda_0\lambda_1(\lambda_1-\lambda_0)\quad(\text{odd about }m_e),\qquad
+\int_es\,\dn v_e\cdot\tau_e\,ds=\pm\frac{|e|^2}{30H_e^2},
+\]
+with $H_e$ the height of $T_e$ over $e$. In particular $v_e\in Y_h^1$ (zero mean of $\dn v_e$ on every chord). There is $\kappa_1>0$, depending only on the minimum angle in (M0), with
+\[
+m_e:=\Bigl|\int_es\,\dn v_e\cdot\tau_e\,ds\Bigr|\ \ge\ \kappa_1\,|e|\,\norm{\nabla v_e}_{\Oh}.
+\]
+\end{lemma}
+\begin{proof}
+\emph{$C^1$.} On $T_e$, $\psi_e=\lambda_0\lambda_1^2\lambda_2^2-\lambda_0^2\lambda_1\lambda_2^2$. Each term is the Argyris edge-midpoint bubble $\lambda_a^2\lambda_b^2\lambda_E$ of one edge $E=\{\lambda_E=0\}$. It vanishes to second order on the other two edges and to third order at all three vertices; on $E$ it vanishes with its tangential derivative, and its normal derivative is $\lambda_a^2\lambda_b^2\dn\lambda_E$. The first term belongs to $E=[x_1,z]$ ($\lambda_0=0$), the second to $[x_0,z]$ ($\lambda_1=0$), and both vanish to second order on $e$ ($\lambda_2=0$). The pieces on $T_i'$ are the bubbles of the same edges from the other side. On the common edge the 1D barycentrics coincide, so the choice of $\alpha_i$ makes the normal derivatives agree. All other edges of the three triangles carry second-order zeros from both sides, and every vertex a third-order zero. So $\psi_e\in C^1$, and $v_e$ is continuous, piecewise $P_4$ ($\subset P_k$) and divergence-free.
+
+\emph{Traces.} $\psi_e$ and $\nabla\psi_e$ vanish on $e$ and at $x_0,x_1$. These are the only points of $\Gh$ in the support. The support also stays away from $\partial R$ for $h\le h_\ast$. So $v_e\in\Yh$.
+
+\emph{Normal derivative.} On $e$, $\nabla\psi_e\equiv0$, so $\dn\nabla\psi_e=(\partial_{nn}\psi_e)n_e$ and $\dn v_e=\partial_{nn}\psi_e\,Jn_e=\pm\partial_{nn}\psi_e\,\tau_e$ ($J$ the rotation in $\operatorname{curl}$). Also $\partial_{nn}(f\lambda_2^2)|_{\lambda_2=0}=2f|\nabla\lambda_2|^2=2f/H_e^2$. With $\sigma=2s/|e|$: $\lambda_0\lambda_1=(1-\sigma^2)/4$ and $\lambda_1-\lambda_0=\sigma$, so $\int_es\lambda_0\lambda_1(\lambda_1-\lambda_0)ds=\frac{|e|^2}{16}\int_{-1}^1\sigma^2(1-\sigma^2)d\sigma=\frac{|e|^2}{60}$.
+
+\emph{$\kappa_1$.} $\norm{\nabla v_e}=\norm{D^2\psi_e}_{L^2(T_e\cup T_0'\cup T_1')}$. The ratio $m_e/(|e|\norm{\nabla v_e})$ is similarity-invariant (in 2D $\norm{\nabla\cdot}$ is scale-invariant and $m_e$ scales like length). It is a continuous function of the five vertex positions (the $\alpha_i$ are ratios of heights), and it is positive. The configurations allowed by the minimum-angle condition, normalised by $|e|=1$, form a compact set.
+\end{proof}
+Numerically $\min_e m_e/(|e|\norm{\nabla v_e})=0.0199,0.0170,0.0155,0.0141,0.0134,0.0123$ for $N=16,24,32,48,64,128$; the mean is $0.063$--$0.066$ (Table~\ref{tab:cert}). All structural claims were checked to $10^{-13}$.
+
+\begin{remark}
+The field is useless for (M3) of Section~\texttt{lb:sec}: its $\dn v\cdot\tau_e$ is odd, so its second moment vanishes. This agrees with Remark~\texttt{lb:k4} (no $Y_h^1$ field in the two triangles of one first-layer quadrilateral; this one uses the fan neighbours $T_0',T_1'$). Conversely, the star fields of (M3) are not needed here.
+\end{remark}
+
+\section{The lower bound}
+\begin{theorem}[\lab{PROVED}]\label{thm:main}
+Assume (M0)--(M2), (D), $k\ge4$, $G>0$. Let $\mu>0$ be such that $\delta_R$ exists; this holds for every $\gamma\ge\gamma_0$. Then
+\[
+\norm{\nabla(X-\Ut)}_{\Oh}\ \ge\ c_\flat\,G\,\hG^{1/2}-C\hG^{3/2},\qquad c_\flat:=\frac{\kappa_1\,c_0^{1/2}}{\sqrt2\,\Lambda_0},\quad \Lambda_0=2+C_{PT}C_I .
+\]
+$c_\flat$ depends only on (M0)--(M2). $C$ depends on $C_E$, $\norm{p-\pbar}_{W^{1,\infty}}$, $\norm{F_U}_\infty$, $G^{-1}$ and (M0). Neither depends on $\mu,\gamma,h,\rho$. Consequently $d_h\ge(c_\flat G/\norm{\nabla U})\hG^{1/2}-C\hG^{3/2}$.
+\end{theorem}
+\begin{proof}
+Normalise $\norm{\nabla v_e}=1$ and fix the sign of $v_e$ so that $\int_es\,\dn v_e\cdot\tau_e=m_e\ge\kappa_1|e|$. Put $v:=\sum_ec_ev_e\in Y_h^1$.
+
+\emph{Overlap.} $T_e$ belongs only to the patch of $e$. A triangle meeting $\Gh$ in a single vertex $x$ is at most the $T_0'$ of the edge after $x$ and the $T_1'$ of the edge before. So every triangle lies in at most $2$ patches, and $\norm{\nabla v}^2\le2\sum_ec_e^2\le\frac{2}{c_0\hG}\Sigma$, where $\Sigma:=\sum_ec_e^2|e|$. On $e$ only $v_e$ is nonzero in $T_e$, so $\dn v|_e=c_e\dn v_e|_e$.
+
+\emph{Numerator.} By Lemma~\ref{lem:exp} and $\dn v\cdot n_e=0$ (Lemma~\texttt{lb:normal}),
+\[
+\ip{\Ut}{\dn v}=\sum_ec_e\int_e(c_es+E_e)\,\dn v_e\cdot\tau_e\ \ge\ \kappa_1\Sigma-C_EC_I\hG^2\sum_e|c_e|\ \ge\ \kappa_1\Sigma-C\hG ,
+\]
+using $|\int_eE_e\,\dn v_e\cdot\tau_e|\le C_E\hG^2|e|^{1/2}\norm{\dn v_e}_{L^2(e)}\le C_EC_I\hG^2$ and $\#\EG\le C\hG^{-1}$. Also $|(F_U,v)|\le C\hG^2\norm{\nabla v}$ (Lemma~\texttt{lem:ext}).
+
+\emph{Denominator.} By Lemma~\ref{lem:id}, $|a_h(W,v)|\le2\norm{\nabla W}\norm{\nabla v}$ and Lemma~\texttt{lb:poinc} (valid for $W\in H^1(\Oh)$ and $v\in Y_h^1$),
+\[
+\Lambda_0\norm{\nabla W}\norm{\nabla v}\ \ge\ \ip{\Ut}{\dn v}-|(F_U,v)| .
+\]
+If $\kappa_1\Sigma>C\hG$, divide by the upper bound for $\norm{\nabla v}$:
+\[
+\Lambda_0\norm{\nabla W}\ge(\kappa_1\Sigma-C\hG)\Bigl(\frac{c_0\hG}{2\Sigma}\Bigr)^{1/2}-C\hG^2 .
+\]
+Insert $\Sigma=G^2+O(\hG)$. Otherwise $\hG\ge c\,G^2$, and the claim is trivial after enlarging $C$.
+\end{proof}
+
+\begin{corollary}[\lab{PROVED}]\label{cor:two}
+For all $\gamma\in[\gamma_0,\infty)$, the Dirichlet limit $X^\infty$ included, and $\hG\le h_1(G)$,
+\[
+\tfrac12c_\flat G\,\hG^{1/2}\ \le\ \norm{\nabla(X-\Ut)}\ \le\ C_U(\hG^{1/2}+E^0_U).
+\]
+Hence, when $E^0_U\le\hG^{1/2}$, $d_h(\gamma)/d_h(\infty)\ge c_\flat G/(4C_U)$ uniformly in $\gamma$ and $h$. The rate of the leak in $H^1$ is exactly $1/2$ for every penalty, and the threshold $\gamma_1$ of unifmu Theorem~\texttt{thm:low} is not needed.
+\end{corollary}
+\begin{proof}
+Theorem~\ref{thm:main} and unifmu Theorem~\texttt{thm:up}. $X^\infty$ satisfies the same identity on $\Yh$, so Theorem~\ref{thm:main} applies to it too.
+\end{proof}
+
+\begin{corollary}[General data, \lab{PROVED}]\label{cor:gen}
+For $\GS$ with general data, $\gamma\ge\gamma_0$ and $e_u=\ut-u_h$,
+\[
+\Bigl\|\nabla\Bigl(\frac\mu he_u-\Ut\Bigr)\Bigr\|\ \ge\ c_\flat G\hG^{1/2}-C(1+\gamma)\hG^{3/2}.
+\]
+\end{corollary}
+\begin{proof}
+Lemma~\texttt{lb:identity} gives $a_h(e_u,v)-\ip{e_u}{\dn v}=-\ip{\ut}{\dn v}-(F,v)$ on $\Yh$. Multiply by $\mu/h$ and subtract $a_h(\Ut,v)=(F_U,v)$. The identity of Lemma~\ref{lem:id} acquires the extra right-hand side $-\frac\mu h(\ip{\ut}{\dn v}+(F,v))$. For the $v$ above:
+\begin{itemize}
+\item $\ut\cdot\tau_e=d(s)\cos\angle(\tau(x^\ast),\tau_e)\,W(x^\ast)+O(\hG^4)$ with $d$ and the cosine even in $s$ (Lemma~\texttt{lb:expand}). Its odd part is $O(\hG^3)$, and $\dn v_e\cdot\tau_e$ is exactly odd. So $|\ip{\ut}{\dn v}|\le C\hG^3\sum|c_e|\le C\hG^2$.
+\item $F$ is bounded and supported in the strip of width $\le\hG^2/4$ along $\Gh$, where $|v|\le\hG^2\norm{\nabla v}_{L^\infty}$. This gives $|(F,v)|\le C\hG^3$.
+\end{itemize}
+Times $\mu/h=\gamma/\hG$, the numerator of the proof loses at most $C\gamma\hG$.
+\end{proof}
+
+\begin{remark}[What was open, and why the suggested route is not the right one]\label{rem:route}
+unifmu proved $d_h\ge c\hG^{1/2}$ only for $\gamma\ge\gamma_1$, through the exact pairing $\ip W{q_h}=\ip D{q_h}-\ip\zeta{q_h}$, and conjectured $\varphi(\gamma)>0$ below $\gamma_1$. Two findings:
+\begin{enumerate}[label=(\roman*)]
+\item The route through $q_h$ can only give $\varphi_P>0$, and $\varphi_P$ does vanish at finite penalties (Section~\ref{sec:cell}; below the coercivity threshold). A proof along that route would have to use coercivity quantitatively, i.e.\ it would be a $\gamma$-dependent perturbation argument around the Dirichlet limit, which is what unifmu already has.
+\item Testing with fields that \emph{vanish} on $\Gh$ removes $\lambda$ from the equation altogether (Lemma~\ref{lem:id}). The lower bound is then carried by Nitsche's symmetric term, not by the penalty. The $\hG^{1/2}$ error for any $\mu$ reflects the fact that a discrete velocity that is Nitsche-consistent on $\Yh$ cannot follow the tangential sawtooth $c_es\tau_e$ that the (arc-normal) leak flow has on every chord. This is the same statement as Remark (method-independence) after Theorem~\texttt{lb:thm}, one order lower.
+\end{enumerate}
+What is \emph{not} proved: that $d_h/\hG^{1/2}$ converges (to $\varphi(\gamma)a_\infty$) on a given mesh family, and that $\varphi_P>0$ for every $\gamma\ge\gamma_0$.
+\end{remark}
+
+\section{Numerics \lab{NUMERICAL}}
+\subsection{Certificate on the production meshes}
+Script \texttt{lb\_patch.py} (reuses \texttt{code/svn.py}, \texttt{h1\_limit.py}, \texttt{strong\_bc.py}; test P, $L=2.5$). It builds $v_e$ exactly (Lagrange interpolation is exact for $P_4$) and checks the claims of Lemma~\ref{lem:field}. It evaluates the fully explicit form of the proof's chain,
+\[
+\norm{\nabla W}\ \ge\ \mathrm{cert}:=\frac{\ip{\Ut}{\dn v}-|a_h(\Ut,v)|}{\norm{Dv}+\bigl(\sum_eC_{PT}(T_e)^2|e|\norm{\dn v}_{L^2(e)}^2\bigr)^{1/2}} .
+\]
+Here $|a_h(W,v)|\le\norm{\nabla W}\norm{Dv}$, and $C_{PT}(T)^2=(2d^2/\pi^2+2d^2/\pi)/(H|e|)$ is explicit: take the divergence of $w^2(x-x_{\rm opp})$ on $T$ and apply Payne--Weinberger on convex $T$ ($d=\operatorname{diam}T$). Every term is included (no $O(\hG^{3/2})$ remainder is dropped), so cert is a lower bound for every $\mu$ up to floating point and quadrature.
+
+\begin{table}[h]\centering\small
+\caption{Test fields and certificate (no solves).}\label{tab:cert}
+\begin{tabular}{rccccccc}
+\toprule
+$N$ & $\hG$ & structural defects & $\kappa_{\min}$ & $\kappa_{\rm mean}$ & $\max\norm{E_e}_\infty/\hG^2$ & cert$/\hG^{1/2}$ & cert$/(\norm{\nabla U}\hG^{1/2})$\\
+\midrule
+16 & .4595 & $\le1.5\cdot10^{-14}$ & .0199 & .0575 & .313 & .0539 & .0118\\
+24 & .3204 & $\le4.7\cdot10^{-14}$ & .0170 & .0611 & .295 & .0585 & .0128\\
+32 & .2444 & $\le4.4\cdot10^{-14}$ & .0155 & .0628 & .287 & .0606 & .0133\\
+48 & .1650 & $\le9.9\cdot10^{-14}$ & .0141 & .0644 & .279 & .0626 & .0137\\
+64 & .1243 & $\le1.6\cdot10^{-13}$ & .0134 & .0652 & .275 & .0634 & .0139\\
+128 & .0624 & $\le2.1\cdot10^{-13}$ & .0123 & .0662 & .275 & .0647 & .0141\\
+\bottomrule
+\end{tabular}\\[2pt]
+(Structural defects: $C^1$/continuity mismatch, $\norm{\div v_e}$, $\max|v_e|$ on $\Gh$, relative edge mean of $\dn v_e$, relative $\dn v_e\cdot n_e$. The Riemann sum $\Sigma=2.567,\dots,2.746\to G^2=2.749$.)
+\end{table}
+
+\begin{table}[h]\centering\small
+\caption{GS solves: $\norm{\nabla W}/\hG^{1/2}$ (top) and cert$/\norm{\nabla W}$ (bottom). $\gamma=\mu\hG/h\approx0.30\mu$; the measured global coercivity threshold is $\gamma^\ast\approx18$--$21$ (Section~\texttt{sec:penalty}), so the columns $\mu\le30$ are \emph{not} coercive.}\label{tab:solve}
+\begin{tabular}{r|ccccccc}
+\toprule
+$N\backslash\mu$ & 3 & 10 & 30 & 100 & $10^3$ & $10^4$ & $10^8$\\
+\midrule
+16 & 5.76 & 4.43 & 2.33 & 1.30 & 2.15 & 3.64 & 4.83\\
+24 & 9.79 & 4.13 & 2.39 & 1.19 & 2.09 & 3.22 & 4.01\\
+32 & -- & 5.44 & 2.06 & 1.15 & 2.06 & 2.98 & 3.56\\
+48 & -- & 4.70 & 1.83 & 1.10 & 2.02 & 2.76 & 3.12\\
+\midrule
+16 & .009 & .012 & .023 & .042 & .025 & .015 & .011\\
+48 & -- & .013 & .034 & .057 & .031 & .023 & .020\\
+\bottomrule
+\end{tabular}
+\end{table}
+In every run the $\Yh$-row residual $(a_h(X,v)-\ip X{\dn v})/\ip{\Ut}{\dn v}$ is $\le2\cdot10^{-10}$ ($\le1.5\cdot10^{-6}$ at $\mu=10^8$, roundoff), and both sides of Lemma~\ref{lem:id} agree to 6 digits. $d_h$ reproduces unifmu/paper to all printed digits. The minimum of $\norm{\nabla W}/\hG^{1/2}$ over $\mu$ is at $\mu\approx100$ ($\gamma\approx30$, $1.5\times$ the threshold). \emph{Below} it the error grows again. The rigorous constant is $4$--$6\%$ of the truth at the minimum.
+
+\subsection{The periodic cell problem}\label{sec:cell}
+Script \texttt{floquet\_cell.py}. The domain is $\Oh$ = (polygon of radius $2.5$) minus (regular $N$-gon), with $N$ identical sectors, polygonal layers $r_{j+1}=r_j(1+a\ell)$ ($\ell=2\sin(\pi/N)$, first-layer aspect $a$), and quads split on the forward diagonal (the pattern of \texttt{svn.make\_mesh}). The data are $p-\pbar=e^{im\theta}$. The discrete GS problem commutes with the rotation $R$ by $2\pi/N$, so the solution satisfies $u(Rx)=e^{2\pi im/N}Ru(x)$. We solve it exactly on \emph{one} sector: one wall edge, quasi-periodic identification of the two rays, complex saddle system, all $10$ pressure moments. This is the 1D-periodic strip cell problem with the exact polygonal curvature (in a flat blow-up, the $O(\hG)$ vertex terms of Lemma~\texttt{lem:canc} are of the same order as the sawtooth and must be kept). $U$ is the exact annulus leak flow ($\Psi=F(r)e^{im\theta}/(im)$, $F\in\operatorname{span}\{r^m,r^{-m},r^{m+2},r^{2-m}\}$). Penalty in edge units: $\lambda=\gamma/\ell$. $A(\gamma):=\norm{\nabla W}/(G\ell^{1/2})$, $\varphi_E=A(\gamma)/A(\infty)$, $\varphi_P$ as in unifmu.
+
+\emph{Coercivity threshold} (\texttt{coerc}; $\sup$ over Floquet phases of the smallest $\gamma$ with $N_h\ge0$ on $\Zh$; $N=128$, six layers): $\gamma_c=21.5$ ($a=0.75$), $16.0$ ($a=1$), $7.9$ ($a=2$); on $V_R$: $22.8,16.7,8.0$. The paper's production meshes have $a\in[0.75,2.04]$ and local edge penalty $\in[\gamma/2,\gamma]$, consistent with the measured global $\gamma^\ast\approx18$--$21$.
+
+\begin{table}[h]\centering\small
+\caption{Cell problem, $m=2$: $A$ / $\varphi_E$ / $\varphi_P$. $a=1$: $N=1024$ (150 layers); $a=0.75,2$: $N=512$.}\label{tab:cell}
+\begin{tabular}{r|ccc|ccc|ccc}
+\toprule
+& \multicolumn{3}{c|}{$a=1$ ($\gamma_c=16$)} & \multicolumn{3}{c|}{$a=0.75$ ($\gamma_c=21.5$)} & \multicolumn{3}{c}{$a=2$ ($\gamma_c=7.9$)}\\
+$\gamma$ & $A$ & $\varphi_E$ & $\varphi_P$ & $A$ & $\varphi_E$ & $\varphi_P$ & $A$ & $\varphi_E$ & $\varphi_P$\\
+\midrule
+1 & 1.604 & 1.021 & $-.486$ & 3.174 & 2.413 & 1.651 & 1.270 & .419 & .154\\
+3 & 1.004 & .639 & $-.159$ & 10.40 & 7.910 & $-6.458$ & .689 & .228 & .136\\
+5 & .832 & .530 & $-.006$ & 1.904 & 1.447 & $-.920$ & .593 & .196 & .141\\
+10 & .683 & .434 & .185 & .891 & .678 & $-.009$ & .521 & .172 & .162\\
+20 & .639 & .407 & .364 & .710 & .539 & .364 & .505 & .167 & .205\\
+30 & .685 & .436 & .467 & .724 & .551 & .513 & .553 & .183 & .245\\
+100 & 1.037 & .660 & .736 & .978 & .744 & .800 & 1.091 & .360 & .442\\
+300 & 1.327 & .845 & .889 & 1.168 & .888 & .923 & 1.881 & .621 & .677\\
+1000 & 1.484 & .944 & .963 & 1.263 & .960 & .975 & 2.553 & .843 & .869\\
+3000 & 1.540 & .980 & .987 & 1.296 & .986 & .992 & 2.848 & .941 & .951\\
+$10^4$ & 1.562 & .994 & .996 & 1.309 & .995 & .997 & 2.970 & .981 & .985\\
+$\infty$ & 1.572 & 1 & 1 & 1.315 & 1 & 1 & 3.028 & 1 & 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Reading.}
+\begin{itemize}
+\item \emph{Locality.} For $\gamma\ge20$, $A$, $\varphi_E$ and $\varphi_P$ agree to $\le0.003$ between $N=256,512,1024$ and between $m=1,2,3$ (\texttt{run\_phi.log}). So it is a cell quantity, and it matches unifmu's mesh-independent $\varphi_h$. Below $\gamma_c$, $A$ depends on $m$ and $N$: the smooth Robin part $O(\hG/\gamma)$ is then no longer negligible against $\hG^{1/2}$.
+\item \emph{Comparison.} unifmu measured $\varphi_h(30,300,3000)\approx0.43,0.86,0.98$ on production meshes. The cell gives $\varphi_P=0.47,0.89,0.99$ ($a=1$), and $0.51,0.92,0.99$ / $0.25,0.68,0.95$ for $a=0.75$ / $2$. The production value is an average over edges of varying aspect and local penalty.
+\item \emph{Above $\gamma_c$.} $A\ge0.64$ ($a=1$), $\ge0.72$ ($a=0.75$), $\ge0.50$ ($a=2$) on the sampled grid. $1-\varphi_P\approx C\gamma^{-0.9}$ at large $\gamma$ (unifmu: $\gamma^{-0.8}$). $\varphi_E$ is minimal near $\gamma_c$ and is not monotone.
+\item \emph{Below $\gamma_c$.} $\varphi_P$ changes sign ($a=1$ at $\gamma\approx5$, $a=0.75$ at $\gamma\approx10$). For $a=0.75$ the operator is nearly singular near $\gamma\approx2$--$3$ ($A=10.4$, sign flip of $\varphi_P$ through a pole). $A$ itself stays large, as Theorem~\ref{thm:main} requires.
+\end{itemize}
+
+\section{Suggested edits (not made)}
+\begin{enumerate}
+\item unifmu Summary (f) and the paragraph ``Robin--Dirichlet crossover'': replace the \lab{CONJECTURE} by Theorem~\ref{thm:main} and Corollary~\ref{cor:two}: $d_h\asymp\hG^{1/2}$ for every $\gamma\ge\gamma_0$, with $\gamma$-independent constants. Keep the existence of $\lim d_h/\hG^{1/2}$ and the positivity of the pairing fraction $\varphi_P$ as \lab{NUMERICAL}, noting that $\varphi_P$ vanishes below coercivity.
+\item Paper, Remark~\texttt{hc:regime} (with the unifmu edits): ``the $H^1$ rate of the leak is exactly $1/2$ for every $\mu\ge\mu_0$ (upper bound: unifmu; lower bound: Nitsche's symmetric term against the chordal sawtooth of the leak flow, Theorem~\ref{thm:main})''. In Section~\texttt{lb:sec}, a sentence can note that the first-moment analogue of (M3) holds on every mesh (Lemma~\ref{lem:field}).
+\item The table's $\mu=100$ column sits at $\approx1.5\gamma^\ast$. The $H^1$ distance is \emph{minimal} there, not monotone in $\mu$ (Table~\ref{tab:solve}, cell Table~\ref{tab:cell}). The ``crossover'' wording of hc:regime should not suggest monotonicity.
+\end{enumerate}
+
+\section{Files}
+\texttt{notes/v6/unifmu2/}: \texttt{lb\_patch.py} (test fields, certificate, identity; \texttt{NOSOLVE=1}, \texttt{MUS=}), \texttt{floquet\_cell.py} (\texttt{coerc N a}, \texttt{phi N a [m]}); logs \texttt{run\_lb\_16\_24.log}, \texttt{run\_lb\_32\_48.log}, \texttt{run\_lb\_geo.log}, \texttt{run\_phi.log}, \texttt{run\_coerc.log}. Commands (each $<1$ min, one core, $<1$\,GB): \texttt{MUS=3,10,30,100,1e3,1e4,1e8 python lb\_patch.py 16 24}; \texttt{MUS=10,30,100,1e3,1e4,1e8 python lb\_patch.py 32 48}; \texttt{NOSOLVE=1 python lb\_patch.py 64 128}; \texttt{python floquet\_cell.py phi 1024 1}; \texttt{python floquet\_cell.py phi 512 \{1,0.75,2\} [m]}; \texttt{python floquet\_cell.py coerc 128 \{0.75,1,2\}}.
+\end{document}

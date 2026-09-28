@@ -1,0 +1,178 @@
+% notes/v6/td_lift/REPORT.tex -- removing the lift assumption (G2) of notes/v6/td_sharp/REPORT.tex, Part B.
+% References B:face, B:graph, B:ins, (T), (Gr) are to notes/v6/td_sharp/REPORT.tex; (M0^3) to
+% paper/sections/12_three_d.tex. Nothing in paper/ or letter/ was changed; nothing committed.
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Th}{\mathcal T_h}
+\newcommand{\FG}{\mathcal F_h^\Gamma}
+\newcommand{\status}[1]{\textbf{[#1]}}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\dist}{dist}
+\title{Removing the lift assumption (G2) in 3D:\\ closest-point projection of inscribed triangulated surfaces}
+\author{subagent report}
+\date{notes/v6/td\_lift, 2026-09-28}
+\begin{document}
+\maketitle
+
+\section*{Summary}
+\begin{center}
+\begin{tabular}{p{0.6\textwidth}p{0.32\textwidth}}
+\toprule
+Statement & Status\\
+\midrule
+(i) $\Gh\subset\{|d|\le C_1\hG^2\}$ from (G1) alone & \status{PROVED} (= Lemma B:face(a))\\
+(ii) on each face, $\pi|_F$ is a diffeomorphism and $|n_F\cdot N|\ge1-C\hG$, from (G1) alone & \status{PROVED} (= B:face(b),(c))\\
+Thm~\ref{thm:orient}: (G1)+(G3)+ the local orientation condition (OR) $\Rightarrow$ (G2), and $\Oh\cap\mathcal T_{r/2}=\{d>\eta_h\circ\pi\}$ & \status{PROVED}\\
+Thm~\ref{thm:mesh}: (M0$^3$) (shape-regular tetrahedral mesh of $\Oh$) + (OB) ``the deep obstacle side is not in $\Oh$'' $\Rightarrow$ (OR), hence (G2) & \status{PROVED}\\
+Ex.~\ref{ex:sliver}: (G1)+(G3)+(OB) with $\Gh$ embedded, $\pi|_{\Gh}$ \emph{not} injective (so a volume hypothesis is necessary) & \status{PROVED} (explicit, sphere)\\
+Ex.~\ref{ex:filled}: (G1)+(G3)+(M0$^3$), $\Gh$ connected and homeomorphic to $\Gamma$, (OB) fails, $\pi|_{\Gh}$ neither injective nor onto (so (OB) or similar is necessary) & \status{PROVED MODULO} a routine shape-regular mesh of a box minus a fixed-shape convex bipyramid\\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{Answer to the question.} (G2) cannot be derived from surface data alone ((G1), embeddedness, manifold, even ``$\Gh\cong\Gamma$''): Examples~\ref{ex:sliver}, \ref{ex:filled}. It \emph{can} be derived from either of two natural hypotheses, and no normal-angle hypothesis between neighbouring faces is needed (it is a conclusion):
+\begin{itemize}
+\item[(OR)] (local, surface-only) for every $F\in\FG$, the outward unit normal $n_F$ of $\Oh$ on $F$ satisfies $n_F\cdot n(\pi(x_F))>0$, $n=-N$ the outward normal of $\Omega$; i.e.\ $\Oh$ lies locally on the $\Omega$-side of each face (``no fold'');
+\item[(M0$^3$)+(OB)] (what the paper already assumes, plus a global triviality) $\Th$ is a conforming shape-regular tetrahedral mesh of $\Oh$ with $\partial\Oh=\Sigma\sqcup\Gh$, and for each $i$ the parallel surface $\Gamma_i^-:=\{y-\frac r2N(y):y\in\Gamma_i\}$ is not contained in $\Oh$ (equivalently, by connectedness, $\Gamma_i^-\cap\Oh=\emptyset$). (OB) holds whenever $\Oh\setminus\mathcal T_{r/4}=\Omega\setminus\mathcal T_{r/4}$, i.e.\ for any mesh that only modifies $\Omega$ near $\Gamma$.
+\end{itemize}
+The mechanism: the 3D shape regularity forces the tetrahedron $T_F$ on each boundary face to reach distance $\ge c\hG\gg C_1\hG^2$ from $\Gamma$ on the $\Oh$-side of $F$; a face with the wrong orientation would therefore connect $\Oh$ to the deep obstacle side. With the orientation fixed, every generic normal line crosses $\Gh$ only from outside to inside, hence at most once; folds and multiply-wound vertex stars would create two crossings; so $\pi|_{\Gh}$ is a proper local homeomorphism with one sheet.
+
+\paragraph{Recommended change to td\_sharp Part B.} Replace (G2) in Assumption B:ins by (OB) (or (OR)); Lemma B:graph then follows from Thm~\ref{thm:mesh} and Cor.~\ref{cor:graph} below, including the formula for $\Oh\cap\mathcal T_{r/2}$ which B:graph used as a \emph{definition}. Note that without (G2), $\Oh$ must be given as the meshed polyhedral domain (with $\partial\Oh=\Sigma\sqcup\Gh$), which is the natural reading of (M0$^3$).
+
+\section{Setting}
+Notation of td\_sharp Part B: $\Gamma=\bigsqcup_{i=1}^m\Gamma_i$ closed connected embedded $C^3$ surfaces, $N$ the unit normal into $\Omega$, $d$ the signed distance (positive in $\Omega$), $\pi$ the closest-point projection, and the tube facts (T): $\Psi(y,s)=y+sN(y)$ is a $C^2$ diffeomorphism $\Gamma\times(-r,r)\to\mathcal T_r$ with $d(\Psi(y,s))=s$, $\pi(\Psi(y,s))=y$; $\mathcal T_r$ is at positive distance from $\Sigma$, and the tubes $\mathcal T_r(\Gamma_i)$ are pairwise disjoint. For $y\in\Gamma$ let $\ell_y:=\{\Psi(y,s):|s|\le r/2\}$ (the normal segment), with bottom end $y^-=\Psi(y,-\frac r2)\in\Gamma_i^-$ and top end $y^+=\Psi(y,\frac r2)$.
+
+\begin{assumption}\label{ass}
+\begin{enumerate}[label=(\alph*)]
+\item (G1) $\Gh$ is a finite union of closed triangles (faces) forming a closed 2-manifold simplicial surface (each edge in exactly two faces); the vertices lie on $\Gamma$; each face has diameter in $[c_0\hG,\hG]$ and minimal angle $\ge\theta_0$. (Connectedness of $\Gh\cap\mathcal T_r(\Gamma_i)$ is \emph{not} assumed; nonemptiness is.)
+\item $\Oh\subset\R^3$ is a bounded open polyhedral set with $\partial\Oh=\Sigma\sqcup\Gh$; each face $F$ of $\Gh$ is a boundary face of a conforming tetrahedral mesh $\Th$ of $\Oh$, so near an interior point of $F$, $\Oh$ lies exactly on one side of $F$. $n_F$ denotes the outward unit normal of $\Oh$ on $F$.
+\item (G3) $\hG\le h_\ast$ small (depending on $\Gamma$, $c_0$, $\theta_0$ and, in Thm~\ref{thm:mesh}, the shape-regularity constant of $\Th$).
+\end{enumerate}
+\end{assumption}
+A face $F$ has its vertices on one $\Gamma_i$ and $\diam F\le\hG<2r$, so $F\subset\mathcal T_r(\Gamma_i)$; write $\Gamma_h^{(i)}:=\Gh\cap\mathcal T_r(\Gamma_i)$ (a union of faces).
+
+\section{Face-level facts (from (G1) alone)}
+\begin{lemma}\label{lem:face}
+Under (G1),(G3) there are $C_1,C_2$ (depending on $\Gamma$, $\theta_0$) such that for every face $F$ and $x\in F$:
+\begin{enumerate}[label=(\roman*)]
+\item $|d(x)|\le C_1(\diam F)^2\le C_1\hG^2$; in particular $\Gh\subset\mathcal T_{r/4}$;
+\item $\min_{\pm}|n_F\mp N(\pi x)|\le C_2\hG$; hence $\sigma_F:=-\operatorname{sign}(n_F\cdot N(\pi x))\in\{\pm1\}$ is well defined and independent of $x\in F$, and $|n_F\cdot N(\pi x)|\ge1-C_2\hG$;
+\item $\pi|_F$ is a $C^2$ diffeomorphism of $F$ onto $\pi(F)$ (extending to a $C^1$ diffeomorphism of a neighbourhood of $F$ in its plane);
+\item if $\ell_y\cap F\ne\emptyset$ then $\ell_y$ meets $F$ in exactly one point, transversally.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(i)--(iii) are Lemma B:face(a)--(c) of td\_sharp (the proof uses only the vertices on $\Gamma$, the diameter bound and $\theta_0$; for (i) not even $\theta_0$). $\sigma_F=+1$ means $n_F\approx n=-N$. (iv) If $x\in\ell_y\cap F$ then $\pi(x)=y$, so $\ell_y$ has direction $N(\pi x)$, which is transversal to the plane of $F$ by (ii); a line meets a transversal plane once.
+\end{proof}
+Folds are \emph{not} excluded by Lemma~\ref{lem:face}: two faces sharing an edge can have $\sigma_F=-\sigma_{F'}$ and project to the same side of the image of the edge (dihedral angle of $\Gh$ equal to $O(\hG)$ instead of $\pi-O(\hG)$). Everything below is about excluding them.
+
+Let $S_1$ be the union of all edges of $\Gh$ and $V:=\Gamma\setminus\pi(S_1)$. $\pi(S_1)$ is a finite union of $C^2$ arcs (Lemma~\ref{lem:face}(iii)), so $V$ is open and dense in $\Gamma$. For $y\in V$, $\ell_y\cap\Gh$ is finite and each point lies in the interior of a face (Lemma~\ref{lem:face}(iv)); let $k(y):=\#(\ell_y\cap\Gh)=\#\bigl(\pi^{-1}(y)\cap\Gh\bigr)$.
+
+\begin{lemma}[Crossing rule]\label{lem:cross}
+Let $y\in V$, $\ell_y\cap\Gh=\{\Psi(y,s_j)\}_{j=1}^k$, $s_1<\dots<s_k$, the $j$-th point lying in the interior of the face $F_j$. On each open interval of $(-\frac r2,\frac r2)\setminus\{s_j\}$ the status ``$\Psi(y,s)\in\Oh$'' is constant, and crossing $s_j$ upwards goes from outside to inside if $\sigma_{F_j}=+1$ and from inside to outside if $\sigma_{F_j}=-1$.
+\end{lemma}
+\begin{proof}
+$\ell_y$ does not meet $\Sigma$ (it lies in $\mathcal T_r$), so the only points of $\partial\Oh$ on $\ell_y$ are the $\Psi(y,s_j)$; between them the status is constant. Near an interior point of $F_j$, $\Oh$ is the open half-space side into which $-n_{F_j}$ points (Assumption~\ref{ass}(b)); $\sigma_{F_j}=+1$ means $-n_{F_j}\cdot N>0$, i.e.\ that side is the upper one ($s$ increasing), and $\ell_y$ crosses $F_j$ transversally.
+\end{proof}
+
+\section{Orientation implies the lift}
+\begin{theorem}\label{thm:orient}
+Assume \ref{ass} and
+\emph{(OR)}: $\sigma_F=+1$ for every face $F$ (i.e.\ $n_F\cdot n(\pi x)>0$ on $F$).
+Then for each $i$, $\pi|_{\Gamma_h^{(i)}}:\Gamma_h^{(i)}\to\Gamma_i$ is a homeomorphism (in particular (G2) holds), piecewise a $C^2$ diffeomorphism, and $n_F\cdot n(\pi x)\ge1-C_2\hG$ for all $x\in F$.
+\end{theorem}
+\begin{proof}
+\emph{Step 1: $k\le1$ on $V$.} By Lemma~\ref{lem:cross} and (OR), every crossing goes from outside to inside. If $k(y)\ge2$, the status just above $s_1$ is ``inside'' and just below $s_2$ is ``outside'', contradicting constancy on $(s_1,s_2)$.
+
+\emph{Step 2: local injectivity at face interiors.} Lemma~\ref{lem:face}(iii).
+
+\emph{Step 3: local injectivity at edge interiors.} Let $x_0$ be an interior point of the edge $E=F\cap F'$ and $\gamma:=\pi(E)$, a $C^2$ arc through $y_0:=\pi(x_0)$. By Lemma~\ref{lem:face}(iii), $\pi$ maps a half-disc neighbourhood of $x_0$ in $F$ (resp.\ $F'$) onto a one-sided neighbourhood of $y_0$ bounded by $\gamma$, and interior points to points off $\gamma$. If both one-sided neighbourhoods lie on the same side of $\gamma$, their intersection contains a nonempty open set $W$; pick $y\in W\cap V$ (dense). Then $y$ has a preimage in the interior of $F$ and one in the interior of $F'$, which are distinct, so $k(y)\ge2$, contradicting Step 1. Hence they lie on opposite sides, and $\pi$ is injective on a neighbourhood of $x_0$ in $F\cup F'$, which is a neighbourhood of $x_0$ in $\Gh$ (manifold condition).
+
+\emph{Step 4: local injectivity at vertices.} Let $v$ be a vertex, $St(v)$ the union of faces containing $v$; its interior (in $\Gh$) is an open neighbourhood of $v$, and all vertices of $St(v)$ other than $v$ lie on its boundary (the link). By Lemma~\ref{lem:face}(iii) and shape regularity, $|\pi(x)-v|\ge\frac12|x-v|$ on $St(v)$ and $\dist(v,\partial St(v))\ge c(\theta_0)c_0\hG$; fix $\varepsilon<\frac14c(\theta_0)c_0\hG$ so small that $B:=\{y\in\Gamma:0<|y-v|<\varepsilon\}$ is a punctured topological disc (connected). Put $A:=\{x\in St(v):0<|\pi(x)-v|<\varepsilon\}\subset\operatorname{int}St(v)\setminus\{v\}$. Points of $A$ are interior points of faces or edges, so $\pi|_A:A\to B$ is a local homeomorphism by Steps 2--3 and invariance of domain. It is proper: for compact $L\subset B$, $\{x\in St(v):\pi(x)\in L\}$ is closed in the compact $St(v)$ and contained in $A$. A proper local homeomorphism onto a connected, locally compact Hausdorff space is a finite covering (Forster, \emph{Lectures on Riemann Surfaces}, Thm~4.22); $A\ne\emptyset$, so it has $w\ge1$ sheets, and for $y\in B\cap V$, $w\le k(y)\le1$. So $w=1$: $\pi$ is injective on $A\cup\{v\}=\{x\in St(v):|\pi(x)-v|<\varepsilon\}$, a neighbourhood of $v$ in $\Gh$ (no point of $A$ maps to $v$).
+
+\emph{Step 5: global.} By Steps 2--4 and invariance of domain, $\pi|_{\Gamma_h^{(i)}}\to\Gamma_i$ is a local homeomorphism; $\Gamma_h^{(i)}$ is compact, so it is proper, its image is open and closed, hence all of $\Gamma_i$ ($\Gamma_i$ connected, $\Gamma_h^{(i)}\ne\emptyset$), and it is a finite covering with a constant number of sheets. That number equals $k(y)\le1$ for $y\in V\cap\Gamma_i$, so it is $1$: $\pi|_{\Gamma_h^{(i)}}$ is a continuous bijection of a compact space onto a Hausdorff space, i.e.\ a homeomorphism. The normal bound is Lemma~\ref{lem:face}(ii) with $\sigma_F=+1$.
+\end{proof}
+
+\begin{corollary}[Lemma B:graph without (G2)]\label{cor:graph}
+Under the assumptions of Theorem~\ref{thm:orient}, with $\eta_h:=d\circ(\pi|_{\Gh})^{-1}$: $\Gh=\{\Psi(y,\eta_h(y))\}$, $\|\eta_h\|_\infty\le C_1\hG^2$, $\|\nabla_\Gamma\eta_h\|_\infty\le C\hG$, and
+\[
+\Oh\cap\mathcal T_{r/2}=\{x\in\mathcal T_{r/2}:\ d(x)>\eta_h(\pi(x))\}.
+\]
+In particular $\Gamma_i^-\cap\Oh=\emptyset$ and $\Gamma_i^+\subset\Oh$, i.e.\ (OB) holds, and $\Oh$ coincides with the domain \emph{defined} in Lemma B:graph.
+\end{corollary}
+\begin{proof}
+The bounds on $\eta_h$ are as in B:graph (now legitimately, since $\pi|_{\Gh}$ is bijective and piecewise $C^2$ by Thm~\ref{thm:orient}). For $y\in V$ the single crossing of $\ell_y$ is at $s=\eta_h(y)$ and goes from outside to inside, so $\Oh\cap\ell_y=\{\Psi(y,s):\eta_h(y)<s\le\frac r2\}$. The two sets in the display are open in $\mathcal T_{r/2}$, disjoint from $\Gh$, have $\Gh$ as their relative boundary, and coincide on the dense set $\bigcup_{y\in V}\ell_y\setminus\Gh$. If $U_1,U_2$ are such sets, $U_1\setminus\overline{U_2}$ is open and misses a dense set, hence empty, so $U_1\subset\overline{U_2}\setminus\Gh=U_2$; by symmetry $U_1=U_2$.
+\end{proof}
+
+\section{The volume mesh implies the orientation}
+\begin{theorem}\label{thm:mesh}
+Assume \ref{ass}, (M0$^3$) ($\Th$ shape regular: $\rho_T\ge c_s\diam T$ for its inradius; faces of $\Gh$ are faces of $\Th$) and
+\emph{(OB)}: for each $i$ there is $y\in\Gamma_i$ with $y^-=\Psi(y,-\frac r2)\notin\Oh$.
+Then (OR) holds; hence all conclusions of Theorem~\ref{thm:orient} and Corollary~\ref{cor:graph}.
+\end{theorem}
+\begin{proof}
+\emph{(OB) is global on each component.} $\Gamma_i^-$ is connected (a copy of $\Gamma_i$) and disjoint from $\partial\Oh=\Sigma\sqcup\Gh$ (as $\Gh\subset\{|d|\le C_1\hG^2\}$ and $\Sigma\cap\mathcal T_r=\emptyset$), so it lies entirely in $\Oh$ or entirely outside; by (OB), $\Gamma_i^-\cap\Oh=\emptyset$.
+
+\emph{Each face sees the far side it faces.} Let $F\subset\Gamma_h^{(i)}$ be a face and $T\in\Th$ the (unique) tetrahedron having $F$ as a face; $T\subset\overline\Oh$, $\operatorname{int}T\subset\Oh$. Let $c_T$ be its incentre, $\rho:=\rho_T$ and $t\in F$ the point where the insphere touches $F$; then $c_T=t-\rho\,n_F$. Shape regularity and $\diam T\ge\diam F\ge c_0\hG$ give $\rho\ge c_sc_0\hG$, and $\diam T\le C\diam F\le C\hG$ (all edges of a shape-regular tetrahedron are comparable), so $c_T\in\mathcal T_{r/4}$. By Lemma~\ref{lem:face}(ii), $n_F=-\sigma_FN(\pi t)+O(\hG)$. With $\nabla d=N\circ\pi$ and $|N(\pi z)-N(\pi t)|\le C|z-t|$,
+\[
+d(c_T)=d(t)-\rho\int_0^1N(\pi(t-\tau\rho n_F))\cdot n_F\,d\tau=\sigma_F\rho+O(\hG^2)+O(\rho\hG),
+\]
+so $\sigma_Fd(c_T)\ge c_sc_0\hG-C\hG^2>C_1\hG^2$ for $\hG\le h_\ast$. Let $y:=\pi(c_T)$, so $c_T=\Psi(y,d(c_T))$. The segment $\{\Psi(y,s)\}$ from $s=d(c_T)$ to $s=\sigma_F\frac r2$ lies in $\mathcal T_r$ (misses $\Sigma$) and has $|s|\ge|d(c_T)|>C_1\hG^2$ (misses $\Gh$), so it misses $\partial\Oh$ and is connected; it starts in $\operatorname{int}T\subset\Oh$. Hence $\Psi(y,\sigma_F\frac r2)\in\Oh$.
+
+\emph{Conclusion.} If $\sigma_F=-1$ for some $F$, then $y^-\in\Oh\cap\Gamma_i^-=\emptyset$, a contradiction. So $\sigma_F=+1$ for all $F$.
+\end{proof}
+\begin{remark}
+(1) Only the tetrahedra \emph{touching} $\Gh$ are used, and only through $\rho_T\ge c\,\diam F$; a local version (with $c_0$ replaced by local quasi-uniformity of $\Gh$ near each face) holds with the same proof, since the band containing the crossings near $F$ has width $C(\text{nearby face diameters})^2$.
+(2) The same proof shows, without (OB): on each $\Gamma_i$ either all $\sigma_F=+1$ (then Theorem~\ref{thm:orient}), or all $\sigma_F=-1$ (mirror statement: a graph with $\Oh$ on the obstacle side), or both signs occur, in which case both $\Gamma_i^\pm\subset\Oh$ and every generic crossing number is even (possibly $0$) --- this is the situation of Example~\ref{ex:filled}.
+(3) The manifold condition in (G1) is not needed for Theorem~\ref{thm:orient}: an edge in $\ge3$ faces has two on the same side of its image (Step 3 then gives $k\ge2$), and a vertex whose star is not a disc gives a covering $A\to B$ with several components; both contradict $k\le1$. (Boundary edges of a tetrahedral mesh lie in an even number of boundary faces.)
+(4) In 2D the same argument (chords for faces, the triangle $T$ on each chord) would replace the cyclic-order hypothesis gd:(G1) of paper Section~10 by (OB); not written out.
+\end{remark}
+
+\section{Necessity: two examples}
+Take $\Omega=R\setminus\overline D$, $D$ the unit ball, $\Gamma=\partial D$, $N(y)=y$, $r=\frac12$.
+
+\begin{example}[(G1) and (OB) do not suffice: an inscribed sliver]\label{ex:sliver}
+Let $P_h$ be any convex polyhedron inscribed in $\Gamma$ satisfying (G1) with $\hG=h$, and let $F$ be a face with $\diam F=h$; its circumradius satisfies $r_F\ge h/2$. On the spherical cap cut off by the plane of $F$ (the cap over $F$, a disc of radius $r_F$ around the axis through the circumcentre $o_F$) choose four points $q_1,\dots,q_4$ whose tangential projections form a square of side $h/3$ centred on the axis; since the half-diagonal $\frac{\sqrt2}{6}h<\frac h2\le r_F$, all $q_j$ lie strictly beyond the plane of $F$. Let $P':=\operatorname{conv}\{q_j\}$ (a tetrahedron of thickness $O(h^2)$) and $\Oh:=R\setminus(P_h\cup P')$, $\Gh:=\partial P_h\sqcup\partial P'$.
+\begin{itemize}
+\item $P'\cap P_h=\emptyset$: $P_h$ lies in the closed half-space $\{x\cdot\nu_F\le d_F\}$ bounded by the plane of $F$, and $P'$ in the open complementary one. $P'\subset D$.
+\item The four faces of $P'$ are triangles on three of the $q_j$: up to $O(h^2)$ relative perturbation, right isosceles with legs $h/3$, so minimal angle $\to45^\circ$ and diameter $\frac{\sqrt2}3h\ge c_0h$ for $c_0\le0.47$. So (G1) holds (two components on $\Gamma_1$), (G3) for $h$ small, and $\Gh$ is embedded.
+\item (OB): $\Gamma^-=\{|x|=\frac34\}\subset P_h$ for $h$ small (since $P_h\supset B(0,1-Ch^2)$), so $\Gamma^-\cap\Oh=\emptyset$.
+\item $\pi|_{\Gh}$ is not injective: every generic $y$ in $\pi(P')$ has three preimages (one on $\partial P_h$, one in a lower and one in an upper face of $P'$). The lower faces of $P'$ have $\sigma=-1$ (the thin lens between $F$ and $P'$ belongs to $\Oh$).
+\end{itemize}
+By Theorem~\ref{thm:mesh}, $\Oh$ admits no shape-regular conforming mesh for small $h$ (the lens has thickness $O(h^2)$ and is bounded by faces of diameter $\ge c_0h$); so a volume hypothesis such as (M0$^3$) is genuinely needed if one wants to avoid assuming (OR) or (G2). Connected versions (a ``pocket'' folded into a single component) were not constructed.
+\end{example}
+
+\begin{example}[(G1)+(M0$^3$) do not suffice: a filled obstacle]\label{ex:filled}
+Let $P'$ be as in Example~\ref{ex:sliver} (now with any four points on $\Gamma$ projecting to a square of side $h/3$), $\Oh:=R\setminus P'$, $\Gh:=\partial P'$. Then $\Gh$ is connected and homeomorphic to $\Gamma$ (a sphere), (G1),(G3) hold, $\partial\Oh=\Sigma\sqcup\Gh$, $\Oh$ is connected; $\pi|_{\Gh}$ covers a patch of diameter $O(h)$ twice and misses the rest of $\Gamma$. (OB) fails ($\Gamma^-\subset\Oh$). (M0$^3$): let $p_\pm:=o\pm hN(o)$, $o$ the centre of the square; $Q:=\operatorname{conv}(P'\cup\{p_+,p_-\})$ is a convex square bipyramid of fixed shape up to $O(h)$, and $Q\setminus\operatorname{int}P'$ is the union of the four tetrahedra $\operatorname{conv}(G,p_\pm)$, $G$ the upper (resp.\ lower) faces of $P'$, each shape regular (base diameter $\approx0.47h$, height $\approx h$). Completing this by a shape-regular conforming mesh of $R\setminus\operatorname{int}Q$ (a box minus a small convex polyhedron with dihedral angles bounded below, scaled by $h$) is routine and gives (M0$^3$) \status{not written out}. So the hypothesis ``each $\Gamma_{h,i}$ is combinatorially (even homeomorphically) a triangulation of $\Gamma_i$'' does not give (G2) either; something tying $\Oh$ to $\Omega$ globally, such as (OB), is necessary.
+\end{example}
+
+\section{Literature}
+The lift/``normal graph'' property is \emph{assumed} in the standard sources rather than derived from mesh conditions:
+\begin{itemize}
+\item Dziuk (1988), Dziuk--Elliott (Acta Numerica 2013): $\Gh$ lies in a tubular neighbourhood and the lift $\Gh\to\Gamma$ is assumed bijective (the vertices-on-$\Gamma$ interpolation setting).
+\item Hildebrandt--Polthier--Wardetzky, \emph{On the convergence of metric and geometric properties of polyhedral surfaces}, Geom.\ Dedicata 123 (2006) 89--112: convergence theorems are stated for polyhedral surfaces that are \emph{normal graphs} over the smooth surface (closest-point projection a homeomorphism), with $\|\eta_h\|_\infty\to0$ and normals converging; the normal-graph property is a hypothesis. \status{VERIFY: recalled; the publisher page could not be fetched (HTTP 429 rate limit).}
+\item Morvan--Thibert, \emph{Approximation of the normal vector field and the area of a smooth surface}, Discrete Comput.\ Geom.\ 32 (2004): ``closely inscribed'' triangulations (vertices on $S$, inside the reach, projection one-to-one) are assumed; the paper bounds normal and area errors in terms of circumradii/angles. \status{VERIFY: recalled; publisher page rate-limited.}
+\item Amenta--Choi--Dey--Leekha, \emph{A simple algorithm for homeomorphic surface reconstruction}, IJCGA 12 (2002) (SoCG 2000): their Theorem~15 proves the closest-point map from the reconstructed manifold triangulation to $S$ is a homeomorphism for $\varepsilon\le0.06$, under small flat triangles and the extra condition that adjacent triangles meet at angle $>\pi/2$ (no sharp folds); injectivity comes from injectivity at the samples plus covering-space theory. \status{Quoted from a machine summary of cs.jhu.edu/\textasciitilde misha/Fall05/Papers/amenta00B.pdf, not verbatim-checked.} Their ``no sharp dihedral angle'' hypothesis is the analogue of (OR); Theorem~\ref{thm:mesh} shows that in the FEM setting it is implied by the volume mesh plus (OB).
+\end{itemize}
+The structure of Theorem~\ref{thm:orient} (local homeomorphism $+$ properness $\Rightarrow$ covering; one-sheetedness from a single fibre) is the same as in Amenta et al.; the new point is that the one-sheet count comes from the in/out crossing rule of $\partial\Oh$ and the orientation from the tetrahedra touching $\Gh$, so no angle condition between neighbouring faces and no ``degree'' hypothesis is needed.
+
+\section{What is not proved / caveats}
+\begin{enumerate}
+\item Example~\ref{ex:filled}: the shape-regular mesh of $R\setminus Q$ is asserted as routine, not constructed.
+\item No connected-$\Gh$ counterexample to ``(G1)+(OB) $\Rightarrow$ (G2)'' was built (Example~\ref{ex:sliver} uses a second component). On the sphere a Z-fold of a single component is impossible for sign reasons (all faces lie inside the ball), so such an example, if it exists, needs a saddle region.
+\item Literature statements flagged VERIFY above.
+\item Invariance of domain and Forster Thm~4.22 (proper local homeomorphism $\Rightarrow$ covering) are used as standard topology.
+\end{enumerate}
+\end{document}

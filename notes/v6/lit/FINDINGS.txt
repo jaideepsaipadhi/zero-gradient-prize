@@ -1,0 +1,94 @@
+LITERATURE RETRIEVAL -- notes/v6/lit  (2026-09-28)
+==================================================
+
+ACCESS LOG
+----------
+Shell (curl via HTTPS_PROXY): CONNECT 403 (egress policy denial, per
+__agentproxy/status recentRelayFailures) for export.arxiv.org, arxiv.org,
+ar5iv.labs.arxiv.org, api.openalex.org, api.semanticscholar.org.
+Not retried (README: policy denials are not to be retried / routed around).
+
+WebFetch:
+  arxiv.org/abs/2609.30008          -> HTTP 429, "do not fetch this page again"
+  arxiv.org/html/2609.30008         -> HTTP 429 (after 75 s wait), same instruction
+  export.arxiv.org/api/query        -> permission prompt timed out (PROVENANCE_REQUIRED)
+  alphaxiv.org/abs/2609.30008       -> permission prompt timed out
+  pith.science/paper/2609.30008     -> permission prompt timed out
+  ar5iv.labs.arxiv.org/html/1710.08044 -> permission prompt timed out
+  bohrium.com GN18 page             -> only WAF boilerplate, no content
+  semanticscholar.org GN18 page     -> empty (JS page)
+  sites.pitt.edu/~neilan/Neilan_FullCV.pdf -> OK, no 2609.30008 entry
+  sites.google.com/pitt.edu/neilan/home   -> OK, no 2609.30008 entry
+  arxiv.org/pdf/1710.08044 (after 90 s wait) -> OK  (read via the fetch tool's
+      summarising model; quotes below are what it returned as verbatim; LaTeX
+      macros may be slightly garbled, e.g. \mathfrak{T}_h vs \mathcal{T}_h)
+WebSearch: several queries; for 2609.30008 only the title and arXiv URLs are
+indexed (no abstract, no author names, no snippets).
+
+(1) arXiv:2609.30008  -- NOT READ
+---------------------------------
+Title only: "Pressure-robust finite elements for the Stokes problem on
+three-dimensional curved domains" (Sept 2026). Authors, abstract, method,
+theorems: UNKNOWN. Not on Neilan's CV or homepage (both apparently not
+updated past 2026 publications). Questions (a) Nitsche/polyhedral
+non-robustness leak ~ (h/(nu mu))(p - pbar), (b) load reconstruction with
+local BDM boundary correction, (c) SV on inscribed polyhedra / Alfeld splits:
+ALL UNRESOLVED. Must still be read (needs the user to open it or approve a
+fetch) before any novelty claim.
+Related, seen in search, not read: arXiv 2604.12769 (pressure-robust
+Fortin-Soulie on curved domains), 2609.18657 (pressure-robustness by
+commuting interpolation, continuous pressures), 2512.16216 (divergence-free
+parametric FEM, 3D Stokes, curved domains), 2606.07840 (SV surface Stokes).
+
+(2) Guzman & Neilan, SINUM 56(5):2826-2844 (2018), arXiv:1710.08044 -- READ
+-------------------------------------------------------------------------
+Setting (Sec. 2): "We consider a family of shape regular {T_h} conforming
+simplicial triangulation of a polytope domain Omega subset R^d."
+T_h^r: barycentric refinement (each simplex split into d+1 simplices).
+K^r = { T in T_h^r : T subset K }.
+P_k^c-ring(K^r) = { v in H_0^1(K) : v|_T in P_k(T) for all T in K^r }.
+P_k-ring(K^r)   = { q in L_0^2(K) : q|_T in P_k(T) for all T in K^r }.
+
+Theorem 3.1 (verbatim as returned):
+ "Let k >= 1. For any K in T_h and for any p in P_{k-1}-ring(K^r), there
+ exists v in P_k^c-ring(K^r) such that div v = p on K, with the bound
+ ||v||_{H^1(K)} <= C ||p||_{L^2(K)}, where the constant C>0 only depends on
+ k and the shape regularity of K^r, but is independent of p."
+
+Proposition 4.1 (preceded by "The following result is well known (or can
+easily be proven); see [3]." [3] = Bernardi & Raugel, Math. Comp. 44 (1985)
+71-79):
+ "For any p in P_0-ring(T_h), there exists a v in V_h^{BR} so that
+ int_K div v = int_K p for all K in T_h, with the bound
+ ||v||_{H^1(Omega)} <= C ||p||_{L^2(Omega)}."
+ -- NO statement of what C depends on.
+
+Theorem 4.4 (global, V_h^MF): "div V_h^MF subset P_0-ring(T_h). Moreover,
+for any p in P_0-ring(T_h) there exists a v in V_h^MF so that div v = p in
+Omega, with the bound ||v||_{H^1(Omega)} <= C||p||_{L^2(Omega)}."
+
+Definition 5.1: pair inf-sup stable "if there exists a constant gamma > 0
+such that 0 < gamma <= inf sup (int q div v)/(||v||_{H^1}||p||_{L^2})"
+[sic, p for q]. Tool reports NO explicit "independent of h".
+
+Proposition 6.1: "Let k >= 1, and suppose that V_h subset H_0^1(Omega)
+satisfies P_k-ring(T_h^r) subset V_h and V_h - P_0-ring(T_h) is inf-sup
+stable. Then V_h - P_{k-1}-ring(T_h^r) is inf-sup stable."
+Proof: q = qbar + (q - qbar), qbar = L2 projection onto P_0-ring(T_h);
+Theorem 3.1 gives w with div w = q - qbar; final line:
+ "||q||_{L2} <= (C(1/gamma_0 + 1) + 1/gamma_0) sup_v (int q div v)/||v||_{H1}"
+ with gamma_0 the V_h-P_0 (BR) constant, C from Thm 3.1.
+
+Corollary 6.2: "The pair P_k^c-ring(T_h^r) - P_{k-1}-ring(T_h^r) with
+k >= d is a divergence-free, inf-sup stable pair."
+
+Constant dependence, summary: LOCAL result (Thm 3.1) -- explicitly only k
+and shape regularity of K^r. GLOBAL results -- constant = function of the
+local C and gamma_0 (Prop 6.1 proof); gamma_0 comes from the cited
+Bernardi-Raugel result (Prop 4.1), for which GN18 states no dependence. The
+paper nowhere says a constant depends on Omega (tool: "does not include any
+statement that constants depend on Omega"), but equally does not claim
+independence; Bernardi-Raugel P0 stability on a fixed polytope Omega
+inherits the continuous inf-sup constant of Omega. So for a family of domains
+Omega_h (e.g. inscribed polyhedra) GN18 gives no uniformity; that must come
+from the Prop 4.1 input, as notes/v6/td_pen already handles separately.

@@ -1,0 +1,261 @@
+% notes/v6/td_k3/REPORT.tex -- 3D sharpness of h_Gamma^{3/2} for k=3 on Alfeld meshes: (M3^3) via edge stars.
+% Standalone.  References A:... are to notes/v6/td_sharp/REPORT.tex; td:..., lb:... to paper/sections/12_three_d.tex,
+% 07_consistent_method.tex.  Nothing in paper/ or letter/ was changed.  All scripts/logs are in this directory.
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,enumitem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\FG}{\mathcal F_h^\Gamma}
+\newcommand{\M}{\mathcal M}
+\newcommand{\gh}{\hat g}
+\newcommand{\CNS}{\mathrm{CNS}^\ast}
+\newcommand{\GS}{\mathrm{GS}}
+\newcommand{\hh}{\mathfrak h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Th}{\mathcal T_h}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\renewcommand{\div}{\operatorname{div}}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\dist}{dist}
+\newcommand{\status}[1]{\textbf{[#1]}}
+\title{3D sharpness of $h_\Gamma^{3/2}$ for $k=3$ on Alfeld meshes:\\ \large the edge-star witness and a closed-form vertex moment}
+\author{subagent report}
+\date{notes/v6/td\_k3, 2026-09-28}
+\begin{document}
+\maketitle
+
+\section*{Summary and status}
+\begin{center}
+\begin{tabular}{p{0.60\textwidth}p{0.33\textwidth}}
+\toprule
+Statement & Status\\
+\midrule
+What the abstract lower bound needs: rank $2$ of the \emph{weighted, tangential, total} moment on a patch (Sec.~\ref{s:need}); joint surjectivity onto the $6$ edge moments is not needed, and it in fact fails on every edge star & \status{PROVED}\\
+Ring Trace Theorem: the joint trace space of the div-free Alfeld $P_3$ fields on the star of an interior edge $[z,q]$ ($z\in\Gh$) is given \emph{exactly} by explicit local data (Thm.~\ref{t:trace}) & \status{PROVED} (analytic; plus exact reference computations)\\
+Single-$\Gamma$-face stars: trace space $=U_F$ ($\dim 7$). The joint edge-moment image has rank $5$ with an explicit annihilator. The weighted rank is $2$ unless $w_{za}=w_{zb}$ and $w_{ab}=0$, so it is always $2$ for sphere weights (Cor.~\ref{c:single}) & \status{PROVED}\\
+Vertex-move witness: closed form $\sum_i\M_i(v_\delta)=-\frac1{360}\sum_ic_iG_i\delta$ on \emph{every} edge star, with any number of $\Gamma$-faces and any geometry (Thm.~\ref{t:vertex}) & \status{PROVED}; checked exactly against the full FE space\\
+(M3$^3$) for $k=3$ (hence every $k\ge3$) on Alfeld refinements, for $\hG\le h_\ast(\theta)$, under the explicit sufficient criterion $\tau_z(\tau_z+\rho_z)\le\frac12$ (Thm.~\ref{t:M3}) & \status{PROVED}\\
+$\Rightarrow$ Thm.~A:thm and Cor.~A:sharp (sharpness $c\hG^{3/2}\le\norm{\nabla(\tilde u-u_h)}$) for $\CNS/\GS$, $k=3$ on Alfeld meshes & \status{PROVED} (upper bound keeps the td:open item 3 caveat)\\
+Degenerate configurations: single macro (equilateral faces), face pairs (no gain), octahedral fan (rank $0$, $V_R=0$, tilt $55^\circ$). None of them occurs on shape-regular inscribed meshes with $\hG$ small & \status{PROVED} (octahedron: exact)\\
+Icosphere meshes (prism layer, Alfeld): criterion holds from level $L=2$ ($\delta=1$) or $L=3$ ($\delta=\frac12$); $\sigma_{\min}(V_R)>0$ at every level & \status{NUMERICAL} (floating point, closed form)\\
+Worsey--Farin, $k=3$: a single WF macro gives rank $0$; WF edge stars give rank $2$ in all tests & \status{NUMERICAL} (mod-$p$ ranks)\\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent\textbf{Main finding.} The right patch for $k=3$ is the \emph{edge star} $R(z,q_F)$: the macro-tetrahedra around the interior edge joining a vertex $z$ of $F$ to the apex $q_F$ of the macro-tetrahedron on $F$. On it there is a field whose total moment is given by an exact closed formula (Thm.~\ref{t:vertex}). On a flat star this formula is $-\frac{1}{360}\bigl(\sum_i|F_i|\ell_{ab,i}^2/H_i\bigr)\,\delta$, a positive multiple of the identity in the tangential jet $\delta$. The tilt of inscribed faces is $O(\hG)$, so the lower bound survives on the sphere. The octahedral degeneracy of td\_sharp is exactly the vanishing of this formula at tilt $\arctan\sqrt2$.
+
+Conventions: as in td\_sharp (paper Sec.~12). $\Th$ is the Alfeld refinement of a shape-regular macro mesh (minimal angle $\theta$) of $\Oh=R\setminus P_h$, $P_h$ convex and inscribed in the unit sphere, and each $F\in\FG$ is a face of one macro-tetrahedron $T_F$ (Lemma~A:one). $k=3$ unless stated otherwise. ``Exact'' means rational arithmetic; ``mod $p$'' ranks are lower bounds for ranks over $\mathbb Q$. They are certified where the complementary upper bound is a priori (stated each time).
+
+%=====================================================================
+\section{What the abstract lower bound needs}\label{s:need}
+%=====================================================================
+Cor.~A:abstract gives $\Lambda_0\norm{\nabla e_u}\ge\sup_{v\in Y_h^1}|\langle\tilde u,\partial_nv\rangle+(F,v)|/\norm{\nabla v}$, and Lemma~A:lead reduces the numerator to $\ell_W(v)=\sum_{F}W_F\cdot\M_F(v)$ up to $O(\hG^{5/2})\norm{\nabla v}$. Here $\M_F(v)=\frac12\sum_{i<j}w^F_{ij}\int_F\mu_i\mu_j\partial_nv$, $w^F_{ij}=\ell_{ij}^2$ on the sphere (Lemma~A:sag), and $W_F\in T\Gamma$ is the wall shear. Hence:
+
+\begin{lemma}[Patch form of (M3$^3$) and assembly]\label{l:patchM3}
+Suppose there are $\kappa_0,K_{\rm ov},C_s$ with the following property. For every $F\in\FG$ and unit $t\parallel F$ there is $v_{F,t}\in Y_h^1$ with $\norm{\nabla v_{F,t}}=1$, support in a union $\omega_F$ of tetrahedra within distance $C_s\hG$ of $F$ (each tetrahedron in at most $K_{\rm ov}$ of the $\omega_F$), and $t\cdot\sum_{F'\subset\omega_F\cap\Gh}\M_{F'}(v_{F,t})\ge\kappa_0(\diam F)^{5/2}$. Then Theorem~A:thm holds, with $h_1$ also depending on $C_s$ and $\norm W_{W^{1,\infty}}/\norm W_{L^2}$.
+\end{lemma}
+\begin{proof}
+As Lemma~A:assemble, with one extra term. For $v_F:=|W_F^\parallel|v_{F,t_F}$, write $\ell_W(v_F)=W_F\cdot\sum_{F'}\M_{F'}(v_F)+\sum_{F'}(W_{F'}-W_F)\cdot\M_{F'}(v_F)$. The second sum is $\le C C_s\hG\norm W_{W^{1,\infty}}\cdot C\hG^{5/2}|W_F|$ (there are $\le C$ faces $F'$ in $\omega_F$, and $|\M_{F'}(v)|\le C\hG^{5/2}\norm{\nabla v}$). Also $W_F\cdot\M_{F'}=W_F^{\parallel}\cdot\M_{F'}+O(\hG)|W_F||\M_{F'}|$, since the normals of the faces in $\omega_F$ differ from $n_F$ by $O(\hG)$. Summing over $F$ with $\sum_F|W_F|\le C\hG^{-2}\norm W_{L^2}$ (up to $O(\hG)$) and $\Sigma=\sum|F||W_F|^2$ as in Lemma~A:assemble, the extra terms are $\le C\hG^{3/2}\norm W_{W^{1,\infty}}\norm W_{L^2}$. The main term is $\ge c\kappa_0\hG^{1/2}\norm W_{L^2}^2$, so the extra terms are absorbed for $\hG\le h_1$. This is the same absorption as in 2D, Lemma~lb:assemble. Linearity of $\ell_W$ makes overlapping witnesses harmless.
+\end{proof}
+
+So what is needed is: for $t$ in the tangent plane, some field on a local patch whose \emph{total} weighted moment has a component along $t$ of size $\gtrsim\hG^{5/2}\norm{\nabla v}$. Equivalently, the map $v\mapsto P_T\sum_{F'}\M_{F'}(v)$ on $Y^1(\text{patch})$ has rank $2$, with a uniform lower bound on its smallest singular value. Surjectivity of the joint map onto the six edge moments $\int_F\mu_i\mu_j\partial_nv$ (Prop.~A:joint) is sufficient but not necessary. It fails on every edge star (Cor.~\ref{c:single}(b)).
+
+%=====================================================================
+\section{Edge stars and their traces}\label{s:trace}
+%=====================================================================
+\paragraph{Edge stars.} Let $z$ be a vertex of $\Gh$ and $q$ a vertex with $[z,q]$ a macro edge and $q\notin\Gh$. For the sphere, every apex $q_F$ of $T_F$ satisfies $q_F\notin\Gh$. Indeed, if $q_F\in\Gh$ then $T_F=\conv(F\cup\{q_F\})\subset P_h$, a contradiction. The \emph{edge star} $R=R(z,q)$ is the union of the macro-tetrahedra containing $[z,q]$. Its link is a cycle $x_0,\dots,x_{m-1}$ ($3\le m\le m_{\max}(\theta)$), and
+\[
+T_j=\conv(q,z,x_j,x_{j+1}),\qquad f_j=\conv(q,z,x_j)\ \text{(interior faces)},\qquad \partial R=\textstyle\bigcup_j\conv(z,x_j,x_{j+1})\cup\conv(q,x_j,x_{j+1}).
+\]
+The faces of the $T_j$ in $\Gh$ are among the $F_j:=\conv(z,x_j,x_{j+1})$, because $q\notin\Gh$ and the $f_j$ are interior. Let $I:=\{j:F_j\in\FG\}$. Put $Y(R):=\{v$ continuous piecewise $P_3$ on the Alfeld refinement of $R$, $v|_{\partial R}=0$, $\div v=0\}$ and $Y^1(R):=\{v\in Y(R):\int_{F_i}\partial_nv=0,\ i\in I\}$. Extension by zero maps $Y^1(R)$ into $Y_h^1$. $R(z,q_F)$ contains $T_F$ for each vertex $z$ of $F$.
+
+\paragraph{Traces.} Fix $i\in I$ and write $F=F_i=\conv(z,a,b)$ ($a=x_i$, $b=x_{i+1}$), $T=T_i$, $B$ its barycentre, and let $H:=\dist(q,\text{plane }F)$, so $\dist(B,F)=H/4$. The Alfeld sub-tetrahedra of $T$ at $z$ are $s_1=\conv(B,z,a,b)\supset F$, $s_2=\conv(B,q,z,b)$ and $s_3=\conv(B,q,z,a)$. Since $v|_{s_1}$ vanishes on $F$, $\nabla v|_{s_1}=\gh\otimes\nabla\lambda_B^{s_1}$ on $F$, with $\gh(x):=\partial_{B-x}v(x)\in P_2(F;\R^3)$. Then $\partial_\nu v=\frac4H\gh$ ($\nu$ the inward normal of $T$), so the face moments are
+\[
+\M_F(v)=\tfrac4H\int_FQ_F\,\gh\,dA\quad(\text{sign convention }\partial_\nu=-\partial_n\text{ absorbed}),\qquad Q_F=\tfrac12\sum w^F_{ij}\mu_i\mu_j .
+\]
+With $m_{xy}$ the midpoint of $[x,y]$ and $n_S$ a normal of the plane of $S$, define
+\begin{align*}
+U_F&:=\{\gh\in P_2(F;\R^3):\ \gh\cdot n_F\equiv0,\ \gh(a)=\gh(b)=0,\ \gh(m_{ab})\cdot n_{qab}=0\}\quad(\dim 7),\\
+S_F&:=\{\gh\in U_F:\ \gh(z)=0,\ \gh(m_{za})\cdot n_{f_a}=0,\ \gh(m_{zb})\cdot n_{f_b}=0\}\quad(\dim3),
+\end{align*}
+where $f_a=\conv(q,z,a)$ and $f_b=\conv(q,z,b)$. $S_F$ is the set of $P_2$ fields vanishing at the vertices of $F$ and parallel to each edge along that edge. The map $\pi_F:U_F\to T_F\times\R\times\R$, $\gh\mapsto(\gh(z),\gh(m_{za})\cdot n_{f_a},\gh(m_{zb})\cdot n_{f_b})$, is onto with kernel $S_F$.
+
+\begin{lemma}[Necessary relations]\label{l:nec}
+Let $v\in Y(R)$, and put $\delta:=\partial_{q-z}v(z)$ (common to all $T_j$). Then:
+\begin{enumerate}[label=(\alph*)]
+\item $\gh_i\in U_{F_i}$ for every $i\in I$.
+\item \emph{(interior faces)} On $f_j$, in its barycentrics, $v|_{f_j}=\lambda_q\lambda_z(p_q\lambda_q+\delta\lambda_z+p_j\lambda_{x})$ with $p_q\in\R^3$ common to all $j$. The fluxes $A_j\cdot\bigl(\frac{\delta+p_q}{30}+\frac{p_j}{60}\bigr)$, $A_j=\frac12(q-z)\times(x_j-z)$, are equal for all $j$. Along $[z,x_j]$, $h_j:=\partial_{q-x}(v|_{f_j})$ satisfies $h_j(m_{zx_j})=\frac14(\delta+p_j)$.
+\item \emph{(vertex jet)} $\delta_i:=\partial_{B-z}v|_{T_i}(z)$ satisfies $\delta_i\cdot\nabla\lambda^{s_1}_B=0$ and $\delta\cdot\nabla\lambda_q^{s}+\delta_i\cdot\nabla\lambda_B^{s}=0$ for $s=s_2,s_3$, and $\gh_i(z)=\delta_i$.
+\item \emph{(edge relation)} $\gh_i(x)\cdot\nabla\lambda_B^{s_3}+h_i(x)\cdot\nabla\lambda_q^{s_3}=0$ on $[z,a]$, and likewise on $[z,b]$ with $s_2$ and $h_{i+1}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a) At $a$: the three edges of $T$ at $a$ lie in $\partial R$. In each of the three Alfeld sub-tetrahedra of $T$ at $a$, $\nabla v(a)=\delta'\otimes\nabla\lambda_B$ with the common $\delta'=\partial_{B-a}v(a)$. Then $\div v=0$ forces $\delta'\perp$ the normals of $F$, $\conv(q,a,b)$ and $f_a$, which are independent, so $\gh(a)=\delta'=0$; likewise $\gh(b)=0$. On $[a,b]$, the sub-tetrahedron $\conv(B,q,a,b)$ has $v=0$ on $\conv(q,a,b)$, so there $\nabla v=\gh\otimes\nabla\lambda_B$ (the derivative along $B-x$ is continuous across $\conv(B,a,b)$), and $\div v=0$ gives $\gh\cdot n_{qab}=0$ on $[a,b]$. Tangency: $\div v|_{s_1}=\gh\cdot\nabla\lambda_B^{s_1}=0$.
+(b) $v|_{f_j}\in P_3$ vanishes on $[z,x_j]$ and $[q,x_j]\subset\partial R$. Its restriction to $[z,q]$ is shared by all $j$. $\int_T\lambda_q^2\lambda_z=|T|/30$ and $\int_T\lambda_q\lambda_z\lambda_x=|T|/60$. Since $\int_{\partial T_j}v\cdot n=0$ and $\partial T_j\setminus\partial R=f_j\cup f_{j+1}$, the fluxes agree. On $[z,x_j]$, $\partial_{q-x}(\lambda_q\lambda_z p)=\lambda_zp$.
+(c) At $z$ in $s_2$: $v$ vanishes on $[z,b]$, so $\nabla v(z)=\delta\otimes\nabla\lambda_q+\delta_i\otimes\nabla\lambda_B$, and the trace is $0$; similarly in $s_3$ and $s_1$ (in $s_1$ also on $[z,a]$).
+(d) At $x\in[z,a]$, in $s_3$: $\nabla v=\gh\otimes\nabla\lambda_B+h_i\otimes\nabla\lambda_q$ (the derivative along $a-z$ vanishes), and its trace is $0$.
+\end{proof}
+
+Since $\nabla\lambda_B^{s_3}\parallel n_{f_a}$ and $\nabla\lambda_B^{s_2}\parallel n_{f_b}$, (c) and (d) give $\pi_{F_i}(\gh_i)$ as an explicit linear function $\Pi_i(\delta,(p_j))$.
+
+\begin{lemma}[Single macro-element]\label{l:single}
+For one Alfeld macro-tetrahedron $T$ ($v=0$ on $\partial T$), the trace space is exactly $S_F$. Moreover, $\gh\mapsto\int_F\gh$ has rank $2$ on $S_F$, so $S_F\cap\{\int\gh=0\}$ is a line.
+\end{lemma}
+\begin{proof}
+$\subseteq$: Lemma~\ref{l:nec} with $\delta=0$ and $h\equiv0$ ($f_a,f_b\subset\partial T$). The jet system then gives $\delta_i=0$: $\delta_i$ is orthogonal to three independent normals. $\supseteq$: the trace rank on $Y(T)$ is $\ge3$ (mod $p$, \texttt{trace1.py}; $\operatorname{rank}\div=39$ is the a priori maximum, so this is a certified lower bound). The Piola map multiplies $\gh$ by the constant matrix $(\det A)^{-1}A$ and preserves $S_F$, so the statement is shape independent. The mean statement is exact on the reference triangle (\texttt{ref\_K.py}).
+\end{proof}
+
+\begin{lemma}[Realisability]\label{l:suff}
+Given $\delta,p_q,p_0,\dots,p_{m-1}\in\R^3$ with equal fluxes as in Lemma~\ref{l:nec}(b), and $s_i\in S_{F_i}$ ($i\in I$), there is $v\in Y(R)$ with these interior-face data whose traces satisfy $\gh_i-\text{(any fixed element of $U_{F_i}$ with $\pi=\Pi_i(\delta,p)$)}=s_i$.
+\end{lemma}
+\begin{proof}
+Let $v_0$ be the continuous piecewise-$P_3$ field whose Bernstein coefficients on the domain points of the faces $f_j$ are those of the prescribed $v|_{f_j}$, and zero elsewhere. On $f_j$ these are $\delta/3$ at $\frac{q+2z}3$, $p_q/3$ at $\frac{2q+z}3$ and $p_j/6$ at $\frac{q+z+x_j}3$. Then $v_0=0$ on $\partial R$, and $\int_{T_j}\div v_0=0$ by the equal fluxes. By the Alfeld theorem for $k=3$, $\div:\{w\in P_3^c(T_j^A)^3,w|_{\partial T_j}=0\}\to P_2^{\rm disc}(T_j^A)\cap L^2_0$ is onto (Zhang 2005; exact rank $39$ in \texttt{alfeld\_witness.py 3}, affine invariant). This gives $w_j$ with $\div w_j=-\div v_0$ on $T_j$, and $v_1:=v_0+\sum w_j\in Y(R)$ has the same data on the $f_j$ (each $w_j$ vanishes there). By Lemma~\ref{l:nec}, $\pi_i(\gh_i(v_1))=\Pi_i(\delta,p)$. Adding single-macro fields of $T_i$ (Lemma~\ref{l:single}) adjusts the $S_{F_i}$-components independently.
+\end{proof}
+
+\begin{theorem}[Ring Trace Theorem]\label{t:trace}
+The joint trace space $\{(\gh_i)_{i\in I}:v\in Y(R)\}$ equals
+$J_{\rm red}:=\{(\gh_i):\gh_i\in U_{F_i},\ \pi_{F_i}(\gh_i)=\Pi_i(\delta,p)$ for some $(\delta,p_q,p_j,\Phi)$ with all fluxes equal to $\Phi\}$.
+\end{theorem}
+\begin{proof}
+$\subseteq$ is Lemma~\ref{l:nec}; $\supseteq$ is Lemma~\ref{l:suff}.
+\end{proof}
+\emph{Check (exact):} \texttt{reduced.py} implements $J_{\rm red}$ exactly. For $8$ configurations (single-face stars $m=3,5$; flat square and pentagon fans; octahedral fan and its off-axis version; two adjacent and two non-adjacent $\Gamma$-faces) its dimension and moment rank coincide with the full FE computation (\texttt{validate\_reduced.log}). These include $19$ versus $22$ (octahedral versus off-axis) and the rank-$0$ octahedral case.
+
+\begin{corollary}[Stars with one $\Gamma$-face]\label{c:single}
+If $I=\{i\}$:
+(a) the trace space is all of $U_F$ (so $\gh(z)$ is free; FE: rank $7$ and $\operatorname{rank}\gh(z)=2$ for $m=3,4$ and singular $m=4$, \texttt{trace1.log});
+(b) the joint edge-moment map $v\mapsto(\int_F\mu_z\mu_a\gh,\int_F\mu_z\mu_b\gh,\int_F\mu_a\mu_b\gh)$ on $Y^1(R)$ has rank exactly $5$, with the single relation $\int_F\mu_z(1-\mu_z)\,\gh\cdot\nabla\mu_z\,dA=0$;
+(c) for weights $w=(w_{za},w_{zb},w_{ab})$ the weighted moment has rank $2$ unless $w_{za}=w_{zb}$ and $w_{ab}=0$ (rank $1$ then). For the sphere, $w=\ell^2>0$, so the rank is always $2$, at every vertex $z$ of $F$.
+\end{corollary}
+\begin{proof}
+(a) $\delta\mapsto\gh(z)$ is onto $T_F$: by the jet system, $\delta_i$ is fixed by the pair $(\delta\cdot\nabla\lambda_q^{s_2},\delta\cdot\nabla\lambda_q^{s_3})$, and these two covectors are normal to the distinct planes $\conv(B,z,b)$ and $\conv(B,z,a)$. Take $p_q=-\delta$ and $p_a,p_b$ tangent to $f_a,f_b$, so all fluxes are $0$. Then $\gh(m_{za})\cdot n_{f_a}$ moves by $\frac14p_a\cdot P_{f_a}\nabla\lambda_q^{s_3}$, and $P_{f_a}\nabla\lambda_q^{s_3}\ne0$ because $B\notin$ plane $f_a$. The same holds at $m_{zb}$, independently. (b), (c): exact computation of $E(U_F\cap\{\int\gh=0\})$ on the reference triangle, with the factored $2\times2$ minors (\texttt{ref\_trace.log}). Affine transport as in Lemma~\ref{l:single}. FE check: rank $5$ for $m=3,\dots,6$ including a singular $m=4$ edge (\texttt{ring3.log}); the relation is geometry independent (\texttt{ring4.log}).
+\end{proof}
+Comparison: single macro-tetrahedra give $S_F$ (weighted image one line, zero on equilateral faces). A pair of macro-tetrahedra across $f_a$ gives trace rank $4$ and no new weighted direction (\texttt{pair1.py}: equal weights give rank $0$). Closing the star around $[z,q]$ is what frees $\gh(z)$.
+
+%=====================================================================
+\section{The vertex move: a closed-form witness on every edge star}\label{s:vertex}
+%=====================================================================
+For $i\in I$ let $n_i$ be a unit normal of $F_i$, $P_i=I-n_i\otimes n_i$, $H_i=|(q-z)\cdot n_i|$, and
+\[
+r_i:=(a_i-z)+(b_i-z)+P_i(q-z),\qquad G_i\delta:=P_i\delta-\frac{n_i\cdot\delta}{(q-z)\cdot n_i}\,r_i,\qquad c_i:=\frac{|F_i|\,w^{F_i}_{ab}}{H_i},
+\]
+where $w_{ab}^{F_i}$ is the weight of the edge of $F_i$ \emph{opposite} $z$ ($=\ell_{ab}^2$ on the sphere).
+
+\begin{lemma}[Jet map]\label{l:jet}
+In Lemma~\ref{l:nec}(c), $\gh_i(z)=\delta_i=\frac14G_i\delta$.
+\end{lemma}
+\begin{proof}
+The solution is unique (independent normals), so it suffices to check $\delta=q-z$ and $\delta\in T_{F_i}$. For $\delta=q-z$: $\nabla\lambda_q^{s}\cdot(q-z)=1$, and $y=-(B-z)+t(q-z)$ satisfies $\nabla\lambda_B^{s}\cdot y=-1$ ($s=s_2,s_3$). Tangency forces $t=\frac14$ (heights $H/4$ and $H$), giving $\delta_i=-\frac14((a-z)+(b-z))=\frac14G_i(q-z)$. For $\delta\in T_F$: $\varphi:=\frac14\lambda_B^{s}+\lambda_q^{s}$ is affine, vanishes at $z$ and at $b$ (resp.\ $a$), and equals $\frac14$ at $B$ and $1$ at $q$. So $\varphi=\dist_\pm(\cdot,F)/H$, and $\nabla\varphi\perp T_F$. Hence $\delta_i=\frac14\delta$ solves both equations. (Also symbolic for general $a,b,q$: \texttt{flat\_L.log}.)
+\end{proof}
+
+\begin{lemma}[Face moment of the vertex representative]\label{l:K}
+Let $e\in T_F$. The set $\{\gh\in U_F:\pi_F(\gh)=(e,0,0),\ \int_F\gh=0\}$ is a line parallel to $S_F\cap\{\int\gh=0\}$. It contains an element $r_F(e)$, linear in $e$, with
+$\int_FQ_F\,r_F(e)\,dA=-\frac{|F|\,w^F_{ab}}{360}\,e$.
+\end{lemma}
+\begin{proof}
+Exact on the reference triangle (\texttt{ref\_K.log}). A representative has moment $K e$ with $K=\frac1{720}\begin{psmallmatrix}-w_{ab}&2(w_{ab}-w_{za})\\0&-3w_{ab}+2w_{zb}\end{psmallmatrix}$ in the basis $(a-z,b-z)$. The line direction has moment $D=\frac1{720}(w_{za}-w_{ab},\,w_{ab}-w_{zb})$, and $K\binom01+2D=-\frac{w_{ab}}{720}\binom01$, so $K\equiv-\frac{w_{ab}}{720}I$ modulo $D$. Fix $r_F$ accordingly. Transport: $\int_FQ\gh\,dA=2|F|\,A\int_{\rm ref}Q\hat e$ with $\gh=A\hat e$.
+\end{proof}
+
+\begin{theorem}[Vertex witness]\label{t:vertex}
+For every edge star $R(z,q)$ with any $I\neq\emptyset$, any geometry and any real weights, and every $\delta\in\R^3$, there is $v_\delta\in Y^1(R)$ with
+\[
+\sum_{i\in I}\M_{F_i}(v_\delta)=-\frac1{360}\sum_{i\in I}c_i\,G_i\,\delta,\qquad \norm{\nabla v_\delta}_R\le C_E(\theta)\,|\delta|\,(\diam R)^{1/2}.
+\]
+\end{theorem}
+\begin{proof}
+Take $p_q=-\delta/2$ and $p_j=-\delta$ for all $j$. All fluxes are then $A_j\cdot(\frac{\delta}{60}-\frac{\delta}{60})=0$, and $h_j(m_{zx_j})=0$, so both $\nu$-components vanish on every $F_i$ (Lemma~\ref{l:nec}(d)). By Lemma~\ref{l:suff} and Lemma~\ref{l:jet} there is $v\in Y(R)$ with $\pi_{F_i}(\gh_i)=(\frac14G_i\delta,0,0)$ for all $i$. Subtracting single-macro fields (Lemma~\ref{l:single}: trace space $S_{F_i}$, means onto $T_{F_i}$) makes $\gh_i=r_{F_i}(\frac14G_i\delta)$ exactly, which has mean zero. Then $\M_{F_i}=\frac4{H_i}\int Q\gh_i=-\frac{4|F_i|w_{ab}}{360H_i}\cdot\frac14G_i\delta$ by Lemma~\ref{l:K}. Energy: the coefficients of $v_0$ are $O(|\delta|)$; the $w_j$ come from the Alfeld right inverse; the single-macro adjustments come from the right inverses of $\gh\mapsto(\gh,\int\gh)$ on $Y(T)$. All are fixed reference maps transported affinely, so their norms depend only on $\theta$ ($m\le m_{\max}(\theta)$), and scaling gives $(\diam R)^{1/2}$.
+\end{proof}
+\emph{Checks.} (i) Exact, reduced model, $30$ cases including octahedral, curved random stars, generic weights (mod the $D$-span) and equal weights (exact identity): \texttt{vertex\_formula\_general.log}, all true. (ii) Independent full-FE check: impose the interior-face Bernstein data of the proof and the means, then solve. The total moment equals the prediction to $10^{-15}$ and is constant on the solution set (\texttt{fe\_vertex\_check.log}; flat square and hexagonal fans, two non-adjacent faces, a single face).
+
+\paragraph{Flat stars.} If all $F_i$ lie in one plane $T$ then $G_i|_T=I$. So $P_T\sum_i\M_{F_i}(v_\delta)=-\frac1{360}\bigl(\sum_ic_i\bigr)\delta$ for $\delta\in T$: a multiple of the identity, independent of the shapes, the apex and the valence. This is exact (\texttt{flat\_formula2.log}).
+
+\paragraph{The octahedral degeneracy.} For the octahedral fan of td\_sharp ($z=e_3$, $q=2e_3$, link $\pm e_1,\pm e_2$) the matrix $V_R:=\sum_ic_iP_TG_i|_T$ vanishes \emph{exactly} (\texttt{vertex\_matrix.py}). There $\tau=\arccos(1/\sqrt3)=0.955$ and $\rho=2\sqrt2$. Its off-axis version has $\sigma(V_R)=(2.61,0.76)$. In the one-parameter tilt families of \texttt{octa\_family.log} (regular $m$-fans, $m=4,5,6$, apex heights $\frac12,1,2$, tilt $\varepsilon\in[0,1.5]$), the full-FE rank is $2$ everywhere except at the octahedral point itself.
+
+%=====================================================================
+\section{(M3$^3$) for $k=3$ on Alfeld meshes}\label{s:M3}
+%=====================================================================
+For a boundary vertex $z$ with unit normal $n_z$ of $\Gamma$ ($n_z=z$ on the sphere), $T=n_z^\perp$, and an edge star $R=R(z,q)$, put
+\[
+\tau_z:=\max_{i\in I}\angle(n_{F_i},n_z),\qquad \rho_z:=\max_{i\in I}|r_i|/H_i .
+\]
+On the unit sphere $\angle(n_F,z)=\arcsin r_F$ for each vertex $z$ of $F$ ($|z-o_F|=r_F$, $n_F\parallel o_F$). Hence $\tau_z\le\arcsin(\max r_F)\le C(\theta)\hG$, while $\rho_z\le(2\hG+\diam T)/H\le C(\theta)$.
+
+\begin{theorem}[(M3$^3$), $k=3$, Alfeld]\label{t:M3}
+Let $\Th$ be the Alfeld refinement of a shape-regular macro mesh and $k\ge3$. Suppose every $F\in\FG$ has a vertex $z$ with $\tau_z(\tau_z+\rho_z)\le\frac12$ for $R(z,q_F)$. This holds on the sphere as soon as $\hG\le h_\ast(\theta)$. Then the hypothesis of Lemma~\ref{l:patchM3} holds with $\omega_F=R(z,q_F)$, $K_{\rm ov}\le C(\theta)$, $C_s\le C(\theta)$, and $\kappa_0=c(\theta)/C_E(\theta)$. Consequently Theorem~A:thm and Corollary~A:sharp hold for $\CNS$ (and the lower bound for $\GS$) with $k=3$ on Alfeld-refined meshes.
+\end{theorem}
+\begin{proof}
+For unit $t\in T$: $|n_i\cdot t|\le\sin\tau_z$ and $|P_it|^2\ge1-\sin^2\tau_z$, so
+\[
+t\cdot G_it=|P_it|^2-\frac{(n_i\cdot t)(r_i\cdot t)}{(q-z)\cdot n_i}\ \ge\ 1-\tau_z(\tau_z+\rho_z)\ \ge\ \tfrac12 .
+\]
+With sphere weights, $c_i>0$. Take $\delta=-t$ in Theorem~\ref{t:vertex}:
+\[
+t\cdot\sum_{i}\M_{F_i}(v_\delta)=\tfrac1{360}\sum_ic_i\,t\cdot G_it\ \ge\ \tfrac1{720}c_{F}\ \ge\ c(\theta)(\diam F)^3,
+\]
+since $\ell_{ab}\ge c\diam F$, $|F|\ge c(\diam F)^2$ and $H\le C\diam F$. Divide by $\norm{\nabla v_\delta}\le C_E(\diam F)^{1/2}$. For $t\parallel F$ instead of $t\in T$, replace $t$ by its normalised projection; the angle is $\le\tau_z$ and the error is absorbed. $Y_3\subset Y_k$ for $k\ge3$, and the moments do not depend on $k$.
+\end{proof}
+\noindent Fixing $\delta$ and letting $W$ vary gives the same witness family for all $W$. No compactness argument is used; the only non-explicit constant is $C_E(\theta)$, a finite combination of right-inverse norms of fixed reference maps. Scale-invariant FE constants on sphere-inscribed fans converge as $\hG\to0$: $\hat\kappa=\sigma_{\min}/\hG^{5/2}\approx0.070,0.033,0.050,0.024$ ($m=5,6$; apex heights $\frac12\hG,\hG$) at $\hG=1/16$ (\texttt{sphere\_fans\_h.log}).
+
+\paragraph{Icosphere meshes (NUMERICAL).} Take the icosphere of level $L$ with a radial prism layer of thickness $\delta\hG$, prisms split by global vertex order, and apex of $F$ equal to the lift of its lowest vertex $z_0$; the rings $R(z_0,z_0')$ then contain several $\Gamma$-faces. \texttt{icosphere\_check.log}:
+\begin{center}\small
+\begin{tabular}{cccccc}
+\toprule
+$L$ & $\hG$ & $\max\tau(\tau+\rho)$ ($\delta=\frac12$) & $\min\sigma_{\min}(V_R)/\sum c$ & $\max\tau(\tau+\rho)$ ($\delta=1$) & $\min\sigma_{\min}(V_R)/\sum c$\\
+\midrule
+0&1.05&2.77&0.05&1.35&0.31\\
+1&0.62&1.35&0.24&0.67&0.38\\
+2&0.33&0.67&0.35&0.33&0.68\\
+3&0.17&0.33&0.67&0.17&0.84\\
+4&0.08&0.17&0.84&0.08&0.92\\
+\bottomrule
+\end{tabular}
+\end{center}
+The criterion $\le\frac12$ holds from $L=2$ ($\delta=1$) and $L=3$ ($\delta=\frac12$). The vertex matrix is nonsingular at every level, even where the criterion fails. The lower bound $1-\tau(\tau+\rho)$ is almost attained.
+
+%=====================================================================
+\section{Degenerate configurations; the global alternative}
+%=====================================================================
+\begin{itemize}[leftmargin=1.2em]
+\item \emph{Single macro:} weighted image $\mathbb R\,A D_F$ with $A D_F\propto\sum_{\rm cyc}w_{ij}e_{ij}$, which is zero iff the weights are equal (equilateral faces on the sphere). \status{PROVED} (td\_sharp).
+\item \emph{Pairs across an interior face:} no new weighted direction. \status{NUMERICAL} (exact ranks, 3 shapes).
+\item \emph{Edge star, one $\Gamma$-face:} never degenerate for sphere weights. For general weights, degenerate iff $w_{za}=w_{zb}$ and $w_{ab}=0$. \status{PROVED}.
+\item \emph{Edge star, several $\Gamma$-faces:} degenerate examples exist, but only far from flat. The octahedral fan has $V_R=0$ and full FE rank $0$ \status{PROVED, exact}. On shape-regular inscribed meshes with $\hG\le h_\ast$ degeneracy is impossible (Thm.~\ref{t:M3}). So the answer to ``can rank deficiency occur on shape-regular inscribed meshes?'' is: only at coarse levels where faces meeting at a vertex are tilted by $\gtrsim50^\circ$. Even there, adding the $\nu$-moves and the single-macro directions restores rank $2$ off a closed algebraic set; the octahedral point is isolated in the tilt families tested.
+\item \emph{Global argument (option 2).} It is not needed, since the per-face witness is uniform. It also could not replace the edge stars. With single-macro fields only, faces with $x_c\approx o_F$ contribute $\approx0$, and on icosphere refinements we expect such nearly equilateral faces to fill regions of fixed positive area (near the centres of the 20 base faces, where the radial projection is nearly isometric); this was not quantified. A single-macro global field therefore gives a constant that depends on how $W$ is distributed, not a uniform one.
+\end{itemize}
+
+\begin{remark}[Part B, general surfaces]
+Here $w^{F}_{ab}=\hh(e_{ab},e_{ab})$. Where $\hh$ is definite, all $c_i$ have one sign, $|\sum c_i|\ge c|\hh|\hG^3$, and Thm.~\ref{t:M3} gives Thm.~B:lb for $k=3$ with the weight $|\hh|$ \status{PROVED} (same proof). Where $\hh$ is indefinite, $\sum_ic_i$ can vanish. One then needs the single-face-star criterion of Cor.~\ref{c:single}(c) or the $\nu$-moves. \status{Not done.}
+\end{remark}
+
+%=====================================================================
+\section{Worsey--Farin (optional)}
+%=====================================================================
+\status{NUMERICAL} (\texttt{wf.py}, \texttt{wf\_ring.py}; mod-$p$ ranks of $[\div;\text{means};\text{moment}]$; the rank of $[\div;\text{means}]$ is not certified a priori here). Boundary face split at its barycentre; interior macro faces split where the segment between adjacent interior points meets them (WF condition); constraints are the means on all three sub-faces; the moment is $\int_FQ_F\partial_nv$. Results:
+\begin{itemize}[leftmargin=1.2em]
+\item A single WF macro with $k=3$ has rank $0$ ($\operatorname{rank}\div=87$ of $120$, $\dim Y=18$). With $k=4$ the rank is $2$.
+\item WF edge stars with $k=3$ have rank $2$: one $\Gamma$-face with $m=3,4$, and flat square and pentagon fans. With $k=4$ the rank is also $2$.
+\end{itemize}
+So on WF the $k=3$ witness also needs edge stars. The trace analysis of Sec.~\ref{s:trace} would have to be redone for the split faces; this was not attempted.
+
+\section*{Files (notes/v6/td\_k3; run from this directory)}
+\begin{itemize}[leftmargin=1.2em]\small
+\item \texttt{patchlib.py}: exact/mod-$p$/float FE on Alfeld patches (independent of td\_sharp code), with energy-normalised constants. Sanity check: \texttt{test\_lib.py} reproduces the td\_sharp ranks ($1$, $2$, octahedral $0$, off-axis $2$).
+\item \texttt{reduced.py}: exact reduced model $J_{\rm red}$. \texttt{validate\_reduced.py}: reduced model versus FE.
+\item \texttt{ref\_trace.py}, \texttt{ref\_K.py}, \texttt{flat\_L.py}: exact reference computations (Cor.~\ref{c:single}, Lemmas~\ref{l:K}, \ref{l:jet}).
+\item \texttt{trace1.py}, \texttt{ring1-4.py}, \texttt{pair1.py}, \texttt{fan\_joint.py}, \texttt{multi1.py}, \texttt{flat1-2.py}, \texttt{moves.py}: exploration (logs alongside; \texttt{ring2.log} also contains \texttt{ring1} output).
+\item \texttt{vertex\_formula\_general.py}, \texttt{flat\_formula2.py}, \texttt{fe\_vertex\_check.py}: checks of Thm.~\ref{t:vertex}.
+\item \texttt{vertex\_matrix.py}, \texttt{icosphere\_check.py}, \texttt{octa\_family.py}, \texttt{sphere\_fans\_h.py}: criterion and constants.
+\item \texttt{wf.py}, \texttt{wf\_ring.py}: Worsey--Farin.
+\end{itemize}
+Every script runs in under 5 minutes on 2 cores, e.g.\ \texttt{python3 vertex\_formula\_general.py} ($\approx$2 min) and \texttt{python3 octa\_family.py} ($\approx$1 min).
+\end{document}

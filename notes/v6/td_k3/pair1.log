@@ -1,0 +1,6 @@
+sym weights l^2 dimY 14 dimY1 10 (79, 83, 2) sv [0.116026 0.048607] left sing vecs [[-1.0, 0.0], [0.0, 1.0]]
+sym weights equal dimY 14 dimY1 10 (79, 83, 0) sv [0. 0.] left sing vecs [[-0.714, 0.7002], [0.7002, 0.714]]
+gen weights l^2 dimY 14 dimY1 10 (79, 83, 2) sv [0.091808 0.046014] left sing vecs [[-0.9798, 0.2], [0.2, 0.9798]]
+gen weights equal dimY 14 dimY1 10 (79, 83, 0) sv [0. 0.] left sing vecs [[-0.5211, 0.8535], [0.8535, 0.5211]]
+gen2 weights l^2 dimY 14 dimY1 10 (79, 83, 2) sv [0.015194 0.01097 ] left sing vecs [[-0.6344, 0.773], [0.773, 0.6344]]
+gen2 weights equal dimY 14 dimY1 10 (79, 83, 0) sv [0. 0.] left sing vecs [[-0.996, 0.0897], [0.0897, 0.996]]

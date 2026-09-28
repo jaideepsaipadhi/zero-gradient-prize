@@ -1,0 +1,6 @@
+hex equilateral fan, apex on axis h= 1/2 (239, 251, 2) [0.10164929 0.10164929]
+hex equilateral fan, apex on axis h= 1 (239, 251, 2) [0.04190511 0.04190511]
+hex equilateral fan, apex on axis h= 2 (239, 251, 2) [0.01474796 0.01474796]
+hex equilateral fan, apex off axis (Fraction(6, 5), Fraction(33, 35), Fraction(6, 7)) (239, 251, 2) [0.04176792 0.0416561 ]
+hex equilateral fan, apex off axis (Fraction(4, 3), Fraction(2, 3), Fraction(1, 1)) (239, 251, 2) [0.04143246 0.04105463]
+square fan apex on axis (159, 167, 2) [0.06903818 0.06903818]

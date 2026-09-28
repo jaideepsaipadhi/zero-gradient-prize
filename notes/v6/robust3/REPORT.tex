@@ -1,0 +1,372 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,booktabs,geometry}
+\geometry{margin=2.3cm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\tn}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\title{notes/v6/robust3: an $H^1$ lower bound for the CNS$^\ast$ pressure defect $W_\ast(\phi)$ valid for every $\gamma>0$\\ (pressure-blind test fields)}
+\date{2026-09-28 (subagent report; nothing in paper/ or letter/ touched, nothing committed)}
+\begin{document}\maketitle
+
+\noindent Labels: \textbf{PROVED} (complete proof here, citing the paper by label and \texttt{robust/REPORT.md},
+\texttt{robust2/REPORT.tex} as corrected by \texttt{referee5\_robust2.md}); \textbf{PROVED MODULO X};
+\textbf{NUMERICAL}. Scripts/logs: \texttt{notes/v6/robust3/} (\texttt{pb.py}, \texttt{pk.py}, \texttt{table.py},
+\texttt{cert\_*.jsonl}, \texttt{pk\_mesh.jsonl}, \texttt{patch\_scan.jsonl}).
+
+\section*{Summary}
+\begin{enumerate}
+\item \textbf{Key device (PROVED).} Call $v\in V_R$ \emph{pressure-blind} if $B^\ast(q,v)=0$ for all $q\in\Pi_h$. For such $v$ the
+CNS$^\ast$ momentum row with hydrostatic data reduces \emph{exactly} to
+$N_h(W,v)=\ip{\eta}{v\cdot n}$, $\eta=\phi-\pi_h\phi$ (Lemma~\ref{lem:pf}). The pressure error $\xi$ vanishes from the
+equation. It is not merely bounded, so neither $\beta$, nor Lemma~xi, nor coercivity enters. If in addition, on a patch
+$\omega$, $\sum_e\int_e v=0$ and $\sum_e\int_e\partial_nv=0$, then $N_h(\cdot,v)$ annihilates constants on $\omega$. So the
+smooth (edge-mean) slip of $W$, the obstruction in robust2 and in referee5 (c),(d), also drops out, and
+$|N_h(W,v)|\le\Phi^\ast_\omega(v)\,\|\nabla W\|_\omega$ (Lemma~\ref{lem:dual}).
+\item \textbf{Certificate for all $\gamma>0$ (PROVED).} For every $\gamma>0$ and every solution velocity $W$ (no uniqueness,
+no $\gamma\ge\gamma_0,\gamma_2,\gamma_3$):
+\[
+\|\nabla W\|\ \ge\ K^{-1/2}\Big(\sum_j\ip{\eta}{v_j\cdot n}^2/\Phi^\ast_{\omega_j}(v_j)^2\Big)^{1/2}
+\qquad(\text{Thm~\ref{thm:cert}}),
+\]
+where $\Phi^\ast_\omega(v)\le\Phi^0_\omega(v)+\gamma\,\Phi^1_\omega(v)$ is affine in $\gamma$ with explicit bounds.
+\item \textbf{Order (PROVED MODULO a nondegeneracy condition $(N^1)$).} Take boundary stars. Then
+\[
+\|\nabla W\|\ge\frac{1}{2\sqrt{K}(1+\gamma)}\Big(\sum_z|e_z|^{2k+2}\big(\sigma_z(H_z)-C_R|e_z|\,|\phi|_{W^{k+1,\infty}}\big)_+^2\Big)^{1/2}
+\]
+(Thm~\ref{thm:order}), with $\sigma_z$ a computable, scale-invariant local seminorm on $\mathrm{Hom}_k$ and $H_z$ the degree-$k$
+Taylor term of $\phi$ at $z$. Under $(N^1)$: $\|\nabla W\|\ge c(\phi)(1+\gamma)^{-1}\hG^{k+1/2}$ for \emph{all} $\gamma>0$.
+Combined with the upper bound of robust/ Thm~3.2(b), this gives
+\[
+c\,\gamma^{-1}\hG^{k+1/2}\le\|\nabla W_\ast\|\le C\gamma^{-1}\hG^{k+1/2}\qquad\text{for all }\gamma\ge\max(\gamma_2,1).
+\]
+This is the sharp order on the whole coercive range, and the lower half extends below it.
+\item \textbf{Local algebra (NUMERICAL, $k=4$).}
+ \begin{itemize}
+ \item $\ker\sigma_z\ni(n\cdot x)^k$ always in the flat limit: pure-normal $\nabla^k\phi$ is invisible, consistent with robust2 N5.
+ \item Generic flat 4-triangle stars: kernel exactly $\mathbb R(n\cdot x)^k$.
+ \item 3-triangle stars, including the production family, have a degenerate locus with a 2-dimensional kernel. The
+ production stars converge to it: the second singular value falls like $\hG$.
+ \item So the clean condition ``$\nabla^k\phi$ not purely normal'' is \textbf{not} uniformly sufficient on the production
+ meshes. There, $(N^1)$ is checked by the certificate itself.
+ \end{itemize}
+\item \textbf{Numerics ($k=4$, $\sin2x\cos y$, production meshes).}
+ \begin{itemize}
+ \item Certificate $\mathrm{LB}\cdot\gamma/\hG^{4.5}$ at $\mu=100$: $0.070,0.032,0.020,0.0168,0.0156,0.0151$ for $N=8..256$,
+ converging to $\approx0.015$.
+ \item True $\|\nabla W\|/\mathrm{LB}$: $3.2$--$4.6$ at $\mu=100$ and $2.1$--$2.3$ at $\mu=10^3$.
+ \item In the brief's normalisation, $\mathrm{LB}/(\varepsilon\hG^{-1/2}\|\eta\|)=1.72,1.60,1.39,1.31,1.27,1.25$, against
+ $5.5$--$6.3$ measured.
+ \item The certificate stays valid below the coercivity threshold ($\mu=1,\dots,60$; e.g.\ at $\mu=60$, $N=32$ the true value is
+ $64\times$ LB).
+ \item The pressure-free identity holds to $10^{-8}$--$10^{-12}$ (quadrature).
+ \end{itemize}
+\end{enumerate}
+
+\section{Setting}
+We use the paper's notation (§2, §4, §7 proof of Thm~D) with $k\ge4$ and $\nu=1$. $W=W_\ast(\phi)\in Z_h$ is \emph{any} velocity
+with some $p_h\in\Pi_h$ such that
+\[
+N_h(W,v)+B^\ast(p_h,v)=(\nabla\phi,v)\quad\forall v\in V_R,\qquad
+B^\ast(q,v)=-(q,\operatorname{div}v)+\ip{q-\bar p_\Gamma(q)}{v\cdot n}.
+\]
+Here $n$ is the outward normal of $\Omega_h$ on $\Gh$, $\varepsilon=h/\mu=\hG/\gamma$, $\pi_h$ is the $L^2$ projection onto
+$\Pi_h$, and $\eta:=\phi-\pi_h\phi$ on $\Gh$ (the trace from the boundary triangle; this is robust2's $\eta$). For a vertex
+$z$ of $\Gh$, the star $\omega_z$ is the set of triangles containing $z$. $e_z$ is the $\Gh$ edge following $z$, $\Gamma_\omega$ is the
+union of the $\Gh$ edges of the boundary triangles in $\omega$, and $V_h^0(\omega)$ is the set of $v\in V_h$ with support in
+$\overline\omega$ (so $v=0$ on $\partial\omega\setminus\Gh$). $K$ is the overlap of a patch family: every triangle lies in at
+most $K$ patches. For stars $K\le3$, and $K=2$ on the production meshes (no triangle has three $\Gh$ vertices).
+
+\section{Pressure-blind test fields}
+\begin{definition}
+$v\in V_R$ is \emph{pressure-blind} if $B^\ast(q,v)=0$ for all $q\in\Pi_h$.
+\end{definition}
+
+\begin{lemma}[characterisation, PROVED]\label{lem:char}
+$v$ is pressure-blind iff the following three conditions hold:
+\begin{itemize}
+\item $\int_{\Gh}v\cdot n=0$;
+\item $\operatorname{div}v|_T=0$ on every triangle $T$ without a $\Gh$ edge;
+\item on each boundary triangle $T_e$, $(\operatorname{div}v,r)_{T_e}=\ip{v\cdot n}{r}_e$ for all $r\in P_{k-1}(T_e)$.
+\end{itemize}
+\end{lemma}
+\begin{proof}
+For $q\equiv1$, $B^\ast(1,v)=-\int\operatorname{div}v=-\int_{\Gh}v\cdot n$, since $v=0$ on $\partial R$. Given zero flux, the term
+$\bar p_\Gamma(q)\int v\cdot n$ vanishes. The remaining conditions are $B^\ast(q,v)=0$ for $q$ supported on one triangle.
+\end{proof}
+The last condition is exactly the divergence condition (ii) of the CNS$^\ast$-R boundary field $b_e$ (robust/ Def.~4.1).
+Divergence-free fields in $V_O$ (the space $Y_h$) are pressure-blind, but their pairing below is zero. The fields used here have
+nonzero, edge-oscillating normal traces.
+
+\begin{lemma}[pressure-free identity, PROVED; exact load integration]\label{lem:pf}
+For every pressure-blind $v$, $N_h(W,v)=\ip{\eta}{v\cdot n}$. The same holds with $\phi$ replaced by any smooth $\psi$ and $W$ by the
+corresponding velocity. Locally, for $v\in V_h^0(\omega)$ pressure-blind and smooth $\psi$,
+$(\nabla\psi,v)_\omega=\ip{(I-\pi_h)\psi}{v\cdot n}_{\Gamma_\omega}$.
+\end{lemma}
+\begin{proof}
+$B^\ast(p_h,v)=0$. Next, $(\nabla\phi,v)=-(\phi,\operatorname{div}v)+\ip{\phi}{v\cdot n}$. Since
+$\operatorname{div}V_h\subset\Pi_h$, we have $(\phi,\operatorname{div}v)=(\pi_h\phi,\operatorname{div}v)$. Then
+$B^\ast(\pi_h\phi,v)=0$ and zero flux give $(\pi_h\phi,\operatorname{div}v)=\ip{\pi_h\phi}{v\cdot n}$.
+\end{proof}
+\noindent\textbf{Check (NUMERICAL).} \texttt{pb.py} assembles the optimal star fields and evaluates both sides with the computed $W$.
+\begin{itemize}
+\item The two sides agree to relative $10^{-8}$ ($N=8,64$) and $10^{-11}$ ($N=16,32$), the quadrature error of the load.
+\item The residual $\max|B^\ast(\cdot,v)|$ is $10^{-14}$.
+\item This holds for $\mu$ from $1$ to $10^4$.
+\end{itemize}
+
+\begin{remark}[why the robust2 obstacles disappear]
+In robust2 the test fields ($X_e$, nodal lifts $v_t$) were not pressure-blind. The terms $\ip{\xi-\xi_\Omega}{v\cdot n}$ and
+$(\xi-\xi_\Omega,\operatorname{div}v)$ then had to be controlled by Lemma~xi, which contains $\hG^{-1/2}\|W\|_{\Gh}$, the full
+(edge-mean) slip. The smooth slip also entered through $\ip{W}{\partial_nv}$ and $(\mu/h)\ip{W}{v}$. That is why the leak law was
+needed, and it only holds for $\gamma\ge\gamma_3\gtrsim10^3$. Pressure-blindness removes $\xi$ identically. The two mean
+conditions below remove the slip, because the slip enters only through its patch mean, while the oscillating remainder is
+controlled by $\|\nabla W\|$ (trace--Poincar\'e). This is the brief's idea (a), made to work by the choice of test space.
+\end{remark}
+
+\section{The dual bound and the certificate}
+\begin{definition}
+For a connected patch $\omega$, $V^\sharp(\omega)$ is the set of pressure-blind $v\in V_h^0(\omega)$ with
+\[
+\textstyle(\mathrm M)\ \sum_{e\subset\Gamma_\omega}\int_ev=0,\qquad(\mathrm D)\ \sum_{e\subset\Gamma_\omega}\int_e\partial_nv=0\qquad(\text{vectors in }\mathbb R^2).
+\]
+For $v\in V^\sharp(\omega)$ let $\Phi^\ast_\omega(v):=\sup\{N_h(w,v)/\|\nabla w\|_\omega:\ w\in V_h|_\omega\text{ mod constants}\}$. Split
+$N_h=N^0+(\gamma/\hG)\ip{\cdot}{\cdot}$ and define $\Phi^0_\omega$, $\Phi^1_\omega$ as the corresponding sups with $N^0$ and with
+$|e_\omega|^{-1}\ip{w}{v}_{\Gamma_\omega}$, where $|e_\omega|$ is a reference edge length of the patch.
+\end{definition}
+
+\begin{lemma}[local dual bound, PROVED]\label{lem:dual}
+For $v\in V^\sharp(\omega)$:
+\begin{enumerate}
+\item[(a)] $N_h(c,v)=0$ for constant $c\in\mathbb R^2$, so $\Phi^\ast_\omega(v)<\infty$ and $|N_h(w,v)|\le\Phi^\ast_\omega(v)\|\nabla w\|_\omega$ for all
+$w\in V_h$.
+\item[(b)] $\Phi^\ast_\omega\le\Phi^0_\omega+\gamma(|e_\omega|/\hG)\Phi^1_\omega$. Explicitly, with the local inverse constant $C_I$
+($|e|^{1/2}\|\partial_nw\|_e\le C_I\|\nabla w\|_{T_e}$) and the patch trace--Poincar\'e constant $C_T(\omega)$
+($\|w-\bar w_\omega\|_{\Gamma_\omega}\le C_T|e_\omega|^{1/2}\|\nabla w\|_\omega$, which depends only on the shape of $\omega$):
+\[
+\Phi^0_\omega(v)\le2\|\nabla v\|_\omega+C_I\Big(\sum_{e}|e|^{-1}\|v\|_e^2\Big)^{1/2}+C_T|e_\omega|^{1/2}\|\partial_nv\|_{\Gamma_\omega},\qquad
+\Phi^1_\omega(v)\le C_T|e_\omega|^{-1/2}\|v\|_{\Gamma_\omega}.
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a) Each term of $N_h(c,v)$ is zero: $a_h(c,v)=0$ and $\partial_nc=0$; $\ip{c}{\partial_nv}=c\cdot\sum\int_e\partial_nv=0$ by (D); and
+$\ip{c}{v}=0$ by (M).
+
+(b) Replace $w$ by $w-\bar w_\omega$, and bound each term:
+\begin{itemize}
+\item $|a_h(w,v)|\le\tfrac12\|Dw\|_\omega\|Dv\|_\omega\le2\|\nabla w\|_\omega\|\nabla v\|_\omega$;
+\item $|\ip{\partial_nw}{v}|\le\sum_e C_I|e|^{-1/2}\|\nabla w\|_{T_e}\|v\|_e$, then Cauchy--Schwarz;
+\item the terms $\ip{w-\bar w}{\partial_nv}$ and $\ip{w-\bar w}{v}$ by $C_T$.
+\end{itemize}
+Note $\mu/h=\gamma/\hG$.
+\end{proof}
+
+\begin{theorem}[certificate, all $\gamma>0$, PROVED]\label{thm:cert}
+Let $\{\omega_j\}$ have overlap $K$ and $v_j\in V^\sharp(\omega_j)$. Then for every $\gamma>0$ and every CNS$^\ast$ solution velocity $W$ of the
+hydrostatic problem,
+\[
+\|\nabla W\|^2\ \ge\ \frac1K\sum_j\frac{\ip{\eta}{v_j\cdot n}^2}{\Phi^\ast_{\omega_j}(v_j)^2}.
+\]
+\end{theorem}
+\begin{proof}
+By Lemmas~\ref{lem:pf} and \ref{lem:dual}(a), $|\ip{\eta}{v_j\cdot n}|=|N_h(W,v_j)|\le\Phi^\ast_j\|\nabla W\|_{\omega_j}$. Square and
+sum, using $\sum_j\|\nabla W\|^2_{\omega_j}\le K\|\nabla W\|^2$.
+\end{proof}
+Only the momentum row is used. Neither $W\in Z_h$, nor uniqueness, nor $\gamma\ge\gamma_0$ enters. For fixed $v_j$ the bound
+decays at most like $(\Phi^0+\gamma\Phi^1)^{-1}$. The optimal $v_j$ in each patch is a generalised Rayleigh quotient
+(\texttt{pb.py}: exact dual norm via a local pseudoinverse, which is well defined because constants are annihilated;
+residual $3\times10^{-14}$).
+
+\section{Order of the bound: stars and the local seminorm}
+For a star $\omega_z$, $s:=|e_z|$, and $v\in V^\sharp(\omega_z)$, set
+$\hat\Phi_Q(v)^2:=\|\nabla v\|^2_{\omega}+\Phi^0(v)^2+\Phi^1(v)^2$ (with $|e_\omega|=s$); this is scale-invariant. For a
+homogeneous polynomial $H$ of degree $k$ ($|H|$ is the Frobenius norm of its symmetric tensor) define
+\[
+\sigma_z(H):=\sup_{v\in V^\sharp(\omega_z)}\frac{\ip{(I-\pi_h)H}{v\cdot n}_{\Gamma_\omega}}{s^{k+1}\hat\Phi_Q(v)} .
+\]
+This is a seminorm, invariant under similarities of the star, and equal to $(h^{\mathsf T}M_zh)^{1/2}$ for a $(k+1)\times(k+1)$ matrix
+$M_z$ that \texttt{pk.py} computes. Let $H_z$ be the degree-$k$ Taylor term of $\phi$ at $z$, so $H_z$ has tensor
+$\nabla^k\phi(z)/k!$ at the origin $z$.
+
+\begin{theorem}[order, all $\gamma>0$, PROVED]\label{thm:order}
+There is $C_R$ (depending on $k$ and shape regularity) such that for every $\gamma>0$
+\[
+\|\nabla W\|\ \ge\ \frac{1}{2\sqrt K(1+\gamma)}\Big(\sum_z s_z^{2k+2}\big(\sigma_z(H_z)-C_Rs_z|\phi|_{W^{k+1,\infty}}\big)_+^2\Big)^{1/2}.
+\]
+\end{theorem}
+\begin{proof}
+Fix $z$ and let $v$ be optimal for $\sigma_z(H_z)$.
+\begin{itemize}
+\item \emph{Taylor remainder.} On each boundary triangle $T$ of $\omega_z$, $(I-\pi_h)$ kills $P_{k-1}$, so
+$\eta-(I-\pi_h)H_z=(I-\pi_T)(\phi-T^k_z\phi)$. This is bounded in $L^\infty$ by $(1+\Lambda)(C s)^{k+1}|\phi|_{k+1,\infty}/(k+1)!$,
+where $\Lambda$ is the $L^\infty$ norm of the $L^2(T)$ projection onto $P_{k-1}$, uniform by shape regularity.
+\item \emph{Trace of $v$.} Taking $w=v$ in the definition of $\Phi^1$ gives $\|v\|^2_{\Gamma_\omega}\le s\,\Phi^1(v)\|\nabla v\|\le
+s\,\hat\Phi_Q(v)^2$. Also $|\Gamma_\omega|\le Cs$.
+\item \emph{Pairing.} Hence
+$\ip{\eta}{v\cdot n}\ge s^{k+1}\hat\Phi_Q(v)\big(\sigma_z(H_z)-C_Rs|\phi|_{k+1,\infty}\big)$.
+\item \emph{Dual norm.} Lemma~\ref{lem:dual}(b) with $s\le\hG$ gives
+$\Phi^\ast\le\Phi^0+\gamma\Phi^1\le\sqrt2(1+\gamma)\hat\Phi_Q$.
+\end{itemize}
+Insert into Theorem~\ref{thm:cert}.
+\end{proof}
+
+\begin{corollary}[sharp order, PROVED MODULO $(N^1)$]\label{cor:order}
+Suppose
+\[
+(N^1)\qquad \Lambda_0:=\liminf_{\hG\to0}\ \hG^{-(2k+1)}\sum_zs_z^{2k+2}\sigma_z(H_z)^2>0 .
+\]
+Then for all $\gamma>0$ and $\hG\le h_1(\phi)$:
+\[
+\|\nabla W_\ast(\phi)\|\ge\frac{\Lambda_0^{1/2}}{4\sqrt K(1+\gamma)}\hG^{k+1/2}.
+\]
+Together with robust/ Thm~3.2(b) ($\|\nabla W\|\le C\hG^{k+1/2}\gamma^{-1}|\phi|_{W^{k,\infty}}$ for
+$\gamma\ge\gamma_2$), $\|\nabla W_\ast\|\asymp\gamma^{-1}\hG^{k+1/2}$ uniformly for $\gamma\ge\max(\gamma_2,1)$, with ratio of the
+constants at most $4\sqrt K\,C\,(1+\gamma^{-1})/\Lambda_0^{1/2}$. At $\nu$: the CNS$^\ast$ pressure part is exactly of $H^1$ order
+$\nu^{-1}\gamma^{-1}\hG^{k+1/2}$.
+\end{corollary}
+\begin{proof}
+Use $(a-b)_+^2\ge a^2/2-b^2$. Then $\sum_zb_z^2\le C\hG^{2k+4}\#\mathcal E_\Gamma\le C\hG^{2k+3}$.
+\end{proof}
+$(N^1)$ is a Riemann sum: $\hG^{-(2k+1)}\sum_zs_z^{2k+2}\sigma_z^2=\sum_zs_z(s_z/\hG)^{2k+1}\sigma_z(H_z)^2$. It is the $H^1$
+analogue of robust2's local condition Thm~Dlower(ii), with the $X_e$ certificate replaced by pressure-blind star fields.
+
+\begin{corollary}[a mesh-uniform sufficient condition, PROVED MODULO $(P_k)$]
+Suppose the following condition holds:
+\begin{quote}
+$(P_k)$: all stars lie in a family of shapes, closed under the flat limit $\angle z\to\pi$, on which
+$\sigma_z(H)\ge\kappa_P\,\mathrm{dist}(H,\mathbb R\,\ell_z^k)$, where $\ell_z(x)=n_{e_z}\cdot x$.
+\end{quote}
+Then
+\[
+\Lambda_0\ge\kappa_P^2c_0^{2k+1}\int_\Gamma\mathrm{dist}\big(\nabla^k\phi/k!,\ \mathbb R\,n^{\otimes k}\big)^2 ,
+\]
+and $(N^1)$ holds whenever $\nabla^k\phi|_\Gamma$ is not purely normal on a set of positive measure.
+\end{corollary}
+\begin{proof}
+Use $|n_{e_z}-n(z)|=O(\hG)$, continuity of $\nabla^k\phi$, and a Riemann sum (Jacobian $1+O(\hG^2)$).
+\end{proof}
+
+\begin{remark}[single triangles, $k\ge5$ (NUMERICAL)]
+For $k\ge5$, $V^\sharp(T_e)$ with per-edge conditions is nontrivial: $\dim=4,8,13$ for $k=5,6,7$. The pairing has rank $k-2$, and
+its kernel is exactly the span of the three edge-normal powers of $T_e$ (residuals $\le10^{-8}$, \texttt{pb.py} and the
+check at the end of this section). This is the same kernel as robust2 Thm~kernel. So for $k\ge5$ robust2's condition (ii)
+already gives the $H^1$ lower bound with $K=1$. For $k=4$, $\dim V^\sharp(T_e)=1$ and the rank is $1$, so stars are needed.
+\end{remark}
+
+\section{The local seminorm $\sigma_z$: what is visible (NUMERICAL, $k=4$)}
+The data come from \texttt{pk.py} (star-only meshes) and \texttt{pb.py patch\_scan} (in the global mesh). The two agree: at
+$N=16$, $\sigma$-min $4.82\times10^{-5}$ and 2nd-min $1.66\times10^{-4}$ in both.
+\begin{itemize}
+\item \textbf{Flat limit, pure normal.} For exactly collinear $e,e'$, $(n\cdot x)^k$ is in $\ker\sigma_z$ (eigenvalue $\le10^{-14}$,
+alignment $1.000$). The reason: $(I-\pi_T)(n\cdot x)^k$ is constant on $e$ with value $\propto h_T^kJ_k(0)$ (robust2
+Lemma~jac), so it is invisible to (M) when the two boundary triangles have equal heights. With unequal heights it is weakly
+visible, at relative order $|h_T-h_{T'}|$. This matches robust2 N5 ($(r-1)^4$: the $H^1$ order rises). Our certificate for
+$(r-1)^4$ also decays: $\mathrm{LB}\gamma/\hG^{4.5}=0.036,0.013,0.0057$, against the true $0.15,0.066,0.041$.
+\item \textbf{Generic 4-triangle flat stars} (30 random samples). $\dim V^\sharp=15$, the kernel is exactly
+$\mathbb R(n\cdot x)^k$, and the second singular value is $\ge2.1\times10^{-4}$, so $(P_k)$ is plausible on such families. With
+tilt $\delta=0.05$--$0.2$ the kernel closes ($\sigma_{\min}=3\times10^{-5}$--$1.5\times10^{-4}$).
+\item \textbf{3-triangle stars} (the production type, (M1$'$) minimal). Random flat samples give 2nd singular value down to
+$1.7\times10^{-6}$. There is a degenerate locus with a \emph{2-dimensional} kernel, and the exact production limit shape (layer-1
+vertices radially above $z$ and above the far end of $e_z$) lies on it. For height ratio $H$ the extra kernel direction is
+$-\tfrac23xy^3+x^2y^2-\tfrac23x^3y$ ($H=1$); it depends on $H$ and is neither $\tau^k$ nor $n^k$.
+\item \textbf{Production stars} ($N=8..256$, all vertices, $\dim V^\sharp=10$, rank 5 on $\mathrm{Hom}_4$). Minimum over stars:
+
+\smallskip
+\begin{tabular}{lcccccc}\toprule
+$N$ & 8 & 16 & 32 & 64 & 128 & 256\\\midrule
+smallest $\sigma$ & 5.3e-5 & 4.8e-5 & 4.5e-5 & 3.2e-5 & 1.7e-5 & 8.2e-6\\
+2nd smallest & 2.6e-4 & 1.7e-4 & 7.5e-5 & 3.8e-5 & 1.9e-5 & 9.3e-6\\
+angle at $z$ ($^\circ$) & 135 & 153--162 & 166--172 & 173--176 & 176--178 & 178--179\\\bottomrule
+\end{tabular}
+\smallskip
+
+\noindent The second value decays like $\hG$. So $(P_k)$ with kernel $\mathbb R\ell^k$ \textbf{fails uniformly on the production
+family}. Larger patches (two or three adjacent stars, \texttt{patch\_scan.jsonl}) do not cure this: in the periodic flat limit a
+larger patch sees the same per-cell kernel. For the production meshes, $(N^1)$ must therefore be checked for the given $\phi$,
+which is what the certificate does. $\phi=\sin2x\cos y$ has $\nabla^4\phi$ outside the (point-dependent) 2-dimensional limit
+kernel except at isolated points.
+\item \textbf{Conjecture (not proved).} Directions in the limit kernel give $H^1$ order $\hG^{k+1}$. The heuristic: the load
+functional is then $B^\ast$ plus smooth $\ip{c_1}{v}+\ip{c_2}{\partial_nv}$ data, whose Nitsche response is a smooth slip.
+Only the pure-normal case has numerical support (robust2 N5).
+\end{itemize}
+
+\section{Numerics (\texttt{pb.py cert}, $k=4$, production meshes, SuperLU, relres $\le3\times10^{-15}$)}
+The certificate uses stars with $K=2$, and also each parity sub-family ($K=1$); the max is reported.
+$\mathrm{LB}_n:=\mathrm{LB}/(\varepsilon\hG^{-1/2}\|\eta\|)$ is the brief's normalisation. Table from \texttt{python table.py}.
+
+\begin{center}\small
+\begin{tabular}{rrrrrrrr}\toprule
+$\phi$ & $N$ & $\mu$ & $\gamma$ & $\mathrm{LB}\,\gamma/\hG^{4.5}$ & $\|\nabla W\|\gamma/\hG^{4.5}$ & $\|\nabla W\|/\mathrm{LB}$ & $\mathrm{LB}_n$\\\midrule
+sin & 8 & 100 & 29.3 & .0697 & .224 & 3.22 & 1.72\\
+sin & 16 & 100 & 30.5 & .0324 & .124 & 3.84 & 1.60\\
+sin & 32 & 100 & 30.1 & .0200 & .091 & 4.55 & 1.39\\
+sin & 64 & 100 & 29.4 & .0168 & .078 & 4.63 & 1.31\\
+sin & 128 & 100 & 29.0 & .0156 & -- & -- & 1.27\\
+sin & 256 & 100 & 28.7 & .0151 & -- & -- & 1.25\\
+sin & 8/16/32/64 & $10^3$ & $\approx$300 & .071/.028/.019/.016 & .148/.064/.040/.032 & 2.09/2.30/2.16/2.08 & 1.74/1.39/1.29/1.21\\
+$(r^2-1)^3$ & 16/32/64 & 100 & $\approx$30 & .84/.33/.22 & 3.40/1.31/.82 & 4.06/3.95/3.72 & .92/.75/.66\\
+$(r-1)^4$ & 16/32/64 & 100 & $\approx$30 & .036/.013/.0057 & .153/.066/.041 & 4.23/5.19/7.21 & .83/.50/.27\\\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{$\gamma$ scan} ($N=32$, sin). The Z$_h$ threshold is $\mu^\ast\approx66$ (referee5), so $\mu\le60$ is
+noncoercive and $W$ may be large.
+
+\smallskip
+\begin{tabular}{lrrrrrrrrr}\toprule
+$\mu$ & 1 & 3 & 10 & 30 & 50 & 100 & 300 & $10^3$ & $10^4$\\\midrule
+$\mathrm{LB}\times10^{7}$ & 18.0 & 18.4 & 19.7 & 21.5 & 20.7 & 11.7 & 3.62 & 1.09 & .113\\
+$\mathrm{LB}\,\gamma/\hG^{4.5}$ & .0003 & .0009 & .0034 & .0110 & .0177 & .0200 & .0185 & .0186 & .0193\\
+$\|\nabla W\|/\mathrm{LB}$ & 27 & 24 & 11 & 8.2 & 25 & 4.6 & 2.4 & 2.2 & 2.2\\\bottomrule
+\end{tabular}
+\smallskip
+
+\noindent Reading of the $\gamma$ scan:
+\begin{itemize}
+\item LB is bounded as $\gamma\to0$ and $\propto\gamma^{-1}$ for $\gamma\gtrsim20$. This is exactly the $(\Phi^0+\gamma\Phi^1)^{-1}$
+shape, with crossover $\gamma_\times\approx19$ for this $\phi$ and mesh.
+\item For $\gamma\ge18$ the normalised certificate is $\gamma$-independent to $\pm8\%$.
+\item At the production $\gamma\approx30$ the lower bound is within a factor $4.6$ of the truth.
+\item Of the gap, about $2.1\times$ is the certificate itself (seen at $\gamma\ge300$). The remaining $\approx2.2\times$ at
+$\mu=100$ comes from the true $\|\nabla W\|\gamma$ growing near the threshold ($\mu/\mu^\ast\approx1.4$, referee5; $0.078$ vs
+$0.032$ at $N=64$), while the certificate changes by only $8\%$. That is consistent with near-threshold amplification, which a
+lower bound need not track (interpretation, not proved).
+\end{itemize}
+
+\section{Status and open items}
+\begin{itemize}
+\item \textbf{PROVED:} Lemmas~\ref{lem:char}, \ref{lem:pf} and \ref{lem:dual}, Theorems~\ref{thm:cert} and \ref{thm:order}
+(all $\gamma>0$, any solution), and the two-sided order for $\gamma\ge\max(\gamma_2,1)$ modulo $(N^1)$.
+\item \textbf{NUMERICAL:}
+ \begin{itemize}
+ \item $(N^1)$ for $\sin2x\cos y$ on the production family (floating-point certificate, converging to $0.015$ at $N\le256$; the
+ limit is not proved);
+ \item the kernel structure of $\sigma_z$;
+ \item $(P_k)$ on generic 4-triangle stars;
+ \item its failure on the production family;
+ \item the single-triangle kernel for $k\ge5$.
+ \end{itemize}
+\item \textbf{Open:}
+ \begin{itemize}
+ \item a proof of $(P_k)$ on a named star family (a finite-dimensional, scale-invariant rank condition, analogous to (M3); an
+ interval certificate as in \texttt{code/m3\_certify.py} would do);
+ \item the higher-order upper bound for kernel directions (pure normal included);
+ \item exact-integration versus quadrature ($10^{-8}$ identity error);
+ \item $k\ne4$ numerics.
+ \end{itemize}
+\item \textbf{Not needed any more:} the leak law and $\gamma_3$. The $H^1$ lower bound no longer depends on them.
+\end{itemize}
+
+\noindent\textbf{Files.} \texttt{pb.py} (certificate, identity check, \texttt{dims}, \texttt{patch\_scan}); \texttt{pk.py}
+(local seminorm on star-only meshes: \texttt{mesh}, \texttt{flat}, \texttt{random}); \texttt{table.py}; logs
+\texttt{cert\_sin\_\{8,16\_32,64,128,256\}.jsonl}, \texttt{cert\_sin\_32\_gamma.jsonl}, \texttt{cert\_radial.jsonl},
+\texttt{pk\_mesh.jsonl}, \texttt{patch\_scan.jsonl}. Every run takes $\le2$ minutes on one core, except $N=256$ (about
+$2$ minutes, no solve).
+\end{document}

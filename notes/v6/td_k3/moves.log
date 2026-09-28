@@ -1,0 +1,5 @@
+flat square fan                S1:2 S1+d:2 S1+nu:2 all:2
+hex equilateral fan q axis     S1:0 S1+d:2 S1+nu:0 all:2
+hex equilateral fan q off      S1:0 S1+d:2 S1+nu:0 all:2
+hex eq, 2 adjacent Gamma       S1:0 S1+d:2 S1+nu:0 all:2
+hex eq, 3 adjacent Gamma       S1:0 S1+d:2 S1+nu:0 all:2
