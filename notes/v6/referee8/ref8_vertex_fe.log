@@ -1,0 +1,12 @@
+sphere pentagon, all 5 Gamma
+ d=(1, 0, 0) resid 5.7e-14  FE [-5.753e-04 -3.438e-05 -2.500e-07]  pred [-5.468e-04 -2.376e-05  1.040e-06]  free-rank 3  dist(pred, FE affine image) 0.0e+00
+ d=(0, 1, 0) resid 5.2e-14  FE [-3.0490e-05 -6.0244e-04  1.7600e-06]  pred [-2.156e-05 -5.596e-04  1.660e-06]  free-rank 3  dist(pred, FE affine image) 2.7e-20
+ d=(0, 0, 1) resid 6.8e-14  FE [ 2.1514e-04 -3.7680e-05 -4.6796e-04]  pred [ 2.1175e-04 -3.9260e-05 -4.6852e-04]  free-rank 3  dist(pred, FE affine image) 2.8e-21
+sphere quad, faces 0,2 only
+ d=(1, 0, 0) resid 4.3e-14  FE [-3.3621e-04  1.7162e-04  8.3600e-06]  pred [-3.0586e-04  1.3273e-04  7.2300e-06]  free-rank 2  dist(pred, FE affine image) 3.5e-21
+ d=(0, 1, 0) resid 4.8e-14  FE [ 2.2652e-04 -3.7501e-04 -1.4040e-05]  pred [ 1.7496e-04 -3.1520e-04 -8.8500e-06]  free-rank 2  dist(pred, FE affine image) 1.5e-20
+ d=(0, 0, 1) resid 4.6e-14  FE [ 0.0002318   0.00039204 -0.00028181]  pred [ 0.00023669  0.00039167 -0.00028507]  free-rank 2  dist(pred, FE affine image) 6.9e-21
+coarse tilted hexagon (tau big)
+ d=(1, 0, 0) resid 3.5e-14  FE [-0.00099895 -0.          0.0005269 ]  pred [-0.00126534  0.          0.00055084]  free-rank 3  dist(pred, FE affine image) 1.8e-20
+ d=(0, 1, 0) resid 4.3e-14  FE [ 0.         -0.00034838 -0.        ]  pred [ 0.        -0.0006672  0.       ]  free-rank 3  dist(pred, FE affine image) 5.9e-19
+ d=(0, 0, 1) resid 5.2e-14  FE [-0.00147709  0.         -0.01769847]  pred [-0.00145886 -0.         -0.01777044]  free-rank 3  dist(pred, FE affine image) 2.7e-20

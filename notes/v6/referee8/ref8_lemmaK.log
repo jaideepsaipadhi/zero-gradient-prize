@@ -1,0 +1,7 @@
+free params: [c11]
+moment at free=0: [-e1*wab/720 + e2*wab/360 - e2*wza/360, e2*(-3*wab + 2*wzb)/720]
+free direction (D): [-wab/720 + wza/720, wab/720 - wzb/720]
+base - (-wab/720 e): [e2*(wab - wza)/360, e2*(-wab + wzb)/360]  parallel to D: True
+jet lemma trial 0 : True
+jet lemma trial 1 : True
+jet lemma trial 2 : True

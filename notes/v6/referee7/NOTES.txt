@@ -1,0 +1,5 @@
+referee7 scratch (2026-09-28). chk_pb.py: robust3 star spaces V#(omega_z), N=8,16, mu=1,100:
+ dim V# = 10 at every star; N_h(const, v) relative 4e-15..7e-15; B*(q,v) residual <=1.1e-15.
+Hand checks: robust3 Lemmas char/pf/dual, Thm cert/order, Cor order algebra; unifmu2 Lemma id, exp,
+field (C^1 matching, traces, d_n v = d_nn psi tau, moment |e|^2/(30 H^2)), Thm main algebra, Cor gen,
+explicit C_PT derivation (div of w^2 (x - x_opp) + Payne-Weinberger), lb_patch.py cert formula.

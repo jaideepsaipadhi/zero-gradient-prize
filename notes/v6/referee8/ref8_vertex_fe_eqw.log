@@ -1,0 +1,12 @@
+sphere pentagon, all 5 Gamma equal per-face weights {0: 3, 1: 3, 2: 1, 3: 4, 4: 2}
+ d=(1, 0, 0) resid 5.7e-14  FE [-7.94547e-03  1.38030e-04  8.77500e-05]  pred [-7.94547e-03  1.38030e-04  8.77500e-05]  free-rank 0  dist(pred, FE affine image) 1.2e-15
+ d=(0, 1, 0) resid 5.2e-14  FE [ 2.3899e-04 -6.4005e-03  1.9700e-06]  pred [ 2.3899e-04 -6.4005e-03  1.9700e-06]  free-rank 0  dist(pred, FE affine image) 1.2e-15
+ d=(0, 0, 1) resid 6.8e-14  FE [ 0.00367591 -0.00082853 -0.0061132 ]  pred [ 0.00367591 -0.00082853 -0.0061132 ]  free-rank 0  dist(pred, FE affine image) 4.5e-16
+sphere quad, faces 0,2 only equal per-face weights {0: 1, 2: 2}
+ d=(1, 0, 0) resid 4.3e-14  FE [-1.3927e-03  5.0340e-04 -4.6890e-05]  pred [-1.3927e-03  5.0340e-04 -4.6890e-05]  free-rank 0  dist(pred, FE affine image) 6.7e-17
+ d=(0, 1, 0) resid 4.8e-14  FE [ 0.0009137  -0.00145271 -0.00015276]  pred [ 0.0009137  -0.00145271 -0.00015276]  free-rank 0  dist(pred, FE affine image) 2.8e-16
+ d=(0, 0, 1) resid 4.6e-14  FE [-0.00011559  0.00080768 -0.00125701]  pred [-0.00011559  0.00080768 -0.00125701]  free-rank 0  dist(pred, FE affine image) 1.9e-16
+coarse tilted hexagon (tau big) equal per-face weights {0: 1, 1: 3, 2: 4, 3: 2, 4: 4, 5: 1}
+ d=(1, 0, 0) resid 3.5e-14  FE [-0.01183649 -0.00442939  0.005097  ]  pred [-0.01183649 -0.00442939  0.005097  ]  free-rank 0  dist(pred, FE affine image) 9.0e-16
+ d=(0, 1, 0) resid 4.3e-14  FE [-0.00499344  0.00641415 -0.00037225]  pred [-0.00499344  0.00641415 -0.00037225]  free-rank 0  dist(pred, FE affine image) 8.8e-16
+ d=(0, 0, 1) resid 5.2e-14  FE [-0.0245956   0.00202486 -0.06592606]  pred [-0.0245956   0.00202486 -0.06592606]  free-rank 0  dist(pred, FE affine image) 7.2e-16
