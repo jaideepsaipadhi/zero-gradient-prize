@@ -1,0 +1,11 @@
+theta = 30 deg: float max of F = 42.0641; certify F <= 43
+  F certificate: {'accepted': 3226, 'discarded': 831, 'split': 4056, 'worst': [20.8860906064510 +/- 3.46e-14], 'time_s': 0.2}
+  denominators: 1 | 1
+  float min of the kappa bound on a 401^2 grid: 2.156e-06 at (x1,y1)=(1.7321,1.7321)
+Traceback (most recent call last):
+  File "/home/claude/zero-gradient-prize/notes/v6/robust6/cert_fix.py", line 88, in <module>
+    st = bb2(th, P, kappa0)
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/claude/zero-gradient-prize/notes/v6/robust6/cert_fix.py", line 65, in bb2
+    raise RuntimeError("REFUTED/unresolved box %s %s value %s" % (B.lo, B.hi, v))
+RuntimeError: REFUTED/unresolved box [Fraction(11623596019037, 6710886400000), Fraction(11623596019037, 6710886400000)] [Fraction(7264747656237, 4194304000000), Fraction(7264747656237, 4194304000000)] value [4.64957e-12 +/- 5.16e-18]

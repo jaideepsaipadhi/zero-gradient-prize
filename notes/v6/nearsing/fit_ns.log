@@ -1,0 +1,5 @@
+altsplit_h1.0  A=0.787 B=0.0579 maxrelres=4.1e-03  | free: p=1.355 maxrelres=1.6e-02  | B-term share at finest N: 0.42
+altwall_h1.0   A=0.790 B=0.0787 maxrelres=1.8e-03  | free: p=1.317 maxrelres=1.3e-02  | B-term share at finest N: 0.50
+altsplit_q1.0  A=1.215 B=0.0843 maxrelres=4.8e-03  | free: p=0.790 maxrelres=2.1e-02  | B-term share at finest N: 0.88
+altwall_q1.0   A=1.491 B=0.0707 maxrelres=1.1e-02  | free: p=0.838 maxrelres=3.1e-02  | B-term share at finest N: 0.89
+alt_c0         A=5.155 B=1.0418 maxrelres=6.2e-03  | free: p=0.613 maxrelres=1.1e-02  | B-term share at finest N: 0.98

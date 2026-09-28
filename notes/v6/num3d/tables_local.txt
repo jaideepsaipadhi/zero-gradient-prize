@@ -1,0 +1,116 @@
+
+== box_mms  method=-  k=3  mu=400  L=1   [NUMERICAL]
+  N  vel dofs   p dofs       h     H1 err  rate     L2 err  rate  |div uh|  ipm   relres
+  2      3189     1920  1.7321  3.015e-01   nan  2.439e-02   nan   1.3e-13   34  1.3e-11
+  3     10290     6480  1.1547  9.780e-02  2.78  5.265e-03  3.78   1.7e-13   33  1.3e-11
+  4     23871    15360  0.8660  4.298e-02  2.86  1.677e-03  3.98   2.3e-13   32  1.7e-11
+  5     46038    30000  0.6928  2.252e-02  2.90  6.812e-04  4.04   3.0e-13   31  1.8e-11
+  6     78897    51840  0.5774  1.322e-02  2.92  3.250e-04  4.06   3.9e-13   30  2.1e-11
+
+== box_mms  method=-  k=4  mu=400  L=1   [NUMERICAL]
+  N  vel dofs   p dofs       h     H1 err  rate     L2 err  rate  |div uh|  ipm   relres
+  2      7083     3840  1.7321  3.820e-02   nan  3.266e-03   nan   6.7e-13   91  1.9e-10
+  3     23115    12960  1.1547  8.207e-03  3.79  4.653e-04  4.81   1.0e-12   89  3.4e-10
+  4     53907    30720  0.8660  2.649e-03  3.93  1.138e-04  4.90   1.5e-12   86  3.0e-10
+
+== sphere_P  method=CNS  k=3  mu=200  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096     5760  0.9194  3.000  3.973e-02   nan   nan  1.19e-02   nan  1.12e-01   nan   7.1e-07  0.209  0.205  0.121   0.70
+  4  2     70026    46080  0.5237  2.170  1.021e+00 -5.77 -10.03  3.45e-01 -5.98  3.62e+00 -6.18   1.4e-04  9.029  8.963  6.215  26.72
+
+== sphere_P  method=CNS  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096     5760  0.9194  3.000  2.714e-03   nan   nan  3.45e-04   nan  5.40e-03   nan   3.8e-11  0.012  0.011  0.005   0.10
+  4  2     70026    46080  0.5237  2.170  2.624e-04  4.15  7.22  3.19e-05  4.24  5.51e-04  4.06   1.5e-16  0.002  0.002  0.000   0.01
+
+== sphere_P  method=CNS  k=3  mu=1000  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096     5760  0.9194  3.000  1.476e-03   nan   nan  1.39e-04   nan  3.26e-03   nan   6.2e-16  0.012  0.011  0.004   0.13
+
+== sphere_P  method=D=GS-CNS  k=3  mu=200  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096        0  0.9194  3.000  1.205e-01   nan   nan  4.60e-02   nan  4.13e-01   nan       nan  0.807  0.788  0.770   2.11
+  4  2     70026        0  0.5237  2.170  9.690e-01 -3.70 -6.44  3.21e-01 -3.45  3.38e+00 -3.74       nan  8.400  8.339 -5.273  25.36
+
+== sphere_P  method=D=GS-CNS  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096        0  0.9194  3.000  7.205e-02   nan   nan  2.67e-02   nan  3.25e-01   nan       nan  0.936  0.919  0.918   2.53
+  4  2     70026        0  0.5237  2.170  4.781e-02  0.73  1.27  1.85e-02  0.65  2.60e-01  0.40       nan  0.970  0.965  0.965   2.50
+
+== sphere_P  method=D=GS-CNS  k=3  mu=1000  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096        0  0.9194  3.000  3.282e-02   nan   nan  1.10e-02   nan  2.06e-01   nan       nan  0.960  0.947  0.946   2.88
+
+== sphere_P  method=GS  k=3  mu=200  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096     5760  0.9194  3.000  1.336e-01   nan   nan  5.21e-02   nan  4.66e-01   nan   1.0e-15  0.913  0.892  0.891   2.34
+  4  2     70026    46080  0.5237  2.170  9.211e-02  0.66  1.15  3.63e-02  0.64  3.71e-01  0.40   1.4e-15  0.949  0.943  0.943   2.41
+
+== sphere_P  method=GS  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096     5760  0.9194  3.000  7.257e-02   nan   nan  2.68e-02   nan  3.27e-01   nan   8.7e-16  0.941  0.924  0.923   2.54
+  4  2     70026    46080  0.5237  2.170  4.783e-02  0.74  1.29  1.85e-02  0.66  2.60e-01  0.41   7.5e-16  0.970  0.965  0.965   2.50
+
+== sphere_P  method=GS  k=3  mu=1000  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096     5760  0.9194  3.000  3.304e-02   nan   nan  1.10e-02   nan  2.06e-01   nan   2.3e-16  0.963  0.950  0.949   2.90
+  4  2     70026    46080  0.5237  2.170  2.033e-02  0.86  1.50  7.52e-03  0.67  1.64e-01  0.41   3.0e-16  0.984  0.981  0.981   2.66
+
+== sphere_P  method=interp  k=3  mu=200  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|
+  2  1      9096        0  0.9194  3.000  0.000e+00   nan   nan  0.00e+00   nan  0.00e+00   nan       nan
+  4  2     70026        0  0.5237  2.170  0.000e+00   nan   nan  0.00e+00   nan  0.00e+00   nan       nan
+
+== sphere_P  method=interp  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|
+  2  1      9096        0  0.9194  3.000  0.000e+00   nan   nan  0.00e+00   nan  0.00e+00   nan       nan
+  4  2     70026        0  0.5237  2.170  0.000e+00   nan   nan  0.00e+00   nan  0.00e+00   nan       nan
+
+== sphere_P  method=interp  k=3  mu=1000  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|
+  2  1      9096        0  0.9194  3.000  0.000e+00   nan   nan  0.00e+00   nan  0.00e+00   nan       nan
+  4  2     70026        0  0.5237  2.170  0.000e+00   nan   nan  0.00e+00   nan  0.00e+00   nan       nan
+
+== sphere_rot  method=CNS  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|
+  2  1      9096     5760  0.9194  3.000  2.225e+00   nan   nan  8.62e-01   nan  1.13e+01   nan   3.6e-13
+  4  2     70026    46080  0.5237  2.170  5.488e-01  2.49  4.32  2.21e-01  2.41  3.32e+00  2.17   5.7e-13
+
+== sphere_rot  method=D=GS-CNS  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|
+  2  1      9096        0  0.9194  3.000  2.127e-01   nan   nan  3.71e-02   nan  5.18e-01   nan       nan
+  4  2     70026        0  0.5237  2.170  9.214e-02  1.49  2.58  1.15e-02  2.09  1.96e-01  1.73       nan
+
+== sphere_rot  method=GS  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|
+  2  1      9096     5760  0.9194  3.000  2.209e+00   nan   nan  8.67e-01   nan  1.13e+01   nan   3.5e-13
+  4  2     70026    46080  0.5237  2.170  5.408e-01  2.50  4.35  2.23e-01  2.41  3.33e+00  2.17   5.5e-13
+
+== sphere_rot  method=interp  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|
+  2  1      9096        0  0.9194  3.000  2.390e+00   nan   nan  2.98e-02   nan  2.53e+00   nan       nan
+  4  2     70026        0  0.5237  2.170  2.509e-01  4.01  6.96  1.81e-03  4.97  2.60e-01  4.04       nan
+
+== sphere_sph  method=CNS  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096     5760  0.9194  3.000  1.265e+00   nan   nan  4.47e-01   nan  6.06e+00   nan   7.8e-11 15.671  1.205 -0.378  44.36
+  4  2     70026    46080  0.5237  2.170  3.253e-01  2.41  4.20  1.09e-01  2.51  1.70e+00  2.26   9.0e-11  5.699  0.333 -0.058  17.03
+
+== sphere_sph  method=D=GS-CNS  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096        0  0.9194  3.000  1.379e-01   nan   nan  3.58e-02   nan  4.55e-01   nan       nan  1.254  1.214  0.978   4.84
+  4  2     70026        0  0.5237  2.170  6.436e-02  1.35  2.35  1.87e-02  1.15  2.67e-01  0.95       nan  0.978  0.970  0.925   3.37
+
+== sphere_sph  method=GS  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|   slip     un   leak  H1rat
+  2  1      9096     5760  0.9194  3.000  1.269e+00   nan   nan  4.45e-01   nan  6.05e+00   nan   1.1e-13 15.611  1.171  0.600  44.50
+  4  2     70026    46080  0.5237  2.170  3.376e-01  2.35  4.09  1.10e-01  2.48  1.73e+00  2.23   1.7e-13  5.772  0.893  0.867  17.67
+
+== sphere_sph  method=interp  k=3  mu=400  L=2   [NUMERICAL]
+  N  m  vel dofs   p dofs      hG      h     H1 err  rate  r(h)    |e|_Gh  rate    energy  rate  |div uh|
+  2  1      9096        0  0.9194  3.000  1.633e+00   nan   nan  2.43e-02   nan  1.78e+00   nan       nan
+  4  2     70026        0  0.5237  2.170  1.919e-01  3.81  6.61  1.37e-03  5.11  2.00e-01  3.89       nan
+
+rates are w.r.t. h (box) or hG (sphere) between consecutive levels; r(h) = H1 rate w.r.t. h.  slip = ||e||_{Gamma_h}/((h/mu)G),
+un = ||u_h.n||_{Gamma_h}/((h/mu)G), leak = <u_h.n, p-pbar>_{Gamma_h}/((h/mu)G^2), H1rat = ||grad e||/((h/mu)G);
+G = ||p-pbar||_{Gamma_h}.  For method D=GS-CNS the 'error' is D itself (u_h := D).

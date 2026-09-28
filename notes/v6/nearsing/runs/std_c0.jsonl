@@ -1,0 +1,4 @@
+{"mesh": "std", "mode": "c0", "N": 32, "eps": 0.0, "hG": 0.24437, "nmod": 0, "dnu_mean": 0.0, "H1": 0.14325, "pL2": 0.80428, "divres": 3.9277e-11, "relres": 1.3267e-15, "vgrad": 0.5423, "minang": 15.158, "maxang": 133.81, "secs": 2.3237}
+{"mesh": "std", "mode": "c0", "N": 48, "eps": 0.0, "hG": 0.16496, "nmod": 0, "dnu_mean": 0.0, "H1": 0.072869, "pL2": 0.37525, "divres": 8.6087e-11, "relres": 1.6067e-15, "vgrad": 0.39029, "minang": 15.044, "maxang": 134.25, "secs": 6.2928}
+{"mesh": "std", "mode": "c0", "N": 64, "eps": 0.0, "hG": 0.12427, "nmod": 0, "dnu_mean": 0.0, "H1": 0.045573, "pL2": 0.22288, "divres": 1.5355e-10, "relres": 1.878e-15, "vgrad": 0.30682, "minang": 14.983, "maxang": 134.45, "secs": 15.627}
+{"mesh": "std", "mode": "c0", "N": 80, "eps": 0.0, "hG": 0.099627, "nmod": 0, "dnu_mean": 0.0, "H1": 0.031849, "pL2": 0.15065, "divres": 2.3765e-10, "relres": 2.1106e-15, "vgrad": 0.25163, "minang": 14.946, "maxang": 134.57, "secs": 14.713}

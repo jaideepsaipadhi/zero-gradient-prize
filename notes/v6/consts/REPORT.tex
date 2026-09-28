@@ -1,0 +1,324 @@
+% notes/v6/consts/REPORT.tex -- explicit kappa_0 for 2D Theorem A (penalty necessity), graded meshes, 3D note.
+% Not part of paper/; nothing committed.
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,enumitem,booktabs}
+\usepackage[margin=2.2cm]{geometry}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}[theorem]{Lemma}\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Oh}{\Omega_h}\newcommand{\Gh}{\Gamma_h}\newcommand{\hG}{h_\Gamma}\newcommand{\dn}{\partial_n}
+\newcommand{\norm}[1]{\|#1\|}\newcommand{\ip}[2]{\langle #1,#2\rangle}\DeclareMathOperator{\curl}{curl}\DeclareMathOperator{\diam}{diam}
+\newcommand{\lab}[1]{\textbf{[#1]}}
+\newcommand{\Th}{\mathcal T_h}\newcommand{\Zh}{Z_h}\newcommand{\VR}{V_h^R}\newcommand{\EG}{\mathcal E_\Gamma}
+\newcommand{\cS}{\mathcal S}\newcommand{\hh}{\mathrm{I\!I}}\renewcommand{\div}{\operatorname{div}}
+\title{Explicit constants for penalty necessity (2D Theorem A), graded meshes, and a 3D note}
+\date{2026-09-28}\author{notes/v6/consts}
+\begin{document}\maketitle
+
+\section*{Summary}
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Explicit $\kappa_0$ (Goal 1)} \lab{PROVED; constants computed in exact rational arithmetic, final
+  assembly in floating point with rounding far below the stated digits}.
+  Theorem~\ref{thm:Aexp}: let $\theta$ be the minimum angle of $\Th$, $e$ \emph{any} edge of $\Gh$ with midpoint $x_0$,
+  $0<Y\le10^{-6}$ (and $4Y<L-1$), $0<\kappa\le\kappa_0(\theta)$, and suppose every triangle meeting $B(x_0,3Y)$ has
+  diameter $\le\kappa Y$. Then $N_h$ is indefinite on $\Zh$ for every $k\ge4$ whenever $\mu<15\,h/Y$.
+  \[\begin{array}{c|cccccc}\theta&10^\circ&15^\circ&20^\circ&30^\circ&45^\circ&60^\circ\\\hline
+  \kappa_0(\theta)&0.00379&0.00594&0.00803&0.0117&0.0143&0.0161\end{array}\]
+  Consequently (Cor.~\ref{cor:rho}), if all triangles meeting $B(x_0,3C_q|e|/\kappa_0)$ have diameter $\le C_q|e|$, then
+  $\mu^\ast\ge(15\kappa_0/C_q)\,h/|e|\ge(15\kappa_0c_0/C_q)\,\rho$; e.g.\ $\mu^\ast\ge0.175\,c_0\rho/C_q$ for $\theta\ge30^\circ$.
+  The witness is the curl of the Argyris interpolant; the proof uses no inf-sup constant and no compactness. The only
+  analytic inputs are Taylor's formula, the exact reference Argyris basis, and elementary triangle geometry.
+\item \textbf{Realistic $\kappa$} \lab{NUMERICAL}. The rigorous interpolation bound is pessimistic by a factor
+  $\approx7\cdot10^4$ (checked on 600 random triangles). On actual meshes the same witness already gives
+  $Y(2B-A)/C\ge15$ at $\kappa=\diam T/Y\approx0.85$ (uniform) to $1.8$ (graded), against the proved $\kappa_0\approx0.01$.
+\item \textbf{Graded meshes (Goal 2).}
+  \begin{itemize}
+  \item \lab{PROVED} The quasi-uniform region may sit at \emph{any} boundary edge, not only the shortest one; (M0) pays only a
+    factor $c_0$.
+  \item \lab{PROVED, obstruction} The proposed geometric-growth argument cannot remove the hypothesis. Shape regularity only
+    gives the \emph{upper} bound $\diam T\le C(\theta)(|e|+\operatorname{dist}(T,x_0))$ with $C(\theta)\ge1$, and that
+    growth is attained. On a dyadically graded boundary layer (min angle $26.57^\circ$, (M0)--(M2)) \emph{every} ball
+    $B(x_0,3Y)$, $x_0\in\Gh$, $Y>0$, contains a triangle of diameter $\ge Y$. So the hypothesis fails for every $\kappa<1$ at
+    every scale, and Theorem~\ref{thm:Aexp} (any version with $\kappa_0<1$) never applies there.
+  \item \lab{NUMERICAL} Nevertheless the \emph{same witness} works on such meshes. On the dyadic layer (ratio $2$ per layer) and
+    a triadic one (ratio $3$, min angle $15.3^\circ$), $Y(2B-A)/C=15.28$ and $15.24$ at $Y=2\hG$, and $\to15.487$ as
+    $Y/\hG$ grows. So on those meshes $\mu^\ast\ge7.6\,h/\hG$. The obstruction is to the proof (interpolation constants on
+    coarse cells), not to the conclusion.
+  \item Status: general (M0)--(M2) remains \lab{OPEN}, exactly as in the penalty report (Theorem~B there). The explicit
+    theorem needs about $3C_q/\kappa_0\approx250$--$800$ quasi-uniform layers; the numerics suggest $2$--$3$.
+  \end{itemize}
+\item \textbf{3D (Goal 3)} \lab{NOT DONE}. Why the 2D route does not transfer is explained in \S\ref{sec:3d}: Theorem 3B's
+  constant runs through $\beta$(IS3), itself non-explicit ([GN18]); and td\_k3b's $\kappa_0$ needs a quantitative Star
+  Nondegeneracy Theorem.
+\end{enumerate}
+
+\section{Setting and notation}
+As in \texttt{02\_setting.tex}: $\Oh=R\setminus P_h$, $P_h$ a convex polygon inscribed in the unit circle, $\Th$ conforming
+on $\Oh$, $k\ge4$, $\Zh=\{v\in\VR:\div v=0\}$. For $v\in\Zh$ put $A(v)=\int_{\Oh}\tfrac12 Dv:Dv$ with $Dv=\nabla v+\nabla v^{\mathsf T}$,
+$B(v)=\ip{\dn v}{v}_{\Gh}$ with $\dn v=(\nabla v)n$ and $n$ the outward normal of the fluid, and $C(v)=\norm v^2_{\Gh}$. Then
+$N_h(v,v)=A-2B+(\mu/h)C$, and $A,B$ are dilation invariant while $C$ scales linearly. So
+\[N_h(v,v)=\frac{C(v)}{Y}\Bigl[\frac{\mu Y}{h}-\mathcal Q(v)\Bigr],\qquad \mathcal Q(v):=\frac{Y\,(2B(v)-A(v))}{C(v)} .\]
+$\theta$ denotes the minimum angle of $\Th$. For a symmetric $j$-linear form $S$, $|S|$ is the operator norm, which equals
+$\sup_{|u|=1}|S[u^j]|$ (Banach). $|\cdot|_F$ is the Frobenius norm.
+
+\paragraph{Profile.} $g(t)=t(1-t)^6$ for $-\tfrac18\le t\le1$, $g=0$ for $t\ge1$; $\phi(s)=(1-s^2)^6$ on $[-1,1]$, $0$ outside.
+Both are $C^5$ with piecewise-polynomial, bounded sixth derivative. With $X=2Y$,
+\[F(x,y)=Y\,\phi(x/X)\,g(y/Y),\qquad w=\curl F=(F_y,-F_x),\]
+in coordinates in which $e$ lies on $\{y=0\}$, $x_0=0$, and the fluid is locally $\{y>0\}$. On the part of $\Oh$ below
+$y=-Y/8$ (the far side of $P_h$) set $F:=0$. That part and the part near $x_0$ are separated by $P_h$, so no triangle meets
+both (Lemma~\ref{lem:geom}).
+
+\paragraph{Scaled derivative bounds} (\texttt{argyris\_consts.py}, exact critical points). Let
+$m_j:=Y^{j-1}\sup|D^jF|$ over $\{y\ge-Y/8\}$. Bounding each partial derivative termwise, with
+$\max_{|u|=1}|u_1|^i|u_2|^{j-i}$ in place of the monomials,
+\[m_1\le3.6635,\quad m_2\le32.187,\quad m_3\le214.88,\quad m_6\le18918.2 .\]
+\paragraph{Half-plane values} (exact, SymPy; $Y=1$):
+$\hat A=\tfrac{4717730594816}{558289907175}=8.45032$, $\hat B=\tfrac{201326592}{16900975}=11.91213$,
+$\hat C=\tfrac{16777216}{16900975}=0.992677$. So $\hat{\mathcal Q}=(2\hat B-\hat A)/\hat C=15.48734$, which agrees with the
+penalty report's $15.487$.
+
+\section{Explicit Argyris interpolation bounds}
+\begin{lemma}[Explicit local bound]\label{lem:arg}\lab{PROVED}
+Let $T$ be a triangle with minimum angle $\ge\theta$ and diameter $h_T$, and let $f\in C^5(T)$ have $D^5f$ Lipschitz, with
+$\operatorname{ess\,sup}_T|D^6f|\le M_6$. Let $I$ be the Argyris ($C^1$-$P_5$) interpolant. Its DOFs are the values,
+gradients and Hessians at the vertices and the unit-normal derivatives at the edge midpoints. Then on $T$, for $j=1,2$,
+\[|D^j(f-If)|\le E_j(\theta)\,M_6\,h_T^{6-j},\]
+where
+\[E_j(\theta)=\frac1{(6-j)!}+\Bigl(\frac{\sqrt2}{\sin\theta\,s(\theta)}\Bigr)^{j}\Bigl[P_j+\bigl(\tfrac1{60}+2c_H\bigr)N_{0,j}
++\bigl(\tfrac1{3840}+\tfrac{\sqrt2\,c_H}{2\sin\theta}\bigr)(N_{1,j}+N_{2,j})\Bigr].\]
+Here $s(\theta)=\min(\sqrt3/2,\sin2\theta)$ and $c_H=\tfrac{29}{1920}$. The reference constants are
+\[P_1\le0.19597,\ P_2\le1.40308,\qquad (N_{0,1},N_{1,1},N_{2,1})\le(1.8857,3.7713,3.7713),\qquad
+(N_{0,2},N_{1,2},N_{2,2})\le(16.866,33.731,33.731).\]
+Numerically: $E_1=17.9,6.54,3.37,1.47,0.933,0.724$ and $E_2=3606,597,179,39.0,17.3,10.9$ for
+$\theta=10^\circ,15^\circ,20^\circ,30^\circ,45^\circ,60^\circ$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}[label=\arabic*.]
+\item \emph{Taylor.} Let $a_0$ be the vertex with the largest angle $\alpha\in[\pi/3,\pi-2\theta]$, so
+$\sin\alpha\ge s(\theta)$. Let $p$ be the degree-5 Taylor polynomial of $f$ at $a_0$ and $r=f-p$. Since $Ip=p$,
+$f-If=r-Ir$. Along each segment $[a_0,x]\subset T$, $D^5f$ is Lipschitz, so the integral remainder gives
+\[|D^mr(x)|\le M_6|x-a_0|^{6-m}/(6-m)!\le M_6h_T^{6-m}/(6-m)!,\]
+and all derivatives of $r$ of order $\le5$ vanish at $a_0$.
+\item \emph{Reference map.} Let $\Phi(\hat x)=J\hat x+a_0$ map $\hat T=\mathrm{conv}\{(0,0),(1,0),(0,1)\}$ onto $T$. The columns
+of $J$ are the edges $E_1,E_2$ at $a_0$, of lengths $\ell_1,\ell_2$. By the law of sines,
+$h_T\sin\theta\le\ell_i\le h_T$, and the longest edge $E_0$ (opposite $a_0$) has length $h_T$. Hence
+\[\sigma_{\max}(J)\le\sqrt2h_T,\qquad \norm{J^{-1}}=\sigma_{\max}/\det J\le\frac{\sqrt{\ell_1^{-2}+\ell_2^{-2}}}{\sin\alpha}\le\frac{\sqrt2}{h_T\sin\theta\,s(\theta)} .\]
+\item \emph{Pulled-back interpolant.} Let $\hat q=(Ir)\circ\Phi\in P_5$. Its vertex values, gradients and Hessians are those of
+$\hat r=r\circ\Phi$, because these DOF sets are affine-equivalent. Only the edge DOFs differ. On reference edge $\hat e$ with
+edge vector $\hat t$ (the reference DOF being $\nabla\hat q(\hat m)\cdot\hat\nu$, with
+$\hat\nu\in\{(1,1),(-1,0),(0,-1)\}$), write $J^{-1}n_E=a\hat\nu+b\hat t$. Then
+$\gamma_E:=\nabla\hat q(\hat m)\cdot\hat\nu=[n_E\cdot\nabla r(m_E)-b(Hf_E)'(\tfrac12)]/a$. Here $f_E(s)=\hat r(\hat p+s\hat t)$, and
+$Hf_E$ is its quintic Hermite interpolant from $f,f',f''$ at $s=0,1$, which is the restriction of $\hat q$. Exactly,
+$(Hf)'(\tfrac12)=\tfrac{15}8(f_1-f_0)-\tfrac7{16}(f_0'+f_1')+\tfrac1{32}(f_1''-f_0'')$.
+\item \emph{Coefficient bounds.} Since $\det(J^{-1}n_E,\hat t)=\pm\ell_E/\det J$,
+\[|a|^{-1}=\det J\,|\det(\hat\nu,\hat t)|/\ell_E,\qquad |b/a|\le|\hat\nu|\sigma_{\max}(J)/\ell_E .\]
+This gives:
+\begin{itemize}
+\item on the hypotenuse ($E_0$): $|a|^{-1}\le2h_T$ and $|b/a|\le2$;
+\item on the legs: $|a|^{-1}\le h_T$ and $|b/a|\le\sqrt2/\sin\theta$.
+\end{itemize}
+With $f_E^{(m)}=D^mr[E^m]$ and step 1:
+\begin{itemize}
+\item $|\gamma_{E_0}|\le M_6h_T^6(\tfrac2{120}+2c_H)$;
+\item $|\gamma_{E_{1,2}}|\le M_6h_T^6(\tfrac{2^{-5}}{120}+\tfrac{\sqrt2}{\sin\theta}\tfrac{c_H}2)$, since the data at $a_0$ vanish.
+\end{itemize}
+The vertex DOFs at $a_1,a_2$ are $D^mr[E_{i_1},\dots,E_{i_m}]$, of size $\le M_6h_T^6/(6-m)!$.
+\item \emph{Reference basis.} Expand $\hat q$ in the exact reference Argyris basis ($21\times21$ inverse over $\mathbb Q$).
+Bound each basis function's partial derivatives of order $j$ on $\hat T$ by the largest absolute Bernstein coefficient, which
+is a rigorous sup bound. Combine them into operator-norm bounds via the Frobenius norm. This gives
+$|\hat D^j\hat q|\le M_6h_T^6[P_j+\dots]$, the bracket in $E_j$.
+\item \emph{Back to $T$.} $|D^j(Ir)|\le\norm{J^{-1}}^j|\hat D^j\hat q|$. Add $|D^jr|$ from step 1.\qedhere
+\end{enumerate}
+\end{proof}
+\emph{Check} (\texttt{validate\_interp.py}, \lab{NUMERICAL}). Physical Argyris interpolation of $F$ on 600 random triangles
+($\theta\in[10^\circ,53^\circ]$, $h_T\in[0.01,0.2]$, random positions in $\operatorname{supp}F$): the ratio of actual error to
+the bound is at most $1.8\cdot10^{-5}$ ($j=1$) and $1.4\cdot10^{-5}$ ($j=2$). The bound holds, and is very loose.
+
+\section{Explicit Theorem A}
+\begin{lemma}[Local geometry of $\Gh$]\label{lem:geom}\lab{PROVED}
+Suppose every boundary edge meeting $B(x_0,3Y)$ has length $\le\kappa Y$, with $\kappa\le1$ and $Y\le10^{-2}$. Put
+$X'=(2+\kappa)Y$, $\omega_X=\arcsin\!\bigl(X'/(1-\kappa^2Y^2/4)\bigr)$,
+\[\delta=\tfrac14\kappa^2Y^2+\tfrac12\omega_X^2,\qquad \sigma=\tan\bigl(\omega_X+\arcsin(\kappa Y/2)\bigr).\]
+Then on $|x|\le X'$ the part of $\Gh$ near $x_0$ is a graph $y=\gamma(x)$ with $-\delta\le\gamma\le0$ and $|\gamma'|\le\sigma$,
+and $\Oh\cap\{|x|\le X',\,y>-Y/8\}=\{y>\gamma(x)\}$ (this uses $\delta\le Y/8$, true for $Y\le10^{-2}$).
+\end{lemma}
+\begin{proof}
+\begin{itemize}
+\item \emph{$\gamma\le0$.} $P_h$ is convex and $e$ is one of its edges, so $P_h$ lies in $\{y\le0\}$.
+\item \emph{Polar description.} Let $O=(0,-d)$ be the centre. A boundary point on a chord of length $\ell'\le\kappa Y$ is
+$O+r(\sin\omega,\cos\omega)$, with $r\ge\sqrt{1-\ell'^2/4}\ge1-\ell'^2/4$.
+\item \emph{Depth.} So $y\ge-\ell'^2/4-(1-\cos\omega)$, while $|x|\le X'$ forces $|\omega|\le\omega_X$.
+\item \emph{Slope.} A chord between polar angles $\omega_1,\omega_2$ has direction angle $(\omega_1+\omega_2)/2$, and
+$|\omega_2-\omega_1|\le2\arcsin(\ell'/2)$.
+\item \emph{Fluid side.} The region between $\gamma$ and $y=-Y/8$ lies in $P_h$ by convexity.\qedhere
+\end{itemize}
+\end{proof}
+
+\begin{theorem}[Theorem A with explicit constants]\label{thm:Aexp}\lab{PROVED}
+Let $e\in\EG$ have midpoint $x_0$, let $0<Y\le Y_0:=10^{-6}$ with $4Y<L-1$, let $0<\kappa\le\kappa_0(\theta)$ (table in the
+Summary), and suppose every $T\in\Th$ meeting $B(x_0,3Y)$ has $\diam T\le\kappa Y$. Let $v:=\curl I F$, with $I$ the global
+Argyris interpolant. Then $v\in\Zh$ for every $k\ge4$ and $\mathcal Q(v)\ge15$. Hence $N_h$ is indefinite on $\Zh$ whenever
+$\mu<15h/Y$.
+\end{theorem}
+\begin{proof}
+\begin{enumerate}[label=\arabic*.]
+\item \emph{Membership in $\Zh$.}
+ \begin{itemize}
+ \item $IF$ is globally $C^1$ and piecewise $P_5$, so $v$ is continuous, piecewise $P_4\subset P_k$, and pointwise
+ divergence-free.
+ \item $IF|_T=0$ on every $T$ not meeting $\operatorname{supp}F\cap\overline\Oh\subset\{|x|\le2Y,\ -\delta\le y\le Y\}\subset B(x_0,\sqrt5Y+\delta)$.
+ \item So $\operatorname{supp}v\subset S:=\bigcup\{T:T\cap\operatorname{supp}F\ne\emptyset\}\subset\{|x|\le X',\ \gamma\le y\le(1+\kappa)Y\}$,
+ which misses $\partial R$.
+ \item Every $T\subset S$ lies in $\{y\ge-\delta\}$, where $F$ is given by the profile formula, so Lemma~\ref{lem:arg} applies
+ with $M_6=m_6Y^{-5}$ and $h_T\le\kappa Y$.
+ \end{itemize}
+ Write $e_F=F-IF$, $|S|\le2X'((1+\kappa)Y+\delta)$ and $\Lambda:=|\Gh\cap S|\le2X'\sqrt{1+\sigma^2}$.
+\item \emph{Continuum field on the true geometry.} By Lemma~\ref{lem:geom}, $\Oh\supset\{0<y<Y,\ |x|<X\}$, so
+$A_{\Oh}(w)=\hat A+A_{\rm sl}$ with $0\le A_{\rm sl}\le4\sup|D^2F|^2\cdot2X\delta=16m_2^2\delta/Y$.
+ \begin{itemize}
+ \item \emph{Boundary term.} Using $n\,ds=(\gamma',-1)\,dx$ and moving from $y=0$ to $y=\gamma$:
+ $|B_{\Gh}(w)-\hat B|\le\varepsilon_B:=4[\sigma m_1m_2+(\delta/Y)(m_1m_3+m_2^2)]$.
+ \item \emph{Trace term.} $|C_{\Gh}(w)-Y\hat C|\le\varepsilon_C:=4Y[m_1^2(\sqrt{1+\sigma^2}-1)+2\sqrt{1+\sigma^2}\,m_1m_2\delta/Y]$.
+ \end{itemize}
+\item \emph{Interpolation.} $v-w=\curl e_F$, so $|\nabla(v-w)|_F=|D^2e_F|_F\le\sqrt2|D^2e_F|$ and $|v-w|=|\nabla e_F|$. By
+Lemma~\ref{lem:arg}, $|D^2e_F|\le E_2m_6\kappa^4/Y$ and $|\nabla e_F|\le E_1m_6\kappa^5$ on $S$. With $A(z)^{1/2}\le\sqrt2\norm{\nabla z}$:
+\[A(v)^{1/2}\le(\hat A+A_{\rm sl})^{1/2}+\eta_A,\quad \eta_A=2E_2m_6\kappa^4\sqrt{|S|}/Y;\qquad
+C(v)^{1/2}\le(Y\hat C+\varepsilon_C)^{1/2}+\eta_C,\quad \eta_C=E_1m_6\kappa^5\sqrt\Lambda;\]
+\[|B(v)-B_{\Gh}(w)|\le\varepsilon_B':=\frac{E_2m_6\kappa^4\sqrt\Lambda}{Y}\bigl((Y\hat C+\varepsilon_C)^{1/2}+\eta_C\bigr)+\frac{m_2\sqrt\Lambda}{Y}\eta_C,\]
+using $B(v)-B(w)=\ip{\dn(v-w)}v+\ip{\dn w}{v-w}$.
+\item \emph{Assembly.}
+\[\mathcal Q(v)\ \ge\ \mathcal Q_{\rm lb}:=\frac{Y\bigl[2(\hat B-\varepsilon_B-\varepsilon_B')-((\hat A+A_{\rm sl})^{1/2}+\eta_A)^2\bigr]}{((Y\hat C+\varepsilon_C)^{1/2}+\eta_C)^2}.\]
+Every error term is nondecreasing in $\kappa$ and in $Y$. $\mathcal Q_{\rm lb}$ is dimensionless: $|S|/Y^2$, $\Lambda/Y$,
+$\delta/Y$ and $\sigma$ depend only on $\kappa$ and $Y$ through the formulas above. The table value $\kappa_0(\theta)$ is the
+bisection root of $\mathcal Q_{\rm lb}(\kappa,\theta,Y_0)=15$, rounded down (\texttt{assemble.py}, \texttt{assemble.log}). A
+grid check below $(\kappa_0,Y_0)$ confirms $\min\mathcal Q_{\rm lb}\ge15.0000$. As $\kappa,Y\to0$, $\mathcal Q_{\rm lb}\to15.48734$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}[$\rho$-scaling]\label{cor:rho}\lab{PROVED}
+Assume (M0). Suppose that for some edge $e\in\EG$, with midpoint $x_0$, every triangle meeting $B(x_0,3C_q|e|/\kappa_0)$ has
+diameter $\le C_q|e|$, where $C_q\ge1$ and $C_q|e|/\kappa_0\le Y_0$. Then
+\[\mu^\ast\ \ge\ \frac{15\kappa_0(\theta)}{C_q}\,\frac h{|e|}\ \ge\ \frac{15\,c_0\,\kappa_0(\theta)}{C_q}\,\rho .\]
+\end{corollary}
+\begin{proof}
+Take $Y=C_q|e|/\kappa_0$ in Theorem~\ref{thm:Aexp}. For the second inequality, $|e|\le\hG\le\min|e'|/c_0$ by (M0).
+\end{proof}
+Compared with the penalty report:
+\begin{itemize}
+\item $\kappa_0$ is explicit;
+\item the edge need not be the shortest one;
+\item the constant $15$ is kept, not degraded to $15-\varepsilon(\kappa_0)$;
+\item the curvature and sliver terms flagged by referee~1 are handled explicitly (Lemma~\ref{lem:geom}, step 2).
+\end{itemize}
+$Y_0=10^{-6}$ is a crude, fully explicit smallness condition (at $Y_0=3\cdot10^{-6}$ the values of $\kappa_0$ drop by about $15\%$, see the log; for $Y\gtrsim5\cdot10^{-6}$, $\mathcal Q_{\rm lb}<15$ even as $\kappa\to0$). It comes almost entirely from $A_{\rm sl}$ and $\varepsilon_B$, which are $O(Y)$
+with large profile constants.
+
+\begin{remark}[Scope]
+Theorem~\ref{thm:Aexp} covers $k\ge4$ (Argyris). For Clough--Tocher, $k\ge2$, the same proof applies with the HCT reference
+basis, but I did not compute those constants.
+\end{remark}
+
+\section{How far the explicit $\kappa_0$ is from the truth}
+\lab{NUMERICAL} (\texttt{realistic\_kappa.py}, \texttt{.log}). On half-plane meshes (squares of side $s$ split by a
+diagonal, optionally with random vertex perturbation $\pm s/4$), $\mathcal Q(\curl IF)$ with $Y=1$ is:
+\begin{center}\small\begin{tabular}{lccccccc}
+\toprule
+$\kappa=\diam T/Y$ & 1.41 & 1.13 & 0.85 & 0.71 & 0.42 & 0.14 & 0.07\\
+\midrule
+uniform ($45^\circ$) & 12.15 & 14.06 & 15.06 & 15.28 & 15.46 & 15.487 & 15.487\\
+\bottomrule
+\end{tabular}\end{center}
+The perturbed meshes (min angle $9$--$27^\circ$) give $14.79$ at $\kappa=1.06$ and $15.28$ at $\kappa=0.88$. So the true
+threshold is $\kappa\approx0.85$--$1$, against the proved $0.004$--$0.016$. The loss comes from the Taylor/sup-norm bound
+($\approx7\cdot10^4$ in $E_j$, entering as a fourth root) and from the $\sin\theta$ factors.
+
+\section{Graded meshes (Goal 2)}
+\paragraph{Why geometric growth does not help} \lab{PROVED}.
+\begin{itemize}
+\item \emph{What shape regularity gives.} Triangles sharing an edge have diameter ratio $\le1/\sin\theta$, and a vertex has
+at most $2\pi/\theta$ triangles. From these one gets only $\diam T\le C(\theta)(|e|+\operatorname{dist}(T,x_0))$, with
+$C(\theta)\ge1$.
+\item \emph{What the theorem needs.} Every triangle in $B(x_0,3Y)$ must have $\diam T\le\kappa_0Y$, with $\kappa_0\ll1$ (and,
+numerically, $\lesssim1$ for any version of this witness).
+\item \emph{Why they do not meet.} The upper bound gives $\diam\le C(\theta)(|e|+3Y)\ge3Y$ at the rim of the ball, which is
+never $\le\kappa_0Y$. The bound is attained, as follows.
+\end{itemize}
+
+\begin{proposition}[Obstruction]\lab{PROVED; half-plane model}
+Take the dyadic boundary layer:
+\begin{itemize}
+\item row 0: unit squares on $y\in[0,1]$, split by the forward diagonal;
+\item row $j\ge1$: squares of side $2^j$ on $y\in[2^j-1,2^{j+1}-1]$, each over two row-$(j-1)$ squares, cut into three
+triangles from the hanging bottom midpoint.
+\end{itemize}
+This mesh has minimum angle $\arctan\frac12=26.57^\circ$, equal boundary edges, boundary stars $\cong\cS_3$, and
+$\Theta\ge\sin45^\circ$ at every vertex; the worst vertex is a coarse-square corner, with consecutive angles $90^\circ$ and
+$45^\circ$. For every $x_0$ on the boundary and every $Y>0$, $B(x_0,3Y)$ contains a triangle of diameter $\ge Y$. So the hypothesis of Theorem~\ref{thm:Aexp} fails for every $\kappa<1$.
+\end{proposition}
+\begin{proof}
+\begin{itemize}
+\item \emph{$Y<1$.} The boundary triangle at $x_0$ has diameter $\ge1$.
+\item \emph{$Y\ge1$.} The point $x_0+(0,2Y)$ lies in row $j$ with $2^j-1\le2Y<2^{j+1}-1$. Its triangle has diameter
+$\ge2^j>(2Y+1)/2\ge Y$.\qedhere
+\end{itemize}
+\end{proof}
+Placing this layer around the unit circle (polar columns, radial rows) is the evident construction. Its (M1), (M2) follow by
+openness, as in the penalty report. I have not written it out.
+
+\paragraph{The witness still works on graded meshes} \lab{NUMERICAL} (\texttt{graded\_check.py},
+\texttt{graded\_check3.py}). The boundary edge is $1$, and "max $\kappa$" is the largest $\diam T/Y$ over the support.
+\begin{center}\small\begin{tabular}{lcccccccc}
+\toprule
+$Y/\hG$ & 1 & 1.5 & 2 & 3 & 4 & 8 & 16 & 32\\
+\midrule
+dyadic (ratio 2) & 12.36 & 14.82 & 15.28 & 15.44 & 15.46 & 15.485 & 15.488 & 15.488\\
+\quad max $\kappa$ & 1.41 & 1.49 & 1.12 & 0.75 & 1.12 & 1.12 & 1.12 & 1.12\\
+uniform & 12.36 & 14.82 & 15.28 & 15.44 & 15.47 & 15.486 & 15.487 & 15.487\\
+\midrule
+triadic (ratio 3, $15.3^\circ$), $Y=1,2,3,9,27$ & \multicolumn{8}{l}{$12.36,\ 15.24,\ 15.42,\ 15.49,\ 15.48$ (max $\kappa$ up to $1.8$)}\\
+\bottomrule
+\end{tabular}\end{center}
+On the dyadic layer, $\mathcal Q$ tends to the continuum value \emph{although} $\kappa\approx1.1$ at every scale. The
+witness's quality is set by the fine cells near $\Gh$. The coarse cells carry little energy, and the true interpolation error
+there is far below the worst-case bound. So on graded meshes the conclusion $\mu^\ast\gtrsim h/\hG$ appears to survive.
+Proving it this way needs a \emph{sharp} interpolation bound on coarse cells, with $\kappa\sim1$, which a Taylor/sup-norm
+argument cannot deliver. Two routes would close the general case:
+\begin{enumerate}[label=(\roman*)]
+\item a computer-assisted, shape-uniform bound of the Argyris error functional for this specific $F$;
+\item the half-plane-limit positivity of Theorem~B in the penalty report, restricted to the explicit family
+$\{\curl I_AF_Y\}$, which is compact under (M0).
+\end{enumerate}
+Neither is done. \lab{OPEN}.
+
+\paragraph{What is gained unconditionally.} Together with Corollary~\ref{cor:rho}:
+\begin{itemize}
+\item \lab{PROVED} $\mu^\ast\ge15\,h/Y_\ast$, where $Y_\ast:=\inf\{Y\le Y_0:\exists x_0\text{ at an edge midpoint with all }T\cap B(x_0,3Y)\neq\emptyset\text{ of }\diam\le\kappa_0Y\}$.
+This is the ``$\rho_{\rm loc}$'' statement: $\mu^\ast\ge15\kappa_0\,\rho_{\rm loc}$ with $\rho_{\rm loc}:=h/(\kappa_0Y_\ast)$.
+\item Since the boundary triangle has diameter $\ge|e|\ge c_0\hG$, we always have $\kappa_0Y_\ast\ge c_0\hG$ and hence
+$\rho_{\rm loc}\le\rho/c_0$. Equality up to constants holds iff about $3/\kappa_0$ quasi-uniform layers exist somewhere
+along $\Gh$.
+\end{itemize}
+
+\section{3D (Goal 3) -- not done}\label{sec:3d}
+\begin{itemize}
+\item \emph{Theorem 3B (td\_pen).} The perturbation $v_0$ is controlled by $\beta^{-1}$ from (IS3). Lemma IS3 gives $\beta$
+only through $C_{\rm loc}(k,\sigma)$ of [GN18, Thm 3.1] and the Bogovski\u{\i} constant, neither of which is explicit. The 2D
+trick that avoids $\beta$ is to use the curl of a $C^1$ interpolant. It would need an explicit-constant smooth de Rham
+interpolant on Alfeld splits: the FGN20 commuting projections, whose $W^{1,\infty}$ bounds are unverified and non-explicit.
+\item \emph{td\_k3b.} $\kappa_0(\theta,\theta_0)$ comes from compactness of the Star Nondegeneracy Theorem. An explicit
+version needs lower bounds for the rank-2 tangential moment away from the degenerate set $\hh=\pm\nu\otimes\nu$. The report
+notes this is possible in principle.
+\end{itemize}
+Both are substantial and were not attempted here.
+
+\section*{Files (all in \texttt{notes/v6/consts/})}
+\begin{itemize}
+\item \texttt{argyris\_consts.py}, \texttt{.log}, \texttt{consts.json}: exact reference basis, Bernstein bounds, Hermite
+coefficients, profile norms, half-plane values ($\approx5$\,s).
+\item \texttt{assemble.py}, \texttt{.log}: $E_j(\theta)$, $\mathcal Q_{\rm lb}$ and $\kappa_0(\theta)$.
+\item \texttt{validate\_interp.py}, \texttt{.log}: physical Argyris check of Lemma~\ref{lem:arg}.
+\item \texttt{realistic\_kappa.py}, \texttt{graded\_check.py}, \texttt{graded\_check3.py} and their \texttt{.log}s:
+numerics on uniform, perturbed, dyadic and triadic meshes (under 2\,min total).
+\end{itemize}
+\end{document}

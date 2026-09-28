@@ -1,0 +1,13 @@
+k= 1  dim=  1  c_k=2  k(k+1)=2  d_k=4  c_k^2=4  r_k==2P_k'(1-2y): True  r_k(0)=2
+k= 2  dim=  3  c_k=6  k(k+1)=6  d_k=36  c_k^2=36  r_k==2P_k'(1-2y): True  r_k(0)=6
+k= 3  dim=  6  c_k=12  k(k+1)=12  d_k=144  c_k^2=144  r_k==2P_k'(1-2y): True  r_k(0)=12
+k= 4  dim= 10  c_k=20  k(k+1)=20  d_k=400  c_k^2=400  r_k==2P_k'(1-2y): True  r_k(0)=20
+k= 5  dim= 15  c_k=30  k(k+1)=30  d_k=900  c_k^2=900  r_k==2P_k'(1-2y): True  r_k(0)=30
+k= 6  dim= 21  c_k=42  k(k+1)=42  d_k=1764  c_k^2=1764  r_k==2P_k'(1-2y): True  r_k(0)=42
+k= 7  dim= 28  c_k=56  k(k+1)=56  d_k=3136  c_k^2=3136  r_k==2P_k'(1-2y): True  r_k(0)=56
+k= 8  dim= 36  c_k=72  k(k+1)=72  d_k=5184  c_k^2=5184  r_k==2P_k'(1-2y): True  r_k(0)=72
+k= 9  dim= 45  c_k=90  k(k+1)=90  d_k=8100  c_k^2=8100  r_k==2P_k'(1-2y): True  r_k(0)=90
+k=10  dim= 55  c_k=110  k(k+1)=110  d_k=12100  c_k^2=12100  r_k==2P_k'(1-2y): True  r_k(0)=110
+k=11  dim= 66  c_k=132  k(k+1)=132  d_k=17424  c_k^2=17424  r_k==2P_k'(1-2y): True  r_k(0)=132
+k=12  dim= 78  c_k=156  k(k+1)=156  d_k=24336  c_k^2=24336  r_k==2P_k'(1-2y): True  r_k(0)=156
+all assertions passed

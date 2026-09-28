@@ -1,0 +1,12 @@
+box k=3 N=2 local sufficient mu (V_h, sym flux) = 207.97
+box k=3 N=4 local sufficient mu (V_h, sym flux) = 207.97
+sph k=3 N=2 local sufficient mu (V_h, grad flux) = 216.31  h/hG=3.263
+sph k=3 N=4 local sufficient mu (V_h, grad flux) = 340.59  h/hG=4.144
+sph k=3 N=6 local sufficient mu (V_h, grad flux) = 421.40  h/hG=4.790
+sph k=3 N=8 local sufficient mu (V_h, grad flux) = 476.21  h/hG=5.241
+box k=4 N=2 local sufficient mu (V_h, sym flux) = 332.78
+box k=4 N=4 local sufficient mu (V_h, sym flux) = 332.78
+sph k=4 N=2 local sufficient mu (V_h, grad flux) = 338.44  h/hG=3.263
+sph k=4 N=4 local sufficient mu (V_h, grad flux) = 535.88  h/hG=4.144
+sph k=4 N=6 local sufficient mu (V_h, grad flux) = 663.96  h/hG=4.790
+sph k=4 N=8 local sufficient mu (V_h, grad flux) = 751.37  h/hG=5.241

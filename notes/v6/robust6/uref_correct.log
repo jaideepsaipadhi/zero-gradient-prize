@@ -1,0 +1,4 @@
+k=4: rank A = 9 (of 9 rows, 12 unknowns), dim U = 3, trace rank = 2, dim P_e = 2, trace means = {0}
+k=5: rank A = 14 (of 14 rows, 20 unknowns), dim U = 6, trace rank = 3, dim P_e = 3, trace means = {0}
+k=6: rank A = 20 (of 20 rows, 30 unknowns), dim U = 10, trace rank = 4, dim P_e = 4, trace means = {0}
+k=7: rank A = 27 (of 27 rows, 42 unknowns), dim U = 15, trace rank = 5, dim P_e = 5, trace means = {0}

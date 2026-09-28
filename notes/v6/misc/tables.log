@@ -1,0 +1,57 @@
+
+== S1 mu=100 CNS*:  N hG | ||e_p-mean|| (rate) | ||div u^L|| | |||u_h-u^L||| | ratio ep/div  ep/E | vol_y (rate) | P_cos1/hG P_cos4/hG | (mu/h)S+P cos1 (rate)
+   8 0.7654 | 1.206e+00        | 1.474e-01 | 8.529e-01 | 8.18 1.41 | +4.470e+00        | +1.027 +0.084 | +1.71e-01
+  16 0.4595 | 4.840e-01 (1.79) | 6.000e-02 | 3.631e-01 | 8.07 1.33 | +1.691e+00 (1.91) | +1.483 +0.776 | +7.97e-02 (1.49)
+  24 0.3204 | 2.613e-01 (1.71) | 3.248e-02 | 2.021e-01 | 8.04 1.29 | +8.391e-01 (1.94) | +1.706 +1.013 | +4.45e-02 (1.62)
+  32 0.2444 | 1.645e-01 (1.71) | 2.071e-02 | 1.308e-01 | 7.94 1.26 | +4.941e-01 (1.96) | +1.836 +1.129 | +2.81e-02 (1.70)
+  48 0.1650 | 8.476e-02 (1.69) | 1.093e-02 | 7.039e-02 | 7.75 1.20 | +2.284e-01 (1.96) | +1.973 +1.212 | +1.39e-02 (1.78)
+  64 0.1243 | 5.301e-02 (1.66) | 6.958e-03 | 4.534e-02 | 7.62 1.17 | +1.307e-01 (1.97) | +2.038 +1.233 | +8.24e-03 (1.85)
+
+== S1 mu=1000 CNS*:  N hG | ||e_p-mean|| (rate) | ||div u^L|| | |||u_h-u^L||| | ratio ep/div  ep/E | vol_y (rate) | P_cos1/hG P_cos4/hG | (mu/h)S+P cos1 (rate)
+  32 0.2444 | 4.832e-01        | 3.608e-02 | 3.529e-01 | 13.39 1.37 | +4.543e-01        | +5.198 +3.883 | -1.65e-02
+  64 0.1243 | 1.486e-01 (1.74) | 1.253e-02 | 1.157e-01 | 11.86 1.28 | +1.271e-01 (1.88) | +4.315 +3.415 | -3.45e-03 (2.31)
+
+== B1 mu=100 CNS*:  N hG | ||e_p-mean|| (rate) | ||div u^L|| | |||u_h-u^L||| | ratio ep/div  ep/E | vol_y (rate) | P_cos1/hG P_cos4/hG | (mu/h)S+P cos1 (rate)
+   8 0.7654 | 1.873e+00        | 2.358e-01 | 6.989e-01 | 7.94 2.68 | +1.788e+00        | +0.411 -1.953 | +6.82e-02
+  16 0.4595 | 4.971e-01 (2.60) | 2.886e-02 | 1.356e-01 | 17.23 3.67 | +6.763e-01 (1.91) | +0.593 +0.090 | +3.19e-02 (1.49)
+  24 0.3204 | 1.695e-01 (2.98) | 1.010e-02 | 5.843e-02 | 16.78 2.90 | +3.356e-01 (1.94) | +0.682 +nan | +1.78e-02 (1.62)
+  32 0.2444 | 7.673e-02 (2.93) | 5.703e-03 | 3.522e-02 | 13.45 2.18 | +1.977e-01 (1.96) | +0.734 +0.110 | +1.12e-02 (1.70)
+  48 0.1650 | 2.867e-02 (2.51) | 2.866e-03 | 1.857e-02 | 10.00 1.54 | +9.136e-02 (1.96) | +0.789 +nan | +5.57e-03 (1.78)
+  64 0.1243 | 1.620e-02 (2.02) | 1.806e-03 | 1.202e-02 | 8.97 1.35 | +5.229e-02 (1.97) | +0.815 +0.123 | +3.30e-03 (1.85)
+
+== B1 mu=1000 CNS*:  N hG | ||e_p-mean|| (rate) | ||div u^L|| | |||u_h-u^L||| | ratio ep/div  ep/E | vol_y (rate) | P_cos1/hG P_cos4/hG | (mu/h)S+P cos1 (rate)
+  64 0.1243 | 3.861e-02        | 3.192e-03 | 2.963e-02 | 12.10 1.30 | +5.085e-02        | +1.726 +nan | -1.38e-03
+
+== A mu=100 CNS*:  N hG | ||e_p-mean|| (rate) | ||div u^L|| | |||u_h-u^L||| | ratio ep/div  ep/E | vol_y (rate) | P_cos1/hG P_cos4/hG | (mu/h)S+P cos1 (rate)
+  16 0.4595 | 3.769e-01        | 5.138e-02 | 3.135e-01 | 7.33 1.20 | +2.268e-13        | +0.000 +nan | +1.37e-13
+  32 0.2444 | 1.209e-01 (1.80) | 1.692e-02 | 1.074e-01 | 7.14 1.12 | -8.361e-13 (-2.07) | +0.000 +nan | -7.08e-14 (1.05)
+  64 0.1243 | 3.911e-02 (1.67) | 5.645e-03 | 3.637e-02 | 6.93 1.08 | +1.255e-12 (-0.60) | +0.000 +nan | +1.46e-13 (-1.06)
+
+== torque: -omega(zeta^1) / predicted (h/mu) int sigma n . d_n psi   and  (J^chi - J^N)(e1)
+S1  mu=     100 N=  8 gamma=   29.3 gamma*hG= 22.44  -omega(z1)=-3.2349e-01 pred=-3.2799e-01 ratio=0.986  Jchi-JN(rot)=-3.993e-01  Jchi-JN(e1)=-2.735e-01
+S1  mu=     100 N= 16 gamma=   30.5 gamma*hG= 14.03  -omega(z1)=-3.2535e-01 pred=-1.8915e-01 ratio=1.720  Jchi-JN(rot)=-3.328e-01  Jchi-JN(e1)=-5.236e-02
+S1  mu=     100 N= 24 gamma=   30.3 gamma*hG=  9.72  -omega(z1)=-2.7412e-01 pred=-1.3269e-01 ratio=2.066  Jchi-JN(rot)=-2.778e-01  Jchi-JN(e1)=-2.172e-02
+S1  mu=     100 N= 32 gamma=   30.1 gamma*hG=  7.35  -omega(z1)=-2.3110e-01 pred=-1.0212e-01 ratio=2.263  Jchi-JN(rot)=-2.333e-01  Jchi-JN(e1)=-1.233e-02
+S1  mu=     100 N= 48 gamma=   29.7 gamma*hG=  4.89  -omega(z1)=-1.7313e-01 pred=-6.9867e-02 ratio=2.478  Jchi-JN(rot)=-1.742e-01  Jchi-JN(e1)=-5.747e-03
+S1  mu=     100 N= 64 gamma=   29.4 gamma*hG=  3.66  -omega(z1)=-1.3759e-01 pred=-5.3083e-02 ratio=2.592  Jchi-JN(rot)=-1.382e-01  Jchi-JN(e1)=-3.353e-03
+S1  mu=    1000 N= 32 gamma=  300.7 gamma*hG= 73.48  -omega(z1)=-1.0446e-02 pred=-1.0212e-02 ratio=1.023  Jchi-JN(rot)=-1.378e-02  Jchi-JN(e1)=-3.184e-03
+S1  mu=    1000 N= 64 gamma=  294.2 gamma*hG= 36.56  -omega(z1)=-5.6011e-03 pred=-5.3083e-03 ratio=1.055  Jchi-JN(rot)=-5.949e-03  Jchi-JN(e1)=-6.622e-04
+B1  mu=     100 N=  8 gamma=   29.3 gamma*hG= 22.44  -omega(z1)=-1.9142e-02 pred=-3.2799e-02 ratio=0.584  Jchi-JN(rot)=-3.535e-02  Jchi-JN(e1)=-1.956e-01
+B1  mu=     100 N= 16 gamma=   30.5 gamma*hG= 14.03  -omega(z1)=-2.9374e-02 pred=-1.8915e-02 ratio=1.553  Jchi-JN(rot)=-3.072e-02  Jchi-JN(e1)=-4.355e-02
+B1  mu=     100 N= 24 gamma=   30.3 gamma*hG=  9.72  -omega(z1)=-2.6263e-02 pred=-1.3269e-02 ratio=1.979  Jchi-JN(rot)=-2.673e-02  Jchi-JN(e1)=-1.987e-02
+B1  mu=     100 N= 32 gamma=   30.1 gamma*hG=  7.35  -omega(z1)=-2.2568e-02 pred=-1.0212e-02 ratio=2.210  Jchi-JN(rot)=-2.282e-02  Jchi-JN(e1)=-1.176e-02
+B1  mu=     100 N= 48 gamma=   29.7 gamma*hG=  4.89  -omega(z1)=-1.7134e-02 pred=-6.9867e-03 ratio=2.452  Jchi-JN(rot)=-1.724e-02  Jchi-JN(e1)=-5.641e-03
+B1  mu=     100 N= 64 gamma=   29.4 gamma*hG=  3.66  -omega(z1)=-1.3678e-02 pred=-5.3083e-03 ratio=2.577  Jchi-JN(rot)=-1.374e-02  Jchi-JN(e1)=-3.322e-03
+B1  mu=    1000 N= 64 gamma=  294.2 gamma*hG= 36.56  -omega(z1)=-5.5706e-04 pred=-5.3083e-04 ratio=1.049  Jchi-JN(rot)=-5.921e-04  Jchi-JN(e1)=-6.546e-04
+A   mu=     100 N= 16 gamma=   30.5 gamma*hG= 14.03  -omega(z1)=+3.4644e-01 pred=+1.8915e-01 ratio=1.832  Jchi-JN(rot)=+3.500e-01  Jchi-JN(e1)=+3.504e-14
+A   mu=     100 N= 32 gamma=   30.1 gamma*hG=  7.35  -omega(z1)=+2.3475e-01 pred=+1.0212e-01 ratio=2.299  Jchi-JN(rot)=+2.367e-01  Jchi-JN(e1)=-1.521e-13
+A   mu=     100 N= 64 gamma=   29.4 gamma*hG=  3.66  -omega(z1)=+1.3812e-01 pred=+5.3083e-02 ratio=2.602  Jchi-JN(rot)=+1.387e-01  Jchi-JN(e1)=+2.480e-13
+Q1  mu=     100 N=  8 gamma=   29.3 gamma*hG= 22.44  -omega(z1)=-3.2349e-01 pred=-3.2799e-01 ratio=0.986  Jchi-JN(rot)=-3.993e-01  Jchi-JN(e1)=-1.436e-01
+Q1  mu=     100 N= 16 gamma=   30.5 gamma*hG= 14.03  -omega(z1)=-3.2535e-01 pred=-1.8915e-01 ratio=1.720  Jchi-JN(rot)=-3.328e-01  Jchi-JN(e1)=-3.767e-02
+Q1  mu=     100 N= 32 gamma=   30.1 gamma*hG=  7.35  -omega(z1)=-2.3110e-01 pred=-1.0212e-01 ratio=2.263  Jchi-JN(rot)=-2.333e-01  Jchi-JN(e1)=-1.137e-02
+Q1  mu=    1000 N= 16 gamma=  305.3 gamma*hG=140.28  -omega(z1)=-1.7211e-02 pred=-1.8915e-02 ratio=0.910  Jchi-JN(rot)=-4.933e-02  Jchi-JN(e1)=-1.133e-02
+Q1  mu=    1000 N= 32 gamma=  300.7 gamma*hG= 73.48  -omega(z1)=-1.0446e-02 pred=-1.0212e-02 ratio=1.023  Jchi-JN(rot)=-1.378e-02  Jchi-JN(e1)=-2.923e-03
+Q1  mu=   10000 N= 16 gamma= 3052.8 gamma*hG=1402.78  -omega(z1)=-1.6711e-03 pred=-1.8915e-03 ratio=0.883  Jchi-JN(rot)=-2.720e-02  Jchi-JN(e1)=-2.419e-03
+Q1  mu=   10000 N= 32 gamma= 3007.0 gamma*hG=734.82  -omega(z1)=-9.9633e-04 pred=-1.0212e-03 ratio=0.976  Jchi-JN(rot)=-3.083e-03  Jchi-JN(e1)=-4.931e-04
+Q1  mu=  100000 N= 16 gamma=30527.9 gamma*hG=14027.75  -omega(z1)=-1.6902e-04 pred=-1.8915e-04 ratio=0.894  Jchi-JN(rot)=-6.015e-03  Jchi-JN(e1)=-2.900e-04
+Q1  mu=  100000 N= 32 gamma=30070.4 gamma*hG=7348.21  -omega(z1)=-9.9463e-05 pred=-1.0212e-04 ratio=0.974  Jchi-JN(rot)=-5.692e-04  Jchi-JN(e1)=-5.541e-05

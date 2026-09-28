@@ -1,0 +1,2 @@
+dense check mu 70.0 neg eigs 7 pardiso inertia (8435, 7)
+dense check mu 82.0 neg eigs 0 pardiso inertia (8442, 0)

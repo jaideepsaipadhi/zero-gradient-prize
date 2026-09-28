@@ -1,0 +1,1 @@
+sph k=3 N=2 vel_dofs(V0)=7788 p_dofs=5760 smallest eigs: [-6.0715e-16  4.7516e-03  4.8501e-03  4.9310e-03]  #(<1e-10)=1  beta_h(on L2_0)=0.0689  max=1.0000

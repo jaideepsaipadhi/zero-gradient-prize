@@ -1,0 +1,4 @@
+k = 4  flux Lambda(g) = 0   free params appear: False
+k = 5  flux Lambda(g) = 0   free params appear: False
+k = 6  flux Lambda(g) = 0   free params appear: False
+k=8: rank A = 35 (of 35 rows, 56 unknowns), dim U = 21, trace rank = 6, dim P_e = 6, trace means = {0}

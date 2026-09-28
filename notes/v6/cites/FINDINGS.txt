@@ -1,0 +1,166 @@
+notes/v6/cites/FINDINGS.txt -- bibliographic verification pass, 2026-09-28
+==========================================================================
+Scope: every "VERIFY" in paper/ letter/ notes/v6/**/*.tex, plus bib entries for new
+citations in notes/v6. paper/ and letter/ NOT edited. Proposed entries: refs_additions.bib.
+letter/: no %% VERIFY in .tex; only the copied "% VERIFY P" comment on Babuska1973 in letter/refs.bib.
+
+Access log (what failed)
+  - Galdi 2011 full text: Springer chapter page (pp.139-230, Ch. III "The Function Spaces of
+    Hydrodynamics") shows no preview; Google Books blocked by robots.txt.
+  - AMS PDFs/abstract pages (Neilan 2015): HTTP 403.  ACSE (aimsciences.org): robots.txt block.
+  - Wiley (Becker 2002): 403.  arXiv html 2609.25690 / 2609.29608: HTTP 429 "do not retry".
+  - Bash has no outbound network (proxy 403), so all checks were done with WebFetch.
+  - arxiv.org/pdf/2306.12362 (v1) and ar5iv DID load.
+
+--------------------------------------------------------------------------
+PART 1 -- VERIFY items
+--------------------------------------------------------------------------
+[1] 04_discrete.tex:65 and 12_three_d.tex:113, Galdi "Lemma III.3.4" (union of star-shaped
+    pieces gives a uniform Bogovskii constant).  Also notes/v6/td_pen REPORT.tex:192.
+    UNVERIFIABLE (no access to the book). No secondary source found citing a "Lemma III.3.4".
+    Recommended REPLACEMENT for 2D (04_discrete): Bernardi-Costabel-Dauge-Girault, SIAM J. Math.
+    Anal. 48 (2016) 1250-1271 [BCDG2016], Theorem 4.6 (author PDF costabel.perso.math.cnrs.fr/
+    publis/BCDG_Conti.pdf, preprint layout). Stated there: for a curved Lipschitz polygon with
+    piecewise C^2 boundary "there exists a constant c(Omega) such that for all h-approximation
+    Omega_h of Omega |beta(Omega) - beta(Omega_h)| <= c(Omega) h". Definition 4.5(ii): "Its
+    corners belong to the boundary dOmega of Omega", so the polygon is inscribed. Omega = R \ D fits.
+    For 3D (12_three_d): the text right after Thm 4.6, which is not a numbered remark, says the same
+    holds "for polyhedral approximations of three-dimensional domains"
+    (regular triangulations of dOmega, diameters <= Ch, inner radii >= ch), but only "along the same
+    lines of proof" (a sketch). Chen-Liu arXiv:2609.30008, Lemma 3.9 proof, uses [BCDG, Theorem 4.4]
+    for this purpose. Thm 4.4 (verbatim): "if Omega and Omega~ are eps-close in Lipschitz norm ...
+    |beta(Omega~) - beta(Omega)| <= c(d) eps" (Def. 4.1: diffeomorphism F with ||DF - Id||_inf,
+    ||DF^{-1} - Id||_inf <= eps). NOTE: theorem numbers were read from the preprint layout. Check
+    them against the SIAM version (HAL hal-01215296v3 is probably the final version).
+    The explicit argument in the paper can stay; the citation can move from Galdi to BCDG.
+
+[2] 10_general_domains.tex:220, "\cite[Thm. III.3.1]{Galdi}" for the star-shaped constant.
+    CORRECTED (per secondary source): Duran et al. arXiv:1308.4346 (Lemma 5.1 proof): the bound
+    C_U <= C_{n,p}(R/rho)^{n+1} for U star-shaped w.r.t. a ball is "Lemma III.3.1 in [Galdi 2011]".
+    A second source (desk-review notes on arXiv:2608.25861, via pith.science) cites Thm III.3.1 as the
+    existence theorem on bounded Lipschitz domains. So the locator should be "Lemma III.3.1".
+    The book itself was not seen.
+
+[3] 10_general_domains.tex:242, Galdi Lemma II.1.3 (Lipschitz domain = finite union of pieces
+    star-shaped w.r.t. balls). UNVERIFIABLE. No online quote found. The fact itself is standard.
+    Galdi Thm III.3.1 is stated for such unions, so the fact is in the book, but the number is not
+    confirmed.
+
+[4] 10_general_domains.tex:333, Galdi Thm III.3.3 (higher-order Bogovskii). UNVERIFIABLE. The only
+    secondary mention (pith review of 2608.25861) calls III.3.3 "higher-order Bogovskii existence",
+    which fits but does not settle integer vs fractional order.
+
+[5] 12_three_d.tex:36, Neilan 2015 Prop 6.5. UNVERIFIABLE first-hand (AMS 403; Neilan's homepage has
+    no preprint). Secondary source re-confirmed verbatim (FMS 2024, ORA PDF): "Neilan [36,
+    Proposition 6.5] extends this to more general meshes that satisfy a special condition, which
+    he states as a conjecture, but still for k >= 6."  The paper's current wording matches this.
+    DOI to add: 10.1090/S0025-5718-2015-02958-5 (derived from the AMS article URL on Neilan's
+    homepage; the DOI itself was not resolved).
+
+[6] 07b_pressure_drag.tex:261/282/506, Gjerde-Scott (3), (10), Table 1b.
+    ACSE version: UNVERIFIABLE (aimsciences blocked).
+    arXiv:2306.12362v1 (21 Jun 2023), re-read:
+      (10) CONFIRMED: "eps = (omega - beta)/omega".
+      (3)  PARTLY: (3) is "beta_v(v) = oint_Gamma [(nu D(u))v].n ds, beta_p(v) = oint_Gamma -p v.n ds".
+           These are the viscous and pressure parts. The full omega(v), beta(v) are in (7):
+           "beta(v) = oint ((nu D(u) - pI)v).n ds". Suggest "\cite[(3),(7)]{GjerdeScott2024}".
+      Table 1b CONFIRMED: Table 1, panel (b) "SV elements, Nitsche boundary condition on Gamma_h
+           with mu = 10^6". The 10^2 eps entries include ".0084%", ".0075%", ".0055%", ".0052%" on the
+           finest meshes, so eps is about 5-8e-5, matching the paper's "eps ~ 8e-5". The caption says
+           eps was computed "using functionals (7) and (9) applied to chi".
+    The ACSE equation numbering may differ; keep the flag, or cite "arXiv version".
+
+[7] 01_introduction.tex:83, FreundStenberg1995 / Becker2002.
+    FS1995: still SECONDARY only. arXiv:2502.09550 (export.arxiv.org), Sec 1.1: "For a
+      non-exhaustive list of contributions on the Stokes and Navier-Stokes equations with various
+      choices of boundary conditions, we refer the reader to [FS95; Ste95; BCLT15; GS22b]."
+      Boiveau-Burman IMA 2016: "Freund & Stenberg (1995) then suggested a nonsymmetric version of
+      Nitsche's method." The full text was not found.
+    Becker2002: UNVERIFIABLE (Wiley 403; Semantic Scholar page empty). Title only.
+
+[8] 01_introduction.tex:100, GjerdeScott2022 slip-Nitsche pressure term.
+    Paper text UNVERIFIABLE (AMS). Indirect evidence: the authors' public code, github
+    IngeborgGjerde/nitsche-method-for-navier-stokes-with-slip (Zenodo 4591766), solve.py, has in the
+    bilinear form "p*dot(v,n)*ds(1) + q*dot(u,n)*ds(1)". The pressure boundary term is present in
+    both rows on the slip boundary. So the 2022 slip method very likely includes the pressure term,
+    unlike the 2024 Dirichlet form. Suggested wording if kept: "whose companion code includes the
+    boundary pressure term". Better: read the paper first.
+
+[9] 09_clough_tocher.tex:175, Cavalcante + Clough-Tocher k>=2.
+    Zenodo record 22262466 re-read. It describes "continuous quartic velocity elements and cubic
+    divergence moments", an inscribed polygon and weak Nitsche imposition. It does NOT mention
+    Clough-Tocher. Treat the CT claim as UNSUPPORTED (the PDF was not machine-readable). ALSO:
+    - author on the record is "Claudemir de Souza Cavalcante". The bib has "Cavalcante, Claudemir",
+      so change it to author = {de Souza Cavalcante, Claudemir} or {Cavalcante, Claudemir de Souza}.
+    - mu* CONFIRMED: record says "the computed coercivity transition occurs near mu=60.3383".
+      This resolves the "% VERIFY (unresolved)" on the Cavalcante bib entry.
+
+[10] 07_consistent_method.tex:32, archival of the 4.5e-3 runs. Internal, not bibliographic. Skipped.
+
+[11] notes/v6/td_lift, Hildebrandt-Polthier-Wardetzky 2006.
+    CONFIRMED (metadata + setting, secondary). Springer: Geom. Dedicata 123(1) 89-112 (2006), DOI
+    10.1007/s10711-006-9109-5. The abstract assumes only Hausdorff convergence and does not mention
+    normal graphs. Wardetzky's overview (convergence_cotan.pdf, "For a proof of the next theorem,
+    see [15,29]"; [15] = HPW) gives Def 3.1 verbatim: "Mh is a normal graph over ... M if it is
+    strictly within the reach of M and the map Psi: Mh -> M which takes every point on Mh to its
+    closest point on M is a homeomorphism". Thms 3.3/3.4 assume normal graph. So the note's
+    "normal-graph property is a hypothesis" is right. Cite the overview alongside if needed.
+
+[12] td_lift, Morvan-Thibert 2004. CONFIRMED (metadata; definition via the same authors'
+    follow-up). DCG 32(3) 383-400 (2004), DOI 10.1007/s00454-004-1096-4. The pages come from the
+    reference list of Morvan-Thibert, "Unfolding of surfaces", DCG 36 (2006) 393-418. That paper,
+    Def 2.2.2: "A triangulation T is closely inscribed in a smooth surface S if: 1. T is closely near
+    S, 2. all the vertices of T belong to S". "Closely near": M lies in U_r(S), r = reach, and the
+    restriction of the projection xi to M is one-to-one. This matches the note. The 2004 text itself
+    was not read.
+
+[13] td_lift, Amenta-Choi-Dey-Leekha Thm 15. CONFIRMED against the SoCG 2000 PDF (cs.jhu.edu/~misha/...
+    amenta00B.pdf): "Theorem 15: The mapping mu defines a homeomorphism from the triangulation N to
+    the surface S for e <= 0.06". Assumption: adjacent triangles meet at an angle > pi/2. Proof: covering
+    space argument + Cor 12 / Lemmas 13-14. The numbering is from the CONFERENCE version. The journal
+    version (IJCGA 12(1-2) 125-141, 2002) was not seen, and its numbering may differ, so cite
+    "SoCG 2000 version, Thm 15" or check.
+
+[14] ns/ns_branch.tex:26, Girault-Raviart Ch. IV. CONFIRMED (table of contents, eBay product page):
+    Ch. IV "Theory and Approximation of the Navier-Stokes Problem". §1 "A Class of Nonlinear
+    Problems", §3 "Approximation of Branches of Nonsingular Solutions". Suggest \cite[Ch. IV, §3]{...}.
+    Springer Series in Computational Mathematics 5, 1986, DOI 10.1007/978-3-642-61623-5.
+    ns_branch.tex:15, Temam Ch. I Thm 1.6: PLAUSIBLE, UNCONFIRMED. The North-Holland 3rd ed. preview
+    shows §I.1.4 "Characterization of the spaces H and V". It cuts off before Thm 1.6 (Thms 1.1-1.3,
+    Props 1.1-1.2 are visible). The characterisation of V lies in this section, but the number was
+    not seen.
+
+--------------------------------------------------------------------------
+PART 2 -- new bib entries (see refs_additions.bib)
+--------------------------------------------------------------------------
+Already in paper/refs.bib (NO new entry needed): GuzmanNeilan2018, Zhang2005, NeilanOtus2021,
+  LiuNeilanOtus2023, FrachonNilssonZahedi2024 (BIT 64:39, present and previously verified).
+New keys proposed (source of metadata in brackets):
+  GrassleBohneSauter2024  Numer. Math. 156(5) 1781-1807, DOI 10.1007/s00211-024-01430-x [Crossref, Springer page]
+  BohneGrassleSauter2025  Calcolo 62(1) Art. 8, DOI 10.1007/s10092-024-00627-8 [Crossref]
+  Park2020                J. Comput. Appl. Math. 363 (2020) 370-391, DOI 10.1016/j.cam.2019.06.007
+                          [Crossref: author "Chunjae Park"; ScienceDirect pii S0377042719302791]. arXiv:1905.03234.
+                          Note: published in 2020, not just an arXiv preprint.
+  ChenLiu2026             Wei Chen, Zhen Liu, arXiv:2609.30008v1, 24 Sep 2026 [local PDF]
+  BCDG2016                SIAM J. Math. Anal. 48(2) 1250-1271, DOI 10.1137/15M1044989 [Crossref]; arXiv:1510.03978
+  FuGuzmanNeilan2020      Math. Comp. 89(323) 1059-1091, DOI 10.1090/mcom/3520 [Crossref]; arXiv:1807.05883
+  BRR1980                 Numer. Math. 36(1) 1-25, DOI 10.1007/BF01395985 [Springer page] -- key used by ns_branch.tex
+  GiraultRaviart          Springer SSCM 5, 1986, DOI 10.1007/978-3-642-61623-5 -- key used by ns_branch.tex
+  Temam                   AMS Chelsea 343 (2001 reprint of 3rd ed. 1984), DOI 10.1090/chel/343 [AMS endmatter]
+  Schatz1974              Math. Comp. 28(128) 959-962, DOI 10.1090/S0025-5718-1974-0373326-0 [Crossref]
+  DziukElliott2013        Acta Numer. 22 289-396, DOI 10.1017/S0962492913000056 [Crossref]
+  Dziuk1988               LNM 1357, DOI 10.1007/BFb0082865 [Springer URL]. Pages 142-155 are from memory; UNCONFIRMED.
+  HildebrandtPolthierWardetzky2006, MorvanThibert2004, AmentaChoiDeyLeekha2002 (IJCGA 12(1-2) 125-141 [dblp];
+                          DOI 10.1142/S0218195902000773 [WorldSci URL]).
+  Wardetzky2008           optional secondary source for [11]. Pages 275-286 are from memory; UNCONFIRMED.
+  AinsworthParker2022     CMAME 395 (2022) 115034 [as printed in GBS2024 ref. 5, cited there for Thm 5.1, the
+                          k-dependence]. DOI not resolved; assumed 10.1016/j.cma.2022.115034. Its relevance to
+                          nearly-singular-vertex PRESSURE robustness (strong2 caveat) was NOT checked. A related paper,
+                          Ainsworth-Parker, "Mass conserving mixed hp-FEM approximations to Stokes flow. Part II",
+                          has DOI 10.1137/20M1359110 (SINUM 2021; volume/pages not confirmed).
+
+Other corrections found
+  - notes/v6/lit/chen_liu_2609.30008.txt says "Neilan-Otus SINUM 2021 (Cor 6.2)". The PDF says
+    "established in two dimensions by Neilan and Otus [23, Theorem 6.1]".
+  - Chen-Liu cite Girault-Raviart LNM 749 (1979) (their ref [15]), not the 1986 book, for w~ with
+    div w~ = q~.

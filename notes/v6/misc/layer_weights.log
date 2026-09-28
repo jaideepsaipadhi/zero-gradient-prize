@@ -1,0 +1,7 @@
+/home/claude/zero-gradient-prize/notes/v6/misc/layer_weights.py:11: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+  L = np.linalg.norm(B - A); area = abs(np.cross(B - A, C - A)) / 2; H = 2 * area / L
+N=  16 #edges=16 w in [0.512,1.259] mean 0.887  max|w(th+pi/2)-w|=0.00e+00 max|w(-th)-w|=2.11e-01  len ratio max/min=1.434  cos1: hG*V=(-3.2591,+0.0000)  sin1: hG*V=(+0.0000,-3.2591)  cos2: hG*V=(-0.0000,+0.0000)  cos3: hG*V=(-0.3662,+0.2686)
+N=  32 #edges=32 w in [0.448,1.313] mean 0.890  max|w(th+pi/2)-w|=2.22e-16 max|w(-th)-w|=1.35e-01  len ratio max/min=1.724  cos1: hG*V=(-3.4801,+0.0000)  sin1: hG*V=(+0.0000,-3.4801)  cos2: hG*V=(-0.0000,+0.0000)  cos3: hG*V=(-0.3651,+0.1407)
+N=  64 #edges=64 w in [0.420,1.328] mean 0.891  max|w(th+pi/2)-w|=2.22e-16 max|w(-th)-w|=7.01e-02  len ratio max/min=1.867  cos1: hG*V=(-3.5432,-0.0000)  sin1: hG*V=(-0.0000,-3.5432)  cos2: hG*V=(+0.0000,+0.0000)  cos3: hG*V=(-0.3634,+0.0717)
+N= 128 #edges=128 w in [0.407,1.332] mean 0.891  max|w(th+pi/2)-w|=3.33e-16 max|w(-th)-w|=3.50e-02  len ratio max/min=1.935  cos1: hG*V=(-3.5596,+0.0000)  sin1: hG*V=(+0.0000,-3.5596)  cos2: hG*V=(-0.0000,-0.0000)  cos3: hG*V=(-0.3629,+0.0360)
+N= 256 #edges=256 w in [0.401,1.333] mean 0.891  max|w(th+pi/2)-w|=2.22e-16 max|w(-th)-w|=1.76e-02  len ratio max/min=1.968  cos1: hG*V=(-3.5637,+0.0000)  sin1: hG*V=(+0.0000,-3.5637)  cos2: hG*V=(+0.0000,-0.0000)  cos3: hG*V=(-0.3628,+0.0180)

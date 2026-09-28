@@ -1,0 +1,33 @@
+E_j(theta):
+  theta=10  E1=17.87  E2=3606
+  theta=15  E1=6.539  E2=596.6
+  theta=20  E1=3.365  E2=178.7
+  theta=30  E1=1.47  E2=39
+  theta=45  E1=0.9327  E2=17.27
+  theta=60  E1=0.7236  E2=10.86
+
+Qlb(kappa -> 0, Y -> 0) = 15.487341163110308 (continuum 15.4873)
+
+Y0=1e-12:  kappa_0(theta) with Qlb >= 15
+  theta=10  kappa_0=0.004003   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 749
+  theta=15  kappa_0=0.006274   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 478
+  theta=20  kappa_0=0.008475   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 354
+  theta=30  kappa_0=0.01238   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 242
+  theta=45  kappa_0=0.01516   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 198
+  theta=60  kappa_0=0.017   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 176
+
+Y0=1e-06:  kappa_0(theta) with Qlb >= 15
+  theta=10  kappa_0=0.003796   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 790
+  theta=15  kappa_0=0.005948   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 504
+  theta=20  kappa_0=0.008035   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 373
+  theta=30  kappa_0=0.01174   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 256
+  theta=45  kappa_0=0.01436   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 209
+  theta=60  kappa_0=0.01611   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 186
+
+Y0=3e-06:  kappa_0(theta) with Qlb >= 15
+  theta=10  kappa_0=0.003232   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 928
+  theta=15  kappa_0=0.005063   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 593
+  theta=20  kappa_0=0.006836   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 439
+  theta=30  kappa_0=0.009979   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 301
+  theta=45  kappa_0=0.01221   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 246
+  theta=60  kappa_0=0.01369   min Qlb on grid below = 15.0000   layers ~3/kappa0 = 219

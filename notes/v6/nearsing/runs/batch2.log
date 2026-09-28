@@ -1,0 +1,5 @@
+./run_batch2.sh: line 5:  4442 Killed                  python3 ns_fe.py $1 $2 96 >> runs/$1_$2.jsonl 2>> runs/$1_$2.err
+./run_batch2.sh: line 5:  4477 Killed                  python3 ns_fe.py $1 $2 96 >> runs/$1_$2.jsonl 2>> runs/$1_$2.err
+./run_batch2.sh: line 5:  4528 Killed                  python3 ns_fe.py $1 $2 96 >> runs/$1_$2.jsonl 2>> runs/$1_$2.err
+./run_batch2.sh: line 5:  4545 Killed                  python3 ns_fe.py $1 $2 96 >> runs/$1_$2.jsonl 2>> runs/$1_$2.err
+./run_batch2.sh: line 5:  4556 Killed                  python3 ns_fe.py $1 $2 96 >> runs/$1_$2.jsonl 2>> runs/$1_$2.err

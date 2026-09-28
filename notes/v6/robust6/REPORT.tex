@@ -1,0 +1,365 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,booktabs,geometry}
+\geometry{margin=2.3cm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\title{notes/v6/robust6: referee of robust5 (a critical bug in $(P^T)$, repaired);\\
+(V) proved by an explicit vertex field; Theorem R-final}
+\date{2026-09-28 (subagent report; nothing in paper/ or letter/ touched, nothing committed)}
+\begin{document}\maketitle
+
+\noindent Labels: \textbf{PROVED}, \textbf{PROVED MODULO X}, \textbf{NUMERICAL}. A computer step counts as proof only
+if it is exact rational/symbolic algebra, or outward-rounded ball arithmetic with a covering branch and bound.
+Notation is that of robust3--5. Scripts and logs are in \texttt{notes/v6/robust6/}. Every run took under 10 minutes on one core.
+
+\section*{Summary}
+\begin{enumerate}
+\item \textbf{robust5's $(P^T)$ proof is invalid as written, and is repaired here.}
+ \begin{itemize}
+ \item \emph{The bug (CRITICAL; exact).} \texttt{fan.py} (\texttt{int\_edge}) and \texttt{pt\_fields.py}/\texttt{sym\_verify.py}
+ (\texttt{int\_e}) compute the edge term $\ip{v\cdot n}{r}_e$ of the pressure-blind moment condition incorrectly. When the test
+ polynomial $r=B^3_\beta$ has $\beta_c>0$, $r$ vanishes on $e$, yet the code returns a nonzero value.
+ \item \emph{Consequences.}
+ \begin{itemize}
+ \item The reference fields \texttt{UREF}, and hence $v_1,v_2$, violate $6$ of the $10$ moment conditions on $T_1$
+ (\texttt{bugdiag.log}, \texttt{indep\_Q\_rational.log}), so they are \emph{not pressure-blind}.
+ \item The ``independent'' check \texttt{verify\_fields.py} shares the bug and is not independent.
+ \item Invalid as a result: Prop.~fields; the closed forms and the constants $4.9\times10^{-6}$, $1.3\times10^{-6}$ of Thm~$P^T$(b);
+ \texttt{dims.log}; the \texttt{higher\_k.log} rank facts as \emph{evidence}; and the soundness ratios.
+ \end{itemize}
+ \item \emph{Repair (PROVED).}
+ \begin{itemize}
+ \item The correct reference space $U(\hat T)$ still has dimension $3$, and its traces are exactly $P_e$.
+ \item With the corrected fields every structural claim of robust5 survives. The pairing matrix $P$ and the Gram $\tilde G$ are unchanged, and
+ $\gamma_C=(\tfrac15,\tfrac25)$ is still shape independent (robust5 had $(-\tfrac1{20},-\tfrac1{10})$).
+ \item Re-certified: $\kappa_T(30^\circ)\ge2.1\times10^{-6}$ and $\kappa_T(20^\circ)\ge5.6\times10^{-7}$. Negative controls at $2.17\times10^{-6}$
+ and $5.7\times10^{-7}$ are refuted.
+ \item So robust4 Thm~4.1 (lower bound modulo $\operatorname{Ker}_T$) is PROVED for $k=4$, with these constants.
+ \end{itemize}
+ \end{itemize}
+\item \textbf{(V) is PROVED, so $(P^K)$ is PROVED} for $k=4$ (Thm~\ref{thm:V}, Cor.~\ref{cor:PK}).
+ \begin{itemize}
+ \item No blow-up is needed. An Argyris-type stream function plus boundary corrections gives, on every admissible star (flat,
+ tilted, periodic or not), a field $v_z\in V^\sharp(\omega_z)$ with $v_z(z)=\nu_z$ (the bisector normal).
+ \item The field has zero flux on each of $e$ and $e'$ separately. Its (M),(D) corrections are bounded uniformly through the flat locus.
+ \item The key exact fact is Lemma~\ref{lem:flux0}: the $T_e$-correction never creates flux.
+ \item robust5 Lemma~K2's last sentence (``no continuous family through the flat locus can see $\operatorname{Ker}_T/K_T$'') is
+ \emph{false}. Only per-edge (D) forces $v(z)=0$.
+ \end{itemize}
+\item \textbf{(S): the ``counterexample'' is NUMERICAL only.} The $\hG^{-1/2}$ exponent in the data at $\mu=300$ is convincing.
+ Its amplitude, however, is about $40\times$ that at $\mu=10^3$, against the $1.8\times$ that Thm~S1's $\gamma^{-3/2}$ term predicts. So near-criticality dominates
+ at $\mu=300$. Thm~S1 (the weak form) is PROVED given the paper's lemmas.
+\item \textbf{Theorem R-final} (\S\ref{sec:final}) gives the following, for LP$^+$ families and $k=4$:
+ \begin{itemize}
+ \item a two-sided bound $c\gamma^{-1}D(\phi)\le\hG^{-(k+1/2)}\|\nabla W\|\le C\gamma^{-1}D(\phi)+C\gamma^{-3/2}\|\phi\|+o(1)$;
+ \item a mesh-general lower bound modulo $\operatorname{Ker}_T$.
+ \end{itemize}
+ The upgrade of the $\gamma^{-3/2}$ term to $\gamma^{-1}\hG^{1/2}$ is the one remaining conjecture on LP$^+$ families: (S$_{\rm LP}$).
+\end{enumerate}
+
+\section{Referee of robust5: $(P^T)$}
+\subsection{The bug}
+For $v$ vanishing on the two non-$\Gh$ edges of $T_1$, the moment condition $(\operatorname{div}v,r)_{T_1}=\ip{v\cdot n}r_e$
+($r\in P_3$) is equivalent to $(v,\nabla r)_{T_1}=0$ (robust5 Lemma~piola). \texttt{indep\_ref.py} checks this directly, by
+monomial integration on $\hat T$. For robust5's \texttt{UREF} it finds
+\[
+(u,\nabla r)\ne0\qquad\text{for }r=x,\ xy,\ xy^2,\ x^2,\ x^2y .
+\]
+The normal traces ($B_1-B_2$, $B_1-B_3$) are correct. \texttt{bugdiag.py} shows that \texttt{UREF} satisfies exactly the buggy rows:
+\begin{itemize}
+\item robust5's formula \texttt{int\_e(al,r,4,3)} ignores $r_c$;
+\item for $\beta_c>0$ it returns values such as $1/280$ and $1/70$ instead of $0$.
+\end{itemize}
+\texttt{indep\_Q.py} (fully independent: its own vertices, barycentrics, monomials and sympy integration) confirms that
+the robust5 fields $v_1,v_2$ fail pressure-blindness at $7$ rational shapes. They pass continuity, the boundary conditions,
+$\operatorname{div}=0$ on $T_2$, (M), (D) and the traces. The \texttt{fan.py} nullspaces for \emph{single-triangle} and fan spaces are
+therefore unreliable in general.
+
+\subsection{Repair (PROVED)}
+\begin{lemma}[correct reference space; exact, \texttt{uref\_correct.py}]
+$U_k(\hat T):=\{u\in\lambda_z\lambda_aP_{k-2}^2:(u,\nabla r)_{\hat T}=0\ \forall r\in P_{k-1}\}$ has
+$\dim=3,6,10,15,21$ for $k=4,\dots,8$. The constraint map has full rank $\dim P_{k-1}-1$, and the normal traces span exactly
+$P_e$ (rank $k-2$, all of mean $0$).
+\end{lemma}
+The dimensions coincide with robust5's buggy ones, so robust5 \S hk ($5\le k\le8$) survives. Its logs, however, are not evidence;
+these are.
+
+\noindent\emph{Corrected fields} (\texttt{uref\_fix.py}, Bernstein data in \texttt{uref\_fix.log}). $\hat u_1,\hat u_2\in U_4(\hat T)$ have traces
+$B_1-B_2$ and $B_1-B_3$, and $v_f:=\mathrm{Piola}(\hat u_f)+g_A^fw_A+g_C^fw_C$ as in robust5 Prop.~fields.
+
+\begin{proposition}[PROVED for all shapes]\label{prop:fix}
+For all nondegenerate $T_1,T_2$ with (G), $v_1,v_2\in F(Q)\subset V^\sharp(\omega_z)$, with traces $B_1-B_2$ and $B_1-B_3$, and
+$\gamma_C=(\tfrac15,\tfrac25)$.
+\end{proposition}
+\begin{proof}
+\emph{Moment conditions on $T_1$.} They hold for $\mathrm{Piola}(\hat u_f)$ by Piola invariance. The $w$'s are curls with zero normal
+trace on $e$, so they add nothing.
+
+\emph{$T_2$.} $\operatorname{div}w_C=0$ there.
+
+\emph{Continuity and boundary conditions.} $\psi_A,\psi_C\in S(Q)$ are $C^1$. This is \texttt{sq.py}, which is symbolic and does not use the buggy code.
+
+\emph{(M),(D).} The normal parts hold because the trace lies in $P_e$ and $\zeta_T$ has constant trace ($20/H$, pure Gram algebra, unaffected
+by the bug). The tangential parts hold by the triangular system: $M_t(w_C)=0$, $M_t(w_A)=s_1$, $D_t(w_C)=-5s_1^2$.
+
+\emph{Checks.} All of this is confirmed exactly by \texttt{indep\_Q.py} at 7 rational shapes, including obtuse $T_1$
+and negative cotangents (\texttt{indep\_Q\_rational.log}). A fully symbolic run of \texttt{indep\_Q.py} did not finish in 50 minutes; the
+all-shapes statement rests on the structural argument above.
+\end{proof}
+
+\noindent\emph{Closed forms} (\texttt{closed\_forms.py}, exact over $\mathbb Q(x_1,y_1)$). Put $s_1=x_1+y_1$. Then
+\[
+g_{00}=\tfrac{2(12x_1^4-x_1^3y_1+3x_1^2y_1^2+30x_1^2+3x_1y_1^3+6x_1y_1+5y_1^4+12y_1^2+18)}{35s_1},\quad
+e_{00}=\tfrac{8(y_1^2+1)}{315},\ \dots
+\]
+(\texttt{closed\_forms.log}). They are checked independently by \texttt{check\_forms.py}, using direct integration of the monomial fields on the
+\emph{physical} $T_1,T_2$ at 4 rational shapes. The same run checks:
+\begin{itemize}
+\item the $T_2$ part $\gamma_C^f\gamma_C^g(x_1^2+1)F(x_2,y_2)$, with robust5's $F$;
+\item the pairing matrix $P$, recomputed with an $L^2$ projection on the physical $T_1$; it is unchanged;
+\item the closed form of $\tilde G$.
+\end{itemize}
+
+\noindent\emph{Certificate} (\texttt{cert\_fix.py}). The method is unchanged, with $\gamma_C$ no longer hard-coded.
+\begin{itemize}
+\item Step 1 ($F\le43$ at $30^\circ$) is unchanged.
+\item Step 2 accepts 650/61/710 boxes (accepted/discarded/split) at $30^\circ$, in 3\,s, for $\kappa_0=2.1\times10^{-6}$. At $20^\circ$ it accepts 1351/108/1458 boxes for
+$\kappa_0=5.6\times10^{-7}$.
+\item Negative controls are refuted at the corner $x_1=y_1=\cot\theta$. The float minima there are $2.156\times10^{-6}$ and $5.68\times10^{-7}$.
+\end{itemize}
+Soundness (\texttt{sanity\_fix.log}, floating point): the corrected bound is below robust4's optimal numerical $\kappa_T$ (robust3's \texttt{pk.py}, which
+assembles the \emph{solver's} $B^\ast$ and is unaffected by the bug) on $3\times60$ random 3/4-triangle stars. There are no violations; the
+ratio is $\ge3.8$ (median $5.5$--$6.7$).
+
+\subsection{Other points checked (all correct)}
+\begin{itemize}
+\item Lemma~phi. $c_3=10$ is the Warburton--Hesthaven value $(p+1)(p+2)/2$ at $p=3$, and $C_I^2=20s_1$. The derivation of $C_T$
+(the $\operatorname{div}((x-c)u^2)$ identity plus Payne--Weinberger) and the factors $13$, $3$ are right.
+\item The reduction $\kappa_T^2\ge1/\operatorname{tr}(P_W^{-1}\mathcal QP_W^{-\mathsf T}\tilde G)$ is right. Monotonicity in $F$ holds.
+\item The branch and bound covers the box $[-\cot2\theta,\cot\theta]^2$. Discards are provable ($x+y\ge\sin\theta$ is valid for $\theta\le\pi/3$). The Taylor-form
+enclosures are exact rationals, and $C_T$ is in arb over the whole box.
+\end{itemize}
+\emph{Minor points:}
+\begin{itemize}
+\item (M1$'$) is implied by (G).
+\item The remainder in robust4 Thm~4.1 is $C(1+\gamma)^{-1}\hG^{k+3/2}$, not $C\gamma^{-1}\hG^{k+3/2}$. These are the same for $\gamma\ge1$.
+\item robust5's claim that the closed forms were ``checked against the generic pipeline'' is only a consistency check, because the pipeline carried the bug.
+\end{itemize}
+
+\section{Referee of robust5: (S)}
+Thm~S1 is logically sound given paper hc:thm, Thm~D step 3, and Lemmas inverse and infsup. I re-derived steps (1)--(3), including
+$\hG^{-1/2}\|\delta_a\|_{\Gh}\le c_1^{-1}\gamma^{-1}\hG^{1/2}\|a\|$.
+
+The numerical counterexample (not re-run) is suggestive but not decisive. Fit the data to $L+c\,N^{1/2}$:
+\begin{itemize}
+\item at $\mu=300$, $c=1.38$;
+\item at $\mu=10^3$, $c=0.035$ (predicts $4.59$ and $4.63$ at $N=32,48$; observed $4.57$ and $4.62$).
+\end{itemize}
+The exponent $\tfrac12$ is therefore consistent. The amplitude ratio $\approx40$ is far from the $(10/3)^{1/2}\approx1.8$ predicted by Thm~S1's second term,
+so the $\mu=300$ amplitude is inflated by proximity to the coercivity threshold ($\mu=150$ is non-coercive).
+
+\emph{Verdict:} ``(S) fails on non-LP meshes'' is NUMERICAL (plausible). It is irrelevant to the dichotomy, because $K(x)$ is undefined on non-LP families.
+
+\section{Closing (V)}
+Let $k=4$ and let $\omega_z$ be a $\Gh$-vertex star with $m\ge3$ triangles $T_1=T_e=(z,a,c),T_2,\dots,T_m=T_{e'}$, where $e=[z,a]$ and $e'=[g,z]$.
+Assume:
+\begin{itemize}
+\item (G$^\pm$): the neighbours of $T_e$ and of $T_{e'}$ across their interior $z$-spokes have no $\Gh$ edge;
+\item all angles are $\ge\theta$;
+\item the half-turning angle satisfies $\varphi_z:=\tfrac12|\pi-\angle z|\le\varphi_{\max}<\pi/2$.
+\end{itemize}
+Let $\nu_z=(n_e+n_{e'})/|n_e+n_{e'}|$.
+
+\begin{lemma}[no flux from the boundary correction; exact, \texttt{flux\_map.py}]\label{lem:flux0}
+For every $g\in P_k(\hat e)$ with $\int g=0$, the problem
+\[
+p\in\lambda_z\lambda_aP_{k-2}^2,\qquad(p,\nabla r)_{\hat T}=-\ip g r_{\hat e}\quad\forall r\in P_{k-1}
+\]
+is solvable. Every solution has $\int_{\hat e}p\cdot n=0$. (Verified exactly for $k=4,5,6$.)
+\end{lemma}
+Solvability follows from the full rank above; the $r=1$ row is $\int g=0$. The flux is well defined because $U_k(\hat T)$ has zero-mean traces.
+
+\begin{proposition}[vertex field; PROVED]\label{prop:vz}
+There is $v_z^0\in V_h^0(\omega_z)$, pressure-blind, with:
+\begin{itemize}
+\item $v_z^0(z)=\nu_z$;
+\item $\int_ev_z^0\cdot n_e=\int_{e'}v_z^0\cdot n_{e'}=0$;
+\item $v_z^0$ depends continuously on the normalised star shape.
+\end{itemize}
+\end{proposition}
+\begin{proof}
+\emph{The stream function.} Let $\Psi_z$ be the Argyris ($C^1$ quintic) basis function dual to the degree of freedom
+$\partial_{R\nu_z}\Psi(z)$, with $R$ the rotation by $+\pi/2$. It is supported in $\omega_z$. On each outer edge of the star all Argyris degrees of freedom vanish, so $\Psi=\partial_n\Psi=0$ there.
+Also $\Psi(z)=0$ and $\nabla\Psi(z)=R\nu_z$. Its normal trace flux vanishes:
+\[
+\int_e\operatorname{curl}\Psi\cdot n_e=\pm(\Psi(a)-\Psi(z))=0,
+\]
+and likewise on $e'$.
+
+\emph{The corrections.} Put $p_e:=\mathrm{Piola}$ of the Lemma~\ref{lem:flux0} solution with $g=\operatorname{curl}\Psi\cdot n_e|_e$. It lives on $T_e$ and vanishes on
+$[z,c]$ and $[a,c]$, so $p_e(z)=0$. Define $p_{e'}$ on $T_{e'}$ in the same way.
+
+\emph{The field.} Set $v_z^0:=\operatorname{curl}\Psi+p_e+p_{e'}$.
+\begin{itemize}
+\item It is continuous piecewise $P_4$, and zero on $\partial\omega_z\setminus\Gh$.
+\item It is divergence free on the interior triangles.
+\item The moment conditions on $T_e,T_{e'}$ hold by construction (div\,curl $=0$).
+\item Its per-edge fluxes vanish by the flux computation above and Lemma~\ref{lem:flux0}. Hence the total flux is $0$, and Lemma~char gives pressure-blindness.
+\end{itemize}
+Continuity in the shape holds because Argyris is unisolvent on every nondegenerate triangle, so $\Psi_z$ is rational in the vertices, and the Piola maps are continuous.
+\end{proof}
+
+\begin{theorem}[(V); PROVED, constant not computed]\label{thm:V}
+There are $a_0,C_V>0$, depending on $\theta$ and $\varphi_{\max}$, such that every such star carries $v_z\in V^\sharp(\omega_z)$ with
+\[
+\hat\Phi_Q(v_z)\le C_V\qquad\text{and}\qquad v_z(z)\cdot n_e=\cos\varphi_z\ge a_0C_V .
+\]
+In particular (V) of robust5 holds, with no restriction to near-periodic stars.
+\end{theorem}
+\begin{proof}
+Write $M_t^e(v)=\int_ev\cdot t_e$ and $D_t^e(v)=\int_e\partial_nv\cdot t_e$. Add $\alpha w_A+\beta w_C$ from $Q=T_e\cup T_2$, and the
+analogous $\alpha'w_A'+\beta'w_C'$ from $Q'$. These are the robust5 stream fields: curls vanishing at $z$, with zero normal trace on $\Gh$.
+\begin{itemize}
+\item They change neither $v(z)$, nor the fluxes, nor pressure-blindness.
+\item They set $M_t^e=M_t^{e'}=0$ and prescribe $D_t^e,D_t^{e'}$ through triangular systems with diagonals $s_1$ and $-5s_1^2$. Since
+$s_1\ge\sin\theta$, these systems are bounded.
+\end{itemize}
+Now compute the normal parts.
+\begin{itemize}
+\item (M): $M=F_en_e+F_{e'}n_{e'}+\dots=0$.
+\item (D), on $e$: pressure-blindness with $r=\zeta_{T_e}$ gives $\int_e\operatorname{div}v=(k(k+1)/H_e)F_e=0$. Using
+$\operatorname{div}v=\partial_n(v\cdot n)+\partial_t(v\cdot t)$ on $e$,
+\[
+\int_e\partial_nv\cdot n_e=v(z)\cdot t_e=\nu_z\cdot t_e .
+\]
+\item (D), on $e'$: in the same way, $\int_{e'}\partial_nv\cdot n_{e'}=-\nu_z\cdot t_{e'}$.
+\end{itemize}
+With $n_{e},n_{e'}=\cos\varphi\,\nu\pm\sin\varphi\,\mu$, we get $\nu\cdot t_e=-\nu\cdot t_{e'}=-\sin\varphi$ and $t_e-t_{e'}=-2\sin\varphi\,\nu$.
+So (D)$=0$ is solved by
+\[
+D_t^e=-D_t^{e'}=-\cos\varphi .
+\]
+This choice is bounded and continuous through $\varphi=0$, where (D) only requires $D_t^e+D_t^{e'}=0$.
+
+The resulting field depends continuously on the star shape, over a compact set (finitely many $m\le2\pi/\theta$). $\hat\Phi_Q$ is bounded
+by robust3 Lemma~dual(b), whose constants $C_I$ and $C_T(\omega)$ are bounded on this set. For $C_T(\omega)$ use, e.g., Veeser--Verf\"urth's
+explicit Poincar\'e constants for finite element stars. Normalising gives the claim.
+\end{proof}
+
+\noindent\textbf{Exact test} (\texttt{vertex\_field.py}, \texttt{vertex\_field.log}). The whole construction is carried out in exact rationals on 4 stars with 3
+triangles: flat with equal heights, flat with unequal heights ($1$ vs $3/2$), and tilted ($1/5$ and $-1/3$). $\Psi$ is found by solving the $C^1$ system, and the corrections
+use the full stream space ($\dim7$).
+\begin{itemize}
+\item Every constraint of $V^\sharp$ is re-checked independently.
+\item Both per-edge fluxes are $0$, and $v(z)\cdot n_e=1$.
+\item The correction rank on (M,D) is $4$ when tilted and $2$ when flat, as predicted: on flat stars the normal parts hold automatically.
+\end{itemize}
+
+\begin{corollary}[$(P^K)$; PROVED for $k=4$]\label{cor:PK}
+Under the hypotheses of Thm~\ref{thm:V}, $\sigma_z(H)\ge\kappa_K\operatorname{dist}_F(H,K_{T_e})-C_dd_z|H|$. Here $d_z$ is the
+normalised deviation of $T_{e'}$ from $T_e-t$, and $\kappa_K,C_d>0$ depend only on $\theta,\varphi_{\max}$.
+\end{corollary}
+\begin{proof}
+Let $H\in\operatorname{Ker}_{T_e}$, $H=a\ell_c^k+b_L\ell_L^k+b_R\ell_R^k$.
+\begin{itemize}
+\item On $e$, by Lemma~J with $F_e=0$ and $v_z(a)=0$, the pairing is $\beta_k b_L\,v_z(z)\cdot n_e$.
+\item On $e'$ it is $\beta_k b_R\,v_z(z)\cdot n_{e'}+O(d_z)|H|$. It is exact when $T_{e'}=T_e-t$, and Lipschitz in the shape otherwise.
+\item Since $\nu\cdot n_e=\nu\cdot n_{e'}=\cos\varphi$, the total is $\beta_k(b_L+b_R)\cos\varphi+O(d_z)|H|$.
+\end{itemize}
+Combine this with $(P^T)$ for the $\operatorname{Ker}_T^\perp$ component, as in robust5 Thm~PK.
+\end{proof}
+\noindent For $k=5,6$ the same proof applies. It uses: $C^1$ $P_{k+1}$ Argyris-type elements; Lemma~\ref{lem:flux0}, verified for $k\le6$;
+full reference rank, verified for $k\le8$; and robust5's single-triangle corrections $\psi_z,\psi_c$ (curls, unaffected by the bug, not re-verified here).
+\emph{Alternative} (task 2(b), not needed now): on LP$^+$ families the $K_T$ part enters only through
+\[
+w_z=\beta_k|e|\big(\partial_s(\tilde B n)\big)\hG+O(\hG^{k+3}),\qquad \tilde B=B_e/|e|^k .
+\]
+So its contribution to $\Xi$ is $\le C\hG^{k+1}\|\partial_s(\tilde Bn)\|_{L^2(\Gamma)}$, which gives order $k+3/2$ quantitatively. That is an upper bound only.
+
+\section{Theorem R-final}\label{sec:final}
+\noindent\textbf{Setting.}
+\begin{itemize}
+\item Domain and scheme: 2D, smooth $\Gamma$, CNS$^\ast$ with continuous $P_k$ velocity and discontinuous $P_{k-1}$ pressure. $\pi_h$ is the
+\emph{elementwise} $L^2(T)$ projection onto $P_{k-1}$. Also $\nu=1$ and $\gamma=\mu\hG/h$.
+\item $W=W_\ast(\phi)$ is the velocity of the hydrostatic problem with $f=\nabla\phi$, and $\phi\in C^{k+3}(\bar\Omega)$.
+\item Meshes: (M0) with minimum angle $\theta$, (M1)--(M2), quasi-uniform along $\Gh$, and (G$^\pm$) at every $\Gh$ vertex.
+\item $K$ is the patch overlap.
+\item LP$^+$: there are Lipschitz maps $\mathcal K$ (normalised shape) and $\ell$ ($>0$) on $\Gamma$ with
+$|\mathrm{shape}(T_e)-\mathcal K(x_e)|+\big||e|/\hG-\ell(x_e)\big|\le C\hG$. This is referee9's rate hypothesis, extended to sizes. Production and
+\textsf{UP} satisfy it.
+\item $K(x):=K_{\mathcal K(x)}$, and
+\[
+D(\phi):=\Big(\int_\Gamma\ell^{2k+1}\operatorname{dist}_F\big(\nabla^k\phi/k!,K(x)\big)^2\,ds\Big)^{1/2}.
+\]
+\end{itemize}
+
+\begin{theorem}[R-final]
+\begin{enumerate}
+\item[(a)] \emph{Upper bound, all meshes; PROVED} (robust/ Thm~3.2, and robust4 Thm~4.1 with the $\hG^{+1/2}$ fix). For $\gamma\ge\gamma_2$,
+\[
+\|\nabla W\|\le C\gamma^{-1}\hG^{1/2}\,\Xi\le C\gamma^{-1}\hG^{k+1/2}|\phi|_{W^{k,\infty}}.
+\]
+\item[(b)] \emph{Lower bound, all meshes, every $\gamma>0$; PROVED for $k=4$, and for $5\le k\le8$ with non-explicit $\kappa_T$.}
+\[
+\|\nabla W\|\ge\frac{\kappa_T(\theta)}{4\sqrt K(1+\gamma)}\Big(\sum_z|e_z|^{2k+2}\operatorname{dist}_F\big(\tfrac{\nabla^k\phi(z)}{k!},\operatorname{Ker}_{T_{e_z}}\big)^2\Big)^{1/2}
+-\frac{C|\phi|_{W^{k+1,\infty}}}{1+\gamma}\hG^{k+3/2},
+\]
+with $\kappa_T(30^\circ)\ge2.1\times10^{-6}$ and $\kappa_T(20^\circ)\ge5.6\times10^{-7}$ (certified).
+\item[(c)] \emph{Two-sided bound on LP$^+$ families, $\gamma\ge\max(\gamma_2,1)$; PROVED for $k=4$} (and $k=5,6$ modulo the re-check noted
+after Cor.~\ref{cor:PK}):
+\[
+c\,\gamma^{-1}D(\phi)\ \le\ \liminf_{\hG\to0}\frac{\|\nabla W\|}{\hG^{k+1/2}}\ \le\ \limsup_{\hG\to0}\frac{\|\nabla W\|}{\hG^{k+1/2}}\ \le\
+C\gamma^{-1}D(\phi)+C\gamma^{-3/2}\|\phi\|_{C^{k+3}} .
+\]
+Here $c$ depends on $\theta,\varphi_{\max},K$ (via $\kappa_K$), and $C$ on the mesh constants and on $\beta$, $c_1$. In particular, $D(\phi)>0$
+implies $\|\nabla W\|\asymp\gamma^{-1}\hG^{k+1/2}$.
+\item[(d)] \emph{$K$-degenerate data ($D(\phi)=0$) on LP$^+$ families; PROVED.}
+\begin{itemize}
+\item In general, $\|\nabla W\|\le C\gamma^{-1}\hG^{k+1}+C\gamma^{-3/2}\hG^{k+1/2}$.
+\item If moreover the edge constant $A_e$ is constant up to $O(\hG^{k+1})$ (e.g.\ $(r-1)^k$ and $\phi_B$ on \textsf{UP}), then
+$\|\nabla W\|\le C\gamma^{-1}\hG^{k+3/2}$.
+\end{itemize}
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof sketch]
+(a) is as cited. (b) is robust3 Thm~order together with Prop.~\ref{prop:fix} and the certificate, using $(a-b)_+^2\ge a^2/2-b^2$.
+
+\emph{(c), lower bound.} Use Cor.~\ref{cor:PK}. On LP$^+$ families $\sum_zd_z^2s_z^{2k+2}|H|^2=O(\hG^{2k+3})$, and a Riemann sum gives $D(\phi)$.
+
+\emph{(c), upper bound.} Shift the pressure by $\pi_h\phi$, so that the load becomes $\ip\eta{v\cdot n}$ plus a pressure-absorbed constant. Split $\eta$
+by robust4 Lemma~dec.
+\begin{itemize}
+\item The $r_e$, vertex and $O(\hG^{k+1})$ parts are handled by (a): $\gamma^{-1}\hG^{1/2}(\sum\|r_e\|^2)^{1/2}\to C\gamma^{-1}D(\phi)\hG^{k+1/2}$.
+\item $A_e$ is a smooth trace of size $\hG^k$ plus $O(\hG^{k+1})$. Apply robust5 Thm~S1 to it.
+\end{itemize}
+(d) follows from the same split, and robust4 Cor.~4.3.
+\end{proof}
+
+\noindent\textbf{Still conjectural or numerical.}
+\begin{enumerate}
+\item (S$_{\rm LP}$) \emph{Conjecture:} on LP$^+$ families with smooth heights, $\|\nabla W^a\|\le C\gamma^{-1}\hG\|\alpha\|_{C^3}$. This would
+remove the $\gamma^{-3/2}$ terms in (c) and (d) and give order $k+1$ for general $K$-degenerate $\phi$. The evidence is NUMERICAL (\textsf{UP}), plus a heuristic.
+\item The failure of (S) on non-LP meshes: NUMERICAL (robust5), with amplitude inflated near criticality.
+\item Sharpness of order $k+1$ (generic $K$-degenerate) and of $k+3/2$ (constant $A$): NUMERICAL (orders $5.28\downarrow$, and $5.48$--$5.51$).
+\item Explicit values of $\kappa_K$ and $a_0$ are not computed. $(P^T)$ and (V) for $k\ge9$ (rank facts, Lemma~\ref{lem:flux0} for $k\ge7$) are unverified.
+\item 3D is not addressed.
+\end{enumerate}
+
+\section*{Files (\texttt{notes/v6/robust6/})}
+\begin{itemize}
+\item Bug diagnosis: \texttt{indep\_ref.py}, \texttt{bugdiag.py}.
+\item Repair: \texttt{uref\_correct.py}, \texttt{uref\_fix.py}.
+\item Independent verification: \texttt{indep\_Q.py} (\texttt{old|new [shape]}), \texttt{closed\_forms.py}, \texttt{check\_forms.py}.
+\item Certificate and soundness: \texttt{cert\_fix.py} (usage \texttt{python cert\_fix.py 30 2.1e-6}), \texttt{sanity\_fix.py}.
+\item (V): \texttt{flux\_map.py} and \texttt{vertex\_field.py}.
+\end{itemize}
+All logs are \texttt{*.log}.
+\end{document}

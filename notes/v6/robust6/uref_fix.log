@@ -1,0 +1,3 @@
+k=4: rank A = 9 (of 9 rows, 12 unknowns), dim U = 3, trace rank = 2, dim P_e = 2, trace means = {0}
+{(0, (3, 1, 0)): Fraction(1, 1), (0, (2, 2, 0)): Fraction(19, 12), (0, (2, 1, 1)): Fraction(-2, 1), (0, (1, 2, 1)): Fraction(-19, 12), (0, (1, 1, 2)): Fraction(1, 1), (1, (3, 1, 0)): Fraction(-1, 1), (1, (2, 2, 0)): Fraction(1, 1), (1, (2, 1, 1)): Fraction(-7, 12), (1, (1, 2, 1)): Fraction(7, 12)}
+{(0, (3, 1, 0)): Fraction(1, 1), (0, (2, 2, 0)): Fraction(10, 3), (0, (2, 1, 1)): Fraction(-3, 1), (0, (1, 2, 1)): Fraction(-10, 3), (0, (1, 1, 2)): Fraction(2, 1), (1, (3, 1, 0)): Fraction(-1, 1), (1, (2, 1, 1)): Fraction(-1, 3), (1, (1, 3, 0)): Fraction(1, 1), (1, (1, 2, 1)): Fraction(1, 3)}

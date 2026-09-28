@@ -1,0 +1,640 @@
+%% notes/v6/ns2/REPORT.tex -- drop-in material for Section ns (11_navier_stokes.tex), §pd:sec:ns and Corollary td:ns.
+%% Uses the paper's macros (\GS, \CNS, \Oh, \Gh, \hG, \tnorm, \ip, \ut, \pt, \Zh, \VR, \VO, \Pih, \Aop, \Rc, \Gc, \epsd, ...).
+%% Continues notes/v6/ns/ns_branch.tex (labels nb:*), which must be merged first. New labels are n2:*.
+%% Results of notes/v6/unifmu and notes/v6/unifmu2 that are not yet in paper/ are cited as \texttt{unifmu ...}.
+%% Status labels: PROVED / PROVED MODULO X. Nothing in paper/ or letter/ was edited; nothing committed; no numerics run.
+%% Notation: as in ns_branch, the Nitsche coercivity constant of Lemma lem:coercive is written c_N (the paper's c_1 clashes
+%% with the convective form c_1).
+%%
+%% SUMMARY OF STATUS
+%%  Gap 1 (explicit h_0):   Thm n2:L            PROVED MODULO (R_S)   [(R_S) = Stokes H^2 regularity on Omega, already used by the paper for U, Z_psi]
+%%  Gap 2 (adjoint (L*)):   Thm n2:Ldag         PROVED (qualitative, from (H_ns)); quantitative PROVED MODULO (R_S)
+%%                          Thm n2:cnsdrag      PROVED MODULO (R_S)   [NS CNS* drag, rate 2, leading term -Theta_f - Lambda^dagger_h]
+%%  Gap 3 (unif.-in-mu Oseen leak limit):
+%%                          Thm n2:up, n2:low   PROVED MODULO (R_S)   [ (nu mu/h) delta_R -> U_O in H^1, c hG^{1/2} <= error <= C hG^{1/2}, all gamma >= gamma_0 ]
+%%                          Thm n2:unif         PROVED MODULO (R_S)   [NS analogue of rs:unif: gamma-uniform existence and H^1 bound]
+%%                          Cor n2:gen          PROVED MODULO (R_S)   [K_NS limit under gamma hG^{1/2} -> 0 only]
+%%  Gap 4 (3D):             Cor n2:td           PROVED under (IS3) (hence on Alfeld splits modulo the GN18 wording / Lemma td:bog locator);
+%%                                              quantitative h_0 in 3D PROVED MODULO (R_S^3)
+%%  Side effect: (R_O) and (R^dagger) of ns_branch are consequences of (R_S) (Lemma n2:reg), so nb:hc, nb:KNS and the GS-drag
+%%  corollary of ns_branch are PROVED MODULO (R_S).
+%%
+%% Bib keys used and to be added (besides those of ns_branch: BRR1980, GiraultRaviart, Temam):
+%%   Schatz1974  A. H. Schatz, An observation concerning Ritz--Galerkin methods with indefinite bilinear forms,
+%%               Math. Comp. 28 (1974) 959--962.
+%%   Dauge1989   M. Dauge, Stationary Stokes and Navier--Stokes systems on two- or three-dimensional domains with corners.
+%%               Part I: Linearized equations, SIAM J. Math. Anal. 20 (1989) 74--97.   %% VERIFY: exact statement used for (R_S)(a).
+
+\subsection{Standing notation and the regularity hypothesis}\label{n2:setup}
+
+Throughout, (NS1)--(NS2) hold, $c$ is either convective form, and ``admissible'' is as in Section~\ref{ns:branchsec}: (M0)--(M2)
+with fixed constants and $\mu\ge\mu_0$ ($\gamma\ge\gamma_0$ suffices); $\rho$ is unrestricted. Recall $h/\mu\le\hG/(4\kappa C_I^2)$
+and $\hG\le h$ (the triangle on $e$ has diameter at least $|e|$). Fix a collar $A:=\{1-r_0<|x|\le1\}$ with $\Oh\subset\Omega\cup A$
+for $h\le h_\ast$, and put
+\[
+U_\infty:=\max\bigl(\norm{\ut}_{L^\infty(\Omega\cup A)},\norm{\nabla\ut}_{L^\infty(\Omega\cup A)}\bigr),\qquad C_K:=(C_F+3)\,U_\infty .
+\]
+Since $\ut|_\Gamma=0$ and $\dist(x,\Gamma)\le\hG^2/4$ on $\Gh$, $\norm{\ut}_{L^\infty(\Gh)}\le U_\infty\hG^2/4$.
+We write $K(w,v):=c(w;\ut,v)+c(\ut;w,v)$, so $\Aop=\nu N_h+K$, and $K_1$ for the same form with $c=c_1$.
+
+\begin{lemma}[Bounds for $K$; PROVED]\label{n2:K}
+For $w,v\in H^1(\Oh)^2$ vanishing on $\partial R$,
+\begin{align*}
+|K(w,v)|&\le C_K\norm w\,\norm{\nabla v}+\tfrac14U_\infty\hG^2\norm w_{\Gh}\norm v_{\Gh},\\
+|K(v,w)|&\le C_K\norm w\,\norm{\nabla v}+\tfrac14U_\infty\hG^2\norm w_{\Gh}\norm v_{\Gh},
+\end{align*}
+and $|K_1(w,v)|\le C_F(1+C_F)U_\infty\norm{\nabla w}\norm{\nabla v}$. If $\div w=0$ and $v|_{\Gh}=0$, then $K(w,v)=K_1(w,v)$ for both forms.
+\end{lemma}
+
+\begin{proof}
+The first line is Lemma~\ref{nb:K}. For the second (the unknown in the \emph{second} slot, test field $v$ in the first), for $c_1$:
+$|((v\cdot\nabla)\ut,w)|\le\norm{\nabla\ut}_\infty C_F\norm{\nabla v}\norm w$ and $|((\ut\cdot\nabla)v,w)|\le\norm{\ut}_\infty\norm{\nabla v}\norm w$; no
+integration by parts is needed. For $c_s$, integrate by parts in the terms that differentiate $w$:
+$((v\cdot\nabla)w,\ut)=-((v\cdot\nabla)\ut,w)-((\div v)w,\ut)+\ip{(v\cdot n)w}{\ut}$ and
+$((\ut\cdot\nabla)w,v)=-((\ut\cdot\nabla)v,w)+\ip{(\ut\cdot n)w}{v}$, and use $\norm{\div v}\le\sqrt2\norm{\nabla v}$. The third bound
+is Friedrichs (Lemma~\ref{lem:korn}) applied to $w$ and $v$. The last statement is Lemma~\ref{ns:bdry} (only the transporting field
+$w$ or $\ut$ must be divergence-free, and the boundary terms carry $v|_{\Gh}=0$).
+\end{proof}
+
+Let $V$, $\mathcal V$, $L$ and (H$_{\rm ns}$) be as in Section~\ref{ns:branchsec}. Define $L^{\mathsf T}$ by
+$\langle L^{\mathsf T}\varphi,w\rangle:=\langle Lw,\varphi\rangle$; in strong form $L^{\mathsf T}\varphi=-\nu\Delta\varphi-(u\cdot\nabla)\varphi+(\nabla u)^{\mathsf T}\varphi$
+(on $V$, $((u\cdot\nabla)w,\varphi)=-((u\cdot\nabla)\varphi,w)$). Under (H$_{\rm ns}$), $L$ is an isomorphism (Fredholm of index~$0$), hence
+so is $L^{\mathsf T}$, and both have the same inf-sup constant
+\[
+\beta_O:=\inf_{0\ne w\in V}\sup_{0\ne v\in V}\frac{\langle Lw,v\rangle}{\norm{\nabla w}\,\norm{\nabla v}}=\norm{L^{-1}}^{-1}_{V'\to V}>0 ,
+\]
+the \emph{Oseen inverse bound}. The only regularity input is the Stokes regularity that the paper already uses for $U$
+(Definition~\ref{hc:def}) and $Z_\psi$ (Section~\ref{pd:sec:drag}):
+
+\begin{enumerate}
+\item[(R$_S$)] (a) There is $C_R$ such that for every $g\in L^2(\Omega)^2$ the solution of $-\Delta\varphi+\nabla\pi=g$, $\div\varphi=0$ in $\Omega$,
+$\varphi=0$ on $\partial\Omega$, satisfies $\norm\varphi_{H^2(\Omega)}+\norm{\pi-\bar\pi_\Omega}_{H^1(\Omega)}\le C_R\norm g$.
+(b) If moreover $g\in H^m(N)$ on a collar $N=\{1<|x|<1+r_1\}$ of $\Gamma$, then $(\varphi,\pi)\in H^{m+2}\times H^{m+1}$ on $\{1<|x|<1+r_1/2\}$.
+\end{enumerate}
+(a) concerns only the convex corners of $R$ and the smooth circle $\Gamma$ \cite{Dauge1989}; (b) is local regularity at a smooth boundary
+\cite{Galdi}. %% VERIFY: locators in Dauge1989 and Galdi (Ch. IV) for (R_S)(a),(b).
+
+\begin{lemma}[Oseen regularity from (R$_S$); PROVED MODULO (R$_S$)]\label{n2:reg}
+Assume (H$_{\rm ns}$) and (R$_S$), and put
+\[
+\Lambda_O:=1+\frac{(1+C_F)C_F\,U_\infty}{\beta_O},\qquad \Theta_R:=\max(1,C_R\Lambda_O).
+\]
+\begin{enumerate}[label=(\alph*)]
+\item For $g\in L^2(\Omega)^2$ let $\varphi\in V$ solve $L^{\mathsf T}\varphi+\nabla\pi=g$ (or $L\varphi+\nabla\pi=g$). Then
+$\norm\varphi_{H^2(\Omega)}\le\Theta_R\nu^{-1}\norm g$ and $\norm{\pi-\bar\pi_\Omega}_{H^1(\Omega)}\le\Theta_R\norm g$.
+\item The Oseen leak flow $(U_O,P_O)$ of Section~\ref{nb:oseen} and the adjoint pair $(Z^\dagger_\psi,R^\dagger_\psi)$, $\psi\in\RM$, lie in
+$H^2(\Omega)\times H^1(\Omega)$ and are $C^\infty$ up to $\Gamma$. In particular (R$_O$) and (R$^\dagger$) of Section~\ref{nb:oseen} hold.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $\norm{\nabla\varphi}\le\beta_O^{-1}\sup_v(g,v)/\norm{\nabla v}\le\beta_O^{-1}C_F\norm g$. Then $(\varphi,\pi/\nu)$ solves the Stokes
+problem with right-hand side $g'/\nu$, $g':=g+(u\cdot\nabla)\varphi-(\nabla u)^{\mathsf T}\varphi$ (resp.\ $g-(\varphi\cdot\nabla)u-(u\cdot\nabla)\varphi$),
+and $\norm{g'}\le\norm g+U_\infty(\norm{\nabla\varphi}+\norm\varphi)\le\Lambda_O\norm g$. Apply (R$_S$)(a).
+
+(b) Write $U_O=w+W$ with the smooth divergence-free field $w=\curl\varphi$ of Section~\ref{sec:printed} ($w|_\Gamma=-(p-\pbar)n$, $w=0$
+near $\partial R$), and $Z^\dagger_\psi=V_\psi-\zeta$ with $V_\psi$ of Definition~\ref{pd:def:funct}. Then $W,\zeta\in V$ solve
+$LW+\nabla P_O=-\bigl[-\nu\Delta w+(w\cdot\nabla)u+(u\cdot\nabla)w\bigr]$ and $L^{\mathsf T}\zeta+\nabla\Pi=-\nu\Delta V_\psi-(u\cdot\nabla)V_\psi+(\nabla u)^{\mathsf T}V_\psi$
+($\Pi=-R^\dagger_\psi$), with smooth right-hand sides; (a) gives $H^2\times H^1$. Near $\Gamma$ bootstrap with (R$_S$)(b) on nested collars:
+if $W\in H^{m+1}$ on a collar, the Stokes right-hand side $g-(\text{first-order terms in }W)$ is in $H^m$ there, so $W\in H^{m+2}$
+on a smaller collar. Finitely many steps give every $H^m$, hence $C^\infty$ up to $\Gamma$.
+\end{proof}
+
+\begin{lemma}[Extension; PROVED]\label{n2:ext}
+There is $C_E$ such that every $\varphi\in V\cap H^2(\Omega)$ and $\pi\in H^1(\Omega)$ have extensions $\tilde\varphi\in H^2(\Omega\cup A)^2$,
+$\tilde\pi\in H^1(\Omega\cup A)$ with $\div\tilde\varphi=0$, $\norm{\tilde\varphi}_{H^2}\le C_E\norm\varphi_{H^2(\Omega)}$ and
+$\norm{\tilde\pi}_{H^1}\le C_E\norm\pi_{H^1(\Omega)}$.
+\end{lemma}
+
+\begin{proof}
+$\varphi|_\Gamma=0$, so $\int_\Gamma\varphi\cdot n=0$ and $\varphi=\curl\zeta$ with $\zeta$ single valued, $\zeta|_\Gamma=0$, $\nabla\zeta|_\Gamma=0$, and
+$\norm\zeta_{H^3(\Omega\cap\{|x|<1+r_0\})}\le C\norm\varphi_{H^2}$ (Poincar\'e, $\zeta|_\Gamma=0$). Extend $\zeta$ across $r=1$ by a Hestenes
+reflection of order $3$ in the radial variable and put $\tilde\varphi:=\curl\tilde\zeta$; extend $\pi$ by a first-order reflection.
+\end{proof}
+
+\subsection{Gap 1: an explicit threshold $h_0$ (Schatz duality)}\label{n2:schatz}
+
+\begin{lemma}[Discrete approximation in $Y_h$; PROVED]\label{n2:Y}
+Let $\varphi\in V\cap H^2(\Omega)$ and $\tilde\varphi$ as in Lemma~\ref{n2:ext}. There is $y_h\in Y_h=\Zh\cap\VO$ with
+\begin{gather*}
+\norm{\nabla(\tilde\varphi-y_h)}_{\Oh}\le C_Y(h+\hG)\norm\varphi_{H^2},\\
+\norm{\dn y_h}_{\Gh}\le C_Y\bigl(1+h\hG^{-1/2}\bigr)\norm\varphi_{H^2},\qquad
+\norm{\nabla y_h}\le C_Y\norm\varphi_{H^2},
+\end{gather*}
+with $C_Y$ depending only on $C_E$, $k$, (M0)--(M2) and $\beta$ (Lemma~\ref{lem:infsup}).
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Trace of $I_h\tilde\varphi$.} Radial integration from $\Gamma$ (where $\tilde\varphi=0$) across $S_h$ (thickness $\le\hG^2/4$) gives
+$\norm{\tilde\varphi}_{\Gh}\le C\hG\norm{\nabla\tilde\varphi}_{S_h}$, and $\norm{\nabla\tilde\varphi}_{S_h}\le|S_h|^{1/4}\norm{\nabla\tilde\varphi}_{L^4}\le C\hG^{1/2}\norm\varphi_{H^2}$.
+On $e\in\EG$ the scaled trace inequality on $T_e$ ($\diam T_e\le C|e|$) and Lagrange interpolation give
+$\norm{\tilde\varphi-I_h\tilde\varphi}_{L^2(e)}\le C|e|^{3/2}|\tilde\varphi|_{H^2(T_e)}$. Hence $\norm{I_h\tilde\varphi}_{\Gh}\le C\hG^{3/2}\norm\varphi_{H^2}$.
+\item \emph{Zero trace.} Let $L_0\in\Vh$ take the nodal values of $I_h\tilde\varphi$ at the Lagrange nodes on $\Gh$ and vanish at all other nodes.
+By step~2 of Lemma~\ref{rs:lift}, $\norm{\nabla L_0}\le C\hG^{-1/2}\norm{I_h\tilde\varphi}_{\Gh}\le C\hG\norm\varphi_{H^2}$. $z_0:=I_h\tilde\varphi-L_0$
+vanishes on $\Gh$ and (since $\tilde\varphi=0$ on $\partial R$) on $\partial R$: $z_0\in\VO$.
+\item \emph{Divergence.} $\div z_0\in\Pih$, $\int_{\Oh}\div z_0=\int_{\partial\Oh}z_0\cdot n=0$, and
+$\norm{\div z_0}\le\sqrt2(\norm{\nabla(I_h\tilde\varphi-\tilde\varphi)}+\norm{\nabla L_0})\le C(h+\hG)\norm\varphi_{H^2}$. Lemma~\ref{lem:infsup} gives
+$v_B\in\VO$ with $\div v_B=\div z_0$, $\norm{\nabla v_B}\le\beta^{-1}\norm{\div z_0}$. Put $y_h:=z_0-v_B\in Y_h$.
+\item \emph{Normal derivative.} $\norm{\dn\tilde\varphi}_{\Gh}\le C\norm{\tilde\varphi}_{H^2(\Omega\cup A)}$ (uniform trace from a fixed collar),
+$\norm{\nabla(I_h\tilde\varphi-\tilde\varphi)}_{L^2(e)}\le C|e|^{1/2}|\tilde\varphi|_{H^2(T_e)}$ (scaled trace), and $L_0+v_B$ is discrete, so
+Lemma~\ref{lem:inverse} and $(\rho/h)^{1/2}\le(c_0\hG)^{-1/2}$ give $\norm{\dn(L_0+v_B)}_{\Gh}\le C\hG^{-1/2}(h+\hG)\norm\varphi_{H^2}$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[Aubin--Nitsche duality for the convective perturbation; PROVED MODULO (R$_S$)]\label{n2:dual}
+Assume (H$_{\rm ns}$), (R$_S$), and let the mesh be admissible with $h\le h_\ast$. For $\delta\in\Zh$ put
+\[
+s(\delta):=\sup_{0\ne y\in Y_h}\frac{\Aop(\delta,y)}{\norm{\nabla y}},\qquad s^{\mathsf T}(\delta):=\sup_{0\ne y\in Y_h}\frac{\Aop(y,\delta)}{\norm{\nabla y}},\qquad
+\omega(h):=\Bigl(1+\frac{U_\infty}\nu\Bigr)h+\Bigl(\frac h\mu\Bigr)^{1/2}.
+\]
+There is $C_\sharp$, depending only on (M0)--(M2), $k$, $\gamma_0$, $\beta$, $C_F$, $C_E$ and the uniform trace constants (not on $u$, $\nu$,
+$\mu$, $\gamma$, $\rho$), such that
+\[
+\norm\delta_{L^2(\Oh)}\le C_\sharp\Theta_R\Bigl[\nu^{-1}s(\delta)+\omega(h)\tnorm\delta\Bigr],\qquad
+\norm\delta_{L^2(\Oh)}\le C_\sharp\Theta_R\Bigl[\nu^{-1}s^{\mathsf T}(\delta)+\omega(h)\tnorm\delta\Bigr].
+\]
+Moreover $s(\delta)\le(1+C_I^2)^{1/2}\norm{\Aop(\delta,\cdot)}_{\ast,\Zh}$, and similarly for $s^{\mathsf T}$.
+\end{lemma}
+
+\begin{proof}
+We prove the first bound; the second is identical with the roles noted at the end.
+\begin{enumerate}
+\item \emph{Strip.} Radial integration across $S_h$ gives $\norm\delta^2_{S_h}\le C\hG^2\norm\delta^2_{\Gh}+C\hG^4\norm{\nabla\delta}^2$, so
+$\norm\delta_{S_h}\le C_{\rm str}\hG\tnorm\delta$ (using $\norm\delta_{\Gh}\le(h/\mu)^{1/2}\tnorm\delta$ and $h/\mu\le C\hG$).
+\item \emph{Dual problem.} Let $g:=\delta|_\Omega$ and $(\varphi,\pi)$ solve $L^{\mathsf T}\varphi+\nabla\pi=g$, $\varphi\in V$, $\bar\pi_\Omega=0$.
+Put $\Phi:=\norm\varphi_{H^2}$, $P:=\norm\pi_{H^1}$; Lemma~\ref{n2:reg} gives $\Phi\le\Theta_R\nu^{-1}\norm g$, $P\le\Theta_R\norm g$.
+Extend by Lemma~\ref{n2:ext} and set $\tilde G:=-\nu\Delta\tilde\varphi-(\ut\cdot\nabla)\tilde\varphi+(\nabla\ut)^{\mathsf T}\tilde\varphi+\nabla\tilde\pi$ on $\Oh$.
+Then $\tilde G=g$ on $\Omega$ and $\norm{\tilde G}_{L^2(\Oh)}\le C(\nu\Phi+U_\infty\Phi+P)$.
+\item \emph{Green's formula.} Since $\div\delta=0$, $\delta|_{\partial R}=0$, $\int_{\Gh}\delta\cdot n=0$, $\div\tilde\varphi=\div\ut=0$ and
+$a_h(\tilde\varphi,\delta)=(D\tilde\varphi,\nabla\delta)$,
+\[
+(\delta,\tilde G)_{\Oh}=\nu a_h(\delta,\tilde\varphi)+K_1(\delta,\tilde\varphi)-\ip{\sigma_\nu n}{\delta}-\ip{(\ut\cdot n)\delta}{\tilde\varphi},\qquad
+\sigma_\nu:=\nu D(\tilde\varphi)-\tilde\pi I ,
+\]
+using $(\delta,-(\ut\cdot\nabla)\tilde\varphi)=c_1(\ut;\delta,\tilde\varphi)-\ip{(\ut\cdot n)\delta}{\tilde\varphi}$ and $(\delta,(\nabla\ut)^{\mathsf T}\tilde\varphi)=c_1(\delta;\ut,\tilde\varphi)$.
+\item \emph{Insert $y_h$.} Let $y_h$ be as in Lemma~\ref{n2:Y}. Since $y_h|_{\Gh}=0$, $\nu N_h(\delta,y_h)=\nu a_h(\delta,y_h)-\nu\ip\delta{\dn y_h}$ and,
+by Lemma~\ref{n2:K}, $K(\delta,y_h)=K_1(\delta,y_h)$. Hence
+\begin{multline*}
+\norm g^2=(\delta,\tilde G)_{\Oh}-(\delta,\tilde G)_{S_h}
+=\Aop(\delta,y_h)+\nu\ip\delta{\dn y_h}+\nu a_h(\delta,\tilde\varphi-y_h)+K_1(\delta,\tilde\varphi-y_h)\\
+-\ip{\sigma_\nu n}\delta-\ip{(\ut\cdot n)\delta}{\tilde\varphi}-(\delta,\tilde G)_{S_h}.
+\end{multline*}
+\item \emph{Bounds.} With Lemma~\ref{n2:Y} and $\norm\delta_{\Gh}\le(h/\mu)^{1/2}\tnorm\delta$:
+$|\Aop(\delta,y_h)|\le C_Ys(\delta)\Phi$;
+$\nu|\ip\delta{\dn y_h}|\le C\nu[(h/\mu)^{1/2}+\gamma^{-1/2}h]\Phi\tnorm\delta$ (since $(h/\mu)^{1/2}\hG^{-1/2}=\gamma^{-1/2}$);
+$\nu|a_h(\delta,\tilde\varphi-y_h)|+|K_1(\delta,\tilde\varphi-y_h)|\le C(\nu+U_\infty)h\Phi\tnorm\delta$ (Lemma~\ref{n2:K}; both fields vanish on $\partial R$);
+$|\ip{\sigma_\nu n}\delta|\le C(\nu\Phi+P)(h/\mu)^{1/2}\tnorm\delta$ (uniform trace from the collar);
+$|\ip{(\ut\cdot n)\delta}{\tilde\varphi}|\le CU_\infty\hG^2(h/\mu)^{1/2}\Phi\tnorm\delta$;
+$|(\delta,\tilde G)_{S_h}|\le C_{\rm str}\hG\norm{\tilde G}\tnorm\delta$.
+\item \emph{Collect.} Insert $\Phi\le\Theta_R\nu^{-1}\norm g$, $P\le\Theta_R\norm g$, divide by $\norm g$, use $\hG\le h$, $\gamma\ge\gamma_0$, and add step~1.
+\end{enumerate}
+For $s^{\mathsf T}$ take the \emph{primal} dual problem $L\varphi+\nabla\pi=g$, $\tilde G:=-\nu\Delta\tilde\varphi+(\tilde\varphi\cdot\nabla)\ut+(\ut\cdot\nabla)\tilde\varphi+\nabla\tilde\pi$.
+Then $(\delta,\tilde G)_{\Oh}=\nu a_h(\delta,\tilde\varphi)+K_1(\tilde\varphi,\delta)-\ip{\sigma_\nu n}\delta$ (no convective boundary term), and
+$\Aop(y_h,\delta)=\nu a_h(y_h,\delta)-\nu\ip{\dn y_h}\delta+K_1(y_h,\delta)$ by Lemma~\ref{n2:K}. The bounds are the same, with the second
+line of Lemma~\ref{n2:K}. The last claim is $\tnorm y\le(1+C_I^2)^{1/2}\norm{\nabla y}$ on $Y_h$.
+\end{proof}
+
+\begin{definition}\label{n2:LD}
+Let $\Aop^{\mathsf T}(\zeta,w):=\Aop(w,\zeta)$. We use, besides (L) and (L$^\ast$):
+\begin{enumerate}
+\item[(L$^\dagger$)] There is $\beta_\dagger>0$, independent of $h$, such that for every linear functional $\ell$ on $\VR$ the problem
+\[
+(\zeta,\pi)\in\Zh\times\Pih:\qquad\Aop(w,\zeta)+B^\ast(\pi,w)=\ell(w)\quad\forall w\in\VR
+\]
+has a unique solution, and $\beta_\dagger\tnorm\zeta\le\norm\ell_{\ast,\VR}$.
+\item[(L$_D$)] There is $\beta_D>0$, independent of $h$, with $\beta_D\norm{\nabla y}\le\sup_{0\ne v\in Y_h}(\nu a_h(y,v)+K(y,v))/\norm{\nabla v}$ for all $y\in Y_h$.
+\end{enumerate}
+\end{definition}
+
+(L$_D$) is the discrete Oseen--Dirichlet stability on the fields that vanish on $\Gh$; there $\Aop(y,v)=\nu a_h(y,v)+K(y,v)$ exactly.
+
+\begin{theorem}[Explicit thresholds; PROVED MODULO (R$_S$)]\label{n2:L}
+Assume (H$_{\rm ns}$) and (R$_S$), either convective form, and an admissible mesh with $h\le h_\ast$. Let $C_S$ be the constant of the
+Nitsche--Stokes $\CNS$ bound ($\nu\tnorm\delta\le C_S\norm\ell_{\ast,\VR}$, Lemma~\ref{ns:SD} with $\lambda=0$, $\gamma\ge\gamma_2'$) and
+\[
+\vartheta(h):=C_\sharp'\,C_K\Theta_R\,\omega(h)+\tfrac14U_\infty\hG^2\frac h\mu ,\qquad \Xi:=1+C_\sharp'\frac{C_K\Theta_R}\nu ,
+\]
+with $C_\sharp':=(1+C_I^2)^{1/2}C_\sharp$. Then:
+\begin{enumerate}[label=(\alph*)]
+\item if $\vartheta(h)\le\frac12\nu c_N$, (L) holds with $\beta_L=\nu c_N/(2\Xi)$, and so does its adjoint on $\Zh$;
+\item if $\gamma\ge\gamma_2'$ and $C_S\vartheta(h)\le\frac12\nu$, (L$^\ast$) and (L$^\dagger$) hold with $\beta_\ast=\beta_\dagger=\nu/(2C_S\Xi)$;
+\item if $\kappa C_\sharp'C_K\Theta_R\,\omega(h)\le\frac12\nu$, (L$_D$) holds with $\beta_D=\nu/(2\kappa\Xi)$.
+\end{enumerate}
+Every constant is either a mesh/domain constant of the paper ($c_N,C_I,C_F,\kappa,\beta,C_S,C_E,C_\sharp$), the Stokes regularity constant
+$C_R$, or a datum ($\nu$, $U_\infty$, $\beta_O$). Since $\omega(h)\le(1+U_\infty/\nu)h+(\hG/\gamma_0)^{1/2}$ and $\tfrac14U_\infty\hG^2h/\mu\le U_\infty\omega(h)$,
+all three hold whenever
+\begin{equation}\label{n2:h0}
+\Bigl(1+\frac{U_\infty}\nu\Bigr)h+\Bigl(\frac{\hG}{\gamma_0}\Bigr)^{1/2}\ \le\ c_\natural\,\frac{\nu}{U_\infty\,\max(1,C_R)\,(1+U_\infty/\beta_O)},
+\end{equation}
+with $c_\natural>0$ depending only on the mesh/domain constants. The threshold is independent of $\mu\ge\mu_0$, $\gamma$ and $\rho$.
+\end{theorem}
+
+\begin{proof}
+(a) For $\delta\in\Zh$ put $\ell:=\Aop(\delta,\cdot)|_{\Zh}$. Coercivity (Lemma~\ref{lem:coercive}) and Lemma~\ref{n2:K} with $v=\delta$ give the G\aa rding inequality
+\[
+\nu c_N\tnorm\delta\le\norm\ell_{\ast,\Zh}+C_K\norm\delta+\tfrac14U_\infty\hG^2(h/\mu)\tnorm\delta .
+\]
+Lemma~\ref{n2:dual} with $s(\delta)\le(1+C_I^2)^{1/2}\norm\ell_{\ast,\Zh}$ gives $C_K\norm\delta\le(\Xi-1)\norm\ell_{\ast,\Zh}+C_\sharp'C_K\Theta_R\omega(h)\tnorm\delta$.
+So $\nu c_N\tnorm\delta\le\Xi\norm\ell_{\ast}+\vartheta(h)\tnorm\delta$; absorb. The system on $\Zh$ is square, so its inf-sup constant is its smallest singular
+value in the $\tnorm\cdot$ inner product, which is also that of the transpose.
+
+(b) If $(\delta,\xi)$ solves the (L$^\ast$) system, it solves the Nitsche--Stokes $\CNS$ system with data $\ell-K(\delta,\cdot)$, so by Lemma~\ref{n2:K}
+$\nu\tnorm\delta\le C_S[\norm\ell_{\ast,\VR}+C_K\norm\delta+\frac14U_\infty\hG^2(h/\mu)\tnorm\delta]$. Testing with $y\in Y_h$ kills $B^\ast(\xi,y)$
+($\div y=0$, $y|_{\Gh}=0$), so $\Aop(\delta,y)=\ell(y)$ and $s(\delta)\le(1+C_I^2)^{1/2}\norm\ell_{\ast,\VR}$. Lemma~\ref{n2:dual} and absorption give the bound.
+For $\ell=0$ it gives $\delta=0$; then $B^\ast(\xi,\cdot)=0$ on $\VR$ forces $\xi=0$ (steps~2 and~4 of Lemma~\ref{ns:SD}); the system is square
+(Lemma~\ref{lem:divrange}). For (L$^\dagger$) repeat this with $\zeta$: $\nu N_h(\zeta,w)+B^\ast(\pi,w)=\ell(w)-K(w,\zeta)$ is the same Stokes system
+($N_h$ is symmetric), $\norm{K(\cdot,\zeta)}_{\ast,\VR}\le C_K\norm\zeta+\frac14U_\infty\hG^2(h/\mu)\tnorm\zeta$ by the second line of Lemma~\ref{n2:K},
+$\Aop(y,\zeta)=\ell(y)$ for $y\in Y_h$, and the second bound of Lemma~\ref{n2:dual} applies.
+
+(c) For $y\in Y_h$: $\nu a_h(y,y)\ge\nu\kappa^{-1}\norm{\nabla y}^2$ (Lemma~\ref{lem:korn}) and $|K(y,y)|\le C_K\norm y\norm{\nabla y}$ ($y|_{\Gh}=0$), so
+$\nu\kappa^{-1}\norm{\nabla y}\le s(y)+C_K\norm y$. Lemma~\ref{n2:dual} and $\tnorm y\le(1+C_I^2)^{1/2}\norm{\nabla y}$ give the claim.
+
+For \eqref{n2:h0}: for $h\le h_\ast$, $\vartheta(h)\le(C_\sharp'(C_F+3)+1)U_\infty\Theta_R\,\omega(h)$ (as $\Theta_R\ge1$), and
+$\Theta_R\le\max(1,C_R)\,(1+C_F)C_F\,(1+U_\infty/\beta_O)$; so \eqref{n2:h0} with small $c_\natural$ gives $\vartheta(h)\le\frac12\nu\min(c_N,C_S^{-1})$ and
+the condition of (c).
+\end{proof}
+
+\begin{remark}[Size of $h_0$]\label{n2:rem:h0}
+With $\mathrm{Re}:=U_\infty/\nu$ and the dimensionless stability margin $b_O:=\beta_O/\nu>0$ ($b_O\to1$ as the data tend to $0$; $b_O\to0$ at a
+singular point of the branch), \eqref{n2:h0} reads $(1+\mathrm{Re})h+(\hG/\gamma_0)^{1/2}\le c_\natural/(\max(1,C_R)\,\mathrm{Re}\,(1+\mathrm{Re}/b_O))$. This is the
+familiar Schatz scaling \cite{Schatz1974}: the mesh must resolve the Reynolds number and the distance to the nearest singular point of the
+branch. The term $(\hG/\gamma_0)^{1/2}$ is the Nitsche contribution (the trace of $\delta$ enters the duality through $\ip{\sigma_\nu n}\delta$);
+it is uniform in $\mu\ge\mu_0$ and disappears as $\gamma\to\infty$. For $U_\infty=0$ no condition remains. Theorems~\ref{nb:L}--\ref{nb:Lstar}
+(compactness) give the same conclusions without (R$_S$), but with a non-constructive $h_0$.
+\end{remark}
+
+\subsection{Gap 2: the adjoint problem for $\CNS$ and the Navier--Stokes $\CNS$ drag}\label{n2:adj}
+
+\paragraph{Which adjoint.} The linearised $\CNS$ system is the square saddle problem on $\VR\times\Pih$
+\[
+\Aop(\delta,v)+B^\ast(\xi,v)=\ell(v)\ \ \forall v\in\VR,\qquad (q,\div\delta)=r(q)\ \ \forall q\in\Pih .
+\]
+Its \emph{algebraic} transpose reads: find $(\zeta,\pi)\in\VR\times\Pih$ with
+\[
+\Aop(v,\zeta)+(\pi,\div v)=m(v)\ \ \forall v\in\VR,\qquad B^\ast(q,\zeta)=s(q)\ \ \forall q\in\Pih .
+\]
+Its momentum row carries the $\GS$ pressure form, and for $s=0$ its constraint row says $(q,\div\zeta)=\ip{q-\pbG(q)}{\zeta\cdot n}$ for all
+$q\in\Pih$: $\div\zeta=\sum_e\xi_{e,(\zeta\cdot n-c_\zeta)}$ is a first-layer field (Lemma~\ref{pd:lem:rep}; $c_\zeta$ the mean of $\zeta\cdot n$ over
+$\Gh$), so $\zeta\notin\Zh$. Relative to a smooth adjoint pair $(\tilde\zeta,\tilde\Pi)$ with $\tilde\zeta|_\Gamma=0$, its consistency defect is
+the $\GS$ functional $v\mapsto\ip{\tilde\Pi-c}{v\cdot n}$ of Corollary~\ref{cor:GSerr} with the \emph{dual} pressure, of size
+$(h/\mu)^{1/2}\norm{\Pi-\bar\Pi}_{L^2(\Gamma)}\tnorm v$. This is the adjoint inconsistency noted in \texttt{notes/v6/l2}. We never form this
+transpose. The drag representation below needs only a field $\zeta_h\in\VR$ such that $\Aop(e_h,\zeta_h)$ plus a pressure term equals a given
+functional at the one field $e_h\in\Zh$, and the error equation is tested on $\VR$. The $\CNS$ discretisation of the \emph{continuous}
+adjoint problem does this, and it is consistent: that is problem (L$^\dagger$). For Stokes ($K=0$), (L$^\dagger$) is the primal $\CNS$
+system, because $N_h$ is symmetric; it is exactly the auxiliary problem \eqref{pd:eq:aux} of Theorem~\ref{pd:thm:cnsdrag}.
+
+\begin{theorem}[(L$^\dagger$) from nonsingularity; PROVED]\label{n2:Ldag}
+Assume (H$_{\rm ns}$) and $\gamma\ge\gamma_2'$. There are $h_0,\beta_\dagger>0$, independent of $\mu,\gamma,\rho$, such that (L$^\dagger$) holds for $h\le h_0$.
+Under (R$_S$), $h_0$ and $\beta_\dagger$ are as in Theorem~\ref{n2:L}(b).
+\end{theorem}
+
+\begin{proof}
+The quantitative statement is Theorem~\ref{n2:L}(b). Without (R$_S$), repeat the proof of Theorem~\ref{nb:Lstar} with $\Aop^{\mathsf T}$.
+The Stokes bound gives $\nu\tnorm\zeta\le C_S[\norm\ell_{\ast,\VR}+C_K\norm\zeta+\frac14U_\infty\hG^2(h/\mu)\tnorm\zeta]$ (Lemma~\ref{n2:K}, second line). If
+the a priori bound fails along $h_j\to0$ with $\tnorm{\zeta_j}=1$, $\norm{\ell_j}_\ast\to0$, then $\liminf\norm{\zeta_j}\ge\nu/(C_SC_K)$.
+Lemma~\ref{nb:limit}(i)--(ii) gives $\zeta\in V$, $\zeta\ne0$. For $\varphi\in\mathcal V$ and $\varphi_j\in Z_{h_j}\cap V_{h_j}^0$ of Lemma~\ref{nb:test},
+$B^\ast(\pi_j,\varphi_j)=0$, so $\Aop_j(\varphi_j,\zeta_j)=\ell_j(\varphi_j)\to0$. On the other hand $\nu N_h(\varphi_j,\zeta_j)=\nu N_h(\zeta_j,\varphi_j)\to\nu(\nabla\zeta,\nabla\varphi)$
+(Lemma~\ref{nb:limit}(iii)), and $K(\varphi_j,\zeta_j)\to((\varphi\cdot\nabla)u+(u\cdot\nabla)\varphi,\zeta)$, since $\varphi_j\to\varphi$ strongly in $H^1$ and
+$\zeta_j\to\zeta$ strongly in $L^2$ and weakly in $H^1$ (for $c_s$ the term $((\varphi_j\cdot\nabla)\zeta_j,\ut)$ is strong--weak). Hence
+$\langle L\varphi,\zeta\rangle=\langle L^{\mathsf T}\zeta,\varphi\rangle=0$ for all $\varphi\in\mathcal V$, so $L^{\mathsf T}\zeta=0$ and $\zeta=0$, a contradiction.
+Uniqueness and existence follow as in Theorem~\ref{nb:Lstar}.
+\end{proof}
+
+\paragraph{The dual problem for drag.} Fix $\psi\in\RM$ and let $(Z^\dagger_\psi,R^\dagger_\psi)$ solve
+\[
+-\nu\Delta Z-(u\cdot\nabla)Z+(\nabla u)^{\mathsf T}Z+\nabla R=0,\quad\div Z=0\ \text{in }\Omega,\qquad Z|_\Gamma=\psi,\quad Z|_{\partial R}=0,
+\]
+which is well posed under (H$_{\rm ns}$) and smooth up to $\Gamma$ under (R$_S$) (Lemma~\ref{n2:reg}). Put $\zeta:=V_\psi-Z^\dagger_\psi\in V$ and
+$\Pi_c:=-R^\dagger_\psi$ for $c=c_1$, $\Pi_c:=-R^\dagger_\psi-\frac12u\cdot Z^\dagger_\psi$ for $c=c_s$; on $\Gamma$, $\Pi_c=-R^\dagger_\psi$ in both cases.
+Extend $\zeta$ by Lemma~\ref{n2:ext} to $\tilde\zeta$, put $\tilde Z^\dagger_\psi:=V_\psi-\tilde\zeta$, and extend $\Pi_c$ smoothly to $\tilde\Pi_c$. Define
+\begin{gather*}
+m_\psi(w):=\nu a_h(w,v_\psi)+K(w,v_\psi),\\
+\Lambda^\dagger_h(\psi):=\nu\ip{\ut}{\dn(\tilde Z^\dagger_\psi-\psi)}_{\Gh}=\nu\sum_{e\in\EG}\frac{|e|^3}{12}\bigl(\dn u\cdot\dn(Z^\dagger_\psi-\psi)\bigr)(m_e^\ast)+O(\hG^3),
+\end{gather*}
+and $E_Z:=\inf_{z\in\Zh}\tnorm{\tilde\zeta-z}$, $Y_Z:=(1+\gamma^{1/2})\hG^{3/2}+E_Z+h^k$. The expansion of $\Lambda^\dagger_h$ is step~4 of
+Theorem~\ref{pd:thm:cnsdrag} verbatim ($Z^\dagger_\psi-\psi$ is divergence-free and vanishes on $\Gamma$, so Lemma~\ref{lem:wall} applies).
+As for $Z_\psi$, $E_Z\le Ch$ (Lemma~\ref{hc:approx}).
+
+\begin{lemma}[The discrete dual; PROVED MODULO (R$_S$)]\label{n2:aux}
+Assume (H$_{\rm ns}$), (R$_S$), $\gamma\ge\gamma_2'$ and $h\le h_0$. The problem
+\begin{equation}\label{n2:eq:aux}
+(\zeta_h,\pi_h)\in\Zh\times\Pih:\qquad \Aop(w,\zeta_h)+B^\ast(\pi_h,w)=m_\psi(w)\qquad\forall w\in\VR
+\end{equation}
+has a unique solution, and with $\Pi^\ast:=\tilde\Pi_c-\pbG(\tilde\Pi_c)$ and $c_\Pi$ a suitable constant,
+\[
+\tnorm{\tilde\zeta-\zeta_h}\le CY_Z,\qquad \beta\norm{(\Pi^\ast-\pi_h)-c_\Pi}\le CY_Z,\qquad \tnorm{\zeta_h}+\norm{\nabla\zeta_h}\le C .
+\]
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Consistency.} For $w\in\VR$, Green's formula as in Lemma~\ref{lem:erroreq} (with $\nu$, and $N_h$ symmetric) gives
+$\nu N_h(w,\tilde\zeta)=(-\nu\Delta\tilde\zeta,w)+\nu\ip{(\nabla\tilde\zeta)^{\mathsf T}n}w-\nu\ip{\tilde\zeta}{\dn w}+\nu\frac\mu h\ip{\tilde\zeta}w$, and
+$K_1(w,\tilde\zeta)=(w,(\nabla\ut)^{\mathsf T}\tilde\zeta-(\ut\cdot\nabla)\tilde\zeta)+\ip{(\ut\cdot n)w}{\tilde\zeta}$. As in step~1 of Theorem~\ref{thm:D},
+$B^\ast(\Pi^\ast,w)=(\nabla\tilde\Pi_c,w)$. Since $D(V_\psi)=0$ near $\Gh$, $m_\psi(w)$ has the same structure with $V_\psi$ in place of $\tilde\zeta$ plus
+$[\nu a_h+K](w,v_\psi-V_\psi)$. On $\Omega$ the adjoint equation gives $-\nu\Delta\zeta-(u\cdot\nabla)\zeta+(\nabla u)^{\mathsf T}\zeta+\nabla\Pi_1=-\nu\Delta V_\psi-(u\cdot\nabla)V_\psi+(\nabla u)^{\mathsf T}V_\psi$;
+the difference of the two sides after extension, $F_\zeta$, is bounded and supported in $\overline{S_h}$. For $c_s$,
+$K_s(w,y)-K_1(w,y)=\frac12((\div w),\ut\cdot y)-\frac12\ip{w\cdot n}{\ut\cdot y}-\frac12\ip{(\ut\cdot n)w}y$ (Lemma~\ref{ns:bdry} without $\div w=0$), and
+$\frac12((\div w),\hat q)-\frac12\ip{w\cdot n}{\hat q}=-B^\ast(\frac12\hat q,w)-\pbG(\frac12\hat q)\int_{\Gh}w\cdot n$; with $\hat q=\ut\cdot(\tilde\zeta-V_\psi)$ this is
+absorbed by the shift from $\Pi_1$ to $\Pi_s$. Altogether, for $w\in\VR$,
+\[
+\Aop(w,\tilde\zeta)+B^\ast(\Pi^\ast,w)=m_\psi(w)+\Gc^\dagger(w),
+\]
+\begin{multline*}
+\Gc^\dagger(w)=(F_\zeta,w)+\nu\ip{(\nabla\tilde\zeta)^{\mathsf T}n}w-\nu\ip{\tilde\zeta}{\dn w}+\nu\frac\mu h\ip{\tilde\zeta}w\\
++\ip{(\ut\cdot n)w}{\tilde\zeta-\psi}-[\nu a_h+K](w,v_\psi-V_\psi)+O(\hG^2)\norm w_{\Gh}.
+\end{multline*}
+\item \emph{Size of $\Gc^\dagger$.} $\zeta|_\Gamma=0$ and $\div\zeta=0$, so Lemma~\ref{lem:wall} gives $(\nabla\zeta)^{\mathsf T}n=0$ on $\Gamma$ and
+$|(\nabla\tilde\zeta)^{\mathsf T}n_e|\le C\hG$, $|\tilde\zeta|\le C\hG^2$ on $\Gh$. As in Lemma~\ref{pd:lem:G}, and with $\norm{\nabla(v_\psi-V_\psi)}\le Ch^k$,
+$|\Gc^\dagger(w)|\le C[(1+\gamma^{1/2})\hG^{3/2}+h^k]\tnorm w$ on $\VR$ and $|\Gc^\dagger(w)|\le C(\hG^{3/2}+h^k)\norm{\nabla w}$ on $\VO$.
+\item \emph{Error.} Let $z_\zeta\in\Zh$ attain $E_Z$ and $\eta:=\Pi^\ast-\pi_h^{L^2}\Pi^\ast$, so $(\eta,\div w)=0$ on $\VR$ and $|B^\ast(\eta,w)|\le C\hG^k(h/\mu)^{1/2}\tnorm w$.
+Then $\Aop(w,z_\zeta-\zeta_h)+B^\ast(\pi_h^{L^2}\Pi^\ast-\pi_h,w)=\Gc^\dagger(w)-\Aop(w,\tilde\zeta-z_\zeta)-B^\ast(\eta,w)$, and
+$|\Aop(w,\tilde\zeta-z_\zeta)|\le(\nu M+2NC_1\norm{\ut}_{H^1})\tnorm w\,E_Z$ (Lemmas~\ref{lem:coercive}, \ref{ns:tri}). (L$^\dagger$) (Theorem~\ref{n2:Ldag}) gives
+existence, uniqueness and the velocity bound. For the pressure, test with $v\in\VO$ and use Lemma~\ref{lem:infsup}, as in step~3 of Theorem~\ref{thm:D}.
+Finally $\tnorm{\tilde\zeta}\le C(1+\gamma^{1/2}\hG^{3/2})$ since $|\tilde\zeta|\le C\hG^2$ on $\Gh$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[Weighted normal slip of $\CNS$ for Navier--Stokes; PROVED]\label{n2:slip}
+Under the hypotheses of Theorem~\ref{ns:thmD} with $\gamma\ge\gamma_2'$, Lemma~\ref{pd:lem:slip} holds for the Navier--Stokes $\CNS$ solution,
+with $e_u=\ut-u_h$, $Y$ as in Theorem~\ref{ns:thmD}, $\bar e_p$ the $\Oh$-mean of $e_p$, and $C_\phi$ depending also on $\nu$, $U_\infty$, $N$, $C_1$, $\beta_\ast$.
+\end{lemma}
+
+\begin{proof}
+The Navier--Stokes error equation (step~1 of Theorem~\ref{ns:thmD}) is $\Aop(e_u,v)+B^\ast(e_p,v)=\Gc_\nu(v)+\kappa_c(v)+c(e_u;e_u,v)$ on $\VR$.
+Test with $w_\phi$ of Lemma~\ref{pd:lem:wphi} and divide by $\nu$. Compared with the proof of Lemma~\ref{pd:lem:slip} there are three new terms:
+$|K(e_u,w_\phi)|\le2N\norm{\ut}_{H^1}\norm{e_u}_{H^1}\norm{\nabla w_\phi}\le C_\phi Y$, $|c(e_u;e_u,w_\phi)|\le C_\phi Y^2$ and $|\kappa_c(w_\phi)|\le C\hG^4$;
+each is of the size of the term $a_h(e_u,w_\phi)$ already present. The pressure inputs are Proposition~\ref{pd:prop:ns}(a).
+\end{proof}
+
+\begin{theorem}[$\CNS$ drag, lift and torque for Navier--Stokes; PROVED MODULO (R$_S$)]\label{n2:cnsdrag}
+Assume (NS1)--(NS2), (H$_{\rm ns}$), (R$_S$), either convective form, $\gamma\ge\max(1,\gamma_2')$, $\gamma\hG\le1$, $h\le h_0$ and $Y\le c_\ast$
+(Theorem~\ref{ns:thmD}), and let $\psi\in\RM$. With $J^N_h$, $J_\psi$ and $\Theta_f$ as in Section~\ref{pd:sec:ns},
+\begin{enumerate}[label=(\alph*)]
+\item $|J^N_h(\psi)-J_\psi+\Theta_f(\psi)|\le CY$;
+\item $|J^N_h(\psi)-J_\psi+\Theta_f(\psi)+\Lambda^\dagger_h(\psi)|\le C\bigl[\gamma^{-1/2}\hG^2+\gamma\hG^3+\gamma^{1/2}\hG^{3/2}E_Z+\eps\bigr]$.
+\end{enumerate}
+Consequently $|J^N_h(\psi)-J_\psi|\le C(\hG^2+\eps)$: rate $2$, as for Stokes. The leading term $-\Theta_f-\Lambda^\dagger_h$ is geometric; it is
+the Stokes one of Theorem~\ref{pd:thm:cnsdrag} with $\dn u$ the Navier--Stokes wall shear and $Z_\psi$ replaced by the adjoint Oseen field
+$Z^\dagger_\psi$.
+\end{theorem}
+
+\begin{proof}
+(a) is Proposition~\ref{pd:prop:ns}(c). For (b), write $e:=\ut-u_h=(\ut-z)+e_h$ with $z\in\Wh$ attaining $\eps$ and $e_h:=z-u_h\in\Zh$.
+\begin{enumerate}
+\item \emph{Representation.} By Proposition~\ref{pd:prop:ns}(c), $J^N_h-J_\psi+\Theta=-m_\psi(e)+c(e;e,v_\psi)+O(\hG^4)$, with $\Theta=\Theta_f+O(\hG^4)$.
+Test \eqref{n2:eq:aux} with $w=e_h\in\Zh$: $m_\psi(e_h)=\Aop(e_h,\zeta_h)+T_5$, $T_5:=B^\ast(\pi_h,e_h)=\ip{\pi_h-\pbG(\pi_h)}{e_h\cdot n}$.
+Test the error equation with $v=\zeta_h\in\VR$: $\Aop(e,\zeta_h)=\Gc_\nu(\zeta_h)+\kappa_c(\zeta_h)+c(e;e,\zeta_h)-T_4$, $T_4:=\ip{e_p-\pbG(e_p)}{\zeta_h\cdot n}$.
+With $T_1:=m_\psi(\ut-z)-\Aop(\ut-z,\zeta_h)$,
+\[
+J^N_h-J_\psi+\Theta+\Lambda^\dagger_h=-T_1-\bigl(\Gc_\nu(\zeta_h)-\Lambda^\dagger_h\bigr)-\kappa_c(\zeta_h)+c(e;e,v_\psi-\zeta_h)+T_4-T_5+O(\hG^4).
+\]
+\item $T_1=\nu a_h(\ut-z,v_\psi-\zeta_h)-\nu\Bh(\ut-z,\zeta_h)+K(\ut-z,v_\psi-\zeta_h)$, so $|T_1|\le C\eps$ (Lemmas~\ref{pd:lem:Bh}, \ref{ns:tri}, \ref{n2:aux}).
+\item $\Gc_\nu(\tilde\zeta)=-\nu\ip\ut{\dn\tilde\zeta}+O((1+\gamma)\hG^3)=\Lambda^\dagger_h+O((1+\gamma)\hG^3)$, since $\dn\tilde\zeta=\dn\psi-\dn\tilde Z^\dagger_\psi$
+near $\Gh$ (step~4 of Theorem~\ref{pd:thm:cnsdrag}); and $|\Gc_\nu(\zeta_h)-\Gc_\nu(\tilde\zeta)|\le C(1+\gamma^{1/2})\hG^{3/2}Y_Z$ (Lemmas~\ref{pd:lem:G}, \ref{n2:aux}).
+\item $|\kappa_{c_s}(\zeta_h)|\le C\hG^4$, and $|c(e;e,v_\psi-\zeta_h)|\le N\norm e^2_{H^1}\norm{\nabla(v_\psi-\zeta_h)}\le CY^2\le C(\gamma\hG^3+\eps)$.
+\item $T_4$ and $T_5$ are steps~5--6 of the proof of Theorem~\ref{pd:thm:cnsdrag} verbatim, with the dual pressure $\Pi_c$ (smooth near $\Gamma$,
+$(\Pi_c-\bar\Pi_c)|_\Gamma=-(R^\dagger_\psi-\bar R^\dagger_\psi)$), the dual bounds of Lemma~\ref{n2:aux}, $\tilde\zeta\cdot n_e=O(\hG^3)$ (Lemma~\ref{lem:wall} for $\zeta$),
+the pressure bounds of Proposition~\ref{pd:prop:ns}(a) and Lemma~\ref{n2:slip}. They give $|T_4|+|T_5|\le C[\gamma^{-1/2}\hG^2+\gamma\hG^3+\gamma^{1/2}\hG^{3/2}E_Z+\eps]$.
+\end{enumerate}
+Collect as in step~7 of Theorem~\ref{pd:thm:cnsdrag}.
+\end{proof}
+
+\begin{remark}\label{n2:rem:drag}
+Theorem~\ref{n2:cnsdrag} removes the item ``$\CNS$ rate $2$ \dots\ requires an adjoint version of (L$^\ast$), which we have not formulated'' from
+Section~\ref{pd:sec:ns}. The rate-$2$ conclusion needs $\gamma\ge1$ and $\gamma\hG\le1$, exactly as for Stokes. Uniqueness of the discrete dual is
+all that (L$^\dagger$) is used for beyond the energy bound; the $\GS$-type algebraic transpose is not needed anywhere.
+\end{remark}
+
+\subsection{Gap 3: the Oseen leak limit uniformly in the penalty}\label{n2:unif}
+
+Notation of \texttt{unifmu}: $\lambda=\mu/h=\gamma/\hG$; $g:=-(\pt-\pbar)n_e$ on each $e\in\EG$, now with the Navier--Stokes pressure;
+$\mathcal T_h$ the trace space of $\Zh$ (continuous piecewise $P_k$, zero flux) and $t^\ast:=\Pi_{\mathcal T}g$ its $L^2(\Gh)$ projection. Let
+$\delta_R\in\Zh$ solve $\Aop(\delta_R,v)=\Rc(v)$ on $\Zh$ (it exists under (L)) and put
+\[
+X:=\frac{\nu\mu}h\,\delta_R,\qquad W:=X-\tilde U_O,\qquad E^0_O:=h\norm{U_O}_{H^2(\Omega)}+h^k+\hG^{\sigma_k-1/2},
+\]
+with $(U_O,P_O)$ the Oseen leak flow of Section~\ref{nb:oseen} (smooth up to $\Gamma$ by Lemma~\ref{n2:reg}), extended as there, and
+$F_O:=-\nu\Delta\tilde U_O+(\tilde U_O\cdot\nabla)\ut+(\ut\cdot\nabla)\tilde U_O+\nabla\tilde P_O$, bounded and supported in $\overline{S_h}$. As in
+\texttt{unifmu}~(zU), the construction of Lemma~\ref{hc:approx} gives $z_O\in\Zh$ with $\norm{\nabla(\tilde U_O-z_O)}\le CE^0_O$ and
+$\norm{\tilde U_O-z_O}_{L^\infty(\Gh)}\le C\hG^{k+1}$. By \texttt{unifmu} Lemma~\texttt{lem:proj} (which uses only Lemma~\ref{rs:lift}),
+$\Rc(v)=\ip gv=\ip{t^\ast}v$ for $v\in\Zh$, so
+\[
+\Aop(X,v)=\nu\lambda\ip{t^\ast}v\qquad\forall v\in\Zh .
+\]
+In this subsection $C$ depends on $\nu$, $U_\infty$, $\beta_L$, $\beta_D$, (M0)--(M2), $k$, $L$ and norms of $p$ and $U_O$ near $\Gamma$, never on $h,\hG,\mu,\gamma,\rho$.
+
+\begin{lemma}[The discrete Oseen--Dirichlet comparison field; PROVED MODULO (R$_S$)]\label{n2:XD}
+Assume (H$_{\rm ns}$), (R$_S$), $h\le h_0$. There is a unique $X^D\in\Zh$ with $X^D|_{\Gh}=t^\ast$ and $\nu a_h(X^D,v)+K(X^D,v)=0$ for all $v\in Y_h$, and
+\[
+\norm{\nabla(X^D-\tilde U_O)}\le C\bigl(\hG^{1/2}+E^0_O\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+The affine set $\{z\in\Zh:z|_{\Gh}=t^\ast\}$ is non-empty (Lemma~\ref{rs:lift}), its direction is $Y_h$, and (L$_D$) (Theorem~\ref{n2:L}(c), or
+compactness as in Theorem~\ref{nb:L}) makes the square system on $Y_h$ uniquely solvable. As in \texttt{unifmu} Lemma~\texttt{lem:size},
+$\norm{t^\ast-\tilde U_O}_{\Gh}\le\norm{z_O-g}_{\Gh}+\norm{\tilde U_O-g}_{\Gh}\le C\hG$, because $\tilde U_O(x^\ast)=-(p-\pbar)(x^\ast)n(x^\ast)$ and
+$|n(x^\ast)-n_e|\le C\hG$. Put $W_0:=X^D-z_O$; its trace $t^\ast-z_O\in\mathcal T_h$ has norm $\le C\hG$, so its lift $L$ (Lemma~\ref{rs:lift}) has
+$\norm{\nabla L}\le C\hG^{1/2}$, and $y:=W_0-L\in Y_h$. For $v\in Y_h$, Green's formula gives $\nu a_h(\tilde U_O,v)+K(\tilde U_O,v)=(F_O,v)$ (no
+boundary terms; $K=K_1$ by Lemma~\ref{n2:K}), so
+\[
+\nu a_h(y,v)+K(y,v)=[\nu a_h+K](\tilde U_O-z_O,v)-[\nu a_h+K](L,v)-(F_O,v).
+\]
+(L$_D$), Lemma~\ref{n2:K} and $|(F_O,v)|\le C\hG^2\norm{\nabla v}$ give $\beta_D\norm{\nabla y}\le C(E^0_O+\hG^{1/2}+\hG^2)$.
+\end{proof}
+
+\begin{theorem}[Uniform upper bound; PROVED MODULO (R$_S$)]\label{n2:up}
+Under the assumptions of Lemma~\ref{n2:XD}, for every $\gamma\ge\gamma_0$ (no upper bound), with $D:=X-X^D\in\Zh$,
+\[
+\tnorm D\le C\Bigl[\Bigl(\frac\hG\gamma\Bigr)^{1/2}\bigl(1+\hG^{-1/2}E^0_O\bigr)+\hG^{1/2}\Bigr],\qquad
+\norm{\nabla(X-\tilde U_O)}_{\Oh}\le C\bigl(\hG^{1/2}+E^0_O\bigr).
+\]
+In particular $\norm{\nabla\delta_R}\le C\,h/\mu$ uniformly in $\gamma\ge\gamma_0$.
+\end{theorem}
+
+\begin{proof}
+For $v\in\Zh$, since $X^D|_{\Gh}=t^\ast$ the two $\lambda$-terms cancel exactly:
+\[
+\Aop(D,v)=\nu\lambda\ip{t^\ast}v-\Aop(X^D,v)=-[\nu a_h+K](X^D,v)+\nu\ip{\dn X^D}v+\nu\ip{t^\ast}{\dn v}=:\ell_O(v).
+\]
+\begin{enumerate}
+\item Let $L_v\in\Zh$ lift $v|_{\Gh}$ (Lemma~\ref{rs:lift}), $\norm{\nabla L_v}\le C\hG^{-1/2}\norm v_{\Gh}$. Since $v-L_v\in Y_h$,
+$[\nu a_h+K](X^D,v)=[\nu a_h+K](X^D,L_v)$. Green's formula with the Oseen equation ($\div L_v=0$, $L_v|_{\partial R}=0$, $\int_{\Gh}L_v\cdot n=0$) gives
+$[\nu a_h+K](\tilde U_O,L_v)=(F_O,L_v)+\ip{\nu D(\tilde U_O)n-(\tilde P_O-c)n}v+O(\hG^2)\norm v_{L^1(\Gh)}$ (the last term only for $c_s$, Lemma~\ref{ns:bdry}),
+which is $\le C\norm v_{\Gh}$. By Lemmas~\ref{n2:K} and~\ref{n2:XD}, $|[\nu a_h+K](X^D-\tilde U_O,L_v)|\le C(1+\hG^{-1/2}E^0_O)\norm v_{\Gh}$.
+\item $\norm{\dn X^D}_{\Gh}\le\norm{\dn I_h\tilde U_O}_{\Gh}+C_I(c_0\hG)^{-1/2}\norm{\nabla(X^D-I_h\tilde U_O)}\le C(1+\hG^{-1/2}E^0_O)$.
+\item $\ip{t^\ast}{\dn v}=\ip g{\dn v}+\ip{t^\ast-g}{\dn v}$. The first is $\le C\norm v_{\Gh}$ by \texttt{unifmu} Lemma~\texttt{lem:canc} (pure geometry; $g$ is exactly
+normal on each edge); the second is $\le C\hG\cdot C\hG^{-1/2}\norm{\nabla v}$.
+\end{enumerate}
+With $\norm v_{\Gh}\le(\hG/\gamma)^{1/2}\tnorm v$, $\norm{\ell_O}_{\ast,\Zh}$ is bounded by the bracket, and (L) (uniform in $\mu\ge\mu_0$, Theorem~\ref{n2:L}(a)
+or Theorem~\ref{nb:L}) gives the bound on $\tnorm D$. Then $\norm{\nabla(X-\tilde U_O)}\le\tnorm D+\norm{\nabla(X^D-\tilde U_O)}$.
+\end{proof}
+
+\begin{theorem}[Uniform lower bound; PROVED MODULO (R$_S$)]\label{n2:low}
+Assume (M0)--(M2), (D), $k\ge4$, $G>0$, (H$_{\rm ns}$), (R$_S$), and let $\mu>0$ be such that $\delta_R$ exists (every $\gamma\ge\gamma_0$ if $h\le h_0$). Then
+\[
+\norm{\nabla(X-\tilde U_O)}_{\Oh}\ \ge\ c_O\,G\,\hG^{1/2}-C\hG^{3/2},\qquad
+c_O:=\frac{\nu\,\kappa_1c_0^{1/2}}{\sqrt2\,\bigl[\nu(2+C_{PT}C_I)+C_F(1+C_F)U_\infty\bigr]},
+\]
+with $\kappa_1$ of \texttt{unifmu2} Lemma~\texttt{lem:field}. $c_O$ does not depend on $\mu,\gamma,h,\rho$.
+\end{theorem}
+
+\begin{proof}
+For $v\in Y_h$: $\Rc(v)=0$, and $\Aop(\delta_R,v)=\nu a_h(\delta_R,v)-\nu\ip{\delta_R}{\dn v}+K(\delta_R,v)$, so
+$\nu a_h(X,v)+K(X,v)=\nu\ip X{\dn v}$ for every such $\mu$. With $\nu a_h(\tilde U_O,v)+K(\tilde U_O,v)=(F_O,v)$,
+\[
+\nu a_h(W,v)+K(W,v)-\nu\ip W{\dn v}=\nu\ip{\tilde U_O}{\dn v}-(F_O,v)\qquad\forall v\in Y_h .
+\]
+$W$ is divergence-free and vanishes on $\partial R$, so $|K(W,v)|\le C_F(1+C_F)U_\infty\norm{\nabla W}\norm{\nabla v}$ (Lemma~\ref{n2:K}), and for $v\in Y_h^1$,
+$|\ip W{\dn v}|\le C_{PT}C_I\norm{\nabla W}\norm{\nabla v}$ (Lemma~\ref{lb:poinc}). Since $\tilde U_O|_\Gamma=\tilde U|_\Gamma$, \texttt{unifmu2}
+Lemma~\texttt{lem:exp} holds for $\tilde U_O$ (with $C_E$ depending on $\norm{\nabla\tilde U_O}_\infty$ near $\Gamma$). Take the test field
+$v=\sum_ec_ev_e\in Y_h^1$ of the proof of \texttt{unifmu2} Theorem~\texttt{thm:main}; that proof gives
+$[\nu(2+C_{PT}C_I)+C_F(1+C_F)U_\infty]\norm{\nabla W}\ge\nu(\kappa_1\Sigma-C\hG)(c_0\hG/(2\Sigma))^{1/2}-C\hG^2$ with $\Sigma=G^2+O(\hG)$.
+\end{proof}
+
+So $\frac12c_OG\hG^{1/2}\le\norm{\nabla((\nu\mu/h)\delta_R-\tilde U_O)}\le C(\hG^{1/2}+E^0_O)$ for every $\gamma\in[\gamma_0,\infty)$ and $\hG\le h_1(G)$: the
+Oseen leak limit holds uniformly in the penalty, at the exact rate $\frac12$, as for Stokes.
+
+\begin{lemma}[$\gamma$-uniform $H^1$ bound for the linearised geometric part; PROVED]\label{n2:lin}
+Assume (H$_{\rm ns}$), $h\le h_0$ (so that (L) and (L$_D$) hold). For $z\in\Wh$ of Lemma~\ref{lem:approx} let $\delta_G\in\Zh$ solve
+$\Aop(\delta_G,v)=\Gc_\nu(v)+\kappa_c(v)-\Aop(\ut-z,v)$ on $\Zh$, and put $u^L_h:=z-\delta_G\in\Wh$. Then, for every $\gamma\ge\gamma_0$,
+\[
+\norm{\nabla(\ut-u^L_h)}\le C\bigl(\hG^{3/2}+\varepsilon_1\bigr),\qquad \varepsilon_1:=h^k+h^{\sigma_k}\hG^{-1/2}.
+\]
+\end{lemma}
+
+\begin{proof}
+This is the proof of Theorem~\ref{rs:unif} ($\GS$, steps~2--5) with $a_h$ replaced by $\nu a_h+K$ and Korn by (L$_D$).
+\begin{enumerate}
+\item \emph{Energy.} $\Aop(\ut-u^L_h,v)=\Gc_\nu(v)+\kappa_c(v)$ on $\Zh$, and (L) gives $\tnorm{\ut-u^L_h}\le C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$.
+\item \emph{Identity on $Y_h$.} For $v\in Y_h$, $\kappa_c(v)=0$ and $\Gc_\nu(v)=-\nu\ip\ut{\dn v}-(F,v)$, so
+$[\nu a_h+K](\ut-u^L_h,v)=-\nu\ip{u^L_h}{\dn v}-(F,v)$.
+\item \emph{Oseen--Dirichlet field.} With $a:=-6m_R/|\Gh|$ and $\Wh^D$ as in Lemma~\ref{rs:dir}, (L$_D$) gives a unique $u^D\in\Wh^D$ with
+$[\nu a_h+K](\ut-u^D,v)=-(F,v)$ on $Y_h$. With $z_D\in\Wh^D$ from step~1 of Lemma~\ref{rs:dir}, $y:=z_D-u^D\in Y_h$ satisfies
+$[\nu a_h+K](y,v)=[\nu a_h+K](z_D-\ut,v)-(F,v)$; Lemma~\ref{ns:tri} with $\norm{z_D-\ut}_{H^1}\le C(\norm{\nabla(z_D-\ut)}+h^{k+1/2})$ (lift $E$
+of Theorem~\ref{thm:B}(ii)) gives $\norm{\nabla(\ut-u^D)}\le C(\hG^{3/2}+h^k+|m_R|\hG^{-1/2})$.
+\item \emph{Compare.} $w:=u^L_h-u^D\in\Zh$ has $[\nu a_h+K](w,v)=\nu\ip{u^L_h}{\dn v}$ on $Y_h$ and trace $u^L_h-ab$. Its lift $L$ has
+$\norm{\nabla L}\le C\hG^{-1/2}(\norm{u^L_h}_{\Gh}+|m_R|)$, and $y:=w-L\in Y_h$ satisfies $\beta_D\norm{\nabla y}\le C\hG^{-1/2}\norm{u^L_h}_{\Gh}+C\norm{\nabla L}$.
+\item \emph{Trace.} $\norm{u^L_h}_{\Gh}\le\norm\ut_{\Gh}+(\hG/\gamma)^{1/2}\tnorm{\ut-u^L_h}\le C(\hG^2+(\hG/\gamma)^{1/2}\eps)$, and
+$\gamma^{-1/2}\eps\le C\varepsilon_1$ exactly as in step~3 of Theorem~\ref{rs:unif}; $|m_R|\le Ch^{\sigma_k}$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[$\GS$ for Navier--Stokes, uniformly in the penalty; PROVED MODULO (R$_S$)]\label{n2:unif:thm}
+Assume (NS1)--(NS2), (H$_{\rm ns}$), (R$_S$), $h\le h_0$, either form, and put $X_u:=h/\mu+\hG^{3/2}+\varepsilon_1$. There are $c_\ast,C$
+independent of $\gamma\ge\gamma_0$ (and of $\mu,\rho$) such that if $X_u\le c_\ast$, then $\GS$ has a solution $u_h=z-\delta$, unique with
+$\tnorm{\delta-\delta_0}\le A/C_1$, where $\delta_0=\delta_R+\delta_G$ and $A:=\norm{\ut-z}_{H^1}+C_1\norm{\nabla\delta_0}\le CX_u$; and
+\[
+\norm{\nabla(\ut-u_h)}\le C\,X_u,\qquad
+\Bigl\|\nabla\Bigl(\frac{\nu\mu}h(\ut-u_h)-\tilde U_O\Bigr)\Bigr\|\le C\bigl(\hG^{1/2}+E^0_O\bigr)+C\frac\mu h\bigl(\hG^{3/2}+\varepsilon_1+X_u^2\bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+Step~6 of Theorem~\ref{ns:thmGS} uses $\delta_0$ only through $A$, which involves $\norm{\nabla\delta_0}$ and $\norm{\ut-z}_{H^1}$, not $\tnorm{\delta_0}$.
+Now $\norm{\ut-z}_{H^1}\le C(\varepsilon_1+h^{k+1/2})$ (the $H^1$ part of Lemma~\ref{lem:approx} is free of $\gamma$; lift $E$ for the $L^2$ part),
+$\norm{\nabla\delta_R}\le Ch/\mu$ (Theorem~\ref{n2:up}), and $\norm{\nabla\delta_G}\le\norm{\nabla(\ut-u^L_h)}+\norm{\nabla(\ut-z)}\le C(\hG^{3/2}+\varepsilon_1)$
+(Lemma~\ref{n2:lin}). So $A\le CX_u$ and the contraction of step~6 works as soon as $CX_u\le\beta_L/(8NC_1)$; it gives $\tnorm{\delta-\delta_0}\le4\beta_L^{-1}NA^2\le CX_u^2$.
+Finally $\ut-u_h=(\ut-u^L_h)+\delta_R+(\delta-\delta_0)$ and $(\nu\mu/h)\delta_R=X$; use Lemma~\ref{n2:lin} and Theorem~\ref{n2:up}.
+\end{proof}
+
+\begin{corollary}[The Navier--Stokes $H^1$ constant without $\gamma\hG\to0$; PROVED MODULO (R$_S$)]\label{n2:gen}
+Let $G>0$. (a) If $\hG\to0$ with $h/\mu\to0$, $E^0_O\to0$ and $\frac\mu h(\hG^{3/2}+\varepsilon_1)\to0$ (geometric part: $\gamma\hG^{1/2}\to0$), then
+$\norm{\nabla(\ut-u_h)}/((h/\nu\mu)G)\to K_{NS}=\norm{\nabla U_O}_{L^2(\Omega)}/G$. This replaces the hypotheses of Corollary~\ref{nb:KNS}
+(those of Corollary~\ref{hc:cor}(ii), which include $\gamma\hG\to0$).
+(b) For every $\gamma\ge\gamma_0$, under the hypotheses of Theorem~\ref{n2:unif:thm},
+$\norm{\nabla(\frac{\nu\mu}h(\ut-u_h)-\tilde U_O)}\ge c_OG\hG^{1/2}-C(1+\gamma)\hG^{3/2}-C\frac\mu hX_u^2$.
+\end{corollary}
+
+\begin{proof}
+(a) $\frac\mu hX_u^2\le C[h/\mu+\frac\mu h(\hG^3+\varepsilon_1^2)]\to0$; then multiply out as in Corollary~\ref{hc:cor}(ii).
+(b) On $Y_h$ the $\GS$ error satisfies $\nu a_h(e,v)-\nu\ip e{\dn v}+K(e,v)=-\nu\ip\ut{\dn v}-(F,v)+c(e;e,v)$. Multiply by $\nu\mu/h$, subtract the
+identity for $\tilde U_O$, and run the proof of Theorem~\ref{n2:low}. For the test field $v$ there, $|\ip\ut{\dn v}|\le C\hG^2$ and
+$|(F,v)|\le C\hG^3$ (\texttt{unifmu2} Corollary~\texttt{cor:gen}), and $|c(e;e,v)|\le N\norm e^2_{H^1}\norm{\nabla v}\le CX_u^2\norm{\nabla v}$.
+\end{proof}
+
+\begin{remark}
+For $\GS$ the uniform statements need only the $\Zh$-stability (L) and (L$_D$), both uniform in $\mu\ge\mu_0$; unlike Theorem~\ref{nb:hc}, no
+term $\min(\gamma\hG^{1/2},(\gamma\hG)^{1/2})$ appears, for the reason given in \texttt{unifmu}: after the projection identity the penalty term has
+no inconsistent part. The Pythagoras identity $K_{NS}^2=K_S^2+\norm{\nabla(U_O-U_S)}^2/G^2$ of Corollary~\ref{nb:KNS} is unaffected. Lemma~\ref{n2:reg}(b)
+also discharges (R$_O$) and (R$^\dagger$), so Theorem~\ref{nb:hc}, Corollary~\ref{nb:KNS} and the $\GS$-drag corollary of Section~\ref{nb:oseen}
+are PROVED MODULO (R$_S$).
+\end{remark}
+
+\subsection{Gap 4: Navier--Stokes in three dimensions}\label{n2:3d}
+
+\begin{corollary}[Replaces Corollary~\ref{td:ns}; PROVED under (IS3)]\label{n2:td}
+Assume the setting of Section~\ref{td:sec} ((M0$^3$), (IS3), (D), $k\ge3$, spherical obstacle) and (NS1)--(NS2), with $\ut=\curl\psit$ for a vector
+potential $\psit$. Then:
+\begin{enumerate}[label=(\roman*)]
+\item Lemmas~\ref{ns:tri}, \ref{ns:bdry}, \ref{ns:erreq}, \ref{ns:SD} and~\ref{ns:pe} hold in 3D.
+\item If (H$_{\rm ns}$) holds (with $V\subset H^1_0(\Omega)^3$), there is $h_0$, independent of $\mu,\gamma,\rho$, such that (L), (L$^\ast$) ($\gamma\ge\gamma_2'$),
+(L$^\dagger$) and (L$_D$) hold for $h\le h_0$. If in addition the 3D analogue (R$_S^3$) of (R$_S$) holds, Theorem~\ref{n2:L} holds verbatim, with
+the 3D constants.
+\item Under (L) (resp.\ (L$^\ast$)), Theorem~\ref{ns:thmGS}, Corollary~\ref{ns:Bp} (resp.\ Theorem~\ref{ns:thmD}) hold in 3D with $\epsd$ in place of
+$\eps$ and $X_3:=h/\mu+(1+\gamma^{1/2})\hG^{3/2}+\epsd$ in place of $X$; the $H^1$ statement of Theorem~\ref{ns:thmD} holds for $\hG\ge h^2$.
+\end{enumerate}
+On Alfeld refinements, (IS3) holds with $\beta$ independent of $h$ by \texttt{td\_pen} Lemma~\texttt{lem:IS3}, which is PROVED MODULO the wording of
+\cite[Thm~3.1]{GuzmanNeilan2018} and the Galdi locator of Lemma~\ref{td:bog}; so (i)--(iii) hold there for every $k\ge3$ under that proviso.
+\end{corollary}
+
+\begin{proof}
+We list every dimension-dependent input of Section~\ref{ns:sec}, of Section~\ref{ns:branchsec} and of this note, and its 3D replacement.
+\begin{enumerate}
+\item \emph{Lemma~\ref{ns:tri}.} $H^1\subset L^4$ in 3D, transferred to $\Oh$ by the bi-Lipschitz map $\Phi_h$ of Lemma~\ref{td:tools}(a)
+($\norm{D\Phi_h-I}_\infty\le C\hG$); Korn/Friedrichs from Lemma~\ref{td:tools}(a). \emph{Lemma~\ref{ns:bdry}} and \emph{Lemma~\ref{ns:pe}} are
+dimension-free (divergence theorem; $\norm v^2_{\Gh}\le(h/\mu)\tnorm v^2$).
+\item \emph{Lemma~\ref{ns:erreq}.} The identity is dimension-free. The bounds on $\Gc_\nu$ are Lemma~\ref{td:G} (times $\nu$, with the
+Navier--Stokes defect $F$, which enters only through $\norm F_\infty$ and $\operatorname{supp}F\subset\overline{S_h}$, Lemma~\ref{td:tools}(b)).
+$|\kappa_{c_s}(v)|\le C\hG^4\norm{\nabla v}$ since $\norm\ut_{L^\infty(\Gh)}\le C\hG^2$ (Lemma~\ref{td:tools}(b)).
+\item \emph{Lemma~\ref{ns:SD}.} Coercivity, continuity and the inverse traces for velocities and pressures are Lemma~\ref{td:tools}(c) (with
+$\diam F$ for $|e|$); the inf-sup is (IS3); the square count $\dim\Zh+\dim\Pih=\dim\VR$ and the uniqueness of the constant use the face bubble
+$b_Fn_F$ (Lemma~\ref{td:tools}(d)). The absorption in step~3 has the same form, so $\gamma_2'$ depends on $C_I,c_0,\beta,c_N$ as in 2D.
+\item \emph{(ii), compactness route.} Lemma~\ref{nb:K} is dimension-free. Lemma~\ref{nb:strip}: $|S_h|\le C\hG^2$ (shell of thickness $\le C\hG^2$,
+Lemma~\ref{td:faces}(a)), and the radial trace transfer uses the radial function $\rho_h$ of Lemma~\ref{td:tools}(a) with $\norm{\rho_h-1}_\infty\le C\hG^2$.
+Lemma~\ref{nb:test}: $\varphi_h=I_h\varphi-w_h$ with $w_h\in\VO$ from (IS3), $\norm{\nabla w_h}\le C\beta^{-1}h^k$, and
+$|\ip{\delta_j}{\dn w_h}|\le(\rho/\mu)^{1/2}C_I\norm{\nabla w_h}$ (3D inverse trace). Lemma~\ref{nb:limit}: Rellich and the compact trace on the fixed
+Lipschitz domain $\Omega$, and density of $\mathcal V$ in $V$ \cite[Ch.~I, Thm~1.6]{Temam} (valid for Lipschitz domains in $\R^3$). $L=\nu L_0+K_u$
+with $K_u$ compact ($L^2\hookrightarrow V'$ compactly in 3D). Hence the proofs of Theorems~\ref{nb:L}, \ref{nb:Lstar}, \ref{n2:Ldag} and of (L$_D$)
+(the same contradiction argument on $Y_h$, where the trace vanishes identically) apply verbatim.
+\item \emph{(ii), quantitative route.} Lemma~\ref{n2:ext}: on the shell $\Omega\cap\{|x|<1+r_0\}$, $\div\varphi=0$ and $\int_\Gamma\varphi\cdot n=0$,
+so $\varphi=\curl\zeta$ with a vector potential $\zeta\in H^3$, $\norm\zeta_{H^3}\le C\norm\varphi_{H^2}$ (a bounded regularised Poincar\'e/Bogovski\u\i-type
+potential operator on the shell); extend $\zeta$ by a Hestenes reflection of order $3$ and put $\tilde\varphi:=\curl\tilde\zeta$, so $\div\tilde\varphi=0$
+(the same device as the extension of $\ut$ in Section~\ref{td:setting}, checked in \texttt{referee6}). Only $\tilde\varphi|_\Omega=\varphi$, hence
+$\tilde\varphi|_\Gamma=0$, is used below. Lemma~\ref{n2:Y}: $H^2\subset C^0$ in 3D, so $I_h\tilde\varphi$ is defined; the radial estimate gives
+$\norm{\tilde\varphi}_{\Gh}\le C\hG\norm{\nabla\tilde\varphi}_{S_h}\le C\hG\,|S_h|^{1/3}\norm{\nabla\tilde\varphi}_{L^6}\le C\hG^{5/3}\norm\varphi_{H^2}$; the scaled
+trace gives $\norm{\tilde\varphi-I_h\tilde\varphi}_{L^2(F)}\le C(\diam F)^{3/2}|\tilde\varphi|_{H^2(T_F)}$; the nodal lift has $\norm{\nabla L_0}\le C\hG^{-1/2}\norm t_{\Gh}$
+(nodal values $\le C(\diam F)^{-1}\norm t_F$, $\norm{\nabla\phi_i}_T\le C(\diam T)^{1/2}$); the Bogovskii step is (IS3). Lemma~\ref{n2:dual} then holds with
+the same proof, and Theorem~\ref{n2:L} follows.
+\item \emph{(iii), Theorem~\ref{ns:thmGS}.} Step~3: Lemma~\ref{td:G} and $\norm{\ut-z}_{H^1}\le C(\epsd+h^{k+1/2})$ (Lemma~\ref{td:approx} and the 3D lift $E$).
+Step~4: $m(v)=\Rc(v)-\ip{v_\varphi}v$ is bounded only in the energy dual, $|m(v)|\le C_p(\hG(h/\mu)^{1/2}+\hG^2+h^k)\tnorm v$ (proof of
+Theorem~\ref{td:main}); $\ell$ is bounded by Lemma~\ref{td:cancel} with $S=w$ of Lemma~\ref{td:w} and by
+$|\ip{v_\varphi-w}{\dn v}|\le C\hG^{k+1}\hG^{-1/2}\norm{\nabla v}$ (Lemma~\ref{td:vphi}), $|\ip{\dn v_\varphi}v|\le C(1+h^k\hG^{-1/2})\norm v_{\Gh}$;
+the convective term is $\le C(h/\mu)\norm{\nabla v}$ since $\norm{v_\varphi}_{H^1}\le C$. Because (L) is stated in the energy dual, this gives
+$\tnorm r\le C\beta_L^{-1}(h/\mu+\hG^2+\epsd)\le CX_3$ (use $\hG(h/\mu)^{1/2}\le\frac12(\hG^2+h/\mu)$ and $(h/\mu)h^k\hG^{-1/2}\le Ch^k$).
+Step~5: $\norm{\nabla v_\varphi}\le C$ and $\tnorm{v_\varphi}\le(\mu/h)^{1/2}(G+C\hG^2+Ch^k)+C$ from Lemma~\ref{td:vphi} and the Jacobian of
+Lemma~\ref{td:faces}(c). Step~6 uses only Lemma~\ref{ns:tri}.
+\item \emph{(iii), Corollary~\ref{ns:Bp}.} Step~2 is unchanged ($X_3/(h/\mu)^{1/2}\to0$ under the same hypotheses). Steps~3--4 use
+Corollary~\ref{cor:Bp} and Theorem~\ref{thm:B}(ii) in 3D, which are part of Theorem~\ref{td:main}.
+\item \emph{(iii), Theorem~\ref{ns:thmD}.} $|B^\ast(\eta,v)|\le2\norm\eta_{\Gh}(h/\mu)^{1/2}\tnorm v$ with $\norm\eta_{L^\infty(\Gh)}\le C\hG^k$; the fixed point is step~6 of
+Theorem~\ref{ns:thmGS}; the $H^1$ statement uses the flux proviso of Theorem~\ref{td:main} ($\hG\ge h^2$, flux exponent $k+1$).\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+What stays open in 3D: the Oseen leak limit (Theorem~\ref{hc:thm} is not part of Theorem~\ref{td:main}); the $\GS$ and $\CNS$ drag
+statements of Section~\ref{pd:sec} in 3D; (IS3) on unsplit meshes; and (R$_S^3$) itself, which for the cube minus a ball needs regularity at
+the edges and corners of the (convex) cube \cite{Dauge1989}. %% VERIFY: that Dauge1989 gives H^2 x H^1 for the Stokes problem on convex polyhedra.
+\end{remark}
+
+\subsection{What remains}\label{n2:open}
+\begin{itemize}
+\item (R$_S$) is assumed, as the paper does for $U$ and $Z_\psi$; the compactness results of Section~\ref{ns:branchsec} and Theorem~\ref{n2:Ldag} do
+not need it, but every statement that involves $U_O$, $Z^\dagger_\psi$ or an explicit $h_0$ does.
+\item The constant $C_\sharp$ in Theorem~\ref{n2:L} is explicit in terms of the paper's mesh constants but has not been evaluated numerically, and
+$C_R$, $\beta_O$ are not computed for any test case.
+\item Sharpness of the $\CNS$ drag rate $2$ at fixed $\gamma$ is open for Navier--Stokes, as for Stokes (Section~\ref{pd:sec:notproved}).
+\item A lower bound on the pairing capture fraction and the existence of $\lim d_h/\hG^{1/2}$ are open for Oseen, as for Stokes (\texttt{unifmu2}).
+\end{itemize}

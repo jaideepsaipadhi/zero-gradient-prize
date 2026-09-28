@@ -1,0 +1,5 @@
+theta = 30 deg: float max of F = 42.0641; certify F <= 43
+  F certificate: {'accepted': 3226, 'discarded': 831, 'split': 4056, 'worst': [20.8860906064510 +/- 3.46e-14], 'time_s': 0.2}
+  denominators: 1 | 1
+  float min of the kappa bound on a 401^2 grid: 2.156e-06 at (x1,y1)=(1.7321,1.7321)
+  CERTIFIED: kappa_T >= 2.1e-6 on all admissible (T1, T2) with min angle >= 30 deg: {'accepted': 650, 'discarded': 61, 'split': 710, 'min_lower': '[4.41497040342591e-12 +/- 1.44e-27]', 'time_s': 3.4}
