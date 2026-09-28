@@ -1,0 +1,15 @@
+(A) jet-system dimension at a corner vertex (reflex angle pi+theta), exact over QQ
+  m=1: lines=2  dim A_z=0  predicted=0
+  m=2: lines=3  dim A_z=0  predicted=0
+  m=3: lines=4  dim A_z=1  predicted=1
+  m=4: lines=5  dim A_z=2  predicted=2
+  m=5: lines=6  dim A_z=3  predicted=3
+  m=6: lines=7  dim A_z=4  predicted=4
+  m=2 collinear (e1 || s1, singular per (M1)): lines=2 dim A_z=1 predicted=1
+    kernel basis (G_1 | G_2 entries): [[Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)]]
+(D) gamma_k^2 = min_{p in P_{k-1}, p(vertex)=0} ||1-p||^2_{L2(T)}/|T|  (affine invariant, exact)
+  k=4: gamma_k^2 = 1/100 = 0.01
+  k=5: gamma_k^2 = 1/225 = 0.00444444
+  k=6: gamma_k^2 = 1/441 = 0.00226757
+  k=7: gamma_k^2 = 1/784 = 0.00127551
+  k=8: gamma_k^2 = 1/1296 = 0.000771605

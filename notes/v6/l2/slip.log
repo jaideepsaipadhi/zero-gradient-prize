@@ -1,0 +1,61 @@
+A   N=  16 CNS*  data=zero   L2=4.5813e-02  L2/hG^2=0.21697  H1=1.9802e-01  slip=7.654e-02  res=9.2e-16
+A   N=  16 CNS*  data=exact  L2=5.6745e-03  L2/hG^2=0.02687  H1=8.1551e-02  slip=1.580e-02  res=9.0e-16
+A   N=  16 CNS*  data=mean   L2=1.0892e-02  L2/hG^2=0.05158  H1=1.7519e-01  slip=2.205e-02  res=9.1e-16
+A   N=  16 GS    data=zero   L2=4.7288e-02  L2/hG^2=0.22396  H1=1.7168e-01  slip=8.114e-02  res=9.5e-16
+A   N=  16 ||V_h^FE||_L2=5.0314e-02  /hG^2=0.23829   (0s)
+B1  N=  16 CNS*  data=zero   L2=1.3190e-02  L2/hG^2=0.06247  H1=1.2882e-01  slip=2.227e-02  res=5.6e-16
+B1  N=  16 CNS*  data=exact  L2=9.0055e-03  L2/hG^2=0.04265  H1=1.1599e-01  slip=5.119e-03  res=5.1e-16
+B1  N=  16 CNS*  data=mean   L2=9.6959e-03  L2/hG^2=0.04592  H1=1.2362e-01  slip=6.752e-03  res=5.6e-16
+B1  N=  16 GS    data=zero   L2=2.9355e-02  L2/hG^2=0.13903  H1=1.3423e-01  slip=3.276e-02  res=6.1e-16
+B1  N=  16 ||V_h^FE||_L2=1.1671e-02  /hG^2=0.05528   (0s)
+A   N=  24 CNS*  data=zero   L2=2.1496e-02  L2/hG^2=0.20945  H1=1.0277e-01  slip=3.487e-02  res=1.1e-15
+A   N=  24 CNS*  data=exact  L2=2.4843e-03  L2/hG^2=0.02421  H1=5.0136e-02  slip=8.125e-03  res=1.1e-15
+A   N=  24 CNS*  data=mean   L2=4.0491e-03  L2/hG^2=0.03945  H1=9.2812e-02  slip=9.915e-03  res=1.1e-15
+A   N=  24 GS    data=zero   L2=2.1941e-02  L2/hG^2=0.21378  H1=8.8748e-02  slip=3.663e-02  res=1.1e-15
+A   N=  24 ||V_h^FE||_L2=2.3181e-02  /hG^2=0.22587   (1s)
+B1  N=  24 CNS*  data=zero   L2=5.1423e-03  L2/hG^2=0.05010  H1=4.4224e-02  slip=1.060e-02  res=7.3e-16
+B1  N=  24 CNS*  data=exact  L2=2.3559e-03  L2/hG^2=0.02295  H1=3.3185e-02  slip=2.912e-03  res=7.2e-16
+B1  N=  24 CNS*  data=mean   L2=2.6015e-03  L2/hG^2=0.02535  H1=4.0257e-02  slip=3.343e-03  res=7.2e-16
+B1  N=  24 GS    data=zero   L2=2.0189e-02  L2/hG^2=0.19671  H1=5.5919e-02  slip=1.980e-02  res=7.3e-16
+B1  N=  24 ||V_h^FE||_L2=5.3445e-03  /hG^2=0.05207   (1s)
+A   N=  32 CNS*  data=zero   L2=1.2400e-02  L2/hG^2=0.20766  H1=6.4135e-02  slip=1.979e-02  res=1.3e-15
+A   N=  32 CNS*  data=exact  L2=1.3880e-03  L2/hG^2=0.02324  H1=3.4219e-02  slip=4.893e-03  res=1.3e-15
+A   N=  32 CNS*  data=mean   L2=2.0360e-03  L2/hG^2=0.03410  H1=5.8952e-02  slip=5.578e-03  res=1.3e-15
+A   N=  32 GS    data=zero   L2=1.2584e-02  L2/hG^2=0.21073  H1=5.5483e-02  slip=2.068e-02  res=1.3e-15
+A   N=  32 ||V_h^FE||_L2=1.3198e-02  /hG^2=0.22101   (2s)
+B1  N=  32 CNS*  data=zero   L2=2.9511e-03  L2/hG^2=0.04942  H1=2.3424e-02  slip=6.124e-03  res=8.5e-16
+B1  N=  32 CNS*  data=exact  L2=1.4023e-03  L2/hG^2=0.02348  H1=1.5149e-02  slip=1.888e-03  res=8.3e-16
+B1  N=  32 CNS*  data=mean   L2=1.3722e-03  L2/hG^2=0.02298  H1=2.0816e-02  slip=1.983e-03  res=8.1e-16
+B1  N=  32 GS    data=zero   L2=1.5790e-02  L2/hG^2=0.26442  H1=3.7509e-02  slip=1.430e-02  res=8.4e-16
+B1  N=  32 ||V_h^FE||_L2=3.0332e-03  /hG^2=0.05079   (3s)
+A   N=  48 CNS*  data=zero   L2=5.6437e-03  L2/hG^2=0.20740  H1=3.3107e-02  slip=8.862e-03  res=1.6e-15
+A   N=  48 CNS*  data=exact  L2=6.2696e-04  L2/hG^2=0.02304  H1=1.9440e-02  slip=2.329e-03  res=1.6e-15
+A   N=  48 CNS*  data=mean   L2=7.8652e-04  L2/hG^2=0.02890  H1=3.1120e-02  slip=2.467e-03  res=1.6e-15
+A   N=  48 GS    data=zero   L2=5.6930e-03  L2/hG^2=0.20921  H1=2.8759e-02  slip=9.195e-03  res=1.6e-15
+A   N=  48 ||V_h^FE||_L2=5.9052e-03  /hG^2=0.21701   (9s)
+B1  N=  48 CNS*  data=zero   L2=1.3679e-03  L2/hG^2=0.05027  H1=1.1081e-02  slip=2.784e-03  res=1.1e-15
+B1  N=  48 CNS*  data=exact  L2=7.8059e-04  L2/hG^2=0.02869  H1=6.7261e-03  slip=9.914e-04  res=1.1e-15
+B1  N=  48 CNS*  data=mean   L2=6.3894e-04  L2/hG^2=0.02348  H1=9.9299e-03  slip=9.297e-04  res=1.1e-15
+B1  N=  48 GS    data=zero   L2=1.1053e-02  L2/hG^2=0.40619  H1=2.4609e-02  slip=9.346e-03  res=1.0e-15
+B1  N=  48 ||V_h^FE||_L2=1.3505e-03  /hG^2=0.04963   (8s)
+A   N=  64 CNS*  data=zero   L2=3.2102e-03  L2/hG^2=0.20786  H1=2.0824e-02  slip=4.999e-03  res=1.9e-15
+A   N=  64 CNS*  data=exact  L2=3.5954e-04  L2/hG^2=0.02328  H1=1.2880e-02  slip=1.357e-03  res=1.9e-15
+A   N=  64 CNS*  data=mean   L2=4.0371e-04  L2/hG^2=0.02614  H1=1.9830e-02  slip=1.380e-03  res=1.9e-15
+A   N=  64 GS    data=zero   L2=3.2286e-03  L2/hG^2=0.20905  H1=1.8148e-02  slip=5.166e-03  res=1.9e-15
+A   N=  64 ||V_h^FE||_L2=3.3248e-03  /hG^2=0.21528   (20s)
+B1  N=  64 CNS*  data=zero   L2=7.8745e-04  L2/hG^2=0.05099  H1=6.8337e-03  slip=1.581e-03  res=1.3e-15
+B1  N=  64 CNS*  data=exact  L2=5.0257e-04  L2/hG^2=0.03254  H1=4.2682e-03  slip=6.140e-04  res=1.2e-15
+B1  N=  64 CNS*  data=mean   L2=3.7286e-04  L2/hG^2=0.02414  H1=6.2348e-03  slip=5.365e-04  res=1.3e-15
+B1  N=  64 GS    data=zero   L2=8.5114e-03  L2/hG^2=0.55110  H1=1.8686e-02  slip=7.005e-03  res=1.3e-15
+B1  N=  64 ||V_h^FE||_L2=7.5748e-04  /hG^2=0.04905   (27s)
+A   N=  96 CNS*  data=zero   L2=1.4420e-03  L2/hG^2=0.20873  H1=1.0932e-02  slip=2.227e-03  res=2.3e-15
+A   N=  96 CNS*  data=exact  L2=1.6362e-04  L2/hG^2=0.02368  H1=7.1514e-03  slip=6.256e-04  res=2.3e-15
+A   N=  96 CNS*  data=mean   L2=1.5979e-04  L2/hG^2=0.02313  H1=1.0561e-02  slip=6.081e-04  res=2.3e-15
+A   N=  96 GS    data=zero   L2=1.4460e-03  L2/hG^2=0.20931  H1=9.5691e-03  slip=2.291e-03  res=2.3e-15
+A   N=  96 ||V_h^FE||_L2=1.4764e-03  /hG^2=0.21371   (138s)
+B1  N=  96 CNS*  data=zero   L2=3.5810e-04  L2/hG^2=0.05183  H1=3.5400e-03  slip=7.087e-04  res=1.5e-15
+B1  N=  96 CNS*  data=exact  L2=2.5741e-04  L2/hG^2=0.03726  H1=2.3312e-03  slip=3.036e-04  res=1.6e-15
+B1  N=  96 CNS*  data=mean   L2=1.7183e-04  L2/hG^2=0.02487  H1=3.3097e-03  slip=2.443e-04  res=1.5e-15
+B1  N=  96 GS    data=zero   L2=5.8325e-03  L2/hG^2=0.84426  H1=1.2701e-02  slip=4.699e-03  res=1.6e-15
+B1  N=  96 ||V_h^FE||_L2=3.3458e-04  /hG^2=0.04843   (109s)
+Killed

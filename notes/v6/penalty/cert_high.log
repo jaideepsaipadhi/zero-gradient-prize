@@ -1,0 +1,8 @@
+[rect star H=8] k=5: constraints rank 101, unknowns 126, div-free dim 25; float lambda* = -1.384966
+   EXACT: A - 2B + (-1)C positive definite on the whole div-free space: True  (min pivot 4.5778e-04, 2.3s)
+[rect star H=12] k=6: constraints rank 129, unknowns 168, div-free dim 39; float lambda* = -1.684107
+   EXACT: A - 2B + (-1)C positive definite on the whole div-free space: True  (min pivot 5.1710e-05, 4.5s)
+
+real	0m7.202s
+user	0m3.479s
+sys	0m0.036s

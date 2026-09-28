@@ -1,0 +1,23 @@
+[S3 regression] k=4: div-free dim 14; float lambda* = 9.978546; exact witness quotient = 9.978205; EXACT 2B - A - 99/10C > 0: True  (1.0s)
+[rect star H=5] k=4: constraints rank 76, unknowns 90, div-free dim 14; float lambda* = -1.180363
+   EXACT: A - 2B + (0)C positive definite on the whole div-free space: True  (min pivot 3.7338e-03, 0.9s)
+[rect star H=5] k=4: constraints rank 76, unknowns 90, div-free dim 14; float lambda* = -1.180363
+   EXACT: A - 2B + (-1)C positive definite on the whole div-free space: True  (min pivot 3.6704e-03, 0.6s)
+[rect star H=9/2] k=4: constraints rank 76, unknowns 90, div-free dim 14; float lambda* = -0.613438
+   EXACT: A - 2B + (-1/2)C positive definite on the whole div-free space: True  (min pivot 3.3532e-03, 0.5s)
+[edge patch (2 stars) H=8] k=4: constraints rank 124, unknowns 150, div-free dim 26; float lambda* = -1.168962
+   EXACT: A - 2B + (-1)C positive definite on the whole div-free space: True  (min pivot 5.7558e-03, 1.5s)
+[3 stars H=5] k=4: div-free dim 38; float lambda* = 1.247955; exact witness quotient = 1.244461; EXACT 2B - A - 1C > 0: True  (3.2s)
+[4 stars H=8] k=4: div-free dim 50; float lambda* = 0.331177; exact witness quotient = 0.330933; EXACT 2B - A - 1/4C > 0: True  (6.3s)
+[CONTROL rect star H=5 (lambda*=-1.1804 > -1.2)] k=4: constraints rank 76, unknowns 90, div-free dim 14; float lambda* = -1.180363
+   EXACT: A - 2B + (-6/5)C positive definite on the whole div-free space: False  (min pivot -3.8315e-02, 1.1s)
+[CONTROL S3 (lambda*=9.98)] k=4: constraints rank 76, unknowns 90, div-free dim 14; float lambda* = 9.978546
+   EXACT: A - 2B + (0)C positive definite on the whole div-free space: False  (min pivot -3.8265e-03, 0.7s)
+[CONTROL rect star H=4 (lambda*=+0.038)] k=4: constraints rank 76, unknowns 90, div-free dim 14; float lambda* = 0.038224
+   EXACT: A - 2B + (0)C positive definite on the whole div-free space: False  (min pivot -1.1104e-01, 0.8s)
+[CT rect star H=2] k=2: constraints rank 101, unknowns 108, div-free dim 7; float lambda* = -1.233273
+   EXACT: A - 2B + (-1)C positive definite on the whole div-free space: True  (min pivot 3.0903e-02, 1.5s)
+[CT rect star H=4] k=3: constraints rank 156, unknowns 180, div-free dim 24; float lambda* = -0.749229
+   EXACT: A - 2B + (-1/2)C positive definite on the whole div-free space: True  (min pivot 5.2459e-04, 5.8s)
+[CT rect star H=8] k=4: constraints rank 220, unknowns 270, div-free dim 50; float lambda* = -1.974780
+   EXACT: A - 2B + (-1)C positive definite on the whole div-free space: True  (min pivot 1.0062e-05, 22.6s)

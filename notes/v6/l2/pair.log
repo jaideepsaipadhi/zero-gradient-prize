@@ -1,0 +1,8 @@
+A N=  64 CNS* (e_u,phi)=1.096924e-02  -Lambda_h=1.131038e-02  ratio=0.96984  (diff)/hG^3=-0.1777
+A N=  64 GS   (e_u,phi)=1.110194e-02  -Lambda_h=1.131038e-02  ratio=0.98157  (diff)/hG^3=-0.1086
+A N=  96 CNS* (e_u,phi)=4.933629e-03  -Lambda_h=5.035188e-03  ratio=0.97983  (diff)/hG^3=-0.1769
+A N=  96 GS   (e_u,phi)=4.971718e-03  -Lambda_h=5.035188e-03  ratio=0.98739  (diff)/hG^3=-0.1105
+A   N=  96 mu=100 data=zero   max_m|F_m(e.n mean)|/hG^2=0.01310  max_m|F_m(e.tau mean)|/hG^2=0.23402  max_m|F_m(u~.tau mean)|/hG^2=0.23209  L2(e.n means)/hG^2=0.02676  L2(e.tau means - u~.tau means)/hG^2=0.00339
+A   N=  96 mu=100 data=mean   max_m|F_m(e.n mean)|/hG^2=0.01263  max_m|F_m(e.tau mean)|/hG^2=0.00419  max_m|F_m(u~.tau mean)|/hG^2=0.23209  L2(e.n means)/hG^2=0.03000  L2(e.tau means - u~.tau means)/hG^2=0.30161
+B1  N=  96 mu=100 data=zero   max_m|F_m(e.n mean)|/hG^2=0.00895  max_m|F_m(e.tau mean)|/hG^2=0.04671  max_m|F_m(u~.tau mean)|/hG^2=0.04632  L2(e.n means)/hG^2=0.02326  L2(e.tau means - u~.tau means)/hG^2=0.00108
+B1  N=  96 mu=100 data=mean   max_m|F_m(e.n mean)|/hG^2=0.00912  max_m|F_m(e.tau mean)|/hG^2=0.00076  max_m|F_m(u~.tau mean)|/hG^2=0.04632  L2(e.n means)/hG^2=0.02428  L2(e.tau means - u~.tau means)/hG^2=0.09394

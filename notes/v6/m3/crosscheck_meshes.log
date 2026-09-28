@@ -1,0 +1,7 @@
+N=   8: witness kappa min 0.00288 mean 0.00546 max 0.00803   (log, optimum over numerically computed Y^1(star): min 0.00288)
+N=  12: witness kappa min 0.00417 mean 0.00948 max 0.01879   (log, optimum over numerically computed Y^1(star): min 0.00417)
+N=  16: witness kappa min 0.00555 mean 0.01093 max 0.01790   (log, optimum over numerically computed Y^1(star): min 0.00555)
+N=  32: witness kappa min 0.00447 mean 0.01349 max 0.02331   (log, optimum over numerically computed Y^1(star): min 0.00447)
+N=  64: witness kappa min 0.00366 mean 0.01448 max 0.02523   (log, optimum over numerically computed Y^1(star): min 0.00366)
+N= 256: witness kappa min 0.00303 mean 0.01488 max 0.02601   (log, optimum over numerically computed Y^1(star): min 0.00303)
+N=1024: witness kappa min 0.00288 mean 0.01493 max 0.02610   (log, optimum over numerically computed Y^1(star): min 0.00288)

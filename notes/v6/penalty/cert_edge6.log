@@ -1,0 +1,4 @@
+[edge patch (2 stars) H=6] k=4: constraints rank 124, unknowns 150, div-free dim 26; float lambda* = -0.140402
+   EXACT: A - 2B + (-1/10)C positive definite on the whole div-free space: True  (min pivot 4.4194e-03, 1.2s)
+[CONTROL edge patch H=6 (lambda*=-0.1404 > -0.15)] k=4: constraints rank 124, unknowns 150, div-free dim 26; float lambda* = -0.140402
+   EXACT: A - 2B + (-3/20)C positive definite on the whole div-free space: False  (min pivot -1.7920e+04, 1.3s)

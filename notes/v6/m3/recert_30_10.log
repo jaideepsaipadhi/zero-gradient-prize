@@ -1,0 +1,2 @@
+F3(30,10) kappa_w >= 0.002: CERTIFIED=True {'certified': 203150, 'pruned': 154, 'symmetric': 6503, 'total': 419613, 'depth': 33, 'pending': 0} [96s]
+Fs(30,10) kappa_w >= 0.0012: CERTIFIED=True {'certified': 209555, 'pruned': 0, 'symmetric': 0, 'total': 419109, 'depth': 33, 'pending': 0} [79s]

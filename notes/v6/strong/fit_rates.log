@@ -1,0 +1,147 @@
+== strong, mesh (s): N, hG, H1, rate(hG), rate(h)
+  16 0.45951 4.62165e-01
+  24 0.32036 2.33124e-01  1.897  1.930
+  32 0.24437 1.43246e-01  1.798  1.860
+  48 0.16496 7.28685e-02  1.720  1.781
+  64 0.12427 4.55733e-02  1.657  1.708
+  96 0.08312 2.38441e-02  1.610  1.650
+ 128 0.06241 1.51781e-02  1.576  1.606
+ 160 0.04995 1.07296e-02  1.558  1.582
+ 192 0.04164 8.09661e-03  1.547  1.566
+== strong, mesh (s), vertex gradient error: N, hG, vgrad_err, rate(hG), rate(h)
+  16 0.45951 1.27909e+00
+  24 0.32036 7.38846e-01  1.522  1.548
+  32 0.24437 5.42301e-01  1.142  1.181
+  48 0.16496 3.90286e-01  0.837  0.867
+  64 0.12427 3.06822e-01  0.850  0.876
+  96 0.08312 2.12454e-01  0.914  0.936
+ 128 0.06241 1.61599e-01  0.955  0.973
+ 160 0.04995 1.30456e-01  0.962  0.976
+ 192 0.04164 1.09249e-01  0.975  0.987
+== strong, mesh (s), ||p_h|| (p = 0): N, hG, ph_L2, rate(hG), rate(h)
+  16 0.45951 3.03235e+00
+  24 0.32036 1.39888e+00  2.145  2.182
+  32 0.24437 8.04284e-01  2.044  2.114
+  48 0.16496 3.75248e-01  1.940  2.009
+  64 0.12427 2.22879e-01  1.839  1.896
+  96 0.08312 1.10217e-01  1.751  1.794
+ 128 0.06241 6.81271e-02  1.679  1.711
+ 160 0.04995 4.73096e-02  1.638  1.663
+ 192 0.04164 3.52779e-02  1.612  1.633
+== GS, mesh (s): N, hG, H1, rate(hG), rate(h)
+  16 0.45951 1.71677e-01
+  24 0.32036 8.87479e-02  1.829  1.861
+  32 0.24437 5.54827e-02  1.735  1.794
+  48 0.16496 2.87587e-02  1.672  1.731
+  64 0.12427 1.81479e-02  1.626  1.676
+  96 0.08312 9.56912e-03  1.591  1.630
+ 128 0.06241 6.11063e-03  1.565  1.595
+ 192 0.04164 3.26788e-03  1.547  1.569
+ 256 0.03124 2.10331e-03  1.533  1.549
+== CNS*, mesh (s): N, hG, H1, rate(hG), rate(h)
+  16 0.45951 1.98023e-01
+  24 0.32036 1.02772e-01  1.818  1.850
+  32 0.24437 6.41353e-02  1.741  1.801
+  48 0.16496 3.31074e-02  1.683  1.742
+  64 0.12427 2.08239e-02  1.637  1.688
+  96 0.08312 1.09318e-02  1.602  1.642
+ 128 0.06241 6.96173e-03  1.575  1.605
+ 192 0.04164 3.71130e-03  1.555  1.576
+ 256 0.03124 2.38453e-03  1.539  1.555
+== strong, one flipped quad (one locked vertex): N, hG, H1, rate(hG), rate(h)
+  16 0.45951 5.28539e-01
+  24 0.32036 3.06792e-01  1.508  1.534
+  32 0.24437 2.12265e-01  1.360  1.407
+  48 0.16496 1.30040e-01  1.247  1.291
+  64 0.12427 9.37588e-02  1.155  1.191
+  96 0.08312 6.03913e-02  1.094  1.121
+ 128 0.06241 4.46351e-02  1.055  1.075
+ 192 0.04164 2.93397e-02  1.037  1.052
+==   its vgrad: N, hG, vgrad_err, rate(hG), rate(h)
+  16 0.45951 1.60000e+00
+  24 0.32036 1.38461e+00  0.401  0.408
+  32 0.24437 1.28000e+00  0.290  0.300
+  48 0.16496 1.18032e+00  0.206  0.214
+  64 0.12427 1.13270e+00  0.145  0.150
+  96 0.08312 1.18506e+00  -0.112  -0.115
+ 128 0.06241 1.30923e+00  -0.348  -0.354
+ 192 0.04164 1.43364e+00  -0.224  -0.227
+== strong, mesh (a): N, hG, H1, rate(hG), rate(h)
+  16 0.45951 9.03028e-01
+  24 0.32036 6.91283e-01  0.741  0.754
+  32 0.24437 5.72436e-01  0.697  0.720
+  48 0.16496 4.44315e-01  0.645  0.668
+  64 0.12427 3.74630e-01  0.602  0.621
+  96 0.08312 2.97687e-01  0.572  0.586
+ 128 0.06241 2.54319e-01  0.549  0.560
+== ratio strong/GS on mesh (s)
+  16 2.6921
+  24 2.6268
+  32 2.5818
+  48 2.5338
+  64 2.5112
+  96 2.4918
+ 128 2.4839
+ 192 2.4776
+== fits of strong, mesh (s), N>=32, weighted by 1/E (relative residuals)
+  a h^1.5 + b h^2              coef=[0.7836 0.7701]  max rel resid=1.82e-02
+  a h^1.5 + b h^2.5            coef=[0.9025 1.1402]  max rel resid=4.00e-03
+  a h^1.5 + b h^2 + c h^2.5    coef=[ 0.9417 -0.2498  1.5027]  max rel resid=5.39e-04
+  a h^1 + b h^1.5              coef=[-0.0691  1.2649]  max rel resid=5.12e-02
+  a h^1 + b h^2                coef=[0.117  1.9697]  max rel resid=2.33e-02
+  a h^2 + b h^2.5              coef=[ 5.6323 -6.9166]  max rel resid=9.61e-02
+== E/hG^1.5 and first differences against hG (model E = a hG^1.5 (1 + beta hG))
+  16 E/hG^1.5 = 1.48375
+  24 E/hG^1.5 = 1.28564   d(E/hG^1.5)/d(hG) = 1.4238
+  32 E/hG^1.5 = 1.18582   d(E/hG^1.5)/d(hG) = 1.3135
+  48 E/hG^1.5 = 1.08760   d(E/hG^1.5)/d(hG) = 1.2370
+  64 E/hG^1.5 = 1.04024   d(E/hG^1.5)/d(hG) = 1.1638
+  96 E/hG^1.5 = 0.99505   d(E/hG^1.5)/d(hG) = 1.0981
+ 128 E/hG^1.5 = 0.97353   d(E/hG^1.5)/d(hG) = 1.0389
+ 160 E/hG^1.5 = 0.96104   d(E/hG^1.5)/d(hG) = 1.0033
+ 192 E/hG^1.5 = 0.95289   d(E/hG^1.5)/d(hG) = 0.9798
+  predicted local rate 1.5 + beta*hG/(1+beta*hG) with beta = b/a of the 2-term fit a h^1.5 + b h^2.5:
+    16->  24: predicted 1.827  observed 1.897
+    24->  32: predicted 1.761  observed 1.798
+    32->  48: predicted 1.703  observed 1.720
+    48->  64: predicted 1.653  observed 1.657
+    64->  96: predicted 1.614  observed 1.610
+    96-> 128: predicted 1.584  observed 1.576
+   128-> 160: predicted 1.566  observed 1.558
+   160-> 192: predicted 1.555  observed 1.547
+  extrapolated local rate near N=256: 1.538
+  extrapolated local rate near N=384: 1.526
+  extrapolated local rate near N=512: 1.519
+  extrapolated local rate near N=1024: 1.510
+== one locked vertex: locked part L = sqrt(E_one^2 - E_std^2) and its rate
+  16 L = 2.56431e-01  L/hG = 0.5581
+  24 L = 1.99436e-01  L/hG = 0.6225  rate 0.697
+  32 L = 1.56643e-01  L/hG = 0.6410  rate 0.892
+  48 L = 1.07706e-01  L/hG = 0.6529  rate 0.953
+  64 L = 8.19378e-02  L/hG = 0.6593  rate 0.966
+  96 L = 5.54848e-02  L/hG = 0.6675  rate 0.969
+ 128 L = 4.19752e-02  L/hG = 0.6726  rate 0.974
+ 192 L = 2.82004e-02  L/hG = 0.6772  rate 0.983
+== solver health of the v6 runs
+  strong N=16: relres=9.0e-16 divres=1.0e-11 flux=2.7e-13 secs=1 rss=0.13GB
+  strong N=24: relres=1.1e-15 divres=2.2e-11 flux=4.0e-13 secs=2 rss=0.20GB
+  strong N=32: relres=1.3e-15 divres=3.9e-11 flux=5.4e-13 secs=3 rss=0.31GB
+  strong N=48: relres=1.6e-15 divres=8.6e-11 flux=8.0e-13 secs=12 rss=0.77GB
+  strong N=64: relres=2.9e-15 divres=4.3e-09 flux=1.1e-12 secs=7 rss=0.53GB
+  strong N=96: relres=2.4e-15 divres=4.9e-09 flux=1.6e-12 secs=30 rss=1.06GB
+  strong N=128: relres=2.7e-15 divres=5.4e-09 flux=2.1e-12 secs=15 rss=1.75GB
+  strong N=160: relres=3.0e-15 divres=5.9e-09 flux=2.7e-12 secs=23 rss=2.73GB
+  strong N=192: relres=3.3e-15 divres=6.4e-09 flux=3.2e-12 secs=102 rss=3.88GB
+  one N=16: relres=3.2e-13 divres=1.9e-08 flux=2.7e-13 secs=0 rss=0.14GB
+  one N=24: relres=2.7e-13 divres=4.5e-08 flux=4.0e-13 secs=1 rss=0.17GB
+  one N=32: relres=2.4e-13 divres=8.0e-08 flux=5.4e-13 secs=1 rss=0.21GB
+  one N=48: relres=2.0e-13 divres=1.8e-07 flux=7.9e-13 secs=2 rss=0.35GB
+  one N=64: relres=1.8e-13 divres=3.3e-07 flux=1.1e-12 secs=3 rss=0.53GB
+  one N=96: relres=1.5e-13 divres=7.7e-07 flux=1.6e-12 secs=7 rss=1.09GB
+  one N=128: relres=1.3e-13 divres=1.4e-06 flux=2.1e-12 secs=13 rss=1.75GB
+  one N=192: relres=1.1e-13 divres=3.2e-06 flux=3.2e-12 secs=33 rss=3.90GB
+== free-exponent fit E = a h^p (1 + b h) over 4 consecutive levels (grid on p)
+  N in [32, 48, 64, 96]: p = 1.457, a = 0.7798, b = 1.3759, resid = 3.8e-04
+  N in [48, 64, 96, 128]: p = 1.475, a = 0.8285, b = 1.2798, resid = 2.6e-04
+  N in [64, 96, 128, 160]: p = 1.484, a = 0.8556, b = 1.2111, resid = 1.2e-04
+  N in [96, 128, 160, 192]: p = 1.491, a = 0.8789, b = 1.1329, resid = 3.5e-05

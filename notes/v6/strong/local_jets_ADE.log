@@ -1,0 +1,37 @@
+(A) jet-system dimension at a corner vertex (reflex angle pi+theta), exact over QQ
+  m=1: lines=2  dim A_z=0  predicted=0
+  m=2: lines=3  dim A_z=0  predicted=0
+  m=3: lines=4  dim A_z=1  predicted=1
+  m=4: lines=5  dim A_z=2  predicted=2
+  m=5: lines=6  dim A_z=3  predicted=3
+  m=6: lines=7  dim A_z=4  predicted=4
+  m=2 collinear (e1 || s1, singular per (M1)): lines=2 dim A_z=1 predicted=1
+    kernel basis (G_1 | G_2 entries): [[Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)]]
+(D) gamma_k^2 = min_{p in P_{k-1}, p(vertex)=0} ||1-p||^2_{L2(T)}/|T|  (affine invariant, exact)
+  k=4: gamma_k^2 = 1/100 = 0.01
+  k=5: gamma_k^2 = 1/225 = 0.00444444
+  k=6: gamma_k^2 = 1/441 = 0.00226757
+  k=7: gamma_k^2 = 1/784 = 0.00127551
+  k=8: gamma_k^2 = 1/1296 = 0.000771605
+(E) inscribed star at z=(1,0), chord half-angle ~ t; c = tau(x)n = [[0,0],[1,0]];
+    d^2 = min_{G in A_z} sum_T |G_T - c|_F^2 (exact), and d/t
+  m=2 t=1/10: dim A_z=0  d^2=2.000000e+00  d=1.414214e+00  d/t=14.142136
+  m=2 t=1/20: dim A_z=0  d^2=2.000000e+00  d=1.414214e+00  d/t=28.284271
+  m=2 t=1/40: dim A_z=0  d^2=2.000000e+00  d=1.414214e+00  d/t=56.568542
+  m=2 t=1/80: dim A_z=0  d^2=2.000000e+00  d=1.414214e+00  d/t=113.137085
+  m=2 t=1/160: dim A_z=0  d^2=2.000000e+00  d=1.414214e+00  d/t=226.274170
+  m=3 t=1/10: dim A_z=1  d^2=8.092758e-02  d=2.844777e-01  d/t=2.844777
+  m=3 t=1/20: dim A_z=1  d^2=2.045044e-02  d=1.430050e-01  d/t=2.860101
+  m=3 t=1/40: dim A_z=1  d^2=5.116300e-03  d=7.152832e-02  d/t=2.861133
+  m=3 t=1/80: dim A_z=1  d^2=1.278050e-03  d=3.574982e-02  d/t=2.859986
+  m=3 t=1/160: dim A_z=1  d^2=3.192920e-04  d=1.786874e-02  d/t=2.858999
+  m=4 t=1/10: dim A_z=2  d^2=6.636339e-02  d=2.576109e-01  d/t=2.576109
+  m=4 t=1/20: dim A_z=2  d^2=1.708318e-02  d=1.307027e-01  d/t=2.614053
+  m=4 t=1/40: dim A_z=2  d^2=4.325450e-03  d=6.576815e-02  d/t=2.630726
+  m=4 t=1/80: dim A_z=2  d^2=1.087722e-03  d=3.298062e-02  d/t=2.638450
+  m=4 t=1/160: dim A_z=2  d^2=2.726945e-04  d=1.651346e-02  d/t=2.642154
+  m=5 t=1/10: dim A_z=3  d^2=7.399589e-02  d=2.720218e-01  d/t=2.720218
+  m=5 t=1/20: dim A_z=3  d^2=1.999440e-02  d=1.414016e-01  d/t=2.828031
+  m=5 t=1/40: dim A_z=3  d^2=5.187877e-03  d=7.202692e-02  d/t=2.881077
+  m=5 t=1/80: dim A_z=3  d^2=1.320599e-03  d=3.634005e-02  d/t=2.907204
+  m=5 t=1/160: dim A_z=3  d^2=3.330952e-04  d=1.825090e-02  d/t=2.920143

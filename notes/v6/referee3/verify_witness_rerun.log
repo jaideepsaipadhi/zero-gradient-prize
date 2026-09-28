@@ -1,0 +1,16 @@
+[111.5s] boundary and C^1 checks: {'vanish+grad on ray p0': True, 'vanish+grad on ray p3': True, 'vanish+grad on edge p0p1': True, 'vanish+grad on edge p1p2': True, 'vanish+grad on edge p2p3': True, 'C1 across ray p1': True, 'C1 across ray p2': True}
+[114.0s] means/moments: {'mean zero on p0': True, 'moment on p0': True, 'mean zero on p3': True, 'moment on p3': True}
+[114.8s] ALL:
+    vanish+grad on ray p0 : True
+    vanish+grad on ray p3 : True
+    vanish+grad on edge p0p1 : True
+    vanish+grad on edge p1p2 : True
+    vanish+grad on edge p2p3 : True
+    C1 across ray p1 : True
+    C1 across ray p2 : True
+    mean zero on p0 : True
+    moment on p0 : True
+    mean zero on p3 : True
+    moment on p3 : True
+    angular form of A, A3 (max abs err, 200 random fans) : 1.4210854715202004e-14
+ALL CHECKS PASSED

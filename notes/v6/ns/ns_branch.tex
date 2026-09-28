@@ -1,0 +1,178 @@
+%% notes/v6/ns/ns_branch.tex -- drop-in material for Section ns (11_navier_stokes.tex) and §pd:sec:ns.
+%% Uses the paper's macros (\GS, \CNS, \Oh, \Gh, \hG, \tnorm, \ip, \ut, \pt, \Zh, \VR, \VO, \Pih, \Aop, \Rc, ...).
+%% Status labels: PROVED / PROVED MODULO X / SKETCH.  Nothing here has been inserted into paper/.
+%% Notation clash in the paper: c_1 is both the Nitsche coercivity constant (Lemma lem:coercive) and the
+%% convective form.  Here the coercivity constant is written c_N.
+
+\subsection{Nonsingular branches}\label{ns:branchsec}
+
+Throughout, ``admissible'' means a mesh satisfying (M0)--(M2) with fixed constants and a penalty $\mu\ge\mu_0=4\kappa\rho C_I^2$
+($\gamma\ge\gamma_0$ suffices); $\rho$ is unrestricted. We use repeatedly
+\begin{equation}\label{nb:hmu}
+\frac h\mu\le\frac{\min_e|e|}{4\kappa C_I^2}\le\frac{\hG}{4\kappa C_I^2},\qquad C_I\Bigl(\frac\rho\mu\Bigr)^{1/2}\le(4\kappa)^{-1/2}.
+\end{equation}
+Let $V:=\{v\in H^1_0(\Omega)^2:\div v=0\}$ and $\mathcal V:=\{\varphi\in C^\infty_c(\Omega)^2:\div\varphi=0\}$, which is dense in $V$ since $\Omega$ is
+Lipschitz \cite[Ch.~I, Thm~1.6]{Temam}. The Oseen operator $L:V\to V'$ is
+\[
+\langle Lw,v\rangle:=\nu(\nabla w,\nabla v)_\Omega+((w\cdot\nabla)u,v)_\Omega+((u\cdot\nabla)w,v)_\Omega .
+\]
+On $V$, $\frac12(Dw,Dv)=(\nabla w,\nabla v)$, and $c_1=c_s$ there (Lemma~\ref{ns:bdry}), so $L$ is the common limit of both discrete linearisations.
+
+\begin{enumerate}
+\item[(H$_{\rm ns}$)] $L$ is injective on $V$.
+\end{enumerate}
+Since $L=\nu L_0+K_u$ with $L_0$ coercive and $K_u$ compact (after $((u\cdot\nabla)w,v)=-((u\cdot\nabla)v,w)$, $K_u$ factors through
+$L^2\hookrightarrow V'$), (H$_{\rm ns}$) is equivalent to $L$ being an isomorphism, i.e.\ to $(u,p)$ being a nonsingular solution in the
+sense of Brezzi--Rappaz--Raviart \cite{BRR1980} and \cite[Ch.~IV]{GiraultRaviart}.
+Only $\ut\in W^{1,\infty}$ near $\overline\Omega$, $\div\ut=0$ and (H$_{\rm ns}$) are used below; neither the Navier--Stokes equation nor $u|_\Gamma=0$ is.
+
+\begin{lemma}[The convective perturbation is $L^2$-controlled]\label{nb:K}
+Let $w\in W^{1,\infty}(\Oh)^2$ with $\div w=0$, $K_w(\delta,v):=c(\delta;w,v)+c(w;\delta,v)$ with $c=c_1$ or $c_s$. For $\delta,v\in H^1(\Oh)^2$ vanishing on $\partial R$,
+\[
+|K_w(\delta,v)|\le C_K\norm\delta\,\norm{\nabla v}+\norm w_{L^\infty(\Gh)}\norm\delta_{\Gh}\norm v_{\Gh},\qquad C_K:=C_F\norm{\nabla w}_\infty+2\norm w_\infty .
+\]
+In particular, with $K:=K_{\ut}$ and $\norm{\ut}_{L^\infty(\Gh)}\le C_e\hG^2$ (Lemma~\ref{lem:ext}), for $\delta,v\in\VR$,
+\begin{equation}\label{nb:K2}
+|K(\delta,v)|\le\Bigl[C_K\norm\delta+C_e\hG^2\frac h\mu\tnorm\delta\Bigr]\tnorm v .
+\end{equation}
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{ns:bdry} with transporting field $w$, $((w\cdot\nabla)\delta,v)=-((w\cdot\nabla)v,\delta)+\ip{(w\cdot n)\delta}v$. For $c_1$:
+$|((\delta\cdot\nabla)w,v)|\le\norm{\nabla w}_\infty\norm\delta C_F\norm{\nabla v}$ and $|c_1(w;\delta,v)|\le\norm w_\infty\norm{\nabla v}\norm\delta+\norm w_{L^\infty(\Gh)}\norm\delta_{\Gh}\norm v_{\Gh}$.
+For $c_s$: $|c_s(\delta;w,v)|\le\frac12(C_F\norm{\nabla w}_\infty+\norm w_\infty)\norm\delta\norm{\nabla v}$, and
+$c_s(w;\delta,v)=-((w\cdot\nabla)v,\delta)+\frac12\ip{(w\cdot n)\delta}v$. For \eqref{nb:K2} use $\norm{\nabla v}\le\tnorm v$ and $\norm\delta_{\Gh}\norm v_{\Gh}\le\frac h\mu\tnorm\delta\tnorm v$.
+\end{proof}
+
+\begin{lemma}[Strip and trace transfer]\label{nb:strip}
+For $v\in H^1(\Oh)^2$ with $v|_{\partial R}=0$: (a) $\norm v_{L^2(S_h)}\le C\hG^{1/2}\norm{\nabla v}$; (b) $\norm v_{L^2(\Gamma)}\le\sqrt2\norm v_{\Gh}+C\hG\norm{\nabla v}_{S_h}$.
+\end{lemma}
+\begin{proof}
+(a) $|S_h|\le C\hG^2$ and the uniform $L^4$ bound in the proof of Lemma~\ref{ns:tri}: $\norm v_{L^2(S_h)}\le|S_h|^{1/4}\norm v_{L^4(\Oh)}$.
+(b) In polar form $S_h=\{\rho_h(\theta)<r<1\}$, $1-\rho_h\le C\hG^2$; $|v(1,\theta)-v(\rho_h,\theta)|^2\le(1-\rho_h)\rho_h^{-1}\int_{\rho_h}^1|\partial_rv|^2r\,dr$; integrate in $\theta$; the arclength of $\Gh$ is at least $\rho_h\,d\theta\ge\frac12d\theta$. Density.
+\end{proof}
+
+\begin{lemma}[Discrete test fields]\label{nb:test}
+Let $\varphi\in\mathcal V$, $\operatorname{supp}\varphi\subset\mathcal K\Subset\Omega$, $d=\dist(\mathcal K,\partial\Omega)$, $h<d/2$. There is $\varphi_h=I_h\varphi-w_h\in\Zh\cap\VO$ with $w_h\in\VO$,
+$\norm{\nabla w_h}\le C\beta^{-1}h^k$ and $\tnorm{\varphi_h-\varphi}\le Ch^k$ ($C$ depending on $\varphi$). In particular $\varphi_h|_{\Gh}=0$ and $\dn\varphi_h=-\dn w_h$ on $\Gh$.
+\end{lemma}
+\begin{proof}
+$\Gh\subset\overline D$, so $\dist(\mathcal K,\partial\Oh)\ge d$ and elements meeting $\mathcal K$ do not touch $\partial\Oh$: $I_h\varphi\in\VO$ and vanishes on the first layer.
+$\div I_h\varphi=\div(I_h\varphi-\varphi)\in\Pih$ has zero mean; Lemma~\ref{lem:infsup} gives $w_h$. On $\Gh$, $\varphi_h-\varphi=-w_h=0$ and $\sum_e|e|\norm{\dn w_h}^2_e\le C_I^2\norm{\nabla w_h}^2$.
+\end{proof}
+
+\begin{lemma}[Compactness and limit]\label{nb:limit}
+Let (mesh$_j$,$\mu_j$) be admissible with $h_j\to0$, $\delta_j\in Z_{h_j}$, $\tnorm{\delta_j}\le1$. Along a subsequence there is $\delta\in V$ with
+(i) $\delta_j|_\Omega\rightharpoonup\delta$ in $H^1(\Omega)$; (ii) $\norm{\delta_j}_{L^2(\Omega_{h_j})}\to\norm\delta_{L^2(\Omega)}$; (iii) for every $\varphi\in\mathcal V$ and $\varphi_j:=\varphi_{h_j}$ of Lemma~\ref{nb:test},
+$\sup_j\tnorm{\varphi_j}<\infty$ and $\Aop_j(\delta_j,\varphi_j)\to\langle L\delta,\varphi\rangle$, for $c=c_1$ and $c=c_s$.
+\end{lemma}
+\begin{proof}
+\begin{enumerate}
+\item $\Omega\subset\Omega_{h_j}$ and Lemma~\ref{ns:tri}(a) give $\norm{\delta_j}_{H^1(\Omega)}\le C_1$; extract a weak limit; Rellich and compactness of the trace give strong convergence in $L^2(\Omega)$ and $L^2(\partial\Omega)$.
+\item $\div\delta=0$, $\delta|_{\partial R}=0$, and by Lemma~\ref{nb:strip}(b) and \eqref{nb:hmu}, $\norm{\delta_j}_{L^2(\Gamma)}\le\sqrt2(h_j/\mu_j)^{1/2}+C\hG\to0$, so $\delta\in V$. (ii) follows from Lemma~\ref{nb:strip}(a).
+\item Since $\varphi_j|_{\Gh}=0$: $N_h(\delta_j,\varphi_j)=a_h(\delta_j,\varphi_j)+\ip{\delta_j}{\dn w_{h_j}}$, and $|\ip{\delta_j}{\dn w_{h_j}}|\le(h/\mu)^{1/2}C_I(\rho/h)^{1/2}\norm{\nabla w_{h_j}}\le Ch_j^k$ by \eqref{nb:hmu}.
+$a_h(\delta_j,\varphi_j-\varphi)\to0$ and $a_h(\delta_j,\varphi)=\frac12(D\delta_j,D\varphi)_\Omega\to(\nabla\delta,\nabla\varphi)_\Omega$.
+\item $|K(\delta_j,\varphi_j-\varphi)|\le2N\norm{\ut}_{H^1}C_1\norm{\nabla(\varphi_j-\varphi)}\to0$ (Lemma~\ref{ns:tri}). $K(\delta_j,\varphi)$ is an integral over $\operatorname{supp}\varphi\subset\Omega$ of terms linear in
+$(\delta_j,\nabla\delta_j)$ with fixed $L^2$ coefficients, so it converges to $c(\delta;u,\varphi)+c(u;\delta,\varphi)=((\delta\cdot\nabla)u+(u\cdot\nabla)\delta,\varphi)$ (the boundary terms of Lemma~\ref{ns:bdry} vanish since $\varphi$ has compact support).\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[(L) from nonsingularity]\label{nb:L}
+Assume (H$_{\rm ns}$) and either convective form. There are $h_0,\beta_L>0$, depending on $u,\nu,k,L$ and the mesh constants but not on $\mu$, $\gamma$ or $\rho$, such that
+(L) holds for every admissible mesh with $h\le h_0$ and every $\mu\ge\mu_0$. The adjoint of $\Aop$ on $\Zh$ satisfies (L) with the same constant.
+\end{theorem}
+\begin{proof}
+For $\delta\in\Zh$, Lemma~\ref{lem:coercive} and \eqref{nb:K2} give the G\aa rding inequality
+\[
+\nu c_N\tnorm\delta\le\norm{\Aop(\delta,\cdot)}_{\ast,\Zh}+C_K\norm\delta+C_e\hG^2\tfrac h\mu\tnorm\delta .
+\]
+If the theorem fails, there are admissible (mesh$_j$,$\mu_j$), $h_j\to0$, and $\delta_j\in Z_{h_j}$ with $\tnorm{\delta_j}=1$, $\norm{\Aop_j(\delta_j,\cdot)}_\ast\to0$. By G\aa rding and \eqref{nb:hmu},
+$\liminf\norm{\delta_j}\ge\nu c_N/C_K$. Lemma~\ref{nb:limit} gives $\delta\in V$ with $\norm\delta_{L^2(\Omega)}\ge\nu c_N/C_K>0$ and, for $\varphi\in\mathcal V$,
+$\langle L\delta,\varphi\rangle=\lim\Aop_j(\delta_j,\varphi_j)=0$ since $|\Aop_j(\delta_j,\varphi_j)|\le\norm{\Aop_j(\delta_j,\cdot)}_\ast\tnorm{\varphi_j}$. By density $L\delta=0$, so $\delta=0$: contradiction.
+The adjoint statement holds because the inf-sup constant of a square system is its smallest singular value in the $\tnorm\cdot$ norms.
+\end{proof}
+
+\begin{theorem}[(L$^\ast$) from nonsingularity]\label{nb:Lstar}
+Assume (H$_{\rm ns}$) and $\gamma\ge\gamma_2'$ (the Stokes threshold of Lemma~\ref{ns:SD}). There are $h_0,\beta_\ast>0$, independent of $\mu,\gamma,\rho$, such that (L$^\ast$) holds for $h\le h_0$.
+\end{theorem}
+\begin{proof}
+Lemma~\ref{ns:SD} with $\ut$ replaced by $0$ ($\lambda=0$; its proof does not use the equation for $\ut$) gives, for $\gamma\ge\gamma_2'$, unique solvability of
+$\nu N_h(\delta,v)+B^\ast(\xi,v)=\ell(v)$ on $\VR$ with $\nu\tnorm\delta\le C_S\norm\ell_{\ast,\VR}$. If $(\delta,\xi)$ solves the (L$^\ast$) system, then it solves this Stokes system with data $\ell-K(\delta,\cdot)$, so by \eqref{nb:K2}
+\[
+\nu\tnorm\delta\le C_S\bigl[\norm\ell_{\ast,\VR}+C_K\norm\delta+C_e\hG^2\tfrac h\mu\tnorm\delta\bigr].
+\]
+Assume the a priori bound $\beta_\ast\tnorm\delta\le\norm\ell_\ast$ fails along $h_j\to0$ with $\tnorm{\delta_j}=1$, $\norm{\ell_j}_\ast\to0$. Then $\liminf\norm{\delta_j}\ge\nu/(C_SC_K)$.
+The fields $\varphi_j\in Z_{h_j}\cap V_{O}$ of Lemma~\ref{nb:test} have $\div\varphi_j=0$ and $\varphi_j|_{\Gh}=0$, so $B^\ast(\xi_j,\varphi_j)=0$ and $\Aop_j(\delta_j,\varphi_j)=\ell_j(\varphi_j)\to0$.
+As in Theorem~\ref{nb:L}, the limit $\delta\ne0$ satisfies $L\delta=0$: contradiction. For $\ell=0$ the bound gives $\delta=0$, then $\xi=0$ by the Stokes uniqueness; the system is square (Lemma~\ref{lem:divrange}).
+\end{proof}
+
+\begin{remark}
+Theorems~\ref{nb:L}--\ref{nb:Lstar} replace (SD) in Theorems~\ref{ns:thmGS}, \ref{ns:thmD}, Corollary~\ref{ns:Bp} and Proposition~\ref{pd:prop:ns}, whose proofs use (SD) only through (L), (L$^\ast$).
+The constants $h_0,\beta_L,\beta_\ast$ are not explicit. The linearisation is at $\ut$, so the leak enters only through the $C_e\hG^2h/\mu$ term.
+Local uniqueness improves to an $h$-independent ball: the contraction of step~6 of Theorem~\ref{ns:thmGS} works on $\{\tnorm{\delta-\delta_0}\le R_0\}$, $R_0:=\beta_L/(8NC_1^2)$, as soon as
+$A=\norm{\ut-z}_{H^1}+C_1\norm{\nabla\delta_0}\le\beta_L/(8NC_1)$: then $A+C_1R_0\le\beta_L/(4NC_1)$, the Lipschitz constant $2\beta_L^{-1}NC_1(A+C_1R_0)$ is at most $\frac12$, and
+$\tnorm{\Phi(\delta)-\delta_0}\le\beta_L^{-1}N(A+C_1R_0)^2\le\beta_L/(16NC_1^2)\le R_0$. Same for $\CNS$ with $\beta_\ast$.
+\end{remark}
+
+\subsection{The Oseen leak flow}\label{nb:oseen}
+
+Let $(U_O,P_O)$ solve
+\[
+-\nu\Delta U_O+(U_O\cdot\nabla)u+(u\cdot\nabla)U_O+\nabla P_O=0,\quad \div U_O=0\ \text{in }\Omega,\qquad U_O=-(p-\pbar)n\ \text{on }\Gamma,\quad U_O=0\ \text{on }\partial R,
+\]
+with the Navier--Stokes pressure $p$. Under (H$_{\rm ns}$) it exists and is unique: $U_O=w+W$ with $w=\curl\varphi$ of Section~\ref{sec:printed} and $W\in V$, $LW=-\nu(\nabla w,\nabla\cdot)-K_u(w,\cdot)$.
+\textbf{(R$_O$)}: $U_O\in H^2(\Omega)$ and $(U_O,P_O)$ is smooth up to $\Gamma$ (Stokes $H^2$-regularity with $L^2$ right-hand side $-K_uU_O$, and bootstrapping near $\Gamma$; assumed here as the paper assumes it for $U$).
+Extend $U_O=\curl\Psi_O$ to $\tilde U_O=\curl\tilde\Psi_O$ and $P_O$ to $\tilde P_O$; $F_O:=-\nu\Delta\tilde U_O+(\tilde U_O\cdot\nabla)\ut+(\ut\cdot\nabla)\tilde U_O+\nabla\tilde P_O$ is bounded and supported in $\overline{S_h}$.
+Lemma~\ref{hc:approx} applies verbatim and gives $z_O\in\Zh$ with $\tnorm{\tilde U_O-z_O}\le E_O$.
+
+\begin{theorem}[Oseen analogue of Theorem~\ref{hc:thm}; PROVED MODULO (R$_O$)]\label{nb:hc}
+Assume (NS1)--(NS2), (H$_{\rm ns}$), (R$_O$), $\gamma\ge\gamma_0$, $h\le h_0$, either form. Let $\delta_R\in\Zh$ solve $\Aop(\delta_R,v)=\Rc(v)$ on $\Zh$. Then
+\[
+\Bigl\|\nabla\Bigl(\frac{\nu\mu}h\delta_R-\tilde U_O\Bigr)\Bigr\|_{\Oh}\le C_O\Bigl[\nu\min\bigl(\gamma\hG^{1/2},(\gamma\hG)^{1/2}\bigr)+(1+\nu)\bigl(\hG^{1/2}+(h/\mu)^{1/2}\bigr)+E_O\Bigr].
+\]
+\end{theorem}
+\begin{proof}
+Let $\epsilon:=\delta_R-\frac h{\nu\mu}z_O$. As in Lemma~\ref{lem:erroreq}, using the Oseen equation, $\div v=0$, $v|_{\partial R}=0$ and $\int_{\Gh}v\cdot n=0$,
+\[
+\Aop(\tilde U_O,v)=(F_O,v)+\ip{\sigma_O}v-\nu\ip{\tilde U_O}{\dn v}+\nu\frac\mu h\ip{\tilde U_O}v+\kappa_O(v),\qquad \sigma_O:=\nu(\nabla\tilde U_O)^{\mathsf T}n-(\tilde P_O-c)n,
+\]
+with $\kappa_O=0$ for $c_1$ and $\kappa_O(v)=-\frac12\ip{(\tilde U_O\cdot n)\ut+(\ut\cdot n)\tilde U_O}v=O(\hG^2)\norm v_{\Gh}$ for $c_s$. Hence, with $\zeta:=(\pt-\pbar)n+\tilde U_O$,
+\[
+\Aop(\epsilon,v)=-\ip\zeta v-\frac h{\nu\mu}\Bigl[(F_O,v)+\ip{\sigma_O}v-\nu\ip{\tilde U_O}{\dn v}+\kappa_O(v)\Bigr]+\frac h{\nu\mu}\Aop(\tilde U_O-z_O,v).
+\]
+Steps~3--4 of Theorem~\ref{hc:thm} apply verbatim ($\tilde U_O|_\Gamma=\tilde U|_\Gamma$): $|\ip\zeta v|\le C\min(\hG^{3/2},\hG(h/\mu)^{1/2})\tnorm v$, $|(F_O,v)|\le C\hG^2\tnorm v$,
+$|\ip{\sigma_O}v|\le C(h/\mu)^{1/2}\tnorm v$, $|\ip{\tilde U_O}{\dn v}|\le C((h/\mu)^{1/2}+\hG^{1/2})\tnorm v$ (Lemma~\ref{lem:cancel}), and
+$|\Aop(\tilde U_O-z_O,v)|\le(\nu M+2NC_1\norm{\ut}_{H^1})E_O\tnorm v$. Apply (L) (Theorem~\ref{nb:L}) and multiply by $\nu\mu/h$.
+\end{proof}
+
+\begin{corollary}[The Navier--Stokes $H^1$ constant; PROVED MODULO (R$_O$)]\label{nb:KNS}
+For the $\GS$ solution, $\norm{\nabla(\frac{\nu\mu}h(\ut-u_h)-\tilde U_O)}\le(\text{bound of Theorem~\ref{nb:hc}})+C\frac{\nu\mu}h[(1+\gamma^{1/2})\hG^{3/2}+\eps+X^2]$.
+Under the hypotheses of Corollary~\ref{hc:cor}(ii) and $G>0$,
+\[
+\frac{\norm{\nabla(\ut-u_h)}}{(h/\nu\mu)G}\to K_{NS}:=\frac{\norm{\nabla U_O}_{L^2(\Omega)}}G,\qquad K_{NS}^2=K_S^2+\frac{\norm{\nabla(U_O-U_S)}^2}{G^2}\ge K_S^2,
+\]
+where $U_S$ is the Stokes leak flow (Definition~\ref{hc:def}) with the same wall pressure; equality iff $(U_S\cdot\nabla)u+(u\cdot\nabla)U_S$ is a gradient. For test P ($u=0$), $K_{NS}=K_P=2.7565157$ for every $\nu$.
+\end{corollary}
+\begin{proof}
+$\ut-u_h=(\ut-z)+\delta_R+\delta_G+(\delta-\delta_0)$ with the bounds of Theorem~\ref{ns:thmGS}; $(\mu/h)X^2\le3[h/\mu+\gamma(1+\gamma^{1/2})^2\hG^2+(\mu/h)\eps^2]\to0$.
+For the identity, $W=U_O-U_S\in V$ and $(\nabla U_S,\nabla W)=0$ (weak Stokes equation), cf.\ \eqref{hc:min}.
+\end{proof}
+
+\begin{corollary}[$\GS$ drag for Navier--Stokes; PROVED MODULO (R$_O$), (R$^\dagger$)]
+For a rigid motion $\psi$, let $(Z^\dagger_\psi,R^\dagger_\psi)$ solve $-\nu\Delta Z-(u\cdot\nabla)Z+(\nabla u)^{\mathsf T}Z+\nabla R=0$, $\div Z=0$, $Z|_\Gamma=\psi$, $Z|_{\partial R}=0$
+(well posed since $L^{\mathsf T}$ is an isomorphism), with $Z^\dagger_\psi\in H^2$ near $\Gamma$ (R$^\dagger$). Under the hypotheses of Corollary~\ref{nb:KNS},
+\[
+J^N_h(\psi)=J_\psi-\frac h{\nu\mu}K^\dagger_\psi-\Theta_f(\psi)+o(h/\mu),\qquad K^\dagger_\psi=\int_\Gamma\sigma_\nu(U_O,P_O)n\cdot\psi=\int_\Gamma(p-\pbar)(R^\dagger_\psi-\bar R^\dagger_\psi),
+\]
+and the remainder is $O(h^{3/2})$ for fixed $\gamma$, bounded $\rho$, $\eps\le Ch^k$.
+\end{corollary}
+\begin{proof}
+In Proposition~\ref{pd:prop:ns}(c) write $e=\frac h{\nu\mu}\tilde U_O+\vartheta$ with $\norm{\vartheta}_{H^1}=o(h/\mu)$ (Corollary~\ref{nb:KNS} and the lift $E$), and $|c(e;e,v_\psi)|\le CX^2$.
+By the Green formula above with $v=v_\psi$, $v_\psi=\psi$ on $S_h$, symmetry of $\sigma$, skewness of $\nabla\psi$ and $\div\sigma_\nu(\tilde U_O,\tilde P_O)=-F_O+(\tilde U_O\cdot\nabla)\ut+(\ut\cdot\nabla)\tilde U_O$ on $S_h$,
+the divergence theorem on $S_h$ gives $\nu a_h(\tilde U_O,v_\psi)+K(\tilde U_O,v_\psi)=J_\psi(U_O)+O(\hG^2)$.
+Reciprocity: Green's formula on $\Omega$ for both problems, with $((u\cdot\nabla)U,Z)=-((u\cdot\nabla)Z,U)$ ($u|_\Gamma=0$, $U|_{\partial R}=0$), gives
+$J_\psi(U_O)=\int_\Gamma\sigma_\nu(Z,R)n\cdot U_O$. On $\Gamma$, $U_O=-(p-\pbar)n$ and $n\cdot D(Z)n=2\partial_n(Z-\psi)\cdot n=2\div(Z-\psi)=0$.
+\end{proof}
+
+%% Not proved here: adjoint (L*) for CNS* (needed for the rate-2 CNS* drag); uniform-in-mu convergence to U_O;
+%% explicit h_0; 3D and general domains (sketch: pull back by Phi_h, Lemma gd:lem:korn; (IS3) in 3D).
+%% Bib keys to add: BRR1980 (Brezzi-Rappaz-Raviart, Numer. Math. 36 (1980) 1-25), GiraultRaviart (Springer 1986), Temam (Navier-Stokes Equations).
