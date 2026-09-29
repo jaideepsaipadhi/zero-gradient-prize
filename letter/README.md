@@ -5,8 +5,8 @@
 | file | contents |
 |---|---|
 | `letter.tex` | Manuscript source (elsarticle). |
-| `refs.bib` | The 18 cited entries only, built from `notes/v5/refs_letter.bib` and `paper/refs.bib` (MorganScott1975, NeilanOtus2021), plus ChenLiu2026, with the VERIFY comments kept. Cavalcante's author field is "de Souza Cavalcante, Claudemir" (record: "Claudemir de Souza Cavalcante"). `PadhiExt` is the extended version, which will be posted as Zenodo **version 3**. Its DOI is the placeholder `10.5281/zenodo.XXXXXXXX`, marked `%% FILL v3 DOI`. |
-| `highlights.txt` | 5 highlights, 64–84 characters each. |
+| `refs.bib` | The cited entries only (20 in v8; BrambleDupontThomee1972 and DupontGuzmanScott2025 now cited), built from `notes/v5/refs_letter.bib` and `paper/refs.bib` (MorganScott1975, NeilanOtus2021), plus ChenLiu2026, with the VERIFY comments kept. Cavalcante's author field is "de Souza Cavalcante, Claudemir" (record: "Claudemir de Souza Cavalcante"). `PadhiExt` is the extended version, which will be posted as Zenodo **version 3**. Its DOI is the placeholder `10.5281/zenodo.XXXXXXXX`, marked `%% FILL v3 DOI`. |
+| `highlights.txt` | 5 highlights, 75–85 characters each. |
 | `cover_letter.txt` | Cover letter to the editor, joint (first person plural), with a FILL line for Cavalcante. |
 | `letter.pdf` | The `[3p,times]` build. This is the page-count reference. |
 | `letter_5p.pdf` | The `[5p,times]` two-column build, for checking only. |
@@ -25,7 +25,7 @@ This runs pdflatex, bibtex, then pdflatex twice, for `letter`. It then does the 
 
 - **3p (`letter.pdf`): 6 pages**, including references and declarations. The limit is 6, and the last page is full (v6): anything Cavalcante adds must be offset by cuts.
 - **5p (`letter_5p.pdf`): 5 pages.**
-- **Abstract:** 230 words (limit 250).
+- **Abstract:** 205 words (limit 250).
 - **Keywords:** 5.
 - **Build:**
   - No undefined references or citations, and no bibtex warnings.
@@ -35,10 +35,10 @@ This runs pdflatex, bibtex, then pdflatex twice, for `letter`. It then does the 
 ## Checklist against the AML guide for authors
 
 - [x] At most 6 journal pages (3p estimate: 6).
-- [x] Abstract of at most 250 words (230). It stands alone: it defines the setting, k, h_Γ and h_Ω in words.
+- [x] Abstract of at most 250 words (205). It stands alone: it defines the setting, k, h_Γ and h_Ω in words.
 - [x] 1–7 keywords (5).
-- [x] Highlights file: 3–5 bullets of at most 85 characters each, including spaces (5 bullets, 64–84).
-- [x] Numbered references in elsarticle-num style; only cited works are listed (18).
+- [x] Highlights file: 3–5 bullets of at most 85 characters each, including spaces (5 bullets, 75–85).
+- [x] Numbered references in elsarticle-num style; only cited works are listed (20).
 - [x] Declaration of competing interest. It states that the question is the subject of a prize offered by L. R. Scott and that the authors intend to submit this work for it; there are no other competing interests.
 - [x] Data availability cites the GitHub repository and the Zenodo v3 record, which will also archive the code and data. The DOI is a placeholder.
 - [x] Generative-AI declaration:

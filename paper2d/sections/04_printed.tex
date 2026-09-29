@@ -1,0 +1,249 @@
+\section{The printed method: the leak law}\label{sec:printed}
+
+Throughout this section $u_h$ is the velocity of $\GS$ and $\gamma\ge\gamma_0$, so that $N_h$ is coercive (Lemma~\ref{lem:coercive}). The error equation of Corollary~\ref{cor:GSerr} has two right-hand sides. The geometric part $\Gc$ is of Scott's order. The traction part $\Rc(v)=-\ip{\pt-\pbar}{v\cdot n}$ is of order one; it is a normal load on the wall, and the only term of $N_h$ that can balance a normal load of order one on the wall is the penalty. This suggests that $u_h$ carries a normal wall velocity $(h/\mu)(p-\pbar)$. We now make this precise: first in the energy norm, where the leak is seen directly, then in the $H^1$ seminorm, where incompressibility improves the rate, and finally at the level of the exact leading term and its $H^1$ constant.
+
+\subsection{A divergence-free field with prescribed normal trace}
+All lower bounds need a discrete divergence-free field whose trace on the wall looks like the leak. Let
+\[
+\varphi_0(\theta):=\int_0^\theta(p-\pbar)(\theta')\,d\theta',
+\]
+which is periodic because $p-\pbar$ has zero mean on $\Gamma$, and let $\varphi:=\chi_1(r)\varphi_0(\theta)$ with a cut-off $\chi_1$ equal to $1$ near $r=1$ and $0$ near $\partial R$. Then $w:=\curl\varphi$ satisfies
+\[
+w=(p-\pbar)e_r=-(p-\pbar)\,n\qquad\text{on }\Gamma .
+\]
+Let $\Pi_{k+1}$ be the $C^1$ piecewise-$P_{k+1}$ interpolant of Morgan and Scott \cite{MorganScott1975} (for $k=4$, the Argyris interpolant \cite{Argyris1968}); it exists because $k+1\ge5$. The field $v_\varphi:=\curl\Pi_{k+1}\varphi$ is continuous, piecewise $P_k$, divergence-free and vanishes near $\partial R$, so $v_\varphi\in\Zh$, and $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^k$.
+
+\subsection{The energy norm: rate exactly one half}
+
+\begin{theorem}[Energy error of the printed method]\label{thm:A}
+The error of $\GS$ satisfies
+\[
+\tnorm{\ut-u_h}\le C\Bigl[(h/\mu)^{1/2}G+(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
+\]
+If $G>0$ and $h\le h_0(G)$, with $h_0$ independent of $\gamma\ge\gamma_0$, then also
+\[
+\tnorm{\ut-u_h}\ge(2M)^{-1}(h/\mu)^{1/2}G-C\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
+\]
+In particular, for $G=0$ the printed method satisfies $\tnorm{\ut-u_h}\le C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$, which is Scott's expected estimate.
+\end{theorem}
+
+\begin{proof}
+\emph{Upper bound.} For $z\in\Wh$ the difference $e_h:=z-u_h$ lies in $\Zh$. By Corollary~\ref{cor:GSerr} and Lemma~\ref{lem:coercive},
+\[
+c_1\tnorm{e_h}^2\le N_h(z-\ut,e_h)+\Rc(e_h)+\Gc(e_h).
+\]
+With the Jacobian bound of Lemma~\ref{lem:chords}, $|\Rc(e_h)|\le(G+C\hG^2)\norm{e_h}_{\Gh}\le(G+C\hG^2)(h/\mu)^{1/2}\tnorm{e_h}$. Lemmas~\ref{lem:erroreq} and~\ref{lem:approx} bound the other two terms.
+
+\emph{Lower bound.} On a chord, $v_\varphi\cdot n_e=-(p-\pbar)(x^\ast)\,n(x^\ast)\cdot n_e+O(h^k)$ and $n(x^\ast)\cdot n_e=1+O(s^2)$, so
+\[
+\Rc(v_\varphi)=G^2+O(\hG^2+h^k),\qquad \tnorm{v_\varphi}^2\le\frac\mu h\bigl(G+C\hG^2+Ch^k\bigr)^2+C .
+\]
+By continuity of $N_h$, $M\tnorm{\ut-u_h}\ge(|\Rc(v_\varphi)|-|\Gc(v_\varphi)|)/\tnorm{v_\varphi}$, and the quotient $|\Rc(v_\varphi)|/\tnorm{v_\varphi}$ is at least $\frac12(h/\mu)^{1/2}G$ once $h\le h_0(G)$.
+\end{proof}
+
+The lower bound is carried by the slip part $(\mu/h)^{1/2}\norm{\cdot}_{\Gh}$ of the energy norm. When $G>0$, $\gamma\hG\ll G$ and $\eps\ll(h/\mu)^{1/2}G$, the energy error is therefore $\asymp(h/\mu)^{1/2}$: the energy rate is exactly $\frac12$. The $H^1$ seminorm behaves better.
+
+\subsection{The \texorpdfstring{$H^1$}{H1} seminorm: incompressibility turns a normal load into a tangential derivative}
+A normal velocity of size $h/\mu$ on the chords, lifted into the domain by a generic discrete field, costs $(h/\mu)\hG^{-1/2}$ in $H^1$, because the lift oscillates on the element scale. The following lemma shows that divergence-free fields do not pay this price for \emph{normal} loads.
+
+\begin{lemma}[Normal-load cancellation]\label{lem:cancel}
+Let $S$ be edgewise $W^{1,\infty}$ on $\Gh$, continuous at the vertices of $\Gh$, with $|S\cdot\tau_e|\le C\hG$ on every $e\in\EG$ (for instance $S$ smooth with $S\cdot\tau=0$ on $\Gamma$). Then for $v\in\Zh$,
+\[
+|\ip{S}{\dn v}|\le C\bigl(\norm{v}_{\Gh}+\hG^{1/2}\norm{\nabla v}\bigr)\le C\norm{\nabla v}.
+\]
+\end{lemma}
+
+\begin{proof}
+The tangential part of $S$ is small: $|\ip{(S\cdot\tau)\tau}{\dn v}|\le C\hG\norm{\dn v}_{\Gh}\le C\hG^{1/2}\norm{\nabla v}$ by Lemma~\ref{lem:inverse} and (M0). For the normal part, $v$ is a polynomial on the triangle $T_e$ with $\div v=0$, so on $e$
+\[
+\dn v\cdot n_e=\dn(v\cdot n_e)=-\dt(v\cdot\tau_e).
+\]
+With $\sigma_e:=S\cdot n_e$, integration by parts along the chord gives
+\[
+\int_e\sigma_e\,\dn v\cdot n_e=\int_e\dt\sigma_e\,(v\cdot\tau_e)-\bigl[\sigma_e\,v\cdot\tau_e\bigr]_{\partial e}.
+\]
+At a polygon vertex $x$ shared by $e$ and $e'$ the endpoint terms combine to $v(x)\cdot(\sigma_{e'}\tau_{e'}-\sigma_e\tau_e)$, which is of size $C(|e|+|e'|)|v(x)|$ because $S$ is continuous and the chords turn by $O(\hG)$. Summing, $\sum_e|e|\norm{v}_{L^\infty(e)}\le C|\Gh|^{1/2}\norm{v}_{\Gh}$, and Lemma~\ref{lem:korn} finishes.
+\end{proof}
+
+Computations confirm that this is exactly what incompressibility buys: the discrete dual norm of $v\mapsto\ip{S}{\dn v}$ stays bounded on $\Zh$ for normal $S$, but grows like $\hG^{-1/2}$ on $\VR$ and also on $\Zh$ for tangential $S$ (Table~\ref{tab:lemma}).
+
+\begin{theorem}[$H^1$ error of the printed method]\label{thm:C}
+With $C_p:=C(1+\norm{p-\pbar}_{W^{1,\infty}(\Gamma)})$,
+\[
+\norm{\nabla(\ut-u_h)}\le C_p\,\frac h\mu+C\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
+\]
+\end{theorem}
+
+\begin{proof}
+\emph{Split.} For $z\in\Wh$ write $z-u_h=\delta_R+\delta_G$ with $\delta_R,\delta_G\in\Zh$ defined by
+\[
+N_h(\delta_R,v)=\Rc(v),\qquad N_h(\delta_G,v)=\Gc(v)-N_h(\ut-z,v)\qquad\forall v\in\Zh .
+\]
+The geometric part is bounded in energy by coercivity: $\norm{\nabla\delta_G}\le\tnorm{\delta_G}\le C(1+\gamma^{1/2})\hG^{3/2}+CE_h$.
+
+\emph{Ansatz for the traction part.} We expect $\delta_R\approx(h/\mu)w$, with $w=-(p-\pbar)n$ on the wall. Put $r_h:=\delta_R-(h/\mu)v_\varphi\in\Zh$. Then $N_h(r_h,v)=m(v)+\ell(v)$ with
+\[
+m(v):=-\ip{(\pt-\pbar)n+v_\varphi}{v},\qquad
+\ell(v):=-\frac h\mu\bigl[a_h(v_\varphi,v)-\ip{\dn v_\varphi}{v}-\ip{v_\varphi}{\dn v}\bigr].
+\]
+The penalty applied to $(h/\mu)v_\varphi$ has cancelled the traction up to the mismatch $m$.
+
+\emph{The mismatch.} On a chord, $(\pt-\pbar)n_e+v_\varphi=(p-\pbar)(x^\ast)(n_e-n(x^\ast))+O(\hG^2+h^k)=(p-\pbar)(m_e^\ast)\,s\,\tau_e+O(\hG^2+h^k)$. The leading term is odd in $s$ with constant coefficient, and the argument of Lemma~\ref{lem:transposed} gives $|m(v)|\le C_p(\hG^{3/2}+h^k)\norm{\nabla v}$.
+
+\emph{The remaining terms.} $|a_h(v_\varphi,v)|+|\ip{\dn v_\varphi}{v}|\le C_p\norm{\nabla v}$. The dangerous term is $\ip{v_\varphi}{\dn v}$, which a trace-inverse estimate would bound only by $\hG^{-1/2}\norm{\nabla v}$. But $v_\varphi$ is within $Ch^k$ of the normal field $w$, so Lemma~\ref{lem:cancel} applies:
+\[
+|\ip{v_\varphi}{\dn v}|\le|\ip{w}{\dn v}|+|\ip{v_\varphi-w}{\dn v}|\le C_p\norm{\nabla v}+Ch^k\hG^{-1/2}\norm{\nabla v}.
+\]
+Hence $|\ell(v)|\le(h/\mu)(C_p+Ch^k\hG^{-1/2})\norm{\nabla v}$.
+
+\emph{Close.} Testing with $v=r_h$ and using $(h/\mu)h^k\hG^{-1/2}=\gamma^{-1}h^k\hG^{1/2}\le Ch^k$,
+\[
+\norm{\nabla\delta_R}\le\frac h\mu\norm{\nabla v_\varphi}+\norm{\nabla r_h}\le C_p\frac h\mu+C(\hG^{3/2}+\eps).
+\]
+Collect $\ut-u_h=(\ut-z)+\delta_R+\delta_G$.
+\end{proof}
+
+\begin{remark}[Why rate one and not one half]
+Without incompressibility Lemma~\ref{lem:cancel} would give only $C\hG^{-1/2}$, and the $H^1$ error would be $(h/\mu)\hG^{-1/2}$, with an element-scale oscillation in the trace. The inconsistency $-pn$ is purely \emph{normal}, and $\div v=0$ converts $\dn v\cdot n$ into a tangential derivative, which can be moved onto the smooth load. This is why the printed method still converges at rate $1$ in $H^1$.
+\end{remark}
+
+The rate $h/\mu$ is sharp. The next theorem shows that, as long as the traction term dominates, the slip is of size exactly $(h/\mu)G$, and the $H^1$ error cannot be smaller.
+
+\begin{theorem}[Slip and $H^1$ lower bounds]\label{thm:B}
+Let $G>0$ and let $X:=C_p(h/\mu)+(1+\gamma^{1/2})\hG^{3/2}+\eps$ be the bound of Theorem~\ref{thm:C}. Suppose that, for a fixed small $\delta$,
+\[
+X\le\delta\,G\min(G,\hG^{1/2}),\qquad h/\mu\le\delta G,\qquad \hG\le h_0(G),
+\]
+which holds for fixed $\gamma$ and bounded $\rho$ as $\hG\to0$. Then
+\[
+c\,\frac h\mu G\le\norm{\ut-u_h}_{L^2(\Gh)}\le\Bigl(\frac h\mu\Bigr)^{1/2}\tnorm{\ut-u_h},\qquad
+\norm{\nabla(\ut-u_h)}\ge c\,\frac h\mu G-Ch^{k+1/2}.
+\]
+Together with Theorem~\ref{thm:C}, $\norm{\nabla(\ut-u_h)}\asymp h/\mu$ in this regime.
+\end{theorem}
+
+\begin{proof}
+Let $e_u:=\ut-u_h$ and $v:=v_\varphi$. Corollary~\ref{cor:GSerr} rearranges to
+\[
+\frac\mu h\ip{e_u}{v}=\Rc(v)+\Gc(v)-a_h(e_u,v)+\ip{\dn e_u}{v}+\ip{e_u}{\dn v}.
+\]
+We bound the five terms on the right, using that $v$ is smooth up to $O(h^k)$.
+\begin{enumerate}
+\item $\Rc(v)=G^2+O(\hG^2+h^k)$, as in the proof of Theorem~\ref{thm:A}.
+\item $|\Gc(v)|\le C(\hG^{3/2}+\gamma\hG^3+\gamma\hG h^k)$. The only term that could be large is the penalty part $(\mu/h)\ip{\ut}{v}$; but on the chords $\ut$ is tangential to leading order (the chordal bump \eqref{eq:bump}) while $v\approx-(p-\pbar)n$ is normal, so $\ut\cdot v=O(\hG^4+\hG^2h^k)$.
+\item $|a_h(e_u,v)|\le C_p\norm{\nabla e_u}\le C_pX\le C_p\delta G^2$ by Theorem~\ref{thm:C}.
+\item By Theorem~\ref{thm:A} and $h/\mu\le\delta G$, $|\ip{e_u}{\dn v}|\le C_p\norm{e_u}_{\Gh}\le C_p(h/\mu)^{1/2}\tnorm{e_u}\le C_p[(h/\mu)G+X]\le2C_p\delta G^2$.
+\item Split $e_u=(\ut-z)+(z-u_h)$ with $z\in\Wh$ from Lemma~\ref{lem:approx}; by Lemma~\ref{lem:inverse}, $|\ip{\dn e_u}{v}|\le\norm{\dn(\ut-z)}_{\Gh}\norm{v}_{\Gh}+C(\rho/h)^{1/2}(\norm{\nabla(z-\ut)}+\norm{\nabla e_u})\norm{v}_{\Gh}\le C\hG^{-1/2}XG\le C\delta G^2$.
+\end{enumerate}
+For $\delta$ small, $|\ip{e_u}{v}|\ge\frac12(h/\mu)G^2$. Dividing by $\norm{v}_{\Gh}\le G+C\hG^2$ gives the lower bound for the slip; the upper bound is the definition of $\tnorm\cdot$. For the $H^1$ bound, let $E\in H^1(\Oh)$ lift $(g-\gI)|_{\partial R}$ with $E|_{\Gh}=0$ and $\norm{E}_{H^1}\le Ch^{k+1/2}$; Lemma~\ref{lem:korn} applied to $e_u-E$ gives $\norm{e_u}_{\Gh}\le C_{\mathrm{tr}}(\norm{\nabla e_u}+\norm{\nabla E})$.
+\end{proof}
+
+\subsection{The leading term}
+We can now identify the error itself, not only its size.
+
+\begin{corollary}[Exact leading term]\label{cor:Bp}
+Let $G>0$ and let $\hG\to0$ with $h/\mu\to0$, $\gamma\hG\to0$ and $\eps/(h/\mu)^{1/2}\to0$ (for example $\gamma$ fixed, $\rho$ bounded). Then
+\[
+\ut-u_h=\frac h\mu\,v_\varphi+\vartheta_h,\qquad \tnorm{\vartheta_h}=o\bigl((h/\mu)^{1/2}\bigr),\qquad \norm{\vartheta_h}_{\Gh}=o(h/\mu),
+\]
+and consequently
+\[
+\frac{\norm{\ut-u_h}_{L^2(\Gh)}}{(h/\mu)\,G}\longrightarrow1,\qquad\frac{\tnorm{\ut-u_h}}{(h/\mu)^{1/2}G}\longrightarrow1 .
+\]
+\end{corollary}
+
+\begin{proof}
+In the notation of the proof of Theorem~\ref{thm:C}, $\ut-u_h=(\ut-z)+(h/\mu)v_\varphi+r_h+\delta_G$. The same energy argument gives $\tnorm{r_h}\le C_p(h/\mu+\hG^{3/2})+C\eps$, and $\tnorm{\delta_G}+\tnorm{\ut-z}\le C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$; on $\Gh$ each of these carries the extra factor $(h/\mu)^{1/2}$. Relative to $(h/\mu)^{1/2}G$ and $(h/\mu)G$ they are $o(1)$ under the hypotheses. Finally $\norm{v_\varphi}_{\Gh}=G(1+O(\hG^2))+O(h^k)$ and $\tnorm{v_\varphi}^2=(\mu/h)\norm{v_\varphi}^2_{\Gh}+O(1)$.
+\end{proof}
+
+Since $v_\varphi\approx-(p-\pbar)n$ on $\Gh$, the printed method replaces the no-slip condition by the leak condition
+\[
+\frac\mu h\,u_h\cdot n\approx p-\pbar\qquad\text{on }\Gh,
+\]
+with universal constant $1$ in the slip and energy norms (Figure~\ref{fig:leak}). The leak does not change the total mass: since $\int_\Gamma(p-\pbar)=0$, the fluid that leaves through the parts of the wall where the pressure is above its mean re-enters where it is below, and the net flux through $\Gh$ is exactly that dictated by the outer data. What is violated is the local no-penetration condition, by an amount proportional to the local excess pressure. The picture is that of a slightly porous wall whose permeability is $h/\mu$; as $h\to0$ with $\mu$ fixed, the wall becomes impermeable at rate $h$. This is the sharp answer to Scott's question for the printed method: \emph{the estimate $\hG^{3/2}+h^k$ holds if and only if $p$ is constant on $\Gamma$}, and otherwise the error is the explicit leak field.
+
+\subsection{The \texorpdfstring{$H^1$}{H1} constant is a Stokes flow}\label{sec:leakflow}
+Corollary~\ref{cor:Bp} identifies the slip and energy constants but not the $H^1$ constant $\norm{\nabla(\ut-u_h)}\mu/(hG)$, because the remainder $r_h$ has the same $H^1$ order as $(h/\mu)v_\varphi$. The correct $H^1$ description is global: the leak drives a Stokes flow in the whole domain.
+
+\begin{definition}[Leak flow]\label{def:leak}
+Let $(U,P)$ solve $-\Delta U+\nabla P=0$, $\div U=0$ in $\Omega$, with $U=-(p-\pbar)n$ on $\Gamma$ and $U=0$ on $\partial R$, and put $K:=\norm{\nabla U}_{L^2(\Omega)}/G$.
+\end{definition}
+
+The data are compatible ($\int_\Gamma U\cdot n=0$), and $U$ minimises the Dirichlet energy among divergence-free fields with these boundary values. In particular $K$ depends on $p|_\Gamma$ \emph{and} on the outer boundary.
+
+\begin{theorem}[The leak flow is the $H^1$ limit]\label{thm:hc}
+Let $\tilde U$ be a smooth divergence-free extension of $U$ across $\Gamma$. For $\GS$ with $\gamma\ge\gamma_0$,
+\[
+\begin{aligned}
+\Bigl\|\nabla\Bigl(\frac\mu h(\ut-u_h)-\tilde U\Bigr)\Bigr\|_{\Oh}&\le C_U\Bigl[\min\bigl(\gamma\hG^{1/2},(\gamma\hG)^{1/2}\bigr)+\hG^{1/2}+(h/\mu)^{1/2}+E_U\Bigr]\\
+&\quad+C\frac\mu h\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr],
+\end{aligned}
+\]
+where $E_U:=h+(1+(\gamma\hG)^{1/2})h^k+(1+\gamma^{1/2})\hG^{\sigma_k-1/2}$ is an approximation error for $\tilde U$ and $C_U$ depends on norms of $p$ and $U$ near $\Gamma$.
+Consequently, if $\hG\to0$ with $h/\mu\to0$, $\gamma\hG\to0$, $\gamma(1+\gamma^{1/2})\hG^{1/2}\to0$ and $(\mu/h)\eps\to0$ (all of which hold for fixed $\gamma$ and bounded $\rho$),
+\[
+\frac{\norm{\nabla(\ut-u_h)}}{(h/\mu)\,G}\longrightarrow K .
+\]
+\end{theorem}
+
+\begin{proof}
+We treat the traction response $\delta_R$ of the proof of Theorem~\ref{thm:C}; the rest of the error, $(\ut-z)+\delta_G$, is bounded in energy by $C[(1+\gamma^{1/2})\hG^{3/2}+\eps]$, which after multiplication by $\mu/h$ is the last term of the bound. By a variant of Lemma~\ref{lem:approx} (with $g=0$ and only $H^2$ regularity of $U$ away from $\Gamma$) there is $z_U\in\Zh$ with $\tnorm{\tilde U-z_U}\le CE_U$. Put $\epsilon:=\delta_R-(h/\mu)z_U\in\Zh$. For $v\in\Zh$,
+\[
+N_h(\epsilon,v)=\Rc(v)-\frac h\mu N_h(\tilde U,v)+\frac h\mu N_h(\tilde U-z_U,v).
+\]
+\emph{Green's formula for $\tilde U$.} Let $\tilde P$ extend $P$ and $F_U:=-\Delta\tilde U+\nabla\tilde P$, which vanishes on $\Omega$, is bounded and is supported in the strip. As in Lemma~\ref{lem:erroreq}, since $\div v=0$, $v|_{\partial R}=0$ and $\int_{\Gh}v\cdot n=0$,
+\[
+N_h(\tilde U,v)=(F_U,v)+\ip{\sigma_U}{v}-\ip{\tilde U}{\dn v}+\frac\mu h\ip{\tilde U}{v},\qquad\sigma_U:=(\nabla\tilde U)^{\mathsf T}n-(\tilde P-c)n .
+\]
+\emph{Cancellation of the penalty terms.} With $\Rc(v)=-\ip{(\pt-\pbar)n}{v}$ the error equation becomes
+\[
+N_h(\epsilon,v)=-\ip{\zeta}{v}-\frac h\mu\Bigl[(F_U,v)+\ip{\sigma_U}{v}-\ip{\tilde U}{\dn v}\Bigr]+\frac h\mu N_h(\tilde U-z_U,v),\qquad\zeta:=(\pt-\pbar)n+\tilde U .
+\]
+\emph{The mismatch.} Since $\tilde U(x^\ast)=-(p-\pbar)(x^\ast)n(x^\ast)$, Lemma~\ref{lem:chords} gives $\zeta=(p-\pbar)(m_e^\ast)\,s\,\tau_e+O(\hG^2)$ on each chord, odd in $s$ to leading order. As in Lemma~\ref{lem:transposed}, $|\ip{\zeta}{v}|\le C\hG^{3/2}\norm{\nabla v}$; alternatively $\norm{\zeta}_{\Gh}\le C\hG$ gives $|\ip{\zeta}{v}|\le C\hG(h/\mu)^{1/2}\tnorm v$.
+
+\emph{The $O(h/\mu)$ terms.} $|(F_U,v)|\le C\hG^2\norm{\nabla v}$ and $|\ip{\sigma_U}{v}|\le C(h/\mu)^{1/2}\tnorm v$. On the chords $\tilde U$ is continuous at the vertices and nearly normal, $\tilde U\cdot\tau_e=O(\hG)$, so Lemma~\ref{lem:cancel} applies to $S=\tilde U$ and $|\ip{\tilde U}{\dn v}|\le C((h/\mu)^{1/2}+\hG^{1/2})\tnorm v$. Finally $|N_h(\tilde U-z_U,v)|\le ME_U\tnorm v$.
+
+\emph{Close.} Testing with $v=\epsilon$,
+\[
+c_1\tnorm{\epsilon}\le C\Bigl[\min\bigl(\hG^{3/2},\hG(h/\mu)^{1/2}\bigr)+\frac h\mu\bigl(\hG^2+(h/\mu)^{1/2}+\hG^{1/2}+E_U\bigr)\Bigr].
+\]
+Divide by $h/\mu$, using $\hG^{3/2}\mu/h=\gamma\hG^{1/2}$ and $\hG(\mu/h)^{1/2}=(\gamma\hG)^{1/2}$, and add $\tnorm{\tilde U-z_U}$. For the limit, multiply out and use $\norm{\nabla\tilde U}^2_{\Oh}-\norm{\nabla U}^2_\Omega=O(\hG^2)$.
+\end{proof}
+
+Two by-products of the proof are worth recording. First, on the pure-pressure test ($u=0$, $f=\nabla p$) we have $\ut=0$ and $\Gc\equiv0$, so the error of $\GS$ is exactly $\delta_R$ and the theorem applies with no further condition. Second, the remainder $r_h=\delta_R-(h/\mu)v_\varphi$ of Theorem~\ref{thm:C} satisfies $(\mu/h)r_h\to U-w$ in $H^1$: it is the Stokes correction of the cut-off field $w$, which explains why $r_h$ has the same $H^1$ order as the explicit term.
+
+\begin{remark}[The Dirichlet-dominated regime]
+The hypothesis $\gamma\hG=\mu\hG^2/h\to0$ of Corollary~\ref{cor:Bp} fails for very large penalties (for example $\gamma\hG\approx240$ at $N=96$, $\mu=10^4$). There the discrete problem is close to its $\mu\to\infty$ limit, a discrete Dirichlet problem whose data $-(p-\pbar)n_e$ jump in direction at every polygon vertex. Theorem~\ref{thm:hc} does not cover this regime, but the penalty-uniform analysis of \cite{PadhiExt} does (Section~\ref{sec:further}): the scaled traction response still converges to $U$ in $H^1$, at the exact rate $\hG^{1/2}$.
+\end{remark}
+
+\subsubsection*{Computing $K$}
+The constant is a property of the continuous problem, and it can be bracketed rigorously. For $\varrho>1$ let $\mathcal A_\varrho=\{1<r<\varrho\}$ and let $\mathcal E(\varrho)$ be the minimal Dirichlet energy of divergence-free fields on $\mathcal A_\varrho$ with the leak data on $r=1$ and zero data on $r=\varrho$. Extending by zero shows that the minimum decreases as the domain grows.
+
+\begin{proposition}[Annulus bracket]\label{prop:bracket}
+If $\mathcal A_{\varrho_1}\subset\Omega\subset\mathcal A_{\varrho_2}$, then $\mathcal E(\varrho_2)\le\norm{\nabla U}^2\le\mathcal E(\varrho_1)$. In the annulus the Fourier modes decouple: if $\Psi|_\Gamma=\sum_n(a_n\cos n\theta+b_n\sin n\theta)$ is the boundary stream function of the leak, then $\mathcal E(\varrho)=\sum_n(a_n^2+b_n^2)E_n(\varrho)$ with
+\[
+E_n(\varrho)=\pi\int_1^\varrho\Bigl[f''^2+2n^2\bigl((f/r)'\bigr)^2+\bigl(f'/r-n^2f/r^2\bigr)^2\Bigr]r\,dr,
+\]
+where $f$ is the combination of $r^n,r^{-n},r^{n+2},r^{2-n}$ (of $r,r^{-1},r^3,r\log r$ for $n=1$) with $f(1)=1$, $f'(1)=0$ and $f(\varrho)=f'(\varrho)=0$.
+\end{proposition}
+
+For the pressure of test P, $p-\pbar=-\frac34\sin\theta+\frac14\sin3\theta+\frac12\cos\theta$ on $\Gamma$, so $\Psi|_\Gamma=\frac34\cos\theta+\frac12\sin\theta-\frac1{12}\cos3\theta$ and $G^2=7\pi/8$. With $\varrho_1=L=2.5$ and $\varrho_2=L\sqrt2$ the proposition gives the rigorous bracket $2.0746004\le K\le3.0525769$. The exact value on the box is computed by a series in the odd Fourier modes (imposing the outer conditions by least squares at $16\,000$ points); it is stable to eight digits under refinement of both the truncation and the quadrature:
+\begin{center}\small
+\begin{tabular}{rccc}
+\toprule
+number of modes $n_{\max}$ & max boundary residual & $\norm{\nabla U}$ & $K$\\
+\midrule
+15 & $4.4\cdot10^{-3}$ & 4.57012143 & 2.75644148\\
+31 & $6.1\cdot10^{-5}$ & 4.57024239 & 2.75651444\\
+47 & $5.1\cdot10^{-6}$ & 4.57024449 & 2.75651571\\
+79 & $1.8\cdot10^{-7}$ & 4.57024450 & 2.75651571\\
+\bottomrule
+\end{tabular}
+\end{center}
+The same formulas describe the dependence on the box. As $\varrho\to\infty$, $E_3(\varrho)\to45\pi$ and $E_1(\varrho)\to\pi$; the $n=1$ data split into a potential dipole, whose exterior energy is exactly $\pi$, and a rigid translation, whose energy vanishes as the box grows (the Stokes paradox). Hence
+\[
+K(L)\longrightarrow\sqrt{\frac{(\frac9{16}+\frac14)\pi+\frac{45\pi}{144}}{7\pi/8}}=\frac3{\sqrt7}\approx1.134\qquad(L\to\infty),
+\]
+but only logarithmically: in annuli the values are $1.420$, $1.242$, $1.183$ at $\varrho=10,10^2,10^4$ (the logarithmic rate is observed, not proved).
+
+So the constant $2.7$--$2.8$ observed in Table~\ref{tab:P} belongs to the box, not to the method. The approach to $K$ is pre-asymptotic at moderate penalties: at $\mu=100$ the measured constants increase towards $K$, at large $\mu$ they decrease towards it, and on test P the relative distance $\norm{\nabla((\mu/h)(\ut-u_h)-\tilde U)}/\norm{\nabla U}$ decays at the exact rate $\hG^{1/2}$ for every penalty, the Dirichlet limit $\mu\to\infty$ included (Section~\ref{sec:further}).

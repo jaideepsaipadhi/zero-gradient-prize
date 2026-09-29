@@ -145,3 +145,67 @@ CUTS TO STAY AT 6 PAGES (wording only; no content removed)
   - Lemma 3 (cancellation): the hypotheses are merged into one sentence.
   - Proposition 4(c): "at least" -> ">=", and the final sentence is shortened.
   - Section 4: "radially projected from equispaced points".
+
+======================================================================
+v8 EDIT, 2026-09-29 (editorial feedback: AI statement, readable exposition with history, broader related
+work, explicit novelty). Only letter/ was changed. Nothing committed.
+
+BUILD (letter/build.sh)
+  3p: 6 pages, 0 overfull boxes, no undefined references. 5p: 5 pages, the same two overfull displays
+  (6.6 pt, 8.3 pt). Abstract 205 words. References 20 (was 18).
+
+(1) AI-USE STATEMENT
+  - Declaration now names Claude (Anthropic), a large language model, and its uses: develop and check
+    proofs, write and run the numerical code, search and check the literature, draft and edit the text.
+    It says how results were verified (separate checks of each proof step, exact-arithmetic certificates,
+    reproducible public code) and keeps Elsevier's required closing sentence. %% VERIFY (Cavalcante) kept.
+  - Intro now ends "The work was done with the AI model Claude (Anthropic), as declared at the end."
+
+(2) EXPOSITION / HISTORY
+  - Intro paragraph 1 is a history: Scott-Vogelius 1985; the zero-gradient lock at polygonal walls (h^{1/2});
+    Gjerde-Scott's Nitsche remedy (Nitsche 1971); Scott's h^{3/2} observation, placed against the classical
+    polygonal-boundary barrier (Bramble-Dupont-Thomee 1972, Dupont-Guzman-Scott 2025, both now cited;
+    both were already in refs.bib and marked V in notes/v5/lit_report.md); the prize question quoted.
+  - Paragraph 2 tells the story in words: missing traction -> leak u.n ~ (h/mu)(p - pbar) (Babuska penalty
+    consistency error) -> full traction fails (constant mode) -> mean-free traction, credited to
+    Frachon-Nilsson-Zahedi.
+  - A one-sentence idea now precedes each result: Lemma 1 (consistency), Theorem 1 (load R and leak field),
+    Lemma 2 (why the H^1 rate is 1), naive/L^2_0 forms, Theorem 2 (why mean-free works), Remark 1 (title),
+    Proposition 3 (single-triangle witness).
+
+(3)+(4) RELATED WORK AND NOVELTY (new paragraph)
+  Cavalcante (zero-pressure-gradient case; CAVALCANTE and VERIFY placeholders kept there), Neilan-Otus
+  and Chen-Liu (isoparametric, optimal h^k, 3D), Liu-Neilan-Otus (boundary correction), Liu-Neilan-
+  Olshanskii and Frachon-Nilsson-Zahedi (traction placement in cut methods), Guzman-Scott (stability).
+  Then "New here are: (i) leak law ...; (ii) mean-free rate + sharpness ...; (iii) penalty threshold ...;
+  (iv) computations". The old Contributions list is replaced by this.
+
+CUTS TO STAY AT 6 PAGES
+  - Abstract trimmed (230 -> 205 words).
+  - Lemma "coercivity" (old Lemma 1, \ext{Lemma 4.2}) is now a sentence at the end of Section 2;
+    Prop. 4(a) refers to Section 2. Lemma numbering: Consistency = Lemma 1, Cancellation = Lemma 2.
+  - Old Proposition 2 (naive and L^2_0 forms) + proof + the 4.5e-3 remark merged into one paragraph.
+    Theorem/Proposition numbers: Theorem 1, Theorem 2, Proposition 3 (penalty; was 4).
+  - Remark 1: items (1) GS pressure and (2) uniformity merged; pointers Def. 8.10 and Lemma 8.3 dropped
+    (the rest unchanged); sharpness sketch shortened to its idea.
+  - Theorem 2 sketch, Theorem 1 proof, Lemma 1/2 proofs: wording only.
+  - Table 1: row N=32 dropped (rates in the remaining rows are unchanged; caption still lists all N).
+  - Section 4: dropped "maximum GS pressure error 77 at N=96" and "CNS rates decrease monotonically";
+    threshold paragraph compressed (mu* list elided with dots; the endpoints are kept); penalty-proof
+    "297 boxes for lambda=1" dropped.
+  - Setting: the g_I condition is written explicitly as h_G >= h^4 (k even), h^2 (k odd) (same as
+    h^{2(sigma_k-k)}).
+  - \ext pointers re-checked against paper/main.aux (2026-09-29 15:09): all used pointers resolve to the
+    stated environments (4.2, 4.3, 4.5, 4.6, 7.32, 3.2, 2.5, 7.2, 7.3, 8.11, 8.7, 7.30, 7.33, 7.8, 7.24,
+    7.34, 7.35, 10, 10.1, 10.3, 10.6, 10.13, 15.18, sec 2, sec 6).
+
+HIGHLIGHTS: first bullet now "Answers Scott's prize question ..." (84 chars); mean-free bullet says "sharp";
+  5 bullets, 75-85 chars.
+COVER LETTER: new paragraph on exposition/history and on what is new relative to named recent work
+  (no mention of a revision); AI sentence made specific. FILL lines kept.
+
+FOR THE AUTHORS
+  - Page 6 is again full. Cavalcante's text still needs an equal cut (candidates: Remark 1(1),(3); the
+    pure-pressure sentence in Section 4; the Eickmann-Scott-Tscherpel citation).
+  - Check the AI declaration's verification sentence matches what was actually done, and whether it covers
+    Cavalcante's parts (%% VERIFY).

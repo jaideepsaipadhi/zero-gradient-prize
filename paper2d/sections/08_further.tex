@@ -1,0 +1,65 @@
+\section{Further results}\label{sec:further}
+
+The extended version \cite{PadhiExt} contains a number of further results, which we state here without proof. Unless said otherwise they are proved there under the hypotheses of the main text ((M0)--(M2), smooth solution, $k\ge4$); where a result depends on an additional hypothesis that is not proved, we say so.
+
+\subsection{The leak limit, uniformly in the penalty}
+Theorem~\ref{thm:hc} identifies the $H^1$ limit of the scaled error $(\mu/h)(\ut-u_h)$ of $\GS$ for bounded $\gamma$. The traction response $\delta_R$ (the part of the error caused by the missing traction; on the pure-pressure test it is the whole error) converges to the leak flow uniformly in the penalty, at an exact rate:
+\[
+c\,G\,\hG^{1/2}\ \le\ \Bigl\|\nabla\Bigl(\frac\mu h\delta_R-\tilde U\Bigr)\Bigr\|\ \le\ C\bigl(\hG^{1/2}+h^k\bigr)\qquad\text{for every }\gamma\ge\gamma_0,
+\]
+the Dirichlet limit $\mu\to\infty$ included (the lower bound excludes, on each mesh, a finite set of penalties). The leak constant $\norm{\nabla\delta_R}\mu/(hG)$ converges to $K$ for every penalty; for general data the normalised $\GS$ constant diverges when $\gamma\hG^{1/2}\to\infty$. As $\gamma\to\infty$ the discrete error acquires an element-scale oscillation nearly orthogonal to $U$, and $K_h^2=K^2(1+d_h^2)+O(\hG^2)$, where $d_h$ is the relative distance above; this is why large-penalty constants approach $K$ from above (Table~\ref{tab:hc}).
+
+\subsection{Pressure, stress and drag}
+For $\CNS$ with flux-corrected data and $\gamma$ in a bounded range above $\gamma_2$, the pressure converges at Scott's rate, $\norm{p^\circ-p_h}_{L^2(\Oh)}\le C(\hG^{3/2}+\hO^k)$ with $p^\circ=\pt-\pbG(\pt)$, including the constant. For $\GS$ with $G>0$ the pressure is uniquely determined but carries an explicit first-layer field, produced by the symmetric Nitsche term acting on the leak. The leak enters the pressure equation only through the coupling $\ip{u_h}{\dn v}$, which for test fields vanishing on the wall is a boundary source $\ip{u_h\cdot n}{\div v}_{\Gh}$; the discontinuous pressure resolves it exactly, as a field supported in the first row of triangles, of pointwise size $(h/\mu)/H_e\asymp1/\gamma$ ($H_e$ the height of the triangle on the chord $e$) and $L^2$ norm $\asymp(h/\mu)\hG^{-1/2}G$; for fixed $\gamma$ and bounded $\rho$ its $L^2$ error converges at the exact rate $\frac12$, and not at all pointwise in the first row of triangles. The variational drag, lift and torque coincide with the integral of the Nitsche flux. For $\GS$ (fixed $\gamma$, bounded $\rho$) their error is $-(h/\mu)\int_\Gamma(p-\pbar)(R_\psi-\bar R_\psi)+O(h^{3/2})$, with $R_\psi$ the pressure of a dual Stokes problem, so the drag converges at rate $1$ with an explicit reciprocity constant; for $\CNS$ with $\gamma\ge\max(1,\gamma_2)$ and $\gamma\hG\le1$ the error is $O(\hG^2+\eps)$, so the drag converges at rate $2$. The torque computed with Gjerde and Scott's volume functional is an exception: its error is of first order in $h/\mu$ even for $\CNS$ (the leading term is proved as $\gamma\to\infty$; at fixed $\gamma$ only the rate-$1$ upper bound is proved).
+Lower bounds $c\hG^{3/2}$ (in $L^2$) and $c\hG$ (in $L^\infty$) for the $\CNS$ pressure error are proved under a hypothesis on a boundary pressure moment. A periodic first-layer cell problem indicates when that hypothesis holds (exactly when an explicit cell density is not constant along the wall; it fails on mirror-symmetric first layers), but this part rests on a cell-decay property that is only verified numerically and on a transplant lemma that is not proved.
+
+\subsection{\texorpdfstring{$L^2$}{L2} estimates}
+The Stokes $H^2\times H^1$ regularity needed for duality is proved on the model domain (Kellogg--Osborn \cite{KelloggOsborn1976} on the convex box and smooth-domain regularity at $\Gamma$). For $\CNS$ with flux-corrected data,
+\[
+\norm{\ut-u_h}_{L^2}\le C\bigl(\hG^2+h\hG^{3/2}+h^{k+1}\bigr)
+\]
+uniformly in $\gamma$, improving to $C(\hG^2+h^{k+1})$ on meshes graded towards the wall. For bounded $\gamma$ the term $\hG^2$ is sharp when the wall shear does not vanish identically; this lower bound needs no regularity assumption. For $\GS$ with $G>0$ the $L^2$ rate is exactly $1$, with leading term $(h/\mu)\norm{U}_{L^2}$ given by the leak flow.
+
+\subsection{Clough--Tocher refinements}
+On the Clough--Tocher (barycentric) refinement of any shape-regular mesh with comparable chords, the convergence results for $\GS$ (Theorems~\ref{thm:A}--\ref{thm:B}, Corollary~\ref{cor:Bp}) and for $\CNS$ (Theorem~\ref{thm:D}), and the sufficiency part of the penalty analysis, hold for every $k\ge2$, with no angle or singular-vertex condition. For example $\CNS$ satisfies $\norm{\ut-u_h}_{H^1}\le C(\hG^{3/2}+h^2)$ for $k=2$ if $\hG\ge h^4$. The penalty-necessity certificates are redone exactly on split stars. The leak constant, the lower bound of Section~\ref{sec:lb}, and the results below have not been checked on split meshes, and we make no claim about them there.
+
+\subsection{General curved domains}
+The convergence theory (Theorems~\ref{thm:A}--\ref{thm:D} and Corollary~\ref{cor:Bp}) extends to bounded connected planar domains whose curved boundary consists of finitely many closed smooth curves, convex or not, with a polygonal outer component on which the data are imposed strongly. The geometric lemmas need only $C^3$ curves; the results assume the regularity of the solution, which for generic $f$ requires $\Gamma\in C^{k+1,\alpha}$ and vanishing corner coefficients at the vertices of the outer polygon. With several curved components the correct pressure constant is the \emph{global} boundary mean: $\CNS$ needs one global correction, and a per-component correction is inconsistent. Stokes $H^2$ regularity with $L^2$ data holds on such a domain if and only if the outer polygon is convex.
+
+\subsection{Steady Navier--Stokes flow}
+Gjerde and Scott's application is cylinder drag, a Navier--Stokes computation. On a nonsingular solution branch the discrete linearisation is uniformly stable for $h\le h_0$, with $h_0$ independent of the penalty (explicit, but far too small to be useful). Then $\GS$ converges at $H^1$ rate $h/\mu$ with the same leak law (slip and energy constants $1$) and an $H^1$ constant given by an Oseen leak flow, and $\CNS$ attains $\hG^{3/2}+\hO^k$; the $\CNS$ drag, lift and torque converge at rate $2$. Both natural discrete convective forms give the same conclusions, and no inflow/outflow correction is needed.
+
+\subsection{Pressure robustness}
+A Stokes discretisation is pressure-robust (gradient-robust) if a change of the force by a gradient changes only the discrete pressure; equivalently, its velocity error does not depend on the pressure and does not grow like $\nu^{-1}$ as the viscosity $\nu\to0$ \cite{JohnEtAl2017}. Exact incompressibility does not by itself give this when the boundary condition is imposed weakly on an approximate boundary. The velocity error splits exactly as $E_M-\nu^{-1}W_M(\pt)$, where $E_M$ is a pressure-free error (up to a strip term of order $\hG^4$) and $W_M(\phi)$ is the discrete velocity produced by the purely hydrostatic data $f=\nabla\phi$; a method is gradient-robust if and only if $W_M\equiv0$. $\GS$ is not pressure-robust: the pressure part of its velocity error at viscosity $\nu$ is the leak flow times $h/(\nu\mu)$. $\CNS$ has exactly one pressure-dependent defect, the projection error $p-\pi_hp$ on $\Gh$, whose $H^1$ effect is of order $\nu^{-1}\gamma^{-1}\hG^{k+1/2}$ for generic pressures on locally periodic meshes. A local $\mathrm{BDM}_k$ correction of the load on the boundary triangles makes $\CNS$ exactly gradient-robust, without changing its matrix or its rates. The load-reconstruction idea is that of \cite{JohnEtAl2017,NeilanOtus2021,ChenLiu2026}; we claim no novelty for the device.
+
+\subsection{Three dimensions}
+The three-dimensional analysis (inscribed polyhedra, Alfeld splits) is the subject of a companion paper \cite{PadhiThreeD}. One ingredient of the present paper is not available there: the odd-symmetry cancellation on each chord behind Lemma~\ref{lem:transposed}. In two dimensions it is needed only for bounds in the plain $H^1$ dual norm; the upper bounds of Theorems~\ref{thm:A} and~\ref{thm:D} also follow from the cruder energy-dual estimate $|\ip{(\nabla\ut)^{\mathsf T}n}{v}|\le C\gamma^{-1/2}\hG^{3/2}\tnorm v$, which uses only the penalty.
+
+\subsection{Status of the results}
+Table~\ref{tab:status} records the status of the main claims of this paper and of \cite{PadhiExt}. ``Proved'' means proved from the stated mesh hypotheses, the smooth-solution hypothesis and standard cited results; ``conditional'' means proved except for a named hypothesis that we have not proved; ``numerical'' means observed only.
+
+\begin{table}[t]
+\centering\small
+\caption{Status of the results.}\label{tab:status}
+\begin{tabular}{p{0.60\textwidth}p{0.31\textwidth}}
+\toprule
+claim & status\\
+\midrule
+Leak analysis of $\GS$: energy, $H^1$ and slip rates, leading term with constants $1$, $H^1$ constant $K$ (Section~\ref{sec:printed}) & proved\\
+Penalty-uniform leak limit at the exact rate $\hG^{1/2}$ & proved\\
+$\CNS$: well-posedness and $\hG^{3/2}+\hO^k$, uniform in $\gamma$ with flux-corrected data (Section~\ref{sec:corrected}) & proved\\
+Sharpness of $\hG^{3/2}$ for every $k\ge4$, for $\hG\le2\sin(\theta_{\min}/4)$ (star condition with certified constants) & proved (computer-assisted certificates)\\
+Growing penalty: $H^1$ rescue, energy rate $\le1$ & proved\\
+Penalty: sufficiency; single-triangle necessity; certificates on shape families; exact counterexamples to local necessity; necessity on every shape-regular mesh & proved (exact arithmetic for certificates)\\
+Limit $\gamma^\ast_\infty\approx21.41$ of the threshold on our meshes & $\liminf$ proved; equality conditional (localisation and spline cut-off lemmas); value numerical\\
+Strong imposition: two-sided $\hG^{3/2}$ under (M2); counting bound; constrained and sharp inf-sup; two-sided rate with locks; pressure filter (Section~\ref{sec:strong}) & proved\\
+Needle-angle law: area-weighted distance; two-sided velocity rate & proved; the upper bound under a hypothesis isolating each wall needle pair\\
+$\CNS$ pressure $\hG^{3/2}+\hO^k$; $\GS$ pressure rate $\frac12$; drag, lift and torque expansions & proved\\
+$\CNS$ pressure lower bounds & conditional (boundary moment hypothesis); the cell-problem analysis of that hypothesis rests on a numerically verified decay property and an unproved transplant lemma\\
+$L^2$ estimates, regularity, graded meshes & proved\\
+Clough--Tocher refinements ($k\ge2$), general curved domains, steady Navier--Stokes on nonsingular branches & proved (scope as stated in this section)\\
+Pressure robustness of $\CNS$ and its $\mathrm{BDM}_k$ correction & proved; some constants explicit only for $k=4$\\
+$H^1$ constants close to $K$ for $k=5,6$ and Clough--Tocher elements; stability of $\CNS$ at $\mu=100$ & numerical\\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,5 +1,7 @@
 \section{Stability}\label{sec:stability}
 
+The methods need two kinds of stability. Coercivity of the Nitsche form $N_h$ holds once the penalty exceeds a multiple of $\rho$, by the usual inverse trace inequality (Lemma~\ref{st:coercive}). The discrete inf-sup condition (IS3) is harder: it must hold uniformly over the family of domains $\Oh$, which change with $h$. We first show that the \emph{continuous} inf-sup constant of $\Oh$ is uniform (Lemma~\ref{st:bog}), and then that on Alfeld refinements the discrete constant is controlled by the continuous one and by local quantities only (Lemma~\ref{st:IS3}). The section ends with the failure of (IS3) on subdivided wall faces.
+
 \begin{lemma}[Inverse traces]\label{st:inverse}
 There is $C_I$, depending only on $k$ and shape regularity, such that for $v\in\Vh$
 \[
@@ -30,7 +32,7 @@ For $\hG\le h_\ast$, $C_B(\Oh)\le2C_B(\Omega)$.
 This is an instance of the continuity of the inf-sup constant under Lipschitz-close perturbations, due to Bernardi, Costabel, Dauge and Girault \cite[Theorem~4.4]{BCDG2016}: if $F$ is a diffeomorphism with $\norm{DF-I}_\infty,\norm{DF^{-1}-I}_\infty\le\varepsilon$, the inf-sup constants of $U$ and $F(U)$ differ by at most $c(d)\varepsilon$. Our map $\Phi_h$ of Lemma~\ref{geom:korn} is only bi-Lipschitz and piecewise smooth, so we include the short argument, which uses nothing more.
 
 \begin{proof}
-Let $\Phi:=\Phi_h$, $\varepsilon:=\norm{D\Phi-I}_\infty+\norm{D\Phi^{-1}-I}_\infty\le C\hG$ and $J:=\det D\Phi$, so $|J-1|\le C\varepsilon$. Given $q\in L^2_0(\Oh)$, put $\hat q:=J\,(q\circ\Phi)$. Then $\int_\Omega\hat q=\int_{\Oh}q=0$ and $(1-C\varepsilon)\norm q\le\norm{\hat q}\le(1+C\varepsilon)\norm q$. Let $\hat w\in H^1_0(\Omega)^3$ with $\div\hat w=\hat q$ and $\norm{\nabla\hat w}\le C_B(\Omega)\norm{\hat q}$, and $w:=\hat w\circ\Phi^{-1}\in H^1_0(\Oh)^3$. By the chain rule $(\nabla w)\circ\Phi=\nabla\hat w\,(D\Phi)^{-1}$, so
+Let $\Phi:=\Phi_h$, $\varepsilon:=\norm{D\Phi-I}_\infty+\norm{D\Phi^{-1}-I}_\infty\le C\hG$ (pointwise operator norms) and $J:=\det D\Phi$, so $|J-1|\le C\varepsilon$. Given $q\in L^2_0(\Oh)$, put $\hat q:=J\,(q\circ\Phi)$. Then $\int_\Omega\hat q=\int_{\Oh}q=0$ and $(1-C\varepsilon)\norm q\le\norm{\hat q}\le(1+C\varepsilon)\norm q$. Let $\hat w\in H^1_0(\Omega)^3$ with $\div\hat w=\hat q$ and $\norm{\nabla\hat w}\le C_B(\Omega)\norm{\hat q}$, and $w:=\hat w\circ\Phi^{-1}\in H^1_0(\Oh)^3$. By the chain rule $(\nabla w)\circ\Phi=\nabla\hat w\,(D\Phi)^{-1}$, so
 \[
 (\div w)\circ\Phi=\div\hat w+\operatorname{tr}\bigl(\nabla\hat w\,((D\Phi)^{-1}-I)\bigr),
 \]
@@ -47,6 +49,7 @@ A second route covers $\Oh$ by finitely many pieces that are star-shaped with re
 \end{remark}
 
 \subsection{The discrete inf-sup constant on Alfeld refinements}
+The argument is a standard two-level one. A Fortin-type operator for the Bernardi--Raugel pair corrects the macro-element means of a pressure, using only the continuous inf-sup constant of $\Oh$; the remaining mean-free parts on each macro-element are handled by a local result of Guzm\'an and Neilan, which involves no boundary data at all. The point of writing it out is to see that no constant depends on $h$ through the domain.
 For a macro-tetrahedron $K$ with Alfeld split $K^r$ let $\mathring P^c_k(K^r)$ be the continuous piecewise-$P_k$ vector fields on $K^r$ vanishing on $\partial K$, and $\mathring P_{k-1}(K^r)$ the piecewise-$P_{k-1}$ functions on $K^r$ with mean zero on $K$. We use the following local result.
 
 \begin{fact}[{Guzm\'an and Neilan \cite[Theorem~3.1]{GuzmanNeilan2018}}]\label{st:gn}
@@ -88,13 +91,14 @@ Worsey--Farin splits are different. The stable Worsey--Farin Stokes pairs of Guz
 So (IS3) \emph{as formulated} fails on Worsey--Farin splits (Proposition~\ref{st:wf}); this is known, and it is the three-dimensional analogue of the two-dimensional singular boundary vertex. None of our upper bounds, which all use (IS3) for the full space $\Pih$, applies to Worsey--Farin meshes as they stand; they would have to be redone with a constrained pressure space, together with a uniform inf-sup constant for that pair on the perturbed domains $\Oh$ (as Lemma~\ref{st:IS3} provides for Alfeld) and a lift lemma onto the constrained trace space of Proposition~\ref{st:wf}.
 \end{remark}
 
+The next proposition explains why we restrict to Alfeld refinements. If a wall face is subdivided into coplanar sub-faces, as on Worsey--Farin splits, a discrete velocity that vanishes on the face has the same gradient on both sides of each interior edge of the subdivision, so its divergence is continuous there. This is the three-dimensional analogue of the singular vertices of two dimensions.
+
 \begin{proposition}[(IS3) fails on subdivided wall faces]\label{st:wf}
 Let a wall face $F\in\FG$ of a macro-element be subdivided into coplanar sub-faces, and let $E$ be an edge of that subdivision interior to $F$. For $v\in\VO$, $\div v$ is continuous across the interior face that meets $F$ along $E$, at every point of $E$. Consequently $\div\VO\subsetneq\Pih\cap L^2_0$ for discontinuous $P_{k-1}$ pressures, and (IS3) is false. On one barycentric Worsey--Farin macro-element (interior point at the barycentre, face points at the face barycentres, $12$ sub-tetrahedra) with $v=0$ on the whole boundary, $\operatorname{codim}\div\VO=12k-4$ exactly for $k=2,3,4$ (ranks $27/47$, $87/119$, $195/239$), which is $4\times(3k-1)$: $k$ conditions on each of the three edges from the face point to the vertices of a face, one of them redundant at the face point. \status{computer-assisted, exact} for the count.
 \end{proposition}
 \begin{proof}
 Let $s_1,s_2$ be the sub-tetrahedra sharing the interior face through $E$, both with a face in the plane of $F$, and $x\in E$. Then $\nabla v|_{s_j}(x)\,t=0$ for $t$ in the plane of $F$, since $v=0$ there, and $\nabla v|_{s_1}(x)\,d=\nabla v|_{s_2}(x)\,d$ for a direction $d$ in the common face transversal to $F$, by continuity across that face. These directions span $\R^3$, so $\nabla v|_{s_1}(x)=\nabla v|_{s_2}(x)$ and $\div v$ is continuous at $x$. A discontinuous piecewise-$P_{k-1}$ function with a jump along $E$ is therefore not in $\div\VO$.
 \end{proof}
-\cert{notes/v7/td/wf\_witness.py 2|3|4}{wf\_ranks.log}
 The velocities of $\GS$ and $\CNS$ with the full space $\Pih$ are still pointwise divergence-free when they exist, but the pressure is not unique. Moreover the trace space of $\Zh$ on a subdivided face is a proper subspace of the continuous piecewise-$P_k$ zero-flux traces: along $E$ the jump of $\div_Fv_F-(d_F\cdot\nabla_F)(v\cdot n_F)/d_n$ must vanish, where $d=d_F+d_nn_F$ is the direction of the interior face. So Lemma~\ref{lk:lift} does not transfer either.
 
 \begin{lemma}[Divergence range]\label{st:divrange}

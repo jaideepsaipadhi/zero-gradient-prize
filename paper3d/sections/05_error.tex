@@ -2,6 +2,8 @@
 
 Throughout this section (IS3) holds; on Alfeld refinements with $k\ge3$ it is Lemma~\ref{st:IS3}.
 
+The plan follows the two-dimensional analysis of \cite{PadhiLong2D}. Inserting the extended exact solution into the discrete equations leaves two residuals: a \emph{geometric} one, $\Gc$, of size $\hG^{3/2}$ in the energy dual, caused by the fact that $\ut$ does not vanish on $\Gh$ and that $\Gh$ is not $\Gamma$; and, for $\GS$ only, a \emph{pressure} residual $\Rc(v)=-\ip{\pt-\pbar}{v\cdot n}$, the traction that the printed method omits. The geometric residual gives the rate $\hG^{3/2}$. The pressure residual is of order one, and the question is how the discrete solution responds to it. The answer is the leak: the response is, to leading order, $(h/\mu)$ times a fixed divergence-free field $v_\varphi$ with normal trace $-(p-\pbar)$ on the wall (Lemma~\ref{er:vphi}). A cancellation that uses $\div v=0$ on each wall face (Lemma~\ref{er:cancel}) shows that this field has bounded energy, which is why the $H^1$ rate of $\GS$ is $1$ and not $\frac12$.
+
 \subsection{Consistency}
 
 \begin{lemma}[Error equation]\label{er:eq}
@@ -77,7 +79,7 @@ Let $q\in C^{k+1}(\Gamma)$ with $\int_\Gamma q=0$. There is $w\in H^{k+1}(\Oh\cu
 
 \begin{proof}
 Let $\bar q_i$ be the mean of $q$ on $\Gamma_i$ and $\phi_i\in C^{k+2,\alpha}(\Gamma_i)$ a solution of $\Delta_\Gamma\phi_i=q-\bar q_i$ (Schauder theory on the closed $C^{k+3}$ surface). Let $\chi\in C^\infty(\R)$ with $\chi=1$ on $(-\infty,r/8]$ and $\chi=0$ on $[r/4,\infty)$. On $\Gamma\times(-r,r)$ with volume $dA\,ds$ put $V:=(-\chi'(s)\nabla_\Gamma\phi_i,\ \chi(s)q)$, whose product divergence is $-\chi'\Delta_\Gamma\phi_i+\chi'q=\chi'\bar q_i$. Let $w_0$ be its Piola push-forward by $\Psi$, i.e.\ $\iota_{w_0}\mathrm{vol}=(\Psi^{-1})^\ast\iota_V(dA\wedge ds)$. Since $\Psi^\ast\mathrm{vol}=J\,dA\wedge ds$, $\div w_0=J^{-1}\chi'(s)\bar q_i$; at $s=0$, $D\Psi$ is the identity on $T\Gamma$ plus $\partial_s\mapsto N$, $J=1$ and $\chi'=0$, so $w_0=qN$ on $\Gamma$. Regularity: $\nabla_\Gamma\phi_i\in C^{k+1,\alpha}$ and $D\Psi,J\in C^{k+1}$, so $w_0\in C^{k+1}$.
-$g:=\div w_0\in C^k$ is supported in $\{r/8\le d\le r/4\}\subset\Omega$, and $\int g=\sum_i\bar q_i|\Gamma_i|(\chi(r/4)-\chi(0))=-\int_\Gamma q=0$. Let $U\subset\{x\in\Omega:d(x)>r/16,\ \dist(x,\Sigma)>\delta\}$ be a connected Lipschitz domain containing $\operatorname{supp}g$ in its interior (it exists because $\Omega$ is connected and deformation-retracts onto such sets). A Bogovski\u{\i} field $w_1\in H^{k+1}_0(U)^3$ with $\div w_1=-g$ exists \cite{CostabelMcIntosh2010,Galdi}. Put $w:=w_0+w_1$ (extended by zero); $w=w_0$ on $\mathcal T_{r/16}$. If $m=1$ or $q$ has zero mean on each component, $w_1=0$. %% CHECKED (v7): Costabel--McIntosh (arXiv:0808.2614 = Math. Z. 265) state in the introduction solvability of div u=f in W^{m,p}_0(Omega)^n for f in W^{m-1,p}_0, int f=0, on all bounded Lipschitz domains; their Cor. 3.4 / Lemma 4.3 / Thm 4.6 give H^s -> H^{s+1} for all s (notes/v7/cites/FINDINGS.txt [4]). No Galdi locator is cited here.
+$g:=\div w_0\in C^k$ is supported in $\{r/8\le d\le r/4\}\subset\Omega$, and $\int g=\sum_i\bar q_i|\Gamma_i|(\chi(r/4)-\chi(0))=-\int_\Gamma q=0$. Let $\mathcal W:=\{x\in\Omega:d(x)>r/16\}$. It is open and connected: the map $\Psi(y,s)\mapsto\Psi(y,\max(s,r/8))$ on $\Omega\cap\mathcal T_r$, extended by the identity, is a continuous map of the connected set $\Omega$ onto $\{x\in\Omega:d(x)\ge r/8\}$, and $\mathcal W$ is the union of this set with the connected collars $\Psi(\Gamma_i\times(r/16,r/8])$, each of which meets it. Join the $m$ connected sets $\Psi(\Gamma_i\times[r/8,r/4])$, whose union contains $\operatorname{supp}g$, by paths in $\mathcal W$; the union $K$ is compact and connected. Take $\psi\in C^\infty_c(\mathcal W)$ with $0\le\psi\le1$ and $\psi=1$ near $K$, a regular value $t\in(0,1)$ of $\psi$ (Sard), and let $U$ be the component of $\{\psi>t\}$ containing $K$: a bounded connected domain with $C^\infty$ boundary and $\overline U\subset\mathcal W$, so $\overline U$ has positive distance from $\Sigma$ and $d>r/16$ on $\overline U$. A Bogovski\u{\i} field $w_1\in H^{k+1}_0(U)^3$ with $\div w_1=-g$ exists \cite{CostabelMcIntosh2010,Galdi}. Put $w:=w_0+w_1$ (extended by zero); $w=w_0$ on $\mathcal T_{r/16}$. If $m=1$ or $q$ has zero mean on each component, $w_1=0$. %% CHECKED (v7): Costabel--McIntosh (arXiv:0808.2614 = Math. Z. 265) state in the introduction solvability of div u=f in W^{m,p}_0(Omega)^n for f in W^{m-1,p}_0, int f=0, on all bounded Lipschitz domains; their Cor. 3.4 / Lemma 4.3 / Thm 4.6 give H^s -> H^{s+1} for all s (notes/v7/cites/FINDINGS.txt [4]). No Galdi locator is cited here.
 \end{proof}
 For the model case and $q=(p-\pbar)|_\Gamma$ this is the explicit field $w=\chi(r)r^{-2}q(\omega)e_r-\chi'(r)r^{-1}\nabla_{S^2}\phi_0(\omega)$ in spherical coordinates, with $\Delta_{S^2}\phi_0=q$.
 
@@ -123,6 +125,8 @@ and the first term is at most $C\norm v_{L^1(F)}$.
 If boundary faces of $\Th$ subdivide the faces of $\Gh$ (for example on Worsey--Farin splits), the extra edges lie in a plane, where $n_F=n_{F'}$ and the conormals are opposite, so their contributions cancel exactly. On such meshes, however, (IS3) as formulated fails (Proposition~\ref{st:wf}), so the results of this section do not apply to them as they stand.
 
 \subsection{The printed method}
+We now quantify the leak. The energy norm contains the penalty-weighted wall term $(\mu/h)\norm{\cdot}_{\Gh}^2$, so a normal slip of size $(h/\mu)G$ costs energy of order $(h/\mu)^{1/2}G$; the $H^1$ norm does not see the wall term directly, and the slip costs only order $h/\mu$ there. Theorems~\ref{er:A}--\ref{er:B} make both statements precise, with matching lower bounds, and Corollary~\ref{er:Bp} identifies the leading term.
+
 Throughout this subsection $\gamma\ge\gamma_0$. By Theorem~\ref{geom:orient}, Lemma~\ref{geom:face}(c) and $\pt(x)=p(x^\ast)+O(\hG^2)$ on $\Gh$,
 \begin{equation}\label{er:riemann}
 \norm{\pt-\pbar}_{\Gh}\le G(1+C\hG^2)+C\hG^2,\qquad \norm{v_\varphi}_{\Gh}=G(1+O(\hG^2))+O(\hG^{k+1}),\qquad \tnorm{v_\varphi}^2=\frac\mu h\norm{v_\varphi}^2_{\Gh}+O(1).
@@ -200,6 +204,7 @@ Write $\ut-u_h=(\ut-z)+\delta_G+\delta_R$ and $\delta_R=(h/\mu)v_\varphi+r_h$ as
 For fixed $\gamma$ and bounded $\rho$, Theorems~\ref{er:C} and~\ref{er:B} give $\norm{\nabla(\ut-u_h)}\asymp h/\mu$. Section~\ref{sec:leak} identifies the constant: $\norm{\nabla(\ut-u_h)}\mu/(hG)\to\norm{\nabla U}/G$, with $U$ the Stokes flow driven by the leak as Dirichlet data (Corollary~\ref{lk:gen}), and the leak limit holds for every $\gamma\ge\gamma_0$ (Theorem~\ref{lk:up}).
 
 \subsection{The corrected method}
+The corrected method removes the pressure residual. The only subtlety is the constant pressure mode: the pressure part of the traction must be applied with the wall mean removed, otherwise constants in $\Pih$ are invisible to the momentum equation.
 
 \begin{proposition}[The plain traction is singular]\label{er:singular}
 If $\ip{p_h-\pbG(p_h)}{v\cdot n}$ is replaced by $\ip{p_h}{v\cdot n}$, the square system ($\VR\times\Pih$ tested by $\VR\times\Pih$) has the kernel vector $(0,1)$ and is singular.
@@ -209,6 +214,8 @@ If $\ip{p_h-\pbG(p_h)}{v\cdot n}$ is replaced by $\ip{p_h}{v\cdot n}$, the squar
 For $v\in\VR$, $-(1,\div v)+\ip1{v\cdot n}=-\int_{\partial\Oh}v\cdot n+\int_{\Gh}v\cdot n=0$, since $v=0$ on $\Sigma$.
 \end{proof}
 The $L^2_0$ variant, and the relation to \cite{FrachonNilssonZahedi2024}, are discussed in \cite{PadhiLong2D}; the arguments there are dimension-free.
+
+With the mean removed, the discrete pressure appears in the momentum equation through the wall term, which is not controlled by the inf-sup condition alone. The proof therefore bounds the pressure by (IS3) in terms of the velocity error, and absorbs the wall term for penalties above a threshold $\gamma_2$ that depends on the inf-sup constant.
 
 \begin{theorem}[$\CNS$: well posed, with Scott's rate]\label{er:D}
 There is $\gamma_2\asymp\max(\gamma_0,\beta^{-2})$ such that for $\gamma\ge\gamma_2$ the method $\CNS$ has a unique solution and

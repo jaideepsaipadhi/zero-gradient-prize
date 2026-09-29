@@ -1,5 +1,7 @@
 \section{Reproducibility}\label{app:repro}
 
+This appendix lists the command behind every computed number in the paper; the certificates of Appendices~\ref{app:k3} and~\ref{sec:constants} are among them.
+
 All code, logs and raw records are in the repository \url{https://github.com/jaideepsaipadhi/zero-gradient-prize}. Paths are relative to its root. %% TBD: the notes/v6/* scripts may be moved to a stable location (e.g. certificates3d/) before the Zenodo release; update the paths below accordingly.
 
 \subsection*{Exact and computer-assisted certificates}
@@ -18,6 +20,8 @@ Theorem~\ref{k3:vertex} & \path{notes/v6/td_k3/vertex_formula_general.py}, \text
 Icosphere criterion & \path{notes/v6/td_k3/icosphere_check.py} & \texttt{icosphere\_check.log}\\
 Lemmas~\ref{k3:face}, \ref{k3:flat} & \path{notes/v6/td_k3b/ref_nu.py}, \texttt{face\_formula.py}, \texttt{flat\_algebra.py} & logs alongside\\
 Theorem~\ref{k3:nondeg} checks & \path{notes/v6/td_k3b/degen.py}, \texttt{degen\_random.py}, \texttt{degen\_gflat.py}, \texttt{fe\_cross.py} & logs alongside\\
+Parabolic vertex choice (Section~\ref{sec:sharp}) & \path{notes/v6/td_k3b/degen.py} & \texttt{degen.log} (``flat square, 1'')\\
+Worsey--Farin edge stars, $k=3$ (Remark~\ref{sh:rem:wf}) & \path{notes/v6/td_k3/wf.py}, \texttt{wf\_ring.py} & \texttt{wf.log}, \texttt{wf\_ring.log}\\
 Theorem~\ref{pen:single} & \path{python3 notes/v6/td_pen/alfeld_tet.py 3 [shape]}, \texttt{verify\_alfeld.py}, \texttt{neg\_cert.py} & \texttt{alfeld\_k3.log}, \texttt{neg\_cert.log}\\
 Half-space constant & \path{python3 notes/v6/td_pen/continuum3d.py} & \texttt{continuum3d.log}\\
 \midrule
@@ -31,7 +35,7 @@ Table~C2 & \path{python3 notes/v7/td/is3_ico.py k l m} & \texttt{is3\_k3\_l0.log
 Propositions~\ref{st:wf}, \ref{sh:wf} & \path{python3 notes/v7/td/wf_witness.py 2|3|4} & \texttt{wf\_ranks.log}\\
 \bottomrule
 \end{longtable}}
-\noindent The exact toolkit for the \path{notes/v7/td} scripts is \path{notes/v7/td/refalfeld.py} (Bernstein--B\'ezier; it loops over the sub-tetrahedra of the split, so it serves Alfeld and Worsey--Farin, with Alfeld results bit-identical to the earlier version) and \path{notes/v7/td/ratlin.py} (exact linear algebra); \texttt{pen\_cert.py} needs \texttt{python-flint} (Arb). The three scripts \texttt{kappa\_explicit.py}, \texttt{kappa\_cert.py 4} and \texttt{wf\_witness.py 4} were rerun independently with identical output (\path{notes/v7/referee_td_ns/*.rerun.log}). The log \texttt{pen\_cert\_d015.log} is an interrupted earlier run and \texttt{pen\_cert\_l10\_d015.log} an uncertified one (Section~\ref{sec:constants}). Each script in the table runs in under five minutes on two cores, except the height scan and the $k=4$ single-cell pencils (\texttt{alfeld\_tet.py 4}), estimated at 10--30 minutes per shape and not run.
+\noindent The exact toolkit for the \path{notes/v7/td} scripts is \path{notes/v7/td/refalfeld.py} (Bernstein--B\'ezier; it loops over the sub-tetrahedra of the split, so it serves Alfeld and Worsey--Farin, with Alfeld results bit-identical to the earlier version) and \path{notes/v7/td/ratlin.py} (exact linear algebra); \texttt{pen\_cert.py} needs \texttt{python-flint} (Arb). The three scripts \texttt{kappa\_explicit.py}, \texttt{kappa\_cert.py 4} and \texttt{wf\_witness.py 4} were rerun independently with identical output (\path{notes/v7/referee_td_ns/*.rerun.log}). The log \texttt{pen\_cert\_d015.log} is an interrupted earlier run and \texttt{pen\_cert\_l10\_d015.log} an uncertified one (Appendix~\ref{sec:constants}). Each script in the table runs in under five minutes on two cores, except the height scan and the $k=4$ single-cell pencils (\texttt{alfeld\_tet.py 4}), estimated at 10--30 minutes per shape and not run.
 
 \subsection*{Three-dimensional solver (\texttt{code3d/})}
 \begin{itemize}

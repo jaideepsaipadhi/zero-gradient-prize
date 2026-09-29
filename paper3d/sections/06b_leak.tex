@@ -1,6 +1,10 @@
 \section{The leak limit and drag in three dimensions}\label{sec:leak}
 
-This section identifies the $H^1$ constant of the printed method, uniformly in the penalty, and treats drag, lift and torque. Throughout, (IS3) holds (on Alfeld refinements with $k\ge3$ it is Lemma~\ref{st:IS3}), $k\ge3$ and $\gamma\ge\gamma_0$. Put $q:=(p-\pbar)|_\Gamma$ and $\lambda:=\mu/h=\gamma/\hG$. For $F\in\FG$ let $x_c$ be its centroid, $x_F^\ast:=\pi(x_c)$, $q_F:=q(x_F^\ast)$, $P_F$ the orthogonal projection onto the plane of $F$, and $S_F:=P_FS_{x_F^\ast}P_F$, where $S$ is the shape operator ($D_Xn=SX$, $\ip{SX}Y=\hh(X,Y)$). $|\cdot|_{\rm F}$ is the Frobenius norm and
+This section identifies the $H^1$ constant of the printed method, uniformly in the penalty, and treats drag, lift and torque.
+
+Corollary~\ref{er:Bp} says that the printed method replaces no-slip by the leak condition $(\mu/h)\,u_h\cdot n\approx p-\pbar$. It is natural to expect that, after scaling by $\mu/h$, the part of the error driven by the pressure converges to the continuous Stokes flow $U$ with Dirichlet data $-(p-\pbar)n$ on the wall, the \emph{leak flow}. We prove this for every penalty above the coercivity threshold, with no upper bound on $\gamma$ (Theorem~\ref{lk:up}), and we show that the rate $\hG^{1/2}$ is exact on Alfeld refinements (Theorem~\ref{lk:low}). The rate $\hG^{1/2}$ has a simple origin: the discrete wall data differ from $-(p-\pbar)n$ by a defect of amplitude $\hG$ that oscillates on the scale $\hG$, and such a defect has $H^{1/2}$-norm of order $\hG^{1/2}$ on a surface of any dimension. The dimension shows up in the constant: the defect contains a face-mean part, which is absent in two dimensions (Remark~\ref{lk:rem:facemean}). The same tools give the drag, lift and torque errors, by a reciprocity argument with a dual Stokes flow.
+
+The standing assumptions are as follows. Throughout, (IS3) holds (on Alfeld refinements with $k\ge3$ it is Lemma~\ref{st:IS3}), $k\ge3$ and $\gamma\ge\gamma_0$. Put $q:=(p-\pbar)|_\Gamma$ and $\lambda:=\mu/h=\gamma/\hG$. For $F\in\FG$ let $x_c$ be its centroid, $x_F^\ast:=\pi(x_c)$, $q_F:=q(x_F^\ast)$, $P_F$ the orthogonal projection onto the plane of $F$, and $S_F:=P_FS_{x_F^\ast}P_F$, where $S$ is the shape operator ($D_Xn=SX$, $\ip{SX}Y=\hh(X,Y)$). $|\cdot|_{\rm F}$ is the Frobenius norm and
 \[
 G_\hh:=\bigl\|\,q\,|\hh|_{\rm F}\bigr\|_{L^2(\Gamma)}\qquad(\text{on the unit sphere }|\hh|_{\rm F}=\sqrt2,\ G_\hh=\sqrt2\,G).
 \]
@@ -49,6 +53,8 @@ The tangential defect on $F$ is affine, $-q_FS_F(x-x_c)$, \emph{plus the constan
 \end{remark}
 
 \subsection{The leak limit, uniformly in the penalty}
+The proof compares the scaled pressure response $X=(\mu/h)\delta_R$ with a discrete Stokes--Dirichlet field $X^D$ whose wall trace is the projected leak datum. The penalty terms cancel exactly between the two, which is why no upper bound on $\gamma$ is needed; what remains is controlled by the cancellation lemma for normal data and the size of the tangential defect.
+
 Let $\chi$ be a cutoff with $\chi=1$ on $\mathcal T_{r/4}$ and $\chi=0$ off $\mathcal T_{r/2}$, $I_h$ the $P_k$ Lagrange interpolant, $I_{SZ}$ the $P_k$ Scott--Zhang interpolant preserving the zero trace on $\Sigma$, and $I_h^\sharp\Ut:=I_h(\chi\Ut)+I_{SZ}((1-\chi)\Ut)$. For $h\le h_\ast$, $I_h^\sharp\Ut=I_h\Ut$ on the tetrahedra meeting $\Gh$ and $I_h^\sharp\Ut=0$ on $\Sigma$. Put
 \[
 E^0_U:=h+\norm{\nabla\bigl((1-\chi)\Ut-I_{SZ}((1-\chi)\Ut)\bigr)}_{\Oh}.
@@ -94,6 +100,7 @@ With $\norm v_{\Gh}\le(\hG/\gamma)^{1/2}\tnorm v$ and coercivity (Lemma~\ref{st:
 \end{proof}
 
 \subsection{A matching lower bound for every penalty}
+The lower bound uses the same device as Section~\ref{sec:sharp}, with one change: the tangential defect of the leak flow on a face is affine in position, $-q_FS_F(x-x_c)$, so the relevant witnesses must see \emph{first} moments of $\dn v$ rather than the quadratic edge moments. On one Alfeld macro-element with $k\ge4$ they do, by an exact rank computation; for $k=3$ they do not.
 \begin{lemma}[Identity on $\Yh$]\label{lk:id}
 For every $\mu>0$ for which $\delta_R$ exists and every $v\in\Yh$, with $W:=X-\Ut$, $a_h(W,v)-\ip W{\dn v}=\ip{\Ut}{\dn v}-(F_U,v)$.
 \end{lemma}
@@ -112,7 +119,6 @@ where $\norm{\hat R_1}=3.645838299$ (certified; the interval has width below the
 \begin{proof}
 The exact computation (Bernstein--B\'ezier, over $\mathbb Q$) gives $\operatorname{rank}\hat E^1=4$ on $\hat{\mathcal Y}^1_4$ ($\dim24$) and brackets $\lambda_{\min}(\hat E^1\hat G^{-1}\hat E^{1\mathsf T})=7.523244811512\cdot10^{-2}$ by exact $LDL^{\mathsf T}$ tests. Let $\hat M:=A_F^{\mathsf T}SA_F/|A_F^{\mathsf T}SA_F|_{\rm F}$ and $\hat v:=\hat R_1\hat M$, so $\norm{\hat\nabla\hat v}\le\norm{\hat R_1}$. Its Piola image $v$ lies in $\Yh^1$ (proof of Theorem~\ref{sh:alfeld}). By Lemma~\ref{sh:piola}(b) with the affine weights $(x-x_c)_b=(A_F(\hat x-\hat x_c))_b$, $\int_F\partial_\nu v\otimes(x-x_c)=h_T^{-2}A_F\hat MA_F^{\mathsf T}$, and $\dn=-\partial_\nu$ (the sign is absorbed by $v\mapsto-v$). So $|S:\M^1_F(v)|=h_T^{-2}\tr(A_F^{\mathsf T}SA_F\hat M)=h_T^{-2}|A_F^{\mathsf T}SA_F|_{\rm F}\ge h_T^{-2}\sigma_{\min}(A_F)^2|S|_{\rm F}$. Normalise with Lemma~\ref{sh:piola}(c).
 \end{proof}
-\cert{notes/v7/td/kappa\_cert.py 4; leak\_k3\_image.py}{kappa\_k4.log; leak\_k3\_image.log}
 At $k=3$ the same map has rank $1$ and its image is spanned by the skew matrix $\bigl(\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\bigr)$ (exact), so $S:\M^1_F(v)=0$ for every symmetric $S$: there is no single-macro leak witness of degree $3$, as there is none in two dimensions \cite{PadhiLong2D}.
 
 \begin{theorem}[Lower bound with curvature weight]\label{lk:low}
@@ -120,7 +126,7 @@ Let $\Th$ be an Alfeld refinement, $k\ge4$, $\kappa_L:=\min_F\kappa_L(T_F)$ and 
 \[
 \norm{\nabla(X-\Ut)}_{\Oh}\ \ge\ c_L\,G_\hh\,\hG^{1/2}-C\hG^{3/2},\qquad c_L:=\Bigl(\frac{4}{\sqrt3}\Bigr)^{1/2}\frac{\kappa_L\,c_0^{3/2}}{\Lambda_0}.
 \]
-$c_L$ is explicit (Section~\ref{sec:constants}): $c_L=5.20\cdot10^{-3}$ when all macro-tetrahedra at $\Gh$ are regular and $c_0=1$. \status{computer-assisted, exact}
+$c_L$ is explicit (Appendix~\ref{sec:constants}): $c_L=5.20\cdot10^{-3}$ when all macro-tetrahedra at $\Gh$ are regular and $c_0=1$. \status{computer-assisted, exact}
 \end{theorem}
 \begin{proof}
 Take $v_F$ from Lemma~\ref{lk:wit} with $S=S_F$, signed so that $-S_F:\M^1_F(v_F)\ge\kappa_L|S_F|_{\rm F}\ell_F^{3/2}$, and $v:=\sum_Fq_F|S_F|_{\rm F}v_F\in\Yh^1$. The supports are distinct macro-tetrahedra (Lemma~\ref{geom:one}), so $\norm{\nabla v}^2=\Sigma:=\sum_Fq_F^2|S_F|^2_{\rm F}$, and on $F$ only $v_F$ is seen. By Lemma~\ref{lk:defect}, $\dn v\perp n_F$ (Lemma~\ref{sh:normal}) and $\int_F\dn v_F=0$, the constant $\tau_F$ drops out and
@@ -169,7 +175,6 @@ So the $H^1$ constant of the leak law of Corollary~\ref{er:Bp} is the Dirichlet 
 \begin{remark}[General data: the lower bound needs small $\gamma$]\label{lk:rem:gen}
 For $\GS$ with $\ut\ne0$, the identity on $\Yh$ for $W':=\frac\mu h(\ut-u_h)-\Ut$ acquires the term $-\frac\mu h[\ip\ut{\dn v}+(F,v)]$. With the witness of Theorem~\ref{lk:low}, $\ip\ut{\dn v}=\ell_W(v)+O(\hG^{5/2})\norm{\nabla v}$ with $\ell_W$ the quadratic edge moments of Lemma~\ref{sh:lead}, of size $\hG^{3/2}\norm{\nabla v}$, so the extra term is $O(\gamma\hG^{1/2})\norm{\nabla v}$, the same order as the leak term. In two dimensions it is $O(\hG^2)$, because the sag is even and the witness odd on each edge. In three dimensions the witness cannot be chosen with vanishing quadratic moments on one Alfeld macro: the joint map (first moments, quadratic edge moments) on $\hat{\mathcal Y}^1_4$ has rank $6$, not $10$ (exact; on barycentric Worsey--Farin macros, rank $9$). So all we claim is $\norm{\nabla W'}\ge(c_LG_\hh-C\gamma\norm{|\hh|W}_{L^\infty})\hG^{1/2}-C(1+\gamma)\hG^{3/2}$, which is informative only for small $\gamma$. The limit statement of Corollary~\ref{lk:gen} is unaffected.
 \end{remark}
-\cert{notes/v7/td/leak\_joint.py alfeld 4 / wf 4}{leak\_joint.log}
 
 \begin{corollary}[The constant converges at rate one, with a first-order three-dimensional term]\label{lk:K}
 Let $K_h:=\norm{\nabla X}_{\Oh}/G$ and $d_h:=\norm{\nabla(X-\Ut)}/\norm{\nabla U}$. With $\sigma_U:=\dn\Ut-\Pt n$ on $\Gh$ and $\Theta_\zeta:=-\ip{\sigma_U}{\zeta}_{\Gh}$,
@@ -188,6 +193,8 @@ $\norm{\nabla X}^2=\norm{\nabla\Ut}^2_{\Oh}+2(\nabla\Ut,\nabla W)+\norm{\nabla W
 \end{remark}
 
 \subsection{Drag, lift and torque}
+Gjerde and Scott's motivating application is the drag on an obstacle. For a rigid motion $\psi$ (a translation for drag and lift, a rotation for torque), the force functional $J_\psi$ can be computed variationally from the discrete solution. For $\GS$ its error is dominated by the leak and equals $-(h/\mu)K_\psi$ to leading order, where the constant $K_\psi$ is obtained from the leak flow by reciprocity with a dual Stokes flow (Lemma~\ref{dr:recip}). For $\CNS$ the leak is absent and the error is of higher order.
+
 Let $\RM:=\{\psi(x)=a+b\times x\}$; then $D(\psi)=0$, $\nabla\psi$ is skew, $\div\psi=0$ and $\int_{\Gh}\psi\cdot n=\int_\Gamma\psi\cdot n=0$. Put $J_\psi:=\int_\Gamma\sigma(u,p)n\cdot\psi$ with $\sigma(u,p)=D(u)-pI$ (drag and lift for $b=0$, torque for $a=0$). With $\Phi_\psi:=\frac12a\times x-\frac12|x|^2b$ ($\curl\Phi_\psi=\psi$) and a cutoff $\chi_0$ equal to $1$ on $\mathcal T_{r/2}$ and $0$ near $\Sigma$, let $V_\psi:=\curl(\chi_0\Phi_\psi)$, smooth, divergence-free and equal to $\psi$ near $\Gamma$. Let $\Lambda$ be the union of all tetrahedra meeting $\Gh$. For $h\le h_\ast$, $I_hV_\psi=\psi$ on $\Lambda$.
 
 \begin{lemma}\label{dr:strip}

@@ -124,3 +124,79 @@ FLAGS
 NOT CARRIED OVER
   td Part B shape-derivative approximation kept as one sentence; td's suggested er:C restatement done via lk:gen
   rather than rewriting er:C; nsconst items belong to paper/ (Paper B), not here; letter/ untouched.
+
+==========================================================================================================
+READABILITY REVISION (2026-09-29; editor feedback on the previous submission: AI statement, exposition,
+related problems/methods, references and explicit novelty). paper3d/ only; not committed.
+==========================================================================================================
+BUILD  pdflatex, bibtex, pdflatex, pdflatex (clean) -> main.pdf 59 pp; zero undefined refs/citations, bibtex 0
+       warnings, one 1.6pt overfull box. Main text pp. 1-44 (was 1-46 of 50); appendices A-C pp. 45-57.
+STRUCTURE
+  1 Introduction (rewritten, ~5 pp incl. table): 1.1 divergence-free elements (SV85, GS19, Arnold-Qin, Zhang05/11,
+    GN18, FGN20 Alfeld complexes, GLN22/FGNZ22 Worsey-Farin, Neilan15, FMS24, Neilan20); 1.2 curved walls
+    (BSS72, Scott75, BDT72, DGS25; fitted: Neilan-Otus, Durst-Neilan, Chen-Liu 2026; boundary correction:
+    Liu-Neilan-Otus, shifted boundary, BHL18/19; Nitsche/unfitted: Nitsche, Stenberg, Freund-Stenberg,
+    Juntunen-Stenberg, Babuska73, Burman12, Boiveau-Burman, Burman-Hansbo14, LNO23 CutFEM, FNZ24, BHL24;
+    Gjerde-Scott 2022); 1.3 Scott prize + 2D answer with the leak mechanism explained in words (cites
+    PadhiLong2D, NEW bib entry CavalcantePadhi2026 = letter/, Cavalcante); 1.4 this paper: intuition for
+    hG^{3/2} (sagitta, H^{1/2} of an O(hG^2) trace, three edge moments) and "what is new in 3D" (second
+    fundamental form, face-mean defect, no stream functions, lift + stability; WF failure known);
+    1.5 informal results (10 items) + Table 1 (summary with scope/status); 1.6 Related work and novelty
+    (known+used / closest recent work incl. Chen-Liu: isoparametric optimal h^k vs our straight-sided sharp
+    hG^{3/2}; st:IS3 route stated as following Chen-Liu Lemma 3.9, no novelty claimed / new (a)-(f));
+    1.7 organisation + meaning of [computer-assisted, exact] and [numerical].
+  2 Setting: prose lead-ins; Table 2 (tab:hyp) explains every named hypothesis (G1,G3,M0^3,OB,OR,IS3,M3^3,LQ,
+    E_Z, L-family) with status.
+  3-9: prose lead-ins before the major results (lift, IS3, leak/printed method, CNS*, lower bound, transport,
+    leak limit, leak lower bound, drag, penalty, continuum witness, NS/Oseen). Statements unchanged.
+  6: the k=3 edge-star machinery (old 6.5, ~6 pp) moved verbatim to Appendix A (B_k3.tex, label app:k3 =
+    sh:sec:k3) with a new overview paragraph; main text keeps Prop sh:k3single, a prose overview, a restated
+    theorem pointing to Thm k3:witness, and Thm sh:k3main. Floating-point singular values after sh:alfeld moved.
+  8: the lambda_T certificate table + certificate paragraph moved to Appendix B (Table tab:pen); Thm pen:single
+    now states: near-regular lambda_T ~ 32.50 certified > 32; certified positive for right-corner/flat/skew (up
+    to ~135.4); certified negative for tall cells; open-set persistence. Faithful to the table.
+  old Sec. 9 (Explicit constants) -> Appendix B (07b_constants.tex; labels sec:constants = app:constants,
+    app:cert), Tables C1/C2 now floats tab:C1/tab:C2; "Section~\ref{sec:constants}" -> "Appendix~...".
+  10 Numerics: tables now floats (tab:box, tab:leak, tab:sphere) with in-text references; opening purpose para.
+  11 "What is not proved" -> "Conclusions and open problems", in prose; every item of the old list kept.
+  All \cert{...} lines removed from main-text sections (still in Appendices A/B); every script is in the
+    Appendix C table (added rows: parabolic degen.log, WF edge-star wf.log / wf_ring.log).
+  Abstract rewritten (shorter, intuition first); claims as before ("under local conditions" for the penalty).
+  Declarations: specific AI-use statement (Claude Opus 5.5, Anthropic: proof development, proof checking by
+    separate referee sessions, code, literature search with indirect-reading disclosure, drafting; verification
+    by exact/interval certificates, reruns, referee passes; author responsible; AI not an author); data/code
+    availability (code3d/, notes/v6/, notes/v7/); competing interests (Scott prize).
+FLAGS FOR THE AUTHOR
+  * AI statement says "the author reviewed the resulting corrections" -- confirm this describes your own role
+    accurately; adjust if you did more (or less).
+  * CavalcantePadhi2026 bib entry is "Manuscript, 2026" (%% FILL status/DOI); the letter's co-authorship is
+    Cavalcante + Padhi as in letter/letter.tex.
+  * Competing-interests sentence assumes the 3D paper will also be submitted for the prize (as the letter says).
+  * Main text is 44 pp, at the top of the 35-45 target; further cuts possible: drag subsection or Oseen
+    subsection to an appendix, or shorten Sec. 3 examples.
+  * Earlier flags (FGNZ metadata from memory, GLN22 body not re-read, Dauge 1989 statement unchecked, GN18 read
+    via extraction tool) unchanged; all %% VERIFY comments kept.
+
+==========================================================================================================
+REFEREE PASS ON ASSEMBLY MATERIAL (2026-09-29; adversarial referee session). paper3d/ only; not committed.
+==========================================================================================================
+Items listed above as "NEW MATERIAL WRITTEN HERE (not in any refereed report)", refereed line by line:
+  * Lemma st:bog -- VERIFIED. Chain rule, change of variables (area formula, J=det DPhi_h>0), H^1_0 preserved by
+    bi-Lipschitz composition, sqrt3 via |tr(AB)|<=|A|_F|B|_F<=sqrt3|A|_F|B|_op, closed-range identification of
+    C_B with 1/inf-sup. Clarified: epsilon uses pointwise operator norms; (G3) now says h_* depends on Omega
+    (Korn and Bogovskii constants), which the proofs of geom:korn and st:bog already required.
+  * (M0^3) connectedness => Omega_h \ T_{r/2} = Omega \ T_{r/2} (Sec. 3 "Consequences") -- VERIFIED.
+  * Lemma er:w, multi-component case -- FIXED (justification only). Divergence of V, Piola push-forward,
+    div w0 = J^{-1}chi' qbar_i, w0 = qN on Gamma, int g = 0, H^{k+1}_0 Bogovskii (Costabel-McIntosh), w = w0 on
+    T_{r/16}: all correct. The existence of the connected Lipschitz region U was asserted by "deformation-retracts";
+    replaced by an explicit construction (W={d>r/16} connected via the normal retraction; paths; smooth
+    superlevel-set domain via Sard).
+  * Theorem er:C, (h/mu)h^k hG^{-1/2} = gamma^{-1} h^k hG^{1/2} <= C h^k -- VERIFIED (whole proof re-derived).
+  * Thm sh:alfeld / Prop sh:bubble transfer t in T_{y_F}Gamma and -C1 l^{7/2} term -- VERIFIED; bubble identity
+    and the B-weighted covariance matrix / eigenvalues 1/831600 (x2), 1/8316000 re-derived exactly (sympy).
+  * NS Corollary (i) -- FIXED. Coercivity of nu N_h needs gamma>=gamma0, which was not among the hypotheses;
+    added. Proof item 3 now spells out the (L) computation (two convective terms, each <= lambda nu c1) and the
+    nu-scaling of the (L*) absorption (gamma2' depends on C_I, c0, beta, c1, M; independent of nu).
+Z_declarations: the parenthetical caveat "(except a few short arguments added when the paper was assembled ...)"
+  and the corresponding %% VERIFY lines removed; the author-confirmation VERIFY on reviewing referee reports kept.
+BUILD: clean pdflatex, bibtex, pdflatex x2 -> 59 pp, zero undefined refs/citations, no errors, one overfull box.

@@ -1,5 +1,5 @@
+Answers Scott's prize question on weak no-slip at polygons inscribed in curved walls
 The printed Nitsche form lacks a pressure traction, so flow leaks through the wall
 The leak is the leading error, with constant 1 in the slip and energy norms
-A mean-free traction term gives H1 error h_Γ^(3/2) + h^k for general Stokes data
-The H1 rate h_Γ^(3/2) is sharp for every polynomial degree k ≥ 4
+A mean-free traction gives the sharp H1 error h_Γ^(3/2) + h^k for general Stokes data
 Nitsche penalty ~ h/min|e| suffices, and is necessary for well-shaped boundary cells

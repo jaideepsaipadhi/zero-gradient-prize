@@ -1,0 +1,120 @@
+\section{How large must the penalty be?}\label{sec:penalty}
+
+Scott's prize asks for a study of the influence of the Nitsche penalty. The theorems of Sections~\ref{sec:printed}--\ref{sec:corrected} need $\gamma\ge\gamma_0$ (or $\gamma_2$), and the penalty enters the error bounds; but they say nothing about how large the smallest admissible $\mu$ actually is, or how it depends on the mesh. This section answers that question.
+
+\subsection{Sufficiency, and why $\rho$ appears}
+Lemma~\ref{lem:coercive} shows that $\mu\ge\mu_0=4\kappa C_I^2\rho$ with $\rho=h/\min_e|e|$ suffices for coercivity of $N_h$ on $\VR$. The proof is local at the wall: what is really needed is $\mu/h\gtrsim1/|e|$ for each chord $e$, a lower bound on the \emph{local} penalty in units of the chord. The appearance of the global ratio $\rho$ is the price of Scott's normalisation of the penalty by the global mesh size $h$. It has a practical consequence: with a fixed $\mu$, refining the boundary while keeping the far field coarse will eventually violate coercivity. The question is whether this is a real effect or an artefact of the proof. We show that it is real: the threshold $\mu^\ast$ (the infimum of the $\mu$ for which $N_h$ is coercive on $\Zh$) scales like $\rho$ on broad classes of meshes. Note that the relevant space is $\Zh$, the divergence-free fields: coercivity on $\Zh$ is what the $\GS$ analysis uses, and it is easier to have than coercivity on $\VR$, so necessity statements on $\Zh$ are the strong ones.
+
+\subsection{A witness in a single boundary triangle}
+Coercivity fails as soon as there is a single field $v\in\Zh$ with $N_h(v,v)<0$. For $v$ supported near the wall,
+\[
+N_h(v,v)=A(v)-2B(v)+\frac\mu h C(v),\qquad A=\sum_T\int_T\tfrac12Dv:Dv,\quad B=\int_{\Gh}(\dn v)\cdot v,\quad C=\int_{\Gh}|v|^2 .
+\]
+In two dimensions $A$ and $B$ are invariant under dilation and $C$ scales like length. So a witness on a patch of size $\ell$ gives a lower bound $\mu^\ast\ge\lambda\,h/\ell$, where $\lambda=(2B-A)/C$ is computed on the patch scaled to unit size. The smallest possible patch is one boundary triangle.
+
+Let $T$ have an edge $e\subset\Gh$ and not meet $\partial R$. Scale and rotate so that $e=[(0,0),(1,0)]$, the fluid lies above, and the apex is $(a,b)$ with $b>0$. With barycentric coordinates $\lambda_0$ (apex), $\lambda_1,\lambda_2$ (base vertices), and $c\in\R^3$, put
+\[
+\psi_c:=\lambda_1^2\lambda_2^2\,(c_0\lambda_0+c_1\lambda_1+c_2\lambda_2)\in P_5,\qquad v_c:=\curl\psi_c\in P_4^2 .
+\]
+$\psi_c$ vanishes to second order on the two interior edges of $T$, so $v_c$, extended by zero, is continuous and divergence-free: $v_c\in\Zh$ for every $k\ge4$ and every mesh containing $T$, with no condition on the other triangles. Let $A_T=\int_T\frac12Dv:Dv$, $B_T=\int_e(\dn v)\cdot v$ and $C_T=\int_e|v|^2$, with $n=(0,-1)$, as quadratic forms in $c$. They are computed exactly; with $\varpi:=4a^2+4b^2$,
+\begin{align*}
+C_T&=\frac1{1260\,b^2}\begin{pmatrix}2&a-6&-(a+5)\\ a-6&2(\varpi-3a+9)&\varpi-4a+15\\ -(a+5)&\varpi-4a+15&2(\varpi-5a+10)\end{pmatrix},\\
+B_T&=\frac1{840\,b^3}\begin{pmatrix}12&-(\varpi-6a+27)&-(\varpi-2a+25)\\ -(\varpi-6a+27)&6(\varpi-3a+9)&3(\varpi-4a+15)\\ -(\varpi-2a+25)&3(\varpi-4a+15)&6(\varpi-5a+10)\end{pmatrix},
+\end{align*}
+and $A_T=(\alpha_{ij})/b^3$ with
+\begin{align*}
+630\,\alpha_{00}&=3a^4-6a^3+6a^2b^2+12a^2-6ab^2-9a+3b^4+4b^2+9,\\
+420\,\alpha_{01}&=3a^4+6a^2b^2-5a^2+6a+3b^4-7b^2-9,\\
+420\,\alpha_{02}&=3a^4-12a^3+6a^2b^2+13a^2-12ab^2-8a+3b^4-b^2-5,\\
+70\,\alpha_{11}&=3a^4-3a^3+6a^2b^2+5a^2-3ab^2-3a+3b^4+7b^2+3,\\
+140\,\alpha_{12}&=a^4-2a^3+2a^2b^2+5a^2-2ab^2-4a+b^4+7b^2+5,\\
+70\,\alpha_{22}&=3a^4-9a^3+6a^2b^2+14a^2-9ab^2-10a+3b^4+10b^2+5 .
+\end{align*}
+The trace form is positive definite: $\det C_T=(3a^4-6a^3+7a^2b^2+3a^2-7ab^2+4b^4+5b^2)/(83\,349\,000\,b^6)>0$. The forms were checked against an independent quadrature, and the resulting $\lambda_T$ against our threshold code on single-triangle patches.
+
+\begin{theorem}[Single-triangle necessity]\label{thm:pb1}
+Let $\lambda_T$ be the largest eigenvalue of the pencil $(2B_T-A_T,\,C_T)$; it depends only on the shape of $T$. If $\mu|e|/h<\lambda_T$, then $N_h$ is indefinite on $\Zh$ for every $k\ge4$. Consequently every mesh satisfies the necessary condition
+\[
+\mu\ \ge\ h\,\max_{e\in\EG}\frac{\lambda_{T_e}}{|e|} .
+\]
+\end{theorem}
+
+\begin{proof}
+For the eigenvector $c$, $N_h(v_c,v_c)=A_T-2B_T+(\mu|e|/h)C_T=(\mu|e|/h-\lambda_T)\,C_T(c)<0$, by the scaling of the forms.
+\end{proof}
+
+The theorem is useful only where $\lambda_T>0$, and $\lambda_T$ is not given in closed form. We therefore certify positive lower bounds on families of shapes, in exact arithmetic.
+
+\begin{proposition}[Exact certificates over shape families]\label{prop:cert}
+Let $Q_\varphi$ be the set of apex positions for which the apex angle is at least $\varphi$ and $b\ge s\max(a,1-a)$ with $s=0.087<\tan5^\circ$; it contains every triangle with apex angle at least $\varphi$ and base angles at least $5^\circ$. Then
+\[
+\lambda_T>9.3\ \text{on }Q_{60^\circ},\qquad \lambda_T>4\ \text{on }Q_{45^\circ},\qquad \lambda_T>1\ \text{on }Q_{35^\circ}.
+\]
+\end{proposition}
+
+\begin{proof}[Method]
+Cover $Q_\varphi$ by dyadic boxes in the $(a,b)$ plane. On each box, take a rational vector $q$ (the eigenvector at the box centre, rounded) and verify that the polynomial $2520\,b^3\,q^{\mathsf T}(2B_T-A_T-cC_T)q$, whose coefficients are rational, is positive on the whole box, by exact rational interval arithmetic; split boxes until this succeeds. The certificates use $259$--$716$ boxes, and the same procedure fails, as it must, for $c=9.4$ on $Q_{60^\circ}$ and $c=4.5$ on $Q_{45^\circ}$. The code is in \cite{ZeroGradRepo}.
+\end{proof}
+
+A scan (not certified) gives the minimum $9.31381$ over $Q_{60^\circ}$, at the equilateral triangle, so the first bound is nearly sharp.
+
+\begin{corollary}[$\rho$-scaling is necessary on a broad class of meshes]\label{cor:rho}
+If a shortest chord carries a triangle with apex angle at least $35^\circ$ and base angles at least $5^\circ$, then coercivity of $N_h$ on $\Zh$ requires $\mu>\rho$; with apex angle at least $45^\circ$ (resp.\ $60^\circ$) it requires $\mu>4\rho$ (resp.\ $\mu>9.3\rho$). Together with Lemma~\ref{lem:coercive}, $\mu^\ast\asymp\rho$ on every such mesh.
+\end{corollary}
+
+\subsection{Tall triangles, and why necessity is not local}
+Single triangles cannot do everything: $\lambda_T<0$ for tall boundary triangles, for example every right triangle with the right angle at a base vertex and apex angle at most $30^\circ$. Such triangles occur in practice, for instance near the diagonal directions of our test meshes. One might hope that the whole star of a boundary vertex always carries a witness when the mesh satisfies (M2). This is false.
+
+\begin{proposition}[Exact counterexamples {\cite{PadhiExt}}]\label{prop:counter}
+Let $\cS^{(H)}$ be the three-triangle star at $(0,0)$ with rim points $(1,0),(1,H),(0,H),(-1,0)$ and wall $\{y=0\}$, the star of a boundary vertex in a mesh of columns of width $1$ and height $H$ split by the forward diagonal. It satisfies (M1), (M2) and has three triangles at the wall vertex. In exact rational arithmetic, on the divergence-free continuous piecewise-$P_4$ fields vanishing on the rim, $A-2B-C$ is positive definite for $H=5$ (minimum angle $11.3^\circ$), and $A-2B-\frac1{10}C$ is positive definite on the union of the two stars of one chord for $H=6$. So no field supported in these patches is a witness for any $\mu\ge0$. Similar failures occur for $k=5,6$ and on Clough--Tocher split stars.
+\end{proposition}
+
+These stars have small angles, and the counterexamples do not exclude a star witness under a minimum-angle bound (floating-point searches found star failures at minimum angle $15^\circ$ but none at $20^\circ$). On the same meshes wider patches do work (three consecutive stars at $H=5$ give a witness), and on a global (M0)--(M2) mesh built from these stars the measured threshold still scales like $\rho$ (numerically, $\mu^\ast/\rho\approx3.1$). Necessity therefore has to come from patches that extend along the wall and into the domain. Two results of this kind are proved in \cite{PadhiExt}. We state them without their technical proofs.
+
+\begin{theorem}[Necessity from a locally resolved region {\cite{PadhiExt}}]\label{thm:pbA}
+Let $e\in\EG$ have midpoint $x_0$, let $0<Y\le10^{-6}$ and suppose every triangle meeting $B(x_0,3Y)$ has diameter at most $\kappa_0(\theta)Y$, where $\theta$ is the minimum angle and $\kappa_0(\theta)$ is explicit ($0.0117$ at $30^\circ$, $0.0161$ at $60^\circ$). Then the curl of the Argyris interpolant of an explicit profile of height $Y$ is a witness with $(2B-A)Y/C\ge15$, so $N_h$ is indefinite on $\Zh$ whenever $\mu<15\,h/Y$.
+\end{theorem}
+
+The constant $15$ is close to the half-plane value $15.487$ of the profile. The smallness conditions come from worst-case interpolation bounds and are far from sharp: numerically the witness works with $\kappa\approx1$, and on dyadically graded boundary layers. A statement that needs no resolution at all is:
+
+\begin{theorem}[Necessity on every shape-regular mesh {\cite{PadhiExt}}]\label{thm:pbM0}
+Assume (M0) with minimum angle $\theta$. There are $c_\ast(\theta,c_0)>0$ and $h_\ast(\theta,L)>0$ such that for $h\le h_\ast$ and every $k\ge4$, coercivity on $\Zh$ requires $\mu\ge c_\ast\,\rho$. Neither (M1) nor (M2) is used.
+\end{theorem}
+
+The idea of the proof is worth recording, because it shows how to beat the lack of resolution that defeats Theorem~\ref{thm:pbA}. In coordinates in which a chord lies on $\{y=0\}$ and the fluid is above, take the stream function $F(x,y)=\Phi(x/X)\chi(y/X)\Psi(y)$, with $\Phi$ and $\chi$ fixed cut-offs, $X$ a fixed multiple of $\hG$, and a one-dimensional profile $\Psi$ with $\Psi(0)=0$, $\Psi'(0)=1$. The witness is $v=\curl I_AF$, with $I_A$ the Argyris interpolant. The profile is chosen \emph{exactly quadratic} on the height $y_1=2d_1\hG$ of every triangle touching the wall, so that the Argyris interpolant reproduces it there and the boundary forms $B$ and $C$ carry no interpolation error of order one. Beyond $y_1$ the profile's slope decays in two steps, through two thin transition bands, to zero; the bands are placed where shape regularity alone bounds the triangle diameters by a multiple of the distance to the wall, and the decay rates are chosen so that the interpolation error in the bands costs only a small fraction of the energy $A$. The price is that the bands must be very wide, which is where the astronomically small constants come from. The constants are explicit but astronomically small ($\log_{10}(c_\ast/c_0)\approx-39$ at $\theta=30^\circ$): the theorem settles the \emph{scaling} $\mu^\ast\gtrsim\rho$ on every shape-regular mesh, not a usable threshold. The loss comes from the worst-case growth factor between neighbouring triangles and from Taylor-based interpolation constants, both entering squared.
+
+For layered meshes with tall boundary triangles, the case in which single triangles and single stars fail, there are exact witnesses at every mesh size, with no interpolation error at all.
+
+\begin{proposition}[Stacked columns]\label{prop:cols}
+Let a half-plane mesh consist of the cells $[i,i+1]\times[jH,(j+1)H]$ split by the forward diagonal (every boundary star is the star $\cS^{(H)}$ of Proposition~\ref{prop:counter}). Let $\Phi$ be the uniform cubic B-spline with knot spacing $d=DH\ge4H$ on vertical mesh lines, and $G$ the $C^1$ piecewise quadratic with $G=y-y^2/(2H)$ on $[0,H]$, $G''=-1/(8H)$ on $[H,3H]$, $G''=1/(8H)$ on $[3H,5H]$ and $G=0$ beyond. Then $F=\Phi(x)G(y)$ is $C^1$ and piecewise $P_5$ on the mesh, so $v=\curl F\in\Zh$ exactly for every $k\ge4$, and
+\[
+H\,\frac{\hG\,(2B-A)}{C}=\frac{2265D^4-2800D^2-6944}{2416D^4}\ \ge\ 0.8538 .
+\]
+Hence $\mu^\ast\ge0.85\,h/(H\hG)$ on every mesh containing this configuration over the support of the witness.
+\end{proposition}
+
+\begin{proof}
+For $F=\Phi G$ with $G(0)=0$ and compact support, $B=H^{-1}\int\Phi^2$, $C=\int\Phi^2$ and $A=2\int\Phi'^2\int G'^2+\int\Phi^2\int G''^2+\int\Phi''^2\int G^2$ (the cross term integrates to zero by parts). The integrals are rational: $\int\Phi^2=\frac{151d}{315}$, $\int\Phi'^2=\frac2{3d}$, $\int\Phi''^2=\frac8{3d^3}$, $\int G^2=\frac{31H^3}{60}$, $\int G'^2=\frac{5H}{12}$, $\int G''^2=\frac{17}{16H}$. The resulting expression is increasing in $D$.
+\end{proof}
+
+So on layered meshes the threshold decreases as the first layer gets taller: numerically $\mu^\ast\approx(15\text{--}16)\,h/\delta_1$ with $\delta_1$ the first-layer height, close to the half-plane constant of Theorem~\ref{thm:pbA}, and the decay with the apex angle of any constant $c(\theta)$ in a bound $\mu^\ast\ge c(\theta)\rho$ is genuine.
+
+\subsection{The measured threshold}
+On the meshes of Section~\ref{sec:numerics} the measured threshold $\gamma^\ast=\mu^\ast\hG/h$ is about $18$--$21$ for $k=4$, and it is linear in $h/\hG$ over more than a decade when the far field is coarsened (Table~\ref{tab:thresh}, Figure~\ref{fig:thresh}): the threshold is set locally at the wall, and the scaling with $h/\hG$ is the cost of normalising by the global $h$. Table~\ref{tab:patch} shows how the threshold is built up from patches of increasing size. The gap between the certified local constants ($9$--$10$) and the measured $18$--$21$ is accounted for \cite{PadhiExt} by three effects, in order of size: the first layer of our meshes is flatter than the reference shapes (height $\frac34$ of the chord at the longest chords, which is where $\gamma^\ast$ is decided), the optimal witness spreads over $4$--$8$ chords, and the second layer adds a little. Numerically $\gamma^\ast(N)$ approaches the threshold of a periodic half-plane cell, $\gamma^\ast_\infty\approx21.41$, roughly like $\gamma^\ast_\infty-22/N$.
+
+\begin{table}[t]
+\centering\small
+\caption{Patch thresholds $\gamma$ on the meshes of Section~\ref{sec:numerics} ($k=4$): the largest $\hG(2B-A)/C$ over fields supported in a single boundary triangle, a single wall star, windows of $W$ consecutive first-layer columns, the first $J$ layers, and globally.}\label{tab:patch}
+\begin{tabular}{rccccccc}
+\toprule
+$N$ & triangle & star & win2 & win4 & win8 & $J=2$ & global\\
+\midrule
+8 & 6.13 & 13.71 & 13.91 & 14.65 & -- & 14.74 & 14.74\\
+16 & 8.93 & 16.58 & 16.89 & 17.91 & 17.94 & 18.09 & 18.09\\
+32 & 10.08 & 17.48 & 17.82 & 19.54 & 19.69 & 19.85 & 19.85\\
+64 & 10.49 & 17.70 & 18.03 & 20.29 & 20.68 & 20.80 & 20.80\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\emph{Practical advice.} For $k=4$, $\gamma=\mu\hG/h\ge25$ is safe on our meshes, so $\mu\ge25\rho$ is safe too; a fixed $\mu$ fails once the far field is coarsened beyond $h/\hG\approx\mu/20$. The threshold grows quickly with $k$ ($\gamma^\ast\approx33$ for $k=5$ and $48$ for $k=6$) and is larger on Clough--Tocher refinements (Table~\ref{tab:threshv3}), so these values do not transfer between elements. For $\CNS$ the relevant quantity is the largest $\mu$ at which the square system is singular; it is somewhat above the $\GS$ threshold (Section~\ref{sec:numerics}).

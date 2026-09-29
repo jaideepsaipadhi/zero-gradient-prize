@@ -1,5 +1,7 @@
 \section{The penalty threshold scales with \texorpdfstring{$\rho$}{rho}}\label{sec:penalty}
 
+Scott's prize also asks about the influence of the Nitsche penalty. The standard sufficient condition for coercivity is a penalty that dominates the inverse trace constant of the cells at the wall, which grows with the ratio $\rho$ of the bulk mesh size $h$ (used in the penalty $\mu/h$) to the smallest wall-face diameter. We show that this growth is genuinely needed: if $\mu$ is small compared with $\rho$, a discrete divergence-free field concentrated near a smallest wall face makes $N_h$ negative. We give two such fields, one supported in a single Alfeld macro-element, whose quality is certified shape by shape, and one obtained by discretising a continuum profile, which needs local quasi-uniformity but no condition on the cell shape.
+
 Sufficiency is Lemma~\ref{st:coercive}: $\mu\ge\mu_0=4\kappa C_I^2\rho$ implies coercivity of $N_h$ on $\VR$. This section shows that a threshold proportional to $\rho$ is also necessary, on the divergence-free space $\Zh$ on which the methods actually need coercivity, under conditions on the cells at a smallest boundary face.
 
 \paragraph{Scaling.} For $v\in\Zh$ put $A:=a_h(v,v)$, $B:=\ip{\dn v}v$ and $C:=\norm v^2_{\Gh}$, so that $N_h(v,v)=A-2B+(\mu/h)C$. Under dilation by $\ell$, $A$ and $B$ scale like $\ell$ and $C$ like $\ell^2$. For a field of length scale $\ell$,
@@ -27,32 +29,17 @@ $\Phi$ maps barycentre to barycentre, hence $\hat T^A$ onto $T^A$; continuity, d
 \end{proof}
 
 \begin{theorem}[Single-cell necessity]\label{pen:single}
-If $\mu\diam F/h<\lambda_T$, then $N_h$ is indefinite on $\Zh$, for every $k\ge3$. In particular, if the macro-tetrahedron on a smallest face $F_\ast$ of $\Gh$ has $\lambda_T\ge\lambda_0>0$, coercivity on $\Zh$ requires $\mu\ge\lambda_0\rho$. Exact rational certificates give, for $k=3$:
-\begin{center}\footnotesize
-\begin{tabular}{lcccc}
-\toprule
-shape (apex) & $\dim W_3$ & $\sup\frac{2B-A}C$ & $\lambda_T$ & exact certificate\\
-\midrule
-near-regular, $(\frac12,\frac7{24},\frac{13}{16})$ & 8 & 32.2481 & 32.50 & $2B-A-\frac{28060}{871}C>0$\\
-right corner$^\dagger$, $(0,0,1)$ & 8 & 22.9834 & 32.50 & $2B-A-\frac{9850}{429}C>0$\\
-flat, height $\frac12$ & 8 & 61.4449 & 61.92 & $2B-A-\frac{51071}{832}C>0$\\
-flat, height $\frac14$ & 8 & 134.356 & 135.40 & $2B-A-\frac{133014}{991}C>0$\\
-skew, $(\frac32,\frac13,\frac34)$ & 8 & 32.3856 & 32.64 & $2B-A-\frac{14656}{453}C>0$\\
-tall, height $2$ & 8 & $-10.381$ & $-10.46$ & $A-2B-10C\succ0$\\
-tall, height $3$ & 8 & $-57.454$ & $-57.90$ & $A-2B-57C\succ0$\\
-\bottomrule
-\end{tabular}
-\end{center}
-The base is $(0,0,0),(1,0,0),(\frac12,\frac78,0)$ except for $^\dagger$, where it is $(0,0,0),(1,0,0),(0,1,0)$; flat and tall cells have their apex above $(\frac12,\frac7{24},0)$. By Lemma~\ref{pen:piola}, each positive certificate also holds on an open set of shapes around the tabulated one. \status{computer-assisted, exact}
+If $\mu\diam F/h<\lambda_T$, then $N_h$ is indefinite on $\Zh$, for every $k\ge3$. In particular, if the macro-tetrahedron on a smallest face $F_\ast$ of $\Gh$ has $\lambda_T\ge\lambda_0>0$, coercivity on $\Zh$ requires $\mu\ge\lambda_0\rho$. Exact rational certificates give, for $k=3$, $\lambda_T\approx32.50$, certified $>32$, for a near-regular macro-element, certified positive values for the right-corner, flat and skew shapes of Table~\ref{tab:pen} (up to $\lambda_T\approx135.4$ for a flat cell), and certified negative values for tall cells; each positive certificate also holds on an open set of shapes around the tabulated one. \status{computer-assisted, exact}
 \end{theorem}
 
 \begin{proof}
 A field $v\in W_k(T)$ extended by zero is continuous (it vanishes on the faces shared with other cells), piecewise $P_k$, zero on $\Sigma$ and divergence free, so $v\in\Zh$, and its forms are $A_T,B_T,C_T$. Apply \eqref{pen:scale} with $\ell=\diam F$ to the maximiser, and $h/\diam F_\ast=\rho$.
 \end{proof}
-\cert{notes/v6/td\_pen/alfeld\_tet.py, verify\_alfeld.py, neg\_cert.py}{alfeld\_k3.log, verify\_*.log, neg\_cert.log}
-The null space is computed exactly over $\mathbb Q$; the suprema are found by floating-point bisection on the $8$-dimensional pencil, and the \emph{certificates} are rational witnesses checked in exact arithmetic. An independent quadrature check reproduces the near-regular quotient $32.24809277$ against $32.24809278$ from the exact pipeline. For tall cells, the exact $LDL^{\mathsf T}$ factorisation shows that $A-2B-10C$ (height $2$) is positive definite on $W_3(T)$, so no single-cell witness of degree $3$ exists (higher degrees were not tested); a height scan puts the change of sign at height $\approx1.69$ times the base size (the regular tetrahedron has height $0.816$). This is the three-dimensional analogue of the tall-cell limitation in two dimensions \cite{PadhiLong2D}.
+For tall cells no single-cell witness of degree $3$ exists (higher degrees were not tested); this is the three-dimensional analogue of the tall-cell limitation in two dimensions \cite{PadhiLong2D}, and it is why a second, continuum witness is needed. Details of the certificates are in Appendix~\ref{app:cert}.
 
 \subsection{A continuum witness}
+The second witness is a smooth divergence-free field on the half-space, tangential to the wall and sheared across it, for which the Nitsche quotient can be computed exactly; interpolating it on a locally fine mesh and correcting its divergence gives a discrete witness.
+
 \paragraph{Half-space constant.} Take the fluid in $\{z>0\}$, $n=(0,0,-1)$ and $\dn=-\partial_z$. Let $g(t)=t(1-t)^6$ on $[0,1]$ (zero for $t\ge1$), $\phi(s)=(1-s^2)^6$ on $[-1,1]$, and
 \[
 \mathcal F:=Y\phi(x/X)\phi(y/X)g(z/Y),\qquad w:=\curl(\mathcal Fe_y)=(-\partial_z\mathcal F,0,\partial_x\mathcal F).
@@ -62,7 +49,6 @@ Then $\div w=0$ and $w\cdot n=0$ on $z=0$; at $z=0$, $w_1=-\phi\phi$ and $\dn w\
 \hat\lambda:=\frac{Y(2B-A)}C=\frac{2327591}{151008}=15.41369\ldots,
 \]
 with $15.53940$, $15.58222$, $15.62292$ for $X/Y=3,4,8$, and $\hat\lambda\to-2g'(0)g''(0)-\int_0^1|g''|^2=\frac{172}{11}=15.636\ldots$ as $X/Y\to\infty$ (the one-dimensional limit). \status{exact}
-\cert{notes/v6/td\_pen/continuum3d.py}{continuum3d.log}
 
 \begin{enumerate}[label=(LQ)]
 \item Let $F_\ast\in\FG$ have minimal diameter, $x_0\in F_\ast$, and $Y:=C_q\diam F_\ast/\kappa$. Every tetrahedron of $\Th$ meeting $B(x_0,4Y)$ has diameter at most $C_q\diam F_\ast=\kappa Y$, and $B(x_0,4Y)\cap\Sigma=\emptyset$.

@@ -1,6 +1,6 @@
-\section{Explicit constants}\label{sec:constants}
+\section{Explicit constants and certificate details}\label{sec:constants}\label{app:constants}
 
-The constants in Theorems~\ref{sh:alfeld}, \ref{sh:lb} and~\ref{lk:low} and the single-cell penalty constant can be made explicit on Alfeld refinements. The (IS3) constant cannot, at present; we say why. The values below are certified lower bounds for the stated shapes, not estimates of the true constants: the pre-asymptotic sphere data of Section~\ref{sec:numerics} are orders of magnitude larger.
+This appendix collects the explicit constants of the lower bounds and the details of the computer-assisted certificates used in the main text. The constants in Theorems~\ref{sh:alfeld}, \ref{sh:lb} and~\ref{lk:low} and the single-cell penalty constant can be made explicit on Alfeld refinements. The (IS3) constant cannot, at present; we say why. The values below are certified lower bounds for the stated shapes, not estimates of the true constants: the pre-asymptotic sphere data of Section~\ref{sec:numerics} are orders of magnitude larger.
 
 \subsection{The witness constants}
 \begin{proposition}[Explicit $\kappa_0$ and $\kappa_L$]\label{ct:kappa}
@@ -25,8 +25,9 @@ The first formula is Proposition~\ref{sh:joint} with $|P_Ft|=1-O(\hG^2)$ (the de
 \cert{notes/v7/td/kappa\_cert.py 4; kappa\_explicit.py}{kappa\_k4.log; kappa\_explicit.log}
 The value $\norm{\hat R}=91.678155469$ is the certified form of the floating-point value $91.7$ quoted after Theorem~\ref{sh:alfeld}; it is obtained, like $\norm{\hat R_1}$, by bracketing the smallest eigenvalue of $\hat E\hat G^{-1}\hat E^{\mathsf T}$ with exact $LDL^{\mathsf T}$ tests.
 
-\begin{center}\small
-\textbf{Table C1.} Explicit constants (floating-point evaluation of the proved formulas, best labelling).\\[2pt]
+\begin{table}[ht]
+\centering\small
+\caption{Explicit constants (floating-point evaluation of the proved formulas, best labelling).}\label{tab:C1}
 \begin{tabular}{lcccccc}
 \toprule
 macro shape (apex over base) & $c_w(F)$ & $\kappa_0(T)$ & $\kappa_L(T)$ & $c_s$ & $\theta$ & closed-form $\kappa_0$\\
@@ -38,8 +39,8 @@ flat, height $\frac12$ & 0.861 & $1.79\cdot10^{-3}$ & $1.18\cdot10^{-1}$ & 0.166
 skew $(\frac32,\frac13,\frac34)$ & 0.861 & $1.33\cdot10^{-3}$ & $7.73\cdot10^{-2}$ & 0.095 & $59.5^\circ$ & $3.40\cdot10^{-6}$\\
 \bottomrule
 \end{tabular}
-\end{center}
-The bases are those of Theorem~\ref{pen:single}.
+\end{table}
+The bases are those of Table~\ref{tab:pen}.
 
 \emph{The remaining constants of the lower bounds.} In Corollary~\ref{sh:abstract}, $\Lambda_0=2+C_{PT}C_I$, where on the Alfeld sub-tetrahedron $T_F=\conv(B,F)$, of height $h_{\rm sub}=h_T/4$ over $F$ and diameter $D_{\rm sub}$,
 \[
@@ -72,8 +73,9 @@ Lemma~\ref{st:IS3} gives $\beta^{-1}\le C_{\rm loc}+C_\Pi C_B(\Oh)(1+\sqrt3C_{\r
 \item $C_\Pi$ (Scott--Zhang plus face-bubble fluxes) is local and explicit in principle, but depends on the vertex patches; we have not derived a value.
 \item $C_B(\Oh)\le2C_B(\Omega)$ holds only for $\hG\le h_\ast$ with a non-explicit $h_\ast$ (Lemma~\ref{st:bog}), and $C_B(\Omega)$ for a box minus a ball is not known explicitly. Explicit Bogovski\u{\i} bounds exist for domains star-shaped with respect to a ball, and $R\setminus\overline D$ is not one; decomposition bounds are explicit but very crude.
 \end{enumerate}
-\begin{center}\small
-\textbf{Table C2.} \status{numerical} Discrete inf-sup constant of $(\VO,\Pih\cap L^2_0)$ on icosphere--Alfeld shells: $\Oh$ lies between the level-$l$ icosphere polyhedron and its dilate by $2$, with $m$ prism layers (radii $2^{j/m}$), $3$ tetrahedra per prism, Alfeld-refined. $\beta_h^{-2}$ is the largest eigenvalue of $M^{1/2}(BA^{-1}B^{\mathsf T})^+M^{1/2}$ on $L^2_0$ (ARPACK, sparse LU of the saddle system).\\[2pt]
+\begin{table}[ht]
+\centering\small
+\caption{\status{numerical} Discrete inf-sup constant of $(\VO,\Pih\cap L^2_0)$ on icosphere--Alfeld shells: $\Oh$ lies between the level-$l$ icosphere polyhedron and its dilate by $2$, with $m$ prism layers (radii $2^{j/m}$), $3$ tetrahedra per prism, Alfeld-refined. $\beta_h^{-2}$ is the largest eigenvalue of $M^{1/2}(BA^{-1}B^{\mathsf T})^+M^{1/2}$ on $L^2_0$ (ARPACK, sparse LU of the saddle system).}\label{tab:C2}
 \begin{tabular}{cccccccc}
 \toprule
 $k$ & $l$ & $m$ & macro tets & $\hG$ & $\dim\VO$ & $\beta_h$ (3 smallest) & $1/\beta_h$\\
@@ -86,6 +88,33 @@ $k$ & $l$ & $m$ & macro tets & $\hG$ & $\dim\VO$ & $\beta_h$ (3 smallest) & $1/\
 4 & 0 & 2 & 120 & 1.052 & 15642 & .1152, .1155, .1156 & 8.68\\
 \bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 \cert{notes/v7/td/is3\_ico.py k l m}{is3\_k3\_l0.log, is3\_more.log}
 At fixed layer structure the constant does not change from $l=0$ to $l=1$ ($8.608$ to $8.612$). More layers at fixed $l$ make the prisms flatter (smaller $c_s$) and $\beta_h$ smaller, consistent with the $c_s^{-1}$ dependence of $C_{\rm loc}$. No spurious pressure modes were found. These values, $1/\beta_h\approx8.6$ ($k=3$) and $8.1$ ($k=4$) on single-layer shells, are evidence for, not a proof of, a moderate constant.
+
+\subsection{Details of the certificates}\label{app:cert}
+\paragraph{The Alfeld witness, $k=4$ (Theorem~\ref{sh:alfeld}).} The rank computation was repeated independently (\texttt{notes/v6/referee6/aw.py}), and the Piola identity of Lemma~\ref{sh:piola}(b) was checked symbolically on a random affine map. In floating point, the singular values of $\hat E$ on $\hat{\mathcal Y}^1_4$ in the $H^1$-seminorm are $0.240$, $0.175$, $0.123$, $0.069$, $0.0211$, $0.0109$, so $\norm{\hat R}=91.7$ (\texttt{k4\_constant.py}); the certified value is $\norm{\hat R}=91.678155469$, and $\kappa_0$ is explicit (Proposition~\ref{ct:kappa}; $\kappa_0=2.11\cdot10^{-3}$ for a regular macro-tetrahedron).
+
+\paragraph{Single-cell penalty constants (Theorem~\ref{pen:single}).} Table~\ref{tab:pen} lists the certified shapes.
+\begin{table}[ht]
+\centering\footnotesize
+\caption{Single-cell penalty constants $\lambda_T$ of Theorem~\ref{pen:single}, $k=3$. The base is $(0,0,0),(1,0,0),(\frac12,\frac78,0)$ except for $^\dagger$, where it is $(0,0,0),(1,0,0),(0,1,0)$; flat and tall cells have their apex above $(\frac12,\frac7{24},0)$.}\label{tab:pen}
+\begin{tabular}{lcccc}
+\toprule
+shape (apex) & $\dim W_3$ & $\sup\frac{2B-A}C$ & $\lambda_T$ & exact certificate\\
+\midrule
+near-regular, $(\frac12,\frac7{24},\frac{13}{16})$ & 8 & 32.2481 & 32.50 & $2B-A-\frac{28060}{871}C>0$\\
+right corner$^\dagger$, $(0,0,1)$ & 8 & 22.9834 & 32.50 & $2B-A-\frac{9850}{429}C>0$\\
+flat, height $\frac12$ & 8 & 61.4449 & 61.92 & $2B-A-\frac{51071}{832}C>0$\\
+flat, height $\frac14$ & 8 & 134.356 & 135.40 & $2B-A-\frac{133014}{991}C>0$\\
+skew, $(\frac32,\frac13,\frac34)$ & 8 & 32.3856 & 32.64 & $2B-A-\frac{14656}{453}C>0$\\
+tall, height $2$ & 8 & $-10.381$ & $-10.46$ & $A-2B-10C\succ0$\\
+tall, height $3$ & 8 & $-57.454$ & $-57.90$ & $A-2B-57C\succ0$\\
+\bottomrule
+\end{tabular}
+\end{table}
+By Lemma~\ref{pen:piola}, each positive certificate also holds on an open set of shapes around the tabulated one. \status{computer-assisted, exact}
+
+\cert{notes/v6/td\_pen/alfeld\_tet.py, verify\_alfeld.py, neg\_cert.py}{alfeld\_k3.log, verify\_*.log, neg\_cert.log}
+The null space is computed exactly over $\mathbb Q$; the suprema are found by floating-point bisection on the $8$-dimensional pencil, and the \emph{certificates} are rational witnesses checked in exact arithmetic. An independent quadrature check reproduces the near-regular quotient $32.24809277$ against $32.24809278$ from the exact pipeline. For tall cells, the exact $LDL^{\mathsf T}$ factorisation shows that $A-2B-10C$ (height $2$) is positive definite on $W_3(T)$, so no single-cell witness of degree $3$ exists (higher degrees were not tested); a height scan puts the change of sign at height $\approx1.69$ times the base size (the regular tetrahedron has height $0.816$). This is the three-dimensional analogue of the tall-cell limitation in two dimensions \cite{PadhiLong2D}.
+

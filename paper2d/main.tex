@@ -1,0 +1,97 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,array,enumitem}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[expansion=false]{microtype}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\setlist{leftmargin=2em}
+\emergencystretch=2em
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\hO}{h_\Omega}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Th}{\mathcal T_h}
+\newcommand{\EG}{\mathcal E_h^\Gamma}
+\newcommand{\Vh}{V_h}
+\newcommand{\VR}{V_h^R}
+\newcommand{\VO}{V_h^0}
+\newcommand{\Pih}{\Pi_h}
+\newcommand{\Zh}{Z_h}
+\newcommand{\Wh}{W_h}
+\newcommand{\Yh}{Y_h}
+\newcommand{\gI}{g_I}
+\newcommand{\dn}{\partial_n}
+\newcommand{\dt}{\partial_\tau}
+\newcommand{\ut}{\tilde u}
+\newcommand{\pt}{\tilde p}
+\newcommand{\ft}{\tilde f}
+\newcommand{\psit}{\tilde\psi}
+\newcommand{\pbar}{\bar p}
+\newcommand{\pbG}{\bar p_{\Gamma}}
+\newcommand{\ip}[2]{\langle #1,\, #2\rangle}
+\newcommand{\tnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\GS}{\mathrm{GS}}
+\newcommand{\CNS}{\mathrm{CNS}^\ast}
+\newcommand{\eps}{\varepsilon_h}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\Gc}{\mathcal G}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\Lk}{\mathcal L}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\dist}{dist}
+
+\begin{document}
+
+\title[Scott--Vogelius--Nitsche on polygonal boundaries]{Exactly divergence-free Stokes elements with Nitsche's method on a polygonally approximated boundary: the missing pressure traction, Scott's rate, and the zero-gradient lock}
+
+\author{Jaideep Sai Padhi}
+\address{Department of Computer Science, Purdue University, West Lafayette, IN 47907, USA}
+\email{jpadhi@purdue.edu}
+%% TBD: C. de S. Cavalcante may join as a co-author (per the joint AML letter); not added here.
+\date{\today}
+\subjclass[2020]{Primary 65N30; Secondary 65N12, 65N15, 76D07}
+\keywords{Stokes equations, Scott--Vogelius elements, Nitsche's method, curved boundaries, polygonal approximation, divergence-free finite elements, penalty parameter}
+
+\begin{abstract}
+Scott--Vogelius elements compute velocities that are divergence-free pointwise, but on a curved no-slip wall this property clashes with the usual replacement of the wall by an inscribed polygon: the discrete velocity can be forced to have zero gradient at polygon vertices, and with strongly imposed no-slip the $H^1$ error can degrade to order $h^{1/2}$. Gjerde and Scott proposed to impose the wall condition weakly by Nitsche's method on the polygon, observed errors of order $h^{3/2}$, and Scott asked for a proof that the error behaves like $h_\Gamma^{3/2}+h_\Omega^k$ and, if it does not, why not. We answer the question in two dimensions.
+
+For the method as printed, the estimate holds if and only if the pressure is constant along the wall. The printed Nitsche form omits the pressure part $-pn$ of the traction, so the penalty balances the wall pressure and the discrete velocity leaks through the wall with normal velocity $(h/\mu)(p-\bar p)$. We prove that the method nevertheless converges, at the sharp rate $h/\mu$ in the $H^1$ seminorm and $(h/\mu)^{1/2}$ in the mesh-dependent energy norm, identify the error to leading order with constant exactly $1$ in the slip and energy norms, and show that the $H^1$ constant is the energy of a Stokes flow driven by the leak. Restoring the traction with the wall mean of the discrete pressure removed gives a well-posed, exactly divergence-free method; the device is due to Frachon, Nilsson and Zahedi, and our contribution is its analysis. We prove that it attains $h_\Gamma^{3/2}+h_\Omega^k$ for general Stokes data and every fixed $k\ge4$, uniformly in the penalty for flux-corrected outer data, and that the term $h_\Gamma^{3/2}$ is sharp whenever the wall shear does not vanish identically and $h_\Gamma$ is small relative to the minimum angle of the wall triangles. We show that the Nitsche penalty must scale with the ratio of bulk to boundary mesh size, with sufficiency on every mesh and necessity certified in exact arithmetic on broad classes of meshes. Finally we explain the zero-gradient phenomenon itself: under the Guzm\'an--Scott angle condition strongly imposed no-slip already attains the same two-sided rate $h_\Gamma^{3/2}$, and the lock is caused by wall vertices lying in only two triangles, each of which costs $h_\Gamma|\partial_nu|$ in $H^1$. Computations with up to $256$ boundary chords confirm the rates and constants. Omitted proofs and further results are in an extended version.
+\end{abstract}
+
+\maketitle
+
+\input{sections/01_intro}
+\input{sections/02_related}
+\input{sections/03_setting}
+\input{sections/04_printed}
+\input{sections/05_corrected}
+\input{sections/06_penalty}
+\input{sections/07_strong}
+\input{sections/08_further}
+\input{sections/09_numerics}
+\input{sections/10_conclusions}
+\input{sections/Z_declarations}
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+\end{document}

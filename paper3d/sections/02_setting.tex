@@ -1,5 +1,7 @@
 \section{Setting, methods and assumptions}\label{sec:setting}
 
+This section fixes the domain, the inscribed surface and the mesh, the two methods, and the norms. Several hypotheses are referred to by short labels throughout the paper; Table~\ref{tab:hyp} at the end of the section lists them with their meaning and with where they are proved or used.
+
 \subsection{Domain}
 \begin{assumption}[Domain]\label{set:dom}
 $\Omega\subset\R^3$ is a bounded connected Lipschitz domain with $\partial\Omega=\Gamma\sqcup\Sigma$. The wall $\Gamma=\Gamma_1\sqcup\dots\sqcup\Gamma_m$ is a union of closed, connected, embedded surfaces of class $C^{k+3}$, each a whole component of $\partial\Omega$. The outer boundary $\Sigma\ne\emptyset$ is a finite union of closed polyhedral surfaces (whole components of $\partial\Omega$) and carries strongly imposed Dirichlet data.
@@ -14,10 +16,11 @@ $N$ denotes the unit normal of $\Gamma$ pointing into $\Omega$ and $n:=-N$ the o
 \end{enumerate}
 
 \subsection{Inscribed surface and mesh}
+The discrete wall $\Gh$ is a triangulated surface whose vertices lie on $\Gamma$, and the fluid region $\Oh$ is the polyhedral region between $\Gh$ and $\Sigma$. Besides shape regularity we need one global condition, (OB), which excludes a discrete domain that wraps around to the far side of the obstacle; Section~\ref{sec:geometry} shows that it cannot be dropped.
 \begin{assumption}[Inscribed surface and mesh]\label{set:mesh}\leavevmode
 \begin{enumerate}[label=(G\arabic*)]
 \item $\Gh$ is a closed triangulated surface (each edge lies in exactly two faces) whose vertices lie on $\Gamma$. Its faces have diameter in $[c_0\hG,\hG]$ and minimal angle at least $\theta_0>0$.
-\item[(G3)] $\hG\le h_\ast$, a constant depending on $\Gamma$, $c_0$, $\theta_0$ and the shape regularity below.
+\item[(G3)] $\hG\le h_\ast$, a constant depending on $\Omega$ (through $\Gamma$ and, in Lemmas~\ref{geom:korn} and~\ref{st:bog}, through the Korn and Bogovski\u{\i} constants of $\Omega$), $c_0$, $\theta_0$ and the shape regularity below.
 \end{enumerate}
 \begin{enumerate}[label=(M0$^3$)]
 \item $\Oh$ is a bounded connected open polyhedral set with $\partial\Oh=\Sigma\sqcup\Gh$, and $\Th$ is a conforming, shape-regular tetrahedral mesh of $\Oh$ (inradius $\ge c_s\diam T$) whose boundary faces on $\Gh$ are exactly the faces of $\Gh$. We write $\FG$ for this set of faces.
@@ -42,6 +45,7 @@ $\Th$ is an \emph{Alfeld refinement} if it is obtained from a conforming shape-r
 \textbf{(D)} $\ft$ is a smooth bounded extension of $f$ to a fixed neighbourhood of $\overline\Omega$, and $h\le h_\ast$.
 
 \subsection{Spaces and forms}
+The velocity space is $H^1$-conforming and the pressure space discontinuous, so that $\div\Vh\subset\Pih$; the wall condition is not built into the velocity space but imposed by Nitsche's method. The form $N_h$ below is the symmetric Nitsche form: the viscous part of the boundary traction, its symmetric counterpart, and the penalty $\mu/h$.
 Fix $k\ge3$. $\Vh$ is the space of continuous piecewise-$P_k$ vector fields on $\Th$, $\VR:=\{v\in\Vh:v|_\Sigma=0\}$ and $\VO:=\{v\in\Vh:v|_{\partial\Oh}=0\}$. $\Pih$ is the space of discontinuous piecewise-$P_{k-1}$ functions and $\Zh:=\{v\in\VR:\div v=0\}$. With $g:=u|_\Sigma$ and $\gI$ its $P_k$ Lagrange interpolant, $\Wh:=\{z\in\Vh:z|_\Sigma=\gI,\ \div z=0\}$.
 
 On $\Gh$, $n$ is the outward unit normal of $\Oh$ (on the face $F$ we also write $n_F$), $\dn v:=(\nabla v)n$ and $\ip\cdot\cdot$ is the $L^2(\Gh)$ pairing. Let
@@ -58,6 +62,8 @@ N_h(u_h,v)-(p_h,\div v)=(\ft,v)\quad\forall v\in\VR,\qquad (q,\div u_h)=0\quad\f
 \end{definition}
 The transcription conventions (the sign of the pressure, and the test space $\VR$) are those of \cite{PadhiLong2D}.
 
+The pressure part of the boundary traction, $-\ip{p_h}{v\cdot n}$, is absent from $\GS$. The corrected method adds it back with the wall mean removed; without that subtraction the square system is singular (Proposition~\ref{er:singular}).
+
 \begin{definition}[Method $\CNS$]\label{set:CNS}
 As $\GS$, with momentum row
 \[
@@ -66,6 +72,7 @@ N_h(u_h,v)-(p_h,\div v)+\ip{p_h-\pbG(p_h)}{v\cdot n}=(\ft,v),\qquad \pbG(q):=|\G
 \end{definition}
 The mean is over all of $\Gh$, also when $\Gamma$ has several components; per-component means are inconsistent (Remark~\ref{er:rem:global}). The added term appears in the momentum row only, so the velocity stays exactly divergence-free. Its velocity is that of the zero-net-flux formulation of \cite[Section~5.1]{FrachonNilssonZahedi2024} (see \cite{PadhiLong2D} for the transcription; the argument is dimension-free).
 
+All results that need existence of the discrete solution use the following uniform discrete inf-sup condition, the only stability hypothesis of the paper.
 \begin{enumerate}[label=(IS3)]
 \item There is $\beta>0$, independent of $h$, such that for every $q\in\Pih\cap L^2_0(\Oh)$ there is $v\in\VO$ with $\div v=q$ and $\norm{\nabla v}\le\beta^{-1}\norm q$.
 \end{enumerate}
@@ -87,3 +94,23 @@ For fields with traces on $\Gh$,
 \tnorm v^2:=\norm{\nabla v}^2_{\Oh}+\frac\mu h\norm v^2_{\Gh}+\sum_{F\in\FG}\diam F\,\norm{\dn v}^2_{L^2(F)} .
 \]
 We write $\pbar:=|\Gamma|^{-1}\int_\Gamma p$ and $G:=\norm{p-\pbar}_{L^2(\Gamma)}$. $C$ and $c$ depend on $k$, the constants in (G1) and (M0$^3$), $\Omega$, and norms of $(u,p,\ut,\pt)$; they never depend on $h,\hG,\mu,\gamma,\rho$ unless displayed. $C_p$ may also depend on $\norm{p-\pbar}_{W^{1,\infty}(\Gamma)}$.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{Named hypotheses. ``Theorem'' means the condition is proved in the stated setting; ``assumed'' means it is a hypothesis of the results that use it.}\label{tab:hyp}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.09\textwidth}>{\raggedright\arraybackslash}p{0.47\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}}
+\toprule
+Label & Meaning & Status\\
+\midrule
+(G1), (G3) & wall faces with vertices on $\Gamma$, comparable diameters, angles bounded below; $\hG$ small & assumed (Assumption~\ref{set:mesh})\\
+(M0$^3$) & conforming shape-regular tetrahedral mesh of $\Oh$ with the faces of $\Gh$ as wall faces & assumed\\
+(OB) & $\Oh$ does not contain the parallel surface on the obstacle side of $\Gamma$ & assumed; holds whenever $\Oh$ agrees with $\Omega$ away from $\Gamma$\\
+(OR) & every wall face is oriented like $\Gamma$ & consequence of (M0$^3$) and (OB) (Theorem~\ref{geom:mesh})\\
+(IS3) & discrete inf-sup constant bounded below uniformly in $h$ & theorem on Alfeld refinements, $k\ge3$ (Lemma~\ref{st:IS3}); false on subdivided wall faces (Proposition~\ref{st:wf}); otherwise assumed\\
+(M3$^3$) & local discrete fields that see the edge moments of the sagitta on each face & theorem on Alfeld refinements, $k\ge3$, and on any mesh, $k\ge9$ (Section~\ref{sec:sharp}, Appendix~\ref{app:k3})\\
+(LQ) & the mesh is locally quasi-uniform at a smallest wall face & assumed in Theorem~\ref{pen:cont}\\
+(E$_Z$) & approximation of a dual Stokes flow at the rate $\hG^{1/2}$ (a regularity statement at $\Sigma$) & assumed for the rate $2$ in Theorem~\ref{dr:cns}\\
+(L), (L$^\ast$), (L$_D$), (L$^\dagger$) & discrete stability of the Navier--Stokes linearisation & (L), (L$^\ast$): theorem for small data; all four for $h\le h_0$ on nonsingular branches, by a compactness argument (Section~\ref{sec:ns})\\
+\bottomrule
+\end{tabular}
+\end{table}

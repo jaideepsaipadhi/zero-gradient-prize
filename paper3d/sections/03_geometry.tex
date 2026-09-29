@@ -1,5 +1,7 @@
 \section{Geometry of inscribed surfaces}\label{sec:geometry}
 
+Every estimate in this paper starts from two geometric facts: on each wall face, the distance to $\Gamma$ is a small quadratic bump, and the closest-point projection identifies $\Gh$ with $\Gamma$. The first is a local computation (Lemma~\ref{geom:face}); on the sphere it also exposes the face-mean defect that distinguishes three dimensions from two (Lemma~\ref{geom:sag}). The second is global, and it is where the volume mesh enters: a surface can be locally close to $\Gamma$ and still fold over itself, and we show that a shape-regular tetrahedral mesh of the fluid region rules this out (Theorems~\ref{geom:orient} and~\ref{geom:mesh}). The section ends with the consequences used later: uniform Korn and trace inequalities on the family $\Oh$, and a divergence-free extension of the exact solution across $\Gamma$.
+
 \subsection{Faces}
 For a face $F\in\FG$ with vertices $z_1,z_2,z_3\in\Gamma$ we write $\mu_1,\mu_2,\mu_3$ for its barycentric coordinates, $e_{ij}:=z_i-z_j$, $\ell:=\diam F$, $x_F$ for its centroid, $y_F:=\pi(x_F)$, $P_y$ for the orthogonal projection onto $T_y\Gamma$ and $\hh_F:=\hh_{y_F}\circ P_{y_F}$. For $x\in F$ put $x^\ast:=\pi(x)$.
 
@@ -56,6 +58,8 @@ Let $y\in V$ and $\ell_y\cap\Gh=\{\Psi(y,s_j)\}_{j=1}^k$ with $s_1<\dots<s_k$, t
 $\ell_y$ does not meet $\Sigma$, so the only points of $\partial\Oh$ on it are the $\Psi(y,s_j)$. Near an interior point of $F_j$, $\Oh$ is the open half-space side into which $-n_{F_j}$ points, and $\sigma_{F_j}=+1$ means that this is the side of increasing $s$.
 \end{proof}
 
+The proof has two parts. First, if every face is oriented like $\Gamma$ (condition (OR) below), a normal segment can cross $\Gh$ only from outside to inside $\Oh$, hence at most once; a covering-space argument then upgrades this to a global homeomorphism. Second, the tetrahedra touching $\Gh$ force (OR), provided $\Oh$ does not reach the far side of the obstacle.
+
 \begin{theorem}[Orientation implies the lift]\label{geom:orient}
 Assume (G1), (G3), that $\Oh$ is a bounded open polyhedral set with $\partial\Oh=\Sigma\sqcup\Gh$ lying on one side of each face, and
 \begin{enumerate}[label=(OR)]
@@ -87,6 +91,8 @@ In particular $\Gamma_i^-\cap\Oh=\emptyset$ and $\Gamma_i^+:=\{y+\frac r2N(y)\}\
 \begin{proof}
 The bounds on $\eta_h$ follow from Lemma~\ref{geom:face}: on $\pi(F)$, $\nabla_\Gamma\eta_h=D(\pi|_F)^{-\mathsf T}\nabla_Fd$ and $|\nabla_Fd|=|N-(N\cdot n_F)n_F|\le C\hG$. For $y\in V$ the single crossing of $\ell_y$ is at $s=\eta_h(y)$ and goes from outside to inside, so $\Oh\cap\ell_y=\{\Psi(y,s):\eta_h(y)<s<\frac r2\}$. The two sets in the display are open in $\mathcal T_{r/2}$, disjoint from $\Gh$, have $\Gh$ as relative boundary, and agree on the dense set $\bigcup_{y\in V}\ell_y\setminus\Gh$; two such sets coincide ($U_1\setminus\overline{U_2}$ is open and misses a dense set). For $\Gamma_i^-$: it does not meet $\partial\Oh$, and points of $\mathcal T_{r/2}$ close to it have $d<\eta_h\circ\pi$, so no point of $\Gamma_i^-$ lies in the open set $\Oh$. The same argument gives $\Gamma_i^+\subset\Oh$.
 \end{proof}
+
+It remains to derive (OR). The idea is that each wall face carries a tetrahedron of $\Th$ whose inradius is comparable to the face, and the incentre of that tetrahedron lies on the fluid side of the face at a distance much larger than the sagitta; so the face cannot be oriented against $\Gamma$ unless the fluid region extends to the obstacle side of $\Gamma$.
 
 \begin{theorem}[The volume mesh implies the orientation]\label{geom:mesh}
 Assume (G1), (G3), (M0$^3$) and (OB). Then (OR) holds, and hence the conclusions of Theorem~\ref{geom:orient} and Corollary~\ref{geom:graph}.
@@ -150,6 +156,8 @@ Consequently there are $C_{\rm tr},C_F,\kappa$, independent of $h$, such that ev
 \begin{proof}
 Let $\chi\in C^\infty(\R)$ with $\chi=1$ near $0$, $\chi=0$ on $[r/4,\infty)$, and put $\Phi_h(\Psi(y,s)):=\Psi(y,s+\chi(s)\eta_h(y))$ for $0\le s<r/2$, and $\Phi_h:=\mathrm{id}$ elsewhere on $\overline\Omega$. Since $|\chi'\eta_h|\le C\hG^2<1$, $s\mapsto s+\chi(s)\eta_h(y)$ is increasing and maps $[0,r/2)$ onto $[\eta_h(y),r/2)$; by Corollary~\ref{geom:graph} and the preceding paragraph, $\Phi_h$ maps $\overline\Omega$ onto $\overline\Oh$ and $\Gamma$ onto $\Gh$. In $(y,s)$ coordinates, $D\hat\Phi_h=I+\begin{psmallmatrix}0&0\\\chi\nabla_\Gamma\eta_h&\chi'\eta_h\end{psmallmatrix}$, and $D\Psi(y,s')D\Psi(y,s)^{-1}=I+O(|s-s'|)$; with Corollary~\ref{geom:graph} this gives the bound. For $w:=v\circ\Phi_h$, $D(w)=D(v)\circ\Phi_h+E$ with $|E|\le C\hG|\nabla v\circ\Phi_h|$. On the fixed Lipschitz domain $\Omega$, $w$ vanishes on $\Sigma$, a set of positive surface measure, so Korn's first inequality, the trace inequality and the Friedrichs inequality hold; changing variables back and absorbing $C\hG\norm{\nabla v}$ for $\hG\le h_\ast$ gives the claim.
 \end{proof}
+
+The error analysis compares $u_h$ with an extension of $u$ to $\Oh$, which overlaps the obstacle in a thin layer. In two dimensions a divergence-free extension comes from extending the stream function. In three dimensions we extend the flux $2$-form $\iota_u\mathrm{vol}$ instead, by a Hestenes-type reflection across $\Gamma$ in normal coordinates; closedness of the form, which is $\div u=0$, survives because pull-backs commute with exterior differentiation.
 
 \begin{lemma}[Divergence-free extension]\label{geom:ext}
 Let $u\in C^{k+1}(\overline\Omega)$ be divergence free and $p\in C^k(\overline\Omega)$, with $\Gamma\in C^{k+3}$. There are $\ut\in C^{k+1}(\mathcal O)$ and $\pt\in C^k(\mathcal O)$ on $\mathcal O:=\Omega\cup\mathcal T_{r/2}$, with $\ut=u$, $\pt=p$ on $\Omega$ and $\div\ut=0$ on $\mathcal O$. Moreover $\norm{\ut}_{L^\infty(\Gh)}\le C\hG^2$, and $|(F,v)|\le C\hG^2\norm{\nabla v}$ for $v\in\VR$.

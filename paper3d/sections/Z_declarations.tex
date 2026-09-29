@@ -1,13 +1,19 @@
-\section*{Use of generative-AI tools declaration}
+\section*{Statement on the use of generative AI}
 %% TBD: if authorship becomes joint, rephrase in the plural and add a CRediT statement.
-The author used Anthropic's Claude Opus~5.5 as a research-support tool. It assisted with the following:
+The author used Claude (Anthropic; model Claude Opus~5.5) extensively in this work, as a research and writing assistant. Specifically, it was used for:
 \begin{itemize}
-\item developing and checking the proofs;
-\item implementing, running and validating the three-dimensional finite element code and the exact-arithmetic certificates;
-\item independently reviewing the arguments as a referee;
-\item preparing the manuscript and the accompanying repository.
+\item \emph{developing proofs}: proposing proof strategies and intermediate lemmas, and working out calculations, which the author then checked and revised;
+\item \emph{checking proofs}: separate sessions of the model were instructed to act as critical referees of individual arguments; their objections led to corrections, which are recorded in the repository;
+\item \emph{code}: writing and running the three-dimensional finite element solver of Section~\ref{sec:numerics} and the scripts that produce the exact-arithmetic and interval-arithmetic certificates;
+\item \emph{literature search}: locating and summarising references; where a source was read only through such a summary or a text-extraction tool rather than in the original, this is stated in Section~\ref{sec:open};
+\item \emph{drafting and editing} the manuscript, including this revision for readability.
 \end{itemize}
-The author directed the project and retains authorship of the work. Responsibility for all mathematical statements, computations, references and conclusions rests with the author.
+We did not treat the model's output as verified. Every computer-assisted statement is backed by a certificate in exact rational or interval arithmetic that can be rerun from the published code (Appendix~\ref{app:repro}), several of them independently re-derived; the proofs were checked by independent referee passes as described above, and the author reviewed the resulting corrections; and all numerical results are reproducible from the listed commands and logs. The author directed the project, made the mathematical and editorial decisions, and takes full responsibility for the content, including any errors. The AI system is not an author of this work.
+
+%% VERIFY (author): confirm that you reviewed the referee reports and corrections, as stated.
 
 \section*{Data and code availability}
-All code, exact-arithmetic certificates, logs and raw records are available at \url{https://github.com/jaideepsaipadhi/zero-gradient-prize} (directories \texttt{code3d/} and \texttt{notes/v6/}); Appendix~\ref{app:repro} lists the command behind each number. The two-dimensional companion paper \cite{PadhiLong2D} and its code are in the same repository.
+All code, exact-arithmetic and interval-arithmetic certificates, logs and raw records are available at \url{https://github.com/jaideepsaipadhi/zero-gradient-prize} (directories \texttt{code3d/}, \texttt{notes/v6/} and \texttt{notes/v7/}); Appendix~\ref{app:repro} lists the command behind each number. The two-dimensional companion paper \cite{PadhiLong2D} and its code are in the same repository.
+
+\section*{Competing interests}
+The question studied here is the subject of a prize offered by L.~R.~Scott \cite{ScottPrize}; the author intends to submit this work, together with the two-dimensional companion paper \cite{PadhiLong2D}, for that prize. The author declares no other competing interests.

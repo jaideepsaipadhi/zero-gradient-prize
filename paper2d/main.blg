@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: amsplain.bst
+Database file #1: refs.bib
+Warning--missing pages in EickmannGNST2026
+You've used 64 entries,
+            2213 wiz_defined-function locations,
+            967 strings with 15887 characters,
+and the built_in function-call counts, 20964 in all, are:
+= -- 1979
+> -- 857
+< -- 4
++ -- 357
+- -- 272
+* -- 1921
+:= -- 3308
+add.period$ -- 64
+call.type$ -- 64
+change.case$ -- 327
+chr.to.int$ -- 0
+cite$ -- 65
+duplicate$ -- 761
+empty$ -- 1819
+format.name$ -- 272
+if$ -- 4335
+int.to.chr$ -- 0
+int.to.str$ -- 64
+missing$ -- 124
+newline$ -- 202
+num.names$ -- 129
+pop$ -- 376
+preamble$ -- 1
+purify$ -- 263
+quote$ -- 0
+skip$ -- 406
+stack$ -- 0
+substring$ -- 1740
+swap$ -- 103
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 250
+warning$ -- 1
+while$ -- 232
+width$ -- 66
+write$ -- 598
+(There was 1 warning)

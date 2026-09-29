@@ -7,11 +7,24 @@
 \providecommand{\href}[2]{#2}
 \begin{thebibliography}{10}
 
-\bibitem{AmentaChoiDeyLeekha2000}
-Nina Amenta, Sunghee Choi, Tamal~K. Dey, and Naveen Leekha, \emph{A simple
-  algorithm for homeomorphic surface reconstruction}, Proceedings of the
-  Sixteenth Annual Symposium on Computational Geometry (SoCG 2000), ACM, 2000,
-  pp.~213--222.
+\bibitem{AcostaDuranMuschietti2006}
+Gabriel Acosta, Ricardo~G. Dur\'an, and Mar\'{\i}a~A. Muschietti,
+  \emph{Solutions of the divergence operator on {J}ohn domains}, Adv. Math.
+  \textbf{206} (2006), no.~2, 373--401.
+
+\bibitem{Apel1999}
+Thomas Apel, \emph{Anisotropic finite elements: Local estimates and
+  applications}, Advances in Numerical Mathematics, Teubner, Stuttgart, 1999.
+
+\bibitem{Argyris1968}
+J.~H. Argyris, I.~Fried, and D.~W. Scharpf, \emph{The {TUBA} family of plate
+  elements for the matrix displacement method}, Aeronaut. J. R. Aeronaut. Soc.
+  \textbf{72} (1968), no.~692, 701--709.
+
+\bibitem{ArnoldLiu1995}
+Douglas~N. Arnold and Xiaobo Liu, \emph{Local error estimates for finite
+  element discretization of the {S}tokes equations}, RAIRO Mod\'el. Math. Anal.
+  Num\'er. \textbf{29} (1995), no.~3, 367--389.
 
 \bibitem{ArnoldQin1992}
 Douglas~N. Arnold and Jinshui Qin, \emph{Quadratic velocity/linear pressure
@@ -23,6 +36,15 @@ Douglas~N. Arnold and Jinshui Qin, \emph{Quadratic velocity/linear pressure
 Ivo Babu\v{s}ka, \emph{The finite element method with penalty}, Math. Comp.
   \textbf{27} (1973), no.~122, 221--228.
 
+\bibitem{BabuskaAziz1976}
+Ivo Babu\v{s}ka and A.~Kadir Aziz, \emph{On the angle condition in the finite
+  element method}, SIAM J. Numer. Anal. \textbf{13} (1976), no.~2, 214--226.
+
+\bibitem{Becker2002}
+Roland Becker, \emph{Mesh adaptation for {D}irichlet flow control via
+  {N}itsche's method}, Comm. Numer. Methods Engrg. \textbf{18} (2002),
+  669--680.
+
 \bibitem{BergerScottStrang1972}
 Alan Berger, Ridgway Scott, and Gilbert Strang, \emph{Approximate boundary
   conditions in the finite element method}, Symposia Mathematica \textbf{10}
@@ -33,10 +55,10 @@ Christine Bernardi, Martin Costabel, Monique Dauge, and Vivette Girault,
   \emph{Continuity properties of the inf-sup constant for the divergence}, SIAM
   J. Math. Anal. \textbf{48} (2016), no.~2, 1250--1271, arXiv:1510.03978.
 
-\bibitem{BernardiRaugel1985}
-Christine Bernardi and Genevi\`eve Raugel, \emph{Analysis of some finite
-  elements for the {S}tokes problem}, Math. Comp. \textbf{44} (1985), no.~169,
-  71--79.
+\bibitem{BohneGrassleSauter2025}
+Nis-Erik Bohne, Benedikt Gr\"a{\ss}le, and Stefan~A. Sauter,
+  \emph{Pressure-improved {S}cott--{V}ogelius type elements}, Calcolo
+  \textbf{62} (2025), no.~1, Paper No. 8, arXiv:2403.04499.
 
 \bibitem{BoiveauBurman2016}
 Thomas Boiveau and Erik Burman, \emph{A penalty-free {N}itsche method for the
@@ -81,8 +103,8 @@ Erik Burman, Peter Hansbo, and Mats~G. Larson, \emph{A cut finite element
   \textbf{62} (2024), no.~2, 893--918.
 
 \bibitem{Cavalcante}
-Claudemir Cavalcante, \emph{{S}cott--{V}ogelius--{N}itsche convergence for a
-  zero-pressure-gradient problem on a polygonally approximated boundary},
+Claudemir de~Souza Cavalcante, \emph{{S}cott--{V}ogelius--{N}itsche convergence
+  for a zero-pressure-gradient problem on a polygonally approximated boundary},
   Preprint, Zenodo, 2026.
 
 \bibitem{ChenLiu2026}
@@ -94,20 +116,15 @@ Philippe~G. Ciarlet, \emph{The finite element method for elliptic problems},
   Studies in Mathematics and its Applications, vol.~4, North-Holland,
   Amsterdam, 1978.
 
-\bibitem{CostabelMcIntosh2010}
-Martin Costabel and Alan McIntosh, \emph{On {B}ogovski\u{\i} and regularized
-  {P}oincar\'e integral operators for de {R}ham complexes on {L}ipschitz
-  domains}, Math. Z. \textbf{265} (2010), no.~2, 297--320.
-
 \bibitem{Dauge1989}
 Monique Dauge, \emph{Stationary {S}tokes and {N}avier--{S}tokes systems on two-
-  or three-dimensional domains with corners. {P}art {I}. {L}inearized
+  or three-dimensional domains with corners. {P}art {I}: {L}inearized
   equations}, SIAM J. Math. Anal. \textbf{20} (1989), no.~1, 74--97.
 
-\bibitem{CavalcantePadhi2026}
-Claudemir de~Souza~Cavalcante and Jaideep~Sai Padhi, \emph{The missing pressure
-  traction in {S}cott--{V}ogelius--{N}itsche methods on polygonal
-  approximations of a curved wall}, Manuscript, 2026.
+\bibitem{DemlowGuzmanSchatz2011}
+Alan Demlow, Johnny Guzm\'an, and Alfred~H. Schatz, \emph{Local energy
+  estimates for the finite element method on sharply varying grids}, Math.
+  Comp. \textbf{80} (2011), no.~273, 1--9.
 
 \bibitem{DupontGuzmanScott2025}
 Todd Dupont, Johnny Guzm\'an, and L.~Ridgway Scott, \emph{Obtaining
@@ -119,31 +136,22 @@ Rebecca Durst and Michael Neilan, \emph{A general degree divergence-free finite
   element method for the two-dimensional {S}tokes problem on smooth domains},
   J. Sci. Comput. \textbf{101} (2024), no.~2, Paper No. 33.
 
-\bibitem{Dziuk1988}
-Gerhard Dziuk, \emph{Finite elements for the {B}eltrami operator on arbitrary
-  surfaces}, Partial Differential Equations and Calculus of Variations (Stefan
-  Hildebrandt and Rolf Leis, eds.), Lecture Notes in Math., vol. 1357,
-  Springer, Berlin, 1988, pp.~142--155.
+\bibitem{EickmannGNST2026}
+F.~Eickmann, J.~Guzm\'an, M.~Neilan, L.~R. Scott, and T.~Tscherpel, \emph{A
+  local {F}ortin projection for the {S}cott--{V}ogelius elements on general
+  meshes}, J. Numer. Math. (2026), Published online 28 July 2026.
+  arXiv:2512.18033.
 
-\bibitem{DziukElliott2013}
-Gerhard Dziuk and Charles~M. Elliott, \emph{Finite element methods for surface
-  {PDE}s}, Acta Numer. \textbf{22} (2013), 289--396.
-
-\bibitem{FabienGuzmanNeilanZytoon2022}
-Maurice Fabien, Johnny Guzm\'an, Michael Neilan, and Ahmed Zytoon,
-  \emph{Low-order divergence-free approximations for the {S}tokes problem on
-  {W}orsey--{F}arin and {P}owell--{S}abin splits}, Comput. Methods Appl. Mech.
-  Engrg. \textbf{390} (2022), 114444, arXiv:2105.09214.
+\bibitem{EickmannScottTscherpel2025}
+Franziska Eickmann, L.~Ridgway Scott, and Tabea Tscherpel,
+  \emph{{S}cott--{V}ogelius element and iterated penalty method for
+  inhomogeneous {D}irichlet boundary conditions}, arXiv:2509.17899, 2025.
 
 \bibitem{FarrellMitchellScott2024}
 Patrick~E. Farrell, Lawrence Mitchell, and L.~Ridgway Scott, \emph{Two
   conjectures on the {S}tokes complex in three dimensions on {F}reudenthal
   meshes}, SIAM J. Sci. Comput. \textbf{46} (2024), no.~2, A629--A644,
   arXiv:2211.05494.
-
-\bibitem{Forster1981}
-Otto Forster, \emph{Lectures on {R}iemann surfaces}, Graduate Texts in
-  Mathematics, vol.~81, Springer, New York, 1981.
 
 \bibitem{FrachonNilssonZahedi2024}
 Thomas Frachon, Erik Nilsson, and Sara Zahedi, \emph{Divergence-free cut finite
@@ -161,10 +169,10 @@ Guosheng Fu, Johnny Guzm\'an, and Michael Neilan, \emph{Exact smooth piecewise
   polynomial sequences on {A}lfeld splits}, Math. Comp. \textbf{89} (2020),
   no.~323, 1059--1091, arXiv:1807.05883.
 
-\bibitem{Galdi}
-Giovanni~P. Galdi, \emph{An introduction to the mathematical theory of the
-  {N}avier--{S}tokes equations. steady-state problems}, 2 ed., Springer
-  Monographs in Mathematics, Springer, New York, 2011.
+\bibitem{GiraultRaviart}
+Vivette Girault and Pierre-Arnaud Raviart, \emph{Finite element methods for
+  {N}avier--{S}tokes equations: Theory and algorithms}, Springer Series in
+  Computational Mathematics, vol.~5, Springer, Berlin, 1986.
 
 \bibitem{GjerdeScott2022}
 Ingeborg~G. Gjerde and L.~Ridgway Scott, \emph{Nitsche's method for
@@ -175,6 +183,12 @@ Ingeborg~G. Gjerde and L.~Ridgway Scott, \emph{Nitsche's method for
 \bysame, \emph{Verification and validation of cylinder drag: Pressure and
   stress approximations on curved boundaries}, Adv. Comput. Sci. Eng.
   \textbf{2} (2024), no.~3, 295--319, arXiv:2306.12362.
+
+\bibitem{GrassleBohneSauter2024}
+Benedikt Gr\"a{\ss}le, Nis-Erik Bohne, and Stefan Sauter, \emph{The
+  pressure-wired {S}tokes element: a mesh-robust version of the
+  {S}cott--{V}ogelius element}, Numer. Math. \textbf{156} (2024), no.~5,
+  1781--1807, arXiv:2212.09673.
 
 \bibitem{GuzmanLischkeNeilan2022}
 Johnny Guzm\'an, Anna Lischke, and Michael Neilan, \emph{Exact sequences on
@@ -190,20 +204,6 @@ Johnny Guzm\'an and Michael Neilan, \emph{Inf-sup stable finite elements on
 Johnny Guzm\'an and L.~Ridgway Scott, \emph{The {S}cott--{V}ogelius finite
   elements revisited}, Math. Comp. \textbf{88} (2019), no.~316, 515--529.
 
-\bibitem{Hestenes1941}
-Magnus~R. Hestenes, \emph{Extension of the range of a differentiable function},
-  Duke Math. J. \textbf{8} (1941), no.~1, 183--192.
-
-\bibitem{HildebrandtPolthierWardetzky2006}
-Klaus Hildebrandt, Konrad Polthier, and Max Wardetzky, \emph{On the convergence
-  of metric and geometric properties of polyhedral surfaces}, Geom. Dedicata
-  \textbf{123} (2006), no.~1, 89--112.
-
-\bibitem{Johansson2017}
-Fredrik Johansson, \emph{Arb: efficient arbitrary-precision midpoint-radius
-  interval arithmetic}, IEEE Trans. Comput. \textbf{66} (2017), no.~8,
-  1281--1292.
-
 \bibitem{JohnEtAl2017}
 Volker John, Alexander Linke, Christian Merdon, Michael Neilan, and Leo~G.
   Rebholz, \emph{On the divergence constraint in mixed finite element methods
@@ -212,6 +212,21 @@ Volker John, Alexander Linke, Christian Merdon, Michael Neilan, and Leo~G.
 \bibitem{JuntunenStenberg2009}
 Mika Juntunen and Rolf Stenberg, \emph{Nitsche's method for general boundary
   conditions}, Math. Comp. \textbf{78} (2009), no.~267, 1353--1374.
+
+\bibitem{KeanNeilanSchneier2022}
+Kiera Kean, Michael Neilan, and Michael Schneier, \emph{The {S}cott--{V}ogelius
+  method for the {S}tokes problem on anisotropic meshes}, Int. J. Numer. Anal.
+  Model. \textbf{19} (2022), no.~2-3, 157--174, arXiv:2109.14780.
+
+\bibitem{KelloggOsborn1976}
+R.~Bruce Kellogg and John~E. Osborn, \emph{A regularity result for the {S}tokes
+  problem in a convex polygon}, J. Funct. Anal. \textbf{21} (1976), no.~4,
+  397--431.
+
+\bibitem{SuperLU}
+Xiaoye~S. Li, \emph{An overview of {SuperLU}: Algorithms, implementation, and
+  user interface}, ACM Trans. Math. Software \textbf{31} (2005), no.~3,
+  302--325.
 
 \bibitem{LiuNeilanOlshanskii2023}
 Haoran Liu, Michael Neilan, and Maxim Olshanskii, \emph{A {CutFEM}
@@ -228,10 +243,9 @@ Alex Main and Guglielmo Scovazzi, \emph{The shifted boundary method for
   embedded domain computations. {P}art {I}: {P}oisson and {S}tokes problems},
   J. Comput. Phys. \textbf{372} (2018), 972--995.
 
-\bibitem{MorvanThibert2004}
-Jean-Marie Morvan and Boris Thibert, \emph{Approximation of the normal vector
-  field and the area of a smooth surface}, Discrete Comput. Geom. \textbf{32}
-  (2004), no.~3, 383--400.
+\bibitem{MorganScott1975}
+John Morgan and Ridgway Scott, \emph{A nodal basis for {$C^1$} piecewise
+  polynomials of degree $n\ge5$}, Math. Comp. \textbf{29} (1975), 736--740.
 
 \bibitem{Neilan2015}
 Michael Neilan, \emph{Discrete and conforming smooth de {R}ham complexes in
@@ -255,14 +269,24 @@ Joachim Nitsche, \emph{\"{U}ber ein {V}ariationsprinzip zur {L}\"osung von
   {R}andbedingungen unterworfen sind}, Abh. Math. Sem. Univ. Hamburg
   \textbf{36} (1971), no.~1, 9--15.
 
-\bibitem{PadhiLong2D}
+\bibitem{PadhiExt}
 Jaideep~Sai Padhi, \emph{{S}cott--{V}ogelius--{N}itsche on a polygonally
   approximated boundary: convergence, the missing pressure traction, and the
-  penalty threshold}, Preprint, Zenodo, 2026, Version 3.
+  penalty threshold}, Preprint, Zenodo, 2026, Version 3 (extended version, with
+  all proofs and computations).
 
-\bibitem{PayneWeinberger1960}
-L.~E. Payne and H.~F. Weinberger, \emph{An optimal {P}oincar\'e inequality for
-  convex domains}, Arch. Rational Mech. Anal. \textbf{5} (1960), 286--292.
+\bibitem{PadhiThreeD}
+\bysame, \emph{{S}cott--{V}ogelius--{N}itsche on inscribed polyhedra:
+  convergence, sharpness and the penalty threshold in three dimensions}, In
+  preparation, 2026.
+
+\bibitem{ZeroGradRepo}
+\bysame, \emph{zero-gradient-prize: code, raw results and logs},
+  \url{https://github.com/jaideepsaipadhi/zero-gradient-prize}, 2026.
+
+\bibitem{Park2020}
+Chunjae Park, \emph{Spurious pressure in {S}cott--{V}ogelius elements}, J.
+  Comput. Appl. Math. \textbf{363} (2020), 370--391, arXiv:1905.03234.
 
 \bibitem{Schatz1974}
 Alfred~H. Schatz, \emph{An observation concerning {R}itz--{G}alerkin methods
@@ -281,11 +305,6 @@ L.~Ridgway Scott and Michael Vogelius, \emph{Norm estimates for a maximal right
   inverse of the divergence operator in spaces of piecewise polynomials}, RAIRO
   Mod\'el. Math. Anal. Num\'er. \textbf{19} (1985), no.~1, 111--143.
 
-\bibitem{ScottZhang1990}
-L.~Ridgway Scott and Shangyou Zhang, \emph{Finite element interpolation of
-  nonsmooth functions satisfying boundary conditions}, Math. Comp. \textbf{54}
-  (1990), no.~190, 483--493.
-
 \bibitem{Scott1975}
 Ridgway Scott, \emph{Interpolated boundary conditions in the finite element
   method}, SIAM J. Numer. Anal. \textbf{12} (1975), no.~3, 404--427.
@@ -295,15 +314,10 @@ Rolf Stenberg, \emph{On some techniques for approximating boundary conditions
   in the finite element method}, J. Comput. Appl. Math. \textbf{63} (1995),
   no.~1--3, 139--148.
 
-\bibitem{Temam}
-Roger Temam, \emph{Navier--{S}tokes equations: Theory and numerical analysis},
-  AMS Chelsea Publishing, Providence, RI, 2001, Reprint with corrections of the
-  3rd revised edition (North-Holland, 1984).
-
 \bibitem{WarburtonHesthaven2003}
-T.~Warburton and J.~S. Hesthaven, \emph{On the constants in $hp$-finite element
-  trace inverse inequalities}, Comput. Methods Appl. Mech. Engrg. \textbf{192}
-  (2003), no.~25, 2765--2773.
+Timothy Warburton and Jan~S. Hesthaven, \emph{On the constants in $hp$-finite
+  element trace inverse inequalities}, Comput. Methods Appl. Mech. Engrg.
+  \textbf{192} (2003), no.~25, 2765--2773.
 
 \bibitem{Zhang2005}
 Shangyou Zhang, \emph{A new family of stable mixed finite elements for the {3D}

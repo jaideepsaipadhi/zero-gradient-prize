@@ -9,8 +9,9 @@
 > | Directory | Paper | Status |
 > |---|---|---|
 > | `letter/` | C. de Souza Cavalcante and J. S. Padhi, 6-page letter for *Applied Mathematics Letters*: the printed method's failure, the mean-free correction at Scott's rate, unconditional sharpness for every k ≥ 4, the penalty threshold | Joint draft; co-author's sections pending |
-> | `paper/` | Long 2D paper (138 pp): everything in the letter plus strong imposition (two-sided h_Γ^{3/2} under (M2), locked and nearly singular wall vertices), pressure robustness, L² estimates, penalty-uniform leak limit, (M3) proof, Navier–Stokes on nonsingular branches, Clough–Tocher and general domains. §14 lists exactly what is proved, conditional, numerical or open | Draft |
-> | `paper3d/` | 3D companion (37 pp): inscribed polyhedra on Alfeld splits, sharpness for every k ≥ 3, general smooth obstacles, penalty necessity, Navier–Stokes, first 3D numerics (`code3d/`) | Draft |
+> | `paper2d/` | **Journal version of the 2D paper** (50 pp): readable core — history, related work and novelty, printed method, corrected method at Scott's rate with unconditional sharpness, penalty threshold, strong imposition and the zero-gradient lock, selected numerics; everything else is cited to the extended version | Draft for journal submission |
+> | `paper/` | Extended 2D version (156 pp): all results with full proofs, the supplement to `paper2d/`; §14 lists what is proved, conditional, numerical or open | Draft |
+> | `paper3d/` | 3D companion (59 pp): inscribed polyhedra on Alfeld splits, sharpness for every k ≥ 3, general smooth obstacles, penalty necessity, Navier–Stokes, first 3D numerics (`code3d/`) | Draft |
 >
 > Working notes, proofs, referee reports and scripts for the latest rounds are in `notes/v6/` (merged into the papers; `notes/v6/MERGE_MANIFEST.txt`, eleven referee reports) and `notes/v7/` (latest round, not yet merged or refereed; see `notes/v7/STATUS.txt`). **The results table below is a snapshot of the v4 draft and is partly superseded** — in particular Theorem D′ is now unconditional for every k ≥ 4, penalty necessity is proved much more broadly, and the 3D results (Theorem I) moved to `paper3d/`. The papers themselves are authoritative.
 
