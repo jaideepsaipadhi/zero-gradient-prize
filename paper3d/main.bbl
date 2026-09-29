@@ -27,6 +27,11 @@ Christine Bernardi and Genevi\`eve Raugel, \emph{Analysis of some finite
 Wei Chen and Zhen Liu, \emph{Pressure-robust finite elements for the {S}tokes
   problem on three-dimensional curved domains}, arXiv:2609.30008, 2026.
 
+\bibitem{Ciarlet1978book}
+Philippe~G. Ciarlet, \emph{The finite element method for elliptic problems},
+  Studies in Mathematics and its Applications, vol.~4, North-Holland,
+  Amsterdam, 1978.
+
 \bibitem{CostabelMcIntosh2010}
 Martin Costabel and Alan McIntosh, \emph{On {B}ogovski\u{\i} and regularized
   {P}oincar\'e integral operators for de {R}ham complexes on {L}ipschitz
@@ -46,6 +51,12 @@ Gerhard Dziuk, \emph{Finite elements for the {B}eltrami operator on arbitrary
 \bibitem{DziukElliott2013}
 Gerhard Dziuk and Charles~M. Elliott, \emph{Finite element methods for surface
   {PDE}s}, Acta Numer. \textbf{22} (2013), 289--396.
+
+\bibitem{FabienGuzmanNeilanZytoon2022}
+Maurice Fabien, Johnny Guzm\'an, Michael Neilan, and Ahmed Zytoon,
+  \emph{Low-order divergence-free approximations for the {S}tokes problem on
+  {W}orsey--{F}arin and {P}owell--{S}abin splits}, Comput. Methods Appl. Mech.
+  Engrg. \textbf{390} (2022), 114444, arXiv:2105.09214.
 
 \bibitem{FarrellMitchellScott2024}
 Patrick~E. Farrell, Lawrence Mitchell, and L.~Ridgway Scott, \emph{Two
@@ -100,6 +111,11 @@ Klaus Hildebrandt, Konrad Polthier, and Max Wardetzky, \emph{On the convergence
   of metric and geometric properties of polyhedral surfaces}, Geom. Dedicata
   \textbf{123} (2006), no.~1, 89--112.
 
+\bibitem{Johansson2017}
+Fredrik Johansson, \emph{Arb: efficient arbitrary-precision midpoint-radius
+  interval arithmetic}, IEEE Trans. Comput. \textbf{66} (2017), no.~8,
+  1281--1292.
+
 \bibitem{LiuNeilanOtus2023}
 Haoran Liu, Michael Neilan, and M.~Baris Otus, \emph{A divergence-free finite
   element method for the {S}tokes problem with boundary correction}, J. Numer.
@@ -137,6 +153,10 @@ Jaideep~Sai Padhi, \emph{{S}cott--{V}ogelius--{N}itsche on a polygonally
   approximated boundary: convergence, the missing pressure traction, and the
   penalty threshold}, Preprint, Zenodo, 2026, Version 3.
 
+\bibitem{PayneWeinberger1960}
+L.~E. Payne and H.~F. Weinberger, \emph{An optimal {P}oincar\'e inequality for
+  convex domains}, Arch. Rational Mech. Anal. \textbf{5} (1960), 286--292.
+
 \bibitem{Schatz1974}
 Alfred~H. Schatz, \emph{An observation concerning {R}itz--{G}alerkin methods
   with indefinite bilinear forms}, Math. Comp. \textbf{28} (1974), no.~128,
@@ -163,6 +183,11 @@ L.~Ridgway Scott and Shangyou Zhang, \emph{Finite element interpolation of
 Roger Temam, \emph{Navier--{S}tokes equations: Theory and numerical analysis},
   AMS Chelsea Publishing, Providence, RI, 2001, Reprint with corrections of the
   3rd revised edition (North-Holland, 1984).
+
+\bibitem{WarburtonHesthaven2003}
+T.~Warburton and J.~S. Hesthaven, \emph{On the constants in $hp$-finite element
+  trace inverse inequalities}, Comput. Methods Appl. Mech. Engrg. \textbf{192}
+  (2003), no.~25, 2765--2773.
 
 \bibitem{Zhang2005}
 Shangyou Zhang, \emph{A new family of stable mixed finite elements for the {3D}

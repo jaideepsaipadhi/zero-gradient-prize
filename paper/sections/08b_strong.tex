@@ -263,11 +263,11 @@ $(\rho_z,\div v)=\operatorname{tr}G_T-\operatorname{tr}G_{T'}$, with the affine-
 \end{proof}
 
 \begin{theorem}[Two-sided estimate at needles at the wall]\label{st:N3}
-Hypothesis (H$_\Nset$): (M0), (M1), $k\ge4$, maximum angle $\le\theta_{\max}<\pi$; $\Nset$ is a set of wall vertices with stars of shape I or II (Theorem~\ref{st:N2}; shape I only in (ii)), $\Lk$ the locked wall vertices; all other vertices satisfy (M2); all triangles other than the needles (and, for shape II, the partner needle across the short edge) have angles $\ge\theta_0$. Put $w_z:=\min(1,\phi_z/\sqrt{\varepsilon_z})$ on $\Nset$ and $w_z:=1$ on $\Lk$. Assume (D) and $m_R=0$.
+Hypothesis (H$_\Nset$): (M0), (M1), $k\ge4$, maximum angle $\le\theta_{\max}<\pi$; $\Nset$ is a set of wall vertices with stars of shape I or II (Theorem~\ref{st:N2}; for (ii), (H$_K$) of Section~\ref{st:sec:pairs}), $\Lk$ the locked wall vertices; all other vertices satisfy (M2); all triangles other than the needles (and, for shape II, the partner needle across the short edge) have angles $\ge\theta_0$. Put $w_z:=\min(1,\phi_z/\sqrt{\varepsilon_z})$ on $\Nset$ and $w_z:=1$ on $\Lk$. Assume (D) and $m_R=0$.
 \begin{enumerate}[label=(\roman*)]
 \item (Proved; shapes I and II.) For every divergence-free $v\in\Vh$ vanishing on $\Gh$,
 $\norm{\nabla(\ut-v)}\ge c\hG(\sum_{z\in\Nset\cup\Lk}w_z^2a_z^2)^{1/2}-C\hG^{3/2}$, and $\ge c\hG^{3/2}\norm{\dn u}_{L^2(\Gamma)}-C\hG^{5/2}$.
-\item (Proved modulo (L$_\Nset$) below and the cited anisotropic interpolation estimates \cite{BabuskaAziz1976,Apel1999}; shape I only.) $\norm{\nabla(\ut-u_h)}\le C(h^k+\hG^{3/2}+\hG(\sum_zw_z^2a_z^2)^{1/2})$.
+\item (Proved for shapes I and II under the hypothesis (H$_K$) of Section~\ref{st:sec:pairs}; Theorem~\ref{st:N3u}.) $\norm{\nabla(\ut-u_h)}\le C(h^k+\hG^{3/2}+\hG(\sum_zw_z^2a_z^2)^{1/2})$.
 \end{enumerate}
 \begin{enumerate}
 \item[(L$_\Nset$)] For every $q\in\Pih\cap L^2_0$ with $q|_T(z)=0$ for all $T\ni z$, $z\in\Nset\cup\Lk$, there is $y\in\VO$ with $\div y=q$ and $\norm{\nabla y}\le C\norm q$, $C$ independent of $h,\phi_z,\varepsilon_z$.
@@ -275,10 +275,73 @@ $\norm{\nabla(\ut-v)}\ge c\hG(\sum_{z\in\Nset\cup\Lk}w_z^2a_z^2)^{1/2}-C\hG^{3/2
 \end{theorem}
 
 \begin{proof}
-(i) is Theorem~\ref{st:S3} (which needs only affine invariance, valid on needles) with Theorem~\ref{st:N2} and Lemma~\ref{st:L1}, and Theorem~\ref{st:S2}. (ii) As in Theorem~\ref{st:S4}, with the locked-vertex step replaced by: at $z\in\Nset$ let $G^\ast\in A_z$ be the minimiser of Theorem~\ref{st:N2} and $\Delta G_T:=G^\ast_T-\nabla w_h|_T(z)$. Both tuples are continuous across the spokes and vanish on the wall edges, so $\Delta G=\nabla\ell$ for a piecewise-linear $\ell$ on the star with $\ell(z)=0$ and $\ell=0$ on the wall edges. $w_h':=w_h+\sum_z\lambda_z^2\ell_z$ has vertex gradients $G^\ast$ at $z$ (so $\div w_h'$ vanishes there on all triangles) and unchanged vertex gradients elsewhere, at cost $\le C(d_z+(\sum_T|T||\nabla w_h|_T(z)-\nabla\ut(z)|^2)^{1/2})$; the interpolation part is $O(h^k)$ under the maximum angle condition \cite{BabuskaAziz1976,Apel1999}, and the nodal zeroing on a needle with a wall edge contributes $\le C\hG w_z(a_z+\hG)$. Then (L$_\Nset$) gives the divergence corrector, and the energy argument of Theorem~\ref{st:S1} is geometry-free.
+(i) is Theorem~\ref{st:S3} (which needs only affine invariance, valid on needles) with Theorem~\ref{st:N2} and Lemma~\ref{st:L1}, and Theorem~\ref{st:S2}. (ii) is Theorem~\ref{st:N3u}. For shape~I there is also a shorter argument under (L$_\Nset$) and the anisotropic interpolation estimates \cite{BabuskaAziz1976,Apel1999}: as in Theorem~\ref{st:S4}, with the locked-vertex step replaced by: at $z\in\Nset$ let $G^\ast\in A_z$ be the minimiser of Theorem~\ref{st:N2} and $\Delta G_T:=G^\ast_T-\nabla w_h|_T(z)$. Both tuples are continuous across the spokes and vanish on the wall edges, so $\Delta G=\nabla\ell$ for a piecewise-linear $\ell$ on the star with $\ell(z)=0$ and $\ell=0$ on the wall edges. $w_h':=w_h+\sum_z\lambda_z^2\ell_z$ has vertex gradients $G^\ast$ at $z$ (so $\div w_h'$ vanishes there on all triangles) and unchanged vertex gradients elsewhere, at cost $\le C(d_z+(\sum_T|T||\nabla w_h|_T(z)-\nabla\ut(z)|^2)^{1/2})$; the interpolation part is $O(h^k)$ under the maximum angle condition \cite{BabuskaAziz1976,Apel1999}, and the nodal zeroing on a needle with a wall edge contributes $\le C\hG w_z(a_z+\hG)$. Then (L$_\Nset$) gives the divergence corrector, and the energy argument of Theorem~\ref{st:S1} is geometry-free.
 \end{proof}
 
-For shape~I and $|\dn u|\ge\delta>0$ on the relevant arcs, one needle at the wall gives $\hG^{3/2}+\hG w_z$: rate $\frac32$ for $\varepsilon\gtrsim\hG$ and rate $1$ for $\varepsilon\lesssim\hG^2$; a positive fraction of wall vertices with $\varepsilon\asymp\hG^p$ gives rates $\frac32,1,\frac12$ for $p=0,1,2$ (modulo (L$_\Nset$)). The evidence for (L$_\Nset$) at shape~I is numerical: the full inf-sup constant drops below the lock-free value only for $\varepsilon\ll\phi^2$, and the constrained spaces reproduce the lock-free constant to five digits. For shape~II, (L$_\Nset$) is numerically \emph{false}: splitting an interior edge into two nearly collinear ones creates a needle pair with $\beta\approx0.5\varepsilon$, whatever constraint is imposed at $z$, and the same mode and constant appear for a slit placed in the interior. This is an instability of Scott--Vogelius on needle pairs, outside the shape-regular setting of \cite{GrassleBohneSauter2024}; we have not searched the anisotropic Scott--Vogelius literature exhaustively for it. For shape~II the upper bound is therefore \emph{numerical only}: the measured errors fit $E^2=A\hG^3+B\hG^q$ ($q=2$ for $\varepsilon=\hG$, $q=1$ for $\varepsilon=\hG^2$) with residual $2$--$11\cdot10^{-3}$, and $E/(\gamma_4(\sum d_z^2)^{1/2})$ decreases slowly to $1.45$--$1.9$, as for shape~I (\texttt{notes/v6/nearsing}).
+For $|\dn u|\ge\delta>0$ on the relevant arcs, one needle at the wall gives $\hG^{3/2}+\hG w_z$: rate $\frac32$ for $\varepsilon\gtrsim\hG$ and rate $1$ for $\varepsilon\lesssim\hG^2$; a positive fraction of wall vertices with $\varepsilon\asymp\hG^p$ gives rates $\frac32,1,\frac12$ for $p=0,1,2$. The stability hypothesis (L$_\Nset$) is no longer needed for the velocity; it still controls the raw pressure (Theorem~\ref{st:P}). For shape~II it is false (Proposition~\ref{st:slit}); for shape~I it is numerical: the constrained constants reproduce the lock-free value to five digits.
+
+\subsection{Needle pairs}\label{st:sec:pairs}
+
+A \emph{needle} is a triangle with one angle $\le\varepsilon_0$; the others are \emph{regular} (angles in $[\theta_0,\theta_{\max}]$, $\theta_{\max}<\pi$). If a needle $N=[a,x_L,x_R]$ has angle $\varepsilon$ at $a$, its short edge $e=[x_L,x_R]$ has length $\asymp\varepsilon h_N$; if $e\not\subset\partial\Oh$, the triangle across $e$ has a short edge and diameter $\asymp h$, so by the sine rule and the maximum-angle condition it is again a needle with the same short edge. So needles come in \emph{pairs} $K=N_1\cup N_2$ (kites), with apexes $a_i$, short edge $e$ of midpoint $m$, unit tangent $\tau$, axes $A_i=m-a_i$ of length $L_i\asymp h$, $\varepsilon:=|e|/\min L_i$, and \emph{bend} $\vartheta:=\angle(A_1,-A_2)\in[0,\pi)$. Shape~II (split edge) is a straight pair, $\vartheta=0$. In shape~I the needle at the wall and its partner across the short edge meet at the angle $\alpha$ of a regular triangle, so $\vartheta=\pi-\alpha\ge\pi-\theta_{\max}$ (\texttt{notes/v7/needle}).
+
+\begin{proposition}[The cross-difference functional]\label{st:slit}
+Let $K$ be a needle pair whose angles at $x_L,x_R$ lie in $[\pi-\theta_{\max},\theta_{\max}]$. For $q\in\Pih$ let $\ell_K(q):=q_{N_1}(x_L)-q_{N_1}(x_R)-q_{N_2}(x_L)+q_{N_2}(x_R)$ and $\rho_K\in\Pih$ its $L^2$ representer (supported on $K$). Then $\int\rho_K=0$, $\rho_K|_{N_i}(a_i)=0$, $\norm{\rho_K}\ge c|N_1|^{-1/2}$, and for every $v$ continuous and piecewise $P_k$ on $K$,
+\[
+|(\rho_K,\div v)_K|\le C(\varepsilon+\vartheta)\norm{\rho_K}\norm{\nabla v}_K .
+\]
+So $\beta_h\le C(\varepsilon+\vartheta)$ for every pressure space containing $\rho_K$, in particular for the constrained space of (L$_\Nset$); for straight pairs (shape~II) $\beta_h\le C\varepsilon$ and (L$_\Nset$) is false.
+\end{proposition}
+
+\begin{proof}
+Map $\hat T=\{0\le\hat\sigma\le1,\ |\hat\tau|\le\hat\sigma\}$ onto $N_i$ by $F_i(\hat\sigma,\hat\tau)=a_i+\hat\sigma A_i+\hat\tau\frac{|e|}2\tau$. Then $\partial_{\hat\tau}\hat v=\frac{|e|}2\partial_\tau v$ and $|N_i|\asymp L_i|e|$, so $\norm{\partial_{\hat\tau}\hat v}_{\hat T}\le C\sqrt\varepsilon\norm{\nabla v}_{N_i}$. With the basis $(\hat A_i^\ast,\tau_i^\ast)$ dual to $(A_i/L_i,\tau)$, $\div v=\hat A_i^\ast\cdot\partial_{\hat A_i}v+\tau_i^\ast\cdot\partial_\tau v$ on $N_i$, the dual vectors are bounded, and $|\tau_1^\ast-\tau_2^\ast|\le C\vartheta$. Writing $[g]:=g(x_L)-g(x_R)$,
+\[
+\ell_K(\div v)=\hat A_1^\ast\cdot[\partial_{\hat A_1}v_{N_1}]-\hat A_2^\ast\cdot[\partial_{\hat A_2}v_{N_2}]+(\tau_1^\ast-\tau_2^\ast)\cdot[\partial_\tau v],
+\]
+because $\partial_\tau v$ is a tangential derivative on $e$ and is the same from both sides. The axial terms are $L_i^{-1}\int_{-1}^1\partial_{\hat\tau}\partial_{\hat\sigma}\hat v(1,\hat\tau)\,d\hat\tau$, bounded by $C\sqrt\varepsilon h^{-1}\norm{\nabla v}_K$ by equivalence of norms on $P_{k-1}(\hat T)$; the tangential term is $\le C|N_1|^{-1/2}\norm{\nabla v}_K$. On $N_i$, $\norm{\rho_K}^2\asymp|N_i|^{-1}$ with $|N_i|\asymp\varepsilon h^2$, so both bounds are $\le C(\varepsilon+\vartheta)\norm{\rho_K}\norm{\nabla v}_K$. Each vertex representer has integral $1$, so $\int\rho_K=0$; the reflection $\hat\tau\mapsto-\hat\tau$ swaps the two short-edge corners and fixes the apex, so $\rho_K$ vanishes at the apexes and satisfies every constraint imposed there.
+\end{proof}
+
+Numerically $\beta\approx0.5(\varepsilon+\vartheta)$ over four decades, a $45^\circ$-bent pair has the inf-sup constant of the unsplit mesh, and for straight pairs $\beta/\varepsilon=0.54$--$0.56$; a lower bound $\beta\ge c\varepsilon$ is not proved. For comparison, Kean, Neilan and Schneier analyse Scott--Vogelius on anisotropic meshes obtained by barycentric and incenter refinement \cite{KeanNeilanSchneier2022}; their setting is macro-split meshes, and we have not identified the pair/bend mechanism there.
+
+The velocity does not need inf-sup at the needles. Let $\mathcal K$ be the set of wall needle pairs, $\Omega_S:=\Oh\setminus\bigcup_K\overline K$, $\mathcal T_S$ the non-needle triangles and $V_S:=\{v\in\VO:v=0\text{ on }\bigcup\overline K\}$. A \emph{corner} is a pair $(T,x)$, $T\in\mathcal T_S$, with both edges of $T$ at $x$ on $\partial\Omega_S$; a \emph{slit lock} is a vertex in exactly two triangles of $\mathcal T_S$ sharing an interior edge, whose other edges at $x$ lie on $\partial\Omega_S$. Put
+\[
+Q_S:=\{q\in\Pih\cap L^2_0:\ q=0\text{ on needles},\ q|_T(x)=0\text{ at corners},\ q|_{T_1}(x)=q|_{T_2}(x)\text{ at slit locks}\}.
+\]
+\textbf{(H$_K$)} (M0), (M1), (D), $k\ge4$, $m_R=0$; all angles $\le\theta_{\max}$; non-needle triangles have angles $\ge\theta_0$; every needle belongs to a pair of shape~I or II attached to a wall vertex $z\in\Nset$; the patches $\omega(K)$ (triangles meeting $\overline K$) are pairwise disjoint and disjoint from the stars of the locked vertices of $\Lk$; the slit vertices ($x_L,x_R$ for shape~II, the wall end of the short edge for shape~I) lie in at least three non-needle triangles; all other vertices satisfy (M2). This is a narrow hypothesis: every needle must sit in its own wall pair; it is not a general anisotropic-mesh condition.
+
+\begin{theorem}[Slit-domain right inverse]\label{st:Sp}
+Under (H$_K$), for every $q\in Q_S$ there is $y\in V_S$ with $\div y=q$ and $\norm{\nabla y}\le C\norm q$, with $C$ independent of $h$, $\hG$, the needle angles, the bends, $\phi_z$ and the number of pairs.
+\end{theorem}
+
+\begin{proof}
+\emph{Step 0.} Take $w\in H^1_0(\Oh)^2$ with $\div w=q$, $\norm{\nabla w}\le C\norm q$ (Lemma~\ref{lem:infsup}, continuous level). For each pair let $D_K$ be the interior of $\omega(K)$ and $\chi_K$ a cut-off, $1$ on $\overline K$, $0$ on $\partial D_K\setminus\Gh$, $|\nabla\chi_K|\le C/h_K$; Friedrichs on $D_K$ (with $w=0$ on its wall part) gives $\norm{\nabla(\chi_Kw)}\le C\norm{\nabla w}_{D_K}$. Then $g_K:=\div(\chi_Kw)$ has zero mean on $D_K$ and vanishes on $K$. $U_K:=D_K\setminus\overline K$ is a John domain with constant depending only on $\theta_0,\theta_{\max}$ (its re-entrant corners and near-cracks are admissible), so the right inverse of Acosta, Dur\'an and Muschietti \cite{AcostaDuranMuschietti2006} gives $c_K\in H^1_0(U_K)^2$, $\div c_K=g_K$, $\norm{\nabla c_K}\le C\norm{\nabla w}_{D_K}$. Since the patches are disjoint, $w_S:=w-\sum_K(\chi_Kw-c_K)\in H^1_0(\Omega_S)^2$, $\div w_S=q$, $\norm{\nabla w_S}\le C\norm q$.
+\emph{Steps A--D.} Proceed as in Theorem~\ref{st:thmL} on the shape-regular mesh $\mathcal T_S$ of $\Omega_S$, extending every field by $0$ on the needles: the $P_2$ Fortin interpolant of $w_S$ for the element means; Lemma~\ref{st:K} at plain and slit locks (the two lock triangles contain no needle); Lemma~\ref{st:V} at the other vertices, with coefficients $0$ on $\partial\Omega_S$-edges, which is uniform because every slit star has at least three triangles with angles $\ge\theta_0$ filling an angle $\pi-O(\varepsilon)$ (at $x_L,x_R$) or $2\pi-O(\varepsilon)$ (at the far apex), and at corners nothing is to be done since $q$ vanishes there; element bubbles on $\mathcal T_S$. No constant involves $\varepsilon$, $\vartheta$ or $\phi_z$.
+\end{proof}
+
+\begin{lemma}[Divergence-free fields on a wall needle pair]\label{st:A}
+Under (H$_K$), for $z\in\Nset$ with pair $K$ let $G^\ast\in A_z$ be the minimiser of Theorem~\ref{st:N2}. There is $v_K\in\Vh$ on $\omega(K)$, equal to the interpolant $w_h$ of Theorem~\ref{st:S1} on $\partial\omega(K)$ and to $0$ on $\Gh$, divergence free on $N_1\cup N_2$, whose divergence vanishes at the corners and whose traces satisfy the slit-lock condition, with
+\[
+\norm{\nabla(\ut-v_K)}_{\omega(K)}\le C(d_z+h_z^2+h_z^{k+1}).
+\]
+\end{lemma}
+
+\begin{proof}[Sketch]
+Shape~II: on $N_1$ take $S_1:=P+\curl(\omega\Phi_0)$, with $P$ the (divergence-free) Taylor polynomial of $\ut$ at $z$, $\Phi_0(x)=\frac12(x-z)^{\mathsf T}H(x-z)$ with $JH=G^\ast_{N_1}-\nabla\ut(z)$ ($J$ the rotation by $-\pi/2$) and $\omega$ affine, $\omega(z)=1$, $\omega=0$ on the line of $e$; on $N_2$ take $S_2:=P+\curl(A(\xi)+tB(\xi))$ in oblique coordinates along $e$ and the axis of $N_2$, with $A,B$ chosen so that $\curl$ matches $S_1-P$ on $e$. Both are exactly divergence free, continuous across $e$, and $\nabla S_1(z)=G^\ast_{N_1}$. Because $G^\ast$ is $C^0$-compatible, a cone estimate gives $|(G^\ast_{N_1}-\nabla\ut(z))(x-z)|\le Ch\eta$ on $N_1$ with $h\eta\le Cd_z$, and $|N_1|^{1/2}|G^\ast_{N_1}-\nabla\ut(z)|\le d_z$; all degrees stay $\le4\le k$. On the regular triangles of $\omega(K)$ the Lagrange nodal values are those of the needle fields on kite edges, $0$ on $\Gh$ and $I_h\ut$ elsewhere, so the vertex gradients at $z$ are $G^\ast$ and the corner conditions hold. Shape~I is analogous with $S_1:=\curl(\frac12\lambda^2R)$, $\lambda$ the distance to the wall line, and one extra scalar $t^2$-term on $N_2$ fixing the divergence at the corner of $T_2'$. Details: \texttt{notes/v7/needle}, Lemmas A1, A2.
+\end{proof}
+
+\begin{theorem}[Needles at the wall, strongly imposed method]\label{st:N3u}
+For the strongly imposed method of Section~\ref{st:sec}, under (H$_K$) (shapes I and II in any mixture, any $\varepsilon_z\in(0,\varepsilon_0]$),
+\[
+\norm{\nabla(\ut-u_h)}\le C\Bigl(h^k+\hG^{3/2}+\hG\Bigl(\sum_{z\in\Nset\cup\Lk}w_z^2a_z^2\Bigr)^{1/2}\Bigr),
+\]
+and with Theorem~\ref{st:N3}(i), for $h^k\le\hG^{3/2}$, $\norm{\nabla(\ut-u_h)}\asymp\hG^{3/2}+\hG(\sum_zw_z^2a_z^2)^{1/2}$.
+\end{theorem}
+
+\begin{proof}
+Let $v:=w_h$ (modified at plain locks as in Theorem~\ref{st:S4}) outside $\bigcup\omega(K)$ and $v:=v_K$ on each $\omega(K)$ (Lemma~\ref{st:A}). Then $v\in\Vh$, $v=0$ on $\Gh$, $v=\gI$ on $\partial R$, and $\norm{\nabla(\ut-v)}^2\le C(h^k+\hG^{3/2})^2+C\hG^2\sum_{\Lk}a_z^2+C\sum_{\Nset}(d_z^2+h_z^4)$, with $d_z\le Ch_za_zw_z$ (Theorem~\ref{st:N2}) and $\#\Nset\le C/\hG$. Its divergence lies in $Q_S$, so Theorem~\ref{st:Sp} gives $y\in V_S$ with $\div y=\div v$ and $\norm{\nabla y}\le C\norm{\nabla(\ut-v)}$, and $z_h:=v-y$ is admissible and exactly divergence free. For the strongly imposed method the error equation on the divergence-free, wall-vanishing fields contains no pressure, so the energy argument of Theorem~\ref{st:S1} (steps~4--5) needs only $z_h$ and no inf-sup condition.
+\end{proof}
+
+The proof never inverts the divergence on a needle, which is why $\beta\asymp\varepsilon$ on shape~II is invisible in the velocity but visible in the raw pressure. It does not carry over to Nitsche imposition ($\GS$, $\CNS$): there the term $\ip{\xi-\bar\xi}{e_h\cdot n}$ survives on $\Zh$ and is absorbed through the inf-sup constant. The same cut-off argument shows that an interior needle pair (e.g.\ a split interior edge) leaves the best approximation in $\Zh$ unchanged up to $Ch^{k+1}$ per pair: numerically $0.0173285$--$0.0173698$ for $\varepsilon=10^{-1},\dots,10^{-4}$, against $0.0173699$ unsplit.
+\cert{notes/v7/needle/probe2.py--probe9.py, slit\_lab.py}{notes/v7/needle/probe*\_n8.log, probe5\_N16.log, probe5\_N24.log (slit-domain constants $0.078$--$0.102$, uniform in $\varepsilon=10^{-2},\dots,10^{-5}$)}
 
 \subsection{Computations}\label{st:sec:num}
 

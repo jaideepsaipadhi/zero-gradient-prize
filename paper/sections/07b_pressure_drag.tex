@@ -32,12 +32,12 @@ quantity & $\GS$ & $\CNS$\\
 \midrule
 $\norm{p^\circ-p_h}_{L^2(\Oh)}$ & $\asymp(h/\mu)\hG^{-1/2}G$: rate $\frac12$, sharp (Thm~\ref{pd:thm:gsp}) & $O(\hG^{3/2})$ (Thm~\ref{pd:thm:cnsp})\\
 $\norm{p^\circ-p_h}_{L^2(\Oh\setminus\Lay)}$ & $O(h/\mu)$ & $O(\hG^{3/2})$\\
-$\norm{p^\circ-p_h-c}_{L^2(\Oh)}$, lower bound & sharp (above) & $\ge c\hG^{3/2}$ under (P) (Thm~\ref{pd:thm:P})\\
+$\norm{p^\circ-p_h-c}_{L^2(\Oh)}$, lower bound & sharp (above) & $\ge c\hG^{3/2}$ under (P) (Thm~\ref{pd:thm:P}), or modulo (D$_{\rm c}$), (TL) (Cor.~\ref{pd:cor:ac})\\
 $\norm{p^\circ-p_h-c}_{L^\infty(\Lay)}$, any $c$ & $\ge cG/\gamma$: no convergence & $\ge c\hG$ under (P) (Thm~\ref{pd:thm:P})\\
 drag/lift/torque: Nitsche flux $=$ volume formula with $v_\psi$ & $-(h/\mu)K_\psi+O(h^{3/2})$: rate $1$ (Thm~\ref{pd:thm:gsdrag}) & $-\Theta_f-\Lambda_h-\frac h\mu\Pm(\rho_\psi)+O(\hG^{5/2})$: rate $2$ (Thms~\ref{pd:thm:cnsdrag}, \ref{pd:thm:B2})\\
 drag/lift (translations), GS volume formula $\omega_h(\chi_h)$ & $-2(h/\mu)K_e+O(h^{3/2})$ (Prop.~\ref{pd:prop:chi}) & $J^N_h+O(\hG^2)$\\
 torque, GS volume formula $\omega_h(\chi_h)$ & rate-$1$ upper bound; leading term $-(h/\mu)J_{x^\perp}$ as $\gamma\to\infty$ (numerical) & $J^N_h-(h/\mu)J_{x^\perp}(1+o(1))$ as $\gamma\to\infty$ (Prop.~\ref{pd:prop:E})\\
-drag, pointwise traction $\sigma(u_h,p_h)n$ & $\Xi_h(\psi)=O(1/\gamma)$: no convergence (Props.~\ref{pd:prop:beta}, \ref{pd:prop:D}) & $O(\hG)$; $\ge c\hG$ under (P)\\
+drag, pointwise traction $\sigma(u_h,p_h)n$ & $\Xi_h(\psi)=O(1/\gamma)$: no convergence (Props.~\ref{pd:prop:beta}, \ref{pd:prop:D}) & $O(\hG)$; $\ge c\hG$ under (P), or modulo (D$_{\rm c}$), (TL)\\
 Nitsche traction in $L^2(\Gh)$ & $O(\hG^{1/2})$ & $O(\hG)$\\
 \bottomrule
 \end{tabular}
@@ -602,7 +602,7 @@ To leading order $u_h\cdot n\approx(h/\mu)q$ and $(\chi_h-e)\cdot n\approx(h/\mu
 
 \subsection{Lower bounds for the $\CNS$ pressure, traction and drag}\label{pd:sec:lower}
 
-Theorem~\ref{pd:thm:cnsp} and Proposition~\ref{pd:prop:beta}(a) give upper bounds for the $\CNS$ pressure and traction, and Theorem~\ref{pd:thm:cnsdrag} for its drag. Here we identify their structure and reduce all three lower bounds to a single scalar hypothesis (P) on a smooth boundary moment of the pressure error. Throughout, the method is $\CNS$ with $\gamma\ge\gamma_2$, and the error equation is \eqref{eq:cnserr}. ``Fixed $\gamma$'' means $\gamma\in[\gamma_2,\gamma_{\max}]$, bounded $\rho$, and $\eps\le Ch^k$ (or flux-corrected data). The computations are in \texttt{notes/v6/misc}.
+Theorem~\ref{pd:thm:cnsp} and Proposition~\ref{pd:prop:beta}(a) give upper bounds for the $\CNS$ pressure and traction, and Theorem~\ref{pd:thm:cnsdrag} for its drag. Here we identify their structure and reduce all three lower bounds to a single scalar hypothesis (P) on a smooth boundary moment of the pressure error. Section~\ref{pd:sec:cell} then derives the boundary moment from a periodic first-layer cell problem, which shows when (P) holds, and proves the lower bounds without it, modulo two hypotheses on the cell problem. Throughout, the method is $\CNS$ with $\gamma\ge\gamma_2$, and the error equation is \eqref{eq:cnserr}. ``Fixed $\gamma$'' means $\gamma\in[\gamma_2,\gamma_{\max}]$, bounded $\rho$, and $\eps\le Ch^k$ (or flux-corrected data). The computations are in \texttt{notes/v6/misc}.
 
 \subsubsection{Pressure error $=$ distance to the unconstrained Nitsche solution}
 
@@ -655,7 +655,7 @@ Apply Lemma~\ref{pd:lem:v0} with $v=\nabla\psi\in\VO$. Since $v\in H^1_0$, $\int
 
 So the part of the pressure error in $\Delta\Phih$ is driven only by the normal slip, and it is $O(\gamma^{-1/2}Y)$. Whatever carries the $\hG^{3/2}$ lives in the ``discrete harmonic'' complement $\Pih\ominus\Delta\Phih$, which is paired with $\rot e_u$ in every remaining identity. This is the discrete Cauchy--Riemann coupling of pressure and vorticity.
 
-\begin{lemma}[Smooth moments; proved modulo the regularity (R) of Section~\ref{l2:sec}]\label{pd:lem:A3}
+\begin{lemma}[Smooth moments]\label{pd:lem:A3}
 For $g\in C^\infty(\overline R)$,
 \[
 |(e_p-\bar e_p,g)_{\Oh}|\le C_g\bigl(\norm{e_u}_{L^2(\Omega)}+\norm{u_h}_{L^2(\Gamma)}+(h+\hG^{1/2})Y+\hG^2(1+h\hG^{-1/2})+h^k\bigr).
@@ -719,7 +719,7 @@ The first sum is at most $C\norm{e_u}_{L^1(\Gh)}\le C(\hG/\gamma)^{1/2}Y$. In th
 \begin{assumption}[(P)]\label{pd:ass:P}
 There are $\phi\in C^{k+1}(\Gamma)$ with $\int_\Gamma\phi=0$, and $c_P,h_P>0$, such that $|\Pm(\phi)|\ge c_P\hG$ for $\hG\le h_P$. Equivalently (Prop.~\ref{pd:prop:B1}), the weighted normal slip satisfies $|\Sm(\phi)|\ge c_P'(h/\mu)\hG$.
 \end{assumption}
-(P) is observed on the production meshes (NUMERICAL): $\Pm(\cos\theta)/\hG\approx0.82$ on test B$_1$ and $\approx2.0$ on test S at $N=64$, $\mu=100$, both still slowly increasing (Table~\ref{pd:tab:a}). Test A and a rotational $P_3$ flow have $\Pm(\cos\theta)=\Pm(\sin\theta)=0$ to round-off: the flow is rotation invariant and the mesh is $C_4$-symmetric, so only the modes $\equiv0\bmod4$ survive.
+(P) is observed on the production meshes (NUMERICAL): $\Pm(\cos\theta)/\hG\approx0.82$ on test B$_1$ and $\approx2.0$ on test S at $N=64$, $\mu=100$, both still slowly increasing (Table~\ref{pd:tab:a}); the cell limits of Section~\ref{pd:sec:cell} are $0.84$ and $2.11$. Section~\ref{pd:sec:cell} shows that (P) \emph{as stated fails} on mirror-symmetric first layers, identifies exactly when it holds (Corollary~\ref{pd:cor:P}), and proves the lower bounds without it (Corollary~\ref{pd:cor:ac}), all modulo two hypotheses on the cell problem. Test A and a rotational $P_3$ flow have $\Pm(\cos\theta)=\Pm(\sin\theta)=0$ to round-off: the flow is rotation invariant and the mesh is $C_4$-symmetric, so only the modes $\equiv0\bmod4$ survive.
 
 \begin{theorem}[Lower bounds under (P)]\label{pd:thm:P}
 At fixed $\gamma$, for every $\phi$ as above and every constant $c$:
@@ -738,7 +738,7 @@ Hence, under (P) and with $h^k\le\hG^{3/2}$: $\norm{p^\circ-p_h-c}\ge c\hG^{3/2}
 \begin{remark}[Why (P) is not proved: the precise obstruction]\label{pd:rem:obstr}
 \begin{enumerate}
 \item \emph{Only circular pressure-only identities.} A test field in $\VO$ eliminates $e_u$ from the pressure identity of Lemma~\ref{pd:lem:v0} for every divergence-free $e_u$ only if it is curl-free, i.e.\ lies in $\nabla\Phih$ (write $a_h(e_u,v)-\ip{e_u}{\dn v}=(\rot e_u,\rot v)\mp\ip{e_u\cdot\tau}{\rot v}-\ip{e_u\cdot n}{\div v}$ on $\VO$). For those fields Lemma~\ref{pd:lem:A2} expresses $e_p$ through $u_h\cdot n$, which Prop.~\ref{pd:prop:B1} expresses through $\Pm$ again. Every other field involves $(\rot e_u,\rot v)$, which is of the same order $\hG^{3/2}\norm{\nabla v}$ as the term to be bounded below. This is the mirror image of the velocity lower bound (Section~\ref{lb:sec}), where $Y_h$ eliminates the pressure exactly.
-\item \emph{(P) is a discrete first-layer effect} (heuristic, not proved). In the flat periodic model of one chord (bump $\frac12(\ell^2/4-s^2)W$, even about the midpoint), reflection $s\mapsto-s$ makes the layer pressure odd about each midpoint. So its chord means vanish, and $\Pm=o(\hG)$; the mean bump $\ell^2W/12$ only drives the smooth $O(\hG^2)$ flow. On the production meshes every $T_e$ is close to right-angled with its apex over the counterclockwise endpoint: the apex offset is $+0.53\,|e|$ to $+0.82\,|e|$, always of the same sign (\texttt{apex\_offsets.log}). The discrete cell is therefore not reflection symmetric, and an $O(\hG)$ chord mean is expected. We conjecture $\Pm(\phi)=\hG\int_\Gamma c_h\,W\phi+o(\hG)$ with $c_h$ determined by the local first-layer geometry and $\gamma$. (P) may \emph{fail} on mirror-symmetric first layers. Then (i)--(iii) would need the oscillating part of $e_p$, which the moment $\Pm$ does not see. A proof of either statement needs a two-scale (cell-problem) description of the discrete first layer.
+\item \emph{(P) is a discrete first-layer effect} (made precise in Section~\ref{pd:sec:cell}). In the flat periodic model of one chord (bump $\frac12(\ell^2/4-s^2)W$, even about the midpoint), reflection $s\mapsto-s$ makes the layer pressure odd about each midpoint. So its chord means vanish, and $\Pm=o(\hG)$; the mean bump $\ell^2W/12$ only drives the smooth $O(\hG^2)$ flow. On the production meshes every $T_e$ is close to right-angled with its apex over the counterclockwise endpoint: the apex offset is $+0.53\,|e|$ to $+0.82\,|e|$, always of the same sign (\texttt{apex\_offsets.log}). The discrete cell is therefore not reflection symmetric, and an $O(\hG)$ chord mean is expected. Section~\ref{pd:sec:cell} carries out the two-scale description: $\Pm(\phi)=\hG\int_\Gamma\mathcal F\phi+O(\hG^2)$ with an explicit cell density $\mathcal F$, which vanishes on mirror-symmetric columns; the oscillating part of $e_p$ then gives (i) and (iii) directly.
 \end{enumerate}
 \end{remark}
 
@@ -763,6 +763,109 @@ $N$ & $\hG$ & $\norm{e_p-\bar e_p}$ (rate) & $\frac{\norm{e_p-\bar e_p}}{\norm{\
 Test A (Scott's shear flow) and test Q (rotational $P_3$ flow) have $\Pm(\cos\theta)=\Pm(\sin\theta)=0$ to round-off: the flow is rotation invariant and the mesh is $C_4$-symmetric, so only the modes $\equiv0\bmod4$ survive.
 
 
+\subsubsection{The first-layer cell problem}\label{pd:sec:cell}
+
+This subsection replaces (P) by a statement about a periodic cell problem for the first boundary layer. Everything is at fixed $\gamma$; the computations use $k=4$, and the propositions hold for every $k\ge1$ with $k(k+1)$ in place of $20$ (\texttt{notes/v7/P}).
+
+\emph{Geometry.} For a wall edge $e$ with midpoint $m_e$, unit tangent $\tau_c$ and unit normal $e_{\rm in}$ into the fluid, let $\Phi_e(x):=|e|^{-1}R_e(x-m_e)+(\frac12,0)$, with $R_e$ the rotation taking $\tau_c\mapsto(1,0)$, $e_{\rm in}\mapsto(0,1)$; so $\Phi_e(e)=[0,1]\times\{0\}$. Let $\kappa$ be the curvature of $\Gamma$, $W:=\partial_{e_{\rm in}}(u\cdot\tau_c)|_\Gamma$ the wall shear rate and $\hat\ell:=|e|/\hG$ on $e$. A \emph{column lattice} $\mathsf L$ is a $1$-periodic strip triangulation with rows $L_j=(x_j,y_j)$, $0=y_0<y_1<\cdots$, right vertices $L_j+(1,0)$ and a diagonal per row; the \emph{sheared lattice} has $L_j=(j\delta,ja)$ with forward diagonals, aspect $a$ and apex offset $o=\delta+\frac12$ ($o=0$: isosceles, mirror symmetric; $o=-\frac12$: right-angled). A mesh family is \emph{locally periodic in columns} (LPC) if there are $M_h\ge C_0|\log\hG|$ and a Lipschitz map $x\mapsto\mathsf L(x)$ on $\Gamma$ such that for every $e$ the first $M_h$ rows above $e$, mapped by $\Phi_e$, coincide with those of $\mathsf L(m_e)$ up to vertex displacements $\le C\hG$. The annulus meshes of \texttt{notes/v7/P} are LPC with constant $\mathsf L$. The production meshes have first-layer offsets tending to $-\frac12$ and aspects $a\in[0.75,2.5]$; whether their deeper rows are LPC was not checked.
+
+\begin{definition}[Cell problem]\label{pd:def:cell}
+Let $V_{\mathcal C}$ be the continuous piecewise-$P_k$ fields on $\mathsf L\cap\{0\le y\le y_J\}$, $1$-periodic in $x$, with no Dirichlet condition, and $Q_{\mathcal C}$ the discontinuous piecewise-$P_{k-1}$ functions. On the wall $e_0=[0,1]\times\{0\}$, $n=(0,-1)$; the top is traction free. With the forms of Section~\ref{sec:setting} and penalty $\lambda=\gamma\hat\ell$,
+\[
+N(U,v)=\tfrac12(DU,Dv)-\ip{\dn U}{v}_{e_0}-\ip U{\dn v}_{e_0}+\lambda\ip Uv_{e_0},\qquad b(P,v)=-(P,\div v)+\ip P{v\cdot n}_{e_0},
+\]
+find $(U,P)$ with $N(U,v)+b(P,v)=F(v)$, $(q,\div U)=0$. The loads are, with $\sigma:=x-\frac12$ and $\beta(\sigma):=\frac12(\frac14-\sigma^2)$, the \emph{bump} $F_1(v)=\ip{\sigma e_{\rm in}}v-\ip g{\dn v}+\lambda\ip gv$, $g=-\beta\tau$, and the \emph{normal traction} $F_c(v)=\ip nv$. Write $A:=\int_{e_0}P$ (trace from the wall triangle), $V:=\int_{e_0}U\cdot n$, $A_1,A_c$ for the two loads, $P_{\mathcal C},T_{\mathcal C}$ for the bump pressure and wall traction $D(U)n-Pn$, and $\varsigma:=k(k+1)/a$ with $a$ the height of the wall triangle.
+\end{definition}
+
+The loads are the pull-backs of the $\CNS$ error data: on $e$, $\ut|_e=-\kappa W|e|^2\beta(\sigma)\tau_c+O(\hG^3)$ is the Nitsche datum of $e_u$, and the transposed term $\ip{(\nabla\ut)^{\mathsf T}n_e}v$ of $\Gc$ (Lemma~\ref{lem:transposed}) is, with $\tau_c\cdot n_e=\kappa|e|\sigma+O(\hG^2)$, the odd normal load $\kappa W|e|\sigma e_{\rm in}$. The forms are dilation invariant in two dimensions, so the column of $e$ carries $\kappa W|e|^2$ times the cell velocity and $\kappa W|e|$ times the cell pressure. The transposed load exists because the Nitsche flux is $(\nabla u)n$ while the volume form is $\frac12(Du,Dv)$; with the flux $D(u)n$ it would disappear, and $A_1$ would drop from $+0.182$ to $-0.020$ at $a=1$, $o=-\frac12$, $\lambda=30$. All constants below are tied to the paper's choice $(\nabla u)n$.
+
+\begin{proposition}[The cell problem]\label{pd:prop:cell}
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Well-posedness.} There is $\lambda_0$, depending only on the shape of the wall triangle and $k$, such that for $\lambda>\varsigma+\lambda_0$ the cell problem (truncated at any $J$, or on the half-infinite column in the energy space) has a unique solution with $\norm{\nabla U}+\norm P\le C\norm F_{V_{\mathcal C}'}$.
+\item \emph{Normal traction, closed form.} Let $\hat r\in P_{k-1}$ on the wall triangle (extended by $0$) represent $q\mapsto\int_{e_0}q$; its trace is $\hat r|_{e_0}\equiv\varsigma$ (Lemma~\ref{pd:lem:rep}). For $\lambda\ne\varsigma$, $(U,P)=((\lambda-\varsigma)^{-1}n,\ (\varsigma-\lambda)^{-1}\hat r)$ solves the traction problem, so $A_c=\varsigma/(\varsigma-\lambda)$, independently of the rows $j\ge1$. At $\lambda=\varsigma$ the cell operator is singular with kernel $(n,-\hat r)$.
+\item \emph{Flux identity.} For every load, $\lambda V+A=F(n)$; so $\lambda V_1+A_1=0$ and $\lambda V_c+A_c=1$.
+\item \emph{Reflection.} If $\mathsf L^\ast$ is the mirror image of $\mathsf L$ under $(x,y)\mapsto(1-x,y)$, then $A_1(\mathsf L^\ast)=-A_1(\mathsf L)$ while $A_c$, $\norm{P_{\mathcal C}}$ and $\norm{T_{\mathcal C}}$ are unchanged. In particular $A_1=0$ on every mirror-symmetric column, and for sheared lattices $A_1(-o)=-A_1(o)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) On the divergence-free fields only the wall term $\ip P{v\cdot n}$ of $b$ survives, and eliminating the wall-triangle pressure layer turns the form into $N$ with normal penalty reduced by at most $\varsigma$ (Lemma~\ref{rb:lem:mh}); the trace-inverse bound gives coercivity for $\lambda-\varsigma>\lambda_0$, and inf-sup holds for the Scott--Vogelius pair on one period of the shape-regular lattice. (b) Try $U=Vn$, $P=\beta'\hat r$ with constants $V,\beta'$. $U$ is constant, so $N(U,v)=-V\ip n{\dn v}+\lambda V\ip nv$. For $v\in V_{\mathcal C}$, $(\hat r,\div v)=\int_{e_0}\div v=\int_{e_0}\dn v\cdot n$, because $\int_{e_0}\partial_\tau v_\tau=0$ by periodicity; so $b(\beta'\hat r,v)=-\beta'\ip n{\dn v}+\beta'\varsigma\ip nv$, and the momentum equation holds iff $-V-\beta'=0$ and $\lambda V+\beta'\varsigma=1$. (c) Test with the constant field $n$: $\div n=0$, $\dn n=0$, $b(P,n)=A$, and $\int_{e_0}\dn U\cdot n=-\int_{e_0}\partial_\tau(U\cdot\tau)=0$ since $\div U=0$ exactly; $F_1(n)=\int\sigma=0$. (d) $v\mapsto Sv\circ\varrho$, $S=\mathrm{diag}(-1,1)$, preserves divergence, $D$-products, $n$, $\dn$ and wall integrals; it maps $g\mapsto-g$ ($\beta$ even, $\tau$ flipped) and $\sigma e_{\rm in}\mapsto-\sigma e_{\rm in}$, so $F_1\mapsto-F_1$, and fixes $F_c$.
+\end{proof}
+
+NUMERICAL (\texttt{notes/v7/P}): $A_c=20/(20-\lambda)$ to $10^{-13}$ for $\lambda\in[5,10^6]$; the flux identity holds to $10^{-14}$; truncation $J=6,\dots,20$ changes $A_1$ by $<10^{-10}$, and the row norms of $P$ and $\nabla U$ decay by factors $6$--$7$ per row. On all $344$ asymmetric sheared cells scanned ($a\in[\frac12,3]$, $0.1\le|o|\le0.75$, $\lambda/\varsigma\in[1.001,10^4]$), $A_1\ne0$ with $\operatorname{sign}A_1=-\operatorname{sign}o$ and a simple pole at $\lambda=\varsigma$; for example $A_1=0.1824$ at $a=1$, $o=-\frac12$, $\lambda=30$. $A_1$ is dominated by, but not a function of, the wall triangle (an isosceles wall triangle over rectangular rows gives $-0.028$), so the relevant symmetry is that of the column.
+
+The two-scale statement needs two hypotheses on the cell problem.
+\begin{enumerate}
+\item[(D$_{\rm c}$)] (cell decay; NUMERICAL) For $\mathsf L$ in the range of the LPC map and $\lambda\in[\gamma\min\hat\ell,\gamma\max\hat\ell]\subset(\varsigma+\lambda_0,\infty)$, the bump and traction cell solutions satisfy $\norm{\nabla(U-U_\infty)}_{\text{row }j}+\norm P_{\text{row }j}\le Cq^j$ with $q<1$ uniform and $U_\infty$ constant.
+\item[(TL)] (transplant lemma; not proved) On an LPC family, the glued field $(E_u,E_p)$ below, transplanted to the mesh through the $O(\hG)$ vertex perturbation and cut off after $M_h$ rows, has $\CNS$ residual (in $V_h'$, plus the divergence defect in $L^2$) at most $C\hG^{5/2}$.
+\end{enumerate}
+(D$_{\rm c}$) is called (D) in \texttt{notes/v7/P}; it is unrelated to the data hypothesis (D) of Section~\ref{sec:setting}. (TL) is local and algebraic: the relative size of the column-to-column mismatch is the Lipschitz modulus of $(\kappa W,\hat\ell,\mathsf L)$ times $\hG$, and (D$_{\rm c}$) localises every mismatch to $O(1)$ rows; what is missing is a written estimate for the transplant of $P_k$/$P_{k-1}$ fields between two lattices at $O(\hG)$ vertex distance, including the $O(\hG)$ divergence defect.
+
+\emph{Glued field.} On the column of $e$, $E_u=\kappa W|e|^2U_1\circ\Phi_e+t_0|e|U_c\circ\Phi_e+u_{\rm s}$ and $E_p=\kappa W|e|P_1\circ\Phi_e+t_0P_c\circ\Phi_e+p_{\rm s}$, with $\kappa,W$ at $m_e$, cell parameters $(\mathsf L(m_e),\gamma\hat\ell)$, and $(u_{\rm s},p_{\rm s})$ the $\CNS$ solution of the smooth problem driven by the far-field slip $-\kappa W|e|^2\tau/12$. The constant $t_0$ is fixed by the exact constraint $\int_{\Gh}u_h\cdot n=0$; by Proposition~\ref{pd:prop:cell}(c), $t_0=\hG\bar t_0+O(\hG^2)$ with $\bar t_0:=\int_\Gamma\hat\ell\kappa WA_1\,ds/\int_\Gamma(1-A_c)\,ds$.
+
+\begin{theorem}[Two-scale expansion; proved modulo (D$_{\rm c}$), (TL)]\label{pd:thm:ts}
+On an LPC family at fixed $\gamma$ with $\gamma\min\hat\ell>\varsigma+\lambda_0$ and $h^k\le\hG^{5/2}$, let
+\[
+\mathcal F(x):=\hat\ell\kappa W\,A_1\bigl(\mathsf L(x),\gamma\hat\ell(x)\bigr)+\bar t_0\,A_c\bigl(\mathsf L(x),\gamma\hat\ell(x)\bigr),
+\]
+$Q_x:=\hat\ell\kappa WP_1+\bar t_0P_c$ and $\Theta_x:=\hat\ell\kappa WT_1+\bar t_0T_c$ (cell pressure and wall traction of the load $\hat\ell\kappa WF_1+\bar t_0F_c$ at $(\mathsf L(x),\gamma\hat\ell(x))$). Then for $\phi\in C^1(\Gamma)$ with $\int_\Gamma\phi=0$:
+\begin{enumerate}[label=(\roman*)]
+\item $\Pm(\phi)=\hG\int_\Gamma\mathcal F\phi\,ds+O_\phi(\hG^2)$;
+\item $\inf_c\norm{e_p-c}^2_{L^2(\Oh)}=\hG^3\int_\Gamma\hat\ell\norm{Q_x}^2_{L^2(\mathcal C)}ds+O(\hG^{7/2})$;
+\item $\norm{T^\beta_h-\sigma^\circ n}^2_{\Gh}=\hG^2\int_\Gamma\norm{\Theta_x}^2_{L^2(e_0)}ds+O(\hG^{5/2})$.
+\end{enumerate}
+On mirror-symmetric columns $\bar t_0=0$ and $\mathcal F\equiv0$.
+\end{theorem}
+
+\begin{proof}
+\emph{Step 1.} On each column the leading part of the Nitsche datum and of $\Gc$ is $\kappa W|e|^2$ times the pull-back of $F_1$, up to relative $O(\hG)$. The glued field solves the column problems, the flux constraint and the smooth problem, so by (TL) $(R_u,R_p):=(e_u-E_u,e_p-E_p)$ satisfies the $\CNS$ equations with residual $O(\hG^{5/2})$.
+\emph{Step 2.} Coercivity on $\Zh$ (with the effective penalty of Lemma~\ref{rb:lem:mh}) and Lemma~\ref{pd:lem:infsup_ref} give $\norm{\nabla R_u}+(\mu/h)^{1/2}\norm{R_u}_{\Gh}+\inf_c\norm{R_p-c}\le C\hG^{5/2}$. The constant part of $R_p$ is controlled by the edge-bubble row, as the constant of $e_p$ in the proof of Theorem~\ref{pd:thm:cnsp}: testing with an edge-bubble field of nonzero flux gives $|\pbG(R_p)|\le C\hG^{-1/2}\cdot\hG^{5/2}=C\hG^2$, which is what (iii) needs, since (iii) is not invariant under constants.
+\emph{Step 3.} $\Pm(\phi)=\ip{E_p-\pbG(E_p)}{\phi\circ\pi}+O(\hG^{-1/2}\hG^{5/2})$ by the inverse trace inequality. Column $e$ contributes $|e|\kappa W|e|A_{1,e}\phi(m_e)+t_0|e|A_{c,e}\phi(m_e)+O(\hG^3)$, the smooth part $O(\hG^2)$ (Lemma~\ref{pd:lem:A3}), the constant $O(\hG^2)$; a Riemann sum gives (i).
+\emph{Steps 4--5.} On column $e$, $E_p-p_{\rm s}=\hG Q_{m_e}\circ\Phi_e$ and the column traction is $\hG\Theta_{m_e}\circ\Phi_e$; sum over columns ($\sum_e|e|^2f(m_e)=\hG\int\hat\ell f+O(\hG^2)$), and bound the cross terms with $R$ by Step 2 and inverse estimates, and the smooth parts and the $\sigma^\circ$ mismatch by $O(\hG^2)$ (Lemma~\ref{pd:lem:C1}).
+\end{proof}
+
+\begin{corollary}[(P) corrected; proved modulo (D$_{\rm c}$), (TL)]\label{pd:cor:P}
+On LPC families, (P) holds for some $\phi$ if and only if $\mathcal F$ is not constant on $\Gamma$; then $\Pm(\phi)/\hG\to\int\mathcal F\phi$ and one may take $\phi=\mathcal F-\bar{\mathcal F}$. (P) \emph{fails} on mirror-symmetric columns, where $\mathcal F\equiv0$ and $\Pm(\phi)=O(\hG^2)$, and in rotation-invariant situations ($\kappa W\hat\ell$ and $\mathsf L$ constant, as for tests A and Q on the $C_4$-symmetric production meshes), where $\mathcal F$ is constant.
+\end{corollary}
+
+On the isosceles annulus, $\Pm(\sin\theta)/\hG^2=1.714,1.618,1.589,1.591$ for $N=16,\dots,128$: the rate is exactly $2$, and the $\hG^2$ coefficient is not a cell quantity (it changes to $21.5$ when the outer radius is $1.4$), so the second-order remainder is genuinely global.
+
+\begin{corollary}[Pressure and traction lower bounds without (P); proved modulo (D$_{\rm c}$), (TL)]\label{pd:cor:ac}
+On every LPC family at fixed admissible $\gamma$, mirror-symmetric columns included:
+\begin{enumerate}[label=(\alph*)]
+\item if $Q_x\ne0$ on a set of positive measure (which holds when $\kappa W\not\equiv0$ and $P_1\ne0$ in the rows $j\ge1$, where $P_c=0$), then $\inf_c\norm{p^\circ-p_h-c}\ge c\hG^{3/2}$;
+\item if $\Theta_x$ is not a.e.\ a constant multiple of $n$, then $\norm{T^\beta_h-\sigma^\circ n}_{\Gh}\ge c\hG$;
+\end{enumerate}
+with the sharp constants of Theorem~\ref{pd:thm:ts}(ii), (iii). With the upper bounds of Theorem~\ref{pd:thm:cnsp} and Proposition~\ref{pd:prop:beta}(a), the rates $\frac32$ and $1$ are then exact.
+\end{corollary}
+
+The hypotheses of the corollary are NUMERICAL: $\norm{P_{\mathcal C}}\in[0.19,0.41]$ and $\norm{T_{\mathcal C}}\in[0.39,1.12]$ on the cells of Table~\ref{pd:tab:cell}, with minima $0.026$ and $0.16$ over $135$ scanned cells, and the odd part of the wall pressure (which is not a multiple of $n$) has norm $0.83$ at $a=1$, $o=-\frac12$, $\lambda=30$.
+
+\begin{corollary}[Drag at fixed $\gamma$; proved modulo (D$_{\rm c}$), (TL)]\label{pd:cor:drag}
+By Theorems~\ref{pd:thm:B2} and~\ref{pd:thm:ts}(i), with $h/\mu=\hG/\gamma$,
+\[
+J^N_h(\psi)-J_\psi=\hG^2\mathcal D(\gamma)+o(\hG^2),\qquad \mathcal D(\gamma)=-G_0-\gamma^{-1}\int_\Gamma\mathcal F_\gamma\,\rho_\psi\,ds,
+\]
+where $G_0=\lim\hG^{-2}(\Theta_f+\Lambda_h)=\frac1{12}\int_\Gamma\hat\ell^2(f\cdot\psi+\dn u\cdot\dn(Z_\psi-\psi))\,ds$ is geometric. Rate $2$ is sharp at fixed $\gamma$ iff $\mathcal D(\gamma)\ne0$. If (D$_{\rm c}$) holds uniformly for $\lambda$ in a complex neighbourhood of the admissible range, $\mathcal D$ is real-analytic there (on the truncated cell $A_1$ is rational in $\lambda$ without poles for $\lambda>\varsigma+\lambda_0$) and tends to $-G_0$ as $\gamma\to\infty$; so sharpness then holds outside a discrete (possibly empty) set of $\gamma$ whenever $G_0\ne0$ or $\mathcal D$ is not constant. On mirror-symmetric columns the $\hG^2$ coefficient is the geometric $-G_0$ at every fixed $\gamma$.
+\end{corollary}
+
+\begin{table}[h]\centering\footnotesize
+\caption{Annulus meshes (exactly LPC), test S$_1$ ($\kappa=1$, $W=2(1+\cos\theta)$): cell values and first-order Richardson extrapolations $2f(128)-f(64)$ divided by the prediction of Theorem~\ref{pd:thm:ts} (\texttt{notes/v7/P/compare\_ann.log}).}\label{pd:tab:cell}
+\resizebox{\textwidth}{!}{\begin{tabular}{lccccccc}
+\toprule
+cell & $A_1$ & $\norm{P_{\mathcal C}}$ & $\norm{T_{\mathcal C}}$ & $\Pm(\cos)/\hG$ at $N{=}128$ & extrap./pred. & $\norm{e_p}/\hG^{3/2}$ & $\norm{T-\sigma n}/\hG$\\
+\midrule
+$a=1,\lambda=30$, $o=-\frac12$ & $0.1824$ & $0.2357$ & $0.6017$ & $1.320$ & $1.023$ & $1.009$ & $1.005$\\
+$a=2,\lambda=30$, $o=-\frac12$ & $0.0291$ & $0.2970$ & $0.6205$ & $0.256$ & $0.979$ & $1.006$ & $1.000$\\
+$a=1,\lambda=100$, $o=-\frac12$ & $0.4413$ & $0.4069$ & $1.1219$ & $3.199$ & $1.020$ & $1.010$ & $1.005$\\
+$a=1,\lambda=30$, $o=0$ (sym.) & $0$ & $0.1881$ & $0.3874$ & $0$ (round-off) & -- & $1.010$ & $1.001$\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+On the production meshes the prediction uses, edge by edge, the rectangular lattice with the measured aspect and $\lambda_e=\mu|e|/h$, including the $\bar t_0$ term (without it the $\cos4\theta$ moment is off by a factor $2$). For test S$_1$ at $\mu=1000$ the linear extrapolation of $\Pm(\cos)/\hG$ from $N=64,96$ is $3.13$ against the cell limit $3.06$; at $\mu=100$ it is $2.25$ against $2.11$ (S$_1$) and $0.91$ against $0.84$ (B$_1$). At $\mu=100$ the production cells lie within $7\%$ of the resonance $\lambda=\varsigma$ ($\lambda/\varsigma\ge1.07$), possibly below the proved well-posedness range $\varsigma+\lambda_0$, and $A_1\propto(\lambda-\varsigma)^{-1}$ amplifies every $O(\hG)$ perturbation there.
+\cert{notes/v7/P/cell.py, signscan.py, rhoscan.py, mixed.py, annulus.py, annpred.py, compare\_ann.py, predict.py, compare.py}{notes/v7/P/cell\_scan.log, signscan.log, rhoscan.log, mixed.log, annpred.log, compare\_ann.log, compare.log}
+
 \subsubsection{Drag at fixed $\gamma$: the weighted normal slip}
 \begin{theorem}[$\CNS$ drag at fixed $\gamma$]\label{pd:thm:B2}
 Assume the hypotheses of Theorem~\ref{pd:thm:cnsdrag} at fixed $\gamma$, with $E_Z\le Ch$ and $\eps\le Ch^k$. Let $\rho_\psi:=(R_\psi-\bar R_\psi)|_\Gamma$. Then
@@ -784,7 +887,7 @@ Since $|\ut\cdot n_e|\le C\hG^3$, $\Sm(\rho_\psi)=-\ip{\rho_\psi\circ\pi}{u_h\cd
 \begin{enumerate}
 \item The formula mirrors Theorem~\ref{pd:thm:gsdrag}. There the leak $u_h\cdot n\approx(h/\mu)q$ gives $-\ip{\rho_\psi}{u_h\cdot n}\approx-(h/\mu)K_\psi$. For $\CNS$ the wall pressure $q$ is replaced by the boundary trace of the pressure \emph{error}. The drag defect is, for both methods, the dual wall pressure weighted by the normal slip.
 \item $|(h/\mu)\Pm(\rho_\psi)|\le C\gamma^{-1/2}\hG^2$: this is exactly the $\gamma^{-1/2}\hG^2$ of Theorem~\ref{pd:thm:cnsdrag}(b), now identified. Since $\Pm\asymp\hG$ numerically (Table~\ref{pd:tab:a}), the term is \emph{genuinely} of order $\hG^2$ at fixed $\gamma$. The $\hG^2$ coefficient is $-(\Theta_f+\Lambda_h)/\hG^2$ plus a $\gamma$-dependent discrete-layer correction. It is purely geometric only as $\gamma\to\infty$ (as Theorem~\ref{pd:thm:cnsdrag} states). 
-\item \emph{Sharpness at fixed $\gamma$} holds if and only if $\liminf\hG^{-2}|\Theta_f+\Lambda_h+(h/\mu)\Pm(\rho_\psi)|>0$. This is generic but not proved: it needs the limit of $\Pm/\hG$, the same obstruction as (P).
+\item \emph{Sharpness at fixed $\gamma$} holds if and only if $\liminf\hG^{-2}|\Theta_f+\Lambda_h+(h/\mu)\Pm(\rho_\psi)|>0$. Corollary~\ref{pd:cor:drag} identifies the limit of $\Pm/\hG$ modulo (D$_{\rm c}$), (TL), and hence the $\hG^2$ coefficient.
 \item The first form is computable a posteriori, given the dual wall pressure $R_\psi$: subtracting $-\ip{\rho_\psi\circ\pi}{u_h\cdot n}$ leaves the geometric term plus $O(\hG^{5/2})$. We have not tested this numerically; we did not compute $R_\psi$.
 \end{enumerate}
 \end{remark}
@@ -814,7 +917,7 @@ where $\Theta(\psi):=(\ft-(\ut\cdot\nabla)\ut,\psi)_{S_h}=\Theta_f(\psi)+O(\hG^4
 (a),(b): Lemma~\ref{pd:lem:v0} acquires $c(\ut;\ut,v)-c(u_h;u_h,v)+\kappa_c(v)$ on the right. By Lemma~\ref{ns:tri} this is at most $C\norm e_{H^1}\norm{\nabla v}$ plus $C\hG^4\norm{\nabla v}$. The same convective terms appear when testing with $w_1$. The decomposition $e=(h/\nu\mu)v_\varphi+\vartheta$ with $\tnorm\vartheta\le CX$, and $\norm{\nabla e}\le CX$, are Theorem~\ref{ns:thmGS} and the proof of Corollary~\ref{ns:Bp}. The layer source is $\nu\ip{u_h}{\dn v}$, whose normal part is $\nu(h/\nu\mu)q$. (c): As in Lemma~\ref{pd:lem:dragid}, now with $\div\sigma(\ut,\pt)=F-\ft+(\ut\cdot\nabla)\ut$; the $c_1$/$c_s$ difference on $v_\psi$ is $\frac12\ip{(\ut\cdot n)\ut}\psi=O(\hG^4)$, and $|\ut|\le C\hG^2$ on $S_h$. The bounds use Lemma~\ref{ns:tri}.
 \end{proof}
 
-\emph{Sharper Navier--Stokes drag statements} are proved in Section~\ref{ns:sec}, modulo the Stokes regularity (R$_S$) on $\Omega$ that we also use for $U$ and $Z_\psi$. For $\GS$, $J^N_h(\psi)=J_\psi-\frac h{\nu\mu}K^\dagger_\psi-\Theta_f(\psi)+o(h/\mu)$ with $K^\dagger_\psi=\int_\Gamma(p-\pbar)(R^\dagger_\psi-\bar R^\dagger_\psi)$ and $(Z^\dagger_\psi,R^\dagger_\psi)$ the \emph{adjoint} linearised (Oseen) problem with data $\psi$ on $\Gamma$ (Corollary~\ref{nb:gsdrag}). For $\CNS$ the rate is $2$, with leading term $-\Theta_f-\Lambda^\dagger_h$ as $\gamma\to\infty$ (Theorem~\ref{n2:cnsdrag}); the adjoint stability it needs is (L$^\dagger$) (Theorem~\ref{n2:Ldag}). Proposition~\ref{pd:prop:beta} transfers verbatim for the Stokes part.
+\emph{Sharper Navier--Stokes drag statements} are proved in Section~\ref{ns:sec}, using the Stokes regularity of Theorem~\ref{l2:thm:R} that we also use for $U$ and $Z_\psi$. For $\GS$, $J^N_h(\psi)=J_\psi-\frac h{\nu\mu}K^\dagger_\psi-\Theta_f(\psi)+o(h/\mu)$ with $K^\dagger_\psi=\int_\Gamma(p-\pbar)(R^\dagger_\psi-\bar R^\dagger_\psi)$ and $(Z^\dagger_\psi,R^\dagger_\psi)$ the \emph{adjoint} linearised (Oseen) problem with data $\psi$ on $\Gamma$ (Corollary~\ref{nb:gsdrag}). For $\CNS$ the rate is $2$, with leading term $-\Theta_f-\Lambda^\dagger_h$ as $\gamma\to\infty$ (Theorem~\ref{n2:cnsdrag}); the adjoint stability it needs is (L$^\dagger$) (Theorem~\ref{n2:Ldag}). Proposition~\ref{pd:prop:beta} transfers verbatim for the Stokes part.
 
 \begin{remark}[General domains]\label{pd:rem:gd}
 Theorems~\ref{pd:thm:cnsp}, \ref{pd:thm:gsp} and Proposition~\ref{pd:prop:beta}(a) use only lemmas that Section~\ref{gd:sec} re-proves, together with $|\Lay|\asymp\hG$. They therefore hold on the general domains of Section~\ref{gd:sec}, with the global $\pbar$, with $\hat n:=n\circ\pi$ in Lemma~\ref{pd:lem:wphi}, and with $\div\hat n=\kap+O(\hG^2)$ replacing $-1$ (only $\int_\Gamma q=0$ is used). In the drag identities $S_h$ must be replaced by the signed region $\Oh\triangle\Omega$: $\Theta_f=(\ft,\psi)_{\Oh\setminus\Omega}-(f,\psi)_{\Omega\setminus\Oh}$, and $\Lambda_h$ carries the factor $\kap$ through $d=\frac12\kap(\ell^2/4-t^2)$. Theorem~\ref{pd:thm:gsdrag} uses Theorem~\ref{hc:thm}, which Section~\ref{gd:sec} does not cover, so on general domains only its unconditional $O(h/\mu)$ bound is proved.
@@ -822,8 +925,8 @@ Theorems~\ref{pd:thm:cnsp}, \ref{pd:thm:gsp} and Proposition~\ref{pd:prop:beta}(
 
 \subsection{What is not proved}\label{pd:sec:notproved}
 \begin{itemize}
-\item The hypothesis (P) of Section~\ref{pd:sec:lower}. Under (P) the lower bounds for the $\CNS$ pressure error ($L^2$ rate $\frac32$, $L^\infty(\Lay)$ rate $1$) and for the pointwise traction (rate $1$) hold (Theorem~\ref{pd:thm:P}); (P) is observed numerically. A proof needs a two-scale description of the discrete first layer (Remark~\ref{pd:rem:obstr}); (P) may fail on mirror-symmetric first layers.
-\item Sharpness of the $\CNS$ drag rate $2$ at \emph{fixed} $\gamma$. The $\hG^2$ term is identified exactly (Theorem~\ref{pd:thm:B2}); sharpness holds if and only if $\liminf\hG^{-2}|\Theta_f+\Lambda_h+(h/\mu)\Pm(\rho_\psi)|>0$, which again needs the limit of $\Pm/\hG$.
+\item The cell hypotheses (D$_{\rm c}$) (numerical) and (TL) (not proved) of Section~\ref{pd:sec:cell}. Modulo them, the $\CNS$ pressure and traction lower bounds hold on every LPC family without (P) (Corollary~\ref{pd:cor:ac}), and (P) holds exactly when the cell density $\mathcal F$ is not constant (Corollary~\ref{pd:cor:P}); it fails on mirror-symmetric columns. That $A_1\ne0$ for every asymmetric column is numerical; whether the deeper production rows are LPC was not checked.
+\item Sharpness of the $\CNS$ drag rate $2$ at \emph{fixed} $\gamma$: modulo (D$_{\rm c}$), (TL) it holds iff $\mathcal D(\gamma)\ne0$ (Corollary~\ref{pd:cor:drag}), which is generic but not proved for a given $\gamma$.
 \item A general lower bound for the $\GS$ pointwise-traction defect $\Xi_h$: none exists (Proposition~\ref{pd:prop:D}(c)); it holds for sign-definite $q\,n\cdot e$ on every mesh and on asymptotically regular first layers.
 \item The fixed-$\gamma$ lower bound for the torque of $J^\chi_h$: the leading term $-\frac h\mu J_{x^\perp}$ is proved only as $\gamma\to\infty$ with $\gamma\hG\to0$ (Proposition~\ref{pd:prop:E}); at fixed $\gamma$ the first-order behaviour is numerical.
 \item Rates for the corrected functionals of Remark~\ref{pd:rem:correct}.

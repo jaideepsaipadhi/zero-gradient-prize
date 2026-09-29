@@ -1,0 +1,264 @@
+\section{The leak limit and drag in three dimensions}\label{sec:leak}
+
+This section identifies the $H^1$ constant of the printed method, uniformly in the penalty, and treats drag, lift and torque. Throughout, (IS3) holds (on Alfeld refinements with $k\ge3$ it is Lemma~\ref{st:IS3}), $k\ge3$ and $\gamma\ge\gamma_0$. Put $q:=(p-\pbar)|_\Gamma$ and $\lambda:=\mu/h=\gamma/\hG$. For $F\in\FG$ let $x_c$ be its centroid, $x_F^\ast:=\pi(x_c)$, $q_F:=q(x_F^\ast)$, $P_F$ the orthogonal projection onto the plane of $F$, and $S_F:=P_FS_{x_F^\ast}P_F$, where $S$ is the shape operator ($D_Xn=SX$, $\ip{SX}Y=\hh(X,Y)$). $|\cdot|_{\rm F}$ is the Frobenius norm and
+\[
+G_\hh:=\bigl\|\,q\,|\hh|_{\rm F}\bigr\|_{L^2(\Gamma)}\qquad(\text{on the unit sphere }|\hh|_{\rm F}=\sqrt2,\ G_\hh=\sqrt2\,G).
+\]
+
+\begin{definition}[Leak flow]\label{lk:U}
+$(U,P)\in H^1(\Omega)^3\times L^2(\Omega)$ is the Stokes flow with $-\Delta U+\nabla P=0$, $\div U=0$ in $\Omega$, $U=-qn$ on $\Gamma$ and $U=0$ on $\Sigma$.
+\end{definition}
+It exists because $\int_\Gamma U\cdot n=-\int_\Gamma q=0$ (the global mean; per-component fluxes need not vanish, Remark~\ref{er:rem:global}). Since $q\in C^k(\Gamma)$ with $k\ge3$, boundary Schauder theory for the Stokes system at the $C^{k+3}$ surface $\Gamma$ gives $(U,P)\in C^{2,\alpha}\times C^{1,\alpha}$ on a collar of $\Gamma$; no regularity at $\Sigma$ is used. Lemma~\ref{geom:ext}, applied on the collar, gives divergence-free extensions $\Ut\in C^2$, $\Pt\in C^1$ to $\Omega\cup\mathcal T_{r/2}$, and $F_U:=-\Delta\Ut+\nabla\Pt$ vanishes on $\Omega$, is bounded and supported in $\overline{\Oh\setminus\Omega}$, so $|(F_U,v)|\le C\hG^2\norm{\nabla v}$ for $v\in\VR$. The two-dimensional counterpart of every result below is in \cite{PadhiLong2D}.
+
+Let $\Tr:=\{t\in C^0(\Gh)^3:\ t|_F\in P_k(F)^3\ \forall F\in\FG,\ \int_{\Gh}t\cdot n=0\}$ with $L^2(\Gh)$-orthogonal projection $\Pi_T$, let $\delta_R\in\Zh$ solve $N_h(\delta_R,v)=\Rc(v)$ for $v\in\Zh$ (as in the proof of Theorem~\ref{er:C}), and $X:=\lambda\delta_R$. Recall $\Yh=\Zh\cap\VO$ and $\Yh^1$ from Section~\ref{sec:sharp}.
+
+\subsection{Tools}
+\begin{lemma}[Lift of zero-flux traces]\label{lk:lift}
+Every $t\in\Tr$ is the trace of some $L\in\Zh$ with $L|_\Sigma=0$ and $\norm{\nabla L}\le C\hG^{-1/2}\norm t_{\Gh}$, $C=C'(1+\sqrt3\beta^{-1})$. Consequently $\{v|_{\Gh}:v\in\Zh\}=\Tr$.
+\end{lemma}
+\begin{proof}
+Let $L_0\in\Vh$ carry the nodal values of $t$ at the Lagrange nodes on $\Gh$ and vanish at all other nodes; its support, the union of the tetrahedra meeting $\Gh$, misses $\Sigma$ for $h\le h_\ast$. A node $z\in F$ has $|t(z)|\le C|F|^{-1/2}\norm t_{L^2(F)}$, and $\norm{\nabla\phi_z}^2_T\le C\diam T$; each node lies in boundedly many tetrahedra, so $\norm{\nabla L_0}^2\le C\sum_F(\diam F)^{-1}\norm t^2_F\le C(c_0\hG)^{-1}\norm t^2_{\Gh}$. Then $\div L_0\in\Pih$ and $\int_{\Oh}\div L_0=\int_{\Gh}t\cdot n=0$, and (IS3) gives $v\in\VO$ with $\div v=\div L_0$, $\norm{\nabla v}\le\sqrt3\beta^{-1}\norm{\nabla L_0}$. Put $L:=L_0-v$. Conversely, $v\in\Zh$ has a continuous piecewise-$P_k$ trace with $\int_{\Gh}v\cdot n=\int_{\Oh}\div v=0$.
+\end{proof}
+
+\begin{lemma}[Projection identity]\label{lk:proj}
+Let $g:=-(\pt-\pbar)n_F$ on each $F\in\FG$ and $t^\ast:=\Pi_Tg$. Then $\Rc(v)=\ip gv=\ip{t^\ast}v$ and $N_h(X,v)=\lambda\ip{t^\ast}v$ for all $v\in\Zh$.
+\end{lemma}
+\begin{proof}
+$\Rc(v)=-\ip{\pt-\pbar}{v\cdot n}=\ip gv$, and $v|_{\Gh}\in\Tr$ by Lemma~\ref{lk:lift}, so $\ip{g-\Pi_Tg}v=0$.
+\end{proof}
+
+\begin{lemma}[Normal data are invisible to $\dn$ on $\Zh$]\label{lk:canc}
+Let $\sigma$ be Lipschitz on a neighbourhood of $\Gh$ and $g_\sigma:=\sigma n_F$ on each $F$. For $v\in\Zh$, $|\ip{g_\sigma}{\dn v}|\le C\norm\sigma_{W^{1,\infty}}\norm v_{\Gh}$; for $v\in\Yh$ it vanishes.
+\end{lemma}
+\begin{proof}
+This is the normal part of the proof of Lemma~\ref{er:cancel}: $\dn v\cdot n_F=-\div_Fv_F$, integration by parts on $F$, and edge terms with coefficient $|t_E\times(n_F-n_{F'})|\le C\hG$. There is no tangential part, because $g_\sigma$ is exactly normal on every face, so no $\hG^{1/2}\norm{\nabla v}$ term appears. If $v\in\Yh$, $v=0$ on $\Gh$ and $\dn v\cdot n_F=\div v=0$ (Lemma~\ref{sh:normal}).
+\end{proof}
+
+\begin{lemma}[Tangential defect of the leak flow on a face]\label{lk:defect}
+For $x\in F\in\FG$, with $\tau_F:=P_F\bigl(n(x^\ast_F)-n_F\bigr)$, $|\tau_F|\le C\hG$,
+\[
+P_F\Ut(x)=-q_F\bigl(\tau_F+S_F(x-x_c)\bigr)+O(\hG^2),\qquad\zeta:=\Ut-g=O(\hG)\ \text{on }\Gh,\qquad\norm\zeta_{\Gh}\le C\hG .
+\]
+\end{lemma}
+\begin{proof}
+$|x-x^\ast|\le C\hG^2$ (Lemma~\ref{geom:face}(a)), so $\Ut(x)=-q(x^\ast)n(x^\ast)+O(\hG^2)$. Expand $n(x^\ast)=n(x^\ast_F)+S_{x^\ast_F}(x^\ast-x^\ast_F)+O(\hG^2)$ with $x^\ast-x^\ast_F=P_F(x-x_c)+O(\hG^2)$, and use $P_Fn_F=0$ and $q(x^\ast)=q_F+O(\hG)$. For $\zeta$: $\zeta=-q_F(n(x^\ast)-n_F)+O(\hG^2)$ and $|n(x^\ast)-n_F|\le C\hG$ (Lemma~\ref{geom:face}(b)).
+\end{proof}
+
+\begin{remark}[The face-mean defect]\label{lk:rem:facemean}
+The tangential defect on $F$ is affine, $-q_FS_F(x-x_c)$, \emph{plus the constant} $-q_F\tau_F=O(\hG)$. On the unit sphere $S=I$ on tangent planes and $\tau_F=-(x_c-o_F)+O(\hG^2)$, with $o_F$ the circumcentre of $F$ (Lemma~\ref{geom:sag}(b),(c)); the sign is fixed by $n$ pointing into the obstacle. So the defect is the radial field $-q(x-o_F)$ about the circumcentre, and its face mean is proportional to the centroid--circumcentre offset, nonzero on every non-equilateral face. In two dimensions the circumcentre of a chord is its midpoint, the face mean is $O(\hG^2)$, and the defect is an odd sawtooth. The constant does not change any rate below: the witnesses of Theorem~\ref{lk:low} have $\int_F\dn v=0$, and Lemma~\ref{lk:canc} does not see normal data. It does enter the constants (Corollary~\ref{lk:K}) and the size of $\Gc(w_\phi)$ in Lemma~\ref{dr:slip}. It is the same offset that makes the transposed term of Proposition~\ref{er:transposed} of order $\hG$ in the $\norm{\nabla v}$-dual norm.
+\end{remark}
+
+\subsection{The leak limit, uniformly in the penalty}
+Let $\chi$ be a cutoff with $\chi=1$ on $\mathcal T_{r/4}$ and $\chi=0$ off $\mathcal T_{r/2}$, $I_h$ the $P_k$ Lagrange interpolant, $I_{SZ}$ the $P_k$ Scott--Zhang interpolant preserving the zero trace on $\Sigma$, and $I_h^\sharp\Ut:=I_h(\chi\Ut)+I_{SZ}((1-\chi)\Ut)$. For $h\le h_\ast$, $I_h^\sharp\Ut=I_h\Ut$ on the tetrahedra meeting $\Gh$ and $I_h^\sharp\Ut=0$ on $\Sigma$. Put
+\[
+E^0_U:=h+\norm{\nabla\bigl((1-\chi)\Ut-I_{SZ}((1-\chi)\Ut)\bigr)}_{\Oh}.
+\]
+$E^0_U\to0$ always (density and stability of $I_{SZ}$), and $E^0_U\le C(h+h^s\norm U_{H^{1+s}(\Omega)})$ if $U\in H^{1+s}(\Omega)$, $0<s\le1$. Only this term sees the regularity of $U$ at the edges and corners of $\Sigma$ (Remark~\ref{set:rem:corner}).
+
+\begin{lemma}\label{lk:zU}
+There is $z_U\in\Zh$ with $\norm{\nabla(\Ut-z_U)}\le CE^0_U$ and $\norm{\Ut-z_U}_{L^\infty(\Gh)}\le C\hG^2$.
+\end{lemma}
+\begin{proof}
+$w:=I^\sharp_h\Ut$ vanishes on $\Sigma$, and $m:=\int_{\Gh}w\cdot n=\int_{\Gh}(w-\Ut)\cdot n$ satisfies $|m|\le C\hG^2$. With $b$ and $c_b$ from the proof of Lemma~\ref{er:approx}, $a:=m/(c_b|\Gh|)$ and $\norm{\nabla(ab)}\le C\hG^{3/2}$; (IS3) gives $v\in\VO$ with $\div v=\div(w-ab)$ and $\norm{\nabla v}\le\sqrt3\beta^{-1}(\norm{\nabla(w-\Ut)}+\norm{\nabla(ab)})$. Put $z_U:=w-ab-v$. On $\Gh$, $z_U=I_h\Ut-ab$.
+\end{proof}
+
+\begin{lemma}\label{lk:size}
+$\norm{t^\ast-g}_{\Gh}\le C\hG$ and $\norm{t^\ast-\Ut}_{\Gh}\le C\hG$.
+\end{lemma}
+\begin{proof}
+$z_U|_{\Gh}\in\Tr$, so $\norm{\Pi_Tg-g}\le\norm{z_U-g}\le\norm{z_U-\Ut}+\norm\zeta\le C\hG$; and $t^\ast-\Ut=(t^\ast-g)-\zeta$.
+\end{proof}
+
+Let $X^D\in\Zh$ be the discrete Stokes--Dirichlet field: $X^D|_{\Gh}=t^\ast$ and $a_h(X^D,v)=0$ for $v\in\Yh$. It exists and is unique: the affine set $\{z\in\Zh:z|_{\Gh}=t^\ast\}$ is nonempty by Lemma~\ref{lk:lift}, its direction is $\Yh$, and $a_h(y,y)=\norm{\nabla y}^2$ on $\Yh$.
+
+\begin{lemma}\label{lk:XD}
+$\norm{\nabla(X^D-\Ut)}\le C(\hG^{1/2}+E^0_U)$.
+\end{lemma}
+\begin{proof}
+$W:=X^D-z_U$ has trace $t^\ast-z_U\in\Tr$ of norm $\le C\hG$; its lift $L$ has $\norm{\nabla L}\le C\hG^{1/2}$, and $y:=W-L\in\Yh$. Green's formula gives $a_h(\Ut,y)=(F_U,y)$, so $\norm{\nabla y}^2=a_h(\Ut-z_U,y)-(F_U,y)-a_h(L,y)$ and $\norm{\nabla y}\le2\norm{\nabla(\Ut-z_U)}+C\hG^2+2\norm{\nabla L}$.
+\end{proof}
+
+\begin{theorem}[Three-dimensional leak limit, uniform in the penalty]\label{lk:up}
+For every $\gamma\ge\gamma_0$, with no upper bound on $\gamma$, and $D:=X-X^D\in\Zh$,
+\[
+\tnorm D\le C\Bigl[\Bigl(\frac\hG\gamma\Bigr)^{1/2}\bigl(1+\hG^{-1/2}E^0_U\bigr)+\hG^{1/2}\Bigr],\qquad\norm{\nabla(X-\Ut)}_{\Oh}\le C\bigl(\hG^{1/2}+E^0_U\bigr).
+\]
+In particular $\norm{\nabla\delta_R}\le C\,h/\mu$ uniformly in $\gamma\ge\gamma_0$, and $(\mu/h)\delta_R\to\Ut$ in $H^1$.
+\end{theorem}
+\begin{proof}
+By Lemma~\ref{lk:proj} and $X^D|_{\Gh}=t^\ast$ the $\lambda$-terms cancel exactly: $N_h(D,v)=-a_h(X^D,v)+\ip{\dn X^D}v+\ip{t^\ast}{\dn v}=:\ell(v)$ on $\Zh$.
+(i) Let $L_v\in\Zh$ lift $v|_{\Gh}$. Since $v-L_v\in\Yh$, $a_h(X^D,v)=a_h(\Ut,L_v)+a_h(X^D-\Ut,L_v)$. Green's formula ($\div L_v=0$, $L_v|_\Sigma=0$, $\int_{\Gh}L_v\cdot n=0$) gives $a_h(\Ut,L_v)=(F_U,L_v)+\ip{(D(\Ut)-(\Pt-c)I)n}v$, which is at most $C\norm v_{\Gh}$; and $|a_h(X^D-\Ut,L_v)|\le C(1+\hG^{-1/2}E^0_U)\norm v_{\Gh}$ by Lemmas~\ref{lk:XD} and~\ref{lk:lift}.
+(ii) $\norm{\dn X^D}_{\Gh}\le\norm{\dn I^\sharp_h\Ut}_{\Gh}+C_I(c_0\hG)^{-1/2}\norm{\nabla(X^D-I^\sharp_h\Ut)}\le C(1+\hG^{-1/2}E^0_U)$ (Lemmas~\ref{st:inverse}, \ref{lk:XD}; $|\nabla I_h\Ut|\le C$ on the tetrahedra at $\Gh$).
+(iii) $\ip{t^\ast}{\dn v}=\ip g{\dn v}+\ip{t^\ast-g}{\dn v}$: Lemma~\ref{lk:canc} with $\sigma=-(\pt-\pbar)$ bounds the first by $C\norm v_{\Gh}$, and Lemma~\ref{lk:size} with $\norm{\dn v}_{\Gh}\le(c_0\hG)^{-1/2}\tnorm v$ the second by $C\hG^{1/2}\tnorm v$.
+With $\norm v_{\Gh}\le(\hG/\gamma)^{1/2}\tnorm v$ and coercivity (Lemma~\ref{st:coercive}; $c_1$ does not depend on $\mu\ge\mu_0$), take $v=D$. Then $\norm{\nabla(X-\Ut)}\le\tnorm D+\norm{\nabla(X^D-\Ut)}$ and $(\hG/\gamma)^{1/2}\le\gamma_0^{-1/2}\hG^{1/2}$.
+\end{proof}
+
+\subsection{A matching lower bound for every penalty}
+\begin{lemma}[Identity on $\Yh$]\label{lk:id}
+For every $\mu>0$ for which $\delta_R$ exists and every $v\in\Yh$, with $W:=X-\Ut$, $a_h(W,v)-\ip W{\dn v}=\ip{\Ut}{\dn v}-(F_U,v)$.
+\end{lemma}
+\begin{proof}
+$N_h(\delta_R,v)=\Rc(v)=0$ and $N_h(\delta_R,v)=a_h(\delta_R,v)-\ip{\delta_R}{\dn v}$ for $v\in\Yh$; and $a_h(\Ut,v)=(F_U,v)$.
+\end{proof}
+
+\begin{lemma}[Single-macro leak witness]\label{lk:wit}
+Let $\Th$ be an Alfeld refinement, $k\ge4$, $F\in\FG$, $T=T_F$ its macro-tetrahedron with reference map $x=A\hat x+a$ as in Section~\ref{sh:sec:transport}, $A_F:=A|_{\R^2\times\{0\}}$, $\ell:=\diam F$ and $h_T$ the height of $T$ over $F$. For every symmetric $S$ on the plane of $F$ there is $v\in\Yh^1$, supported in $T$, with $\norm{\nabla v}=1$ and
+\begin{gather*}
+S:\M^1_F(v)\ \ge\ \kappa_L(T)\,|S|_{\rm F}\,\ell^{3/2},\qquad \M^1_F(v):=\int_F\dn v\otimes(x-x_c)\,dA,\\
+\kappa_L(T):=\frac{\sigma_{\min}(A_F)^2(\det A)^{1/2}}{h_T^2\norm A\norm{A^{-1}}\norm{\hat R_1}\,\ell^{3/2}},
+\end{gather*}
+where $\norm{\hat R_1}=3.645838299$ (certified; the interval has width below the last digit) is the norm of the right inverse of the first-moment map $\hat E^1:\hat v\mapsto\int_{\hat F}\gh\otimes(\hat x-\hat x_c)\in\R^{2\times2}$ on $\hat{\mathcal Y}^1_4$, from the Frobenius norm to $\norm{\hat\nabla\cdot}_{L^2(\hat T)}$. \status{computer-assisted, exact}
+\end{lemma}
+\begin{proof}
+The exact computation (Bernstein--B\'ezier, over $\mathbb Q$) gives $\operatorname{rank}\hat E^1=4$ on $\hat{\mathcal Y}^1_4$ ($\dim24$) and brackets $\lambda_{\min}(\hat E^1\hat G^{-1}\hat E^{1\mathsf T})=7.523244811512\cdot10^{-2}$ by exact $LDL^{\mathsf T}$ tests. Let $\hat M:=A_F^{\mathsf T}SA_F/|A_F^{\mathsf T}SA_F|_{\rm F}$ and $\hat v:=\hat R_1\hat M$, so $\norm{\hat\nabla\hat v}\le\norm{\hat R_1}$. Its Piola image $v$ lies in $\Yh^1$ (proof of Theorem~\ref{sh:alfeld}). By Lemma~\ref{sh:piola}(b) with the affine weights $(x-x_c)_b=(A_F(\hat x-\hat x_c))_b$, $\int_F\partial_\nu v\otimes(x-x_c)=h_T^{-2}A_F\hat MA_F^{\mathsf T}$, and $\dn=-\partial_\nu$ (the sign is absorbed by $v\mapsto-v$). So $|S:\M^1_F(v)|=h_T^{-2}\tr(A_F^{\mathsf T}SA_F\hat M)=h_T^{-2}|A_F^{\mathsf T}SA_F|_{\rm F}\ge h_T^{-2}\sigma_{\min}(A_F)^2|S|_{\rm F}$. Normalise with Lemma~\ref{sh:piola}(c).
+\end{proof}
+\cert{notes/v7/td/kappa\_cert.py 4; leak\_k3\_image.py}{kappa\_k4.log; leak\_k3\_image.log}
+At $k=3$ the same map has rank $1$ and its image is spanned by the skew matrix $\bigl(\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\bigr)$ (exact), so $S:\M^1_F(v)=0$ for every symmetric $S$: there is no single-macro leak witness of degree $3$, as there is none in two dimensions \cite{PadhiLong2D}.
+
+\begin{theorem}[Lower bound with curvature weight]\label{lk:low}
+Let $\Th$ be an Alfeld refinement, $k\ge4$, $\kappa_L:=\min_F\kappa_L(T_F)$ and $\Lambda_0=2+C_{PT}C_I$ (Corollary~\ref{sh:abstract}). For every $\mu>0$ for which $\delta_R$ exists (in particular every $\gamma\ge\gamma_0$),
+\[
+\norm{\nabla(X-\Ut)}_{\Oh}\ \ge\ c_L\,G_\hh\,\hG^{1/2}-C\hG^{3/2},\qquad c_L:=\Bigl(\frac{4}{\sqrt3}\Bigr)^{1/2}\frac{\kappa_L\,c_0^{3/2}}{\Lambda_0}.
+\]
+$c_L$ is explicit (Section~\ref{sec:constants}): $c_L=5.20\cdot10^{-3}$ when all macro-tetrahedra at $\Gh$ are regular and $c_0=1$. \status{computer-assisted, exact}
+\end{theorem}
+\begin{proof}
+Take $v_F$ from Lemma~\ref{lk:wit} with $S=S_F$, signed so that $-S_F:\M^1_F(v_F)\ge\kappa_L|S_F|_{\rm F}\ell_F^{3/2}$, and $v:=\sum_Fq_F|S_F|_{\rm F}v_F\in\Yh^1$. The supports are distinct macro-tetrahedra (Lemma~\ref{geom:one}), so $\norm{\nabla v}^2=\Sigma:=\sum_Fq_F^2|S_F|^2_{\rm F}$, and on $F$ only $v_F$ is seen. By Lemma~\ref{lk:defect}, $\dn v\perp n_F$ (Lemma~\ref{sh:normal}) and $\int_F\dn v_F=0$, the constant $\tau_F$ drops out and
+\begin{align*}
+\ip{\Ut}{\dn v}&=\sum_Fq_F|S_F|_{\rm F}\bigl(-q_FS_F:\M^1_F(v_F)\bigr)+\sum_F|q_F||S_F|_{\rm F}\,O(\hG^2)\norm{\dn v_F}_{L^1(F)}\\
+&\ge\kappa_Lc_0^{3/2}\hG^{3/2}\Sigma-C\hG^{3/2}\Sigma^{1/2},
+\end{align*}
+using $\norm{\dn v_F}_{L^1(F)}\le C\ell_F^{1/2}$ and $\#\FG\le C\hG^{-2}$. By Lemma~\ref{lk:id}, Lemma~\ref{sh:poinc} and $|a_h(W,v)|\le2\norm{\nabla W}\norm{\nabla v}$, $\Lambda_0\norm{\nabla W}\Sigma^{1/2}\ge\ip\Ut{\dn v}-C\hG^2\Sigma^{1/2}$. Finally $|F|\le\frac{\sqrt3}4\hG^2$ gives $\Sigma\ge\frac4{\sqrt3}\hG^{-2}\sum_F|F|q_F^2|S_F|^2_{\rm F}=\frac4{\sqrt3}\hG^{-2}(G_\hh^2+O(\hG))$, since the $\pi(F)$ tile $\Gamma$ with Jacobian $1+O(\hG^2)$. If $G_\hh^2\le C\hG$ the claim is trivial after enlarging $C$.
+\end{proof}
+
+\begin{corollary}[The rate of the leak limit is exactly $\frac12$]\label{lk:two}
+On Alfeld refinements with $k\ge4$, if $G_\hh>0$, then for all $\gamma\in[\gamma_0,\infty)$ and $\hG\le h_1$
+\[
+\tfrac12c_LG_\hh\hG^{1/2}\le\Bigl\|\nabla\Bigl(\frac\mu h\delta_R-\Ut\Bigr)\Bigr\|\le C(\hG^{1/2}+E^0_U).
+\]
+The two sides have the same order whenever $E^0_U=O(\hG^{1/2})$, for example if $U\in H^{3/2}(\Omega)$ and $h\le C\hG$.
+\end{corollary}
+The weight is the second fundamental form: on flat parts of $\Gamma$ there is no $\hG^{1/2}$ term. In two dimensions the weight is the curvature, and the rate is again $\frac12$ \cite{PadhiLong2D}.
+
+\subsection{The geometric part, uniformly in \texorpdfstring{$\gamma$}{gamma}, and the \texorpdfstring{$H^1$}{H1} constant}
+Put $\varepsilon_1:=h^k+h^{k+1}\hG^{-1/2}$.
+\begin{lemma}\label{lk:lin}
+Let $z\in\Wh$ be the field of Lemma~\ref{er:approx}, $\delta_G\in\Zh$ with $N_h(\delta_G,v)=\Gc(v)-N_h(\ut-z,v)$ on $\Zh$, and $u^L_h:=z-\delta_G\in\Wh$. For every $\gamma\ge\gamma_0$, $\norm{\nabla(\ut-u^L_h)}\le C(\hG^{3/2}+\varepsilon_1)$.
+\end{lemma}
+\begin{proof}
+(1) The construction of Lemma~\ref{er:approx} gives $\norm{\nabla(\ut-z)}\le C\varepsilon_1$ (the $\gamma$-dependence of $\epsd$ comes only from the penalty weight) and $\norm{\ut-z}_{\Gh}\le C(\hG^{k+1}+h^{k+1})$; also $\tnorm{\ut-u^L_h}\le C[(1+\gamma^{1/2})\hG^{3/2}+\epsd]$ (proof of Theorem~\ref{er:C}).
+(2) For $v\in\Yh$, $\Gc(v)=-\ip\ut{\dn v}-(F,v)$, so $a_h(\ut-u^L_h,v)=-\ip{u^L_h}{\dn v}-(F,v)$.
+(3) Let $m_\Sigma:=\int_\Sigma\gI\cdot\nu$, $a_\Sigma:=-m_\Sigma/(c_b|\Gh|)$ ($|a_\Sigma|\le Ch^{k+1}$) and $\Wh^D:=\{w\in\Wh:w|_{\Gh}=a_\Sigma b\}$. The trace $(z-a_\Sigma b)|_{\Gh}$ has zero flux and norm $\le C(\hG^2+h^{k+1})$; subtracting its lift (Lemma~\ref{lk:lift}) gives $z_D\in\Wh^D$ with $\norm{\nabla(\ut-z_D)}\le C(\varepsilon_1+\hG^{3/2})$. Let $u^D\in\Wh^D$ solve $a_h(\ut-u^D,v)=-(F,v)$ on $\Yh$; comparing with $z_D$, $\norm{\nabla(\ut-u^D)}\le C(\varepsilon_1+\hG^{3/2})$.
+(4) $w:=u^L_h-u^D\in\Zh$ satisfies $a_h(w,v)=\ip{u^L_h}{\dn v}$ on $\Yh$ and has trace $u^L_h-a_\Sigma b$; with its lift $L_w$ and $y:=w-L_w\in\Yh$, $\norm{\nabla y}\le C\hG^{-1/2}\norm{u^L_h}_{\Gh}+2\norm{\nabla L_w}$, so $\norm{\nabla w}\le C\hG^{-1/2}(\norm{u^L_h}_{\Gh}+h^{k+1})$.
+(5) $\norm{u^L_h}_{\Gh}\le\norm\ut_{\Gh}+(\hG/\gamma)^{1/2}\tnorm{\ut-u^L_h}\le C(\hG^2+\hG^{1/2}\gamma^{-1/2}\epsd)$, and $\gamma^{-1/2}\epsd\le C\varepsilon_1$.
+\end{proof}
+
+\begin{corollary}[$\GS$ in $H^1$, uniformly in $\gamma$]\label{lk:gen}
+For every $\gamma\ge\gamma_0$,
+\[
+\Bigl\|\nabla\Bigl(\ut-u_h-\frac h\mu\Ut\Bigr)\Bigr\|_{\Oh}\le C\frac h\mu\bigl(\hG^{1/2}+E^0_U\bigr)+C\bigl(\hG^{3/2}+\varepsilon_1\bigr),\qquad
+\norm{\nabla(\ut-u_h)}\le C\Bigl(\frac h\mu+\hG^{3/2}+\varepsilon_1\Bigr).
+\]
+Hence, if $G>0$, $\norm{\nabla(\ut-u_h)}\,\mu/(hG)\to K:=\norm{\nabla U}_{L^2(\Omega)}/G$ whenever $h/\mu\to0$ and $\frac\mu h(\hG^{3/2}+\varepsilon_1)\to0$; for the geometric part the condition is $\gamma\hG^{1/2}\to0$. The second bound improves Theorem~\ref{er:C}, whose right-hand side contains $(1+\gamma^{1/2})\hG^{3/2}+\epsd$.
+\end{corollary}
+\begin{proof}
+$\ut-u_h=(\ut-u^L_h)+\delta_R$ with $\delta_R=\frac h\mu X$; Lemma~\ref{lk:lin} and Theorem~\ref{lk:up}. $\norm{\nabla\Ut}_{\Oh}\to\norm{\nabla U}_\Omega$ since $|\Oh\triangle\Omega|\le C\hG^2$.
+\end{proof}
+So the $H^1$ constant of the leak law of Corollary~\ref{er:Bp} is the Dirichlet energy of the Stokes flow driven by the leak, as in two dimensions \cite{PadhiLong2D}. In test P of Section~\ref{sec:numerics}, $\ut=0$ and $\Gc\equiv0$, so $u_h=-\delta_R$ and Theorem~\ref{lk:up} applies for every $\gamma$.
+
+\begin{remark}[General data: the lower bound needs small $\gamma$]\label{lk:rem:gen}
+For $\GS$ with $\ut\ne0$, the identity on $\Yh$ for $W':=\frac\mu h(\ut-u_h)-\Ut$ acquires the term $-\frac\mu h[\ip\ut{\dn v}+(F,v)]$. With the witness of Theorem~\ref{lk:low}, $\ip\ut{\dn v}=\ell_W(v)+O(\hG^{5/2})\norm{\nabla v}$ with $\ell_W$ the quadratic edge moments of Lemma~\ref{sh:lead}, of size $\hG^{3/2}\norm{\nabla v}$, so the extra term is $O(\gamma\hG^{1/2})\norm{\nabla v}$, the same order as the leak term. In two dimensions it is $O(\hG^2)$, because the sag is even and the witness odd on each edge. In three dimensions the witness cannot be chosen with vanishing quadratic moments on one Alfeld macro: the joint map (first moments, quadratic edge moments) on $\hat{\mathcal Y}^1_4$ has rank $6$, not $10$ (exact; on barycentric Worsey--Farin macros, rank $9$). So all we claim is $\norm{\nabla W'}\ge(c_LG_\hh-C\gamma\norm{|\hh|W}_{L^\infty})\hG^{1/2}-C(1+\gamma)\hG^{3/2}$, which is informative only for small $\gamma$. The limit statement of Corollary~\ref{lk:gen} is unaffected.
+\end{remark}
+\cert{notes/v7/td/leak\_joint.py alfeld 4 / wf 4}{leak\_joint.log}
+
+\begin{corollary}[The constant converges at rate one, with a first-order three-dimensional term]\label{lk:K}
+Let $K_h:=\norm{\nabla X}_{\Oh}/G$ and $d_h:=\norm{\nabla(X-\Ut)}/\norm{\nabla U}$. With $\sigma_U:=\dn\Ut-\Pt n$ on $\Gh$ and $\Theta_\zeta:=-\ip{\sigma_U}{\zeta}_{\Gh}$,
+\begin{gather*}
+\bigl|K_h^2-K^2(1+d_h^2)-2\Theta_\zeta/G^2\bigr|\le C\bigl(\hG^2+\hG\gamma^{-1/2}(1+\hG^{-1/2}E^0_U)\bigr),\\
+\Theta_\zeta=\sum_F|F|\,q_F\,\sigma_U(x_F^\ast)\cdot\tau_F+O(\hG^2)=O(\hG).
+\end{gather*}
+Hence $|K_h-K|\le C(\hG+(E^0_U)^2)$ uniformly in $\gamma$, as in two dimensions; but the two-dimensional identity $K_h^2=K^2(1+d_h^2)+O(\hG^2)$ acquires the first-order term $2\Theta_\zeta/G^2$, which on the sphere is $O(\hG^2)$ if and only if the weighted centroid--circumcentre offsets $\sum_F|F|q_F\sigma_U\cdot(x_c-o_F)$ are.
+\end{corollary}
+\begin{proof}
+$\norm{\nabla X}^2=\norm{\nabla\Ut}^2_{\Oh}+2(\nabla\Ut,\nabla W)+\norm{\nabla W}^2$ and $(\nabla\Ut,\nabla W)=(F_U,W)+\ip{\sigma_U}W$ (Green; $\div W=0$, $W|_\Sigma=0$, zero flux). On $\Gh$, $W=D+(\Pi_T\Ut-\Ut)-\Pi_T\zeta$. Now $\ip{\sigma_U}{\Pi_T\zeta}=\ip{\sigma_U}\zeta+\ip{\Pi_T\sigma_U-\sigma_U}\zeta$ with $\norm{\Pi_T\sigma_U-\sigma_U}\le C\hG$ (facewise smooth, jumps $O(\hG)$ across edges), and $\ip{\sigma_U}{\zeta}=-\Theta_\zeta$. By Lemma~\ref{lk:defect}, $\zeta|_F=-q_F(n(x^\ast)-n_F)+O(\hG^2)$, whose tangential face mean is $-q_F\tau_F$, while the affine part $S_F(x-x_c)$ integrates to zero against constants. Finally $|\ip{\sigma_U}{\Pi_T\Ut-\Ut}|\le C\hG^2$ and $|\ip{\sigma_U}D|\le C\norm D_{\Gh}$ (Theorem~\ref{lk:up}).
+\end{proof}
+
+\begin{remark}[What $\dn v\cdot n_F=-\div_Fv_F$ changes]\label{lk:rem:diff}
+(1) The rate-$1$ mechanism of Theorem~\ref{er:C} and Lemma~\ref{lk:canc} survive: integration by parts on faces produces edge terms weighted by $|t_E\times(n_F-n_{F'})|=O(\hG)$, just as vertex terms were weighted by the tangent jump in two dimensions. (2) The upper rate $\hG^{1/2}$ is dimension-independent: a trace defect of amplitude $\hG$ oscillating on the scale $\hG$ has $H^{1/2}$ norm of order $\hG^{1/2}$ on a surface of any dimension. (3) The weight of the lower bound changes from the curvature to $|\hh|_{\rm F}$, because $\dn v$ is tangential on $F$ and pairs with the tangential defect $-qS_F(x-x_c)$ through a $2\times2$ moment matrix; only its symmetric part is seen, and the $k=3$ single-macro image is skew. (4) The face means of Remark~\ref{lk:rem:facemean} change no rate, only constants.
+\end{remark}
+
+\subsection{Drag, lift and torque}
+Let $\RM:=\{\psi(x)=a+b\times x\}$; then $D(\psi)=0$, $\nabla\psi$ is skew, $\div\psi=0$ and $\int_{\Gh}\psi\cdot n=\int_\Gamma\psi\cdot n=0$. Put $J_\psi:=\int_\Gamma\sigma(u,p)n\cdot\psi$ with $\sigma(u,p)=D(u)-pI$ (drag and lift for $b=0$, torque for $a=0$). With $\Phi_\psi:=\frac12a\times x-\frac12|x|^2b$ ($\curl\Phi_\psi=\psi$) and a cutoff $\chi_0$ equal to $1$ on $\mathcal T_{r/2}$ and $0$ near $\Sigma$, let $V_\psi:=\curl(\chi_0\Phi_\psi)$, smooth, divergence-free and equal to $\psi$ near $\Gamma$. Let $\Lambda$ be the union of all tetrahedra meeting $\Gh$. For $h\le h_\ast$, $I_hV_\psi=\psi$ on $\Lambda$.
+
+\begin{lemma}\label{dr:strip}
+For $\hG\le h_\ast$, $\Oh\triangle\Omega\subset\Lambda$.
+\end{lemma}
+\begin{proof}
+Points of $\Oh\triangle\Omega$ lie within $C\hG^2$ of $\Gh$. Near $\Gh$ the height above $\Gh$ in the frame (Gr) is affine up to $O(\hG^2)$ on sets of diameter $C\hG$; on a tetrahedron without vertices on $\Gh$ it is at least $c\hG-C\hG^2>C\hG^2$, because an interior vertex $z$ has $\dist(z,\partial\Oh)\ge ch_z$ and $h_z\ge c\hG$ near $\Gh$.
+\end{proof}
+
+\begin{definition}[Discrete drag]\label{dr:def}
+For $w\in\VR$ let $\omega_h(w):=a_h(u_h,w)-(p_h,\div w)-(\ft,w)$, and $J^N_h(\psi):=\omega_h(I_hV_\psi)$. By the method equation, $J^N_h(\psi)=\int_{\Gh}t_h\cdot\psi+\ip{u_h}{\dn\psi}$ with the Nitsche flux $t_h=\dn u_h-\theta(p_h-\pbG(p_h))n-\frac\mu hu_h$ ($\theta=0$ for $\GS$, $1$ for $\CNS$), and $J^N_h(\psi)=\omega_h(w)$ for every $w\in\VR$ equal to $\psi$ on $\Lambda$. Let $v_0\in\VO$ with $\div v_0=\div I_hV_\psi$ ((IS3); $\norm{\nabla v_0}\le Ch^k$), $v_\psi:=I_hV_\psi-v_0\in\Zh$, and $\Theta_f(\psi):=(\ft,\psi)_{\Oh\setminus\Omega}-(f,\psi)_{\Omega\setminus\Oh}=O(\hG^2)$.
+\end{definition}
+
+\begin{lemma}[Error identity]\label{dr:id}
+For $\GS$ and $\CNS$, with $e_u=\ut-u_h$,
+\begin{gather*}
+J^N_h(\psi)-J_\psi+\Theta_f(\psi)=-a_h(e_u,v_\psi)+\rho_0,\qquad\rho_0:=\ip{u_h}{\dn v_0}+(F,v_0),\\
+|\rho_0|\le Ch^k\hG^{-1/2}\norm{u_h}_{\Gh}+C\hG^2h^k .
+\end{gather*}
+\end{lemma}
+\begin{proof}
+For $v_0\in\VO$ both methods give $\omega_h(v_0)=\ip{u_h}{\dn v_0}$. For $w\in\VR$, $\tilde\omega(w):=a_h(\ut,w)-(\pt,\div w)-(\ft,w)=\ip{\sigma(\ut,\pt)n}w-(F,w)$. For $w=I_hV_\psi$, which equals $\psi$ on $\Lambda\supset\Oh\triangle\Omega$ (Lemma~\ref{dr:strip}), the divergence theorem on the two signed regions between $\Gh$ and $\Gamma$, $\div(\sigma\psi)=(F-\ft)\cdot\psi$ there ($\sigma$ symmetric, $\nabla\psi$ skew, $F=0$ on $\Omega$), and $\int\psi\cdot n=0$ give $\tilde\omega(I_hV_\psi)=J_\psi-\Theta_f(\psi)$; and $\tilde\omega(v_0)=-(F,v_0)$. Since $\div v_\psi=0$, $\omega_h(v_\psi)-\tilde\omega(v_\psi)=-a_h(e_u,v_\psi)$.
+\end{proof}
+
+\begin{lemma}[Reciprocity]\label{dr:recip}
+Let $(Z_\psi,R_\psi)$ be the Stokes flow in $\Omega$ with $Z_\psi|_\Gamma=\psi$ and $Z_\psi|_\Sigma=0$. Then $J_\psi(U):=\int_\Gamma\sigma(U,P)n\cdot\psi=\int_\Gamma q\,(R_\psi-\bar R_\psi)=:K_\psi$, with $\bar R_\psi$ the mean of $R_\psi$ over $\Gamma$.
+\end{lemma}
+\begin{proof}
+Both pairs are smooth near $\Gamma$ and vanish on $\Sigma$; the weak Green formula ($\ip{\sigma(U,P)n}{W}_\Gamma=\frac12(DU,DW)-(P,\div W)$ for $W\in H^1$ with $W|_\Sigma=0$, smooth near $\Gamma$) gives $\ip{\sigma(U,P)n}{Z_\psi}_\Gamma=\frac12(DU,DZ_\psi)=\ip{\sigma(Z_\psi,R_\psi)n}U_\Gamma$, with no $H^2(\Omega)$ regularity. On $\Gamma$, $Z_\psi-\psi$ vanishes and is divergence-free, so $\dn(Z_\psi-\psi)\cdot n=0$, and $\dn\psi\cdot n=0$ by skewness; so $\sigma(Z_\psi,R_\psi)n\cdot n=-R_\psi$, and $U=-qn$ with $\int_\Gamma q=0$ gives the claim.
+\end{proof}
+
+\begin{theorem}[$\GS$: drag, lift and torque]\label{dr:gs}
+For every $\gamma\ge\gamma_0$ and $\psi\in\RM$,
+\[
+J^N_h(\psi)=J_\psi-\frac h\mu K_\psi-\Theta_f(\psi)+\mathcal R_h,\qquad|\mathcal R_h|\le C\frac h\mu\bigl(\hG^{1/2}+E^0_U\bigr)+C\bigl(\hG^{3/2}+\varepsilon_1+h^k\hG^{-1/2}\bigr).
+\]
+For fixed $\gamma$, bounded $\rho$ and $E^0_U=O(h^{1/2})$: $J^N_h-J_\psi=-\frac h\mu K_\psi+O(h^{3/2})$, so the rate is exactly $1$ when $K_\psi\ne0$. The remainder is uniform in $\gamma$.
+\end{theorem}
+\begin{proof}
+Lemma~\ref{dr:id}; $e_u=(\ut-u^L_h)+\delta_R$ (Lemma~\ref{lk:lin}), $a_h(\delta_R,v_\psi)=\frac h\mu a_h(\Ut,v_\psi)+\frac h\mu a_h(X-\Ut,v_\psi)$ (Theorem~\ref{lk:up}), and by Green's formula ($\div v_\psi=0$, $v_\psi|_{\Gh}=\psi$, $v_\psi=\psi-v_0$ on $\Lambda\supset\Oh\triangle\Omega$, $\div\sigma(\Ut,\Pt)=-F_U$), $a_h(\Ut,v_\psi)=(F_U,v_\psi)+\ip{\sigma(\Ut,\Pt)n}{\psi}_{\Gh}=J_\psi(U)-(F_U,v_0)$ with $|(F_U,v_0)|\le C\hG^2h^k$. Then Lemma~\ref{dr:recip}, and $\norm{u_h}_{\Gh}\le C$.
+\end{proof}
+
+For $\CNS$ we need the weighted normal slip. Let $w_\phi:=I_h(\chi_0(\phi\circ\pi)(n\circ\pi))$ for $\phi\in C^{k+1}(\Gamma)$ with $\int_\Gamma\phi=0$.
+\begin{lemma}[Weighted normal slip of $\CNS$]\label{dr:slip}
+Let $\gamma\ge\max(1,\gamma_2)$ and $Y:=(1+\gamma^{1/2})\hG^{3/2}+\epsd$. Then
+\[
+|\ip{\phi\circ\pi}{e_u\cdot n}_{\Gh}|\le C_\phi\Bigl[\frac h\mu\bigl(\hG^{-1/2}Y+h^k+\gamma\hG^3+\hG^2|\bar e_p|\bigr)+\hG\Bigl(\frac h\mu\Bigr)^{1/2}Y\Bigr],
+\]
+with $\bar e_p$ the mean of $e_p$ over $\Oh$ and $|\bar e_p|\le C$ if $\gamma\hG\le1$.
+\end{lemma}
+\begin{proof}
+The two-dimensional proof \cite{PadhiLong2D} with three changes. (i) $|\Gc(w_\phi)|\le C_\phi(\hG+\gamma\hG^3)$ instead of $C_\phi(\hG^2+\gamma\hG^3)$: the transposed term is $\sum_F|F|\phi\,\dn u\cdot\tau_F+O(\hG^2)$ (Proposition~\ref{er:transposed}, Lemma~\ref{lk:defect}), generically $O(\hG)$; the penalty term is $O(\gamma\hG^3)$ because $\ut=d\,\partial_Nu(x^\ast)+O(d^2)$ is tangential to $\Gamma$ while $w_\phi$ is normal; and $|(F,w_\phi)|\le C\hG^2$. Since $\hG\le\hG^{-1/2}Y$ for $\gamma\ge1$, the change is absorbed. (ii) The cancellation for fields that are not divergence-free holds: $\dn\delta\cdot n_F=(\div\delta)|_{T_F}-\div_F\delta_F$, then the edge bookkeeping of Lemma~\ref{er:cancel}. (iii) $|\bar e_p|\le C$: test \eqref{er:cnserr} with $w_1:=I_h(\chi_0\,n\circ\pi)$; every term is bounded when $\gamma\hG\le1$, and $\int_{\Gh}w_1\cdot n=|\Gamma|+O(\hG^2)$.
+\end{proof}
+
+\begin{assumption}[(E$_Z$)]\label{dr:EZ}
+With $\tilde Z_\psi$ the collar extension of Lemma~\ref{geom:ext} and $\tilde\zeta:=V_\psi-\tilde Z_\psi$, $E_Z:=\inf_{z\in\Zh}\tnorm{\tilde\zeta-z}\le C\hG^{1/2}$.
+\end{assumption}
+(E$_Z$) holds if $Z_\psi\in H^{3/2}(\Omega)$ and $h\le C\hG$: near $\Gamma$ everything is smooth and $\tilde\zeta=O(\hG^2)$ on $\Gh$, so only the $H^1$ approximation away from $\Gamma$ matters. It is therefore a regularity statement for the dual Stokes flow at $\Sigma$. For Lipschitz $\Sigma$ it is expected from $H^{3/2}$ regularity of the Stokes system on Lipschitz domains, and for the box from Dauge's $H^2$ theory on convex polyhedra \cite{Dauge1989}; we have checked neither (Remark~\ref{set:rem:corner}). Without (E$_Z$), $E_Z\to0$ still, and Theorem~\ref{dr:cns}(b) holds with $\gamma^{1/2}\hG^{3/2}E_Z=o(\hG^{3/2})$.
+
+\begin{theorem}[$\CNS$: drag, lift and torque]\label{dr:cns}
+Let $\gamma\ge\max(1,\gamma_2)$, $\gamma\hG\le1$, $\psi\in\RM$, and
+\[
+\Lambda_h(\psi):=\ip\ut{\dn(\tilde Z_\psi-\psi)}_{\Gh}=\sum_F\int_Fd\,\bigl(\partial_Nu\cdot\dn(Z_\psi-\psi)\bigr)(x^\ast)\,dA+O(\hG^3).
+\]
+Then (a) $|J^N_h-J_\psi+\Theta_f|\le C(Y+h^k\hG^{-1/2})$, the rate $\frac32$; and (b)
+\[
+|J^N_h(\psi)-J_\psi+\Theta_f(\psi)+\Lambda_h(\psi)|\le C\bigl[\gamma^{-1/2}\hG^2+\gamma\hG^3+\gamma^{1/2}\hG^{3/2}E_Z+\epsd+h^k\hG^{-1/2}\bigr].
+\]
+Modulo (E$_Z$), $|J^N_h-J_\psi|\le C(\hG^2+\epsd+h^k\hG^{-1/2})$: the rate is $2$.
+\end{theorem}
+\begin{proof}
+The two-dimensional proof \cite{PadhiLong2D}, with $v_\psi$ of Definition~\ref{dr:def} and the extra $\rho_0$ of Lemma~\ref{dr:id}. The auxiliary problem $N_h(\zeta_h,w)+B^\ast(\pi_h,w)=a_h(v_\psi,w)$ is the $\CNS$ system for $(\tilde\zeta,-\tilde R_\psi)$, since $a_h(v_\psi,w)=(-\Delta V_\psi,w)+a_h(v_\psi-V_\psi,w)$ ($D(V_\psi)=0$ near $\Gh$, $\norm{\nabla(v_\psi-V_\psi)}\le Ch^k$); Theorem~\ref{er:D} gives existence and $\tnorm{\tilde\zeta-\zeta_h}\le C[(1+\gamma^{1/2})\hG^{3/2}+E_Z+h^k]$. The remaining dimension-dependent inputs are: $|\tilde\zeta|\le C\hG^2$ and $|(\nabla\ut)^{\mathsf T}n_F|\le C\hG$ on $\Gh$; $\tilde\zeta\cdot n_F=d\,\dn\zeta(x^\ast)\cdot n_F+O(\hG^4)=O(\hG^3)$ by Lemma~\ref{geom:wall} applied to $\zeta$; $\norm{e_p-\pbG(e_p)}_{\Gh}\le C\hG^{-1/2}Y$ (proof of Theorem~\ref{er:D} and Lemma~\ref{st:inverse}); and Lemma~\ref{dr:slip} with $\phi=R_\psi-\bar R_\psi$.
+\end{proof}
+With $d=Q_F+O(\ell^3)$ (Lemma~\ref{geom:face}(a)), $\int_FQ_F=\frac{|F|}{24}\sum_{i<j}w^F_{ij}$. On the unit sphere, $\Theta_f+\Lambda_h\approx-\sum_F\frac{|F|}{24}\bigl(\sum_{i<j}\ell_{ij}^2\bigr)\bigl(f\cdot\psi+\partial_Nu\cdot\dn(Z_\psi-\psi)\bigr)(x^\ast_F)$: the leading drag error of $\CNS$ is the shape derivative of $J_\psi$ under the chordal sag. Whether rate $2$ is sharp is not proved.

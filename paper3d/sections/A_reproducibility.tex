@@ -20,9 +20,18 @@ Lemmas~\ref{k3:face}, \ref{k3:flat} & \path{notes/v6/td_k3b/ref_nu.py}, \texttt{
 Theorem~\ref{k3:nondeg} checks & \path{notes/v6/td_k3b/degen.py}, \texttt{degen\_random.py}, \texttt{degen\_gflat.py}, \texttt{fe\_cross.py} & logs alongside\\
 Theorem~\ref{pen:single} & \path{python3 notes/v6/td_pen/alfeld_tet.py 3 [shape]}, \texttt{verify\_alfeld.py}, \texttt{neg\_cert.py} & \texttt{alfeld\_k3.log}, \texttt{neg\_cert.log}\\
 Half-space constant & \path{python3 notes/v6/td_pen/continuum3d.py} & \texttt{continuum3d.log}\\
+\midrule
+\multicolumn{3}{l}{\emph{Added in this version; all in} \path{notes/v7/td/}\emph{, each run at most $3$ minutes on one core}}\\
+Lemma~\ref{lk:wit}; $\norm{\hat R}=91.678155469$, $\norm{\hat R_1}$ (Proposition~\ref{ct:kappa}) & \path{python3 notes/v7/td/kappa_cert.py 4} (and \texttt{3}) & \texttt{kappa\_k4.log}, \texttt{kappa\_k3.log}\\
+$k=3$ skew leak image & \path{python3 notes/v7/td/leak_k3_image.py} & \texttt{leak\_k3\_image.log}\\
+Table~C1, $\Lambda_0$, $c_L$, sharpness constant & \path{python3 notes/v7/td/kappa_explicit.py} & \texttt{kappa\_explicit.log}\\
+Remark~\ref{lk:rem:gen} (joint ranks $6$, $9$) & \path{python3 notes/v7/td/leak_joint.py alfeld 4}; \texttt{wf 4} & \texttt{leak\_joint.log}\\
+Proposition~\ref{ct:pen} & \path{python3 notes/v7/td/pen_cert.py 20 0.1} (and \texttt{20 0.05}) & \texttt{pen\_cert\_d010.log}, \texttt{pen\_cert\_d005.log}\\
+Table~C2 & \path{python3 notes/v7/td/is3_ico.py k l m} & \texttt{is3\_k3\_l0.log}, \texttt{is3\_more.log}\\
+Propositions~\ref{st:wf}, \ref{sh:wf} & \path{python3 notes/v7/td/wf_witness.py 2|3|4} & \texttt{wf\_ranks.log}\\
 \bottomrule
 \end{longtable}}
-\noindent Each script runs in under five minutes on two cores, except the height scan and the $k=4$ single-cell pencils (\texttt{alfeld\_tet.py 4}), estimated at 10--30 minutes per shape and not run.
+\noindent The exact toolkit for the \path{notes/v7/td} scripts is \path{notes/v7/td/refalfeld.py} (Bernstein--B\'ezier; it loops over the sub-tetrahedra of the split, so it serves Alfeld and Worsey--Farin, with Alfeld results bit-identical to the earlier version) and \path{notes/v7/td/ratlin.py} (exact linear algebra); \texttt{pen\_cert.py} needs \texttt{python-flint} (Arb). The three scripts \texttt{kappa\_explicit.py}, \texttt{kappa\_cert.py 4} and \texttt{wf\_witness.py 4} were rerun independently with identical output (\path{notes/v7/referee_td_ns/*.rerun.log}). The log \texttt{pen\_cert\_d015.log} is an interrupted earlier run and \texttt{pen\_cert\_l10\_d015.log} an uncertified one (Section~\ref{sec:constants}). Each script in the table runs in under five minutes on two cores, except the height scan and the $k=4$ single-cell pencils (\texttt{alfeld\_tet.py 4}), estimated at 10--30 minutes per shape and not run.
 
 \subsection*{Three-dimensional solver (\texttt{code3d/})}
 \begin{itemize}

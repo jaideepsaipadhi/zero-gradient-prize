@@ -1,0 +1,91 @@
+\section{Explicit constants}\label{sec:constants}
+
+The constants in Theorems~\ref{sh:alfeld}, \ref{sh:lb} and~\ref{lk:low} and the single-cell penalty constant can be made explicit on Alfeld refinements. The (IS3) constant cannot, at present; we say why. The values below are certified lower bounds for the stated shapes, not estimates of the true constants: the pre-asymptotic sphere data of Section~\ref{sec:numerics} are orders of magnitude larger.
+
+\subsection{The witness constants}
+\begin{proposition}[Explicit $\kappa_0$ and $\kappa_L$]\label{ct:kappa}
+Let $k\ge4$, $T=T_F$ a macro-tetrahedron of an Alfeld refinement, $A$ its reference map (any labelling with $\det A>0$), $\ell=\diam F$, $h_T$ the height of $T$ over $F$, $D=\diam T$, $r$ the inradius, $c_s:=r/D$, and $\theta$ the smaller of the minimal angles of $F$ and of its projection onto $T_{y_F}\Gamma$ ($\theta\ge\theta_0/2$ for $\hG\le h_\ast$). Then (M3$^3$)(iii) holds with
+\[
+\kappa_0(T)=\frac{c_w(F)\,(\det A)^{1/2}}{2h_T^2\norm A\norm{A^{-1}}^2\norm{\hat R}\,\ell^{1/2}},\qquad c_w(F):=\frac{\sigma_{\min}\bigl(H\mapsto(H(u_i,u_i))_{i=1}^3\bigr)}{\ell^2}\ge\frac{\sin^4\theta}{\sqrt{10}},
+\]
+where $\sigma_{\min}$ is taken with the Frobenius norm on symmetric $H$ and $u_1,u_2,u_3$ are the projected edge vectors, and
+\[
+\norm{\hat R}=91.678155469\quad\text{(certified; the interval has width below the last digit)}.
+\]
+In closed form,
+\[
+\kappa_0(T)\ \ge\ \frac{\sin^5\theta\;c_s^{11/4}\,(16\pi/\sqrt3)^{1/4}}{\sqrt{30}\,\norm{\hat R}},\qquad
+\kappa_L(T)\ \ge\ \frac{\sin^5\theta\;c_s^{13/4}\,(16\pi/\sqrt3)^{3/4}}{\sqrt6\,\norm{\hat R_1}} .
+\]
+Since $\hat{\mathcal Y}_4\subset\hat{\mathcal Y}_k$, both hold for every $k\ge4$. \status{computer-assisted, exact} for $\norm{\hat R}$ and $\norm{\hat R_1}$; the rest is proved.
+\end{proposition}
+\begin{proof}
+The first formula is Proposition~\ref{sh:joint} with $|P_Ft|=1-O(\hG^2)$ (the defect goes into $C_1$) and, by the definition of $c_w$, $|w^F|\ge c_w\ell^2|\hh_{y_F}|_{\rm F}\ge c_w\ell^2|\hh_{y_F}|$, up to the $O(\ell^3)$ of Lemma~\ref{geom:face}(d). For the bound on $c_w$ let $E=[e_1,e_2]$ be two edges and $w_3=(e_1+e_2)^{\mathsf T}H(e_1+e_2)$. Then $E^{\mathsf T}HE=\bigl(\begin{smallmatrix}w_1&(w_3-w_1-w_2)/2\\ (w_3-w_1-w_2)/2&w_2\end{smallmatrix}\bigr)$ has Frobenius norm at most $\sqrt{5/2}\,|w|$, and $|E^{\mathsf T}HE|_{\rm F}\ge\sigma_{\min}(E)^2|H|_{\rm F}$, so $|H|_{\rm F}\le|E^{\mathsf T}HE|_{\rm F}/\sigma_{\min}(E)^2$; the bound is in the Frobenius norm, as the definition of $c_w$ requires. Finally $\sigma_{\min}(E)^2\ge(2|F|)^2/\tr(E^{\mathsf T}E)\ge\frac12\ell^2\sin^4\theta$, using $|F|\ge\frac12\ell^2\sin^2\theta$ (sine rule). For the closed forms: $\det A=2|F|h_T$, $(2|F|)^{1/2}\ge\ell\sin\theta$, $\norm A\le\sqrt3D$, $\norm{A^{-1}}\le\sqrt2/(2r)$ \cite[Theorem~3.1.3]{Ciarlet1978book} (the reference diameter is $\sqrt2$), $h_T\le D$, and $\ell/D\ge(16\pi/\sqrt3)^{1/2}c_s^{3/2}$ from $\frac43\pi r^3\le|T|=\frac13|F|h_T\le\frac13\frac{\sqrt3}4\ell^2D$. For $\kappa_L$, $\sigma_{\min}(A_F)^2\ge\frac12\ell^2\sin^4\theta$ in the same way.
+\end{proof}
+\cert{notes/v7/td/kappa\_cert.py 4; kappa\_explicit.py}{kappa\_k4.log; kappa\_explicit.log}
+The value $\norm{\hat R}=91.678155469$ is the certified form of the floating-point value $91.7$ quoted after Theorem~\ref{sh:alfeld}; it is obtained, like $\norm{\hat R_1}$, by bracketing the smallest eigenvalue of $\hat E\hat G^{-1}\hat E^{\mathsf T}$ with exact $LDL^{\mathsf T}$ tests.
+
+\begin{center}\small
+\textbf{Table C1.} Explicit constants (floating-point evaluation of the proved formulas, best labelling).\\[2pt]
+\begin{tabular}{lcccccc}
+\toprule
+macro shape (apex over base) & $c_w(F)$ & $\kappa_0(T)$ & $\kappa_L(T)$ & $c_s$ & $\theta$ & closed-form $\kappa_0$\\
+\midrule
+regular & 0.866 & $2.11\cdot10^{-3}$ & $8.65\cdot10^{-2}$ & 0.204 & $60^\circ$ & $2.85\cdot10^{-5}$\\
+near-regular $(\frac12,\frac7{24},\frac{13}{16})$ & 0.861 & $2.09\cdot10^{-3}$ & $8.74\cdot10^{-2}$ & 0.203 & $59.5^\circ$ & $2.73\cdot10^{-5}$\\
+right corner $(0,0,1)$ & 0.331 & $1.52\cdot10^{-3}$ & $1.63\cdot10^{-1}$ & 0.149 & $45^\circ$ & $4.39\cdot10^{-6}$\\
+flat, height $\frac12$ & 0.861 & $1.79\cdot10^{-3}$ & $1.18\cdot10^{-1}$ & 0.166 & $59.5^\circ$ & $1.57\cdot10^{-5}$\\
+skew $(\frac32,\frac13,\frac34)$ & 0.861 & $1.33\cdot10^{-3}$ & $7.73\cdot10^{-2}$ & 0.095 & $59.5^\circ$ & $3.40\cdot10^{-6}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The bases are those of Theorem~\ref{pen:single}.
+
+\emph{The remaining constants of the lower bounds.} In Corollary~\ref{sh:abstract}, $\Lambda_0=2+C_{PT}C_I$, where on the Alfeld sub-tetrahedron $T_F=\conv(B,F)$, of height $h_{\rm sub}=h_T/4$ over $F$ and diameter $D_{\rm sub}$,
+\[
+C_I^2\le k(k+2)\,\ell/h_{\rm sub},\qquad C_{PT}^2\le\frac{D_{\rm sub}}{h_{\rm sub}}\Bigl(\frac3{\pi^2}+\frac2\pi\Bigr).
+\]
+The first is the trace-inverse inequality of Warburton and Hesthaven \cite{WarburtonHesthaven2003} for $\dn v\in P_{k-1}$ in three dimensions, restricted to one face. The second follows by integrating $\div((x-B)|w-\bar w_{T_F}|^2)$ over $T_F$ and applying the Payne--Weinberger inequality \cite{PayneWeinberger1960} on the convex set $T_F$. For regular macros and $k=4$: $C_I\le10.84$, $C_{PT}\le2.15$, $\Lambda_0\le25.28$. Hence
+\[
+c_L=5.20\cdot10^{-3}\ \text{in Theorem~\ref{lk:low}},\qquad c=\frac{\kappa_0c_0^{5/2}c_A^{1/2}}{\Lambda_0}\cdot\frac12\Bigl(\frac34\Bigr)^{1/2}=2.37\cdot10^{-5}\ \text{in Theorem~\ref{sh:lb}},
+\]
+with $c_0=1$ and $c_A=\sqrt3/4$. For $k=3$ on general surfaces (Theorem~\ref{k3:witness}) $\kappa_0$ comes from compactness and is not explicit.
+
+\subsection{The single-cell penalty constant over a shape class}
+\begin{proposition}[$\lambda_T\ge20$ on an explicit box of shapes]\label{ct:pen}
+Normalise $F=\conv(0,e_1,(a,b,0))$ and the apex $(x,y,z)$; every tetrahedron with a marked face is similar to one of these. For every $(a,b,x,y,z)$ in the box
+\[
+\bigl|(a,b,x,y,z)-\bigl(\tfrac12,\tfrac{\sqrt3}2,\tfrac12,\tfrac{\sqrt3}6,\sqrt{2/3}\bigr)\bigr|_\infty\le0.1
+\]
+around the regular tetrahedron, $\lambda_T\ge20$ for every $k\ge3$. Hence on Alfeld refinements whose macro-tetrahedron at a smallest wall face lies in this class, coercivity of $N_h$ on $\Zh$ requires $\mu\ge20\rho$ (Theorem~\ref{pen:single}). \status{computer-assisted, interval arithmetic}
+\end{proposition}
+\begin{proof}
+The box is bisected into a tree of $879$ boxes with $440$ leaves. For each box a rational witness $\hat v\in W_3(\hat T)$ is fixed (the floating-point maximiser at the box centre, rounded to rationals); the pulled-back forms of Lemma~\ref{pen:piola} are evaluated in ball arithmetic (Arb \cite{Johansson2017}, $80$ bits) with a mean-value enclosure (forward-mode derivatives in ball arithmetic over the whole box). Every leaf gives $\diam F\cdot(2B_T-A_T)/C_T\ge20.0004$. The enclosure was cross-checked against the floating-point pipeline at a random shape ($40.5657$ both ways) and against the near-regular value $32.50$ of Theorem~\ref{pen:single}, which lies in the box. $W_3\subset W_k$ gives $k\ge3$.
+\end{proof}
+\cert{notes/v7/td/pen\_cert.py 20 0.1 (and 20 0.05)}{pen\_cert\_d010.log, pen\_cert\_d005.log}
+\emph{Scope of the certificate.} The centres and half-widths of the boxes, including the children $m\pm r/2$ of each bisection, were computed in binary floating point. Strictly, the certified region is therefore the union of the $440$ leaf boxes \emph{as stored in floating point}, which can differ from the exact box above by gaps and overlaps of one unit in the last place between siblings. Given the margin $20.0004-20$ this is immaterial for the conclusion, but it is not covered by the certificate; a rerun with dyadic rational centres would remove the caveat. A box of half-width $0.15$ was not certified within our time budget: the depth-first mean-value scheme stalls, which says nothing about $\lambda_T$ there. The tall-cell obstruction of Theorem~\ref{pen:single} (negative $\lambda_T$ above height about $1.69$) shows that no shape-uniform positive bound exists.
+
+\subsection{The (IS3) constant}
+Lemma~\ref{st:IS3} gives $\beta^{-1}\le C_{\rm loc}+C_\Pi C_B(\Oh)(1+\sqrt3C_{\rm loc})$. It is not explicit, for three reasons.
+\begin{enumerate}
+\item $C_{\rm loc}$: \cite[Theorem~3.1]{GuzmanNeilan2018} states only that it depends on $k$ and shape regularity. It can be made explicit by Piola transport: for $p\in\mathring P_{k-1}(K^r)$ put $\hat p:=(\det A)\,p\circ\Phi$; the reference right inverse gives $\hat v$ with $\norm{\hat\nabla\hat v}\le\hat C_{\rm loc}(\det A)^{1/2}\norm p_K$, and the Piola image has $\div v=p$ and $\norm{\nabla v}_K\le\norm A\norm{A^{-1}}\hat C_{\rm loc}\norm p_K\le\sqrt{3/2}\,c_s^{-1}\hat C_{\rm loc}\norm p_K$. \status{numerical} $\hat C_{\rm loc}=6.18$ ($k=3$) and $6.41$ ($k=4$), from generalised eigenvalues in floating point; these could be certified by the same $LDL^{\mathsf T}$ bracketing, which we have not done.
+\item $C_\Pi$ (Scott--Zhang plus face-bubble fluxes) is local and explicit in principle, but depends on the vertex patches; we have not derived a value.
+\item $C_B(\Oh)\le2C_B(\Omega)$ holds only for $\hG\le h_\ast$ with a non-explicit $h_\ast$ (Lemma~\ref{st:bog}), and $C_B(\Omega)$ for a box minus a ball is not known explicitly. Explicit Bogovski\u{\i} bounds exist for domains star-shaped with respect to a ball, and $R\setminus\overline D$ is not one; decomposition bounds are explicit but very crude.
+\end{enumerate}
+\begin{center}\small
+\textbf{Table C2.} \status{numerical} Discrete inf-sup constant of $(\VO,\Pih\cap L^2_0)$ on icosphere--Alfeld shells: $\Oh$ lies between the level-$l$ icosphere polyhedron and its dilate by $2$, with $m$ prism layers (radii $2^{j/m}$), $3$ tetrahedra per prism, Alfeld-refined. $\beta_h^{-2}$ is the largest eigenvalue of $M^{1/2}(BA^{-1}B^{\mathsf T})^+M^{1/2}$ on $L^2_0$ (ARPACK, sparse LU of the saddle system).\\[2pt]
+\begin{tabular}{cccccccc}
+\toprule
+$k$ & $l$ & $m$ & macro tets & $\hG$ & $\dim\VO$ & $\beta_h$ (3 smallest) & $1/\beta_h$\\
+\midrule
+3 & 0 & 1 & 60 & 1.052 & 3252 & .1162, .1162, .1213 & 8.61\\
+3 & 1 & 1 & 240 & 0.618 & 12972 & .1161, .1205, .1206 & 8.61\\
+3 & 0 & 2 & 120 & 1.052 & 6780 & .1058, .1062, .1064 & 9.45\\
+3 & 0 & 3 & 180 & 1.052 & 10308 & .0833, .0834, .0836 & 12.01\\
+4 & 0 & 1 & 60 & 1.052 & 7578 & .1230, .1231, .1277 & 8.13\\
+4 & 0 & 2 & 120 & 1.052 & 15642 & .1152, .1155, .1156 & 8.68\\
+\bottomrule
+\end{tabular}
+\end{center}
+\cert{notes/v7/td/is3\_ico.py k l m}{is3\_k3\_l0.log, is3\_more.log}
+At fixed layer structure the constant does not change from $l=0$ to $l=1$ ($8.608$ to $8.612$). More layers at fixed $l$ make the prisms flatter (smaller $c_s$) and $\beta_h$ smaller, consistent with the $c_s^{-1}$ dependence of $C_{\rm loc}$. No spurious pressure modes were found. These values, $1/\beta_h\approx8.6$ ($k=3$) and $8.1$ ($k=4$) on single-layer shells, are evidence for, not a proof of, a moderate constant.

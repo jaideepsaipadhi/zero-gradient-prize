@@ -67,3 +67,60 @@ PLACEHOLDERS / FLAGS IN THE SOURCE
   %% VERIFY: GN18 Thm 3.1 wording; Neilan 2015 via FMS24; Bogovskii H^{k+1} regularity (Lemma er:w); Dauge1989.
   Bib entries added from memory (VERIFY metadata): CostabelMcIntosh2010, Hestenes1941, Dauge1989, BernardiRaugel1985
   (DOI), Forster1981 (Theorem 4.22 locator taken from td_lift), AmentaChoiDeyLeekha2000 (SoCG pages).
+
+=====================================================================================================
+v7 (2026-09-29). Not committed. Checklist: notes/v7/MERGE_MANIFEST.txt "PAPER C".
+BUILD: pdflatex main && bibtex main && pdflatex main && pdflatex main -> main.pdf, 50 pages (was 37);
+  zero undefined references/citations, no errors, bibtex 0 warnings; the two pre-existing ~2pt overfull boxes remain.
+SOURCES: notes/v7/td/REPORT.tex (+logs), notes/v7/referee_td_ns/REPORT_referee.md (+NOTES.txt, reruns),
+  notes/v7/reg/REPORT.tex (Remark r:corner, r:3d). paper/ and letter/ only read (paper/ is being edited in parallel).
+
+NEW FILES
+  sections/06b_leak.tex  (Sec. 7 "The leak limit and drag in three dimensions"): td Parts A, B.
+    lk:U leak flow; lk:lift, lk:proj, lk:canc, lk:defect; Remark lk:rem:facemean (face-mean tangential defect,
+    centroid-circumcentre offset, sign with n into obstacle); lk:zU, lk:size, lk:XD; Thm lk:up (leak limit, all
+    gamma>=gamma0); lk:id; lk:wit [computer-assisted, exact]; Thm lk:low (lower bound c_L G_hh hG^{1/2}, Alfeld k>=4,
+    c_L=5.20e-3 regular); Cor lk:two; lk:lin; Cor lk:gen (GS H1 uniform in gamma, K = ||grad U||/G);
+    Remark lk:rem:gen (+leak_joint cert); Cor lk:K; Remark lk:rem:diff; drag: dr:strip, dr:def, dr:id, dr:recip,
+    Thm dr:gs (GS drag), dr:slip, Assumption dr:EZ (E_Z), Thm dr:cns (CNS* drag; rate 2 "modulo (E_Z)").
+  sections/07b_constants.tex (Sec. 9 "Explicit constants"): td Part D. Prop ct:kappa (kappa0, kappaL, certified
+    ||R^||=91.678155469; FROBENIUS FIX: proof now uses |E^T H E|_F >= smin(E)^2 |H|_F, matching the Frobenius
+    definition of c_w); Table C1; explicit C_I (Warburton-Hesthaven), C_PT (Payne-Weinberger), Lambda0, c_L,
+    sharpness constant 2.37e-5; Prop ct:pen (lambda_T>=20 on the box) with FLOAT-CENTRED-BOX wording (certified
+    region = union of the 440 leaf boxes as stored in floating point; dyadic rerun would remove the caveat);
+    (IS3) constant: why not explicit + Table C2 [numerical].
+EDITS
+  main.tex: macros Ut, Pt, Yh, Tr, RM, \tr; inputs 06b, 07b; abstract sentence on leak limit/drag/constants/WF/NS.
+  02_setting: Remark set:rem:corner (box edges/corners; right-angle exponent 2.739593+-1.119025i from notes/v7/reg;
+    smooth-solution hypothesis is an assumption; (R_S^3) only modulo Dauge 1989, not checked); (IS3) sentence cites
+    Prop st:wf.
+  04_stability: Remark st:rem:status rewritten (WF pairs of GLN22/FGNZ use constrained pressures; FGNZ theta_e(q)=0
+    on boundary singular edges; failure is KNOWN); new Prop st:wf ((IS3) fails on subdivided wall faces; codim 12k-4
+    exact) with consequences (pressure non-unique, trace space constrained); st:rem:chenliu qualified.
+  05_error: WF sentence after er:cancel; closing sentence of er:C now points to Sec. 7; er:rem:flux updated.
+  06_sharpness: certified ||R^|| + pointer to ct:kappa after sh:alfeld; Remark sh:rem:wf rewritten; new Prop sh:wf
+    (WF k=3 no single-macro witness; k>=4 ||R_WF||=54.001475715, first-moment 9.709257103).
+  08_navier_stokes: ns:rem updated; new subsection ns:sec:oseen with (L_D), (L^dagger) and Thm ns:oseen
+    (Oseen leak limit, lower bound c_O, GS uniform, GS drag K^dagger, CNS* drag modulo (E_Z^dagger)).
+  09_numerics: test-P H1 ratio now tied to Thm lk:up / K (K not computed).
+  10_open: rewritten (unsplit; WF failure known, what a WF proof needs; explicit constants; penalty; leak/drag
+    open items incl. k=3 leak witness, fixed-gamma general data, CNS drag sharpness, (E_Z); outer-boundary regularity;
+    indirect citations; numerics).
+  01_introduction: new items 4 (leak limit, drag), 9 (constants), 10 (WF); item 7 (penalty) cites ct:pen; item 8 (NS)
+    cites ns:oseen; outline.
+  A_reproducibility: rows for all notes/v7/td scripts; toolkit, python-flint, referee reruns.
+  refs.bib: FabienGuzmanNeilanZytoon2022, WarburtonHesthaven2003, PayneWeinberger1960, Johansson2017.
+
+FLAGS
+  * FGNZ journal metadata (CMAME 390 (2022) 114444) from memory: Crossref/arXiv metadata fetch failed (HTTP 429 /
+    proxy 403). Title and arXiv number match the abstract page. VERIFY. Other three new bib entries also from memory.
+  * GLN22 body still not re-read (only abstract); %% VERIFY left in st:rem:status.
+  * Boundary Schauder regularity of the leak flow on a collar (ADN/Solonnikov) cited in words, no locator; listed in
+    "Citations checked indirectly".
+  * Status labels kept as refereed: CNS*/Oseen drag rate 2 "modulo (E_Z)/(E_Z^dagger)" (referee: PLAUSIBLE);
+    Oseen theorem relies on (L_D), (L^dagger) via the compactness argument (2D proofs in PadhiLong2D, not re-proved).
+  * Edge-exponent sentence of set:rem:corner says the edge exponents "include" the plane right-angle ones (3D edge
+    problem also has the along-edge component); vertex exponents not computed.
+NOT CARRIED OVER
+  td Part B shape-derivative approximation kept as one sentence; td's suggested er:C restatement done via lk:gen
+  rather than rewriting er:C; nsconst items belong to paper/ (Paper B), not here; letter/ untouched.

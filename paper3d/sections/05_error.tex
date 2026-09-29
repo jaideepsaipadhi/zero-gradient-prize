@@ -120,7 +120,7 @@ and the first term is at most $C\norm v_{L^1(F)}$.
 \emph{Summing.} $\norm v_{L^1(\partial F)}\le C(\diam F)^{-1}\norm v_{L^1(F)}$ for $v|_F\in P_k$, so $\sum_E\hG\norm v_{L^1(E)}\le C\norm v_{L^1(\Gh)}\le C\norm v_{\Gh}$. Finish with Lemma~\ref{geom:korn}.
 \end{proof}
 
-If boundary faces of $\Th$ subdivide the faces of $\Gh$ (for example on Worsey--Farin splits), the extra edges lie in a plane, where $n_F=n_{F'}$ and the conormals are opposite, so their contributions cancel exactly.
+If boundary faces of $\Th$ subdivide the faces of $\Gh$ (for example on Worsey--Farin splits), the extra edges lie in a plane, where $n_F=n_{F'}$ and the conormals are opposite, so their contributions cancel exactly. On such meshes, however, (IS3) as formulated fails (Proposition~\ref{st:wf}), so the results of this section do not apply to them as they stand.
 
 \subsection{The printed method}
 Throughout this subsection $\gamma\ge\gamma_0$. By Theorem~\ref{geom:orient}, Lemma~\ref{geom:face}(c) and $\pt(x)=p(x^\ast)+O(\hG^2)$ on $\Gh$,
@@ -197,7 +197,7 @@ To leading order the printed method replaces no-slip by the leak condition $(\mu
 Write $\ut-u_h=(\ut-z)+\delta_G+\delta_R$ and $\delta_R=(h/\mu)v_\varphi+r_h$ as above, so $\vartheta_h=(\ut-z)+\delta_G+r_h$. Relative to $(h/\mu)^{1/2}G$: $\tnorm{r_h}\le C_p(h/\mu+\hG^2)+C\epsd$ contributes $O((h/\mu)^{1/2}+(\gamma\hG^3)^{1/2}+\epsd(\gamma/\hG)^{1/2})\to0$, and $\tnorm{\delta_G}+\tnorm{\ut-z}\le C[(1+\gamma^{1/2})\hG^{3/2}+\epsd]$ contributes $O((\gamma^{1/2}+\gamma)\hG+\epsd(\gamma/\hG)^{1/2})\to0$. The $\Gh$ norms carry an extra factor $(h/\mu)^{1/2}$. The limits follow from \eqref{er:riemann}.
 \end{proof}
 
-For fixed $\gamma$ and bounded $\rho$, Theorems~\ref{er:C} and~\ref{er:B} give $\norm{\nabla(\ut-u_h)}\asymp h/\mu$. The two-dimensional identification of the $H^1$ constant with the Stokes flow driven by the leak as Dirichlet data \cite{PadhiLong2D} is not proved here in three dimensions.
+For fixed $\gamma$ and bounded $\rho$, Theorems~\ref{er:C} and~\ref{er:B} give $\norm{\nabla(\ut-u_h)}\asymp h/\mu$. Section~\ref{sec:leak} identifies the constant: $\norm{\nabla(\ut-u_h)}\mu/(hG)\to\norm{\nabla U}/G$, with $U$ the Stokes flow driven by the leak as Dirichlet data (Corollary~\ref{lk:gen}), and the leak limit holds for every $\gamma\ge\gamma_0$ (Theorem~\ref{lk:up}).
 
 \subsection{The corrected method}
 
@@ -240,5 +240,5 @@ with $|\ip\eta{e_h\cdot n}|\le C\hG^k(h/\mu)^{1/2}\tnorm{e_h}$ and, by Lemma~\re
 \end{proof}
 
 \begin{remark}[Flux-corrected outer data]\label{er:rem:flux}
-In the model case one may replace $\gI$ by $\tilde g_I:=\gI-\frac{m_R}{3|R|}x$ with $m_R:=\int_{\partial R}\gI\cdot\nu$; since $\int_{\partial R}x\cdot\nu=3|R|$, this has zero net flux. In two dimensions the corresponding $H^1$ bound holds uniformly in $\gamma$ \cite{PadhiLong2D}; we have not carried that uniformity over to three dimensions.
+In the model case one may replace $\gI$ by $\tilde g_I:=\gI-\frac{m_R}{3|R|}x$ with $m_R:=\int_{\partial R}\gI\cdot\nu$; since $\int_{\partial R}x\cdot\nu=3|R|$, this has zero net flux. In two dimensions the corresponding $H^1$ bound holds uniformly in $\gamma$ \cite{PadhiLong2D}. In three dimensions Corollary~\ref{lk:gen} gives a $\gamma$-uniform $H^1$ bound for $\GS$ with $\gI$ itself (the flux term appears as $h^{k+1}\hG^{-1/2}$); for $\CNS$ we have not carried the uniformity over.
 \end{remark}

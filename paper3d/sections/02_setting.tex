@@ -69,14 +69,20 @@ The mean is over all of $\Gh$, also when $\Gamma$ has several components; per-co
 \begin{enumerate}[label=(IS3)]
 \item There is $\beta>0$, independent of $h$, such that for every $q\in\Pih\cap L^2_0(\Oh)$ there is $v\in\VO$ with $\div v=q$ and $\norm{\nabla v}\le\beta^{-1}\norm q$.
 \end{enumerate}
-On Alfeld refinements with $k\ge3$, (IS3) is a theorem (Lemma~\ref{st:IS3}). On other meshes it is an assumption; see Remark~\ref{st:rem:status}.
+On Alfeld refinements with $k\ge3$, (IS3) is a theorem (Lemma~\ref{st:IS3}). On meshes whose wall faces are subdivided, such as Worsey--Farin splits, it is false as formulated (Proposition~\ref{st:wf}). On other meshes it is an assumption; see Remark~\ref{st:rem:status}.
 
 \subsection{Exact solution, extensions and norms}
 $(u,p)$ is a Stokes solution, $-\Delta u+\nabla p=f$, $\div u=0$ in $\Omega$, $u|_\Gamma=0$, $u|_\Sigma=g$, with $u\in C^{k+1}(\overline\Omega)$ and $p\in C^k(\overline\Omega)$. Lemma~\ref{geom:ext} provides extensions $\ut\in C^{k+1}$ and $\pt\in C^k$ to a fixed neighbourhood $\mathcal O\supset\overline\Oh$ with $\div\ut=0$. The defect
 \[
 F:=\ft+\Delta\ut-\nabla\pt
 \]
-vanishes on $\Omega$ and is supported in $\overline{\Oh\setminus\Omega}$. For fields with traces on $\Gh$,
+vanishes on $\Omega$ and is supported in $\overline{\Oh\setminus\Omega}$.
+
+\begin{remark}[Edges and corners of the outer box]\label{set:rem:corner}
+In the model case $\Sigma=\partial R$ has edges and corners, and near them the smoothness of $(u,p)$ is a hypothesis on the \emph{solution}, not a consequence of smooth data. Along an edge of $R$ the singular exponents include those of the plane Stokes problem in a right angle, the roots of $\sin^2(\lambda\pi/2)=\lambda^2$ with $\operatorname{Re}\lambda>1$, the first being $\lambda_1=2.739593\pm1.119025\,i$ (computed for the companion paper \cite{PadhiLong2D}). So for generic smooth, compatible data one can only expect $u\in H^s$ near an edge for $s<1+2.7396$, unless the singular coefficients vanish; the corners of $R$ add vertex singularities, whose exponents we have not computed \cite{Dauge1989}. The hypothesis $u\in C^{k+1}(\overline\Omega)$ holds for the manufactured solutions of Section~\ref{sec:numerics}. For data-driven problems on meshes that are not graded at the edges of $R$, the terms $h^k$ in the $H^1$ bounds, and every other term that uses the smoothness of $u$ near $\Sigma$, should be read with $h^k$ replaced by $h^{\min(k,2.7396)-\epsilon}$. Near $\Gamma$ nothing changes: the wall is smooth and $\mathcal T_r$ has positive distance from $\Sigma$. The same caveat applies to the global regularity used in Remark~\ref{ns:rem} (Stokes $H^2\times H^1$ on $\Omega$, which for the box minus a ball we can only reduce, by a partition of unity and a Bogovski\u{\i} correction, to the $H^2$ theorem for convex polyhedra attributed to \cite{Dauge1989}, whose statement we have not checked), to the approximation term $E^0_U$ of Section~\ref{sec:leak}, and to assumption (E$_Z$) of Section~\ref{sec:leak}.
+\end{remark}
+
+For fields with traces on $\Gh$,
 \[
 \tnorm v^2:=\norm{\nabla v}^2_{\Oh}+\frac\mu h\norm v^2_{\Gh}+\sum_{F\in\FG}\diam F\,\norm{\dn v}^2_{L^2(F)} .
 \]

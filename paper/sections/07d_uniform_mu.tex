@@ -148,7 +148,7 @@ Hence $\norm{\nabla(\ut-u_h)}\mu/(hG)\to K$ whenever $h/\mu\to0$, $E^0_U\to0$ an
 Upper bound: in the proof of Theorem~\ref{rs:unif}, $\ut-u_h=(\ut-u_h')+\delta_R$ with $\norm{\nabla(\ut-u_h')}\le C(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$ uniformly in $\gamma$; apply Theorem~\ref{u:up}. Lower bound: Lemma~\ref{lb:identity} gives $a_h(e_u,v)-\ip{e_u}{\dn v}=-\ip{\ut}{\dn v}-(F,v)$ on $Y_h$; multiply by $\mu/h$ and subtract the identity for $\tilde U$. For the test field above, $\ut\cdot\tau_e$ is even in $s$ up to $O(\hG^3)$ (Lemma~\ref{lb:expand}) and $\dn v_e\cdot\tau_e$ is exactly odd, so $|\ip\ut{\dn v}|\le C\hG^2$; and $|(F,v)|\le C\hG^3$. Times $\mu/h=\gamma/\hG$ the numerator loses at most $C\gamma\hG$.
 \end{proof}
 
-We expect that $\gamma\hG^{1/2}\to0$ cannot be dropped for general data (for $\gamma\gtrsim\hG^{-1/2}$ the geometric error $\asymp\hG^{3/2}$ is at least the leak), but we have not excluded a cancellation between the two parts.
+The condition $\gamma\hG^{1/2}\to0$ cannot be dropped for general data: if $\gamma\hG^{1/2}\to\infty$ the normalised constant diverges (Corollary~\ref{u:Kall}(b)).
 
 \begin{corollary}[The $H^1$ constant converges at rate one]\label{u:K}
 On test P let $K_h:=\norm{\nabla X}_{\Oh}/G$. For every $\gamma\ge\gamma_0$,
@@ -161,6 +161,20 @@ hence $|K_h-K|\le C(\hG+(E^0_U)^2)$ uniformly in $\gamma$, although $d_h\asymp\h
 \begin{proof}
 $\norm{\nabla X}^2=\norm{\nabla\tilde U}^2_{\Oh}+2(\nabla\tilde U,\nabla W)+\norm{\nabla W}^2$, and $\norm{\nabla\tilde U}^2_{\Oh}-\norm{\nabla U}^2_\Omega=O(\hG^2)$. Since $\div W=0$, $W|_{\partial R}=0$ and $\int_{\Gh}W\cdot n=0$, Green gives $(\nabla\tilde U,\nabla W)=(F_U,W)+\ip\sigma W$ with $\sigma:=\dn\tilde U-(\tilde P-c)n$, edgewise smooth with $O(\hG)$ jumps at vertices, so $\norm{\sigma-\PT\sigma}_{\Gh}\le C\hG$. On $\Gh$, $W=D+(\PT\tilde U-\tilde U)-\PT\zeta$. Then $|\ip\sigma{\PT\zeta}|\le|\ip\sigma\zeta|+C\hG^2\le C\hG^2$ by \eqref{u:zeta} and $\int_es\,ds=0$; $|\ip\sigma{\PT\tilde U-\tilde U}|\le C\hG^{k+1}$; and $|\ip\sigma D|\le C\norm D_{\Gh}$ is bounded by Theorem~\ref{u:up}.
 \end{proof}
+
+\begin{corollary}[The leak constant for every penalty]\label{u:Kall}
+Let $\hG,h\to0$ with $\mu\ge\mu_0$ arbitrary, in particular with $\gamma\hG\to\infty$.
+\begin{enumerate}[label=(\alph*)]
+\item On test P, $K_h:=\norm{\nabla(\ut-u_h)}\mu/(hG)=\norm{\nabla X}/G$ satisfies $|K_h-K|\le C(\hG+(E^0_U)^2)$, with $C$ independent of $\mu$, $\gamma$ and $\rho$. The same holds for the leak part $(\mu/h)\delta_R$ of general data.
+\item For $\GS$ with general data, $\dn u\cdot\tau\not\equiv0$ on $\Gamma$ and $G>0$, the normalised constant $K_h^{\rm gen}:=\norm{\nabla(\ut-u_h)}\mu/(hG)$ tends to $K$ if $\gamma\hG^{1/2}\to0$ (and the data terms of Corollary~\ref{u:gen} vanish), and to $\infty$ if $\gamma\hG^{1/2}\to\infty$, in particular if $\gamma\hG\to\infty$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(a) Corollary~\ref{u:K} and $d_h\le C(\hG^{1/2}+E^0_U)$ (Theorem~\ref{u:up}) give $|K_h^2-K^2|\le C(\hG+(E^0_U)^2+\hG^{1/2}E^0_U)$, and $K>0$. For $\delta_R$ use the decomposition of Corollary~\ref{hc:cor}(i). (b) The first case is Corollary~\ref{u:gen}. In the second, Theorem~\ref{lb:thm}, valid for $\GS$ with every $\gamma\ge\gamma_0$, gives $\norm{\nabla(\ut-u_h)}\ge c\norm{\dn u\cdot\tau}_{L^2(\Gamma)}\hG^{3/2}-C\hG^2$; multiply by $\mu/(hG)=\gamma/(\hG G)$.
+\end{proof}
+
+So the convergence of the leak constant in the regime $\gamma\hG\to\infty$ holds in the only sense in which it can: for the leak itself. The $\mu=10^3,10^4$ columns of Table~\ref{tab:P} are test~P and are covered. For the total $\GS$ error the normalised constant diverges in that regime, because the geometric error $\asymp\hG^{3/2}$ then exceeds the leak.
 
 \begin{remark}[What the constants are, and what is not proved]\label{u:rem}
 With the sawtooth removed from the data (Dirichlet data $\PT\tilde U$ instead of $t^\ast$) the discrete Dirichlet field is accurate to $5\cdot10^{-5}$ on the production meshes, so the $\hG^{1/2}$ error is entirely the sawtooth. At $\mu=10^8$, $d_h\approx0.55\,\hG^{1/2}(1+0.96\hG+3.0\hG^2)$ (fit residual $10^{-3}$), with predicted local rates $0.58$ at $N=192$ and $0.53$ at $N=384$; at $\mu=100$, $d_h\approx0.225\,\hG^{1/2}(1+0.39\hG+0.30\hG^2)$, local rates $0.64\to0.54$. The ratio $0.41$ of the two amplitudes is the fraction of the sawtooth that the Robin problem at $\gamma\approx30$ captures. At $\mu=10^8$ the paper's table gives $K_h^2-K^2(1+d_h^2)\approx-1.87\hG^2$ from $N=48$ on, the $\gamma\to\infty$ form of Corollary~\ref{u:K}. A periodic one-edge cell problem reproduces these capture fractions ($0.47,0.89,0.99$ at $\gamma=30,300,3000$ for first-layer aspect $1$, against $0.43,0.86,0.98$ measured) and shows that $d_h/\hG^{1/2}$ is \emph{not} monotone in $\mu$: its minimum lies near the coercivity threshold. The certificate of Theorem~\ref{u:low}, evaluated with all remainders, gives $d_h\ge0.012$--$0.014\,\hG^{1/2}$ for every $\mu$ on the production meshes ($N\le128$), about $5\%$ of the truth. (NUMERICAL: \texttt{notes/v6/unifmu}, \texttt{notes/v6/unifmu2}.) Not proved: that $d_h/\hG^{1/2}$ converges on a given mesh family. The minimum star constant $\kappa_1$ of Lemma~\ref{u:field} drifts slowly downward on the production family ($0.0199\to0.0123$ for $N=16\to128$, with shrinking decrements), so we use only that the family is uniformly shape regular.

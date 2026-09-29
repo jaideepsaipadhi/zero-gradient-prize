@@ -115,3 +115,33 @@ OPEN / FOR THE AUTHORS
   - The declarations .docx must match the new competing-interest wording.
   - The paper/ directory shows modifications in git status. Those are not from this edit; the Paper B work
     touches paper/.
+
+======================================================================
+v7 EDIT, 2026-09-29 (notes/v7/MERGE_MANIFEST.txt, "PAPER A"). Only the items below were changed. Nothing committed.
+
+BUILD (letter/build.sh)
+  3p: 6 pages, page 6 full, 0 overfull boxes. 5p: 5 pages, the same two overfull displays (6.6 pt, 8.3 pt).
+
+(i) CORNER CAVEAT (paper/sections/02_setting.tex, Remark rem:corners = Rem. 2.5)
+  - Section 2: "(u,p) smooth (an assumption at the corners of R \ext{Rem. 2.5})".
+
+(ii) MU=100 (notes/v7/mu100/REPORT.txt; paper Remark rb:rem:mu100 = Rem. 15.18)
+  - Section 4: mu=100 is above the measured thresholds only; for CNS* this is checked for N<=64,
+    with a margin shrinking to about 7%. The CNS* critical mu was computed only up to N=64 (the saddle LU
+    runs out of memory at N=128), so the letter does not claim it for its N=96..256 runs.
+
+(iii) \ext POINTERS, checked against the freshly compiled paper/main.aux (labels and environment types):
+  Lemmas 4.2, 4.3, 4.5, 4.6, 3.2, 7.32; Sec. 2, Sec. 6; Thm 7.2, Rem 7.3; Def 8.10, Thm 8.11; Thms 7.30, 7.33,
+  8.7, Lemma 8.3; Thms 7.8, 7.24; Cor 7.34, Thm 7.35; Sec. 10, Sec. 10.1, Prop 10.3: all correct, unchanged.
+  - Changed: "one-star witnesses can fail \ext{\S10}" -> \ext{Prop. 10.6} (pb:counter).
+  - STATUS FIX (needed, not only a pointer): "necessity under (M0)--(M2) alone is open" is now false, because
+    paper Thm 10.13 (pb:thmM0) proves mu* >= c*rho on every (M0) mesh with constants of about 1e-39.
+    It now reads: "under (M0) alone, mu* >~ rho is proved only with astronomically small constants \ext{Thm. 10.13}".
+
+CUTS TO STAY AT 6 PAGES (wording only; no content removed)
+  - Lemma 1: "which holds when" -> "(true if ...)". Section 2: "Constants C,c" -> "C,c"; "C_p may also depend on" -> "C_p also on";
+    "where sigma_k=..." compressed.
+  - Setup before Theorem 1: the wording of the cut-off chi, the Morgan--Scott citation and x* is shortened.
+  - Lemma 3 (cancellation): the hypotheses are merged into one sentence.
+  - Proposition 4(c): "at least" -> ">=", and the final sentence is shortened.
+  - Section 4: "radially projected from equispaced points".

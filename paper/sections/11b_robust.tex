@@ -10,7 +10,7 @@ Throughout, the methods are those of Section~\ref{ns:sec} with the convective te
 \[
 \nu N_h(u_h,v)+B_M(p_h,v)=(\ft,T_Mv)\quad\forall v\in\VR,\qquad(q,\div u_h)=0\quad\forall q\in\Pih,
 \]
-with $B_{\GS}(q,v)=-(q,\div v)$, $B_{\CNS}=B_{\CNSR}=B^\ast$, $T_M=\mathrm{id}$ for $\GS$ and $\CNS$ and $T_{\CNSR}=\Rop$ (Definition~\ref{rb:def:R}). The penalty is $\nu\mu/h$ (Remark~\ref{ns:conv}), $\pi_h$ is the elementwise $L^2$ projection onto $\Pih$, and $F:=\ft+\nu\Delta\ut-\nabla\pt$ is the extension defect; it is smooth and vanishes on $\overline\Omega$. All numerical constants are at $\mu=100$ ($\gamma\approx30$), which is only $1.37$--$1.41$ times the coercivity threshold on $\Zh$ (Table~\ref{tab:thresh}); the thresholds $\gamma_0,\gamma_2,\gamma_3$ of the proofs are not shown to hold there, so the computations illustrate the theorems rather than being covered by them.
+with $B_{\GS}(q,v)=-(q,\div v)$, $B_{\CNS}=B_{\CNSR}=B^\ast$, $T_M=\mathrm{id}$ for $\GS$ and $\CNS$ and $T_{\CNSR}=\Rop$ (Definition~\ref{rb:def:R}). The penalty is $\nu\mu/h$ (Remark~\ref{ns:conv}), $\pi_h$ is the elementwise $L^2$ projection onto $\Pih$, and $F:=\ft+\nu\Delta\ut-\nabla\pt$ is the extension defect; it is smooth and vanishes on $\overline\Omega$. All numerical constants are at $\mu=100$ ($\gamma\approx30$), which is only $1.37$--$1.41$ times the coercivity threshold of $\GS$ on $\Zh$ (Table~\ref{tab:thresh}) and $1.13$--$1.27$ times the stability threshold of $\CNS$ on the production meshes (Remark~\ref{rb:rem:mu100}); the thresholds $\gamma_0,\gamma_2,\gamma_3$ of the proofs are not shown to hold there, so the computations illustrate the theorems rather than being covered by them.
 
 \subsection{Splitting}
 
@@ -148,9 +148,9 @@ By \eqref{rb:pf} and the patch bound, $|\ip\eta{v_j\cdot n}|\le\Phi^\ast_j\norm{
 
 Only the momentum row is used: neither $W\in\Zh$, uniqueness, nor $\gamma\ge\gamma_0$ enters, and the bound holds below the coercivity threshold. Numerically ($k=4$, $\phi=\sin2x\cos y$, $\mu=100$) the certificate times $\gamma/\hG^{4.5}$ converges to $\approx0.015$ ($N=8,\dots,256$), and $\norm{\nabla W}$ is $3.2$--$4.6$ times the certificate.
 
-\paragraph{Invisible directions.} For a boundary triangle $T$ with $\Gh$-edge $e=[L,R]$ and apex $c$, let $\ell_w$ be the linear part of the barycentric coordinate $\lambda_w$, $\Ker_T:=\operatorname{span}\{\ell_c^k,\ell_L^k,\ell_R^k\}$ and $K_T:=\operatorname{span}\{\ell_c^k,\ell_L^k-\ell_R^k\}$. Then $(I-\pi_T)\lambda_w^k=J_k(\lambda_w)$ with $J_k$ the monic Jacobi-type polynomial orthogonal to $P_{k-1}$ with weight $1-s$; the restriction of $H\mapsto((I-\pi_T)H)|_e$, projected onto the zero-mean, zero-end part of $P_k(e)$, has kernel exactly $\Ker_T$; and for $H=\ell_L^k-\ell_R^k$ the edge defect $d_k$ satisfies $\ip{d_k}g_e=\beta_k|e|(g(L)-g(R))$ for all $g\in P_k(e)$, $\beta_k=(-1)^kJ_k(0)/(k+1)$ ($\beta_4=1/630$). All three facts are proved in \texttt{notes/v6/robust2}, \texttt{robust4} and were checked in exact arithmetic for $k=4,\dots,8$. Consequently a $K_T$-component of $\nabla^k\phi$ produces only an edge constant and a vertex-difference functional, and on a straight, translation-periodic boundary $\ip{\eta_H}{v\cdot n}=\mathrm{const}\cdot\int v\cdot n$ for every $v\in\Vh$ and $H\in K_T$: no test field of any kind sees $K_T$. The production meshes converge to such a configuration. And the effect is real, not a limitation of the certificates: on the equispaced family \textsf{UP} (radial first layer of constant height ratio), the datum $\phi_B$ with $\nabla^4\phi_B/4!=\cos4\theta\,(x^4-(x-y/\rho)^4)$ on $\Gamma$ (not purely normal) has $\norm{\nabla W_{\CNS}(\phi_B)}\le C\gamma^{-1}\hG^{k+3/2}$ (proved), with observed order $5.45$--$5.48$.
+\paragraph{Invisible directions.} For a boundary triangle $T$ with $\Gh$-edge $e=[L,R]$ and apex $c$, let $\ell_w$ be the linear part of the barycentric coordinate $\lambda_w$, $\Ker_T:=\operatorname{span}\{\ell_c^k,\ell_L^k,\ell_R^k\}$ and $K_T:=\operatorname{span}\{\ell_c^k,\ell_L^k-\ell_R^k\}$. Then $(I-\pi_T)\lambda_w^k=J_k(\lambda_w)$ with $J_k$ the monic Jacobi-type polynomial orthogonal to $P_{k-1}$ with weight $1-s$; the restriction of $H\mapsto((I-\pi_T)H)|_e$, projected onto the zero-mean, zero-end part of $P_k(e)$, has kernel exactly $\Ker_T$; and for $H=\ell_L^k-\ell_R^k$ the edge defect $d_k$ satisfies $\ip{d_k}g_e=\beta_k|e|(g(L)-g(R))$ for all $g\in P_k(e)$, $\beta_k=(-1)^kJ_k(0)/(k+1)$ ($\beta_4=1/630$). All three facts hold for every $k\ge4$: the kernel statement follows from the Dubiner basis, whose restriction to $e$ is $\pm$ the Legendre polynomials, and $\beta_k>0$ because $\beta_k=(-1)^kJ_k(0)/(k+1)$ and the zeros of $J_k$ lie in $(0,1)$ (\texttt{notes/v6/robust2}, \texttt{robust4}, \texttt{notes/v7/robust}; exact checks for $4\le k\le12$, independently on a physical triangle for $k=4,5,7,9$). Consequently a $K_T$-component of $\nabla^k\phi$ produces only an edge constant and a vertex-difference functional, and on a straight, translation-periodic boundary $\ip{\eta_H}{v\cdot n}=\mathrm{const}\cdot\int v\cdot n$ for every $v\in\Vh$ and $H\in K_T$: no test field of any kind sees $K_T$. The production meshes converge to such a configuration. And the effect is real, not a limitation of the certificates: on the equispaced family \textsf{UP} (radial first layer of constant height ratio), the datum $\phi_B$ with $\nabla^4\phi_B/4!=\cos4\theta\,(x^4-(x-y/\rho)^4)$ on $\Gamma$ (not purely normal) has $\norm{\nabla W_{\CNS}(\phi_B)}\le C\gamma^{-1}\hG^{k+3/2}$ (proved), with observed order $5.45$--$5.48$.
 
-\begin{theorem}[Order of the $\CNS$ pressure part, $k=4$]\label{rb:final}
+\begin{theorem}[Order of the $\CNS$ pressure part]\label{rb:final}
 Let $\theta$ be the minimum angle, assume (M0)--(M2), quasi-uniformity along $\Gh$, and that each $\Gh$ vertex has a neighbouring triangle without a $\Gh$ edge adjacent to the boundary triangle (condition (G)). Let $K$ be the patch overlap and $W=W_{\CNS}(\phi)$ with $\phi\in C^{k+3}$.
 \begin{enumerate}[label=(\alph*)]
 \item (Proved; all meshes, $\gamma\ge\gamma_2$.) $\norm{\nabla W}\le C\gamma^{-1}\hG^{k+1/2}|\phi|_{W^{k,\infty}}$.
@@ -158,7 +158,7 @@ Let $\theta$ be the minimum angle, assume (M0)--(M2), quasi-uniformity along $\G
 \[
 \norm{\nabla W}\ge\frac{\kappa_T(\theta)}{4\sqrt K(1+\gamma)}\Bigl(\sum_z|e_z|^{2k+2}\operatorname{dist}_F\Bigl(\frac{\nabla^k\phi(z)}{k!},\Ker_{T_{e_z}}\Bigr)^2\Bigr)^{1/2}-\frac{C|\phi|_{W^{k+1,\infty}}}{1+\gamma}\hG^{k+3/2},
 \]
-with certified $\kappa_T(30^\circ)\ge2.1\cdot10^{-6}$, $\kappa_T(20^\circ)\ge5.6\cdot10^{-7}$, and $\kappa_T(\theta)>0$ for all $\theta\in(0,\pi/3]$.
+with $\kappa_T(\theta)>0$ for all $\theta\in(0,\pi/3]$ and every $k\ge4$; for $k=4$, certified $\kappa_T(30^\circ)\ge2.1\cdot10^{-6}$ and $\kappa_T(20^\circ)\ge5.6\cdot10^{-7}$.
 \item (Proved; LP$^+$ families, $\gamma\ge\max(\gamma_2,1)$.) Suppose there are Lipschitz maps $\mathcal K$ (normalised shape) and $\ell>0$ on $\Gamma$ with $|\mathrm{shape}(T_e)-\mathcal K(x_e)|+||e|/\hG-\ell(x_e)|\le C\hG$ (production and \textsf{UP} satisfy this). With $K(x):=K_{\mathcal K(x)}$ and $D(\phi)^2:=\int_\Gamma\ell^{2k+1}\operatorname{dist}_F(\nabla^k\phi/k!,K(x))^2\,ds$,
 \[
 c\gamma^{-1}D(\phi)\le\liminf_{\hG\to0}\frac{\norm{\nabla W}}{\hG^{k+1/2}}\le\limsup_{\hG\to0}\frac{\norm{\nabla W}}{\hG^{k+1/2}}\le C\gamma^{-1}D(\phi)+C\gamma^{-3/2}\norm\phi_{C^{k+3}} .
@@ -171,13 +171,85 @@ c\gamma^{-1}D(\phi)\le\liminf_{\hG\to0}\frac{\norm{\nabla W}}{\hG^{k+1/2}}\le\li
 (a) is Theorem~\ref{rb:cns}(b) sharpened to $C\gamma^{-1}\hG^{1/2}\Xi$ with $\Xi$ the norm of the edge-oscillating part of $\eta$. (b) is Theorem~\ref{rb:cert} with pressure-blind fields supported in the boundary triangle and its neighbour across the spoke $[z,c]$: their normal traces are shape independent and span the zero-flux part of $P_k(e)$, their pairing with $\ell_z^j\ell_a^{4-j}$ is a constant rational matrix whose kernel is exactly $\Ker_T$, and only the norms depend on the shape; $\kappa_T$ is a certified lower bound of the resulting generalised Rayleigh quotient over all admissible shapes (interval arithmetic; negative controls at $2.17\cdot10^{-6}$ and $5.7\cdot10^{-7}$ are refuted). (c) The lower bound adds a vertex field $v_z$ with $v_z(z)=\nu_z$, zero flux on each wall edge and bounded (M), (D) corrections uniformly through the flat locus; this makes the vertex functional of $\Ker_T/K_T$ visible, and a Riemann sum gives $D(\phi)$. The upper bound splits $\eta$ into edge-oscillating, vertex and edge-constant parts; the last is a smooth trace of size $\hG^k$, handled by the bound $\norm{\nabla W^a}\le C\gamma^{-1}\hG+C\beta^{-1}\gamma^{-3/2}\hG^{1/2}\norm a$ for smooth boundary data $a$, whose second term comes from the Nitsche pressure layer $\xi_b$ of Lemma~\ref{pd:lem:rep} with trace $k(k+1)(W\cdot n)/H_e$. (d) follows from the same split. Full details, scripts and certificates: \texttt{notes/v6/robust3}--\texttt{robust6}.
 \end{proof}
 
-Parts (b)--(d) are proved for $k=4$. For $5\le k\le8$, (b) holds with a non-explicit $\kappa_T$; this rests on rank computations for $k=5,\dots,8$ of which only the dimensions were independently re-checked. (P$^T$) and the vertex field for $k\ge9$ are unverified.
+Parts (b)--(d) hold for every $k\ge4$. For $k=4$ this is \texttt{notes/v6/robust6}. For $k\ge5$ every $k$-dependent ingredient has a structural proof (\texttt{notes/v7/robust}): the moment map on $X_k:=\lambda_z\lambda_aP_{k-2}^2$ has rank $\dim P_{k-1}-1$ (test with $\lambda_z\lambda_a\nabla r$); the pressure-blind fields have zero flux on the wall edge by a slicing identity with weight $(1-y)^3$, and their normal traces are exactly the zero-mean part of $\lambda_z\lambda_aP_{k-2}(e)$; the wall representer is a function of $\lambda_c$ alone with trace $k(k+1)/H_e$ (a Jacobi Christoffel number); the kernel of the defect pairing is exactly $\Ker_T$; and the (M), (D) corrections use the single-triangle stream functions $\lambda_z^{k-2}\lambda_a^2\lambda_c$ and $\lambda_z^{k-3}\lambda_a^2\lambda_c^2$, whose curls give a triangular system, while the vertex field keeps the quintic Argyris stream function. Condition (G) is not needed for $k\ge5$. All facts are checked in exact rationals for $4\le k\le12$, and the full vertex field for $k=5$ (four stars) and $k=6$ (three stars). The constants $\kappa_T$ ($k\ge5$) and $\kappa_K$ are not explicit.
 
-\begin{conjecture}[S$_{\rm LP}$]\label{rb:conj}
-On LP$^+$ families with smoothly varying heights, $\norm{\nabla W^a}\le C\gamma^{-1}\hG\norm a_{C^3}$ for smooth boundary data $a$. This would remove the $\gamma^{-3/2}$ terms in Theorem~\ref{rb:final}(c),(d) and give order $k+1$ for general $K$-degenerate $\phi$.
-\end{conjecture}
+\paragraph{The Nitsche pressure layer is an effective penalty.} The $\gamma^{-3/2}$ terms in (c) and (d) come from smooth wall data. For $\alpha\in C^3(\Gamma)$ with $\int_\Gamma\alpha=0$ and $a:=\alpha\circ\pi$, let $(W^a,\xi)$ be the $\CNS$ solution with load $v\mapsto\ip a{v\cdot n}$. For $g\in L^2(e)$ let $\xi_b[g]\in P_{k-1}(T_e)$, extended by $0$, satisfy $(\xi_b[g],r)_{T_e}=\ip gr_e$ for all $r\in P_{k-1}(T_e)$ (Lemma~\ref{pd:lem:rep}), and put
+\[
+m_h(u,v):=\sum_{e\in\EG}\ip{\xi_b[u\cdot n]}{v\cdot n}_e=\sum_e(\xi_b[u\cdot n],\xi_b[v\cdot n])_{T_e},\qquad \tilde\xi:=\xi+\xi_b[W^a\cdot n].
+\]
 
-The evidence is numerical (\textsf{UP}). On a non-LP mesh with alternating first-layer heights the $\gamma^{-3/2}\hG^{1/2}$ term appears to be real ($\norm{\nabla W^a}\gamma/\hG=6.40,8.46,10.28,11.92$ for $N=16,\dots,64$ at $\mu=300$), but its amplitude is inflated by near-criticality, so this is not a proved counterexample. The orders $k+1$ (generic $K$-degenerate $\phi$, observed $5.28$ and falling) and $k+3/2$ (observed $5.48$--$5.51$) are numerical.
+\begin{lemma}[Effective penalty]\label{rb:lem:mh}
+\begin{enumerate}[label=(\alph*)]
+\item $m_h$ is symmetric positive semidefinite, $m_h(u,u)\le\sum_e\frac{k(k+1)}{H_e}\norm{u\cdot n}_e^2$, and with $\bar u_e$ the edge mean and $\tilde u$ the fluctuation of $u\cdot n$ on $e$, $m_h(u,v)=\sum_e\frac{k(k+1)}{H_e}|e|\bar u_e\bar v_e+m_h(\tilde u,\tilde v)$; the constant is attained on edge constants.
+\item For all $v\in\Zh$ and every constant $c$, $(N_h-m_h)(W^a,v)+\ip{\tilde\xi-c}{v\cdot n}=\ip a{v\cdot n}$.
+\item For all $v\in\VO$, $(\tilde\xi,\div v)=a_h(W^a,v)-\ip{W^a\cdot\tau}{\dn v\cdot\tau}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $\norm{\xi_b[g]}_{T_e}^2=\ip g{\xi_b[g]}_e\le\norm g_e\norm{\xi_b[g]}_e$, and $\norm r_e^2\le\frac{k(k+1)}{H_e}\norm r_{T_e}^2$ on $P_{k-1}$ \cite{WarburtonHesthaven2003}. The split holds because $\xi_b[1]$ has constant trace $k(k+1)/H_e$ (Lemma~\ref{pd:lem:rep}). (b) On $\Zh$, $\div v=0$ and the flux vanishes, so $B^\ast(\xi,v)=\ip{\xi-c}{v\cdot n}$, and $\ip{\xi_b[W^a\cdot n]}{v\cdot n}=m_h(W^a,v)$. (c) For $v\in\VO$, $\div v=\dn v\cdot n$ on $\Gh$, so the layer absorbs the normal slip in the pressure identity (\texttt{notes/v6/robust5}, Lemma layer).
+\end{proof}
+
+So on $\Zh$, $\CNS$ is $\GS$ with the normal penalty reduced by $m_h$, plus a pressure $\tilde\xi$ whose equation contains only the \emph{tangential} slip, which is $O(\hG^2/\gamma)$ instead of $O(\hG/\gamma)$. Let $\gamma_m:=2k(k+1)\hG/(c_1\min_eH_e)$, and let $\gamma_S$ be the absorption threshold of the pressure bound (depending only on $\beta$, $C_I$, $c_0$).
+
+\begin{theorem}[Equal first-layer heights]\label{rb:Seq}
+Assume $k(k+1)\hG/H_e\equiv\bar c$ for all $e$ (\textsf{UP} and every rotation-invariant mesh qualify), put $\gamma':=\gamma-\bar c\ge\gamma_0$, $\gamma\ge\max(\gamma_m,\gamma_S)$, and let $\delta'\in\Zh$ be the $\GS$ leak solution at penalty $\gamma'/\hG$: $N_h^{\gamma'}(\delta',v)=\ip a{v\cdot n}$ on $\Zh$. Then
+\[
+\bigl|\norm{\nabla W^a}-\norm{\nabla\delta'}\bigr|\le C\beta^{-1}\gamma^{-1/2}\norm{\nabla\delta'}+C_\alpha\hG^{3/2},\qquad
+\Bigl|\norm{\nabla\delta'}-\frac{\hG}{\gamma'}\norm{\nabla\tilde U_\alpha}\Bigr|\le C_\alpha\frac{\hG}{\gamma'}(\hG^{1/2}+E^0_U),
+\]
+with $\tilde U_\alpha$ the leak flow of Definition~\ref{hc:def} with datum $\alpha n$. So $\norm{\nabla W^a}=(1\pm C\beta^{-1}\gamma^{-1/2})\frac{\hG}{\gamma'}\norm{\nabla\tilde U_\alpha}+O(\hG^{3/2})$: two-sided up to the factor $1\pm C\beta^{-1}\gamma^{-1/2}$, which does not tend to $1$ as $\hG\to0$.
+\end{theorem}
+
+\begin{proof}
+With $\lambda=\gamma/\hG$ and $\lambda'=\gamma'/\hG$, Lemma~\ref{rb:lem:mh}(a) gives $N_h-m_h=N_h^{\gamma'}+f_h$ with $f_h(u,v)=\frac{\bar c}{\hG}(\ip{u\cdot\tau}{v\cdot\tau}+\ip{\tilde u}{\tilde v})-m_h(\tilde u,\tilde v)$, so $|f_h(u,v)|\le\frac{2\bar c}{\hG}(\norm{u\cdot\tau}_{\Gh}+\norm{\tilde u}_{\Gh})\norm v_{\Gh}$. By Theorem~\ref{u:up} at penalty $\gamma'$, $\lambda'\delta'$ is within $C\hG$ of $\tilde U_\alpha$ on $\Gh$ in $L^2$, and on chords $\tilde U_\alpha\cdot\tau_e=O(\hG)$ with $\tilde U_\alpha\cdot n$ varying by $O(\hG)$; so $\norm{\delta'\cdot\tau}_{\Gh}+\norm{\widetilde{\delta'\cdot n}}_{\Gh}\le C\hG^2/\gamma'$. The difference $\varepsilon:=W^a-\delta'\in\Zh$ satisfies $(N_h-m_h)(\varepsilon,v)=-f_h(\delta',v)-\ip{\tilde\xi-\bar{\tilde\xi}}{v\cdot n}$. For $\gamma\ge\gamma_m$, $(N_h-m_h)(u,u)\ge\frac{c_1}2\tnorm u^2$. By Lemma~\ref{rb:lem:mh}(c) and Lemma~\ref{lem:infsup}, $\beta\norm{\tilde\xi-\bar{\tilde\xi}}\le2\norm{\nabla W^a}+C_I\hG^{-1/2}\norm{W^a\cdot\tau}_{\Gh}\le2\norm{\nabla\delta'}+C\hG^{3/2}/\gamma'+C\tnorm\varepsilon$, and the inverse trace inequality bounds the pressure term by $C\gamma^{-1/2}\norm{\tilde\xi-\bar{\tilde\xi}}\tnorm\varepsilon$. Absorbing for $\gamma\ge\gamma_S$ gives $\tnorm\varepsilon\le C\beta^{-1}\gamma^{-1/2}\norm{\nabla\delta'}+C\hG^{3/2}$. The second estimate is Theorem~\ref{u:up} divided by $\lambda'$.
+\end{proof}
+
+\begin{theorem}[(S$_{\rm LP}$)]\label{rb:SLP}
+Let the family be LP$^{++}$, i.e.\ LP$^+$ (Theorem~\ref{rb:final}(c)) with $C^3$ maps $\mathcal K,\ell$. Then $k(k+1)\hG/H_e=\bar c+\varphi(x_e)+r_e$ with $\varphi\in C^3(\Gamma)$ of mean zero and $|r_e|\le C\hG$, and there is $\gamma_{\rm LP}=\bar c+\gamma_0+C\norm\varphi_{C^3}$ (not explicit) such that for $\gamma\ge\max(\gamma_{\rm LP},\gamma_m,\gamma_S)$
+\[
+\norm{\nabla W^a}\le C\gamma^{-1}\hG\norm\alpha_{C^3}.
+\]
+\end{theorem}
+
+\begin{proof}
+Put $\gamma':=\gamma-\bar c$, $a_0:=a$ and
+\[
+a_{j+1}:=\varphi\,(a_j-\bar a_j)/\gamma',\qquad \bar a_j:=|\Gamma|^{-1}\textstyle\int_\Gamma a_j,
+\]
+and let $\delta_j$ be the $\GS$ leak solution at penalty $\gamma'$ with data $a_j$. The mean is removed because the leak flow of Section~\ref{u:sec} is driven by mean-free data, so the edge means of $\delta_j\cdot n$ are $(\hG/\gamma')(a_j-\bar a_j)+\rho_j$ with $\norm{\rho_j}_{\Gh}\le C\hG^2q^j/\gamma'$; without the mean removal the telescoping would leave a residual $\ip{(\bar a_j/\gamma')\varphi}{v\cdot n}$ of order $q^j$, which does not vanish on $\Zh$. The algebra bound in $C^3$ gives $\norm{a_j}_{C^3}\le q^j\norm a_{C^3}$ with $q=C_3\norm\varphi_{C^3}/\gamma'<1$. With $W^\flat:=\sum_j\delta_j$ and the extra term $-\hG^{-1}\ip{(\varphi+r)\bar u}{\bar v}$ of $N_h-m_h$, the series telescopes: $\varepsilon:=W^a-W^\flat$ satisfies $(N_h-m_h)(\varepsilon,v)=\ip{\mathcal R}{v\cdot n}-\sum_jf_h(\delta_j,v)-\ip{\tilde\xi-\bar{\tilde\xi}}{v\cdot n}$ with $\norm{\mathcal R}_{\Gh}\le C\hG/\gamma'$ (from $r_e$ and the Riemann sums). Finish as in Theorem~\ref{rb:Seq}; all constants are linear in the data.
+\end{proof}
+
+\begin{corollary}[Theorem~\ref{rb:final}(c), (d) without the $\gamma^{-3/2}$ terms]\label{rb:Rc}
+On LP$^{++}$ families, for $\gamma\ge\max(\gamma_{\rm LP},\gamma_m,\gamma_S)$ and every $k\ge4$: in (c), $c\gamma^{-1}D(\phi)\le\liminf\le\limsup\le C\gamma^{-1}D(\phi)$, so $\norm{\nabla W}=o(\hG^{k+1/2})$ iff $D(\phi)=0$; in (d), $\norm{\nabla W}\le C\gamma^{-1}\hG^{k+1}$ for every $K$-degenerate $\phi$.
+\end{corollary}
+
+\begin{proof}
+In the split of (c), the edge-constant part is $\hG^k\alpha(x_e)+O(\hG^{k+1})$ with $\alpha\in C^3$ on LP$^{++}$; its smooth part is handled by Theorem~\ref{rb:SLP}, and the rough part by the energy bound, $O(\gamma^{-1/2}\hG^{k+3/2})$.
+\end{proof}
+
+This resolves the question left open in the previous version (whether the $\gamma^{-3/2}$ terms are real on smoothly varying LP$^+$ families) for $\gamma\ge\gamma_{\rm LP}$; the window $\gamma_2\le\gamma<\gamma_{\rm LP}$ remains open when the height map varies strongly. Off LP$^+$ the defect is real (NUMERICAL, exact Floquet reduction to $N=4096$): on the 2-periodic mesh \emph{alt} (first-layer heights $0.7|e|$, $1.4|e|$), $\norm{\nabla(W^a-\delta)}\approx63\gamma^{-2}\hG^{1/2}$ at every $\gamma\in[100,3000]$, so the amplitude is $\gamma^{-2}$, not $\gamma^{-3/2}$. On \textsf{UP}, $W^a$ agrees with $\GS$ at penalty $\gamma-20\hG/H$ to $10^{-4}$ relative, including at $\gamma=30$.
+
+\begin{theorem}[Sharpness of the orders $k+1$ and $k+\frac32$]\label{rb:sharp}
+\begin{enumerate}[label=(\alph*)]
+\item Let $\phi\in C^{k+3}$ be $K$-degenerate on an LP$^{++}$ family with non-constant normalised edge constant $\alpha$ ($A_e=\hG^k\alpha(x_e)+O(\hG^{k+1})$). On equal-height families with $\gamma\ge\max(\gamma_m,\gamma_S)$, $\gamma'\ge\gamma_0$,
+\[
+\norm{\nabla W}\ge(1-C\beta^{-1}\gamma^{-1/2})\frac{\hG^{k+1}}{\gamma'}\norm{\nabla\tilde U_{\alpha-\bar\alpha}}-C\hG^{k+3/2},
+\]
+and on general LP$^{++}$ families the same holds for $\gamma\ge\gamma(\phi)$. With Corollary~\ref{rb:Rc}, $\norm{\nabla W}\asymp\gamma^{-1}\hG^{k+1}$.
+\item On \textsf{UP} with first-layer ratio $\rho_1>0$ and $\phi=(r-1)^k$, $4\le k\le7$: $\norm{\nabla W}\ge c(1+\gamma)^{-1}\hG^{k+3/2}$ for every $\gamma>0$, and $\norm{\nabla W}\le C\gamma^{-1}\hG^{k+3/2}$ for $\gamma\ge\gamma_2$ (Theorem~\ref{rb:final}(d), $A$ constant). So the order is exactly $k+\frac32$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) Split $W=W^A+W^{\rm rest}$ with $\norm{\nabla W^{\rm rest}}\le C\gamma^{-1}\hG^{k+3/2}$ and apply Theorem~\ref{rb:Seq} (resp.\ Theorem~\ref{rb:SLP}, whose terms $j\ge1$ are $\le Cq(1-q)^{-1}\hG\norm\alpha_{C^3}/\gamma'$) to the smooth part of $A$. (b) All boundary stars are congruent; apply Theorem~\ref{rb:cert} with one pressure-blind field per wall edge (overlap $1$). Their stream parts have zero normal trace, so the pairing with $\eta$ is proportional to $P_f=\int_e(I-\pi_{T_e})\phi\,t_f\,ds$ with $t_f$ in the zero-mean trace space. Blowing up at a wall vertex, $(r-1)^k/\ell^k=\xi^k+\frac k2\ell\xi^{k-1}\upsilon^2+O(\ell^2)$; the order-$\ell^{k+1}$ term vanishes ($\xi^k\in\Ker_T$), and exact rational algebra gives $P_f/\ell^{k+2}\to c_f(\rho_1)\ne0$: $\rho_1^3/900$ and $\rho_1^3/525$ for $k=4$, $-13\rho_1^4/33264$ for $k=5$, $\rho_1^5/8008$ for $k=6$, $-31\rho_1^6/823680$ for $k=7$. Summing $N\asymp\hG^{-1}$ stars with pairing $\asymp\hG^{k+2}$ gives $\hG^{k+3/2}$.
+\end{proof}
+
+The $k=4$ coefficients were recomputed independently in 50-digit arithmetic with Richardson extrapolation to $N=4096$ ($0.00111111073$ and $0.00190476216$ at $\rho_1=1$). Order $k+\frac32$ for general constant-$A$ data, including $\phi_B$ above, would need its explicit first-order pairing, which we did not evaluate.
+
+\begin{remark}[The production penalty $\mu=100$ for $\CNS$]\label{rb:rem:mu100}
+Lemma~\ref{rb:lem:mh} suggests comparing $\gamma-k(k+1)\hG/H_e$ ($30$ minus $10$--$27$ on the production meshes) with the $\GS$ threshold $\gamma^\ast\approx18$--$21$, which would put $\CNS$ at $\mu=100$ below its threshold. That comparison is wrong, and the direct computation settles it (\texttt{notes/v7/mu100}). $\CNS$ is Petrov--Galerkin on $\Zh$, so its stability quantity is the largest $\mu_c^{\CNS}$ at which the square system is singular. On the production meshes $\mu_c^{\CNS}=72.3,78.9,82.3,84.4,86.8,88.1$ for $N=8,16,24,32,48,64$, extrapolating to $\gamma_c\approx26.5$, i.e.\ $\mu_c^{\CNS}\approx93$; the effective-penalty form $A_\mu-C^{\mathsf T}M^{-1}C$ on $\Zh$ has the same limit. So $\mu=100$ is stable on every production mesh, with margins $27\%$ ($N=16$), $19\%$ ($N=32$), $13\%$ ($N=64$) that shrink to about $7\%$ as $h\to0$ ($\gamma(100)\approx28.6$ against $26.5$). For $\GS$ the limiting margin is about $34\%$ ($28.6$ against $21.4$). The two instabilities are different modes: the $\GS$ critical mode is tangential (its wall trace is $0.4$--$1.3\%$ normal), on which $m_h$ removes almost nothing, while the $\CNS$ critical mode is about $99\%$ normal and dominated by edge means ($90$--$97\%$), exactly where $m_h$ attains its sharp constant $k(k+1)/H_e$. It goes critical when the local effective penalty $(\mu/h-20/H_e)|e|$ on the thinnest first-layer edges reaches about $0$ to $-1$, not when it reaches $\gamma^\ast_{\GS}$.
+\end{remark}
 
 \paragraph{The residual leak law.} For large $\gamma$ the $\CNS$ pressure part is itself a leak flow: with $\varepsilon=h/\mu$ and $Y$ as above, $\norm{W-\varepsilon Y}_{\Gh}\le C_2\gamma^{-1}\norm W_{\Gh}$, and for $\gamma\ge\gamma_3:=\max(2C_2,4C_2/\sigma)$ ($\sigma$ the edge-oscillation fraction of $Y$) $\norm{\nabla W}\asymp\hG^{1/2}\gamma^{-1}\norm Y$ (proved, \texttt{notes/v6/robust2}). Numerically $C_2\gtrsim180$, so $\gamma_3\gtrsim10^3$ ($\mu\gtrsim4000$): the law is not informative at $\mu=100$, where it indeed fails by a factor $1.1$--$4$ in the slip. The $H^1$ order is unaffected; Theorems~\ref{rb:cert} and~\ref{rb:final}(b) cover every $\gamma$.
 
@@ -200,5 +272,5 @@ $N$ & $\GS$ & slip ratio & energy ratio & $\CNS$ (rate) & $\CNS$ energy (rate) &
 \end{tabular}
 \end{table}
 
-\paragraph{What is not proved.} The leak law for the unscaled penalty as $\nu\to0$; Conjecture~\ref{rb:conj}; the sharpness of orders $k+1$ and $k+3/2$ in the $K$-degenerate case; explicit $\kappa_K$ in Theorem~\ref{rb:final}(c); Theorem~\ref{rb:final}(b)--(d) for $k\ne4$ beyond the caveat above; exactness of $\CNSR$ under quadrature (numerical floor only); Navier--Stokes and Oseen versions.
+\paragraph{What is not proved.} The leak law for the unscaled penalty as $\nu\to0$; (S$_{\rm LP}$) for $\gamma$ between $\gamma_2$ and $\gamma_{\rm LP}$, and explicit $\gamma_{\rm LP},\gamma_m,\gamma_S$; the failure of (S) off LP$^+$ (numerical only); order $k+\frac32$ for general constant-$A$ data and on non-congruent stars; explicit $\kappa_T$ for $k\ge5$ and $\kappa_K$ for any $k$; exactness of $\CNSR$ under quadrature (numerical floor only); Navier--Stokes and Oseen versions.
 \cert{notes/v6/robust/hydro.py, cert.py; notes/v6/robust2--6/*.py}{notes/v6/robust/hydro\_all.jsonl, rates.jsonl; notes/v6/robust3/cert\_sin\_*.jsonl; notes/v6/robust6/cert\_fix\_*.log}

@@ -58,6 +58,12 @@
 \newcommand{\hh}{\mathfrak h}
 \newcommand{\gh}{\hat g}
 \newcommand{\Aop}{\mathfrak A}
+\newcommand{\Ut}{\tilde U}
+\newcommand{\Pt}{\tilde P}
+\newcommand{\Yh}{Y_h}
+\newcommand{\Tr}{\mathcal T^{\rm tr}_h}
+\newcommand{\RM}{\mathcal{RM}}
+\DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\diam}{diam}
 \DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator{\conv}{conv}
@@ -80,7 +86,7 @@ For the method as printed, the answer is no as soon as the wall pressure is not 
 
 The term $\hG^{3/2}$ is sharp. We prove $\norm{\nabla(\ut-u_h)}\ge c\,\hG^{3/2}\norm{|\hh|\,\partial_Nu}_{L^2(\Gamma)}-C\hG^2$, where $\hh$ is the second fundamental form, on Alfeld refinements for every $k\ge3$ and on arbitrary shape-regular meshes for $k\ge9$. For $k\ge4$ the local witnesses come from one exact rank computation on a reference macro-element; for $k=3$ a single macro-element provably does not suffice, and the witnesses live on the star of an interior edge, where the relevant moment has a closed form.
 
-The setting covers general smooth obstacles, nonconvex and with several components. The closest-point projection $\Gh\to\Gamma$, usually assumed in surface finite elements, is a homeomorphism as soon as the tetrahedral mesh is shape regular and does not reach the far side of the obstacle; we show by examples that neither condition can be dropped. The Nitsche penalty must grow like the ratio $\rho$ of bulk to boundary mesh size: exact certificates on single Alfeld macro-elements, and a continuum witness with half-space constant $2327591/151008\approx15.41$, show this under local fineness. The upper bounds and the leak law extend to steady Navier--Stokes flow under a linearised-stability assumption. A first three-dimensional implementation confirms exact incompressibility, the optimal rate on a manufactured box problem and the leak law with constant tending to $1$; at the mesh levels we could run, the sphere tests are still pre-asymptotic for the $\hG^{3/2}$ rate.
+The setting covers general smooth obstacles, nonconvex and with several components. The closest-point projection $\Gh\to\Gamma$, usually assumed in surface finite elements, is a homeomorphism as soon as the tetrahedral mesh is shape regular and does not reach the far side of the obstacle; we show by examples that neither condition can be dropped. The Nitsche penalty must grow like the ratio $\rho$ of bulk to boundary mesh size: exact certificates on single Alfeld macro-elements, and a continuum witness with half-space constant $2327591/151008\approx15.41$, show this under local fineness. For every penalty above the coercivity threshold, the scaled error of the printed method converges in $H^1$ to the Stokes flow driven by the leak, at rate exactly $\hG^{1/2}$ on Alfeld refinements with $k\ge4$, with a lower bound weighted by the second fundamental form; drag and torque errors are identified in the same way. The constants of the lower bounds are explicit. On Worsey--Farin splits the inf-sup condition fails for the full pressure space, as is known. The upper bounds, the leak law, the leak limit and the drag statements extend to steady Navier--Stokes flow under linearised-stability assumptions. A first three-dimensional implementation confirms exact incompressibility, the optimal rate on a manufactured box problem and the leak law with constant tending to $1$; at the mesh levels we could run, the sphere tests are still pre-asymptotic for the $\hG^{3/2}$ rate.
 \end{abstract}
 
 \maketitle
@@ -91,7 +97,9 @@ The setting covers general smooth obstacles, nonconvex and with several componen
 \input{sections/04_stability}
 \input{sections/05_error}
 \input{sections/06_sharpness}
+\input{sections/06b_leak}
 \input{sections/07_penalty}
+\input{sections/07b_constants}
 \input{sections/08_navier_stokes}
 \input{sections/09_numerics}
 \input{sections/10_open}

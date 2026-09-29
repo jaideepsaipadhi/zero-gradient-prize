@@ -44,6 +44,34 @@ The two-dimensional proofs \cite{PadhiLong2D} consist of a fixed-point argument 
 \end{proof}
 
 \begin{remark}\label{ns:rem}
-An explicit threshold $h_0$ in (ii) by a Schatz-type duality argument \cite{Schatz1974} is possible in two dimensions under Stokes $H^2$-regularity \cite{PadhiLong2D}. In three dimensions the same argument needs the corresponding regularity on $\Omega$, which for a box minus an obstacle involves the edges and corners of the box \cite{Dauge1989}; it also needs a divergence-free extension of the $H^2$ dual solution across $\Gamma$, for which the Piola--Hestenes construction of Lemma~\ref{geom:ext} applies with Sobolev coefficients. We have not written this out. %% VERIFY: Dauge1989 H^2 x H^1 on convex polyhedra; statement not checked.
-The identification of the $H^1$ leak constant, uniformly in $\mu$, and the drag and torque statements of \cite{PadhiLong2D} are not treated in three dimensions.
+An explicit threshold $h_0$ in (ii) by a Schatz-type duality argument \cite{Schatz1974} is possible in two dimensions under Stokes $H^2$-regularity \cite{PadhiLong2D}. In three dimensions the same argument needs the corresponding regularity on $\Omega$, which for a box minus an obstacle involves the edges and corners of the box \cite{Dauge1989}; it also needs a divergence-free extension of the $H^2$ dual solution across $\Gamma$, for which the Piola--Hestenes construction of Lemma~\ref{geom:ext} applies with Sobolev coefficients. We have not written this out, and the edges and corners of the box limit the regularity (Remark~\ref{set:rem:corner}). %% VERIFY: Dauge1989 H^2 x H^1 on convex polyhedra; statement not checked.
+The Oseen leak limit and the drag statements are in Section~\ref{ns:sec:oseen}; none of them uses this global regularity.
 \end{remark}
+
+\subsection{The Oseen leak limit and drag}\label{ns:sec:oseen}
+Assume (NS1)--(NS2), (IS3), and that $u$ is a nonsingular solution (Corollary~\ref{ns:cor}(ii)); write (H$_{\rm ns}$) for the last assumption. Let $K(w,v):=c(w;\ut,v)+c(\ut;w,v)$, so $\Aop=\nu N_h+K$. Besides (L) and (L$^\ast$) we use two further discrete stability conditions:
+\begin{enumerate}
+\item[(L$_D$)] there is $\beta_D>0$, independent of $h$, with $\beta_D\norm{\nabla y}\le\sup_{0\ne v\in\Yh}(\nu a_h(y,v)+K(y,v))/\norm{\nabla v}$ for all $y\in\Yh$ (the discrete Oseen--Dirichlet problem);
+\item[(L$^\dagger$)] the condition (L$^\ast$) for the adjoint linearisation $(\delta,v)\mapsto\Aop(v,\delta)$.
+\end{enumerate}
+The compactness argument of Corollary~\ref{ns:cor}(ii) gives (L), (L$^\ast$) and (L$^\dagger$) for $\gamma\ge\gamma_2'$, and (L$_D$), for $h\le h_0$ with $h_0$ independent of $\mu,\gamma,\rho$; the two-dimensional proofs are in \cite{PadhiLong2D}, and the dimension-dependent inputs are those listed in the proof of Corollary~\ref{ns:cor}.
+Let $(U_O,P_O)$ be the Oseen leak flow: $-\nu\Delta U_O+(U_O\cdot\nabla)u+(u\cdot\nabla)U_O+\nabla P_O=0$, $\div U_O=0$ in $\Omega$, $U_O|_\Gamma=-qn$ with $q=(p-\pbar)|_\Gamma$ the Navier--Stokes wall pressure, and $U_O|_\Sigma=0$. It exists by (H$_{\rm ns}$) after lifting the data with Lemma~\ref{er:w}, and it is $C^{2,\alpha}$ on a collar of $\Gamma$ (local bootstrap with the Stokes Schauder estimate; no global regularity is used). $\Ut_O$, $E^0_O$ and $F_O$ are defined as $\Ut$, $E^0_U$ and $F_U$ in Section~\ref{sec:leak}. Let $U_\infty:=\norm\ut_{W^{1,\infty}(\Oh)}$ and $C_F$ the constant in $\norm w_{L^2(\Oh)}\le C_F\norm{\nabla w}$ for $w$ vanishing on $\Sigma$ (uniform in $h$ by Lemma~\ref{geom:korn}).
+
+\begin{theorem}[Oseen and Navier--Stokes versions]\label{ns:oseen}
+For $h\le h_0$ and either convective form:
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Oseen leak limit, all $\gamma\ge\gamma_0$.} With $\Aop(\delta_R,v)=\Rc(v)$ on $\Zh$ and $X:=\frac{\nu\mu}h\delta_R$: $\norm{\nabla(X-\Ut_O)}\le C(\hG^{1/2}+E^0_O)$.
+\item \emph{Lower bound} (Alfeld, $k\ge4$, every $\mu$ for which $\delta_R$ exists). $\norm{\nabla(X-\Ut_O)}\ge c_O\,G_\hh\hG^{1/2}-C\hG^{3/2}$ with $c_O:=\nu\Lambda_0c_L/(\nu\Lambda_0+C_F(1+C_F)U_\infty)$, $G_\hh$ and $c_L$ as in Theorem~\ref{lk:low}.
+\item \emph{$\GS$, uniformly in $\gamma$.} If $X_u:=h/\mu+\hG^{3/2}+\varepsilon_1\le c_\ast$, then $\GS$ has a locally unique solution with $\norm{\nabla(\ut-u_h)}\le CX_u$ and
+\[
+\Bigl\|\nabla\Bigl(\frac{\nu\mu}h(\ut-u_h)-\Ut_O\Bigr)\Bigr\|\le C(\hG^{1/2}+E^0_O)+C\frac\mu h\bigl(\hG^{3/2}+\varepsilon_1+X_u^2\bigr).
+\]
+So the Navier--Stokes $H^1$ constant $K_{NS}=\norm{\nabla U_O}/G$ is attained whenever $\gamma\hG^{1/2}\to0$ and $\frac\mu h\varepsilon_1\to0$.
+\item \emph{$\GS$ drag.} $J^N_h(\psi)=J_\psi-\frac h{\nu\mu}K^\dagger_\psi-\Theta_f(\psi)+O\bigl(\frac h\mu(\hG^{1/2}+E^0_O)+\hG^{3/2}+\varepsilon_1+X_u^2+h^k\hG^{-1/2}\bigr)$, where $K^\dagger_\psi=\int_\Gamma q(R^\dagger_\psi-\bar R^\dagger_\psi)$ and $(Z^\dagger_\psi,R^\dagger_\psi)$ is the adjoint Oseen flow with data $\psi$ on $\Gamma$ and $0$ on $\Sigma$.
+\item \emph{$\CNS$ drag.} Theorem~\ref{dr:cns} holds with $\nu$ and $Z^\dagger_\psi$ in place of $Z_\psi$ (the term $\Lambda^\dagger_h$), under $\gamma\ge\max(1,\gamma_2')$, $\gamma\hG\le1$ and $Y\le c_\ast$; the rate $2$ holds modulo the analogue (E$_Z^\dagger$) of (E$_Z$).
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(i) is Theorem~\ref{lk:up} with $a_h$ replaced by $\nu a_h+K$: the Oseen--Dirichlet field $X^D$ uses (L$_D$), the energy step uses (L), and $|K(w,v)|\le C_K\norm w\norm{\nabla v}+\frac14U_\infty\hG^2\norm w_{\Gh}\norm v_{\Gh}$ (the convective boundary identity; dimension-free apart from $C_F$, via $H^1\subset L^4$ and $\Phi_h$). The lift, projection and cancellation lemmas are Lemmas~\ref{lk:lift}--\ref{lk:canc}. (ii) Lemma~\ref{lk:id} becomes $\nu a_h(W,v)+K(W,v)-\nu\ip W{\dn v}=\nu\ip{\Ut_O}{\dn v}-(F_O,v)$ on $\Yh$, with $|K(W,v)|\le C_F(1+C_F)U_\infty\norm{\nabla W}\norm{\nabla v}$ ($W$ divergence-free and zero on $\Sigma$); then the proof of Theorem~\ref{lk:low}, since Lemma~\ref{lk:defect} holds for $U_O$. (iii) Lemma~\ref{lk:lin} with (L$_D$) in place of Korn's inequality, plus the contraction of Corollary~\ref{ns:cor}(iii). (iv) Lemma~\ref{dr:id} with $\omega_h$ including $c(u_h;u_h,w)$ (dimension-free; $|\ut|\le C\hG^2$ on $\Oh\triangle\Omega$), and the reciprocity of Lemma~\ref{dr:recip} with $((u\cdot\nabla)U,Z)=-((u\cdot\nabla)Z,U)$, again in weak form. (v) The proof of Theorem~\ref{dr:cns} with (L$^\dagger$) for the auxiliary problem; the dual pair is smooth near $\Gamma$ by local regularity, and Lemma~\ref{dr:slip} acquires the terms $K(e_u,w_\phi)$ and $c(e_u;e_u,w_\phi)$, bounded as in two dimensions \cite{PadhiLong2D}.
+\end{proof}
+The quantitative threshold $h_0$ still needs Stokes $H^2$-regularity on $\Omega$ (Remark~\ref{ns:rem}), which is not used anywhere in Theorem~\ref{ns:oseen}.

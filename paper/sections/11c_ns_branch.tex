@@ -55,15 +55,15 @@ For $\delta\in\Zh$, Lemma~\ref{lem:coercive} and \eqref{nb:K2} give the G\aa rdi
 
 Theorem~\ref{nb:L} replaces (SD) in Theorems~\ref{ns:thmGS}, \ref{ns:thmD}, Corollary~\ref{ns:Bp} and Proposition~\ref{pd:prop:ns}, whose proofs use (SD) only through (L) and (L$^\ast$). Local uniqueness improves to an $h$-independent ball: the contraction of step~6 of Theorem~\ref{ns:thmGS} works on $\{\tnorm{\delta-\delta_0}\le R_0\}$, $R_0:=\beta_L/(8NC_1^2)$, as soon as $\norm{\ut-z}_{H^1}+C_1\norm{\nabla\delta_0}\le\beta_L/(8NC_1)$; the same holds for $\CNS$ with $\beta_\ast$.
 
-\paragraph{Explicit thresholds.} The constants of Theorem~\ref{nb:L} are not explicit. A Schatz-type duality argument \cite{Schatz1974} makes them explicit, under the Stokes regularity that the paper already uses for $U$ and $Z_\psi$:
+\paragraph{Explicit thresholds.} The constants of Theorem~\ref{nb:L} are not explicit. A Schatz-type duality argument \cite{Schatz1974} makes them explicit, using the Stokes regularity of Section~\ref{l2:sec:R}, which the paper also uses for $U$ and $Z_\psi$:
 \begin{enumerate}
 \item[(R$_S$)] (a) For $g\in L^2(\Omega)^2$ the Stokes problem $-\Delta\varphi+\nabla\pi=g$, $\div\varphi=0$, $\varphi|_{\partial\Omega}=0$ has $\norm\varphi_{H^2(\Omega)}+\norm{\pi-\bar\pi_\Omega}_{H^1(\Omega)}\le C_R\norm g$. (b) If moreover $g\in H^m$ on a collar of $\Gamma$, then $(\varphi,\pi)\in H^{m+2}\times H^{m+1}$ on a smaller collar.
 \end{enumerate}
-Part (a) concerns only the convex corners of $R$ and the smooth circle $\Gamma$ \cite{Dauge1989}; (b) is local regularity at a smooth boundary \cite{Galdi}. %% VERIFY: locators in Dauge1989 and Galdi (Ch. IV) for (R_S)(a),(b).
+Both parts are proved: (a) is Theorem~\ref{l2:thm:R} and (b) is Proposition~\ref{l2:prop:loc}; we keep the name (R$_S$) for the pair.
 Put $\Lambda_O:=1+(1+C_F)C_FU_\infty/\beta_O$ and $\Theta_R:=\max(1,C_R\Lambda_O)$. Then (Oseen regularity): if $\varphi\in V$ solves $L^{\mathsf T}\varphi+\nabla\pi=g$ or $L\varphi+\nabla\pi=g$ with $g\in L^2$, then $\norm\varphi_{H^2}\le\Theta_R\nu^{-1}\norm g$ and $\norm{\pi-\bar\pi}_{H^1}\le\Theta_R\norm g$ (move the convective terms to the right-hand side and apply (R$_S$)(a)); and by bootstrapping with (R$_S$)(b) the Oseen leak flow $(U_O,P_O)$ and the adjoint fields $(Z^\dagger_\psi,R^\dagger_\psi)$ below are smooth up to $\Gamma$ (Lemma~\ref{n2:reg}).
 
 \begin{lemma}[Oseen regularity]\label{n2:reg}
-Under (H$_{\rm ns}$) and (R$_S$) the bounds just stated hold, and $(U_O,P_O)$ of Section~\ref{nb:oseen} and $(Z^\dagger_\psi,R^\dagger_\psi)$, $\psi\in\RM$, lie in $H^2(\Omega)\times H^1(\Omega)$ and are $C^\infty$ up to $\Gamma$.
+Under (H$_{\rm ns}$) the bounds just stated hold, and $(U_O,P_O)$ of Section~\ref{nb:oseen} and $(Z^\dagger_\psi,R^\dagger_\psi)$, $\psi\in\RM$, lie in $H^2(\Omega)\times H^1(\Omega)$ and are $C^\infty$ up to $\Gamma$.
 \end{lemma}
 
 \begin{proof}
@@ -76,7 +76,7 @@ The discrete dual approximant is that of Lemma~\ref{l2:Y}, applied to the extens
 \]
 
 \begin{lemma}[Duality for the convective perturbation]\label{n2:dual}
-Assume (H$_{\rm ns}$), (R$_S$) and an admissible mesh with $h\le h_\ast$. There is $C_\sharp$, depending only on (M0)--(M2), $k$, $\gamma_0$, $\beta$, $C_F$ and the extension and trace constants (not on $u,\nu,\mu,\gamma,\rho$), such that for $\delta\in\Zh$
+Assume (H$_{\rm ns}$) and an admissible mesh with $h\le h_\ast$. There is $C_\sharp$, depending only on (M0)--(M2), $k$, $\gamma_0$, $\beta$, $C_F$ and the extension and trace constants (not on $u,\nu,\mu,\gamma,\rho$), such that for $\delta\in\Zh$
 \[
 \norm\delta_{L^2(\Oh)}\le C_\sharp\Theta_R\bigl[\nu^{-1}s(\delta)+\omega(h)\tnorm\delta\bigr],\qquad
 \norm\delta_{L^2(\Oh)}\le C_\sharp\Theta_R\bigl[\nu^{-1}s^{\mathsf T}(\delta)+\omega(h)\tnorm\delta\bigr].
@@ -97,8 +97,8 @@ Besides (L) and (L$^\ast$) we use:
 \item[(L$_D$)] there is $\beta_D>0$, independent of $h$, with $\beta_D\norm{\nabla y}\le\sup_{0\ne v\in Y_h}(\nu a_h(y,v)+K(y,v))/\norm{\nabla v}$ for all $y\in Y_h$.
 \end{enumerate}
 
-\begin{theorem}[Explicit thresholds; proved modulo (R$_S$)]\label{n2:L}
-Assume (H$_{\rm ns}$), (R$_S$), either form, an admissible mesh with $h\le h_\ast$, and put $C_\sharp':=(1+C_I^2)^{1/2}C_\sharp$, $\Xi:=1+2C_\sharp'C_K\Theta_R/\nu$, $\vartheta(h):=2C_\sharp'C_K\Theta_R\omega(h)+U_\infty\hG^2h/\mu$. Then:
+\begin{theorem}[Explicit thresholds]\label{n2:L}
+Assume (H$_{\rm ns}$), either form, an admissible mesh with $h\le h_\ast$, and put $C_\sharp':=(1+C_I^2)^{1/2}C_\sharp$, $\Xi:=1+2C_\sharp'C_K\Theta_R/\nu$, $\vartheta(h):=2C_\sharp'C_K\Theta_R\omega(h)+U_\infty\hG^2h/\mu$. Then:
 \begin{enumerate}[label=(\alph*)]
 \item if $\vartheta(h)\le\frac12\nu c_N$, (L) and its transpose hold with $\beta_L=\nu c_N/(2\Xi)$;
 \item if $\gamma\ge\gamma_2'$ and $C_S\vartheta(h)\le\frac12\nu$, (L$^\ast$) and (L$^\dagger$) hold with $\beta_\ast=\beta_\dagger=\nu/(2C_S\Xi)$;
@@ -124,10 +124,10 @@ Let $(U_O,P_O)$ solve the Oseen problem with the Stokes leak data
 -\nu\Delta U_O+(U_O\cdot\nabla)u+(u\cdot\nabla)U_O+\nabla P_O=0,\quad\div U_O=0\ \text{in }\Omega,\\
 U_O=-(p-\pbar)n\ \text{on }\Gamma,\qquad U_O=0\ \text{on }\partial R,
 \end{gather*}
-with the Navier--Stokes pressure $p$. Under (H$_{\rm ns}$) it exists and is unique, and under (R$_S$) it is smooth up to $\Gamma$ (Lemma~\ref{n2:reg}). Extend it as in Definition~\ref{hc:def}; the defect $F_O$ is bounded and supported in $\overline{S_h}$, and Lemma~\ref{hc:approx} gives $z_O\in\Zh$ with $\tnorm{\tilde U_O-z_O}\le E_O$.
+with the Navier--Stokes pressure $p$. Under (H$_{\rm ns}$) it exists and is unique, and it is smooth up to $\Gamma$ (Lemma~\ref{n2:reg}). Extend it as in Definition~\ref{hc:def}; the defect $F_O$ is bounded and supported in $\overline{S_h}$, and Lemma~\ref{hc:approx} gives $z_O\in\Zh$ with $\tnorm{\tilde U_O-z_O}\le E_O$.
 
-\begin{theorem}[Oseen analogue of Theorem~\ref{hc:thm}; proved modulo (R$_S$)]\label{nb:hc}
-Assume (NS1)--(NS2), (H$_{\rm ns}$), (R$_S$), $\gamma\ge\gamma_0$, $h\le h_0$, and either form. Let $\delta_R\in\Zh$ solve $\Aop(\delta_R,v)=\Rc(v)$ on $\Zh$. Then
+\begin{theorem}[Oseen analogue of Theorem~\ref{hc:thm}]\label{nb:hc}
+Assume (NS1)--(NS2), (H$_{\rm ns}$), $\gamma\ge\gamma_0$, $h\le h_0$, and either form. Let $\delta_R\in\Zh$ solve $\Aop(\delta_R,v)=\Rc(v)$ on $\Zh$. Then
 \[
 \Bigl\|\nabla\Bigl(\frac{\nu\mu}h\delta_R-\tilde U_O\Bigr)\Bigr\|_{\Oh}\le C_O\Bigl[\nu\min\bigl(\gamma\hG^{1/2},(\gamma\hG)^{1/2}\bigr)+(1+\nu)\bigl(\hG^{1/2}+(h/\mu)^{1/2}\bigr)+E_O\Bigr].
 \]
@@ -141,8 +141,8 @@ Let $\epsilon:=\delta_R-\frac h{\nu\mu}z_O$. Green's formula with the Oseen equa
 Since $\tilde U_O|_\Gamma=\tilde U|_\Gamma$, steps~3--4 of Theorem~\ref{hc:thm} bound each term. Apply (L) and multiply by $\nu\mu/h$.
 \end{proof}
 
-\begin{corollary}[The Navier--Stokes $H^1$ constant; proved modulo (R$_S$)]\label{nb:KNS}
-Under the hypotheses of Corollary~\ref{hc:cor}(ii), (H$_{\rm ns}$), (R$_S$) and $G>0$, the $\GS$ solution satisfies
+\begin{corollary}[The Navier--Stokes $H^1$ constant]\label{nb:KNS}
+Under the hypotheses of Corollary~\ref{hc:cor}(ii), (H$_{\rm ns}$) and $G>0$, the $\GS$ solution satisfies
 \[
 \frac{\norm{\nabla(\ut-u_h)}}{(h/\nu\mu)G}\to K_{NS}:=\frac{\norm{\nabla U_O}_{L^2(\Omega)}}G,\qquad K_{NS}^2=K_S^2+\frac{\norm{\nabla(U_O-U_S)}^2}{G^2}\ge K_S^2,
 \]
@@ -153,7 +153,7 @@ where $U_S$ is the Stokes leak flow (Definition~\ref{hc:def}) with the same wall
 $\ut-u_h=(\ut-z)+\delta_R+\delta_G+(\delta-\delta_0)$ with the bounds of Theorem~\ref{ns:thmGS}; $(\mu/h)X^2\to0$ under the hypotheses. For the identity, $W=U_O-U_S\in V$ and $(\nabla U_S,\nabla W)=0$ (weak Stokes equation), cf.\ \eqref{hc:min}.
 \end{proof}
 
-\begin{corollary}[$\GS$ drag for Navier--Stokes; proved modulo (R$_S$)]\label{nb:gsdrag}
+\begin{corollary}[$\GS$ drag for Navier--Stokes]\label{nb:gsdrag}
 For $\psi\in\RM$ let $(Z^\dagger_\psi,R^\dagger_\psi)$ solve the adjoint Oseen problem
 \begin{equation}\label{nb:adj}
 -\nu\Delta Z-(u\cdot\nabla)Z+(\nabla u)^{\mathsf T}Z+\nabla R=0,\quad\div Z=0\ \text{in }\Omega,\qquad Z|_\Gamma=\psi,\quad Z|_{\partial R}=0 .
@@ -174,7 +174,7 @@ In Proposition~\ref{pd:prop:ns}(c) write $e=\frac h{\nu\mu}\tilde U_O+\vartheta$
 \paragraph{Which adjoint.} The algebraic transpose of the linearised $\CNS$ system carries the $\GS$ pressure form in its momentum row, and its constraint row makes $\div\zeta$ a first-layer field (Lemma~\ref{pd:lem:rep}), so $\zeta\notin\Zh$; relative to a smooth adjoint its consistency defect is the $\GS$ functional with the dual pressure, of size $(h/\mu)^{1/2}$. This is the adjoint inconsistency of Remark~\ref{l2:rem:adj}. We never form that transpose. The drag representation needs only a field $\zeta_h\in\Zh$ that is exactly divergence-free and consistent with the smooth adjoint; the $\CNS$ discretisation of the continuous adjoint problem, i.e.\ problem (L$^\dagger$), provides it. For Stokes ($K=0$), (L$^\dagger$) is the primal $\CNS$ system, because $N_h$ is symmetric, and it is exactly the auxiliary problem \eqref{pd:eq:aux}.
 
 \begin{theorem}[(L$^\dagger$) from nonsingularity]\label{n2:Ldag}
-Assume (H$_{\rm ns}$) and $\gamma\ge\gamma_2'$. There are $h_0,\beta_\dagger>0$, independent of $\mu,\gamma,\rho$, such that (L$^\dagger$) holds for $h\le h_0$. Under (R$_S$), $h_0$ and $\beta_\dagger$ are as in Theorem~\ref{n2:L}(b).
+Assume (H$_{\rm ns}$) and $\gamma\ge\gamma_2'$. There are $h_0,\beta_\dagger>0$, independent of $\mu,\gamma,\rho$, such that (L$^\dagger$) holds for $h\le h_0$. Quantitatively, $h_0$ and $\beta_\dagger$ are as in Theorem~\ref{n2:L}(b).
 \end{theorem}
 
 \begin{proof}
@@ -189,15 +189,15 @@ m_\psi(w):=\nu a_h(w,v_\psi)+K(w,v_\psi),\\
 $E_Z:=\inf_{z\in\Zh}\tnorm{\tilde\zeta-z}\le Ch$, and $Y_Z:=(1+\gamma^{1/2})\hG^{3/2}+E_Z+h^k$. The expansion of $\Lambda^\dagger_h$ is step~4 of Theorem~\ref{pd:thm:cnsdrag}.
 
 \begin{lemma}[The discrete dual]\label{n2:aux}
-Assume (H$_{\rm ns}$), (R$_S$), $\gamma\ge\gamma_2'$ and $h\le h_0$. The problem $(\zeta_h,\pi_h)\in\Zh\times\Pih$: $\Aop(w,\zeta_h)+B^\ast(\pi_h,w)=m_\psi(w)$ for all $w\in\VR$, has a unique solution, with $\tnorm{\tilde\zeta-\zeta_h}\le CY_Z$, $\beta\norm{(\Pi^\ast-\pi_h)-c_\Pi}\le CY_Z$ for $\Pi^\ast:=\tilde\Pi_c-\pbG(\tilde\Pi_c)$ and a constant $c_\Pi$, and $\tnorm{\zeta_h}+\norm{\nabla\zeta_h}\le C$.
+Assume (H$_{\rm ns}$), $\gamma\ge\gamma_2'$ and $h\le h_0$. The problem $(\zeta_h,\pi_h)\in\Zh\times\Pih$: $\Aop(w,\zeta_h)+B^\ast(\pi_h,w)=m_\psi(w)$ for all $w\in\VR$, has a unique solution, with $\tnorm{\tilde\zeta-\zeta_h}\le CY_Z$, $\beta\norm{(\Pi^\ast-\pi_h)-c_\Pi}\le CY_Z$ for $\Pi^\ast:=\tilde\Pi_c-\pbG(\tilde\Pi_c)$ and a constant $c_\Pi$, and $\tnorm{\zeta_h}+\norm{\nabla\zeta_h}\le C$.
 \end{lemma}
 
 \begin{proof}
 Green's formula as in Lemma~\ref{lem:erroreq} ($N_h$ symmetric), the adjoint equation, and $B^\ast(\Pi^\ast,w)=(\nabla\tilde\Pi_c,w)$ give $\Aop(w,\tilde\zeta)+B^\ast(\Pi^\ast,w)=m_\psi(w)+\Gc^\dagger(w)$, where $\Gc^\dagger$ collects the strip defect, the boundary terms $\nu\ip{(\nabla\tilde\zeta)^{\mathsf T}n}w-\nu\ip{\tilde\zeta}{\dn w}+\nu\frac\mu h\ip{\tilde\zeta}w$, $\ip{(\ut\cdot n)w}{\tilde\zeta-\psi}$, $-[\nu a_h+K](w,v_\psi-V_\psi)$ and an $O(\hG^2)\norm w_{\Gh}$ term; for $c_s$ the difference $K_s-K_1$ is absorbed by the shift from $\Pi_1$ to $\Pi_s$. Since $\zeta|_\Gamma=0$ and $\div\zeta=0$, Lemma~\ref{lem:wall} gives $|(\nabla\tilde\zeta)^{\mathsf T}n_e|\le C\hG$ and $|\tilde\zeta|\le C\hG^2$ on $\Gh$, and as in Lemma~\ref{pd:lem:G}, $|\Gc^\dagger(w)|\le C[(1+\gamma^{1/2})\hG^{3/2}+h^k]\tnorm w$. Then (L$^\dagger$) and Lemma~\ref{lem:infsup} give the bounds, as in step~3 of Theorem~\ref{thm:D}.
 \end{proof}
 
-\begin{theorem}[$\CNS$ drag, lift and torque for Navier--Stokes; proved modulo (R$_S$)]\label{n2:cnsdrag}
-Assume (NS1)--(NS2), (H$_{\rm ns}$), (R$_S$), either form, $\gamma\ge\max(1,\gamma_2,\gamma_2')$, $\gamma\hG\le1$, $h\le h_0$ and $Y\le c_\ast$ (Theorem~\ref{ns:thmD}), and let $\psi\in\RM$. Then
+\begin{theorem}[$\CNS$ drag, lift and torque for Navier--Stokes]\label{n2:cnsdrag}
+Assume (NS1)--(NS2), (H$_{\rm ns}$), either form, $\gamma\ge\max(1,\gamma_2,\gamma_2')$, $\gamma\hG\le1$, $h\le h_0$ and $Y\le c_\ast$ (Theorem~\ref{ns:thmD}), and let $\psi\in\RM$. Then
 \begin{enumerate}[label=(\alph*)]
 \item $|J^N_h(\psi)-J_\psi+\Theta_f(\psi)|\le CY$;
 \item $|J^N_h(\psi)-J_\psi+\Theta_f(\psi)+\Lambda^\dagger_h(\psi)|\le C\bigl[\gamma^{-1/2}\hG^2+\gamma\hG^3+\gamma^{1/2}\hG^{3/2}E_Z+\eps\bigr]$.
@@ -217,8 +217,8 @@ with $T_1:=m_\psi(\ut-z)-\Aop(\ut-z,\zeta_h)$, $T_4:=\ip{e_p-\pbG(e_p)}{\zeta_h\
 
 The Stokes results of Section~\ref{u:sec} carry over. Let $g:=-(\pt-\pbar)n_e$ on each $e\in\EG$ with the Navier--Stokes pressure, $t^\ast:=\PT g$, and let $\delta_R$ be as in Theorem~\ref{nb:hc}; put $X:=\frac{\nu\mu}h\delta_R$ and $E^0_O:=h\norm{U_O}_{H^2}+h^k+\hG^{\sigma_k-1/2}$. By Lemma~\ref{u:proj}, $\Aop(X,v)=\nu\frac\mu h\ip{t^\ast}v$ for $v\in\Zh$. Constants depend on $\nu$, $U_\infty$, $\beta_L$, $\beta_D$, the mesh constants and norms of $p$ and $U_O$ near $\Gamma$, never on $h,\hG,\mu,\gamma,\rho$.
 
-\begin{theorem}[Uniform two-sided bound; proved modulo (R$_S$)]\label{n2:up}
-Assume (H$_{\rm ns}$), (R$_S$), $h\le h_0$. Then for every $\gamma\ge\gamma_0$
+\begin{theorem}[Uniform two-sided bound]\label{n2:up}
+Assume (H$_{\rm ns}$), $h\le h_0$. Then for every $\gamma\ge\gamma_0$
 \[
 \norm{\nabla(X-\tilde U_O)}_{\Oh}\le C\bigl(\hG^{1/2}+E^0_O\bigr),\qquad\text{so }\norm{\nabla\delta_R}\le C\,h/\mu .
 \]
@@ -231,23 +231,27 @@ $c_O:=\nu\kappa_1c_0^{1/2}/\bigl(\sqrt2[\nu(2+C_{PT}C_I)+C_F(1+C_F)U_\infty]\big
 \emph{Lower.} For $v\in Y_h$, $\nu a_h(W,v)+K(W,v)-\nu\ip W{\dn v}=\nu\ip{\tilde U_O}{\dn v}-(F_O,v)$ with $W:=X-\tilde U_O$; $|K(W,v)|\le C_F(1+C_F)U_\infty\norm{\nabla W}\norm{\nabla v}$ and, on $Y_h^1$, $|\ip W{\dn v}|\le C_{PT}C_I\norm{\nabla W}\norm{\nabla v}$ (Lemma~\ref{lb:poinc}). Since $\tilde U_O|_\Gamma=\tilde U|_\Gamma$, the test field of the proof of Theorem~\ref{u:low} applies verbatim.
 \end{proof}
 
-\begin{theorem}[$\GS$ for Navier--Stokes, uniformly in the penalty; proved modulo (R$_S$)]\label{n2:unif:thm}
-Assume (NS1)--(NS2), (H$_{\rm ns}$), (R$_S$), $h\le h_0$, either form, and put $\varepsilon_1:=h^k+h^{\sigma_k}\hG^{-1/2}$, $X_u:=h/\mu+\hG^{3/2}+\varepsilon_1$. There are $c_\ast,C$ independent of $\gamma\ge\gamma_0$ (and of $\mu,\rho$) such that if $X_u\le c_\ast$, $\GS$ has a locally unique solution with
+\begin{theorem}[$\GS$ for Navier--Stokes, uniformly in the penalty]\label{n2:unif:thm}
+Assume (NS1)--(NS2), (H$_{\rm ns}$), $h\le h_0$, either form, and put $\varepsilon_1:=h^k+h^{\sigma_k}\hG^{-1/2}$, $X_u:=h/\mu+\hG^{3/2}+\varepsilon_1$. There are $c_\ast,C$ independent of $\gamma\ge\gamma_0$ (and of $\mu,\rho$) such that if $X_u\le c_\ast$, $\GS$ has a locally unique solution with
 \[
 \norm{\nabla(\ut-u_h)}\le C\,X_u,\qquad
 \Bigl\|\nabla\Bigl(\frac{\nu\mu}h(\ut-u_h)-\tilde U_O\Bigr)\Bigr\|\le C\bigl(\hG^{1/2}+E^0_O\bigr)+C\frac\mu h\bigl(\hG^{3/2}+\varepsilon_1+X_u^2\bigr).
 \]
-The linearised geometric part is bounded uniformly in $\gamma$ by $C(\hG^{3/2}+\varepsilon_1)$ \emph{modulo} (L$_D$) in its quantitative form, i.e.\ under (R$_S$) via Theorem~\ref{n2:L}(c) (the compactness proof of (L$_D$) is not written out).
+The linearised geometric part is bounded uniformly in $\gamma$ by $C(\hG^{3/2}+\varepsilon_1)$ using (L$_D$) in its quantitative form, Theorem~\ref{n2:L}(c) (the compactness proof of (L$_D$) is not written out).
 \end{theorem}
 
 \begin{proof}
 The linearised geometric part $\delta_G$ ($\Aop(\delta_G,v)=\Gc_\nu(v)+\kappa_c(v)-\Aop(\ut-z,v)$ on $\Zh$) is bounded by the proof of Theorem~\ref{rs:unif}, steps~2--5, with $a_h$ replaced by $\nu a_h+K$ and Korn by (L$_D$). Step~6 of Theorem~\ref{ns:thmGS} uses $\delta_0=\delta_R+\delta_G$ only through $A=\norm{\ut-z}_{H^1}+C_1\norm{\nabla\delta_0}$, which is now $\le CX_u$ by Theorem~\ref{n2:up}; the contraction gives $\tnorm{\delta-\delta_0}\le CX_u^2$.
 \end{proof}
 
-\begin{corollary}[The Navier--Stokes $H^1$ constant without $\gamma\hG\to0$; proved modulo (R$_S$)]\label{n2:gen}
+\begin{corollary}[The Navier--Stokes $H^1$ constant without $\gamma\hG\to0$]\label{n2:gen}
 Let $G>0$. (a) If $h/\mu\to0$, $E^0_O\to0$ and $\frac\mu h(\hG^{3/2}+\varepsilon_1)\to0$ (i.e.\ $\gamma\hG^{1/2}\to0$ for the geometric part), then $\norm{\nabla(\ut-u_h)}/((h/\nu\mu)G)\to K_{NS}$. (b) Under the hypotheses of Theorem~\ref{n2:unif:thm}, $\norm{\nabla(\frac{\nu\mu}h(\ut-u_h)-\tilde U_O)}\ge c_OG\hG^{1/2}-C(1+\gamma)\hG^{3/2}-C\frac\mu hX_u^2$.
 \end{corollary}
 
 So the two-sided $\hG^{1/2}$ law for the Oseen leak limit is uniform in $\gamma$ for the linearised $\delta_R$; for the nonlinear $\GS$ solution the lower bound (b) still needs $\gamma\hG^{1/2}\to0$ to be informative.
 
-\paragraph{What remains for Navier--Stokes.} (R$_S$) is assumed, as for $U$ and $Z_\psi$ in the Stokes case; the compactness results (Theorems~\ref{nb:L}, \ref{n2:Ldag}) do not need it. The constants $C_\sharp$, $C_R$, $\beta_O$ of Theorem~\ref{n2:L} have not been evaluated for any test case. Sharpness of the $\CNS$ drag rate $2$ at fixed $\gamma$, a lower bound on the pairing capture fraction and the existence of $\lim d_h/\hG^{1/2}$ are open, as for Stokes. The three-dimensional versions are in \cite{PadhiThreeD}.
+\paragraph{Leak constant for every penalty.} Under the hypotheses of Theorem~\ref{n2:up}, $K_{NS,h}:=\norm{\nabla X}/G$ with $X=(\nu\mu/h)\delta_R$ satisfies $|K_{NS,h}-K_{NS}|\le C(\hG^{1/2}+E^0_O)/G$ for every $\gamma\ge\gamma_0$ (triangle inequality). The rate-one argument of Corollary~\ref{u:K} uses the symmetry of $a_h$ and does not transfer to the Oseen form verbatim.
+
+\paragraph{The constants for the Navier--Stokes test} (NUMERICAL, \texttt{notes/v7/nsconst}). For test~B of \texttt{code/job\_v4.py ns} ($u=\curl((r^2-1)^2(x+y^2/2)/10)$ on $(-2.5,2.5)^2\setminus\overline{B_1}$, $\nu\in\{1,0.1\}$), computed on the exact domain with an isoparametric Taylor--Hood discretisation and convergence tables: $U_\infty=175.6$ (the maximum of $|\nabla u|$, attained at the corners of the box, far from $\Gamma$; near $\Gamma$ it is below $1$), $C_F=0.5642$, $\beta_O=0.8225$ ($\nu=1$) and $0.0533$ ($\nu=0.1$), and $C_R\approx3.5$ from the converged lower-bound sequence $C_R^{\rm quad}\ge2.477$ and $C_R\le\sqrt2\,C_R^{\rm quad}$; the contribution of the box corners (a quarter-plane problem) to $C_R$ was not computed. These are discretisation-plus-extrapolation values, not enclosures. With them \eqref{n2:h0} requires $(1+\mathrm{Re})h+(\hG/\gamma_0)^{1/2}\le7.6\cdot10^{-6}c_\natural$ ($\nu=1$) and $\le4.9\cdot10^{-8}c_\natural$ ($\nu=0.1$), with $c_\natural$ (through $C_\sharp$) not computed. The production meshes for this test have $h\ge0.4$ ($N\le64$), so the explicit $h_0$ is hopelessly small: Theorem~\ref{n2:L} is qualitative here. The discrete stability constant itself is harmless: $\beta_L/\nu=0.021,0.016,0.014$ on $N=16,32,48$ ($\nu=1$; and $N=16,32$ for $\nu=0.1$), equal to the Stokes value to $0.1$--$1\%$; its decrease with $N$ tracks the margin of $\mu=100$ above the coercivity threshold. It was not computed on $N=24,64$.
+
+\paragraph{What remains for Navier--Stokes.} The constant $C_\sharp$ of Theorem~\ref{n2:L}, the box-corner part of $C_R$ and rigorous enclosures of $\beta_O$; sharpness of the $\CNS$ drag rate $2$ at fixed $\gamma$, a lower bound on the pairing capture fraction and the existence of $\lim d_h/\hG^{1/2}$, as for Stokes. The three-dimensional versions are in \cite{PadhiThreeD}.

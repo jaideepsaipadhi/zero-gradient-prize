@@ -7,7 +7,7 @@ Sections~\ref{sec:setting}--\ref{sec:penalty} treat the exterior of the unit dis
 \item a chart-based star-shaped cover that gives a uniform Bogovski\u{\i} constant;
 \item with several curved components, the correct pressure constant is the \emph{global} boundary mean. This forces a new test field (a divergence-free field without a global stream function) and a new discrete-curl interpolant.
 \end{itemize}
-The pressure-consistent method needs only one global correction, and its discrete velocity does not depend on how that constant is normalised; a per-component correction is inconsistent. The geometric lemmas use only $\Gamma\in C^3$. All results also assume the regularity (R1) of the exact solution ($u\in C^{k+1}(\overline\Omega)$, $p\in C^k(\overline\Omega)$), which for generic $f$ requires $\Gamma\in C^{k+1,\alpha}$. The results that use the leak test field (the lower bound of Theorem~\ref{thm:A}, Theorems~\ref{thm:C} and~\ref{thm:B}, Corollary~\ref{cor:Bp}) are proved under the stronger assumption $\Gamma\in C^{k+3}$, $p|_\Gamma\in C^{k+1}$ (assumption (R2) below). The scope is Sections~\ref{sec:geometry}--\ref{sec:penalty} up to and including Theorem~\ref{thm:D} and Proposition~\ref{prop:penalty}; see Section~\ref{gd:sec:scope}. No computations have been run for general domains.
+The pressure-consistent method needs only one global correction, and its discrete velocity does not depend on how that constant is normalised; a per-component correction is inconsistent. The geometric lemmas use only $\Gamma\in C^3$. All results also assume the regularity (R1) of the exact solution ($u\in C^{k+1}(\overline\Omega)$, $p\in C^k(\overline\Omega)$), which for generic $f$ requires $\Gamma\in C^{k+1,\alpha}$ and, at the vertices of $\Sigma$, vanishing corner coefficients (Remark~\ref{rem:corners}). The results that use the leak test field (the lower bound of Theorem~\ref{thm:A}, Theorems~\ref{thm:C} and~\ref{thm:B}, Corollary~\ref{cor:Bp}) are proved under the stronger assumption $\Gamma\in C^{k+3}$, $p|_\Gamma\in C^{k+1}$ (assumption (R2) below). The scope is Sections~\ref{sec:geometry}--\ref{sec:penalty} up to and including Theorem~\ref{thm:D} and Proposition~\ref{prop:penalty}; see Section~\ref{gd:sec:scope}. No computations have been run for general domains.
 
 \subsection{Setting and assumptions}\label{gd:sec:setting}
 
@@ -76,6 +76,20 @@ the mean over \emph{all} of $\Gh$ (see Section~\ref{gd:sec:D} for why this is th
 \end{enumerate}
 \end{assumption}
 Since $u|_\Gamma=0$ and $\div u=0$, necessarily $\int_\Sigma g\cdot\nu=0$ ($\nu$ the outward normal of $\Omega$).
+
+(R1) is a hypothesis on the solution. The $H^2\times H^1$ regularity of the Stokes problem with $L^2$ data, which the duality arguments of Section~\ref{l2:sec} need, is a property of the domain, and it holds exactly for convex outer polygons.
+
+\begin{theorem}[Stokes regularity on general domains]\label{gd:thm:R}
+Let $\Omega$ satisfy Assumption~\ref{gd:ass:domain} (for this statement $\Gamma_i\in C^2$ suffices). The estimate of Theorem~\ref{l2:thm:R} holds on $\Omega$ if and only if every vertex of $\Sigma$ has interior angle $<\pi$ measured in $\Omega$, that is, if and only if $\Sigma$ is a single convex polygon forming the outer boundary of $\Omega$ (so $D=\bigcup_iD_i$ is any finite union of disjoint smooth obstacles in a convex polygonal box). Proposition~\ref{l2:prop:loc} holds on a collar of each $\Gamma_i$ for $g\in H^m$ there, provided $\Gamma_i\in C^{m+2}$.
+\end{theorem}
+
+\begin{proof}
+\emph{Sufficiency.} A field $\varphi\in H^1_0(\Omega)$ has zero flux through every component of $\partial\Omega$, so its stream function $\zeta$ is single valued; normalise $\int_\Omega\zeta=0$. Take a smooth partition of unity $\sum_\ell\chi_\ell=1$ on $\overline\Omega$ subordinate to annular regions $A_i$ between $\Gamma_i$ and a smooth curve in the tube $\{r/4<d<r/2\}$ of Fact~\ref{gd:fact:tube}, and to the convex polygon $P$ bounded by $\Sigma$ (with $\chi_\ell=0$ on $\bigcup_i\{d<r/4\}$ for the latter). Then $\varphi=\sum_\ell\curl(\chi_\ell\zeta)$, and each piece is treated as in the proof of Theorem~\ref{l2:thm:R}: \ref{l2:K1} on $P$, \ref{l2:K2} on $A_i$. The boundary values of $\zeta$ never enter, because $\curl\chi_\ell=0$ near $\partial\Omega$. A polygonal hole has at least three vertices that are re-entrant for $\Omega$, and an outer polygon has no re-entrant vertex iff it is convex, so the two descriptions agree.
+
+\emph{Necessity.} At a vertex of angle $\omega\in(\pi,2\pi)$ the smallest Stokes exponent satisfies $\lambda(\omega)\in(\frac12,1)$ \cite{Dauge1989} (numerically $\lambda(3\pi/2)=0.544484$). With the corresponding homogeneous solution $(S,Q)=(r^\lambda\Phi(\theta),r^{\lambda-1}\Psi(\theta))$, a cut-off $\chi$ at the vertex and a smooth compactly supported $b$ with $\div b=\div(\chi S)$ (whose mean is zero, since $\nabla\chi\cdot S$ has zero flux), $\varphi:=\chi S-b$ is the weak solution for a right-hand side in $L^2$, and $\varphi\notin H^2$ because $|\nabla^2S|\sim r^{\lambda-2}$.
+\end{proof}
+
+So the $L^2$ duality arguments of Section~\ref{l2:sec} can be transferred to smooth obstacles in a convex polygonal box (with the tube-coordinate version of Lemma~\ref{l2:ext}, which we have not re-checked), but not to domains with a polygonal hole, where the dual is only in $H^{1+s}$, $s<\lambda_{\min}$, near the re-entrant vertices.
 
 \begin{definition}[Pressure constant]\label{gd:def:G}
 $\pbar:=|\Gamma|^{-1}\int_\Gamma p\,ds$ (the mean over all curved components), $q:=p-\pbar$ on $\Gamma$, and

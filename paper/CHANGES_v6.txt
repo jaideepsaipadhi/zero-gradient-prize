@@ -155,3 +155,83 @@ as in v5. Nothing was committed; letter/ and paper3d/ were not touched.
 - Remaining %% VERIFY (UNVERIFIABLE or unchecked): HCT/Ciarlet 6.1 (old), FreundStenberg1995/Becker2002 content,
   GjerdeScott2022 slip form, Galdi II.1.3 and III.3.3, BCDG2016 theorem number, (R_S) locators (Dauge1989, Galdi
   Ch. IV), ACSE numbering in 07b, and the four from-memory bib entries listed above.
+
+=====================================================================
+v7 (Sept 29 2026): merge of notes/v7 (PAPER B items of notes/v7/MERGE_MANIFEST.txt), with the referee fixes of
+notes/v7/referee_{reg,penalty,robust,P_needle,td_ns}. Build: 156 pages (was 138), zero undefined refs/cites.
+=====================================================================
+1. Regularity (reg/, referee_reg)
+- 07c_l2: hypothesis (R) replaced by Theorem l2:thm:R (PROVED: stream-function partition, Kellogg-Osborn Thm 2 on the
+  convex box, smooth-domain regularity on an annulus; "C^2 suffices", not C^{1,1}) and Proposition l2:prop:loc
+  ((R_S)(b), PROVED). Theorems l2:thm:L1, L2 drop "modulo (R)".
+- 07c_l2 graded meshes: Assumption l2:ass:G and Lemma l2:lem:G1 removed; new Lemma l2:lem:LF ((LF), from Guzman-Scott
+  Lemma 6/Prop 2), Lemma l2:lem:Pz (local div-free interpolant), Theorem l2:thm:IE ((IE), pressure-free, DGS weighting;
+  uniform Friedrichs constant argued), Lemma l2:lem:shift (W^{k+1,inf} near dR stated; strip term bounded explicitly),
+  Theorem l2:thm:G PROVED (needs u~ in H^{k+1}; corner caveat stated).
+- 02_setting: Remark rem:corners (right-angle Stokes exponent 2.739593 +- 1.119025i; u in H^s only for s<3.7396 for
+  generic data; smoothness/(D) is an assumption on the solution; affects h^k (H^1) and h^{k+1} (L^2, incl. Thm G); dual
+  problems unaffected).
+- 10_general_domains: Theorem gd:thm:R ((R) iff every vertex of Sigma is convex from Omega, i.e. Sigma a convex outer
+  polygon; necessity via the re-entrant exponent); corner-coefficient caveat added to the (R1) sentence.
+- 11c_ns_branch: (R_S) now points to Thm l2:thm:R / Prop l2:prop:loc; every "proved modulo (R_S)" label and the
+  Dauge/Galdi VERIFY comment removed. 07b: pd:lem:A3 and the NS paragraph drop "modulo (R)/(R_S)".
+2. Penalty (penalty/, referee_penalty) -- 08_penalty new subsubsection pb:sec:M0
+- Lemma pb:lem:growth; Theorem pb:thmM0 (necessity mu* >= c_*(theta,c0) rho on every (M0) mesh; PROVED; constants
+  ~1e-39 stated as absurd). Referee wording: Argyris wall error O((h_G/X)^4) relative (not "exact"); limit regime "fix
+  r=X/h_G, then h_G small with r^2 h_G small"; chi-band O(Psi^2/X^3); h_* independent of c0. CT version modulo HCT.
+- Proposition pb:cols (stacked columns, exact, mu* >= 0.85 h/(H h_G)); the Gauss cross-check replaced by the
+  referee's FE check; transfer to the polar mesh labelled heuristic.
+- Global polar column mesh: NUMERICAL (gamma* = 3.056/3.129 for H=5, L-invariant; noted the L-invariance is nearly
+  automatic; star failure certified only for H=5,8); gamma* H ~ 15-16 (numerical).
+- "A uniform necessity statement ... remains open" and "we have not written it out" replaced; "Neither is done
+  (open)" replaced.
+- Proposition pb:gamlim (limit of the threshold: liminf PROVED, limsup modulo (LOC), equality modulo (CUT);
+  gamma*_inf = 21.408 full depth, 21.4045 two layers = extrapolated global 21.40452; ~ -22/N) from nsconst/.
+3. Pressure robustness (robust/, referee_robust) -- 11b_robust
+- Invisible directions: proved for every k (beta_k>0 via beta_k=(-1)^k J_k(0)/(k+1) and the zeros of J_k in (0,1)).
+- Theorem rb:final: (b)-(d) for every k>=4 (structural proofs listed; kappa_T explicit only for k=4).
+- Conjecture rb:conj removed; new Lemma rb:lem:mh (effective penalty), Theorem rb:Seq (two-sided up to the factor
+  1 +- C beta^{-1} gamma^{-1/2}, not "~"), Theorem rb:SLP with the corrected recursion a_{j+1}=phi(a_j-abar_j)/gamma'
+  (resolves the conjecture only for gamma >= gamma_LP, not explicit), Corollary rb:Rc, Theorem rb:sharp (orders k+1
+  and k+3/2; upper bound for k+3/2 needs gamma>=gamma_2).
+- Remark rb:rem:mu100 (mu100/): CNS* stable at mu=100 on all production meshes, margin 27%(N=16)->13%(N=64)->~7%
+  limit (mu_c^CNS->~93, gamma_c~26.5); critical mode ~99% normal edge-mean vs tangential GS mode. Also in the 11b header,
+  13_numerics production-penalty paragraph and the introduction.
+4. Cell problem for (P) (P/, referee_P_needle) -- 07b new subsubsection pd:sec:cell
+- Definition pd:def:cell, Proposition pd:prop:cell (well-posedness, closed-form traction cell + resonance, flux identity,
+  mirror antisymmetry; PROVED); hypotheses (D_c) [= (D) of notes/v7/P, renamed to avoid clash with the data hypothesis
+  (D)] and (TL); Theorem pd:thm:ts (modulo (D_c),(TL)) with the referee's Step-2 fix (constant of R_p bounded via the
+  edge-bubble row); Corollary pd:cor:P ((P) iff F non-constant; FAILS on mirror-symmetric columns); Corollary pd:cor:ac
+  (lower bounds without (P); hypothesis restated as Theta_x not a.e. a constant multiple of n); Corollary pd:cor:drag
+  (analyticity needs (D_c) on a complex neighbourhood); note that all constants are tied to the (grad u)n flux;
+  Table pd:tab:cell; production comparison. (P) paragraph, Remark pd:rem:obstr, pd:rem:B2, summary table and "What is
+  not proved" updated.
+5. Needles (needle/, referee_P_needle) -- 08b new subsection st:sec:pairs
+- Proposition st:slit (beta <= C(eps+bend), PROVED; (L_N) false for straight pairs), hypothesis (H_K) (scope stated as
+  narrow), Theorem st:Sp (slit-domain right inverse, cites Acosta-Duran-Muschietti), Lemma st:A (A1/A2, sketch),
+  Theorem st:N3u (N3(ii) for the STRONGLY imposed method, PROVED under (H_K), both shapes); note that it does not carry
+  over to Nitsche. Theorem st:N3(ii) now points to st:N3u. Bend is \vartheta (gamma is the penalty). Kean-Neilan-Schneier
+  cited neutrally (08b, intro).
+6. NS constants / leak constant (nsconst/, referee_td_ns)
+- 07d: Corollary u:Kall (leak constant for every penalty, PROVED from u:up + u:K; divergence of the general-data
+  constant when gamma h_G^{1/2} -> inf); the "we expect ... cannot be dropped" sentence replaced. 13_numerics line ~81
+  fixed.
+- 11c: leak-constant paragraph for NS; NS constants NUMERICAL (U_inf=175.6 at the box corners, C_F, beta_O, C_R ~ 3.5 with
+  the box-corner part not computed; the "1+1/mu_2" description not used), explicit h0 hopelessly small (production h
+  >= 0.4, not 0.11), discrete (L) on N=16,32,48 only; "What remains" rewritten. 11_navier_stokes intro sentence.
+7. 14_open rewritten (proved / modulo (P), (D_c),(TL), (LOC),(CUT), HCT / numerical incl. mu=100 margin / open).
+8. 01_introduction and abstract: L^2 and NS "modulo regularity" removed; penalty necessity on every (M0) mesh;
+   (P)/cell-problem sentence; needle two-sided law under (H_K); Theorem T "every k>=4"; corner caveat; general-domain
+   (R) sentence; mu=100 CNS* margin.
+9. refs.bib: added DemlowGuzmanSchatz2011, AcostaDuranMuschietti2006 (ScienceDirect-verified), KeanNeilanSchneier2022
+   (IJNAM 19(2-3) 157-174, arXiv 2109.14780; Global Science Press record); KelloggOsborn1976 now cited (comment
+   updated). Keys checked unique.
+10. A_reproducibility: seven rows for the notes/v7 scripts.
+
+Not integrated / only in part
+- td/ (3D) and every paper3d item: Paper C.
+- notes/v7/nsconst Conjecture (lim d_h / h_G^{1/2} cell formula): quoted only as a numerical prediction in 14_open.
+- Lemmas A1/A2 of notes/v7/needle: sketched (Lemma st:A), full proofs referenced; Prop "interior pairs": one sentence.
+- (S_LP) proof bookkeeping and the (P^T)/(V) all-k structural proofs: summarised, referenced to notes/v7/robust.
+- Remark 3D of notes/v7/reg ((R_S^3) modulo Dauge): not merged (Paper C).
+- Graded meshes still not tested numerically. Temam/Galdi locators for (K2) keep a VERIFY comment.

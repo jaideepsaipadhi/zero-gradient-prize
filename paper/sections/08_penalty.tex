@@ -154,7 +154,7 @@ The forms and spaces are those of Section~\ref{sec:penalty} ($A=\sum_T\int\frac1
 \end{proof}
 \cert{notes/v6/penalty/certs.py; notes/v6/penalty/exact.py}{notes/v6/penalty/cert\_all\_k.log, cert\_edge6.log, cert\_high.log}
 
-The conclusions persist under small perturbations, including bending the boundary: for fixed combinatorics, all vertices of these patches are non-singular, so the dimension of the divergence-free space equals the generic count and the space depends continuously on the vertex positions (as in step~4 of Proposition~\ref{ct:prop:penalty}); the strict positivity $A-2B-cC\succ0$ is then an open condition. A global mesh of $\Oh$ containing such a star is obtained from a polar column layer of height ratio $H$ around $\Gh$; we have not written it out. The counterexamples refute $\lambda^\ast_{\text{star}}\ge c(\Theta_0)$ as stated, because the minimum angle there is small. They do \emph{not} refute a bound $c(\Theta_0,\theta_{\min})$ for $\theta_{\min}\gtrsim20^\circ$: adversarial floating-point searches found star positivity failing at minimum angle $15^\circ$ and never at $20^\circ$.
+The conclusions persist under small perturbations, including bending the boundary: for fixed combinatorics, all vertices of these patches are non-singular, so the dimension of the divergence-free space equals the generic count and the space depends continuously on the vertex positions (as in step~4 of Proposition~\ref{ct:prop:penalty}); the strict positivity $A-2B-cC\succ0$ is then an open condition. A global (M0)--(M2) mesh containing such stars is constructed in Section~\ref{pb:sec:M0}; on it the threshold still scales like $\rho$. The counterexamples refute $\lambda^\ast_{\text{star}}\ge c(\Theta_0)$ as stated, because the minimum angle there is small. They do \emph{not} refute a bound $c(\Theta_0,\theta_{\min})$ for $\theta_{\min}\gtrsim20^\circ$: adversarial floating-point searches found star positivity failing at minimum angle $15^\circ$ and never at $20^\circ$.
 
 \subsubsection{Necessity from a locally quasi-uniform region, with explicit constants}
 
@@ -371,10 +371,97 @@ argument cannot deliver. Two routes would close the general case:
 \item the half-plane-limit positivity of Theorem~B in \texttt{notes/v6/penalty}, restricted to the explicit family
 $\{\curl I_AF_Y\}$, which is compact under (M0).
 \end{enumerate}
-Neither is done. (open).
+Neither is needed: Theorem~\ref{pb:thmM0} below proves the scaling with a different witness.
 
 
-\emph{What is gained unconditionally.} $\mu^\ast\ge15\,h/Y_\ast$, where $Y_\ast$ is the smallest $Y\le Y_0$ such that some ball $B(x_0,3Y)$ centred at an edge midpoint meets only triangles of diameter $\le\kappa_0Y$. Since the boundary triangle has diameter $\ge c_0\hG$, $\kappa_0Y_\ast\ge c_0\hG$; equality up to constants holds if and only if about $3/\kappa_0$ quasi-uniform layers exist somewhere along $\Gh$. A uniform necessity statement under (M0)--(M2) alone remains open. A compactness reduction to positivity of the witness family on all half-plane limit meshes is possible (\texttt{notes/v6/penalty}, Theorem~B there), but it is not written out here and does not settle positivity.
+\emph{What is gained unconditionally.} $\mu^\ast\ge15\,h/Y_\ast$, where $Y_\ast$ is the smallest $Y\le Y_0$ such that some ball $B(x_0,3Y)$ centred at an edge midpoint meets only triangles of diameter $\le\kappa_0Y$. Since the boundary triangle has diameter $\ge c_0\hG$, $\kappa_0Y_\ast\ge c_0\hG$; equality up to constants holds if and only if about $3/\kappa_0$ quasi-uniform layers exist somewhere along $\Gh$. A uniform necessity statement under (M0) alone, with non-practical constants, is Theorem~\ref{pb:thmM0} below.
+
+\subsubsection{Necessity on every (M0) mesh}\label{pb:sec:M0}
+
+Theorem~\ref{pb:thmA} needs about $3/\kappa_0$ quasi-uniform layers near one boundary edge, and Proposition~\ref{pb:obst} shows that shape regularity alone does not provide them. The following witness needs no resolution at all. Its stream function is quadratic in the normal variable on every triangle that touches $\Gh$, so the boundary forms carry no $O(1)$ interpolation error, and its non-polynomial part lives in two transition bands that carry a vanishing share of the energy (\texttt{notes/v7/penalty}).
+
+Let $\theta$ be the minimum angle, $m_\theta:=\lceil\pi/\theta\rceil$, $d_1:=(\sin\theta)^{-(m_\theta+1)}$ and $c_g:=(\sin\theta)^{m_\theta+2}$.
+
+\begin{lemma}[Wall triangles and growth]\label{pb:lem:growth}
+Assume shape regularity with minimum angle $\theta$, $|e|\le\hG$ on $\EG$, and $\hG$ so small that the exterior angle of $P_h$ at each vertex is $<\theta$. Then (i) every $T$ meeting $\Gh$ has $\diam T\le d_1\hG$; (ii) every $T$ meeting neither $\Gh$ nor $\partial R$ has $\dist(z,\Gh)\ge c_g\diam T$ for each of its vertices $z$.
+\end{lemma}
+
+\begin{proof}
+Edge-adjacent triangles have diameter ratio $\le1/\sin\theta$, and in a triangle the shortest edge is at least $\sin\theta$ times the longest. (i) A boundary vertex has fewer than $(\pi+\theta)/\theta$ triangles, each reached from the triangle of a boundary edge in at most $m_\theta$ steps. (ii) An interior vertex $z$ of $T$ has at most $2\pi/\theta$ triangles, each reached from $T$ in at most $m_\theta$ steps, so its edges at $z$ are $\ge(\sin\theta)^{m_\theta+1}\diam T$ and the star of $z$ contains $B(z,c_g\diam T)$, which misses $\Gh$.
+\end{proof}
+
+\emph{Profile.} Let $S(t)=35t^4-84t^5+70t^6-20t^7$ on $[0,1]$ ($C^3$ smoothstep, $\norm{S^{(4)}}_\infty=840$), $S=0$ for $t<0$, $S=1$ for $t>1$. For $\Lambda\ge1$ put $\beta:=1/\Lambda$, $T_1:=\Lambda^2$ and let $\omega(t)$ be $1$ on $[0,1]$, $1-(1-\beta)S(t-1)$ on $[1,2]$, $\beta$ on $[2,T_1]$, $\beta(1-S(t/T_1-1))$ on $[T_1,2T_1]$ and $0$ beyond. For $y_1>0$ let $q(y)=1-s\int_0^y\omega(\tau/y_1)\,d\tau$ with $s$ fixed by $q(\infty)=0$, and $\Psi(y)=\int_0^yq$. Then $\int_0^\infty\omega=\frac32(1+\Lambda-\beta)$, $\int_0^\infty\omega^2\le2+2\beta^2T_1=4$, and
+\[
+\epsilon:=sy_1=\frac2{3(1+\Lambda-\beta)}\le\frac2{3\Lambda},\qquad \int_0^\infty q'^2\le4s\epsilon .
+\]
+$\Psi$ is exactly quadratic on $(-\infty,y_1]$ and on $[2y_1,T_1y_1]$, constant on $[2T_1y_1,\infty)$, $\Psi\in C^5$ with $\Psi^{(5)}$ Lipschitz, and $|\Psi^{(6)}|\le840\,sy_1^{-4}$ on $[y_1,2y_1]$, $\le840\,s\beta(T_1y_1)^{-4}$ on $[T_1y_1,2T_1y_1]$, $\Psi^{(6)}=0$ elsewhere.
+
+\emph{Witness.} For a boundary edge $e_\ast$, use coordinates with $e_\ast\subset\{y=0\}$, midpoint $0$, $P_h\subset\{y\le0\}$. With the cut-offs $\Phi(t)=(1-t^2)^6_+$ and $\chi\in C^5$, $\chi=1$ on $(-\frac12,1]$, $\chi=0$ on $(-\infty,-1]\cup[2,\infty)$ (the part $y<0$ only separates the far side of $P_h$, as in Lemma~\ref{pb:lem:geom}), let
+\[
+F(x,y)=\Phi(x/X)\chi(y/X)\Psi(y),\qquad v:=\curl I_AF,
+\]
+with $I_A$ the global Argyris interpolant, and fix
+\[
+y_1:=2d_1\hG,\qquad K_A:=840\,E_2(\theta)(3/c_g)^4,\qquad K_1:=2+K_A\sqrt{40/c_g},\qquad \Lambda:=\max(1,K_1^2),
+\]
+with $E_2(\theta)$ from Lemma~\ref{pb:lem:arg}.
+
+\begin{theorem}[Penalty necessity on every (M0) mesh]\label{pb:thmM0}
+Assume (M0) with minimum angle $\theta$ and constant $c_0$. There are $r(\theta)$ and $h_\ast(\theta,L)>0$ such that, with $X:=r\hG$ and $h\le h_\ast$, $v\in\Zh$ for every $k\ge4$ and
+\[
+\frac{2B(v)-A(v)}{C(v)}\ \ge\ \frac s2=\frac{\epsilon}{4d_1\hG},\qquad\text{hence}\qquad
+\mu^\ast\ \ge\ \frac{\epsilon}{4d_1}\,\frac h{\hG}\ \ge\ c_\ast\rho,\qquad c_\ast:=\frac{c_0}{6d_1(1+\Lambda)} .
+\]
+Neither (M1) nor (M2) is used, nor any quasi-uniformity or star or layer structure, and $e_\ast$ may be any boundary edge. The same holds on Clough--Tocher refinements for every $k\ge2$, modulo the standard HCT estimate $|f-I_{\rm HCT}f|_{W^{2,\infty}(T)}\le C_{\rm HCT}(\theta)h_T^2|f|_{W^{4,\infty}(T)}$.
+\end{theorem}
+
+\begin{proof}
+All forms are per unit length of $\{|x|<X\}$ (divided by $\int\Phi^2$). The limit regime is: first fix $r=X/\hG$ large (the $\chi$-band and the finite-$X$ corrections depend only on $r$), then take $\hG$ so small that $r^2\hG$ is small (the curvature and sliver terms are of order $\epsilon r^2\hG$). Every $o(1)$ below has an explicit bound in these quantities, which fixes $r$ and $h_\ast$; neither depends on $c_0$ except through the final conversion.
+\begin{enumerate}[label=\arabic*.]
+\item \emph{Membership.} $I_AF$ is globally $C^1$ and piecewise $P_5$, so $v$ is continuous, piecewise $P_4$ and divergence free. By Lemma~\ref{pb:lem:growth}(ii) the triangles meeting $\operatorname{supp}F\cap\overline\Oh\subset\{|x|\le X,\ y\le2X\}$ have diameter $\le3X/c_g$, so $v=0$ on $\partial R$ once $3X/c_g<L-1$.
+\item \emph{The wall.} Every triangle meeting $\Gh$ lies in $\{-\delta\le y\le d_1\hG=y_1/2\}$ (Lemma~\ref{pb:lem:growth}(i); $\delta,\sigma=O(X^2),O(X)$ are the depth and slope bounds of Lemma~\ref{pb:lem:geom}). There $F=\Phi(x/X)\Psi(y)$ with $\Psi$ quadratic, so every term of $D^6F$ carries at least four derivatives of $\Phi$: $|D^6F|\le C_\Phi(sX^{-4}+X^{-5}+y_1X^{-6})$. Lemma~\ref{pb:lem:arg} gives $|D^j(F-I_AF)|\le E_j(d_1\hG)^{6-j}C_\Phi(sX^{-4}+X^{-5}+y_1X^{-6})$, an error of relative size $O((\hG/X)^4)=O(r^{-4})$ against $s\hG^{1-j}$, $j=1,2$. So $B(v)=B_{\Gh}(w)+o(1)s$ and $C(v)=C_{\Gh}(w)(1+o(1))$, $w:=\curl F$. As in step~2 of Theorem~\ref{pb:thmA}, $B_{\Gh}(w)=s(1+O(s\delta)+O(\sigma/(sX)))$ and $C_{\Gh}(w)=1+O(s\delta+\sigma^2)$, and $s\delta\sim\epsilon r^2\hG$, $\sigma/(sX)\sim\hG/\epsilon$ are $o(1)$.
+\item \emph{Bands.} A triangle meeting $[y_1,2y_1]$ does not meet $\Gh$; by Lemma~\ref{pb:lem:growth}(ii) its diameter is $\le3y_1/c_g$ and it lies in $\{y\le5y_1/c_g\}$, so $|D^2(F-I_AF)|\le K_As(1+o(1))$ there. The same holds on the second band with $y_1\to T_1y_1$, $s\to s\beta$; no triangle meets both since $T_1\ge2+3/c_g$. Elsewhere $\Psi$ is quadratic and the error is $o(1)$; on the $\chi$-region $[X,2X]$ it costs $O(\Psi_\infty^2/X^3)=o(1)$ per unit length. With $A(\curl z)\le4\norm{D^2z}^2$ and $\beta^2T_1=1$,
+\[
+A(\curl(F-I_AF))\le4K_A^2s^2\bigl(5y_1/c_g+\beta^2\,5T_1y_1/c_g\bigr)+o(1)=40K_A^2s\epsilon/c_g+o(1).
+\]
+\item \emph{Energy of $w$.} The separable identity $A(w)=2\int\Phi'^2\int G'^2+\int\Phi^2\int G''^2+\int\Phi''^2\int G^2$ ($G=\chi\Psi$, $\Psi(0)=0$) gives, per unit length, $\int q'^2+o(1)\le4s\epsilon+o(1)$; the sliver $\{\varpi<y<0\}$ adds $o(1)s$.
+\item \emph{Budget.} By Minkowski, $A(v)\le s\epsilon K_1^2+o(1)$, so $2B-A\ge2s-s\epsilon K_1^2-o(1)s\ge s(1-o(1))$ because $\epsilon\le2/(3\Lambda)\le K_1^{-2}$. With $C=1+o(1)$, $(2B-A)/C\ge s/2$, so $N_h(v,v)<0$ whenever $\mu/h<s/2$; finally $h/\hG\ge c_0\rho$ by (M0).
+\end{enumerate}
+For Clough--Tocher replace $I_A$ by the HCT interpolant, which reproduces the quadratic $\Psi$; the band bound becomes $C_{\rm HCT}(3y_1/c_g)^2\norm{\Psi^{(4)}}$, the wall error is $O((\hG/X)^2)$, and $v$ is continuous, piecewise $P_2$ on the refinement and divergence free.
+\end{proof}
+
+The constants are explicit but astronomically small: $\log_{10}(c_\ast/c_0)\approx-67,-39,-23$ at $\theta=20^\circ,30^\circ,45^\circ$, and the support height $2T_1y_1$ is about $10^{75}\hG$ at $30^\circ$, so $h_\ast$ is correspondingly tiny. The losses are the worst-case growth factor $c_g^{-4}$ and the Taylor-based $E_2$, both entering squared through $\Lambda$. The theorem settles the \emph{scaling} $\mu^\ast\gtrsim\rho$ on every shape-regular mesh; it is not a usable threshold. The support has size $\le C(\theta,c_0)\hG$, so bounded patches do suffice for necessity; what fails is small patches (Proposition~\ref{pb:counter}).
+
+\emph{Tall boundary triangles at every mesh size.} On a layered boundary mesh, exact witnesses exist without any interpolation.
+
+\begin{proposition}[Stacked columns]\label{pb:cols}
+Let the half-plane mesh consist of the cells $[i,i+1]\times[jH,(j+1)H]$ ($H>0$) split by the forward diagonal; every boundary star is $\cS^{(H)}$ of Proposition~\ref{pb:counter}, with apex angle $\arctan(1/H)$. Let $\Phi$ be the uniform cubic B-spline with knot spacing $d\ge4H$ on vertical mesh lines, and $G$ the $C^1$ piecewise quadratic with $G=y-y^2/(2H)$ on $[0,H]$, $G''=-1/(8H)$ on $[H,3H]$, $G''=+1/(8H)$ on $[3H,5H]$ and $G=0$ beyond. Then $F=\Phi(x)G(y)$ is $C^1$ and piecewise $P_5$ on the mesh, so $v=\curl F\in\Zh$ for every $k\ge4$ exactly, and with $D:=d/H$,
+\[
+H\cdot\frac{\hG(2B-A)}{C}=\frac{2265D^4-2800D^2-6944}{2416D^4}\ \ge\ 0.8538\qquad(D\ge4).
+\]
+Hence $\mu^\ast\ge0.85\,h/(H\hG)$ on every mesh that contains this configuration over the witness support ($4d\times5H$), at every mesh size.
+\end{proposition}
+
+\begin{proof}
+For $F=\Phi G$ with $G(0)=0$ and compact support, $B=H^{-1}\int\Phi^2$, $C=\int\Phi^2$ and $A=2\int\Phi'^2\int G'^2+\int\Phi^2\int G''^2+\int\Phi''^2\int G^2$ (the cross term integrates to zero by parts). The integrals are rational: $\int\Phi^2=\frac{151d}{315}$, $\int\Phi'^2=\frac2{3d}$, $\int\Phi''^2=\frac8{3d^3}$, $\int G^2=\frac{31H^3}{60}$, $\int G'^2=\frac{5H}{12}$, $\int G''^2=\frac{17}{16H}$. The expression is increasing in $D$ and equals $0.8538$ at $D=4$.
+\end{proof}
+\cert{notes/v7/penalty/exact\_columns.py; notes/v7/referee\_penalty/fe\_check\_columns.py}{notes/v7/penalty/exact\_columns.log; notes/v7/referee\_penalty/fe\_check\_columns.log (curl $F$ assembled by the production code: quotient agrees to $10^{-13}$, discrete divergence $10^{-13}$)}
+
+The proposition is a flat-model statement: exactness needs layer lines parallel to $\Gh$. On the polar column meshes below the cells are not rectangles and $F$ is not piecewise $P_5$; its transfer there, by a perturbation argument as for Proposition~\ref{pb:counter}, is heuristic.
+
+\emph{A global mesh containing the star counterexamples} (NUMERICAL; \texttt{notes/v7/penalty/}\allowbreak\texttt{global\_mesh.py}). Take $P_h$ the regular $N$-gon with chord $\ell=2\sin(\pi/N)$; a first layer of radial columns of height $H\ell$ split on the forward diagonal (every boundary star is a perturbation of $\cS^{(H)}$ of relative size $2\pi H/N$); then dyadic rings, each cell over two cells of the previous ring and cut into three triangles from the hanging midpoint; then a structured outer part. The code checks (M0) with $c_0=1$, (M1) (no singular vertex, every boundary vertex in three triangles) and (M2) ($\Theta_0=0.83$ and $0.77$ at $N=128,256$ for $H=5$; minimum angle $11.25^\circ$). Thresholds $\gamma^\ast=\mu^\ast\hG/h$ for fields supported in patches of consecutive stars, and globally (on $\Zh$, confirmed by a penalty sweep $r=10^4,\dots,10^8$ in the solver):
+\begin{center}\small\begin{tabular}{lcccccccc}
+\toprule
+$H=5$ & 1 star & 2 & 3 & 4 & 8 & 16 & layer 0 & global\\
+\midrule
+$N=128$ & none & 0.432 & 1.110 & 1.459 & 2.096 & 2.624 & 3.053 & 3.0562\\
+$N=256$ & none & 0.497 & 1.177 & 1.520 & 2.121 & 2.641 & 3.127 & 3.1286\\
+\bottomrule
+\end{tabular}\end{center}
+The single star carries no witness, as Proposition~\ref{pb:counter} certifies, while unions of two or more stars do. The global threshold is attained in the first layer, and it is the same to four digits for $L=2.5,5,10$ ($\gamma^\ast=3.0560$--$3.0562$ at $N=128$, $3.1284$--$3.1286$ at $N=256$) while $\rho$ ranges over $21.6$--$416$: $\mu^\ast=\gamma^\ast\rho$ scales exactly like $\rho$. This $L$-invariance is nearly automatic, since the mesh near the wall is the same for every $L$; it shows that the threshold is set locally, as Theorem~\ref{pb:thmM0} predicts, and not more. For $H=8$ ($7.1^\circ$) there is no witness on $1$--$3$ stars and $\gamma^\ast=1.8527$ for every $L$. The star failure is certified only for $H=5$ and $H=8$.
+
+The size of the threshold is governed by the first-layer height: on these meshes ($N=128$, $L=2.5$) $\gamma^\ast H=16.0,15.8,15.6,15.3,14.8,14.2$ for $H=1,2,3,5,8,12$, close to the half-plane constant $15.487$ of Theorem~\ref{pb:thmA}, and the production meshes (layer height $\frac34$, $\gamma^\ast\to21.4$) give $\gamma^\ast H\approx16$. So, numerically, $\mu^\ast\approx(15\text{--}16)\,h/\delta_1$ with $\delta_1$ the height of the first layer, and the decay of $c(\theta)$ with the apex angle in any bound $\mu^\ast\ge c(\theta)\rho$ is genuine. An explicit, moderate constant for general coarse meshes remains open.
+\cert{notes/v7/penalty/global\_mesh.py, layer\_witness.py}{notes/v7/penalty/global\_mesh\_H5\_N128.log, global\_mesh\_H5\_N256.log, global\_mesh\_H8\_N128.log, global\_mesh\_Hscan.log, layer\_witness.log; notes/v7/referee\_penalty/global\_r\_check.log}
 
 \subsubsection{Why the certified constant is below the global threshold}
 
@@ -440,3 +527,16 @@ layer flattens: the exact witness quotients, which are lower bounds for $\lambda
 lower. Richardson extrapolation of the window sequences (differences shrink by a factor of about $4$ per doubling of $W$) gives
 $\gamma^\ast_\infty\approx21.39$ (one layer) and $21.41$ (two layers), so we expect $\gamma^\ast(N)\to\approx21.4$ on this mesh family.
 \end{enumerate}
+
+\emph{The limit.} Scaled by the chord, the production mesh near the wall vertex at polar angle $\theta\in[0,\pi/4]$ converges to the rectangular lattice $\mathcal L_a$ (columns $[i,i+1]$, rows of height $a$, forward diagonals) with $a=a(\theta)=(L\sec\theta-1)/(2\cos^2\theta)$, and the local penalty in edge units is $\gamma\cos^2\theta$ (the other sides follow by the rotation symmetry). Let $\gamma_c(a)$ be the supremum of $(2B-A)/C$ over compactly supported, continuous, piecewise-$P_4$, divergence-free fields on $\mathcal L_a$, and $\gamma_c(a,J,\phi)$ the same over $\phi$-quasi-periodic fields on one column of $J$ rows vanishing on row $J$. Put $\Gamma_\infty:=\sup_\theta\gamma_c(a(\theta))/\cos^2\theta$ and $\Gamma^{\rm cell}_\infty:=\sup_\theta\sup_{J,\phi}\gamma_c(a(\theta),J,\phi)/\cos^2\theta$.
+
+\begin{proposition}[The limit of the threshold]\label{pb:gamlim}
+$\Gamma_\infty\le\Gamma^{\rm cell}_\infty$ and $\liminf_{N\to\infty}\gamma^\ast(N)\ge\Gamma_\infty$ (proved). Modulo a discrete localisation inequality (LOC), $\limsup_N\gamma^\ast(N)\le\Gamma^{\rm cell}_\infty$; modulo a spline cut-off lemma (CUT), $\Gamma_\infty=\Gamma^{\rm cell}_\infty$. Hence, modulo (LOC) and (CUT), $\gamma^\ast_\infty=\lim_N\gamma^\ast(N)$ exists and equals the periodic cell value.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+($\Gamma_\infty\le\Gamma^{\rm cell}_\infty$.) A witness supported in $W$ columns, periodised with period $W'\ge W$, is continuous and divergence free with the same forms per period; the discrete Fourier transform over $\mathbb Z_{W'}$ splits the supercell pencil into $W'$ one-column pencils with phases $2\pi j/W'$. (liminf.) Take a lattice witness within $\varepsilon$ of $\gamma_c(a(\theta_0))$ on a finite window; the corresponding patch of the production mesh converges to it, no vertex is singular, so the divergence-free space has constant dimension and depends continuously on the vertices (as in Proposition~\ref{prop:penalty}(b)). (limsup.) Window bounds hold uniformly along $\Gamma$ by compactness in $\theta$; (LOC) asks that every $v\in\Zh$ splits as $v_0+\sum_iv_i$ with $v_i\in\Zh$ supported in boundary windows, $v_0$ vanishing on $\Gh$, at a relative cost $\varepsilon$ in $A-2B+\lambda C$ (an IMS localisation, exact for the boundary forms for smooth partitions; the missing step is to put $\chi_iv$ back into $\Zh$ through a local quasi-interpolant of the stream function). Combined with coercivity at a high level (Lemma~\ref{lem:coercive}) by convexity in $\lambda$, it gives the bound. (Equality.) A Bloch witness's stream function is quasi-periodic after subtracting its constant value above row $J$; its real part on $W$ columns, cut off by (CUT) (a stable local basis for $C^1$ quintic splines, which exists on triangulations without singular vertices), has quotient tending to that of the Bloch witness as $W\to\infty$. Details: \texttt{notes/v7/nsconst}, Section~2.
+\end{proof}
+
+NUMERICAL: the supremum is at $\theta=0$ ($a=\frac34$) and phase $0$; $\gamma_c(\frac34,J,0)=21.3860$ ($J=1$), $21.4045$ ($J=2$) and $21.4080$ ($J\ge3$) after the exact $1/N$ curvature extrapolation. The global thresholds for fields in the first two layers, $19.851,20.802,21.165,21.302,21.358,21.382,21.394$ for $N=32,\dots,2048$, extrapolate to $21.40452$, the two-layer cell value; the $1/N$ coefficient $21.8$ is predicted as $22.0$ by a harmonic-well expansion in phase and angle plus the wall curvature. This also explains why Richardson extrapolation from $N\le64$ overshoots: the $1/N^2$ term is still large there.
+\cert{notes/v7/nsconst/cell\_limit.py}{notes/v7/nsconst/run\_table.log, run\_theta.log, run\_mesh.log}
