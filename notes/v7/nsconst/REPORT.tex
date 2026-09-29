@@ -24,7 +24,7 @@
 \newcommand{\pbar}{\bar p}
 \newcommand{\GS}{\mathrm{GS}}
 \newcommand{\CNS}{\mathrm{CNS}^\ast}
-\newcommand{\Re}{\mathrm{Re}}
+\renewcommand{\Re}{\mathrm{Re}}
 \newcommand{\lab}[1]{\textbf{[#1]}}
 \renewcommand{\div}{\operatorname{div}}
 \title{notes/v7/nsconst: the Navier--Stokes constants $C_R,\beta_O$ and the explicit $h_0$ for the paper's test;\\
@@ -44,15 +44,15 @@ U_\infty=175.6,\quad C_F=0.56423,\quad \beta_O=0.8225\ (\nu=1),\ \ 0.0533\ (\nu=
 C_R^{\rm quad}\ge2.477\ (\text{converged lower-bound sequence}),\qquad C_R\le\sqrt2\,C_R^{\rm quad}\approx3.50\ \text{(sum form of (R$_S$))}.
 \]
 The maximiser of $C_R$ is a global, pressure-dominated mode (Neumann--Poincar\'e); the flat-boundary essential part is only $1.538$ (Lemma~\ref{lem:flat}).
-\item \lab{NUMERICAL, negative} \emph{The explicit $h_0$.} The sufficient condition \eqref{n2:h0} becomes
+\item \lab{NUMERICAL, negative} \emph{The explicit $h_0$.} The sufficient condition (\texttt{n2:h0}) becomes
 $(1+\Re)h+(\hG/\gamma_0)^{1/2}\le c_\natural\cdot7.6\cdot10^{-6}$ ($\nu=1$, $\Re=176$) and $\le c_\natural\cdot4.9\cdot10^{-8}$ ($\nu=0.1$, $\Re=1756$),
 i.e.\ $h\le4.3\cdot10^{-8}c_\natural$, resp.\ $2.8\cdot10^{-11}c_\natural$, with $c_\natural$ (through $C_\sharp$) still not computed.
 The production meshes have $h=0.11$--$1.5$. The theorem is therefore qualitative for this test. The \emph{actual} discrete constant of (L) on the production meshes is $\beta_L/\nu=0.021,0.016,0.014$ ($N=16,32,48$, $\mu=100$), equal to the Stokes value to $0.1$--$1\%$ for both $\nu$: the Oseen perturbation is invisible at $N=16$, and what degrades $\beta_L$ is the closeness of $\mu=100$ to the coercivity threshold.
-\item \lab{PROVED MODULO (CUT), (LOC)} \emph{$\gamma^\ast_\infty$} (Theorem~\ref{thm:gam}). On the production family, $\liminf_N\gamma^\ast(N)\ge\Gamma_\infty$ (modulo a standard spline cutoff lemma (CUT)) and $\limsup_N\gamma^\ast(N)\le\Gamma_\infty$ (modulo a discrete localisation inequality (LOC)), where
-$\Gamma_\infty:=\sup_{|\theta|\le\pi/4}\gamma_c(a(\theta))/\cos^2\theta$, $a(\theta)=(L\sec\theta-1)/(2\cos^2\theta)$, and $\gamma_c(a)$ is the half-plane lattice threshold. The Floquet reduction of $\gamma_c$ is PROVED (Lemma~\ref{lem:floq}).
+\item \lab{PROVED / PROVED MODULO (LOC), (CUT)} \emph{$\gamma^\ast_\infty$} (Theorem~\ref{thm:gam}). On the production family, $\liminf_N\gamma^\ast(N)\ge\Gamma_\infty$ (PROVED) and $\limsup_N\gamma^\ast(N)\le\Gamma^{\rm cell}_\infty$ (PROVED MODULO a discrete localisation inequality (LOC)); $\Gamma_\infty\le\Gamma^{\rm cell}_\infty$ is PROVED and equality holds modulo a standard spline cutoff lemma (CUT). Here
+$\Gamma_\infty:=\sup_{|\theta|\le\pi/4}\gamma_c(a(\theta))/\cos^2\theta$, $a(\theta)=(L\sec\theta-1)/(2\cos^2\theta)$, $\gamma_c(a)$ is the half-plane lattice threshold (compactly supported fields), and $\Gamma^{\rm cell}_\infty$ is the same with $\gamma_c$ replaced by the periodic cell value $\sup_{J,\phi}\gamma_c(a,J,\phi)$ (Lemma~\ref{lem:floq}).
 \lab{NUMERICAL}: the supremum is at $\theta=0$ and Floquet phase $0$, and
 \[
-\Gamma_\infty=\gamma_c(\tfrac34)=21.4080\ \ (\text{all depths}),\qquad 21.4045\ (2\text{ layers}),\qquad 21.3860\ (1\text{ layer}),
+\Gamma^{\rm cell}_\infty=\sup_J\gamma_c(\tfrac34,J,0)=21.4080\ \ (\text{all depths}),\qquad 21.4045\ (2\text{ layers}),\qquad 21.3860\ (1\text{ layer}),
 \]
 which confirms the paper's extrapolated $21.4$ (window Richardson: $21.39$ / $21.41$ for 1 / 2 layers). The two-layer global thresholds for $N=128,\dots,2048$ (new) extrapolate to $21.40452$, against the cell value $21.40452$; the $1/N$ coefficient $21.8$ is predicted as $22.0$ by a harmonic-well/curvature expansion.
 \item \lab{PROVED} \emph{Leak constant for $\gamma\hG\to\infty$} (Corollary~\ref{cor:K}). The item ``numerical only'' of \texttt{14\_open} l.26 (first half) is already a consequence of the paper's Theorem~\texttt{u:up} and Corollary~\texttt{u:K}: on test~P, $K_h\to K$ for \emph{every} family with $\mu\ge\mu_0$, $|K_h-K|\le C(\hG+(E^0_U)^2)$, with no relation between $\gamma$ and $\hG$. For general data the normalised $\GS$ $H^1$ constant has a PROVED dichotomy: $\to K$ if $\gamma\hG^{1/2}\to0$, $\to\infty$ if $\gamma\hG^{1/2}\to\infty$ (in particular if $\gamma\hG\to\infty$) whenever $\dn u\cdot\tau\not\equiv0$. Navier--Stokes analogue: $K_{NS,h}\to K_{NS}$ for every $\gamma\ge\gamma_0$, rate $\hG^{1/2}$, PROVED MODULO (R$_S$).
@@ -76,7 +76,7 @@ with full norms $\norm\varphi^2_{H^2}=\norm\varphi^2+\norm{\nabla\varphi}^2+\nor
 
 $\beta_O$: $1/\beta_O^2$ is the largest eigenvalue of $y\mapsto L^{-\mathsf T}AL^{-1}Ay$ on the discrete $V_h$ ($A$ the vector Dirichlet stiffness, $L^{-1}$ a saddle solve); ARPACK.
 
-$C_R$: \emph{Grisvard's identity} avoids second derivatives of the discrete solution. For $w\in H^2\cap H^1_0$ on a curvilinear polygon with convex corners, $\norm{D^2w}^2=\norm{\Delta w}^2-\int_{\partial\Omega}\kappa|\dn w|^2$ \cite[Thm~3.1.1.1, Lemma~4.3.1.3]{Grisvard}; here $\kappa=0$ on the square and $\kappa=-1$ on $\Gamma$ (concave for $\Omega$), and $\Delta\varphi=\nabla\pi-g$. Hence
+$C_R$: \emph{Grisvard's identity} avoids second derivatives of the discrete solution. For $w\in H^2\cap H^1_0$ on a curvilinear polygon with convex corners, $\norm{D^2w}^2=\norm{\Delta w}^2-\int_{\partial\Omega}\kappa|\dn w|^2$ (\cite[\S3.1.1 (curved part), \S4.3.1 (corners)]{Grisvard}; exact locators not re-checked); here $\kappa=0$ on the square and $\kappa=-1$ on $\Gamma$ (concave for $\Omega$), and $\Delta\varphi=\nabla\pi-g$. Hence
 \[
 \norm\varphi^2_{H^2}+\norm{\pi-\bar\pi}^2_{H^1}=\norm\varphi^2+\norm{\nabla\varphi}^2+\norm{\nabla\pi-g}^2+\norm{\dn\varphi}^2_{\Gamma}+\norm{\pi-\bar\pi}^2+\norm{\nabla\pi}^2 ,
 \]
@@ -118,16 +118,16 @@ The sequence increases by $0.011$, $0.0045$, $0.0013$ per step in $M$; a geometr
 For the half-plane and one Fourier mode (every mode gives the same value by scaling),
 $q_{\rm flat}:=\sup_g(\norm{D^2\varphi}^2+\norm{\nabla\pi}^2)/\norm g^2=2.366$ (\texttt{halfplane.py}; $2.3665,2.3671,2.3660$ on three resolutions; numerically $(3+\sqrt3)/2$). In the interior the value is $1$ ($D^2\varphi\leftrightarrow Pg$, $\nabla\pi\leftrightarrow(I-P)g$). So the essential spectrum coming from the flat sides and from $\Gamma$ lies at $\le1.538^2$, below the computed $2.478^2$.
 \end{lemma}
-The corner contribution (quarter-plane problem) was \emph{not} computed; it is the one gap in the claim ``$C_R^{\rm quad}=2.478$''. The quantity entering \eqref{n2:h0} is the sum form: the minimax bound $(a+b)^2\le(1+s)a^2+(1+1/s)b^2$, minimised over $s$, gives $3.16$ ($M=16$), $3.39$ ($M=20$) and still grows with $M$ (the velocity part approaches its essential value); we use $C_R=\sqrt2\cdot2.478=3.50$. (\texttt{run\_CR.log} predates the minimax; its column \texttt{CR\_sum\_bound} is the $\sqrt2$ bound.)
+The corner contribution (quarter-plane problem) was \emph{not} computed; it is the one gap in the claim ``$C_R^{\rm quad}=2.478$''. The quantity entering (\texttt{n2:h0}) is the sum form: the minimax bound $(a+b)^2\le(1+s)a^2+(1+1/s)b^2$, minimised over $s$, gives $3.16$ ($M=16$), $3.39$ ($M=20$) and still grows with $M$ (the velocity part approaches its essential value); we use $C_R=\sqrt2\cdot2.478=3.50$. (\texttt{run\_CR.log} predates the minimax; its column \texttt{CR\_sum\_bound} is the $\sqrt2$ bound.)
 
 \subsection{The threshold $h_0$}
-With these values, Lemma~\texttt{n2:reg} gives $\Lambda_O=1+(1+C_F)C_FU_\infty/\beta_O=189.4$ ($\nu=1$), $2909$ ($\nu=0.1$), so $\Theta_R=\max(1,C_R\Lambda_O)=663$, resp.\ $1.02\cdot10^4$: the dual solution of Lemma~\texttt{n2:dual} is controlled only with a factor $10^3$--$10^4$. In the form of Remark~\texttt{n2:rem:h0},
+With these values, Lemma~\texttt{n2:reg} gives $\Lambda_O=1+(1+C_F)C_FU_\infty/\beta_O=189.4$ ($\nu=1$), $2909$ ($\nu=0.1$), so $\Theta_R=\max(1,C_R\Lambda_O)=663$, resp.\ $1.02\cdot10^4$: the dual solution of Lemma~\texttt{n2:dual} is controlled only with a factor $10^3$--$10^4$. The printed (\texttt{n2:h0}) has the further factor $\max(1,(1+C_F)C_F)$; here $(1+C_F)C_F=0.8825<1$, so it is $1$, and (\texttt{n2:h0}) is exactly the form of the referee note (Remark~\texttt{n2:rem:h0}):
 \[
 (1+\Re)h+\Bigl(\frac\hG{\gamma_0}\Bigr)^{1/2}\le\frac{c_\natural}{\max(1,C_R)\,\Re\,(1+\Re/b_O)}=
-\begin{cases}c_\natural/(3.50\cdot175.6\cdot214.5)=7.6\cdot10^{-6}\,c_\natural,&\nu=1,\\ c_\natural\,0.1/(3.50\cdot1756\cdot3296)=4.9\cdot10^{-8}\,c_\natural,&\nu=0.1.\end{cases}
+\begin{cases}c_\natural/(3.50\cdot175.6\cdot214.5)=7.6\cdot10^{-6}\,c_\natural,&\nu=1,\\ c_\natural/(3.50\cdot1756\cdot3296)=4.9\cdot10^{-8}\,c_\natural,&\nu=0.1.\end{cases}
 \]
 Hence $h_0\le4.3\cdot10^{-8}c_\natural$ and $\hG\le5.8\cdot10^{-11}\gamma_0c_\natural^2$ ($\nu=1$); $h_0\le2.8\cdot10^{-11}c_\natural$ and $\hG\le2.4\cdot10^{-15}\gamma_0c_\natural^2$ ($\nu=0.1$).
-\lab{NOT COMPUTED}: $c_\natural$, i.e.\ $C_\sharp$ (a product of about fifteen trace, inverse, extension and interpolation constants of Lemmas~\texttt{n2:Y}, \texttt{n2:dual}). Its value cannot rescue the estimate: at the production meshes the left side is $\ge20$ ($\nu=1$), so one would need $c_\natural\gtrsim3\cdot10^6$.
+\lab{NOT COMPUTED}: $c_\natural$, i.e.\ $C_\sharp$ (a product of about fifteen trace, inverse, extension and interpolation constants of Lemmas~\texttt{n2:Y}, \texttt{n2:dual}). Its value cannot rescue the estimate: at the finest production mesh ($h\approx0.11$) the left side is $\ge176.6\cdot0.11\approx19$ ($\nu=1$), so one would need $c_\natural\gtrsim2.5\cdot10^6$; $c_\natural$ is a reciprocal product of trace, inverse and extension constants and of $C_\sharp'$, so such a value is not plausible.
 
 \paragraph{Where the pessimism comes from.} The factor $\Re(1+\Re/b_O)\approx\Re^2/b_O$ comes from bounding $K$ by $U_\infty$ (the corner maximum of $|\nabla u|$, $175$; the field is $\le1$ near $\Gamma$) and from the duality chain. The stability margin itself is harmless ($b_O=0.82,0.53$). The actual discrete constant (\texttt{discrete\_L.py}, $\GS$, $\mu=100$, energy norm):
 \begin{center}\small
@@ -165,32 +165,31 @@ $\gamma_c(a)=\sup_J\sup_\phi\gamma_c(a,J,\phi)$, and $J\mapsto\sup_\phi\gamma_c(
 \end{lemma}
 \begin{proof}
 ($\le$) Let $v\in Z(\mathcal L_a)$ be supported in $W$ columns and $J$ rows, and let $W'\ge W$. The $W'$-periodisation $\sum_{m\in\mathbb Z}v(\cdot-mW'e_1)$ is continuous (the translates meet only where they vanish) and divergence-free, and its forms per period equal those of $v$. On the $W'$-periodic supercell the forms commute with the translation by one column, so the discrete Fourier transform over $\mathbb Z_{W'}$ splits the supercell pencil $(2B-A,C)$ orthogonally into the $W'$ one-column pencils with phases $2\pi j/W'$. Hence $(2B-A)(v)/C(v)\le\max_j\gamma_c(a,J,2\pi j/W')$. Monotonicity in $J$: extend by zero.
-($\ge$) Let $w$ be a (complex) Bloch witness with phase $\phi$; since the forms have real coefficients, $\operatorname{Re}w$ or $\operatorname{Im}w$ has at least the same quotient over one period. Its stream function $\psi$ is a $C^1$ piecewise quintic, vanishing with its gradient on row $J$, and $e^{i\phi}$-quasi-periodic in $x$: the flux through a vertical segment changes over one period by the wall flux of one cell, which is $0$. (CUT) gives $\psi_W\in S^1_5$ equal to $\psi$ on $W$ columns, zero outside $W+2K$ columns, with $\norm{D^2\psi_W}^2+\norm{\nabla\psi_W}^2_{\rm wall}\le C_w$ on the $2K$ transition columns. Then $v_W=\operatorname{curl}\psi_W\in Z(\mathcal L_a)$ has all three forms equal to $W$ times the one-period values up to $O(1)$, and the quotient tends to that of $w$.
+($\ge$) Let $w$ be a Bloch witness with phase $\phi$. Its stream function $\psi$ is a $C^1$ piecewise quintic, constant ($=\psi_J$) with zero gradient on and above row $J$, and $\psi(x+1)-e^{i\phi}\psi(x)=c$ is constant (its gradient vanishes); evaluating on row $J$ gives $c=(1-e^{i\phi})\psi_J$, so $\psi-\psi_J$ is $e^{i\phi}$-quasi-periodic and vanishes above row $J$. For $\phi\in\{0,\pi\}$ take $w$ real. Otherwise use $\operatorname{Re}w$ on $W$ columns: each form equals $\frac W2$ times its one-period value for $w$ plus $\operatorname{Re}\sum_{j<W}e^{2ij\phi}(\cdot)$, which is $O(1)$ uniformly in $W$. (CUT) gives $\psi_W\in S^1_5$ equal to $\psi$ on $W$ columns, zero outside $W+2K$ columns, with $\norm{D^2\psi_W}^2+\norm{\nabla\psi_W}^2_{\rm wall}\le C_w$ on the $2K$ transition columns. Then $v_W=\operatorname{curl}\psi_W\in Z(\mathcal L_a)$ has all three forms equal to a common multiple $cW$ of the one-period values up to $O(1)$, and the quotient tends to that of $w$ as $W\to\infty$.
 \end{proof}
 \begin{itemize}
 \item[(CUT)] \emph{Cutoff in $S^1_5(\mathcal L_a)$}: for some $K$ and every $s\in S^1_5$ on a band of $K$ columns there is $\tilde s\in S^1_5$ that agrees with $s$ near the left edge of the band, vanishes near its right edge, and satisfies $\norm{\tilde s}_{H^2(\text{band})}\le C\norm s_{H^2(\text{band})}+C\norm s_{L^2}$.
 \end{itemize}
-(CUT) follows from the existence of stable local bases (stable local minimal determining sets) for $C^1$ splines of degree $\ge5$ on arbitrary triangulations \cite[Ch.~7--9]{LaiSchumaker} %% VERIFY: exact theorem number for stable local MDS of S^1_5
-: take $\tilde s=\sum_j\chi(x_j)c_j(s)B_j$ with a $0/1$ step $\chi$. The lattice has no singular vertices (every interior vertex lies on three lines).
+(CUT) follows from the existence of stable local bases (stable local minimal determining sets) for $C^1$ splines of degree $\ge5$ on arbitrary triangulations (\cite{LaiSchumaker}, chapters on stable local minimal determining sets for $S^1_d$, $d\ge5$; theorem number not re-checked): take $\tilde s=\sum_j\chi(x_j)c_j(s)B_j$ with a $0/1$ step $\chi$. The lattice has no singular vertices (every interior vertex lies on three lines).
 
 \begin{theorem}[$\gamma^\ast_\infty$]\label{thm:gam}
-Let $\Gamma_\infty:=\sup_{0\le\theta\le\pi/4}\gamma_c(a(\theta))/\cos^2\theta$.
+Let $\Gamma_\infty:=\sup_{0\le\theta\le\pi/4}\gamma_c(a(\theta))/\cos^2\theta$ and $\Gamma^{\rm cell}_\infty:=\sup_{0\le\theta\le\pi/4}\sup_{J,\phi}\gamma_c(a(\theta),J,\phi)/\cos^2\theta$. Then $\Gamma_\infty\le\Gamma^{\rm cell}_\infty$ (PROVED), with equality modulo (CUT) (Lemma~\ref{lem:floq}), and:
 \begin{enumerate}[label=(\alph*)]
-\item \lab{PROVED MODULO (CUT)} $\liminf_{N\to\infty}\gamma^\ast(N)\ge\Gamma_\infty$.
-\item \lab{PROVED MODULO (LOC)} $\limsup_{N\to\infty}\gamma^\ast(N)\le\Gamma_\infty$.
+\item \lab{PROVED} $\liminf_{N\to\infty}\gamma^\ast(N)\ge\Gamma_\infty$;
+\item \lab{PROVED MODULO (LOC)} $\limsup_{N\to\infty}\gamma^\ast(N)\le\Gamma^{\rm cell}_\infty$.
 \end{enumerate}
-Hence, modulo (CUT) and (LOC), $\gamma^\ast_\infty=\lim_N\gamma^\ast(N)$ exists and equals $\Gamma_\infty$.
+Hence, modulo (CUT) and (LOC), $\gamma^\ast_\infty=\lim_N\gamma^\ast(N)$ exists and equals the periodic cell value $\Gamma^{\rm cell}_\infty$. Numerically (Section~\ref{sec:gamnum}) the supremum is at $\theta=0$, $\phi=0$, so $\gamma^\ast_\infty=\sup_J\gamma_c(\frac34,J,0)=21.408$. This is the \emph{full-depth} periodic cell value; the strictly first-layer cell ($J=1$) gives $21.386$, $0.1\%$ lower, so the limit is not the one-layer value.
 \end{theorem}
 \begin{proof}
-(a) Fix $\theta_0$ and $\varepsilon>0$. By Lemma~\ref{lem:floq} there is $v\in Z(\mathcal L_{a(\theta_0)})$, supported in a window $P$ of $W$ columns and $J$ rows, with quotient $>\gamma_c(a(\theta_0))-\varepsilon$. Let $P_N$ be the corresponding patch of $\mathcal T_N$ at $\theta_0$, scaled by the chord. Its vertices converge to those of $P$ and no vertex of $P$ is singular. So the dimension of the space of $P_4$ divergence-free fields supported in $P_N$ (the Morgan--Scott count for $S^1_5$ with its boundary conditions) is constant for large $N$, and the space depends continuously on the vertices. This is the perturbation argument of Proposition~\texttt{prop:penalty}(b), used there for $\cS_{3/4}$ and the $W=4$ window. So the patch quotient converges to $(2B-A)(v)/C(v)$. Undoing the scaling, a field supported in $P_N$ gives $\gamma^\ast(N)\ge(\hG/\ell(\theta_0))\cdot$ (patch quotient) $\to(\gamma_c(a(\theta_0))-\varepsilon)/\cos^2\theta_0$.
+(a) Fix $\theta_0$ and $\varepsilon>0$. By the definition of $\gamma_c$ (no Floquet theory is needed here) there is $v\in Z(\mathcal L_{a(\theta_0)})$, supported in a window $P$ of $W$ columns and $J$ rows, with quotient $>\gamma_c(a(\theta_0))-\varepsilon$. Let $P_N$ be the corresponding patch of $\mathcal T_N$ at $\theta_0$, scaled by the chord. Its vertices converge to those of $P$ and no vertex of $P$ is singular. So the dimension of the space of $P_4$ divergence-free fields supported in $P_N$ (the Morgan--Scott count for $S^1_5$ with its boundary conditions) is constant for large $N$, and the space depends continuously on the vertices. This is the perturbation argument of Proposition~\texttt{prop:penalty}(b), used there for $\mathcal S_{3/4}$ and the $W=4$ window. So the patch quotient converges to $(2B-A)(v)/C(v)$. Undoing the scaling, a field supported in $P_N$ gives $\gamma^\ast(N)\ge(\hG/\ell(\theta_0))\cdot$ (patch quotient) $\to(\gamma_c(a(\theta_0))-\varepsilon)/\cos^2\theta_0$.
 
-(b) Let $\gamma>\Gamma_\infty$ and $\lambda=\gamma/\hG$. We must show $N_h=A-2B+\lambda C\ge0$ on $\Zh$ for large $N$. Three ingredients:
+(b) Let $\gamma>\Gamma^{\rm cell}_\infty$ and $\lambda=\gamma/\hG$. We must show $N_h=A-2B+\lambda C\ge0$ on $\Zh$ for large $N$. Three ingredients:
 \begin{itemize}
-\item \emph{Window bound} (PROVED). For fixed $W,D$, uniformly over the windows along $\Gamma$, every $v\in\Zh$ supported in a window of $W$ columns and $D$ layers at angle $\theta$ satisfies $2B-A\le(\gamma_c(a(\theta))/\cos^2\theta+o(1))\,C/\hG$. Proof: the patch geometry converges uniformly in $\theta$ (compactness of $[0,\pi/4]$, Lipschitz dependence of the local lattice on $\theta$), the patch quotient is continuous at nonsingular configurations, and a window of the lattice is bounded by $\gamma_c$ by the ``$\le$'' half of Lemma~\ref{lem:floq}. The corners $\theta=\pi/4$ need no special treatment: $\ell$ and $a$ are continuous there and only their derivatives jump.
+\item \emph{Window bound} (PROVED). For fixed $W,D$, uniformly over the windows along $\Gamma$, every $v\in\Zh$ supported in a window of $W$ columns and $D$ layers at angle $\theta$ satisfies $2B-A\le(\gamma^{\rm cell}_c(a(\theta))/\cos^2\theta+o(1))\,C/\hG$, $\gamma^{\rm cell}_c:=\sup_{J,\phi}\gamma_c(\cdot,J,\phi)$. Proof: the patch geometry converges uniformly in $\theta$ (compactness of $[0,\pi/4]$, Lipschitz dependence of the local lattice on $\theta$), the patch quotient is continuous at nonsingular configurations, and a window of the lattice is bounded by $\gamma_c$ by the ``$\le$'' half of Lemma~\ref{lem:floq}. The corners $\theta=\pi/4$ need no special treatment: $\ell$ and $a$ are continuous there and only their derivatives jump.
 \item \emph{Coercivity at a high level} (PROVED, paper Lemma~\texttt{lem:coercive}): $A-2B+\lambda_0C\ge c_1(A+\lambda_0C)$ for $\lambda_0=\gamma_0/\hG$.
 \item \emph{(LOC)}, below.
 \end{itemize}
-Given (LOC) with $\varepsilon$: $A-2B+\lambda C\ge\sum_i(A-2B+\lambda C)(v_i)-\varepsilon(A+\hG^{-1}C)(v)\ge-\varepsilon(A+\hG^{-1}C)(v)$ once $\lambda\hG>\Gamma_\infty+o(1)$. Take a convex combination with the coercive level $\lambda_0$: for $t=\varepsilon/(c_1+\varepsilon)$ and $\lambda'=(1-t)\lambda+t\lambda_0$, $N_h(\lambda')(v,v)\ge0$. Since $\lambda'\hG\to\gamma$ as $\varepsilon\to0$, the claim follows.
+Given (LOC) with $\varepsilon$: $A-2B+\lambda C\ge\sum_i(A-2B+\lambda C)(v_i)-\varepsilon(A+\hG^{-1}C)(v)\ge-\varepsilon(A+\hG^{-1}C)(v)$ once $\lambda\hG>\Gamma^{\rm cell}_\infty+o(1)$. Take a convex combination with the coercive level $\lambda_0$: for $t=\varepsilon/(c_1+\varepsilon)$ and $\lambda'=(1-t)\lambda+t\lambda_0$, $N_h(\lambda')(v,v)\ge0$. Since $\lambda'\hG\to\gamma$ as $\varepsilon\to0$, the claim follows.
 \end{proof}
 
 \begin{itemize}
@@ -216,7 +215,7 @@ $N=16384$ & 21.3866 & 21.4050 & 21.4085 & 21.4085 & 21.4085 & 21.4085\\
 \end{tabular}
 \end{center}
 The curvature correction is exactly $O(1/N)$ (the differences shrink by $4.0$); extrapolated, $\gamma_c(\frac34)=21.4080$ ($J\ge3$), $21.4045$ ($J=2$), $21.3860$ ($J=1$). The paper's window Richardson values $21.39$ / $21.41$ (one / two layers) agree.
-\item \emph{Which $\theta$} (\texttt{run\_theta.log}, $J=4$): $f(\theta)=\gamma_c(a(\theta))/\cos^2\theta$ decreases monotonically from $21.410$ ($\theta=0$) to $12.61$ ($\theta=\pi/4$; $a=2.54$, $\gamma_c=6.31$). Hence $\Gamma_\infty=\gamma_c(\frac34)=21.408$.
+\item \emph{Which $\theta$} (\texttt{run\_theta.log}, $J=4$): $f(\theta)=\gamma_c(a(\theta))/\cos^2\theta$ decreases monotonically from $21.410$ ($\theta=0$) to $12.61$ ($\theta=\pi/4$; $a=2.54$, $\gamma_c=6.31$). Hence $\Gamma^{\rm cell}_\infty=\sup_J\gamma_c(\frac34,J,0)=21.408$ (on a $\theta$-grid of step $\pi/48$, along which $f$ is smooth and monotone).
 \item \emph{Global thresholds at large $N$} (new; fields supported in the first two layers, which differ from the global threshold by $\le0.002$ for $N\le64$; \texttt{run\_mesh.log}):
 \begin{center}\small
 \begin{tabular}{r|ccccccc}
@@ -229,7 +228,7 @@ $N(\Gamma^{J=2}_\infty-\gamma^\ast_{J=2})$ & -- & -- & 30.6 & 26.3 & 24.0 & 22.9
 \end{tabular}
 \end{center}
 A fit $\Gamma-a/N-b/N^2$ on $N=512$--$2048$ gives $\Gamma=21.40452$, and on $256$--$1024$ it gives $21.40457$. The cell value is $\Gamma^{J=2}_\infty=21.40452$.
-\item \emph{The $1/N$ term.} Near $\theta=0$ the local threshold is $\approx\Gamma_\infty-\kappa\phi^2-c\theta^2$ with $\kappa=0.917$ (phase curvature) and $c=18.16$ ($\theta$ curvature). Along the wall $\theta=i\cdot8/N$ per column. The harmonic-oscillator ground state therefore costs $(8/N)\sqrt{\kappa c}=32.6/N$. Wall curvature adds $+1.325\,\ell$ per unit chord, i.e.\ $+10.6/N$. The prediction $\gamma^\ast(N)\approx\Gamma_\infty-22.0/N$ matches the fitted $21.8/N$. This also explains why Richardson on $N\le64$ (the paper's increments $1.8,0.95$) would overshoot: the $1/N^2$ term is still large there.
+\item \emph{The $1/N$ term.} Near $\theta=0$ the local threshold is $\approx\Gamma^{\rm cell}_\infty-\kappa\phi^2-c\theta^2$ with $\kappa=0.917$ (phase curvature) and $c=18.16$ ($\theta$ curvature). Along the wall $\theta=i\cdot8/N$ per column. The harmonic-oscillator ground state therefore costs $(8/N)\sqrt{\kappa c}=32.6/N$. Wall curvature adds $+1.325\,\ell$ per unit chord, i.e.\ $+10.6/N$. The prediction $\gamma^\ast(N)\approx\Gamma^{\rm cell}_\infty-22.0/N$ matches the fitted $21.8/N$. This also explains why Richardson on $N\le64$ (the paper's increments $1.8,0.95$) would overshoot: the $1/N^2$ term is still large there.
 \end{itemize}
 
 \section{The leak constant}\label{sec:leak}
@@ -281,7 +280,7 @@ The $\mu=100$ agreement is to $0.3\%$. At $\mu=10^8$ the $3\%$ gap is within the
 \begin{enumerate}
 \item \texttt{14\_open} l.26: move ``Convergence of the leak constant in the regime $\gamma\hG\to\infty$'' to \emph{Proved} (Corollary~\ref{cor:K}(a): it is \texttt{u:up}+\texttt{u:K}), adding the divergence for general data (Corollary~\ref{cor:K}(b)). Keep ``existence of $\lim d_h/\hG^{1/2}$'' as numerical, and cite the cell formula (Conjecture~\ref{conj:dh}, agreement $0.3\%$ at $\mu=100$).
 \item \texttt{13\_numerics} l.81, last sentence (``in a regime ($\gamma\hG\gg1$) that the proof does not cover (Remark~\texttt{hc:regime})''): now covered by Corollary~\texttt{u:K}.
-\item \texttt{14\_open} l.30 and \texttt{13\_numerics} l.114: ``$\gamma^\ast_\infty\approx21.4$'' $\to$ ``$\gamma^\ast_\infty=\gamma_c(\frac34)=21.408$, the periodic half-plane cell value (Theorem~\ref{thm:gam}, PROVED MODULO (CUT), (LOC)), with $\gamma^\ast(N)=21.408-22/N+O(N^{-2})$ observed up to $N=2048$''.
+\item \texttt{14\_open} l.30 and \texttt{13\_numerics} l.114: ``$\gamma^\ast_\infty\approx21.4$'' $\to$ ``$\gamma^\ast_\infty=21.408$, the periodic half-plane cell value at $\theta=0$ (Theorem~\ref{thm:gam}: $\liminf\ge\Gamma_\infty$ PROVED; the limit exists and equals the cell value modulo (CUT), (LOC)), with $\gamma^\ast(N)=21.408-22/N+O(N^{-2})$ observed up to $N=2048$''.
 \item \texttt{14\_open} l.36 (``the Navier--Stokes constants $C_R$, $\beta_O$ for any test case''): replace by the numerical values and the resulting $h_0$ (Section~\ref{sec:consts}), stating that the explicit $h_0$ is $\le4\cdot10^{-8}c_\natural$ for test~B at $\nu=1$ and therefore qualitative, while the discrete (L) is observed on every production mesh.
 \item \texttt{n2:rem:h0}: add that $U_\infty$ enters through the global maximum of $|\nabla u|$, which here sits at the box corners, far from $\Gamma$.
 \end{enumerate}
@@ -290,7 +289,7 @@ The $\mu=100$ agreement is to $0.3\%$. At $\mu=10^8$ the $3\%$ gap is within the
 \texttt{notes/v7/nsconst/}: \texttt{iso\_th.py} (isoparametric Taylor--Hood on the exact $\Omega$); \texttt{consts.py} (\texttt{check N k}, \texttt{CF N k}, \texttt{beta N k nu}, \texttt{CR N k M1,M2,..}, \texttt{Uinf}); \texttt{halfplane.py}; \texttt{discrete\_L.py N nu}; \texttt{cell\_limit.py} (\texttt{phase N a J}, \texttt{table}, \texttt{theta J}, \texttt{mesh N1,N2 J}, \texttt{aspect N}); \texttt{leak\_cell.py} (\texttt{predict N}). Logs: \texttt{run\_beta.log}, \texttt{run\_CR.log}, \texttt{run\_CR16.log}, \texttt{run\_halfplane.log}, \texttt{run\_discreteL.log}, \texttt{run\_table.log}, \texttt{run\_theta.log}, \texttt{run\_mesh.log}, \texttt{run\_predict\_1024.log}, \texttt{run\_predict\_2048.log}. The paper code (\texttt{code/}) and \texttt{notes/v6/unifmu2/floquet\_cell.py} are imported unchanged.
 
 \begin{thebibliography}{9}
-\bibitem{Grisvard} P.~Grisvard, \emph{Elliptic Problems in Nonsmooth Domains}, Pitman, 1985. %% VERIFY locators Thm 3.1.1.1 (C^2 part) and Lemma 4.3.1.3 (corners)
+\bibitem{Grisvard} P.~Grisvard, \emph{Elliptic Problems in Nonsmooth Domains}, Pitman, 1985.
 \bibitem{LaiSchumaker} M.-J.~Lai, L.~L.~Schumaker, \emph{Spline Functions on Triangulations}, CUP, 2007.
 \end{thebibliography}
 \end{document}

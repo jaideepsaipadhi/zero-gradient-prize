@@ -1,0 +1,14 @@
+{"n": 8, "eps": 0.001, "g": 0.0, "beta": [0.00056, 0.001312], "beta_over_eps_plus_g": [0.56, 1.312], "cross_ratio": 0.002271, "cross_over_eps_plus_g": 2.271, "secs": 0.7}
+{"n": 8, "eps": 0.001, "g": 0.0001, "beta": [0.0005622, 0.001312], "beta_over_eps_plus_g": [0.5111, 1.193], "cross_ratio": 0.002271, "cross_over_eps_plus_g": 2.065, "secs": 0.6}
+{"n": 8, "eps": 0.001, "g": 0.001, "beta": [0.0007507, 0.001404], "beta_over_eps_plus_g": [0.3754, 0.7018], "cross_ratio": 0.002325, "cross_over_eps_plus_g": 1.163, "secs": 0.6}
+{"n": 8, "eps": 0.001, "g": 0.01, "beta": [0.005031, 0.005169], "beta_over_eps_plus_g": [0.4574, 0.4699], "cross_ratio": 0.005491, "cross_over_eps_plus_g": 0.4992, "secs": 0.6}
+{"n": 8, "eps": 0.001, "g": 0.03, "beta": [0.01501, 0.01506], "beta_over_eps_plus_g": [0.4842, 0.4857], "cross_ratio": 0.01517, "cross_over_eps_plus_g": 0.4894, "secs": 0.5}
+{"n": 8, "eps": 0.001, "g": 0.1, "beta": [0.04998, 0.05], "beta_over_eps_plus_g": [0.4949, 0.495], "cross_ratio": 0.05009, "cross_over_eps_plus_g": 0.496, "secs": 0.5}
+{"n": 8, "eps": 0.001, "g": 0.3, "beta": [0.144, 0.1494], "beta_over_eps_plus_g": [0.4783, 0.4963], "cross_ratio": 0.1512, "cross_over_eps_plus_g": 0.5022, "secs": 0.5}
+{"n": 8, "eps": 0.0001, "g": 0.0, "beta": [5.624e-05, 0.0001322], "beta_over_eps_plus_g": [0.5624, 1.322], "cross_ratio": 0.000228, "cross_over_eps_plus_g": 2.28, "secs": 0.5}
+{"n": 8, "eps": 0.0001, "g": 0.0001, "beta": [7.525e-05, 0.0001413], "beta_over_eps_plus_g": [0.3763, 0.7066], "cross_ratio": 0.0002334, "cross_over_eps_plus_g": 1.167, "secs": 0.5}
+{"n": 8, "eps": 0.0001, "g": 0.001, "beta": [0.0005032, 0.0005172], "beta_over_eps_plus_g": [0.4574, 0.4702], "cross_ratio": 0.0005495, "cross_over_eps_plus_g": 0.4996, "secs": 0.5}
+{"n": 8, "eps": 0.0001, "g": 0.01, "beta": [0.005, 0.005002], "beta_over_eps_plus_g": [0.4951, 0.4952], "cross_ratio": 0.005005, "cross_over_eps_plus_g": 0.4956, "secs": 0.6}
+{"n": 8, "eps": 0.0001, "g": 0.03, "beta": [0.015, 0.015], "beta_over_eps_plus_g": [0.4983, 0.4983], "cross_ratio": 0.015, "cross_over_eps_plus_g": 0.4984, "secs": 0.4}
+{"n": 8, "eps": 0.0001, "g": 0.1, "beta": [0.04998, 0.04998], "beta_over_eps_plus_g": [0.4993, 0.4993], "cross_ratio": 0.05004, "cross_over_eps_plus_g": 0.4999, "secs": 0.4}
+{"n": 8, "eps": 0.0001, "g": 0.3, "beta": [0.1487, 0.1494], "beta_over_eps_plus_g": [0.4956, 0.4978], "cross_ratio": 0.1511, "cross_over_eps_plus_g": 0.5036, "secs": 0.5}

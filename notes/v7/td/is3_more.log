@@ -1,0 +1,4 @@
+icosphere level 0, 2 layer(s), R=2.0: macro tets=120, Gamma faces=20, hG=1.0515, h=2.1029; k=3: dofs V0=6780, P=4800; beta_h (3 smallest inf-sup values) = [0.10584 0.10619 0.10641]; 1/beta_h = 9.449  (15.2s)
+icosphere level 0, 3 layer(s), R=2.0: macro tets=180, Gamma faces=20, hG=1.0515, h=2.1029; k=3: dofs V0=10308, P=7200; beta_h (3 smallest inf-sup values) = [0.08328 0.08343 0.0836 ]; 1/beta_h = 12.008  (37.1s)
+icosphere level 0, 1 layer(s), R=2.0: macro tets=60, Gamma faces=20, hG=1.0515, h=2.1029; k=4: dofs V0=7578, P=4800; beta_h (3 smallest inf-sup values) = [0.12302 0.12305 0.12765]; 1/beta_h = 8.129  (15.8s)
+icosphere level 0, 2 layer(s), R=2.0: macro tets=120, Gamma faces=20, hG=1.0515, h=2.1029; k=4: dofs V0=15642, P=9600; beta_h (3 smallest inf-sup values) = [0.11519 0.11552 0.11559]; 1/beta_h = 8.681  (121.9s)

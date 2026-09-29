@@ -1,0 +1,4 @@
+{"mesh": "altsplit", "N": 16, "eps": 0.01, "nneedles": 16, "ncons": 176, "beta_slit": 0.09402, "beta2": 0.09402, "secs": 1.5}
+{"mesh": "altsplit", "N": 16, "eps": 0.0001, "nneedles": 16, "ncons": 176, "beta_slit": 0.093976, "beta2": 0.093976, "secs": 1.0}
+{"mesh": "altwall", "N": 16, "eps": 0.01, "nneedles": 16, "ncons": 176, "beta_slit": 0.10224, "beta2": 0.10225, "secs": 1.2}
+{"mesh": "altwall", "N": 16, "eps": 0.0001, "nneedles": 16, "ncons": 176, "beta_slit": 0.10224, "beta2": 0.10225, "secs": 1.2}

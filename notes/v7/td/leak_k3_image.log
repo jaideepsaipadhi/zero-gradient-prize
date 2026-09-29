@@ -1,0 +1,5 @@
+3 rank 1
+ sample image [[g1x1,g1x2],[g2x1,g2x2]] = ['0', '4/5', '-4/5', '0']
+ sample image [[g1x1,g1x2],[g2x1,g2x2]] = ['0', '1/5', '-1/5', '0']
+4 rank 4
+ sample image [[g1x1,g1x2],[g2x1,g2x2]] = ['0', '8/5', '-8/5', '0']

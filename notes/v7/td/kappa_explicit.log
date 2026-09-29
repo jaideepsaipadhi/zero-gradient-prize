@@ -1,0 +1,10 @@
+shape                          c_w(F)   kappa0(T)   kappaL(T)  c_s=r/D  theta0   crude k0   crude kL
+regular                        0.8660  2.1063e-03  8.6492e-02   0.2041   60.00  2.849e-05  3.899e-03
+near-regular (pen table)       0.8613  2.0912e-03  8.7381e-02   0.2029   59.49  2.731e-05  3.726e-03
+right corner                   0.3311  1.5184e-03  1.6309e-01   0.1494   45.00  4.385e-06  5.135e-04
+flat h=1/2                     0.8613  1.7905e-03  1.1807e-01   0.1658   59.49  1.567e-05  1.933e-03
+skew                           0.8613  1.3256e-03  7.7309e-02   0.0951   59.49  3.397e-06  3.173e-04
+
+regular Alfeld macro, k=4: h_sub=0.2041, C_I<=10.843, C_PT<=2.147, Lambda_0<=25.276
+  leak lower-bound constant c_L = (4/sqrt3)^(1/2) kappa_L / Lambda_0 = 5.2002e-03   (||grad(X-U)|| >= c_L G_S hG^(1/2) - C hG^(3/2))
+  sharpness constant kappa_0 c_A^(1/2)/Lambda_0 = 5.4836e-05; with the h_1 factor (1/2)(3/4)^(1/2): 2.3745e-05

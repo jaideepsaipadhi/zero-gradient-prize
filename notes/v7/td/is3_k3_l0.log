@@ -1,0 +1,2 @@
+icosphere level 0, 1 layer(s), R=2.0: macro tets=60, Gamma faces=20, hG=1.0515, h=2.1029; k=3: dofs V0=3252, P=2400; beta_h (3 smallest inf-sup values) = [0.11616 0.11622 0.12133]; 1/beta_h = 8.608  (4.8s)
+icosphere level 1, 1 layer(s), R=2.0: macro tets=240, Gamma faces=80, hG=0.6180, h=1.3281; k=3: dofs V0=12972, P=9600; beta_h (3 smallest inf-sup values) = [0.11612 0.12054 0.12059]; 1/beta_h = 8.612  (95.3s)

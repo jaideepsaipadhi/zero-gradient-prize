@@ -105,7 +105,7 @@ class Alfeld:
 
     def div_rows(self):
         rows = []
-        for s in range(4):
+        for s in range(len(self.subs)):
             for beta in self.bk1:
                 D = self.Dlin(s, beta)
                 r = {}
@@ -132,7 +132,7 @@ class Alfeld:
         """exact matrix (dict of dicts) of int grad v : grad w  (or 1/2 int Dv:Dw if sym) over T^, in unknowns."""
         k = self.k
         G = {}
-        for s in range(4):
+        for s in range(len(self.subs)):
             M = self.mass_k1(s)
             Ds = {beta: self.Dlin(s, beta) for beta in self.bk1}
             for b1 in self.bk1:

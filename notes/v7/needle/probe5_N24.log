@@ -1,0 +1,4 @@
+{"mesh": "onesplit", "N": 24, "eps": 0.001, "nneedles": 2, "ncons": 22, "beta_slit": 0.091396, "beta2": 0.091397, "secs": 9.8}
+{"mesh": "onesplit", "N": 24, "eps": 1e-05, "nneedles": 2, "ncons": 22, "beta_slit": 0.091396, "beta2": 0.091397, "secs": 6.8}
+{"mesh": "onewall", "N": 24, "eps": 0.001, "nneedles": 2, "ncons": 22, "beta_slit": 0.091396, "beta2": 0.091397, "secs": 6.9}
+{"mesh": "onewall", "N": 24, "eps": 1e-05, "nneedles": 2, "ncons": 22, "beta_slit": 0.091396, "beta2": 0.091397, "secs": 7.5}

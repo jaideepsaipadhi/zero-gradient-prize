@@ -1,0 +1,5 @@
+W_3(T^): unknowns=48, rank(div)=40, dim W=8
+tensors done (0.7s)
+check: near-regular lambda_T (float) = 32.4991  (table: 32.50)
+regular tetrahedron lambda_T (float) = 31.8978
+lambda0=10.0 delta=0.15: boxes processed=3000, certified=0, remaining=3001, min certified lower bound=1000000000.0000  (143.8s)

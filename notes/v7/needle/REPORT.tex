@@ -1,0 +1,334 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\VO}{V_O}
+\newcommand{\Pih}{\Pi_h}
+\newcommand{\dn}{\partial_\nu}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\Nset}{\mathcal N}
+\newcommand{\Lk}{\mathcal L}
+\newcommand{\curl}{\operatorname{curl}}
+\title{Needle pairs: the slit functional, a slit-domain right inverse,\\ and Theorem N3(ii) without inf-sup (notes/v7/needle)}
+\date{2026-09-29}
+\begin{document}\sloppy
+\maketitle
+
+\section*{Summary and status}
+Notation: \texttt{notes/v6/nearsing/REPORT.tex} (families I, II, Theorems N1--N3, $d_z$, $w_z$, $A_z$, (H$_\Nset$)),
+\texttt{notes/v6/strong2/REPORT.tex} (Lemma K, Lemma V, Lemma bubble, Theorem L; standard ingredients (a)--(c)).
+$k\ge4$ as in the paper. ``PROVED'' below means: modulo the same cited standard ingredients (a) continuous inf-sup on
+$\Omega_h$, (b) $P_2$ Fortin operator on shape-regular meshes, (c) element-bubble lemma, plus (d) the
+Acosta--Dur\'an--Muschietti right inverse of $\div$ on John domains (ADM 2006), used only on a fixed-scale patch.
+
+\begin{center}\small\begin{tabular}{p{2.6cm}p{9.5cm}p{2.7cm}}
+\toprule
+Claim & Content & Status\\\midrule
+Obs.~\ref{obs:pairs} & under a maximum-angle condition and local quasi-uniformity needles come in \emph{pairs} sharing a short edge (unless the short edge lies on $\Gamma_h$); family I \emph{and} family II are needle pairs; they differ in the \emph{bend} $\gamma$ of the pair & PROVED (elementary)\\
+Prop.~\ref{prop:B} & the \emph{cross-difference functional} $\ell_K(q)=[q_{N_1}]_{x_R}^{x_L}-[q_{N_2}]_{x_R}^{x_L}$ gives $\beta\le C(\varepsilon+\gamma)$; its representer vanishes at both apexes, so it lies in every space constrained at $z$ & PROVED\\
+& $\beta\approx0.5(\varepsilon+\gamma)$; a $45^\circ$-bent pair has the unsplit $\beta$ & NUMERICAL\\
+& lower bound $\beta\ge c\,\varepsilon$ for straight pairs (family II) & NUMERICAL (open)\\
+Thm~\ref{thm:Sp} & uniform right inverse of $\div$ into velocities \emph{vanishing on the needles}, for pressures vanishing on the needles plus explicit corner/lock conditions (slit-domain inf-sup) & PROVED\\
+Lemmas~\ref{lem:A2}, \ref{lem:A1} & explicit local velocity on a wall needle pair: div-free on both needles, corner/lock conditions met, $H^1$ cost $\le C(d_z+h_z^2)$ & PROVED\\
+Thm~\ref{thm:N3u} & Theorem N3(ii) \textbf{unconditionally} for families I and II (C\'ea on $Z_h$, no inf-sup, no (L$_\Nset$)); hence the two-sided $\asymp$ of N3 & PROVED under (H$_K$)\\
+Prop.~\ref{prop:Sint} & interior needle pairs: velocity error unaffected (cut-off version of Thm~\ref{thm:Sp}) & PROVED\\
+(L$_\Nset$), family II & false: $\beta\le C\varepsilon$ on $Q^0_\Nset$ and on the wired space & PROVED (Prop.~\ref{prop:B})\\
+(L$_\Nset$), family I & reduced to a local kite lemma (K$_{\rm I}$); constant equals the lock-free one numerically & NUMERICAL\\
+\bottomrule\end{tabular}\end{center}
+
+\paragraph{Headline.} (1) The ``slit instability'' of the v6 report is not a wall effect and not a property of
+needles as such: it is a property of a \emph{straight} needle pair. For two needles $N_1,N_2$ of apex angle $\asymp\varepsilon$
+sharing a short edge $e$, the pressure
+\[
+\rho_K=R_{N_1}(x_L)-R_{N_1}(x_R)-R_{N_2}(x_L)+R_{N_2}(x_R)
+\]
+satisfies $\sup_v(\rho_K,\div v)/(\norm{\rho_K}\norm{\nabla v})\le C(\varepsilon+\gamma)$, where $\gamma$ is the angle by which the two
+needle axes fail to be collinear at the midpoint of $e$. Family II (split edge) has $\gamma=0$; family I (needle at the wall)
+has $\gamma=\pi-\alpha$ with $\alpha$ a regular angle, which is why it was harmless. The numerics fit $\beta\approx0.5(\varepsilon+\gamma)$
+over four decades (Table~\ref{tab:bend}).
+(2) The velocity does not need inf-sup. Removing the needles from the mesh leaves a shape-regular mesh of a slit domain, on
+which $\div$ has a uniform right inverse (Theorem~\ref{thm:Sp}); an explicit divergence-free local field on each needle pair
+(Lemmas~\ref{lem:A2}, \ref{lem:A1}), whose cost is exactly the Theorem N2 quantity $d_z$, reduces the approximation problem in
+$Z_h$ to that right inverse. This makes Theorem N3(ii) unconditional for both families.
+
+\section{Needle pairs}\label{sec:pairs}
+A \emph{needle} is a triangle with one angle $\le\varepsilon_0$; all other triangles are \emph{regular} (angles in $[\theta_0,\theta_{\max}]$).
+Throughout, all angles of all triangles are $\le\theta_{\max}<\pi$ and neighbouring triangles have comparable diameters.
+\begin{remark}[needles come in pairs]\label{obs:pairs}
+A needle $N=[a,x_L,x_R]$ with angle $\varepsilon$ at $a$ and the other two angles $\le\theta_{\max}$ has two long edges of length $\asymp h_N$ and a
+short edge $e=[x_R,x_L]$ of length $\asymp\varepsilon h_N$ (sine rule). If $e\not\subset\partial\Omega_h$, the triangle $N'$ across $e$ has an edge of length
+$\asymp\varepsilon h$ and diameter $\asymp h$, so by the sine rule and $\theta_{\max}<\pi$ its angle opposite $e$ is $\asymp\varepsilon$: $N'$ is a needle with the
+same short edge. We call $K=N_1\cup N_2$ a \emph{needle pair} (kite), with apexes $a_1,a_2$, short edge $e$ of midpoint $m$, unit tangent $\tau$,
+length $\delta$, axes $A_i=m-a_i$, $L_i=|A_i|\asymp h$, $\varepsilon:=\delta/\min L_i$, and \emph{bend} $\gamma:=\angle(A_1,-A_2)\in[0,\pi)$.
+\end{remark}
+\emph{Family II} (split edge, \texttt{ns\_mesh} \texttt{split}): $a_1=z\in\Gamma_h$, $a_2=f$, $x_{L,R}=w\pm\frac\delta2\tau$, $\tau\perp(w-z)$,
+$f$ on the ray $z\to w$; so $\gamma=0$. The star of $z$ is $\{T_1,N_1,T_3\}$, $T_1=[z_-,z,x_L]$, $T_3=[z,z_+,x_R]$.
+\emph{Family I} (\texttt{wall}): $N_1=[z,z_+,y]$ with angle $\varepsilon$ at $z$ and wall edge $[z,z_+]$, $N_2=[w,y,z_+]$ (the triangle $(y,z_+,w)$ of
+\texttt{ns\_mesh}, apex $w$), short edge $e=[z_+,y]$ with $z_+\in\Gamma_h$; the star of $z$ is $\{T_1=[z_-,z,w],\,T_2'=[z,y,w],\,N_1\}$.
+Here $A_1\approx z_+-z$ and $A_2\approx z_+-w$ meet at the angle $\alpha$ of the original triangle $(z,z_+,w)$ at $z_+$, so
+$\gamma=\pi-\alpha\ge\pi-\theta_{\max}$. (The \texttt{wall} meshes contain two needles, \texttt{nneedles}=2 in \texttt{probe5}.)
+
+\textbf{(H$_K$)} (M0), (M1), (D), $k\ge4$, $m_R=0$; all angles $\le\theta_{\max}$; non-needle triangles have angles $\ge\theta_0$; every needle
+belongs to a wall pair of family I or II attached to a vertex $z\in\Nset$ (the wall vertex whose star contains an apex of angle $\varepsilon_z$);
+the patches $\omega(K)$ (triangles meeting $\bar K$) are pairwise disjoint and disjoint from the stars of plain locked vertices;
+and the following \emph{slit vertices} lie in at least three non-needle triangles: $x_L,x_R$ (family II), $z_+$ (family I);
+all other vertices satisfy (M2). For $x_L,x_R$ and for the far apexes the (M2)-type non-degeneracy of the slit star is
+then automatic (proof of Theorem~\ref{thm:Sp}, Step C).
+
+\section{The slit functional (family II: $\beta\lesssim\varepsilon$)}\label{sec:B}
+\begin{proposition}[Slit functional]\label{prop:B}
+Let $K=N_1\cup N_2$ be a needle pair as above with the angles of $N_i$ at $x_L,x_R$ in $[\pi-\theta_{\max},\theta_{\max}]$. For
+$q\in\Pih$ put $\ell_K(q):=q_{N_1}(x_L)-q_{N_1}(x_R)-q_{N_2}(x_L)+q_{N_2}(x_R)$ and let $\rho_K\in\Pih$ be its $L^2$ representer
+(supported on $K$). Then $\int\rho_K=0$, $\rho_K|_{N_1}(a_1)=\rho_K|_{N_2}(a_2)=0$, $\norm{\rho_K}\ge c|N_1|^{-1/2}$, and for every
+$v\in H^1(K)^2$ which is $P_k$ on each $N_i$ and continuous across $e$,
+\[
+|(\rho_K,\div v)_K|\le C\big(\varepsilon+\gamma\big)\,\norm{\rho_K}\,\norm{\nabla v}_K .
+\]
+Consequently $\beta_h\le C(\varepsilon+\gamma)$ on $(\VO,\,Q)$ for \emph{every} pressure space $Q\ni\rho_K$, in particular for
+$\Pih\cap L^2_0$, for $Q^0_\Nset$ of (L$_\Nset$) and for the wired space $Q_W$. For family II ($\gamma=0$): $\beta_h\le C\varepsilon$ and
+(L$_\Nset$) is false.
+\end{proposition}
+\begin{proof}
+\emph{Anisotropic charts.} $F_i(\hat\sigma,\hat\tau)=a_i+\hat\sigma A_i+\hat\tau\frac\delta2\tau$ maps $\hat T=\{0\le\hat\sigma\le1,\ |\hat\tau|\le\hat\sigma\}$ onto $N_i$
+(apex $\mapsto a_i$, $(1,\pm1)\mapsto x_L,x_R$ for a suitable orientation of $\tau$). For $\hat v=v\circ F_i$:
+$\partial_{\hat\sigma}\hat v=L_i\,\partial_{\hat A_i}v$, $\partial_{\hat\tau}\hat v=\frac\delta2\partial_\tau v$, and $|N_i|=|\det DF_i|\asymp L_i\delta$. Hence
+$\norm{\partial_{\hat\tau}\hat v}_{\hat T}=\frac\delta2|N_i|^{-1/2}\norm{\partial_\tau v}_{N_i}\le C\sqrt{\varepsilon}\,\norm{\nabla v}_{N_i}$.
+\emph{Splitting the divergence.} Let $(\hat A_i^*,\tau_i^*)$ be the basis dual to $(\hat A_i,\tau)$; then $\div v=\hat A_i^*\cdot\partial_{\hat A_i}v+\tau_i^*\cdot\partial_\tau v$ on $N_i$,
+$|\hat A_i^*|,|\tau_i^*|\le C$ (the angle between $A_i$ and $\tau$ is bounded away from $0,\pi$), and $|\tau_1^*-\tau_2^*|\le C\gamma$. Writing $[g]:=g(x_L)-g(x_R)$,
+\[
+\ell_K(\div v)=\hat A_1^*\cdot[\partial_{\hat A_1}v_{N_1}]-\hat A_2^*\cdot[\partial_{\hat A_2}v_{N_2}]+(\tau_1^*-\tau_2^*)\cdot[\partial_\tau v],
+\]
+because $\partial_\tau v$ is a \emph{tangential} derivative on $e$ and therefore the same from both sides.
+\emph{Axial terms.} $[\partial_{\hat A_i}v_{N_i}]=L_i^{-1}\int_{-1}^1\partial_{\hat\tau}\partial_{\hat\sigma}\hat v(1,\hat\tau)\,d\hat\tau$, and by equivalence of norms on
+$P_{k-1}(\hat T)$, $|\partial_{\hat\sigma}\partial_{\hat\tau}\hat v|\le C_k\norm{\partial_{\hat\tau}\hat v}_{\hat T}$; so the axial terms are $\le C\sqrt\varepsilon\,h^{-1}\norm{\nabla v}_K$.
+\emph{Tangential term.} $|[\partial_\tau v]|\le\delta\max_e|\partial_\tau^2v|=\frac4\delta\max|\partial^2_{\hat\tau}\hat v|\le\frac{C}{\delta}\norm{\partial_{\hat\tau}\hat v}_{\hat T}\le C|N_1|^{-1/2}\norm{\nabla v}_K$.
+\emph{Representer.} $\norm{\rho_K|_{N_i}}^2=\sup_{p\in P_{k-1}(N_i)}[p]^2/\norm p^2_{N_i}=c_k/|N_i|$ with $c_k>0$ the reference value; $|N_1|\asymp|N_2|\asymp\varepsilon h^2$.
+Mean: each vertex representer has integral $1$, so $\int\rho_K=1-1-1+1=0$. Apex values: $\hat T$ is symmetric under $\hat\tau\mapsto-\hat\tau$, which swaps
+$(1,\pm1)$ and fixes $(0,0)$; hence the reference representers of the two short-edge corners take the same value at the apex, and
+$\rho_K|_{N_i}(a_i)=0$ (affine pull-back preserves this). Combining, $|(\rho_K,\div v)|\le C(\sqrt\varepsilon h^{-1}+\gamma|N_1|^{-1/2})\norm{\nabla v}_K\le C(\varepsilon+\gamma)\norm{\rho_K}\norm{\nabla v}_K$.
+\emph{Membership.} $\rho_K$ vanishes on every triangle except $N_1,N_2$, and on $N_i$ at its apex; at the short-edge corners there is no
+constraint in $Q^0_\Nset$ or $Q_W$. So $\rho_K\in Q^0_\Nset\cap Q_W$.
+\end{proof}
+\begin{remark}[what the proof shows]
+The obstruction is a \emph{cross second difference} across the short edge: on a straight pair the divergence at the four short-edge
+corners sees only the transverse curvature $\partial_\tau^2v$, which is continuous across $e$ and cancels in $\ell_K$. A bend
+$\gamma$ gives the two needles different dual vectors $\tau_i^*$ and the cancellation fails at order $\gamma$. For family I the bend is $\pi-\alpha$, so
+$\ell_K$ is harmless there; this is the mechanism behind the I/II dichotomy of the v6 report.
+\end{remark}
+\paragraph{Numerics (Table~\ref{tab:bend}).} Interior slit lab ($[-1,1]^2$, uniform diagonal mesh $n=8$, P4/P3disc).
+\texttt{probe9}: rotating the far apex $f$ about $w$ by $\gamma$ gives $\beta/(\varepsilon+\gamma)=0.46$--$0.50$ for $\gamma\ge\varepsilon$, and the slit-functional
+ratio equals $\beta$ to 1--3 digits once $\gamma\ge10\varepsilon$ (so for bent pairs $\rho_K$ \emph{is} the bad mode).
+\texttt{probe8}: a $45^\circ$ bend (\texttt{split\_apex(diag=True)}) gives $\beta=0.1979$--$0.1982$, the value of the unsplit mesh, for
+$\varepsilon=10^{-2},10^{-3},10^{-4}$; the straight pair gives $0.56\varepsilon$ and the $\sqrt\varepsilon$ vertex mode as well.
+\texttt{probe7}: rotating the \emph{split direction} (keeping $z,w,f$ collinear) changes nothing ($0.538\varepsilon$ for all rotations up to $0.6$) --- as
+predicted, only the collinearity of the axes matters. \texttt{probe6}: restricted to the 8 vertex/mean representers of the pair, the only
+$\varepsilon$-mode is exactly $\ell_K$ (coefficients $(0,0,0,\mp1,\pm1,0,\pm1,\mp1)$ to 4 digits), ratio $2.28\varepsilon$; the global
+smallest value $0.56\varepsilon$ is attained by modes with bubble content (three modes $0.56,1.31,3.3\,\varepsilon$, all odd under $N_1\leftrightarrow N_2$).
+\emph{Lower bound} $\beta\ge c\varepsilon$ for straight pairs: consistent with all data ($\beta/\varepsilon=0.54,0.56,0.56$ for
+$\varepsilon=10^{-2},10^{-3},10^{-4}$) and with the $\varrho_T^{-1}$ lower bound of Kean--Neilan--Schneier for Alfeld-split anisotropic meshes; not proved here.
+
+\section{Slit-domain right inverse}\label{sec:S}
+Let $\mathcal K$ be the set of wall needle pairs, $\Omega_S:=\Omega_h\setminus\bigcup_{K}\bar K$, $\mathcal T_S$ the non-needle triangles
+(a shape-regular mesh of $\Omega_S$ with angles in $[\theta_0,\theta_{\max}]$), and $V_S:=\{v\in\VO:\ v=0\text{ on }\bigcup\bar K\}$.
+For a vertex $x$ of $\mathcal T_S$ on $\partial\Omega_S$ we say that $(T,x)$ is a \emph{corner} if both edges of $T\in\mathcal T_S$ at $x$ lie on $\partial\Omega_S$
+(family II: $(T_1,z)$, $(T_3,z)$; family I: $(T_2',y)$), and that $x$ is a \emph{slit lock} if $x$ lies in exactly two triangles of $\mathcal T_S$,
+which share an interior edge and whose other edges at $x$ lie on $\partial\Omega_S$ (family I: $z$, with $T_1,T_2'$, apex $w$; plain locks of $\Lk$).
+\[
+Q_S:=\{q\in\Pih\cap L^2_0:\ q=0\text{ on needles};\ q|_T(x)=0\text{ at corners};\ q|_{T_1}(x)=q|_{T_2}(x)\text{ at slit locks}\}.
+\]
+\begin{theorem}[Slit-domain right inverse]\label{thm:Sp}
+Under (H$_K$), for every $q\in Q_S$ there is $y\in V_S$ with $\div y=q$ and $\norm{\nabla y}\le C\norm q$, $C$ independent of $h,\hG$, the needle angles,
+the bends, $\phi_z$ and the number of pairs.
+\end{theorem}
+\begin{proof}
+\emph{Step 0 (continuous, needles removed).} Let $w\in H^1_0(\Omega_h)^2$, $\div w=q$, $\norm{\nabla w}\le C\norm q$ (ingredient (a)). For $K\in\mathcal K$ let
+$D_K$ be the interior of $\omega(K)$ and $\chi_K\in W^{1,\infty}$ with $\chi_K=1$ on $\bar K$, $\chi_K=0$ on $\partial D_K\setminus\Gamma_h$, $|\nabla\chi_K|\le C/h_K$
+(the regular ring around $K$ has width $\asymp h_K$). Since $w=0$ on the wall part of $\partial D_K$, of length $\asymp h_K$, Friedrichs gives
+$\norm{w}_{D_K}\le Ch_K\norm{\nabla w}_{D_K}$ ($D_K$ is a union of regular triangles, a compact family after scaling); so $\norm{\nabla(\chi_Kw)}\le C\norm{\nabla w}_{D_K}$.
+$g_K:=\div(\chi_Kw)$ has $\int_{D_K}g_K=0$ and $g_K=q=0$ on $K$. $U_K:=D_K\setminus\bar K$ is a John domain with a constant depending only on
+$\theta_0,\theta_{\max}$: its boundary consists of edges of regular triangles and of the kite polyline, whose angles seen from $U_K$ are
+$\ge\theta_0$ at the wall apex, $\pi\pm O(\varepsilon+\gamma)$ or larger at the short-edge corners, and $\ge2\pi-\theta_{\max}$ at the far apex
+(re-entrant corners and cracks are admissible for John). ADM (ingredient (d)) gives $c_K\in H^1_0(U_K)^2$, $\div c_K=g_K$,
+$\norm{\nabla c_K}\le C\norm{g_K}\le C\norm{\nabla w}_{D_K}$. Then $w_S:=w-\sum_K(\chi_Kw-c_K)\in H^1_0(\Omega_S)^2$, $\div w_S=q$, $\norm{\nabla w_S}\le C\norm q$
+(disjoint patches).
+\emph{Step A (means).} $v_A:=\Pi_Fw_S$, the $P_2$ Fortin interpolant on $\mathcal T_S$ with zero boundary values on $\partial\Omega_S$ (ingredient (b); only regular
+triangles). Extended by $0$ on the needles, $v_A\in V_S$ and $\int_T\div v_A=\int_Tq$ for all $T\in\mathcal T_S$ (and trivially on needles).
+At plain and slit locks subtract $K_x(c_{v_A,x},-\frac52c_{v_A,x}\cdot n_s)$ (Lemma K); these fields live on the two lock triangles, which contain no
+needle (for family I the lock $z$ has apex $w$; $N_1\not\ni w$ and $N_2\not\ni z$, so no needle contains both), so they stay in $V_S$. At a corner
+$(T,x)$, $v_A$ vanishes on both edges of $T$ at $x$, so $\nabla v_A|_T(x)=0$ automatically.
+\emph{Step B (locks).} As in Theorem L, with the radial field $\sigma(w-x)\lambda_w\lambda_x^2$ (Lemma K(d)); it uses only the identity $D_x(w-x)=(1,1)$,
+valid for every turning angle, including the slit lock of family I (turning angle $|\phi_z-\varepsilon_z|$, possibly $0$).
+\emph{Step C (other vertices).} Lemma V of strong2 on $\mathcal T_S$, with $\ell=\sum c_j\lambda_{x_j}$ over the $\mathcal T_S$-neighbours and $c_j=0$ on $\partial\Omega_S$-edges;
+then $v_y=0$ on every needle (on $N_1$ only $\lambda_{x_L},\lambda_{x_R},\lambda_{a_1}$ are nonzero, and the needle-side neighbours carry $c=0$ or are not
+$\mathcal T_S$-neighbours of $y$). Uniformity needs $\ge3$ distinct edge lines in each such slit star with a quantitative margin: at $x_L,x_R$ (family II)
+the slit star has $m\ge3$ triangles filling an angle $\pi-O(\varepsilon)$; two interior rays are collinear only if an angle equals $\pi$, and an interior
+ray is parallel to the (nearly straight) boundary only if the angles on one side sum to $\approx\pi$, impossible with $m\ge3$ angles $\ge\theta_0$;
+at the far apex the slit star fills $2\pi-O(\varepsilon)$ with $m\ge3$ triangles and angles $\le\theta_{\max}$; so the compactness argument of Lemma V
+applies, uniformly as $\varepsilon\to0$ (the limit stars keep $L\ge3$). At $z_+$ (family I) this is part of (H$_K$).
+Corners are skipped: $q_2|_T(x)=q|_T(x)=0$ there.
+\emph{Step D (elements).} Element bubbles (ingredient (c)) on $\mathcal T_S$ only; on the needles $q_3=0$.
+All constants are those of shape-regular triangles, of Lemmas K/V and of ADM on $U_K$; none involves $\varepsilon,\gamma,\phi$.
+\end{proof}
+\paragraph{Numerics.} \texttt{probe5} (dense, $V_S\times Q_S$): \texttt{onesplit} $N=16$: $0.10224$; $N=24$: $0.091396$; \texttt{onewall} $N=16$: $0.077789$,
+$N=24$: $0.091396$; \texttt{altsplit}/\texttt{altwall} ($8$ pairs) $N=16$: $0.0940$/$0.10224$; each constant to 4--5 digits for
+$\varepsilon=10^{-2}\dots10^{-5}$ (lock-free \texttt{std}: $0.10229$, $0.0913$).
+
+\section{Local divergence-free fields on a wall needle pair}\label{sec:A}
+Fix $z\in\Nset$ with pair $K$, $h:=h_z$, $a:=|\dn u(z)|$, $G^*\in A_z$ the minimiser of Theorem N2 (so $d_z^2=\sum_{T\ni z}|T||G^*_T-\nabla\tilde u(z)|^2$),
+and put $\eta:=\sum_{T\ni z\ \mathrm{regular}}|G^*_T-\nabla\tilde u(z)|$ and $D:=G^*_{N_1}-\nabla\tilde u(z)$. Then $h\eta\le Cd_z$ and
+$|N_1|^{1/2}|D|\le d_z$. Also $a\phi_z\le C\eta$ (a regular wall triangle's gradient vanishes along its wall edge, whose direction is at angle $\gtrsim\phi_z$
+from $\nabla\tilde u(z)=a\,t\otimes\nu$; this is the lower-bound step of Theorem N1). $\mathrm{curl}\,\Psi:=J\nabla\Psi$, $J$ the rotation by $-\pi/2$;
+for $H$ symmetric $\curl(\frac12x^{\mathsf T}Hx)=JHx$, and $JH$ ranges over the traceless matrices.
+
+\emph{Assembly rule.} On a regular triangle $T\subset\omega(K)$ the local field $v_K$ is the Lagrange $P_k$ function whose nodal values are: on edges of $K$ the
+values of the needle fields below; $0$ on $\Gamma_h$; on the edge $[z,w]$ of family I the values of the polynomial
+$q_w(s)=I_h\tilde u(s)+\lambda_z(s)^2 s\,(G^*_{T_1}-\nabla I_h\tilde u|_{T_1}(z))\,d_w$; elsewhere $I_h\tilde u$. Nodes on $\partial\omega(K)$ get $I_h\tilde u$ or $0$, so $v_K$
+glues continuously to the S1 interpolant $w_h$. On a regular $T$, $\norm{\nabla(v_K-I_h\tilde u)}_T\le C\max_{\rm nodes}|v_K-I_h\tilde u|$.
+
+\begin{lemma}[family II]\label{lem:A2}
+Let $P:=T_k\tilde u$ (Taylor polynomial at $z$; div-free, $P(z)=0$), $\Phi_0(x):=\frac12(x-z)^{\mathsf T}H(x-z)$ with $JH=D$, $\omega$ affine with $\omega(z)=1$,
+$\omega=0$ on the line of $e$, and on $N_1$: $S_1:=P+\curl(\omega\Phi_0)$. On $N_2$ use oblique coordinates $x=m+\xi\tau+t\,\hat a$, $\hat a=(f-m)/|f-m|$; let
+$g:=(S_1-P)|_e$, $g_\xi:=\tau\cdot(-Jg)$, $g_t:=\hat a\cdot(-Jg)$, $A'=g_\xi$, $B=g_t$, $\Psi:=A(\xi)+tB(\xi)$, and $S_2:=P+\curl\Psi$. Then $v_K$ ($S_i$ on $N_i$, assembly rule
+elsewhere) is continuous, vanishes on $\Gamma_h$, $\div v_K=0$ on $N_1\cup N_2$, $\nabla v_K|_T(z)=G^*_T$ for $T\in\{T_1,N_1,T_3\}$ (so the corners
+$(T_1,z),(T_3,z)$ are satisfied), and
+\[\norm{\nabla(\tilde u-v_K)}_{\omega(K)}\le C\,(d_z+h^2+h^{k+1}).\]
+\end{lemma}
+\begin{proof}
+\emph{Cone estimate.} $N_1$ lies in the cone at $z$ spanned by $d_1=\frac{x_L-z}{|x_L-z|}$, $d_2=\frac{x_R-z}{|x_R-z|}$: $x-z=\alpha d_1+\beta d_2$, $\alpha,\beta\ge0$, $\alpha+\beta\le2|x-z|$.
+$G^*$ is $C^0$-compatible, so $Dd_1=(G^*_{T_1}-\nabla\tilde u(z))d_1$, $Dd_2=(G^*_{T_3}-\nabla\tilde u(z))d_2$, hence $|D(x-z)|\le Ch\eta$ on $N_1$, and, $d_1,d_2$ being at angle
+$\varepsilon$, $|D|\le C\eta/\varepsilon$.
+\emph{$N_1$.} $|\nabla\Phi_0|=|D(x-z)|\le Ch\eta$, $|\Phi_0|\le\frac12|x-z||D(x-z)|\le Ch^2\eta$, $|\nabla\omega|\le C/h$. So
+$|\curl(\omega\Phi_0)|\le Ch\eta$ and $\nabla\curl(\omega\Phi_0)=\omega D+D(x-z)\otimes\nabla\omega+J\nabla\omega\otimes H(x-z)$, i.e. $|\nabla S_1-\nabla P-\omega D|\le C\eta$.
+At $z$: $S_1(z)=0$, $\nabla S_1(z)=\nabla\tilde u(z)+D=G^*_{N_1}$; $\div S_1=0$. Along $d_1$: $|\partial_{d_1}(S_1-P)|\le|Dd_1|+C\eta\le C\eta$.
+$\norm{\nabla(S_1-\tilde u)}_{N_1}\le|N_1|^{1/2}(|D|+C\eta+Ch^k)\le C(d_z+h^{k+1})$.
+\emph{$e$.} $\omega=0$: $g=\Phi_0J\nabla\omega$, so $|g|\le Ch\eta$, $|g'|\le C\eta$, $|g''|\le C|D|/h$, $g'''=0$ (derivatives in $\xi$).
+\emph{$N_2$.} $\Psi\in P_3$ satisfies $\nabla\Psi=-Jg$ on $t=0$, so $\curl\Psi=g$ on $e$: $S_2=S_1$ on $e$. On $N_2$, $|\xi|\le\delta$, $0\le t\le Ch$; $\partial_\xi\Psi=g_\xi+tg_t'$,
+$\partial_t\Psi=g_t$, so $|\curl\Psi|\le Ch\eta$; the second derivatives are $\le C\eta$ except $\partial_\xi^2\Psi=g_\xi'+tg_t''=O(\eta+|D|)$. Hence
+$\norm{\nabla(S_2-\tilde u)}_{N_2}\le C|N_2|^{1/2}(\eta+|D|+h^k)\le C(d_z+h^{k+1})$ ($|N_2|\asymp|N_1|$). Along a long edge of $N_2$ the $\xi$-component of the
+direction is $O(\varepsilon)$, so tangential derivatives of $S_2-P$ are $\le C(\eta+\varepsilon|D|)\le C\eta$.
+\emph{Regular triangles.} Nodal values on kite edges differ from $\tilde u$ by $\le C(h\eta+h^{k+1})$; wall zeroing costs $C\hG^2$ per node as in S1. So
+$\norm{\nabla(v_K-\tilde u)}_T\le C(h\eta+h^2+h^{k+1})$. On $T_1$ the traces on its two edges at $z$ are $0$ and $S_1|_{[z,x_L]}$, so
+$\nabla v_K|_{T_1}(z)$ is the unique matrix vanishing along the wall with value $G^*_{N_1}d_1=G^*_{T_1}d_1$ along $d_1$: it is $G^*_{T_1}$ (trace $0$). Same for $T_3$.
+Summing, with $h\eta\le Cd_z$: the claim.
+\end{proof}
+
+\begin{lemma}[family I]\label{lem:A1}
+Let $\lambda(x):=n_m\cdot(x-z)$ ($n_m$ the inner normal of $e_l=[z,z_+]$), $R$ affine along $e_l$ (constant in $n_m$) with $R(z)Jn_m\otimes n_m=G^*_{N_1}$
+and $R(z_+)Jn_m\otimes n_m$ the shear closest to $\nabla\tilde u(z)$; on $N_1$: $S_1:=\curl(\frac12\lambda^2R)$. On $N_2$, with $P:=T_k\tilde u$ at $z_+$, oblique
+coordinates $x=m+\xi u+t\hat a$ ($u$ along $e=[z_+,y]$, $\hat a=(w-m)/|w-m|$), $g:=(S_1-P)|_e$ and $A,B$ as in Lemma~\ref{lem:A2}:
+$S_2:=P+\curl(A+tB+\frac c2t^2)$ with the scalar $c$ fixed by $\div v_K|_{T_2'}(y)=0$. Then $v_K$ is continuous, vanishes on $\Gamma_h$, is div-free on
+$N_1\cup N_2$, satisfies the corner $(T_2',y)$ and the slit lock at $z$ ($\div v_K|_{T_1}(z)=\div v_K|_{T_2'}(z)=0$), and
+$\norm{\nabla(\tilde u-v_K)}_{\omega(K)}\le C(d_z+h^2+h^{k+1})$.
+\end{lemma}
+\begin{proof}
+$G^*_{N_1}$ vanishes along $e_l$ and is traceless, so it is a multiple of $Jn_m\otimes n_m$; thus $R(z)$ exists. $S_1=\lambda RJn_m+\frac12\lambda^2J\nabla R$
+vanishes on the line of $e_l$ (in particular on the wall edge of $N_1$ and at $z_+$), is div-free, and $\nabla S_1(z)=G^*_{N_1}$.
+Let $D_1:=G^*_{N_1}-\nabla\tilde u(z)$. $D_1t_m=-\nabla\tilde u(z)t_m=O(a\phi_z)$ and $D_1d_y=(G^*_{T_2'}-\nabla\tilde u(z))d_y$ (compatibility across $[z,y]$), so
+$|D_1|\le C\eta/\varepsilon$, $|R(z)-R(z_+)|\le C(|D_1|+\eta)$, $|\nabla R|\le C(|D_1|+\eta)/h$. On $N_1$, $0\le\lambda\le C\varepsilon h$, hence
+$\nabla S_1=RJn_m\otimes n_m+O(\varepsilon|D_1|+\eta)=RJn_m\otimes n_m+O(\eta)$; cone estimate in the cone $(t_m,d_y)$ gives $|S_1-\tilde u|\le C(h\eta+h^2)$
+and tangential derivatives along $[z,y]$ of size $\le C(\eta+h)$. Near $e$ (within $C\varepsilon h$ of $z_+$), $\nabla S_1=R(z_+)Jn_m\otimes n_m+O(\eta)$, which is within
+$C(a\phi_z+\eta+h)\le C(\eta+h)$ of $\nabla\tilde u(z_+)$; so $|g|\le C(h\eta+h^2)$, $|g'|\le C(\eta+h)$, $|g''|\le C(|D_1|+\eta)/h+C$. The $N_2$ estimates are those of
+Lemma~\ref{lem:A2} ($|N_2|\asymp|N_1|$, $|e|\asymp\varepsilon h$ because the angle of $N_1$ at $y$ is $\approx\pi-\alpha/2$).
+\emph{The corner at $y$.} $T_2'$ has its two edges at $y$ on $N_1$ and $N_2$, so its vertex gradient $G$ is fixed by $\partial S_1(y)$ along $y\to z$ and $\partial S_2(y)$ along
+$y\to w$. The term $\frac c2t^2$ adds $cJ\nabla t\otimes\nabla t$ to $\nabla S_2$; $J\nabla t\parallel u$ and the dual vector of $y\to w$ in the basis of $T_2'$ at $y$ is
+not orthogonal to $u$ (the angle between $u$ and $y\to z$ is $\approx\alpha/2+\varepsilon$), so $\mathrm{tr}\,G$ is an affine function of $c$ with slope bounded
+below: one $c$ with $|c|\le C|\mathrm{tr}\,G|_{c=0}|\le C(\eta+h)$ makes it $0$; it changes $S_2$ by $O(h(\eta+h))$ and $\nabla S_2$ by $O(\eta+h)$ on $N_2$.
+\emph{The slit lock at $z$.} By the assembly rule the traces of $v_K$ on $T_1$ at $z$ are $0$ (wall) and $q_w$ with $q_w'(0)=G^*_{T_1}d_w$, so $\nabla v_K|_{T_1}(z)=G^*_{T_1}$;
+on $T_2'$ they are $S_1|_{[z,y]}$ (derivative $G^*_{N_1}d_y=G^*_{T_2'}d_y$) and $q_w$ (derivative $G^*_{T_1}d_w=G^*_{T_2'}d_w$), so $\nabla v_K|_{T_2'}(z)=G^*_{T_2'}$. Both are traceless.
+The perturbation in $q_w$ is $\le Ch\eta+Ch^{k+1}$. The rest is as in Lemma~\ref{lem:A2}.
+\end{proof}
+
+\section{Theorem N3(ii) without (L$_\Nset$)}\label{sec:N3}
+\begin{theorem}[N3(ii), unconditional]\label{thm:N3u}
+Under (H$_K$) (families I and II, any mixture, any $\varepsilon_z\in(0,\varepsilon_0]$):
+$\norm{\nabla(\tilde u-u_h)}\le C\big(h^k+\hG^{3/2}+\hG(\sum_{z\in\Nset\cup\Lk}w_z^2|\dn u(z)|^2)^{1/2}\big)$, $w_z=\min(1,\phi_z/\sqrt{\varepsilon_z})$.
+With N3(i): for $h^k\le\hG^{3/2}$, $\norm{\nabla(\tilde u-u_h)}\asymp\hG^{3/2}+\hG(\sum_zw_z^2|\dn u(z)|^2)^{1/2}$, and the rates corollary of the v6 report
+holds for both families.
+\end{theorem}
+\begin{proof}
+Let $v:=w_h$ (the S1 interpolant, modified at plain locks as in S4) outside $\bigcup\omega(K)$ and $v:=v_K$ on $\omega(K)$ (Lemmas~\ref{lem:A2}, \ref{lem:A1}). Then
+$v\in V_h$, $v=0$ on $\Gamma_h$, $v=g_I$ on $\partial R$, and
+$\norm{\nabla(\tilde u-v)}^2\le C(h^k+\hG^{3/2})^2+C\sum_{z\in\Lk}\hG^2|\dn u(z)|^2+C\sum_{z\in\Nset}(d_z^2+h_z^4)$; by Theorem N2 $d_z\le Ch_za_zw_z$, and $\#\Nset\le C/\hG$.
+$q:=\div v\in Q_S$: mean $m_R=0$; zero on needles; zero at corners and at both triangles of every (plain or slit) lock. Theorem~\ref{thm:Sp} gives
+$y\in V_S\subset\VO$, $\div y=q$, $\norm{\nabla y}\le C\norm q\le C\norm{\nabla(\tilde u-v)}$. So $z_h:=v-y$ is admissible, pointwise divergence-free, and
+$\norm{\nabla(\tilde u-z_h)}\le C\norm{\nabla(\tilde u-v)}$. The energy argument (S1 steps 4--5) is pressure-free and geometry-only: it needs no inf-sup.
+\end{proof}
+\begin{remark}
+The proof never inverts $\div$ on a needle: needle pressures are made to vanish by construction, and the only right inverse used lives on
+$\mathcal T_S$. This is why the $\beta\asymp\varepsilon$ of family II is invisible in the velocity (v6: $E/(\gamma_4(\sum d_z^2)^{1/2})=1.45$--$1.9$ on
+\texttt{altsplit}), but visible in the raw pressure ($2.2\to4.4$ on \texttt{altsplit}, $\varepsilon=\hG^2$).
+\end{remark}
+
+\begin{proposition}[interior pairs]\label{prop:Sint}
+Let $K$ be a needle pair away from $\Gamma_h$ (e.g. the interior slit of \texttt{ns\_locate}), $\omega_j(K)$ the $j$-th ring. (i) For $q\in\Pih\cap L^2_0$ with $q=0$ on
+$\omega_2(K)$ (and the usual lock conditions) there is $y\in\VO$ with $\div y=q$, $\norm{\nabla y}\le C\norm q$, $C$ independent of $\varepsilon,\gamma$.
+(ii) The best approximation of $\tilde u$ in $Z_h$ is $\varepsilon$-independent up to $Ch^{k+1}$ per pair.
+\end{proposition}
+\begin{proof}
+(i) Take $w$ as in Step 0; on a disc $D_2\subset\omega_2(K)$ with $\omega_1(K)\subset D_1\Subset D_2$, $\mathrm{dist}(D_1,\partial D_2)\asymp h$, $\div w=0$, so $w=\curl\Psi$,
+$\Psi\in H^2(D_2)$. With $Q$ the averaged Taylor polynomial of degree $1$ of $\Psi$ and a cut-off $\chi$ ($1$ on $D_1$), $w':=w-\curl(\chi(\Psi-Q))$ has
+$\div w'=q$, $w'=\curl Q=\mathrm{const}$ on $\omega_1(K)$, $\norm{\nabla w'}\le C\norm{\nabla w}$ (Bramble--Hilbert on the disc). Choose the Scott--Zhang averaging sets
+of all nodes of $\omega_1(K)$ inside $\omega_1(K)$: then the $P_2$ Fortin interpolant equals the constant on the needles (flux corrections vanish there) and is
+stable although $\omega_1(K)$ contains needles. Steps A--D of Theorem L then never act on a needle: vertex values of $q$ at the pair's vertices are $0$
+(stars $\subset\omega_1$), and the vertex fields of other vertices have supports without needles. (ii) Replace $I_h\tilde u$ on $\omega_2(K)$ by the
+div-free Taylor polynomial $P$ (which $I_h$ reproduces), truncating on the regular ring $\omega_3\setminus\omega_2$; cost $Ch^{k+1}$; then (i).
+\end{proof}
+Numerically (\texttt{probe2}, interior slit, $n=8$): best $Z_h$-approximation $0.0173285,0.0173635,0.0173693,0.0173698$ for $\varepsilon=10^{-1}\dots10^{-4}$ vs $0.0173699$
+unsplit.
+
+\section{(L$_\Nset$) for family I}\label{sec:LN}
+Theorem~\ref{thm:Sp} reduces (L$_\Nset$) for family I to the local statement
+\textbf{(K$_{\rm I}$)}: for $q\in Q_W$ there is $y_K\in\VO$ supported in $\omega(K)$ with $\div y_K=q$ on $N_1\cup N_2$, $\div y_K|_{T_2'}(y)=q|_{T_2'}(y)$,
+$\div y_K|_{T_1}(z)-\div y_K|_{T_2'}(z)=q|_{T_1}(z)-q|_{T_2'}(z)\ (=0)$, and $\norm{\nabla y_K}\le C\norm q_{\omega(K)}$; then $q-\sum_K\div y_K\in Q_S$.
+Status: NUMERICAL. Evidence: the global constants $\beta_{\rm wired}=\gamma_{\rm wired}=\gamma_{\rm zero3}$ equal the lock-free value to 4 digits on \texttt{onewall},
+$N=16,24$, $\varepsilon$ down to $3\cdot10^{-4}$ (v6 Table); Proposition~\ref{prop:B} gives no small functional because $\gamma=\pi-\alpha$; bent pairs are
+uniformly stable in the lab (\texttt{probe8}). A proof would need the $\varepsilon\to0$ asymptotics of the local vertex/bubble system on a bent pair; not done.
+(L$_\Nset$) is no longer needed for the velocity (Theorem~\ref{thm:N3u}); it still controls the \emph{raw} pressure (Theorem P of strong2). For family II the raw
+pressure cannot be uniformly stable (Prop.~\ref{prop:B}); a filter would have to remove at least the three $\varepsilon$-modes per pair (only $\rho_K$ is explicit).
+
+\section{Numerics}
+All runs dense, $\le 45$\,s each, 1 thread; logs in this directory.
+\begin{table}[ht]\centering\small
+\begin{tabular}{lrrrrl}\toprule
+probe & $\varepsilon$ & bend $\gamma$ & $\beta$ & $\beta/(\varepsilon+\gamma)$ & remark\\\midrule
+9 (rotate $f$) & $10^{-3}$ & $0$ & $5.60\cdot10^{-4}$ & $0.56$ & slit ratio $2.27\varepsilon$\\
+ & $10^{-3}$ & $10^{-3}$ & $7.51\cdot10^{-4}$ & $0.38$ & \\
+ & $10^{-3}$ & $10^{-2}$ & $5.03\cdot10^{-3}$ & $0.46$ & slit ratio $5.49\cdot10^{-3}$\\
+ & $10^{-3}$ & $0.1$ & $0.0500$ & $0.495$ & slit ratio $0.0501$\\
+ & $10^{-4}$ & $10^{-2}$ & $5.00\cdot10^{-3}$ & $0.495$ & \\
+ & $10^{-4}$ & $0.3$ & $0.149$ & $0.496$ & slit ratio $0.151$\\
+8 (diag. $f'$) & $10^{-2},10^{-3},10^{-4}$ & $\pi/4$ & $0.1982,0.1980,0.1979$ & -- & unsplit $0.1979$\\
+7 (rotate split) & $10^{-3}$ & $0$ & $5.60\cdot10^{-4}$ & $0.56$ & split rotated by $0.03\dots0.6$: same\\
+6 (8-dim $B$) & $10^{-4}$ & $0$ & $2.28\varepsilon$, $0.86\sqrt\varepsilon$, then $O(1)$ & & $\varepsilon$-mode $=\ell_K$\\
+\bottomrule\end{tabular}
+\caption{Interior slit lab, $n=8$ (\texttt{probe6}--\texttt{9}). ``slit ratio'' $=\sup_v(\rho_K,\div v)/(\norm{\rho_K}\norm{\nabla v})$.}\label{tab:bend}
+\end{table}
+Earlier files of the interrupted attempt: \texttt{probe1} (mode values), \texttt{probe2} ($\beta$, $\gamma_{\rm off}$, vertex functional $\approx0.58\sqrt\varepsilon$,
+best $Z_h$ approximation), \texttt{probe3} (interior slit-domain pair: $\beta_{\rm slit}=0.1726$--$0.1772$, right inverse on $\{q=0$ on needles$\}\cap L^2_0$: $0.196$--$0.198$,
+uniform in $\varepsilon$), \texttt{probe4} (the three $\varepsilon$-modes are odd under $N_1\leftrightarrow N_2$), \texttt{probe5} (Theorem~\ref{thm:Sp} on the wall meshes).
+Note: \texttt{probe2}'s $\gamma_{\rm off}$ ($0.049\to0.011$) omits the mean-zero constraint and is superseded by \texttt{probe3}'s $\gamma_{\rm off0}$.
+
+\section{Prior art}
+\begin{itemize}
+\item Kean--Neilan--Schneier, \emph{The Scott--Vogelius method for the Stokes problem on anisotropic meshes}, IJNAM (arXiv 2109.14780): on Alfeld/incenter
+splits of large-angle-condition meshes, $\beta\ge C\min_T\varrho_T^{-1}$ (linear in the inverse aspect ratio). Our straight-pair $\beta\asymp\varepsilon$ is of the
+same order; their meshes are macro-split and they do not isolate pairs, bends, or a functional. The bend dichotomy and $\rho_K$ appear to be new; I did not
+find them, but the anisotropic SV literature should be checked once more before claiming.
+\item Gr\"a\ss le--Bohne--Sauter (Numer.\ Math.\ 2024), Park (arXiv 1905.03234), Bohne--Gr\"a\ss le--Sauter (Calcolo 2025): nearly singular \emph{vertices},
+shape-regular meshes; not needles.
+\item Acosta--Dur\'an--Muschietti, \emph{Solutions of the divergence operator on John domains}, Adv.\ Math.\ 206 (2006): ingredient (d).
+\item Apel (1999), Babu\v ska--Aziz (1976): anisotropic interpolation; used only through the maximum-angle condition in the v6 N3 proof, not in Lemmas A.
+\item Divergence-free velocities as curls of $C^1$ stream functions (Scott--Vogelius 1985) motivate Lemmas A, which however build the needle fields directly.
+\end{itemize}
+
+\section*{Files}
+\texttt{slit\_lab.py} (interior slit lab), \texttt{probe1}--\texttt{9.py} with logs \texttt{probe2\_n8.log}, \texttt{probe3\_n8.log}, \texttt{probe4.log},
+\texttt{probe5\_N16.log}, \texttt{probe5\_N24.log}, \texttt{probe5\_alt16.log}, \texttt{probe6\_n8.log}, \texttt{probe7\_n8.log}, \texttt{probe8\_n8.log}, \texttt{probe9\_n8.log}.
+\end{document}

@@ -1,0 +1,16 @@
+WF k=2: unknowns=27, div rows=48, rank(div)=27, dim Y=0 (0.0s)
+rank of the 6 sub-face means on Y: 0
+dim Y^1 = 0: no witness
+WF k=3: unknowns=105, div rows=120, rank(div)=87, dim Y=18 (0.0s)
+rank of the 6 sub-face means on Y: 6
+dim Y^1=12; rank quadratic edge moments on Y^1 = 0 (of 6); rank first moments = 0 (of 4)
+  quadratic edge moments (sharpness): NOT onto; eigenvalues of E G^-1 E^T: [0. 0. 0. 0. 0. 0.]
+  first moments (leak witness): NOT onto; eigenvalues of E G^-1 E^T: [0. 0. 0. 0.]
+   image basis (columns): []
+done (0.2s)
+WF k=4: unknowns=273, div rows=240, rank(div)=195, dim Y=78 (1.1s)
+rank of the 6 sub-face means on Y: 6
+dim Y^1=72; rank quadratic edge moments on Y^1 = 6 (of 6); rank first moments = 4 (of 4)
+  quadratic edge moments (sharpness): CERTIFIED ||R^|| in [54.001475715, 54.001475715]  (exact LDL^T)
+  first moments (leak witness): CERTIFIED ||R^|| in [9.709257103, 9.709257103]  (exact LDL^T)
+done (12.0s)

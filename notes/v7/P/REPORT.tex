@@ -1,0 +1,268 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,array,enumitem}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\setlist{leftmargin=2em}
+\emergencystretch=2em
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+
+\newcommand{\cert}[2]{\par\smallskip{\raggedright\noindent\emph{Computation:} \texttt{#1}; output \texttt{#2}.\par}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\EG}{\mathcal E_h^\Gamma}
+\newcommand{\ip}[2]{\langle #1,\, #2\rangle}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\CNS}{\mathrm{CNS}^\ast}
+\newcommand{\Pm}{\mathsf P_h}
+\newcommand{\pbG}{\bar p_{\Gamma}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Lc}{\mathcal L}
+\newcommand{\Cc}{\mathcal C}
+\newcommand{\cc}{c_{\mathrm{res}}}
+
+\begin{document}
+\title[notes/v7/P]{notes/v7/P: the first-layer cell problem for the $\CNS$ pressure moment;\\ hypothesis (P) corrected, and the lower bounds (a), (c) without (P)}
+\date{2026-09-29. Subagent report. Nothing in \texttt{paper/}, \texttt{paper3d/}, \texttt{letter/} was touched; nothing was committed.}
+\maketitle
+
+\noindent\textbf{Labels.} PROVED; PROVED MODULO X; NUMERICAL. Notation is that of \texttt{notes/v6/misc/REPORT.tex} (hypothesis (P), $\Pm(\phi)=\ip{e_p-\pbG(e_p)}{\phi\circ\pi}_{\Gh}$, Prop.~B1, Lemma~C1, Thms~P and B2) and of \texttt{paper/sections/07b\_pressure\_drag.tex}. $k=4$ in all computations; the propositions of Section~2 hold for every $k\ge1$ with $k(k+1)$ in place of $20$. Scripts and logs are in \texttt{notes/v7/P/}; every run took $\le 1$ min on one core except the $N=128$ annulus runs ($\approx35$ s each) and the $N=256$ run ($<7$ min).
+
+\section*{Summary}
+
+\begin{center}\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.5\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}}
+\toprule
+item & result & status\\
+\midrule
+Cell problem & Periodic discrete first-layer cell (sheared column lattice $\Lc$, penalty $\lambda=\gamma|e|/\hG$, traction-free far field) with two unit loads: the chordal bump plus the transposed-gradient load, and a uniform normal traction (Def.~\ref{def:cell}). Well posed for $\lambda>\cc+\lambda_0$, $\cc=k(k+1)/a$ (Prop.~\ref{prop:wp}). & PROVED\\
+Normal-traction cell & Closed form: $U=Vn$, $P=\beta\,\hat r$ (the layer representer), wall mean $A_c=\cc/(\cc-\lambda)$; exact resonance at $\lambda=\cc$ with explicit kernel (Prop.~\ref{prop:trac}). & PROVED; checked to $10^{-13}$\\
+Flux identity & $\lambda V+A=F(n)$ for every cell load (Prop.~\ref{prop:flux}). & PROVED\\
+Symmetry & $A_1$ is odd under reflection of the column; $A_1=0$ on every mirror-symmetric column (Prop.~\ref{prop:odd}). & PROVED\\
+$A_1\ne0$ off symmetry & On all 344 asymmetric cells scanned (sheared lattices, $a\in[\frac12,3]$, offsets $0.1\le|o|\le0.75$, $\lambda/\cc\in[1.001,10^4]$), $A_1\ne0$ and $\operatorname{sign}A_1=-\operatorname{sign}(\text{apex offset})$; simple pole at $\lambda=\cc$. Symmetry of $T_e$ alone does not suffice (deeper rows contribute). & NUMERICAL\\
+Two-scale expansion & $\Pm(\phi)=\hG\int_\Gamma\mathcal F\phi\,ds+O(\hG^2)$ with $\mathcal F=\hat\ell\kappa WA_1+\bar t_0A_c$ explicit (Thm~\ref{thm:ts}); also $\norm{e_p-c}$ and $\norm{T_h-\sigma n}_{\Gh}$ to leading order via cell norms of $\hat\ell\kappa W(\cdot)_1+\bar t_0(\cdot)_c$. & PROVED MODULO (D), (TL)\\
+Corrected (P) & (P) holds $\iff$ $\mathcal F$ is not constant on $\Gamma$. Fails on mirror-symmetric columns, where $\Pm=O(\hG^2)$ (improved rate $2$, sharp numerically), and on rotation-invariant data. & PROVED MODULO (D), (TL)\\
+(a), (c) & $\norm{e_p-c}\ge c\hG^{3/2}$ and $\norm{T_h-\sigma n}_{\Gh}\ge c\hG$ whenever $\kappa W\not\equiv0$, on \emph{every} LPC family, symmetric or not, without (P) (Cor.~\ref{cor:ac}). & PROVED MODULO (D), (TL), $\norm{P_{\Cc}},\norm{T_{\Cc}}>0$ (NUMERICAL)\\
+(b) drag & $\hG^2$-coefficient $=-G_0-\gamma^{-1}\!\int\mathcal F_\gamma\rho_\psi$; sharp at fixed $\gamma$ except on a discrete set of $\gamma$; purely geometric on symmetric columns (Cor.~\ref{cor:b}). & PROVED MODULO (D), (TL)\\
+Comparison & Annulus (exactly LP): Richardson limits of $\Pm/\hG$, $\norm{e_p}/\hG^{3/2}$, $\norm{T_h-\sigma n}/\hG$ agree with the cell values to $0$--$2.3\%$ in 4 families (norms: $\le1\%$). Production meshes: $\Pm(\cos)/\hG$ extrapolates to $3.13$ vs cell $3.07$ at $\mu=1000$; at $\mu=100$ (near resonance) $2.25$ vs $2.11$ (S) and $0.91$ vs $0.84$ (B$_1$). & NUMERICAL\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Setting}
+
+Fix a wall edge $e\in\EG$ with midpoint $m_e$, length $\ell_e=|e|$, unit tangent $\tau_c$ and unit normal $e_{\rm in}$ into the fluid, with $(\tau_c,e_{\rm in})$ positively oriented. Put $\Phi_e(x):=\ell_e^{-1}R_e(x-m_e)+(\tfrac12,0)$, where the rotation $R_e$ maps $\tau_c\mapsto(1,0)$ and $e_{\rm in}\mapsto(0,1)$. Then $\Phi_e(e)=[0,1]\times\{0\}$ and the fluid is $\{y>0\}$. Let $\kappa$ be the curvature of $\Gamma$ (positive for a convex obstacle), $W:=\partial_{e_{\rm in}}(u\cdot\tau_c)|_\Gamma$ the wall shear rate, $\hat\ell(x):=|e|/\hG$ on $e$, and $\lambda_e:=\mu\ell_e/h=\gamma\hat\ell$.
+
+\begin{definition}[Column lattices; LPC families]\label{def:lpc}
+A \emph{column lattice} $\Lc$ is a sequence of rows $L_j=(x_j,y_j)$, $0=y_0<y_1<\dots$, $x_0=0$, with right vertices $R_j=L_j+(1,0)$, 1-periodic in $x$, and a split rule per row (\texttt f: $[L_j,R_j,R_{j+1}],[L_j,R_{j+1},L_{j+1}]$; \texttt b: the other diagonal). The sheared lattice is $L_j=(j\delta,ja)$ with split \texttt f; its wall triangle has height $a$ (aspect) and \emph{apex offset} $o=\delta+\frac12$ (apex abscissa minus $\frac12$). $o=-\frac12$ is the right-angled triangle with the apex over the left endpoint; $o=0$ is the isosceles, mirror-symmetric lattice. A mesh family is \emph{locally periodic in columns} (LPC) if there are $M_h\ge C_0|\log\hG|$ and a map $x\mapsto\Lc(x)$, Lipschitz from $\Gamma$ into lattice parameters, such that for every $e$ the first $M_h$ rows of the mesh column above $e$, mapped by $\Phi_e$, coincide with those of $\Lc(m_e)$ up to vertex displacements $\le C\hG$. LPC strengthens LP$^+$ (\texttt{notes/v6/robust6}), which constrains only $T_e$. The annulus meshes of \texttt{annulus.py} are LPC with $\Lc$ constant (displacements from the ring growth $1+a\ell$ are $O(\hG)$). The production meshes (\texttt{code/svn.make\_mesh}) have first-layer offsets $\to-\frac12$ at rate $O(\hG)$ and aspect $a(\theta)\in[0.75,2.5]$ (\texttt{pred\_limit.log}). We model them by the rectangular lattice of aspect $a(\theta)$; whether their deeper rows are LPC was not checked.
+\end{definition}
+
+\section{The discrete cell problem}
+
+\begin{definition}[Cell problem]\label{def:cell}
+Let $V_\Cc$ be the continuous $P_k$ vector fields on the triangulated strip $\Lc\cap\{0\le y\le y_J\}$, 1-periodic in $x$, with no Dirichlet condition anywhere, and $Q_\Cc$ the discontinuous $P_{k-1}$ functions (Scott--Vogelius pair, so $\div V_\Cc\subset Q_\Cc$). The wall is $e_0=[0,1]\times\{0\}$ with outward normal $n=(0,-1)$ of the fluid domain; the top is traction free. With the forms of \texttt{code/svn.py},
+\[
+N(U,v)=\tfrac12(DU,Dv)-\ip{\partial_nU}{v}_{e_0}-\ip U{\partial_nv}_{e_0}+\lambda\ip Uv_{e_0},\quad b(P,v)=-(P,\div v)+\ip P{v\cdot n}_{e_0},
+\]
+find $(U,P)\in V_\Cc\times Q_\Cc$ with $N(U,v)+b(P,v)=F(v)$ and $(q,\div U)=0$ for all $(v,q)$. Loads, with $\sigma=x-\frac12$ and $\beta(\sigma)=\frac12(\frac14-\sigma^2)$:
+\begin{itemize}
+\item \emph{bump}: $F_1(v)=\ip{\sigma e_{\rm in}}v-\ip g{\partial_nv}+\lambda\ip gv$, $g=-\beta(\sigma)\,\tau$;
+\item \emph{normal traction}: $F_c(v)=\ip nv$.
+\end{itemize}
+Outputs: wall mean $A=\int_{e_0}P$ (trace from $T_{e_0}$), normal flux $V=\int_{e_0}U\cdot n$, $\norm{P}_{L^2(\Cc)}$, and the wall traction $T_\Cc=D(U)n-Pn$. Write $A_1,A_c$ for the two wall means, and $P_\Cc,T_\Cc$ for the bump solution.
+\end{definition}
+
+\begin{remark}[Where the loads come from]\label{rem:loads}
+On $e$ the extension $\ut$ is the chordal bump $\ut|_e=-\kappa W\ell_e^2\beta(\sigma)\tau_c+O(\hG^3)$, which is the Nitsche datum of the error $e_u$. The code's Nitsche flux is $\partial_nu=(\nabla u)n$ while the volume form is $\frac12(D u,Dv)$. So the consistency functional of the exact solution contains $\ip{(\nabla\ut)^{\!\top}n_e}v$. With $\nabla\ut=W\tau_c\otimes n_\Gamma+O(\hG)$ and $\tau_c\cdot n_e=\kappa\ell_e\sigma+O(\hG^2)$ this is the odd normal load $\kappa W\ell_e\,\sigma\,e_{\rm in}$ (up to $O(\hG^2)$). In cell units both scale with $\kappa W\ell_e^2$ (velocity) and $\kappa W\ell_e$ (pressure), since $\frac12(D\cdot,D\cdot)$, $\ip{\partial_n\cdot}{\cdot}$ and $b$ are invariant under $x\mapsto x/\ell$ in 2D and $\mu/h\mapsto\lambda=\mu\ell/h$. The transposed load carries most of $A_1$: at $a=1$, $o=-\frac12$, $\lambda=30$, bump alone gives $-0.020$ and transposed load alone $+0.202$ (\texttt{cell\_scan.log}, test \texttt{split}).
+\end{remark}
+
+\begin{proposition}[Well posedness; PROVED, standard argument sketched]\label{prop:wp}
+Let $\cc:=k(k+1)/a$ with $a=y_1$ the height of $T_{e_0}$. There is $\lambda_0$, depending only on the shape of $T_{e_0}$ and $k$, such that the cell problem (truncated at any $J$, or on the half-infinite column in the energy space) has a unique solution for $\lambda>\cc+\lambda_0$, with $\norm{\nabla U}+\norm P\le C\norm F_{V_\Cc'}$.
+\end{proposition}
+
+\begin{proof}
+On $Z_\Cc=\{v\in V_\Cc:\div v=0\}$ only the wall term $\ip P{v\cdot n}$ of $b$ survives. As in \texttt{notes/v7/robust} (key identity), eliminating the $T_{e_0}$ pressure layer turns $\CNS$ into the plain Nitsche form with normal penalty $\lambda-m$, where $0\le m\le k(k+1)/a$ (\texttt{notes/v6/misc}, Prop.~f: the layer representer has trace $k(k+1)/H_e$). The standard trace-inverse bound gives coercivity on $Z_\Cc$ for $\lambda-\cc>\lambda_0$. Inf-sup holds for the Scott--Vogelius pair on the cell because the lattice is shape regular and periodic (the paper's inf-sup lemma on one period, top edge traction free). Uniqueness and the bound follow.
+\end{proof}
+
+\begin{proposition}[Normal-traction cell in closed form; PROVED]\label{prop:trac}
+Let $\hat r\in P_{k-1}(T_{e_0})$, extended by $0$, be the representer of $q\mapsto\int_{e_0}q$ on $P_{k-1}(T_{e_0})$; $\hat r|_{e_0}\equiv\cc$ (misc Prop.~f). For $\lambda\ne\cc$ the pair
+\[
+U\equiv Vn,\quad P=\beta\hat r,\qquad V=\frac1{\lambda-\cc},\ \ \beta=\frac1{\cc-\lambda}
+\]
+solves the normal-traction cell problem. Hence $A_c=\int_{e_0}P=\cc/(\cc-\lambda)$ and $V_c=(1-A_c)/\lambda$. At $\lambda=\cc$ the cell operator is singular, with kernel spanned by $(U,P)=(n,-\hat r)$. None of this depends on the rows $j\ge1$.
+\end{proposition}
+
+\begin{proof}
+$U$ is constant, so $DU=0$, $\div U=0$, $\partial_nU=0$, and $N(U,v)=-V\ip n{\partial_nv}+\lambda V\ip nv$. For $v\in V_\Cc$, $\div v|_{T_{e_0}}\in P_{k-1}$, so $(\hat r,\div v)=\int_{e_0}\div v=\int_{e_0}\partial_\tau v_\tau+\int_{e_0}\partial_nv\cdot n$. The first integral vanishes: $v_\tau$ is 1-periodic and $e_0$ is a full period. So $b(\beta\hat r,v)=-\beta\ip n{\partial_nv}+\beta\cc\ip nv$. The momentum equation $N+b=\ip nv$ holds iff $-V-\beta=0$ and $\lambda V+\beta\cc=1$, which gives the stated $V,\beta$. At $\lambda=\cc$ the same computation with right-hand side $0$ gives the kernel. Uniqueness for $\lambda\ne\cc$ is Prop.~\ref{prop:wp} for large $\lambda$. For general $\lambda\ne\cc$ it is observed: the truncated system is nonsingular for every $\lambda$ scanned.
+\end{proof}
+
+\cert{cell.py scan}{cell\_scan.log (test \texttt{lam}: $A_c=20/(20-\lambda)$ to $10^{-13}$ for $\lambda\in[5,10^6]$; test \texttt J: truncation $J=6..20$ changes $A_1$ by $<10^{-10}$)}
+
+\begin{proposition}[Flux identity; PROVED]\label{prop:flux}
+For every load, $\lambda V+A=F(n)$. In particular $\lambda V_1+A_1=0$ (bump) and $\lambda V_c+A_c=1$.
+\end{proposition}
+
+\begin{proof}
+Test with the constant $v=n\in V_\Cc$: $\div n=0$ and $\partial_nn=0$, so $N(U,n)=-\int_{e_0}\partial_nU\cdot n+\lambda V$ and $b(P,n)=A$. Since $\div U=0$ on $T_{e_0}$ (the Scott--Vogelius constraint is exact), $\partial_nU\cdot n=-\partial_\tau(U\cdot\tau)$ on $e_0$, whose integral vanishes by periodicity. For the bump, $F_1(n)=\int\sigma\,d\sigma-\ip g0+\lambda\ip gn=0$ because $g\perp n$.
+\end{proof}
+
+\cert{cell.py scan}{cell\_scan.log (\texttt{lamV\_A} $\le10^{-14}$ for bump, $=1$ for traction)}
+
+\begin{proposition}[Reflection; PROVED]\label{prop:odd}
+Let $\Lc^\ast$ be the mirror image of $\Lc$ under $\varrho(x,y)=(1-x,y)$. Then $A_1(\Lc^\ast,\lambda)=-A_1(\Lc,\lambda)$, $A_c(\Lc^\ast)=A_c(\Lc)$, $\norm{P_{\Cc}}$ and $\norm{T_\Cc}$ are unchanged. In particular $A_1=0$ on every mirror-symmetric column, e.g.\ the isosceles lattice $o=0$, and then the wall trace of $P_\Cc$ is odd about $\sigma=0$. For the sheared lattices, $A_1(-o)=-A_1(o)$.
+\end{proposition}
+
+\begin{proof}
+Put $\tilde v(x)=Sv(\varrho x)$ with $S=\operatorname{diag}(-1,1)$, and $\tilde q=q\circ\varrho$. This maps $V_{\Cc(\Lc)}$ onto $V_{\Cc(\Lc^\ast)}$ and preserves $D$-inner products, divergence, $n$, $\partial_n$ and wall integrals. So $N$ and $b$ are invariant. The data transform as $\tilde g=Sg\circ\varrho=+\beta\tau=-g$ ($\beta$ even, $\tau$ flipped) and $\widetilde{\sigma e_{\rm in}}=-\sigma e_{\rm in}$ ($\sigma$ odd, $e_{\rm in}$ fixed). Hence $\tilde F_1=-F_1$, the solution on $\Lc^\ast$ is $(-\tilde U,-\tilde P)$, and $A_1^\ast=-A_1$. $F_c$ is invariant. If $\Lc^\ast=\Lc$ (up to a period shift, which does not change $A$) then $A_1=-A_1$ and $P|_{e_0}(\sigma)=-P|_{e_0}(-\sigma)$.
+\end{proof}
+
+\cert{cell.py scan; signscan.py; mixed.py}{cell\_scan.log (\texttt{delta}); signscan.log (odd defect $\le3\cdot10^{-12}$); mixed.log}
+
+\begin{remark}[NUMERICAL: $A_1\ne0$ off symmetry, pole, deeper rows]\label{rem:num}
+\begin{enumerate}
+\item \texttt{signscan.log} (120 asymmetric cells): $a\in\{\frac12,1,2\}$, $\lambda/\cc\in\{1.05,1.5,3,10,100\}$, $o\in\{0,\pm0.1,\pm0.25,\pm0.5,\pm0.75\}$. Always $A_1\ne0$ for $o\ne0$ and $\operatorname{sign}A_1=-\operatorname{sign}o$; $\min_{o\ne0}|A_1|=5.7\cdot10^{-3}$ ($a=2$, $\lambda=3\cc$, $o=\pm0.1$). $A_1$ is not monotone in $o$ in general.
+\item \texttt{rhoscan.log} (224 cells): $o\in\{-\frac12,-\frac14\}$, $a\in\{\frac12,1,2,3\}$, 28 values $\lambda/\cc\in[1.001,10^4]$. $A_1>0$ throughout (no zero above resonance), with a minimum at $\lambda/\cc\approx1.5$--$6.6$ (e.g.\ $0.184$ at $a=1$). The residue $\lim(\lambda-\cc)A_1$ is $0.586$ ($a=1$, $o=-\frac12$). The Dirichlet limit is $A_1(\lambda\to\infty)=0.887$ ($a=1$). Below resonance $A_1$ changes sign ($\lambda=5$: $+0.58$; $\lambda=10$: $-0.15$), but that range is below the stability threshold of the method.
+\item \texttt{mixed.log} ($a=1$, $\lambda=30$): an isosceles $T_{e_0}$ over rectangular deeper rows gives $A_1=-0.028$; a right-angled $T_{e_0}$ over isosceles rows gives $+0.209$ (all-rectangular: $+0.182$). So $A_1$ is dominated by $T_{e_0}$ but is \emph{not} a function of $T_{e_0}$ alone. The correct symmetry condition is on the column, and LP$^+$ (which constrains only $T_e$) is not enough to define the limit.
+\item Decay: on the rectangular column ($a=1$) the row norms of $P$ and $\nabla U$ drop by factors $6.3$--$7.4$ per row (\texttt{cell\_scan.log}, test \texttt{decay}). The far field is the constant velocity $(-\frac1{12},-V)$: $-\frac1{12}=-\int\beta$ is the mean bump, which drives the smooth $O(\hG^2)$ flow of misc Lemma A3, and the normal part is the conserved flux.
+\end{enumerate}
+\end{remark}
+
+\section{The two-scale expansion}
+
+\begin{assumption}\label{ass:D}
+\textbf{(D)} (cell decay; NUMERICAL, Remark~\ref{rem:num}(4)) For $\Lc$ in the range of the LPC map and $\lambda\in[\gamma\min\hat\ell,\gamma\max\hat\ell]\subset(\cc+\lambda_0,\infty)$, the bump and traction cell solutions satisfy $\norm{\nabla(U-U_\infty)}_{\text{row }j}+\norm P_{\text{row }j}\le Cq^j$ with $q<1$ uniform, $U_\infty$ constant.
+
+\textbf{(TL)} (transplant lemma; not proved) On an LPC family, the glued field $(E_u,E_p)$ below, transplanted to the actual mesh through the $O(\hG)$ vertex perturbation and cut off after $M_h$ rows, has $\CNS$ residual (in $V_h'$, plus the divergence defect in $L^2$) at most $C\hG\cdot\hG^{3/2}+C\hG^{5/2}$. The relative factor $\hG$ collects the variation of $W,\kappa,\hat\ell,\Lc$ between neighbouring columns, the vertex perturbation, curvature, and the $O(\hG^3)$ bump error. The cutoff costs $q^{M_h}\le\hG^2$ by (D).
+\end{assumption}
+
+\noindent Glued field: on the column of $e$,
+\[
+E_u=\kappa W\ell_e^2\,U_1\circ\Phi_e+t_0\ell_e\,U_c\circ\Phi_e+u_{\rm s},\qquad E_p=\kappa W\ell_e\,P_1\circ\Phi_e+t_0P_c\circ\Phi_e+p_{\rm s},
+\]
+with $\kappa,W$ at $m_e$, cell parameters $(\Lc(m_e),\lambda_e)$, and $(u_{\rm s},p_{\rm s})$ the $\CNS$ solution of the smooth problem driven by the far-field slip $(-\kappa W\ell^2/12)\tau$ and the flux $V$. The constant $t_0$ is fixed by the exact global constraint $\int_{\Gh}u_h\cdot n=0$ (the outer datum has zero flux and $\div u_h=0$). By Prop.~\ref{prop:flux}, the flux through $e$ is $\frac h\mu[-\kappa W\ell_e^2A_1+t_0\ell_e(1-A_c)]$, so
+\[
+t_0=\frac{\sum_e\kappa W\ell_e^2A_{1,e}}{\sum_e\ell_e(1-A_{c,e})}=\hG\,\bar t_0+O(\hG^2),\qquad \bar t_0:=\frac{\int_\Gamma\hat\ell\kappa WA_1\,ds}{\int_\Gamma(1-A_c)\,ds}.
+\]
+
+\begin{theorem}[Two-scale expansion; PROVED MODULO (D), (TL)]\label{thm:ts}
+On an LPC family at fixed $\gamma$ with $\gamma\min\hat\ell>\cc+\lambda_0$ and $h^k\le\hG^{5/2}$, let
+\[
+\mathcal F(x):=\hat\ell(x)\,\kappa(x)W(x)\,A_1\bigl(\Lc(x),\gamma\hat\ell(x)\bigr)+\bar t_0\,A_c\bigl(\Lc(x),\gamma\hat\ell(x)\bigr),\qquad A_c=\frac{\cc(x)}{\cc(x)-\gamma\hat\ell(x)} .
+\]
+Then, for $\phi\in C^1(\Gamma)$ with $\int_\Gamma\phi=0$,
+\[
+\text{(i)}\ \ \Pm(\phi)=\hG\int_\Gamma\mathcal F\phi\,ds+O_\phi(\hG^2);
+\]
+\[
+\text{(ii)}\ \ \inf_c\norm{e_p-c}^2_{L^2(\Oh)}=\hG^3\!\int_\Gamma\hat\ell\,\norm{Q_x}^2_{L^2(\Cc)}ds+O(\hG^{7/2}),\qquad
+\text{(iii)}\ \ \norm{T_h-\sigma^\circ n}^2_{\Gh}=\hG^2\!\int_\Gamma\norm{\Theta_x}^2_{L^2(e_0)}ds+O(\hG^{5/2}),
+\]
+where $Q_x:=\hat\ell\kappa W\,P_1+\bar t_0P_c$ and $\Theta_x:=\hat\ell\kappa W\,T_1+\bar t_0T_c$ are the cell pressure and wall traction of the load $\hat\ell\kappa WF_1+\bar t_0F_c$ at $(\Lc(x),\gamma\hat\ell(x))$. The $t_0$-part is of the same order: it lives in $T_{e_0}$ only ($P_c=\beta\hat r$, $T_c=-\beta\cc\,n$), and $(P_1,P_c)_\Cc=\beta A_1$, $(T_1,T_c)_{e_0}=\beta\cc A_1$ by the representer property and Prop.~\ref{prop:flux}. On symmetric columns $\bar t_0=0$ and $Q_x=\hat\ell\kappa WP_\Cc$.
+\end{theorem}
+
+\begin{proof}
+\emph{Step 1 (error equation for the remainder).} The error $(e_u,e_p)$ satisfies the $\CNS$ error equation with Nitsche datum $\ut|_{\Gh}$ and consistency functional $\mathcal G$ (misc (eq:cnserr)). By Remark~\ref{rem:loads}, on each column the leading part of (datum, $\mathcal G$) is $\kappa W\ell_e^2$ times the pull-back of $F_1$, up to relative $O(\hG)$. The glued field solves the column problems exactly, the global flux constraint (by the choice of $t_0$), and the smooth problem. By (TL), $(R_u,R_p):=(e_u-E_u,\,e_p-E_p)$ satisfies the $\CNS$ equations with residual $O(\hG^{5/2})$ in $V_h'\times L^2$.
+
+\emph{Step 2 (stability).} Coercivity on the discretely divergence-free fields for $\gamma>\gamma_2$ (which holds with the effective penalty $\lambda-m_h$, \texttt{notes/v7/robust}) and inf-sup (paper, Lemma pd:lem:infsup\_ref) give $\norm{\nabla R_u}+(\mu/h)^{1/2}\norm{R_u}_{\Gh}+\inf_c\norm{R_p-c}\le C\hG^{5/2}$.
+
+\emph{Step 3 (moment).} $\Pm(\phi)=\ip{E_p-\pbG(E_p)}{\phi\circ\pi}+\ip{R_p-c}{\phi\circ\pi-\pbG(\phi\circ\pi)}$. The second term is $\le C\hG^{-1/2}\cdot\hG^{5/2}$ by the inverse trace inequality on the $P_{k-1}$ pressure. In the first, the column $e$ contributes $\ell_e\,\kappa W\ell_eA_{1,e}\phi(m_e)+t_0\ell_eA_{c,e}\phi(m_e)+O(\hG^3)$, because the wall trace of $P\circ\Phi_e$ integrates to $\ell_eA$. The smooth part contributes $O(\hG^2)$ (misc Lemma A3: $p_{\rm s}$ has amplitude $O(\hG^2)$). The constant $\pbG$ drops against $\int\phi=0$ up to $O(\hG^2)$. Summing, a Riemann sum with Lipschitz integrand gives (i).
+
+\emph{Steps 4--5 ((ii), (iii)).} On column $e$, $E_p-p_{\rm s}=\hG\,Q_{m_e}\circ\Phi_e$, so $\norm{E_p-p_{\rm s}}^2_{\text{col}}=\hG^2\ell_e^2\norm{Q_{m_e}}^2$, and $\sum_e\ell_e^2f(m_e)=\hG\int\hat\ell f+O(\hG^2)$. The cross term with $R_p$ is $O(\hG^{3/2}\hG^{5/2})$. $p_{\rm s}$ contributes $O(\hG^4)$, and the best constant is $O(\hG^2)$ since $P_\Cc\to0$ in the far field. For (iii), the column traction is $\hG\,\Theta_{m_e}\circ\Phi_e$. $R$ contributes $\le C\hG^{-1/2}(\norm{\nabla R_u}_{L_1}+\norm{R_p-c}_{L_1})=O(\hG^2)$ by inverse estimates, and the smooth part and $\sigma^\circ$ mismatch are $O(\hG^2)$ (misc Lemma C1).
+\end{proof}
+
+\begin{remark}[Status of (TL)]
+All ingredients of (TL) are local and algebraic: the relative size of the column-to-column mismatch is the Lipschitz modulus of $(\kappa W,\hat\ell,\Lc)$ times $\hG$, and (D) localises every mismatch to $O(1)$ rows. What is missing is a written estimate for the transplant of $P_k$/$P_{k-1}^{\rm disc}$ fields between two lattices at $O(\hG)$ vertex distance, including the $O(\hG)$ divergence defect, which Step 2 absorbs through inf-sup. We found no obstruction; the numerical agreement below is at the $1$--$2\%$ level after first-order extrapolation, which is exactly what (i) with an $O(\hG^2)$ remainder predicts.
+\end{remark}
+
+\section{Consequences}
+
+\begin{corollary}[Corrected (P); PROVED MODULO (D), (TL)]\label{cor:P}
+On LPC families, (P) holds (for some $\phi$) \emph{iff} $\mathcal F$ is not constant on $\Gamma$. Then $\Pm(\phi)/\hG\to\int\mathcal F\phi$, and one may take $\phi=\mathcal F-\bar{\mathcal F}$. (P) fails in two cases:
+\begin{enumerate}
+\item \emph{Mirror-symmetric columns} ($\Lc(x)$ symmetric for all $x$). Then $A_1\equiv0$ (Prop.~\ref{prop:odd}), $\bar t_0=0$, $\mathcal F\equiv0$, and $\Pm(\phi)=O(\hG^2)$: the improved rate is $2$. NUMERICAL: on the isosceles annulus, $\Pm(\sin\theta)/\hG^2=1.714,1.618,1.589,1.591$ ($N=16..128$, test S$_1$), so the rate is exactly $2$. The $\hG^2$ coefficient is \emph{not} a cell quantity: with the outer radius $2.5\to1.4$ it becomes $21.5$ (\texttt{annS\_sym\_a1\_l30.log}), i.e.\ it contains the global Stokes response to the $O(\hG^2)$ slip. $\Pm(\cos\theta)=0$ to round-off there by the global reflection symmetry of mesh and data.
+\item \emph{Rotation-invariant situations} ($\kappa W\hat\ell$, $\Lc$ constant, e.g.\ tests A and Q on the $C_4$ production mesh). Then $\mathcal F$ is constant and $\Pm=O(\hG^2)$ (consistent with misc: $\Pm(\cos)=\Pm(\sin)=0$ there).
+\end{enumerate}
+On asymmetric columns (all production-type first layers), $A_1\ne0$ (NUMERICAL, Remark~\ref{rem:num}), and $\mathcal F$ is non-constant whenever $\kappa W$ is (a generic non-rotational flow).
+\end{corollary}
+
+\begin{corollary}[(a), (c) without (P); PROVED MODULO (D), (TL), and $\norm{P_\Cc},\norm{T_\Cc}>0$]\label{cor:ac}
+If $\kappa W\not\equiv0$ on $\Gamma$ (so $Q_x\ne0$ on a set of positive measure: $P_1\ne0$ in rows $j\ge1$ where $P_c=0$) then, on every LPC family at fixed admissible $\gamma$, symmetric columns included,
+\[
+\inf_c\norm{p^\circ-p_h-c}_{L^2}\ \ge\ c\,\hG^{3/2},\qquad \norm{T_h-\sigma^\circ n}_{\Gh}\ \ge\ c\,\hG,
+\]
+with the sharp constants of Thm~\ref{thm:ts}(ii), (iii); with the upper bounds of the paper, the rates $\frac32$ and $1$ are exact. NUMERICAL: $\norm{P_\Cc}\in[0.19,0.41]$ and $\norm{T_\Cc}\in[0.39,1.12]$ on the cells of Table~\ref{tab:ann}, and over the 135 cells of \texttt{signscan.log} $\min\norm{P_\Cc}=0.026$, $\min\norm{T_\Cc}=0.16$. (Under (P), Thm~P of misc gives the same rates with non-sharp constants.)
+\end{corollary}
+
+\begin{corollary}[(b) drag at fixed $\gamma$; PROVED MODULO (D), (TL)]\label{cor:b}
+By misc Thm~B2 and Thm~\ref{thm:ts}(i), with $h/\mu=\hG/\gamma$,
+\[
+J^N_h(\psi)-J_\psi=\hG^2\,\mathcal D(\gamma)+o(\hG^2),\qquad \mathcal D(\gamma)=-G_0-\gamma^{-1}\int_\Gamma\mathcal F_\gamma\,\rho_\psi\,ds,
+\]
+where $G_0=\lim\hG^{-2}(\Theta_f+\Lambda_h)=\frac1{12}\int_\Gamma\hat\ell^2(f\cdot\psi+\partial_nu\cdot\partial_n(Z_\psi-\psi))ds$ is geometric and $\gamma$-independent. Hence:
+\begin{enumerate}
+\item Rate $2$ is sharp at fixed $\gamma$ iff $\mathcal D(\gamma)\ne0$. $\gamma\mapsto\mathcal D(\gamma)$ is real-analytic on the admissible range: on the $J$-row truncated cell $A_1$ is a rational function of $\lambda$ without poles for $\lambda>\cc+\lambda_0$ (Prop.~\ref{prop:wp}), and (D) makes the truncation limit uniform. Also $\mathcal D(\gamma)\to-G_0$ as $\gamma\to\infty$. So if $G_0\ne0$ or $\mathcal D\not\equiv$ const, sharpness holds for all admissible $\gamma$ outside a discrete (possibly empty) set. Isolated failures cannot be excluded in general.
+\item On mirror-symmetric columns $\mathcal F\equiv0$, so the $\hG^2$ coefficient is exactly the geometric $-G_0$ at every fixed $\gamma$. The ``as $\gamma\to\infty$'' qualifier of misc Remark B2(2) is then unnecessary.
+\end{enumerate}
+\end{corollary}
+
+\section{Numerical verification}
+
+\subsection{Annulus meshes (exactly LPC)}
+$\Oh=$ polygon of radius $2.5$ minus the regular $N$-gon, with rings $r_{j+1}=r_j(1+a\ell)$ and $\lambda$ fixed (\texttt{annulus.py}; $\mu$ grows with $N$ at fixed $\gamma$). Test S$_1$: $u=\curl((r^2-1)^2(1+x)/4)$, so $\kappa=1$, $W=2(1+\cos\theta)$, $\int W\cos=2\pi$, $\int W^2=12\pi$. Predictions: $\Pm(\cos)/\hG\to2\pi A_1$ (the $\bar t_0$ term drops since $A_c$ is constant), $\norm{e_p}^2/\hG^3\to\int_0^{2\pi}\norm{WP_1+\bar t_0P_c}^2d\theta$ and $\norm{T_h-\sigma n}^2/\hG^2\to\int_0^{2\pi}\norm{WT_1+\bar t_0T_c}^2d\theta$, $\bar t_0=2A_1/(1-A_c)$. Omitting the $\bar t_0$ terms would shift the norm predictions by $0.3$--$3\%$ (e.g.\ traction $3.694$ vs $3.592$), and the data select the formula with $\bar t_0$. Delta $=0$ in \texttt{annulus.py} is the cell lattice $o=-\frac12$; delta $=-\frac12$ is $o=0$.
+
+\begin{table}[h]\centering\footnotesize
+\caption{Annulus: first-order Richardson extrapolation $2f(N{=}128)-f(64)$ divided by the cell prediction.}\label{tab:ann}
+\begin{tabular}{lccccccc}
+\toprule
+cell & $A_1$ & $\norm{P_\Cc}$ & $\norm{T_\Cc}$ & $\Pm(\cos)/\hG$: meas.\ $N{=}128$, extrap./pred. & $\norm{e_p}/\hG^{3/2}$ & $\norm{T-\sigma n}/\hG$\\
+\midrule
+$a=1,\lambda=30$, $o=-\frac12$ & $0.1824$ & $0.2357$ & $0.6017$ & $1.320$, \ $1.023$ & $1.009$ & $1.005$\\
+$a=2,\lambda=30$, $o=-\frac12$ & $0.0291$ & $0.2970$ & $0.6205$ & $0.256$, \ $0.979$ & $1.006$ & $1.000$\\
+$a=1,\lambda=100$, $o=-\frac12$ & $0.4413$ & $0.4069$ & $1.1219$ & $3.199$, \ $1.020$ & $1.010$ & $1.005$\\
+$a=1,\lambda=30$, $o=0$ (sym.) & $0$ & $0.1881$ & $0.3874$ & $0$ (round-off) & $1.010$ & $1.001$\\
+\bottomrule
+\end{tabular}
+\end{table}
+\cert{annpred.py; compare\_ann.py}{annpred.log; compare\_ann.log (from ann\_*.log, annS\_*.log)}
+The raw values $\Pm(\cos)/\hG$ still differ from the limit by $+15\%$ at $N=128$; the difference halves with $\hG$, as Thm~\ref{thm:ts}(i) predicts. This is also why misc saw ``slowly increasing'' moments. With outer radius $1.4$ the first-order correction is larger (e.g.\ $2.49,1.79$ at $N=64,128$) but the extrapolation still gives $0.95$ of the prediction. The correction is the non-local Stokes response, so the $O(\hG^2)$ remainder in (i) is genuinely global.
+
+\subsection{Production meshes (\texttt{code/svn.make\_mesh})}
+Prediction (\texttt{predict.py}, variant \texttt{limit}): per edge the rectangular lattice with the measured aspect $a_e=H_e/\ell_e$ and $\lambda_e=\mu\ell_e/h$, including the $t_0$ term. The $t_0$ term is essential for the $\cos4\theta$ moment. S$_1$, $\mu=100$: $\cos4$ measured $0.78,1.13,1.23$ vs full prediction $0.92,1.14,1.14$ and without $t_0$ $1.48,2.01,2.33$ ($N=16,32,64$; \texttt{compare.log}).
+
+\begin{center}\footnotesize
+\begin{tabular}{lcccc}
+\toprule
+case & $\lambda/\cc$ range & measured $\Pm(\cos)/\hG$ & linear-in-$\hG$ extrapolation & cell limit ($N=512$ geometry)\\
+\midrule
+S$_1$, $\mu=1000$ & $[10.7,18.1]$ & $5.20,4.31,3.92$ ($N=32,64,96$) & $3.13$ (from $64,96$) & $3.06$ \ (ratio $1.02$)\\
+S$_1$, $\mu=100$ & $[1.07,1.81]$ & $1.84,1.97,2.04$ ($N=32,48,64$) & $2.25$ (from $48,64$) & $2.11$ \ ($1.07$)\\
+B$_1$, $\mu=100$ & $[1.07,1.81]$ & $0.73,0.79,0.82$ ($N=32,48,64$) & $0.91$ & $0.84$ \ ($1.08$)\\
+\bottomrule
+\end{tabular}
+\end{center}
+\cert{prod.py S1 1000 64,96; predict.py; compare.py}{prod\_S1\_mu1000*.log; pred\_*.log; compare.log}
+At $\mu=100$ the production cells are within $7\%$ of resonance ($\lambda/\cc\ge1.07$), where $A_1\propto(\lambda-\cc)^{-1}$ amplifies every $O(\hG)$ perturbation of the heights. Two-point extrapolation is therefore less reliable there, and the unchecked LPC property of the deeper production rows (Def.~\ref{def:lpc}) may contribute. The misc values $0.82$ (B$_1$) and $2.0$ (S) are the pre-asymptotic values of the cell limits $0.84$ and $2.11$.
+
+\section{What is proved, what is not}
+\begin{itemize}
+\item PROVED: the cell problem and its derivation (Def.~\ref{def:cell}, Remark~\ref{rem:loads}); well posedness above $\cc+\lambda_0$; the closed-form traction cell, $A_c=\cc/(\cc-\lambda)$ and the exact resonance; the flux identity; oddness of $A_1$ and $A_1=0$ on symmetric columns.
+\item PROVED MODULO (D), (TL): the expansion $\Pm(\phi)=\hG\int\mathcal F\phi+O(\hG^2)$ and the leading-order $L^2$ pressure and traction errors; the corrected (P); (a), (c) on all LPC families without (P); (b) sharp at fixed $\gamma$ off a discrete set, and geometric on symmetric columns.
+\item NUMERICAL: (D); $A_1\ne0$ for asymmetric sheared lattices, with sign $-\operatorname{sign}o$; $\norm{P_\Cc},\norm{T_\Cc}>0$; rate exactly $2$ for $\Pm$ on symmetric columns; all agreements in Section 5.
+\item Open: a proof of (TL); a proof that $A_1\ne0$ for all asymmetric columns (a residue formula at $\lambda=\cc$ via the left kernel would be a start); whether the deeper production rows are LPC; an explicit second-order (non-local) coefficient on symmetric columns.
+\end{itemize}
+
+\section*{Files}
+\texttt{cell.py} (cell solver; \texttt{cell\_scan.log}), \texttt{annulus.py}, \texttt{ann\_small.py} (annulus $\CNS$ runs; \texttt{ann\_*.log}, \texttt{annS\_*.log}), \texttt{annpred.py}, \texttt{compare\_ann.py} (Table~\ref{tab:ann}), \texttt{signscan.py}, \texttt{rhoscan.py}, \texttt{mixed.py} (Remark~\ref{rem:num}), \texttt{predict.py}, \texttt{compare.py}, \texttt{prod.py} (production comparison).
+
+\end{document}
