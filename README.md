@@ -1,8 +1,8 @@
 # Scott–Vogelius–Nitsche on a polygonally approximated boundary
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23007081.svg)](https://doi.org/10.5281/zenodo.23007081)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23044296.svg)](https://doi.org/10.5281/zenodo.23044296)
 
-**Preprint:** J. S. Padhi, *Scott–Vogelius–Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold*, Zenodo (2026). Published version **v2** (all results for every fixed k ≥ 4): [doi:10.5281/zenodo.23007081](https://doi.org/10.5281/zenodo.23007081). v1 (k = 4): [doi:10.5281/zenodo.23006372](https://doi.org/10.5281/zenodo.23006372).
+**Preprint:** J. S. Padhi, *Scott–Vogelius–Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold*, Zenodo (2026). Published version **v3** (extended 2D paper, 156 pp): [doi:10.5281/zenodo.23044296](https://doi.org/10.5281/zenodo.23044296). Earlier: **v2** (all results for every fixed k ≥ 4): [doi:10.5281/zenodo.23007081](https://doi.org/10.5281/zenodo.23007081). v1 (k = 4): [doi:10.5281/zenodo.23006372](https://doi.org/10.5281/zenodo.23006372).
 
 > **Current state (unreleased drafts, Sept 2026).** The work is now split into three papers, all drafts and not yet on Zenodo (the published version is still v2 above):
 >
