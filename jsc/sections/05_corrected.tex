@@ -1,9 +1,11 @@
 \section{The corrected method: Scott's rate and its sharpness}\label{sec:corrected}
 
+\emph{Relation to \cite{CavalcantePadhiLetter}.} Proposition~\ref{prop:singular} and Theorem~\ref{thm:D} were announced in the joint letter \cite{CavalcantePadhiLetter} with proof sketches, and Theorems~\ref{thm:unif} and~\ref{thm:lb} and the results of Section~\ref{sec:growing} were announced there with a pointer or an idea of proof only. We give complete proofs here, except for the interval certificates of the star condition (Theorem~\ref{thm:m3}), which are in \cite{PadhiExt}.
+
 \subsection{Why the plain pressure term fails}
 Adding the missing traction $\ip{p_h}{v\cdot n}$ to the momentum equation looks like the natural repair. With an exactly divergence-free pair it makes the square system singular, and the usual way of removing the singularity destroys exact incompressibility.
 
-\begin{proposition}[The naive consistent form and its mean-zero variant]\label{prop:singular}
+\begin{proposition}[Naive consistent form, mean-zero variant; announced in {\cite{CavalcantePadhiLetter}}]\label{prop:singular}
 \begin{enumerate}[label=(\alph*)]
 \item Replace $\ip{p_h-\pbG(p_h)}{v\cdot n}$ in $\CNS$ by $\ip{p_h}{v\cdot n}$. The resulting square system has the kernel vector $(u,p)=(0,1)$, so it is singular and solvable only under one linear compatibility condition on the data.
 \item Restrict the pressure to $\Pih\cap L^2_0(\Oh)$ and test the continuity equation only with mean-zero $q$. Any solution has $\div u_h\equiv c$, a constant with
@@ -27,7 +29,7 @@ N_h(\ut-u_h,v)+B^\ast(p^\ast-p_h,v)=\Gc(v)\qquad\forall v\in\VR ,
 \end{equation}
 by Lemma~\ref{lem:erroreq}. The only remaining inconsistency is the geometric one, of Scott's order.
 
-\begin{theorem}[$\CNS$ is well posed and has Scott's rate]\label{thm:D}
+\begin{theorem}[$\CNS$ is well posed and has Scott's rate; announced in {\cite{CavalcantePadhiLetter}}]\label{thm:D}
 There is $\gamma_2\asymp\max(\gamma_0,\beta^{-2})$ such that for $\gamma\ge\gamma_2$ the method $\CNS$ has a unique solution, its velocity is divergence-free pointwise, and
 \[
 \tnorm{\ut-u_h}\le C\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
@@ -246,7 +248,7 @@ By bounded overlap $\norm{\nabla v}^2\le K_{\mathrm{ov}}\sum_zW(z)^2$. Since $W$
 The sum $\Sigma_W:=\sum_zW(z)^2|e_z|$ is a Riemann sum for $\norm{W}^2_{L^2(\Gamma)}$ and $\sum_zW(z)^2\le\Sigma_W/(c_0\hG)$. For small $\hG$, $\Sigma_W\ge\frac34\norm{W}^2_{L^2(\Gamma)}$ and the negative term is at most a quarter of the positive one.
 \end{proof}
 
-\begin{theorem}[$H^1$ lower bound]\label{thm:lb}
+\begin{theorem}[$H^1$ lower bound; announced in {\cite{CavalcantePadhiLetter}}]\label{thm:lb}
 Assume (M0)--(M2), Assumption~\ref{ass:D} and the star condition (which holds for every $k\ge4$ when $\hG\le2\sin(\theta_{\min}/4)$, by Theorem~\ref{thm:m3}), and let the wall shear $W=\dn u\cdot\tau$ not vanish identically on $\Gamma$. Let $u_h$ be the velocity of $\CNS$ with $\gamma\ge\gamma_2$, or of $\GS$ with $\gamma\ge\gamma_0$ and any $G$. Then for $\hG\le h_1$,
 \[
 \norm{\nabla(\ut-u_h)}_{\Oh}\ \ge\ c_{\mathrm{LB}}\,\kappa_0\,\norm{W}_{L^2(\Gamma)}\,\hG^{3/2}-C\hG^{2},\qquad c_{\mathrm{LB}}:=\frac{c_0^{5/2}}{2\Lambda_0K_{\mathrm{ov}}^{1/2}},

@@ -39,18 +39,19 @@
 %%MACROS%%
 \begin{document}
 
-\title[Scott--Vogelius--Nitsche on polygonal boundaries]{Exactly divergence-free Stokes elements with Nitsche's method on a polygonally approximated boundary: the missing pressure traction, Scott's rate, and the zero-gradient lock}
+\title[Scott--Vogelius elements on polygonal walls]{Scott--Vogelius elements on polygonal approximations of curved walls: the zero-gradient lock, Nitsche's method and the penalty threshold}
 
 \author*[1]{\fnm{Jaideep Sai} \sur{Padhi}}\email{jpadhi@purdue.edu}
 %% FILL: ORCID if available, e.g. \author*[1]{\fnm{Jaideep Sai} \sur{Padhi}~\orcidlink{0000-0000-0000-0000}}
 %%       (and \usepackage{orcidlink}); also enter it in Editorial Manager.
-%% TBD: C. de S. Cavalcante may join as a co-author (per the joint AML letter); not added here.
+%% Sole author (author's decision, 2026-09-29). The joint letter with C. de S. Cavalcante
+%% (\cite{CavalcantePadhiLetter}) is the separate, earlier AML submission; this paper is its companion.
 
 \affil*[1]{\orgdiv{Department of Computer Science}, \orgname{Purdue University}, \orgaddress{\city{West Lafayette}, \postcode{47907}, \state{IN}, \country{USA}}}
 
-%% Abstract shortened to the journal's 150--250 word limit (the paper2d abstract has ~410 words);
-%% no claim is added, every claim below is stated in the paper.
-\abstract{Scott--Vogelius elements compute pointwise divergence-free velocities, but when a curved no-slip wall is replaced by an inscribed polygon discrete velocities can be forced to have zero gradient at polygon vertices, and with strongly imposed no-slip the $H^1$ error can degrade to order $h^{1/2}$. Gjerde and Scott imposed the wall condition weakly by Nitsche's method on the polygon, and Scott asked for a proof that the error behaves like $h_\Gamma^{3/2}+h_\Omega^k$ and, if not, why not. We answer the question in two dimensions. For the method as printed, the estimate holds if and only if the pressure is constant along the wall: the Nitsche form omits the pressure traction $-pn$, and the velocity leaks through the wall with normal velocity $(h/\mu)(p-\bar p)$. We prove sharp rates for this error and identify its leading term. Restoring the traction with its wall mean removed, a device of Frachon, Nilsson and Zahedi, gives an exactly divergence-free method; we prove that it attains $h_\Gamma^{3/2}+h_\Omega^k$ for every $k\ge4$, uniformly in the penalty for flux-corrected data, and that $h_\Gamma^{3/2}$ is sharp whenever the wall shear does not vanish identically and $h_\Gamma$ is small relative to the smallest wall-triangle angle. The penalty must scale with the ratio of bulk to boundary mesh size (sufficient on every mesh, necessary on broad classes of meshes). Under the Guzm\'an--Scott angle condition strong imposition attains the same rate; the zero-gradient lock is caused by wall vertices lying in only two triangles. Computations confirm the rates and constants.}
+%% Abstract rewritten 2026-09-29 for the companion-paper framing (150--250 words); it leads with the
+%% material that is not in the AML letter \cite{CavalcantePadhiLetter}. No claim is added.
+\abstract{Scott--Vogelius elements give pointwise divergence-free velocities, but when a curved no-slip wall is replaced by an inscribed polygon, strongly imposed no-slip can force a zero velocity gradient at polygon vertices, and the $H^1$ error can degrade to order $h^{1/2}$. Gjerde and Scott therefore imposed the wall condition by Nitsche's method, and Scott asked whether the error is $O(h_\Gamma^{3/2}+h_\Omega^k)$ and, if not, why not. A letter written jointly with C. de S. Cavalcante announces the core answer with proof sketches: the printed method leaks through the wall at the rate $(h/\mu)(p-\bar p)$ unless the wall pressure is constant, and a mean-free pressure traction restores Scott's rate. This companion paper contains what the letter does not. First, we determine when the zero-gradient lock occurs: under the Guzm\'an--Scott angle condition strongly imposed no-slip already has $H^1$ error $\asymp h_\Gamma^{3/2}+h^k$, and the lock comes from wall vertices lying in only two triangles, each costing $h_\Gamma|\partial_n u(z)|$. Second, we give the penalty theory: the penalty must scale with the ratio of bulk to boundary mesh size, as shown by exact certificates on shape families and a proof on every shape-regular mesh, while exact counterexamples show that necessity is not local. Third, we identify the $H^1$ constant of the leak as the energy of a Stokes leak flow. Finally, we give complete proofs of the letter's results, including the sharpness of $h_\Gamma^{3/2}$ for every $k\ge4$. Computations confirm the rates and constants.}
 
 \keywords{Stokes equations, Scott--Vogelius elements, Nitsche's method, curved boundaries, divergence-free finite elements, penalty parameter}
 

@@ -7,18 +7,18 @@ author.)
 ARTICLE TYPE: Original Research (research article)
 
 TITLE (plain text):
-Exactly divergence-free Stokes elements with Nitsche's method on a polygonally approximated boundary: the missing pressure traction, Scott's rate, and the zero-gradient lock
+Scott-Vogelius elements on polygonal approximations of curved walls: the zero-gradient lock, Nitsche's method and the penalty threshold
 
-RUNNING / SHORT TITLE (if asked): Scott-Vogelius-Nitsche on polygonal boundaries
+RUNNING / SHORT TITLE (if asked): Scott-Vogelius elements on polygonal walls
 
 AUTHOR: Jaideep Sai Padhi (sole, corresponding)
   Department of Computer Science, Purdue University, West Lafayette, IN 47907, USA; jpadhi@purdue.edu
   ORCID: FILL (also in main.src.tex, see the %% FILL comment; optional but requested "if available")
-  %% TBD: co-author decision (C. de S. Cavalcante) -- not added.
+  Sole author (decided). C. de S. Cavalcante is co-author of the companion AML letter only; see RELATED MANUSCRIPTS.
 
-ABSTRACT (plain text, no LaTeX; 244 words; limit 150-250):
-Scott-Vogelius elements compute pointwise divergence-free velocities, but when a curved no-slip wall is replaced by an inscribed polygon discrete velocities can be forced to have zero gradient at polygon vertices, and with strongly imposed no-slip the H^1 error can degrade to order h^(1/2). Gjerde and Scott imposed the wall condition weakly by Nitsche's method on the polygon, and Scott asked for a proof that the error behaves like h_Γ^(3/2) + h_Ω^k and, if not, why not. We answer the question in two dimensions. For the method as printed, the estimate holds if and only if the pressure is constant along the wall: the Nitsche form omits the pressure traction -pn, and the velocity leaks through the wall with normal velocity (h/μ)(p - p̄). We prove sharp rates for this error and identify its leading term. Restoring the traction with its wall mean removed, a device of Frachon, Nilsson and Zahedi, gives an exactly divergence-free method; we prove that it attains h_Γ^(3/2) + h_Ω^k for every k ≥ 4, uniformly in the penalty for flux-corrected data, and that h_Γ^(3/2) is sharp whenever the wall shear does not vanish identically and h_Γ is small relative to the smallest wall-triangle angle. The penalty must scale with the ratio of bulk to boundary mesh size (sufficient on every mesh, necessary on broad classes of meshes). Under the Guzmán-Scott angle condition strong imposition attains the same rate; the zero-gradient lock is caused by wall vertices lying in only two triangles. Computations confirm the rates and constants.
-(If the form rejects non-ASCII: replace Γ, Ω, μ, p̄, ≥, á by Gamma, Omega, mu, pbar, >=, a.)
+ABSTRACT (plain text, no LaTeX; 232 words; limit 150-250):
+Scott-Vogelius elements give pointwise divergence-free velocities, but when a curved no-slip wall is replaced by an inscribed polygon, strongly imposed no-slip can force a zero velocity gradient at polygon vertices, and the H^1 error can degrade to order h^(1/2). Gjerde and Scott therefore imposed the wall condition by Nitsche's method, and Scott asked whether the error is O(h_Γ^(3/2) + h_Ω^k) and, if not, why not. A letter written jointly with C. de S. Cavalcante announces the core answer with proof sketches: the printed method leaks through the wall at the rate (h/μ)(p - p̄) unless the wall pressure is constant, and a mean-free pressure traction restores Scott's rate. This companion paper contains what the letter does not. First, we determine when the zero-gradient lock occurs: under the Guzmán-Scott angle condition strongly imposed no-slip already has H^1 error ≍ h_Γ^(3/2) + h^k, and the lock comes from wall vertices lying in only two triangles, each costing h_Γ|∂_n u(z)|. Second, we give the penalty theory: the penalty must scale with the ratio of bulk to boundary mesh size, as shown by exact certificates on shape families and a proof on every shape-regular mesh, while exact counterexamples show that necessity is not local. Third, we identify the H^1 constant of the leak as the energy of a Stokes leak flow. Finally, we give complete proofs of the letter's results, including the sharpness of h_Γ^(3/2) for every k ≥ 4. Computations confirm the rates and constants.
+(If the form rejects non-ASCII: replace Γ, Ω, μ, p̄, ≥, ≍, ∂_n, á by Gamma, Omega, mu, pbar, >=, ~, d_n, a.)
 
 KEYWORDS (6; limit 4-6):
 Stokes equations; Scott-Vogelius elements; Nitsche's method; curved boundaries; divergence-free finite elements; penalty parameter
@@ -30,7 +30,8 @@ DECLARATIONS (as in the manuscript's "Declarations" section; the form may ask fo
   Competing interests: The question studied in this article is the subject of a prize offered by
     L. R. Scott (Prize Problem Ledger problem PPL 115), and the author intends to submit this work for it.
     The author declares no other competing interests.
-    -- TBD: if the AML letter with C. de S. Cavalcante is submitted first, mention it (and cite it in Sec. 2).
+    (The joint AML letter is not a competing interest; it is disclosed in the paper, Sections 1.6 and 2.6,
+     in the Author contributions, and in the cover letter.)
   Ethics approval and consent to participate: Not applicable.
   Consent for publication: Not applicable.
   Data availability: All code, raw results and logs, and the scripts that regenerate every table and
@@ -39,7 +40,8 @@ DECLARATIONS (as in the manuscript's "Declarations" section; the form may ask fo
   Code availability: same GitHub repository (solver, exact/interval certificates, table and figure scripts).
     -- CHECK: the repository is public and the Zenodo record resolves before submitting.
   Author contributions: sole author (conception, analysis, software/computations, writing; generative AI
-    use as described in Section 3.8).
+    use as described in Section 3.8). Some results were announced in the joint letter with C. de S.
+    Cavalcante [CavalcantePadhiLetter]; stated in the manuscript's Author contributions.
   Use of generative AI (if the form asks): Yes -- Claude (Anthropic, Claude Opus 5.5) used for proofs, code,
     literature search and drafting; documented in Section 3.8 of the manuscript (the journal requires it in
     the methods section); AI is not an author; the author takes full responsibility.
@@ -47,17 +49,24 @@ DECLARATIONS (as in the manuscript's "Declarations" section; the form may ask fo
     produced by the repository scripts from computed data; Fig. 1 is a TikZ schematic).
   Previously published / under consideration elsewhere: No. Preprint: extended version on Zenodo
     (doi:10.5281/zenodo.23044296) -- declare if the form asks about preprints.
-  Related manuscripts: AML letter (joint with Cavalcante, in preparation) and 3D companion (in
-    preparation) -- see cover letter. %% AUTHOR CHECK: update if the letter has been submitted by then
-    (upload it as "related manuscript" for the editor if the form offers that).
+  Related manuscripts: YES -- the companion letter "The missing pressure traction in Scott-Vogelius-Nitsche
+    methods on polygonal approximations of a curved wall" (C. de S. Cavalcante and J. S. Padhi), submitted to
+    Applied Mathematics Letters on FILL date (manuscript no. FILL); contains the leak law, the corrected
+    method CNS* at h_Γ^(3/2)+h^k, sharpness and the penalty threshold, with proof sketches. This paper is
+    its companion (complete proofs + new material a-c, see cover letter). 3D companion: in preparation.
+  ORDER: submit this paper ONLY AFTER the AML letter has been submitted. Then fill the letter's submission
+    date/number in cover_letter.txt and the %% FILL status/DOI of CavalcantePadhiLetter in refs.bib
+    (rebuild with ./build.sh).
 
 FILES TO UPLOAD
-  1. Manuscript: jsc/main.pdf (64 pages)  -- a single PDF suffices at first submission.
+  1. Manuscript: jsc/main.pdf (66 pages)  -- a single PDF suffices at first submission.
   2. (Recommended, required at revision) LaTeX source: jsc/main.tex, jsc/refs.bib (or main.bbl),
      jsc/sn-jnl.cls, jsc/sn-mathphys-num.bst, figures/h1_rates.pdf, figures/leading_term.pdf,
      figures/leak_field.pdf, figures/threshold.pdf.  (Upload main.tex, NOT main.src.tex/sections/.)
   3. Cover letter: jsc/cover_letter.txt (paste into the field, or save as PDF). Remove the %% lines first.
-  4. Optional supplementary file: none needed (extended version is cited by DOI).
+  4. REQUIRED supplementary file: the AML letter PDF (letter/letter.pdf, the version actually submitted to AML),
+     uploaded as "Related manuscript / supplementary material for review" (or the closest item type the form
+     offers), so that the editor and reviewers can check overlap. The extended version is cited by DOI.
 
 SUGGESTED REVIEWERS (form asks name, institution, e-mail; affiliations checked on the web 2026-09-29)
   1. Michael Neilan -- Professor, Department of Mathematics, University of Pittsburgh
@@ -82,7 +91,9 @@ OPPOSED REVIEWERS (optional; not conflicts to hide, but people who should not re
   and C. de S. Cavalcante (co-author of the related letter), each with the reason stated.  -- AUTHOR CHOICE
 
 FINAL CHECKS BEFORE PRESSING SUBMIT
-  [ ] ORCID filled (optional)       [ ] funding statement confirmed      [ ] Cavalcante co-author decision
-  [ ] AML-letter status sentence in cover letter updated                 [ ] Neilan e-mail verified
+  [ ] AML letter SUBMITTED first     [ ] letter date/number filled in cover letter (%% FILL)
+  [ ] refs.bib CavalcantePadhiLetter status/DOI updated, PDF rebuilt     [ ] letter PDF uploaded as related manuscript
+  [ ] Cavalcante informed that the companion cites the letter (and agrees with the joint/sole split in Sec. 2.6)
+  [ ] ORCID filled (optional)       [ ] funding statement confirmed      [ ] Neilan e-mail verified
   [ ] %% comments stripped from the cover letter                         [ ] Zenodo DOI resolves
   [ ] BCDG2016 theorem number (%% VERIFY in Section 3) and refs.bib VERIFY items (carried from paper2d)

@@ -1,6 +1,6 @@
 \section{How large must the penalty be?}\label{sec:penalty}
 
-Scott's prize asks for a study of the influence of the Nitsche penalty. The theorems of Sections~\ref{sec:printed}--\ref{sec:corrected} need $\gamma\ge\gamma_0$ (or $\gamma_2$), and the penalty enters the error bounds; but they say nothing about how large the smallest admissible $\mu$ actually is, or how it depends on the mesh. This section answers that question.
+Scott's prize asks for a study of the influence of the Nitsche penalty. The analysis of the Nitsche methods in Sections~\ref{sec:printed}--\ref{sec:corrected} below needs $\gamma\ge\gamma_0$ (or $\gamma_2$), and the penalty enters the error bounds; but they say nothing about how large the smallest admissible $\mu$ actually is, or how it depends on the mesh. This section answers that question. Its first part, the sufficiency and the single-triangle witness with its certified shape families (Theorem~\ref{thm:pb1}, Proposition~\ref{prop:cert}, Corollary~\ref{cor:rho}), was announced in the joint letter \cite{CavalcantePadhiLetter} with a proof sketch; the rest of the section, from Section~\ref{sec:penalty:local} on, is not in the letter.
 
 \subsection{Sufficiency, and why $\rho$ appears}
 Lemma~\ref{lem:coercive} shows that $\mu\ge\mu_0=4\kappa C_I^2\rho$ with $\rho=h/\min_e|e|$ suffices for coercivity of $N_h$ on $\VR$. The proof is local at the wall: what is really needed is $\mu/h\gtrsim1/|e|$ for each chord $e$, a lower bound on the \emph{local} penalty in units of the chord. The appearance of the global ratio $\rho$ is the price of Scott's normalisation of the penalty by the global mesh size $h$. It has a practical consequence: with a fixed $\mu$, refining the boundary while keeping the far field coarse will eventually violate coercivity. The question is whether this is a real effect or an artefact of the proof. We show that it is real: the threshold $\mu^\ast$ (the infimum of the $\mu$ for which $N_h$ is coercive on $\Zh$) scales like $\rho$ on broad classes of meshes. Note that the relevant space is $\Zh$, the divergence-free fields: coercivity on $\Zh$ is what the $\GS$ analysis uses, and it is easier to have than coercivity on $\VR$, so necessity statements on $\Zh$ are the strong ones.
@@ -33,7 +33,7 @@ and $A_T=(\alpha_{ij})/b^3$ with
 \end{align*}
 The trace form is positive definite: $\det C_T=(3a^4-6a^3+7a^2b^2+3a^2-7ab^2+4b^4+5b^2)/(83\,349\,000\,b^6)>0$. The forms were checked against an independent quadrature, and the resulting $\lambda_T$ against our threshold code on single-triangle patches.
 
-\begin{theorem}[Single-triangle necessity]\label{thm:pb1}
+\begin{theorem}[Single-triangle necessity; announced in {\cite{CavalcantePadhiLetter}}]\label{thm:pb1}
 Let $\lambda_T$ be the largest eigenvalue of the pencil $(2B_T-A_T,\,C_T)$; it depends only on the shape of $T$. If $\mu|e|/h<\lambda_T$, then $N_h$ is indefinite on $\Zh$ for every $k\ge4$. Consequently every mesh satisfies the necessary condition
 \[
 \mu\ \ge\ h\,\max_{e\in\EG}\frac{\lambda_{T_e}}{|e|} .
@@ -46,7 +46,7 @@ For the eigenvector $c$, $N_h(v_c,v_c)=A_T-2B_T+(\mu|e|/h)C_T=(\mu|e|/h-\lambda_
 
 The theorem is useful only where $\lambda_T>0$, and $\lambda_T$ is not given in closed form. We therefore certify positive lower bounds on families of shapes, in exact arithmetic.
 
-\begin{proposition}[Exact certificates over shape families]\label{prop:cert}
+\begin{proposition}[Exact certificates over shape families; announced in {\cite{CavalcantePadhiLetter}}]\label{prop:cert}
 Let $Q_\varphi$ be the set of apex positions for which the apex angle is at least $\varphi$ and $b\ge s\max(a,1-a)$ with $s=0.087<\tan5^\circ$; it contains every triangle with apex angle at least $\varphi$ and base angles at least $5^\circ$. Then
 \[
 \lambda_T>9.3\ \text{on }Q_{60^\circ},\qquad \lambda_T>4\ \text{on }Q_{45^\circ},\qquad \lambda_T>1\ \text{on }Q_{35^\circ}.
@@ -63,7 +63,7 @@ A scan (not certified) gives the minimum $9.31381$ over $Q_{60^\circ}$, at the e
 If a shortest chord carries a triangle with apex angle at least $35^\circ$ and base angles at least $5^\circ$, then coercivity of $N_h$ on $\Zh$ requires $\mu>\rho$; with apex angle at least $45^\circ$ (resp.\ $60^\circ$) it requires $\mu>4\rho$ (resp.\ $\mu>9.3\rho$). Together with Lemma~\ref{lem:coercive}, $\mu^\ast\asymp\rho$ on every such mesh.
 \end{corollary}
 
-\subsection{Tall triangles, and why necessity is not local}
+\subsection{Tall triangles, and why necessity is not local}\label{sec:penalty:local}
 Single triangles cannot do everything: $\lambda_T<0$ for tall boundary triangles, for example every right triangle with the right angle at a base vertex and apex angle at most $30^\circ$. Such triangles occur in practice, for instance near the diagonal directions of our test meshes. One might hope that the whole star of a boundary vertex always carries a witness when the mesh satisfies (M2). This is false.
 
 \begin{proposition}[Exact counterexamples {\cite{PadhiExt}}]\label{prop:counter}

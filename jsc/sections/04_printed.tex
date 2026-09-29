@@ -1,5 +1,7 @@
 \section{The printed method: the leak law}\label{sec:printed}
 
+\emph{Relation to \cite{CavalcantePadhiLetter}.} Theorems~\ref{thm:A}, \ref{thm:C} and~\ref{thm:B} and Corollary~\ref{cor:Bp} were announced in the joint letter \cite{CavalcantePadhiLetter}, with proof sketches; we give complete proofs here. The identification of the $H^1$ constant with a Stokes leak flow (Section~\ref{sec:leakflow}) is not in the letter.
+
 Throughout this section $u_h$ is the velocity of $\GS$ and $\gamma\ge\gamma_0$, so that $N_h$ is coercive (Lemma~\ref{lem:coercive}). The error equation of Corollary~\ref{cor:GSerr} has two right-hand sides. The geometric part $\Gc$ is of Scott's order. The traction part $\Rc(v)=-\ip{\pt-\pbar}{v\cdot n}$ is of order one; it is a normal load on the wall, and the only term of $N_h$ that can balance a normal load of order one on the wall is the penalty. This suggests that $u_h$ carries a normal wall velocity $(h/\mu)(p-\pbar)$. We now make this precise: first in the energy norm, where the leak is seen directly, then in the $H^1$ seminorm, where incompressibility improves the rate, and finally at the level of the exact leading term and its $H^1$ constant.
 
 \subsection{A divergence-free field with prescribed normal trace}
@@ -15,7 +17,7 @@ Let $\Pi_{k+1}$ be the $C^1$ piecewise-$P_{k+1}$ interpolant of Morgan and Scott
 
 \subsection{The energy norm: rate exactly one half}
 
-\begin{theorem}[Energy error of the printed method]\label{thm:A}
+\begin{theorem}[Energy error of the printed method; announced in {\cite{CavalcantePadhiLetter}}]\label{thm:A}
 The error of $\GS$ satisfies
 \[
 \tnorm{\ut-u_h}\le C\Bigl[(h/\mu)^{1/2}G+(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
@@ -67,7 +69,7 @@ At a polygon vertex $x$ shared by $e$ and $e'$ the endpoint terms combine to $v(
 
 Computations confirm that this is exactly what incompressibility buys: the discrete dual norm of $v\mapsto\ip{S}{\dn v}$ stays bounded on $\Zh$ for normal $S$, but grows like $\hG^{-1/2}$ on $\VR$ and also on $\Zh$ for tangential $S$ (Table~\ref{tab:lemma}).
 
-\begin{theorem}[$H^1$ error of the printed method]\label{thm:C}
+\begin{theorem}[$H^1$ error of the printed method; announced in {\cite{CavalcantePadhiLetter}}]\label{thm:C}
 With $C_p:=C(1+\norm{p-\pbar}_{W^{1,\infty}(\Gamma)})$,
 \[
 \norm{\nabla(\ut-u_h)}\le C_p\,\frac h\mu+C\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
@@ -109,7 +111,7 @@ Without incompressibility Lemma~\ref{lem:cancel} would give only $C\hG^{-1/2}$, 
 
 The rate $h/\mu$ is sharp. The next theorem shows that, as long as the traction term dominates, the slip is of size exactly $(h/\mu)G$, and the $H^1$ error cannot be smaller.
 
-\begin{theorem}[Slip and $H^1$ lower bounds]\label{thm:B}
+\begin{theorem}[Slip and $H^1$ lower bounds; announced in {\cite{CavalcantePadhiLetter}}]\label{thm:B}
 Let $G>0$ and let $X:=C_p(h/\mu)+(1+\gamma^{1/2})\hG^{3/2}+\eps$ be the bound of Theorem~\ref{thm:C}. Suppose that, for a fixed small $\delta$,
 \[
 X\le\delta\,G\min(G,\hG^{1/2}),\qquad h/\mu\le\delta G,\qquad \hG\le h_0(G),
@@ -141,7 +143,7 @@ For $\delta$ small, $|\ip{e_u}{v}|\ge\frac12(h/\mu)G^2$. Dividing by $\norm{v}_{
 \subsection{The leading term}
 We can now identify the error itself, not only its size.
 
-\begin{corollary}[Exact leading term]\label{cor:Bp}
+\begin{corollary}[Exact leading term; announced in {\cite{CavalcantePadhiLetter}}]\label{cor:Bp}
 Let $G>0$ and let $\hG\to0$ with $h/\mu\to0$, $\gamma\hG\to0$ and $\eps/(h/\mu)^{1/2}\to0$ (for example $\gamma$ fixed, $\rho$ bounded). Then
 \[
 \ut-u_h=\frac h\mu\,v_\varphi+\vartheta_h,\qquad \tnorm{\vartheta_h}=o\bigl((h/\mu)^{1/2}\bigr),\qquad \norm{\vartheta_h}_{\Gh}=o(h/\mu),

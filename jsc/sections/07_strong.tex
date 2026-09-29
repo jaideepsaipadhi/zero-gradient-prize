@@ -1,11 +1,13 @@
 \section{Strong imposition: when does the zero-gradient lock occur?}\label{sec:strong}
 
-The motivation for weak imposition in \cite{ScottPrize,GjerdeScott2024} is the zero-gradient lock of strongly imposed no-slip. Having analysed the Nitsche methods, we return to the original difficulty and ask when, and why, strong imposition on the same polygon, with the same Scott--Vogelius pair, actually loses accuracy. The answer is sharper than one might expect, and it explains the prize question's ``why'' from the other side:
+The motivation for weak imposition in \cite{ScottPrize,GjerdeScott2024} is the zero-gradient lock of strongly imposed no-slip. Before analysing the Nitsche methods, we take up the original difficulty and ask when, and why, strong imposition on the same polygon, with the same Scott--Vogelius pair, actually loses accuracy. The answer is sharper than one might expect, and it explains the prize question's ``why'' from the other side:
 \begin{itemize}
-\item under the mesh condition (M2) used throughout this paper, strong imposition already has $H^1$ error $\asymp\hG^{3/2}+h^k$, the rate of $\CNS$;
+\item under the mesh condition (M2) used throughout this paper, strong imposition already has $H^1$ error $\asymp\hG^{3/2}+h^k$, the rate that $\CNS$ attains (Section~\ref{sec:corrected});
 \item the lock is caused by polygon vertices lying in only two triangles, which (M2) excludes; each such vertex costs $\hG|\dn u(z)|$ in $H^1$, two-sided;
 \item with three or more triangles the same loss reappears continuously as one triangle at the wall vertex degenerates, and the relevant parameter is its angle, not the Guzm\'an--Scott quantity $\Theta(z)$.
 \end{itemize}
+
+The results of this section are not in the joint letter \cite{CavalcantePadhiLetter}, which only mentions, with a pointer to \cite{PadhiExt}, that the lock cannot occur under (M2).
 
 \emph{The method.} Find $u_h\in\Vh$ with $u_h|_{\partial R}=\gI$, $u_h|_{\Gh}=0$, and $p_h\in\Pih\cap L^2_0(\Oh)$ with
 \[
@@ -189,4 +191,4 @@ mesh (a) & 16 & 32 & $5.724\cdot10^{-1}$ & 0.70 & 19.747 & $-0.49$ & 1.378 & 0.7
 \end{table}
 
 \subsection{What this says about Nitsche's method}
-Strong imposition and the Nitsche methods have the same rate under (M2); the constant of strong imposition is about $2.5$ times larger in our tests (Table~\ref{tab:strong}). On the alternating mesh, where every other wall vertex is locked, strong imposition degrades to rate $\frac12$ while $\GS$ and $\CNS$ are unaffected to within $6\%$ (an observation; that mesh lies outside our hypotheses for the Nitsche methods). The advantages of Nitsche imposition on an inscribed polygon are therefore robustness to locked and nearly singular wall stars, and a smaller error constant, not a better rate.
+Strong imposition and the Nitsche methods have the same rate under (M2) (Theorem~\ref{thm:st:two} and, for $\CNS$, Theorem~\ref{thm:D}); the constant of strong imposition is about $2.5$ times larger in our tests (Table~\ref{tab:strong}). On the alternating mesh, where every other wall vertex is locked, strong imposition degrades to rate $\frac12$ while $\GS$ and $\CNS$ are unaffected to within $6\%$ (an observation; that mesh lies outside our hypotheses for the Nitsche methods). The advantages of Nitsche imposition on an inscribed polygon are therefore robustness to locked and nearly singular wall stars, and a smaller error constant, not a better rate.

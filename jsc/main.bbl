@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{64}
+\begin{thebibliography}{65}
 % BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -414,6 +414,19 @@ pp. \bfpage{327}--\blpage{336}.
 \endbibitem
 
 %%% 25
+\bibitem[\protect\citeauthoryear{Cavalcante and
+  Padhi}{2026}]{CavalcantePadhiLetter}
+\begin{botherref}
+\oauthor{\bsnm{Cavalcante}, \binits{C.d.S.}},
+\oauthor{\bsnm{Padhi}, \binits{J.S.}}:
+The missing pressure traction in {S}cott--{V}ogelius--{N}itsche methods on
+  polygonal approximations of a curved wall.
+Submitted to Applied Mathematics Letters
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 26
 \bibitem[\protect\citeauthoryear{Frachon
   et~al.}{2024}]{FrachonNilssonZahedi2024}
 \begin{barticle}
@@ -430,7 +443,7 @@ pp. \bfpage{327}--\blpage{336}.
 \end{barticle}
 \endbibitem
 
-%%% 26
+%%% 27
 \bibitem[\protect\citeauthoryear{Padhi}{2026a}]{PadhiExt}
 \begin{botherref}
 \oauthor{\bsnm{Padhi}, \binits{J.S.}}:
@@ -443,7 +456,7 @@ Version 3 (extended version, with all proofs and computations)
 \end{botherref}
 \endbibitem
 
-%%% 27
+%%% 28
 \bibitem[\protect\citeauthoryear{Padhi}{2026b}]{PadhiThreeD}
 \begin{botherref}
 \oauthor{\bsnm{Padhi}, \binits{J.S.}}:
@@ -454,7 +467,7 @@ In preparation
 \end{botherref}
 \endbibitem
 
-%%% 28
+%%% 29
 \bibitem[\protect\citeauthoryear{Padhi}{2026c}]{ZeroGradRepo}
 \begin{botherref}
 \oauthor{\bsnm{Padhi}, \binits{J.S.}}:
@@ -464,7 +477,7 @@ zero-gradient-prize: code, raw results and logs.
 \end{botherref}
 \endbibitem
 
-%%% 29
+%%% 30
 \bibitem[\protect\citeauthoryear{Cavalcante}{2026}]{Cavalcante}
 \begin{botherref}
 \oauthor{\bsnm{Cavalcante}, \binits{C.d.S.}}:
@@ -476,7 +489,7 @@ Preprint, Zenodo
 \end{botherref}
 \endbibitem
 
-%%% 30
+%%% 31
 \bibitem[\protect\citeauthoryear{Chen and Liu}{2026}]{ChenLiu2026}
 \begin{botherref}
 \oauthor{\bsnm{Chen}, \binits{W.}},
@@ -488,7 +501,7 @@ arXiv:2609.30008
 \end{botherref}
 \endbibitem
 
-%%% 31
+%%% 32
 \bibitem[\protect\citeauthoryear{Liu et~al.}{2023a}]{LiuNeilanOtus2023}
 \begin{barticle}
 \bauthor{\bsnm{Liu}, \binits{H.}},
@@ -505,7 +518,7 @@ arXiv:2609.30008
 \end{barticle}
 \endbibitem
 
-%%% 32
+%%% 33
 \bibitem[\protect\citeauthoryear{Liu et~al.}{2023b}]{LiuNeilanOlshanskii2023}
 \begin{barticle}
 \bauthor{\bsnm{Liu}, \binits{H.}},
@@ -521,7 +534,7 @@ arXiv:2609.30008
 \end{barticle}
 \endbibitem
 
-%%% 33
+%%% 34
 \bibitem[\protect\citeauthoryear{Burman et~al.}{2024}]{BurmanHansboLarson2024}
 \begin{barticle}
 \bauthor{\bsnm{Burman}, \binits{E.}},
@@ -537,7 +550,7 @@ arXiv:2609.30008
 \end{barticle}
 \endbibitem
 
-%%% 34
+%%% 35
 \bibitem[\protect\citeauthoryear{Eickmann
   et~al.}{2025}]{EickmannScottTscherpel2025}
 \begin{botherref}
@@ -551,7 +564,7 @@ arXiv:2509.17899
 \end{botherref}
 \endbibitem
 
-%%% 35
+%%% 36
 \bibitem[\protect\citeauthoryear{Burman}{2012}]{Burman2012}
 \begin{barticle}
 \bauthor{\bsnm{Burman}, \binits{E.}}:
@@ -565,7 +578,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 36
+%%% 37
 \bibitem[\protect\citeauthoryear{Boiveau and Burman}{2016}]{BoiveauBurman2016}
 \begin{barticle}
 \bauthor{\bsnm{Boiveau}, \binits{T.}},
@@ -580,7 +593,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 37
+%%% 38
 \bibitem[\protect\citeauthoryear{Juntunen and
   Stenberg}{2009}]{JuntunenStenberg2009}
 \begin{barticle}
@@ -595,7 +608,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 38
+%%% 39
 \bibitem[\protect\citeauthoryear{Bernardi et~al.}{2016}]{BCDG2016}
 \begin{barticle}
 \bauthor{\bsnm{Bernardi}, \binits{C.}},
@@ -612,7 +625,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 39
+%%% 40
 \bibitem[\protect\citeauthoryear{Gr\"a{\ss}le
   et~al.}{2024}]{GrassleBohneSauter2024}
 \begin{barticle}
@@ -630,7 +643,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 40
+%%% 41
 \bibitem[\protect\citeauthoryear{Park}{2020}]{Park2020}
 \begin{barticle}
 \bauthor{\bsnm{Park}, \binits{C.}}:
@@ -644,7 +657,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 41
+%%% 42
 \bibitem[\protect\citeauthoryear{Bohne et~al.}{2025}]{BohneGrassleSauter2025}
 \begin{barticle}
 \bauthor{\bsnm{Bohne}, \binits{N.-E.}},
@@ -660,7 +673,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 42
+%%% 43
 \bibitem[\protect\citeauthoryear{Kean et~al.}{2022}]{KeanNeilanSchneier2022}
 \begin{barticle}
 \bauthor{\bsnm{Kean}, \binits{K.}},
@@ -676,7 +689,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 43
+%%% 44
 \bibitem[\protect\citeauthoryear{Zhang}{2005}]{Zhang2005}
 \begin{barticle}
 \bauthor{\bsnm{Zhang}, \binits{S.}}:
@@ -690,7 +703,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 44
+%%% 45
 \bibitem[\protect\citeauthoryear{Guzm\'an
   et~al.}{2022}]{GuzmanLischkeNeilan2022}
 \begin{barticle}
@@ -706,7 +719,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 45
+%%% 46
 \bibitem[\protect\citeauthoryear{Zhang}{2011}]{Zhang2011}
 \begin{barticle}
 \bauthor{\bsnm{Zhang}, \binits{S.}}:
@@ -719,7 +732,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 46
+%%% 47
 \bibitem[\protect\citeauthoryear{Neilan}{2015}]{Neilan2015}
 \begin{barticle}
 \bauthor{\bsnm{Neilan}, \binits{M.}}:
@@ -733,7 +746,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 47
+%%% 48
 \bibitem[\protect\citeauthoryear{Fu et~al.}{2020}]{FuGuzmanNeilan2020}
 \begin{barticle}
 \bauthor{\bsnm{Fu}, \binits{G.}},
@@ -749,7 +762,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 48
+%%% 49
 \bibitem[\protect\citeauthoryear{Farrell
   et~al.}{2024}]{FarrellMitchellScott2024}
 \begin{barticle}
@@ -767,7 +780,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 49
+%%% 50
 \bibitem[\protect\citeauthoryear{Eickmann et~al.}{2026}]{EickmannGNST2026}
 \begin{barticle}
 \bauthor{\bsnm{Eickmann}, \binits{F.}},
@@ -784,7 +797,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 50
+%%% 51
 \bibitem[\protect\citeauthoryear{Arnold and Liu}{1995}]{ArnoldLiu1995}
 \begin{barticle}
 \bauthor{\bsnm{Arnold}, \binits{D.N.}},
@@ -799,7 +812,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 51
+%%% 52
 \bibitem[\protect\citeauthoryear{Demlow et~al.}{2011}]{DemlowGuzmanSchatz2011}
 \begin{barticle}
 \bauthor{\bsnm{Demlow}, \binits{A.}},
@@ -814,7 +827,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 52
+%%% 53
 \bibitem[\protect\citeauthoryear{Kellogg and Osborn}{1976}]{KelloggOsborn1976}
 \begin{barticle}
 \bauthor{\bsnm{Kellogg}, \binits{R.B.}},
@@ -828,7 +841,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 53
+%%% 54
 \bibitem[\protect\citeauthoryear{Brezzi et~al.}{1980}]{BRR1980}
 \begin{barticle}
 \bauthor{\bsnm{Brezzi}, \binits{F.}},
@@ -844,7 +857,7 @@ arXiv:2509.17899
 \end{barticle}
 \endbibitem
 
-%%% 54
+%%% 55
 \bibitem[\protect\citeauthoryear{Girault and Raviart}{1986}]{GiraultRaviart}
 \begin{bbook}
 \bauthor{\bsnm{Girault}, \binits{V.}},
@@ -860,7 +873,7 @@ vol. \bseriesno{5}.
 \end{bbook}
 \endbibitem
 
-%%% 55
+%%% 56
 \bibitem[\protect\citeauthoryear{Schatz}{1974}]{Schatz1974}
 \begin{barticle}
 \bauthor{\bsnm{Schatz}, \binits{A.H.}}:
@@ -874,7 +887,7 @@ vol. \bseriesno{5}.
 \end{barticle}
 \endbibitem
 
-%%% 56
+%%% 57
 \bibitem[\protect\citeauthoryear{Warburton and
   Hesthaven}{2003}]{WarburtonHesthaven2003}
 \begin{barticle}
@@ -889,7 +902,7 @@ vol. \bseriesno{5}.
 \end{barticle}
 \endbibitem
 
-%%% 57
+%%% 58
 \bibitem[\protect\citeauthoryear{Babu\v{s}ka and Aziz}{1976}]{BabuskaAziz1976}
 \begin{barticle}
 \bauthor{\bsnm{Babu\v{s}ka}, \binits{I.}},
@@ -903,7 +916,7 @@ vol. \bseriesno{5}.
 \end{barticle}
 \endbibitem
 
-%%% 58
+%%% 59
 \bibitem[\protect\citeauthoryear{Apel}{1999}]{Apel1999}
 \begin{bbook}
 \bauthor{\bsnm{Apel}, \binits{T.}}:
@@ -915,7 +928,7 @@ vol. \bseriesno{5}.
 \end{bbook}
 \endbibitem
 
-%%% 59
+%%% 60
 \bibitem[\protect\citeauthoryear{Acosta
   et~al.}{2006}]{AcostaDuranMuschietti2006}
 \begin{barticle}
@@ -931,7 +944,7 @@ vol. \bseriesno{5}.
 \end{barticle}
 \endbibitem
 
-%%% 60
+%%% 61
 \bibitem[\protect\citeauthoryear{Dauge}{1989}]{Dauge1989}
 \begin{barticle}
 \bauthor{\bsnm{Dauge}, \binits{M.}}:
@@ -945,7 +958,7 @@ vol. \bseriesno{5}.
 \end{barticle}
 \endbibitem
 
-%%% 61
+%%% 62
 \bibitem[\protect\citeauthoryear{Morgan and Scott}{1975}]{MorganScott1975}
 \begin{barticle}
 \bauthor{\bsnm{Morgan}, \binits{J.}},
@@ -958,7 +971,7 @@ vol. \bseriesno{5}.
 \end{barticle}
 \endbibitem
 
-%%% 62
+%%% 63
 \bibitem[\protect\citeauthoryear{Argyris et~al.}{1968}]{Argyris1968}
 \begin{barticle}
 \bauthor{\bsnm{Argyris}, \binits{J.H.}},
@@ -974,7 +987,7 @@ vol. \bseriesno{5}.
 \end{barticle}
 \endbibitem
 
-%%% 63
+%%% 64
 \bibitem[\protect\citeauthoryear{Li}{2005}]{SuperLU}
 \begin{barticle}
 \bauthor{\bsnm{Li}, \binits{X.S.}}:
@@ -988,7 +1001,7 @@ vol. \bseriesno{5}.
 \end{barticle}
 \endbibitem
 
-%%% 64
+%%% 65
 \bibitem[\protect\citeauthoryear{Gjerde and Scott}{2022}]{GjerdeScott2022}
 \begin{barticle}
 \bauthor{\bsnm{Gjerde}, \binits{I.G.}},

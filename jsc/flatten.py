@@ -35,10 +35,13 @@ ai_section = (
     + ai_text + "\n")
 
 body = []
-for name in ["01_intro", "02_related", "03_setting", "04_printed", "05_corrected",
-             "06_penalty", "07_strong", "08_further", "09_numerics", "10_conclusions"]:
+# Section order (2026-09-29, companion-paper framing): the material not contained in the AML letter
+# (strong imposition, penalty theory) comes right after the setting; the complete proofs of the
+# letter's results (printed and corrected methods) follow.  File names keep their paper2d numbers.
+for name in ["01_intro", "02_related", "03_setting", "07_strong", "06_penalty", "04_printed",
+             "05_corrected", "08_further", "09_numerics", "10_conclusions"]:
     t = (sec / f"{name}.tex").read_text().rstrip() + "\n"
-    body.append(f"%%%%%%%%%%%%%%%%%%%% {name}.tex (verbatim from paper2d/sections) %%%%%%%%%%%%%%%%%%%%\n" + t)
+    body.append(f"%%%%%%%%%%%%%%%%%%%% {name}.tex (from paper2d/sections; see README.txt for edits) %%%%%%%%%%%%%%%%%%%%\n" + t)
     if name == "03_setting":
         body.append(ai_section)
 
@@ -54,7 +57,7 @@ declarations = r"""\section*{Declarations}
 \item \textbf{Data availability.} DATATEXT
 \item \textbf{Materials availability.} Not applicable.
 \item \textbf{Code availability.} The finite element code (the Scott--Vogelius--Nitsche solver), the exact rational-arithmetic and interval certificates, and the scripts that produce every table and figure are available at \url{https://github.com/jaideepsaipadhi/zero-gradient-prize} \cite{ZeroGradRepo}; see also \cite{PadhiExt}.
-\item \textbf{Author contributions.} J.~S.~Padhi is the sole author and is responsible for the conception of the study, the analysis, the software and computations, and the writing of the manuscript (with the use of generative AI described in Section~\ref{sec:ai}).
+\item \textbf{Author contributions.} J.~S.~Padhi is the sole author and is responsible for the conception of the study, the analysis, the software and computations, and the writing of the manuscript (with the use of generative AI described in Section~\ref{sec:ai}). Some of the results proved here were announced, with proof sketches, in the letter \cite{CavalcantePadhiLetter}, which is joint work with C.~de~S.~Cavalcante; see Section~\ref{sec:knownnew}.
 \item \textbf{Use of generative AI.} The use of a generative AI model in this work is described in Section~\ref{sec:ai}. The AI model is not an author.
 \end{itemize}
 """
