@@ -1,0 +1,6 @@
+WF k=4: unknowns=273, div rows=240, rank(div)=195, dim Y=78 (1.4s)
+rank of the 6 sub-face means on Y: 6
+dim Y^1=72; rank quadratic edge moments on Y^1 = 6 (of 6); rank first moments = 4 (of 4)
+  quadratic edge moments (sharpness): CERTIFIED ||R^|| in [54.001475715, 54.001475715]  (exact LDL^T)
+  first moments (leak witness): CERTIFIED ||R^|| in [9.709257103, 9.709257103]  (exact LDL^T)
+done (12.6s)

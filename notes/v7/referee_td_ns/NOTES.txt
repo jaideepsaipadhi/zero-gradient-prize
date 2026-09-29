@@ -1,0 +1,36 @@
+Referee scratch (td + nsconst), 2026-09-29. No edits to paper/, paper3d/, letter/, or reviewed files. Nothing committed.
+
+RERUNS (this dir):
+  kappa_explicit.rerun.log  identical to notes/v7/td/kappa_explicit.log
+  kappa_k4.rerun.log        identical to kappa_k4.log except timing (||R^||=91.678155469, ||R1^||=3.645838299)
+  wf4.rerun.log             identical to wf_ranks.log k=4 block (54.001475715, 9.709257103)
+refalfeld.py diff 0b1b617->7115b51: only range(4) -> range(len(self.subs)) in div_rows, grad_gram;
+  Alfeld.subs has length 4, so Alfeld results are bit-identical; paper3d sv 0.240..0.0109 -> 91.7 agrees.
+
+WF / (IS3): proof of E:fail checked (grad v equal on the two sub-tets at a wall edge interior to a face ->
+  div continuous). Rank arithmetic: 48-1-27=20, 120-1-87=32, 240-1-195=44 = 12k-4.
+  Literature: Fabien-Guzman-Neilan-Zytoon (arXiv 2105.09214), WF pressure space with BCs imposes
+  theta_e(q)=q1-q2=0 on BOUNDARY singular edges (and alternating sum on interior ones). So the phenomenon is
+  known; GLN22 (arXiv 2008.05431) abstract fetched, body not (arXiv rate limit 429).
+  paper3d 04_stability l.85 (st:rem:status) lists WF under "discontinuous P_{k-1}" -> wrong;
+  10_open items 1,2 ("unconditional on split meshes", "upper bounds hold under (IS3)") -> vacuous for WF.
+
+Spot checks td: A:wit normalisation, A:low constant chain (c_L = 1.5197*0.086492/25.276 = 5.200e-3),
+  WH trace-inverse C_I^2=k(k+2)l/h_sub, C_PT via div((x-B)w^2)+Payne-Weinberger (rederived), centroid/circumcentre
+  tau_F sign (n into obstacle), A:up steps, A:lin step 5, B:recip. c_w closed-form proof uses |H|_op but
+  ||E^T H E||_F >= smin(E)^2 ||H||_F gives the Frobenius version too (cosmetic).
+  pen_cert: mean-value arb enclosure sound; box centres/radii are floats (children m +- r/2 in float), so
+  certified region is the float box; margin 4e-4 >> ulp. Cosmetic.
+
+nsconst: cor:K(a) = literally the last sentence of paper u:K (07d l.153-156); arithmetic
+  |K_h^2-K^2| <= C(hG+E^2+hG^{1/2}E) ok. 14_open l.26 / 13_numerics l.81 are inconsistent with u:K already.
+  cor:K(b) from lb:thm (valid for GS every gamma>=gamma0, any G) ok.
+  Refit run_mesh.log: 512-2048 -> 21.404517, 256-1024 -> 21.404567, lsq -> 21.404542; a=21.8. ok.
+  Cell extrapolations 21.4080/21.4045/21.3860 reproduce. Harmonic: 8*sqrt(.917*18.16)=32.65, -32.6+10.6=-22.0.
+  discrete (L): Stokes vs Oseen ratio 0.05%-0.86%; computed only N=16,32,48 (nu=1), 16,32 (nu=0.1);
+  production NS meshes are N=16,24,32,48,64 -> "every production mesh" overclaims.
+  h at N=48 is 0.556 (log), so h(N=64)~0.42; the report's "h=0.11 finest" is hG-ish; conclusion only stronger.
+  "value 1+1/mu2 ~ 4.64" vs computed 6.12 at the maximiser: descriptive claim inaccurate.
+  h0 arithmetic: 3.5*175.6*214.5 -> 7.59e-6; 3.5*1756*3296 -> 4.94e-8; /(1+Re) -> 4.3e-8, 2.8e-11. ok.
+  Floquet lemma (<=): Bloch splitting of translation-invariant local forms, ok. (>=): Re w over W columns,
+  O(1) phase sums, CUT; CUT need not preserve top-row support since gamma_c(a) allows any compact support. ok.
