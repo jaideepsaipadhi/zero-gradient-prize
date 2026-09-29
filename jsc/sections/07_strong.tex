@@ -1,0 +1,192 @@
+\section{Strong imposition: when does the zero-gradient lock occur?}\label{sec:strong}
+
+The motivation for weak imposition in \cite{ScottPrize,GjerdeScott2024} is the zero-gradient lock of strongly imposed no-slip. Having analysed the Nitsche methods, we return to the original difficulty and ask when, and why, strong imposition on the same polygon, with the same Scott--Vogelius pair, actually loses accuracy. The answer is sharper than one might expect, and it explains the prize question's ``why'' from the other side:
+\begin{itemize}
+\item under the mesh condition (M2) used throughout this paper, strong imposition already has $H^1$ error $\asymp\hG^{3/2}+h^k$, the rate of $\CNS$;
+\item the lock is caused by polygon vertices lying in only two triangles, which (M2) excludes; each such vertex costs $\hG|\dn u(z)|$ in $H^1$, two-sided;
+\item with three or more triangles the same loss reappears continuously as one triangle at the wall vertex degenerates, and the relevant parameter is its angle, not the Guzm\'an--Scott quantity $\Theta(z)$.
+\end{itemize}
+
+\emph{The method.} Find $u_h\in\Vh$ with $u_h|_{\partial R}=\gI$, $u_h|_{\Gh}=0$, and $p_h\in\Pih\cap L^2_0(\Oh)$ with
+\[
+a_h(u_h,v)-(p_h,\div v)=(\ft,v)\quad\forall v\in\VO,\qquad (q,\div u_h)=0\quad\forall q\in\Pih .
+\]
+Exact incompressibility requires the outer flux $m_R$ to vanish; this holds for our test data and for flux-corrected data. At a vertex $z$ of $\Gh$ let $T_1,\dots,T_m$ be its triangles (counterclockwise), $e_1\subset T_1$ and $e_2\subset T_m$ its two chords with directions $t_1,t_2$, and $s_i=T_i\cap T_{i+1}$ the interior edges. The polygon turns at $z$ by the small angle $\phi_z:=\arcsin(|e_1|/2)+\arcsin(|e_2|/2)$, so that the angle of $\Oh$ at $z$ is $\pi+\phi_z$ and $c\hG\le\phi_z\le1.1\hG$. We write $a_z:=|\dn u(z)|$ for the wall shear at $z$; recall $\nabla\ut(z)=\dn u(z)\otimes n$.
+
+\subsection{The local picture at a wall vertex}
+Let $v$ be a continuous, piecewise-$P_k$, divergence-free field vanishing on $e_1\cup e_2$, and $G_i:=\nabla v|_{T_i}(z)$ its vertex gradients. Divergence-freeness, the boundary condition and continuity across the interior edges give
+\begin{equation}\label{eq:st:J}
+\operatorname{tr}G_i=0,\qquad G_1t_1=0,\qquad G_mt_2=0,\qquad (G_{i+1}-G_i)s_i=0 .
+\end{equation}
+Let $A_z$ be the space of tuples $(G_i)$ satisfying \eqref{eq:st:J}, the \emph{attainable vertex gradients}.
+
+\begin{lemma}[Local structure]\label{lem:st:local}
+\begin{enumerate}[label=(\alph*)]
+\item If the edges at $z$ lie on at least three distinct lines, $\dim A_z=\max(m-2,0)$. In particular $A_z=\{0\}$ (the \emph{lock}) if and only if $m\le2$.
+\item Let $\phi_z\le\theta_{\min}/2$, $\theta_{\min}$ the minimum angle. Then $\Theta(z)=\sin\phi_z$ if $m=2$, and $\Theta(z)\ge\min(\sin2\theta_{\min},\sin(\theta_{\min}/2))$ if $m\ge3$. So for small $\hG$, (M2) at the polygon vertices says exactly that $m\ge3$.
+\item If $m\ge3$ there is $(G_i)\in A_z$ with $\max_i|G_i-\nabla\ut(z)|\le C(\theta_{\min})\,\phi_z\,a_z$.
+\item Whatever $v$ is, divergence-free or not, if $v=0$ on a chord $e$ at $z$ then $|(\nabla v|_{T_e}-\nabla\ut)(z)\,t_e|=a_z|e|/2$ exactly.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Put $H_i=J^{-1}G_i$ with $J$ the rotation by $\pi/2$; trace-free $G$ corresponds to symmetric $H$ (indeed $\nabla\curl\psi=JD^2\psi$). A symmetric matrix annihilating a vector $s$ is a multiple of $s^\perp\otimes s^\perp$, so $H_1=\alpha_1t_1^\perp\otimes t_1^\perp$, $H_m=\alpha_mt_2^\perp\otimes t_2^\perp$ and $H_{i+1}-H_i=\beta_is_i^\perp\otimes s_i^\perp$, subject to one closure condition $\alpha_mt_2^\perp\otimes t_2^\perp-\alpha_1t_1^\perp\otimes t_1^\perp-\sum_i\beta_is_i^\perp\otimes s_i^\perp=0$. The rank-one matrices $u\otimes u$ for unit vectors on three distinct lines are linearly independent (the determinant is a product of sines of the angle differences), so the closure condition has rank three and $\dim A_z=(m+1)-3$. For $m=2$ the lines of $t_1$, $s_1$, $t_2$ are distinct and the only solution is zero. (b) The angles at $z$ sum to $\pi+\phi_z$; for $m=2$ the only pair gives $|\sin(\pi+\phi_z)|$. (c) In Hessian form $\nabla\ut(z)$ corresponds to $a\,n\otimes n$ and the chord normals are within $\phi_z$ of $n$; solve for the correction with a $3\times3$ system whose inverse is bounded by $C(\theta_{\min})$. (d) $\nabla v|_{T_e}(z)t_e=0$ while $\nabla\ut(z)t_e=\dn u(z)\,(n\cdot t_e)$, and $|n\cdot t_e|=|e|/2$.
+\end{proof}
+
+Part (d) explains an observation that is otherwise puzzling: on meshes with three triangles per wall vertex the vertex-gradient error of strong imposition decays only like $h$ (Table~\ref{tab:strong}). This is harmless for the $H^1$ error, as we now show. Part (a) says that everything depends on the number of triangles at the wall vertex.
+
+\subsection{Under (M2): the rate \texorpdfstring{$\hG^{3/2}$}{h^(3/2)}, two-sided}
+
+\begin{theorem}[Upper bound under (M2)]\label{thm:st:up}
+Assume (M0)--(M2), Assumption~\ref{ass:D}, $k\ge4$ and $m_R=0$. Then strong imposition is well posed and, with $p^\circ:=\pt-|\Oh|^{-1}\int_{\Oh}\pt$,
+\[
+\norm{\nabla(\ut-u_h)}+\norm{p^\circ-p_h}\le C\bigl(h^k+\hG^{3/2}\bigr).
+\]
+No relation between $h$ and $\hG$ is needed.
+\end{theorem}
+
+\begin{proof}
+\emph{An admissible approximation.} Let $w_h:=I_h\ut-\sum_x\ut(x)\varphi_x$, the Lagrange interpolant with its nodal values on $\Gh$ set to zero ($\varphi_x$ the nodal basis functions of the nodes $x$ on $\Gh$). By Lemma~\ref{lem:wall} $|\ut(x)|\le C\hG^2$, and $\norm{\nabla\varphi_x}\le C$ by scale invariance; there are $O(\hG^{-1})$ such nodes, so $\norm{\nabla(\ut-w_h)}\le C(h^k+\hG^{3/2})$. Its divergence is in $\Pih$, has mean $|\Oh|^{-1}m_R=0$ and norm $\le C(h^k+\hG^{3/2})$; Lemma~\ref{lem:infsup} (which is where (M2) enters) gives $y\in\VO$ with $\div y=\div w_h$ and the same bound. So $z:=w_h-y$ is admissible, divergence-free, and $\norm{\nabla(\ut-z)}\le C(h^k+\hG^{3/2})$.
+
+\emph{Consistency and energy.} For $v\in\VO$, $a_h(\ut,v)=(\ft-F-\nabla\pt,v)$, so $a_h(u_h-\ut,v)-(p_h-\pt,\div v)=(F,v)$, with $|(F,v)|\le C\hG^2\norm{\nabla v}$. The field $u_h-z\in\VO$ is divergence-free, and Korn's inequality gives $\norm{\nabla(u_h-z)}\le C(\norm{\nabla(\ut-z)}+\hG^2)$. The pressure bound follows from Lemma~\ref{lem:infsup} applied to $p_h-\Pi p^\circ$, $\Pi$ the $L^2$ projection.
+\end{proof}
+
+Without (M2), at a two-triangle vertex the inf-sup constant is $O(\hG)$ (Theorem~\ref{thm:st:locks}), and the divergence correction step gives only $\hG^{1/2}$, which matches the lock. The matching lower bound holds for every field that vanishes on the polygon, discrete or not; it is the Nitsche-free version of the chordal-bump argument, and is the vector analogue of the classical scalar result \cite{BergerScottStrang1972,Scott1975}.
+
+\begin{theorem}[Lower bound]\label{thm:st:low}
+Under (M0) and (M1), every $v\in H^1(\Oh)^2$ with $v|_{\Gh}=0$ satisfies
+\[
+\norm{\nabla(\ut-v)}\ge c\,\hG^{3/2}\norm{\dn u}_{L^2(\Gamma)}-C\hG^{5/2}.
+\]
+\end{theorem}
+
+\begin{proof}
+On each boundary triangle $T_e$, $|w|_{H^{1/2}(e)}\le C|w|_{H^1(T_e)}$, since the one-dimensional Gagliardo seminorm is dilation invariant. Apply this to $w=\ut-v$, whose trace on $e$ is $\ut|_e=\delta(s)a_e+r$ with $a_e:=\dn u(m_e^\ast)$, $\delta(s)=\dist(x,\Gamma)$ and $|r|_{H^{1/2}(e)}\le C\ell^3$. Since $\delta(s)-\delta(t)=(t^2-s^2)/(|x(t)|+|x(s)|)$ and $|x|\le1$, $|\delta|^2_{H^{1/2}(e)}\ge\frac14\iint(s+t)^2\,ds\,dt=\ell^4/24$. Summing over the chords with a Riemann sum for $\sum_e\ell_e|a_e|^2$ gives $\norm{\nabla(\ut-v)}^2\ge c\hG^3(\norm{\dn u}^2_{L^2(\Gamma)}-C\hG)-C\hG^5$.
+\end{proof}
+
+\begin{theorem}[Two-sided rate under (M2)]\label{thm:st:two}
+Under (M0)--(M2), Assumption~\ref{ass:D}, $m_R=0$, $h^k\le\hG^{3/2}$ and $\dn u\not\equiv0$ on $\Gamma$, strongly imposed no-slip satisfies $c\hG^{3/2}\le\norm{\nabla(\ut-u_h)}\le C\hG^{3/2}$.
+\end{theorem}
+
+So, under the hypothesis used throughout this paper, strong imposition attains Scott's expected rate, with the same exponent as $\CNS$. Theorem~\ref{thm:st:up} is close to a corollary of the Guzm\'an--Scott inf-sup theory and standard boundary approximation. The remark of \cite{GjerdeScott2024} that the effect ``will occur at the vertices of any polygonal domain'' therefore does not hold under (M2). By the results below, the strong-imposition meshes of \cite{GjerdeScott2024} must have lost uniform (M2), either through a positive fraction of two-triangle wall vertices or through nearly singular wall stars. Their star counts are not reported, so this last statement is an inference, not a check.
+
+\subsection{Locked vertices}
+Let $\Lk$ be the set of polygon vertices lying in exactly two triangles. At such a vertex the attainable gradients vanish (Lemma~\ref{lem:st:local}(a)), while the true gradient does not. This costs a fixed amount per vertex.
+
+\begin{theorem}[Counting lower bound]\label{thm:st:count}
+Under (M0) and (M1), every divergence-free $v\in\Vh$ vanishing on $\Gh$ satisfies
+\[
+\norm{\nabla(\ut-v)}\ge c\,\hG\Bigl(\sum_{z\in\Lk}a_z^2\Bigr)^{1/2}-C\hG^{3/2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $\gamma_k^2:=\min\{\norm{1-q}^2_T/|T|:q\in P_{k-1}(T),\ q(\text{a vertex})=0\}$, which is affine invariant and positive (exactly $4/(k^2(k+1)^2)$ for $k=4,\dots,8$). On each triangle $T$ at $z$, $\nabla v|_T\in P_{k-1}$, so $\norm{\nabla\ut-\nabla v}_T\ge\gamma_k|T|^{1/2}|\nabla\ut(z)-\nabla v|_T(z)|-Ch_T|T|^{1/2}$. At a locked vertex $\nabla v|_T(z)=0$, and $|\nabla\ut(z)|=a_z$; the star has area $\ge c\hG^2$. Sum over $z$ (a triangle has at most two vertices on $\Gh$); the remainders add up to $C\hG^{3/2}$.
+\end{proof}
+
+A single lock where $a_z\ge\delta>0$ already reduces the rate to $1$, and a positive fraction of locks along an arc where $\dn u\ne0$ reduces it to $\frac12$: this is the $h^{1/2}$ phenomenon of \cite{ScottPrize,GjerdeScott2024}. The bound is sharp, but proving the matching upper bound requires controlling the stability of the pair at the locked vertices, where the inf-sup constant degenerates. The structure of a locked star is completely explicit. At $z\in\Lk$ let $T_1=[z_-,z,w]$ and $T_2=[z,z_+,w]$ be its two triangles, $s=[z,w]$ the interior edge, $\lambda_x$ the hat function of the vertex $x$, and $g_i:=\nabla\lambda_w|_{T_i}=\hat n_i/H_i$, where $\hat n_i$ is the unit normal of the chord $e_i$ into $T_i$ and $H_i=\dist(w,e_i)\asymp h_z:=\diam(T_1\cup T_2)$. Since $\lambda_w$ is linear on $s$ from $0$ to $1$,
+\begin{equation}\label{eq:st:gs}
+g_1\cdot(w-z)=g_2\cdot(w-z)=1 .
+\end{equation}
+Let $D_z$ be the $2\times2$ matrix with rows $g_1^{\mathsf T},g_2^{\mathsf T}$.
+
+\begin{lemma}[Locked star]\label{lem:st:K}
+\begin{enumerate}[label=(\alph*)]
+\item For every $v\in\VO$ there is a unique $c_v\in\R^2$ with $\nabla v|_{T_i}(z)=c_v\otimes g_i$, $i=1,2$. Hence the two vertex divergences are $(\div v|_{T_1}(z),\div v|_{T_2}(z))^{\mathsf T}=D_zc_v$.
+\item $|\det D_z|=\sin\phi_z/(H_1H_2)$, so $D_z$ degenerates as $\phi_z\to0$; and $|D_z^{-1}(1,0)^{\mathsf T}|=H_1/\sin\phi_z$.
+\item $D_z(w-z)=(1,1)^{\mathsf T}$. Consequently the radial field $\sigma(w-z)\lambda_w\lambda_z^2\in\VO$ has vertex divergences $(\sigma,\sigma)$ at $z$, zero vertex gradients at all other vertices, zero flux through $s$, and $H^1$ norm at most $C|\sigma|h_z$, independent of $\phi_z$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $v=0$ on $e_1$, so $\nabla v|_{T_1}(z)$ annihilates the direction of $e_1$ and has the form $c\otimes g_1$ ($g_1$ is normal to $e_1$); likewise on $T_2$. Continuity across $s$ and \eqref{eq:st:gs} force the same $c$. Then $\div v|_{T_i}(z)=\operatorname{tr}(c\otimes g_i)=g_i\cdot c$. (b) $g_1\times g_2=\sin\angle(\hat n_1,\hat n_2)/(H_1H_2)$, and consecutive chord normals make the angle $\phi_z$; $D_z^{-1}(1,0)^{\mathsf T}=(\det D_z)^{-1}g_2^\perp$. (c) is \eqref{eq:st:gs}; the gradient of $(w-z)\lambda_w\lambda_z^2$ at $z$ is $(w-z)\otimes\nabla\lambda_w$, and $w-z$ is parallel to $s$, so the flux through $s$ vanishes.
+\end{proof}
+
+Parts (b) and (c) say that the degenerate direction of $D_z$ is the \emph{difference} of the two vertex divergences: equal divergences are cheap, at a cost independent of the turning angle, while a difference $\ell$ costs $h_z|\ell|/\sin\phi_z$. This is the whole stability theory of locked vertices.
+
+\begin{theorem}[Stability and the two-sided rate with locks {\cite{PadhiExt}}]\label{thm:st:locks}
+Assume (M0), (M1), $k\ge4$, and (M2) at every vertex except the locked ones, with no condition on their number or arrangement. Let $T_1(z),T_2(z)$ be the two triangles at $z\in\Lk$.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Constrained inf-sup.} For every $q\in\Pih\cap L^2_0$ with $q|_{T_1(z)}(z)=q|_{T_2(z)}(z)$ at all $z\in\Lk$ there is $y\in\VO$ with $\div y=q$ and $\norm{\nabla y}\le C\norm q$, with $C$ independent of $h,\hG,(\phi_z)$ and $\#\Lk$.
+\item \emph{Sharp stability.} The divergence maps $\VO$ onto $\Pih\cap L^2_0$ always, and the inf-sup constant satisfies $c\min(1,\min_{\Lk}\phi_z)\le\beta_h\le C\min_{\Lk}\phi_z$; so $\beta_h\asymp\hG$ as soon as $\Lk\ne\emptyset$.
+\item \emph{Velocity.} If also Assumption~\ref{ass:D} holds and $m_R=0$, then
+\[
+\norm{\nabla(\ut-u_h)}\le C\Bigl(h^k+\hG^{3/2}+\hG\Bigl(\sum_{z\in\Lk}a_z^2\Bigr)^{1/2}\Bigr),
+\]
+and, when $h^k\le\hG^{3/2}$ and $\dn u\not\equiv0$, the error is $\asymp\hG^{3/2}+\hG(\sum_{\Lk}a_z^2)^{1/2}$.
+\item \emph{Pressure.} The raw pressure error is only bounded by $C/\hG$ times the velocity error, and numerically this is attained; the $L^2$-orthogonal projection of $p_h$ onto the constrained space of (a), computable by a banded Gram solve, converges at the velocity rate.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+(a) The construction has four steps, each local; the constants involve only $k$, the angles, $c_0$, $\Theta_0$ and $L$.
+\begin{enumerate}[label=\Alph*.]
+\item \emph{Element means.} Take $w\in H^1_0(\Oh)^2$ with $\div w=q$ and $\norm{\nabla w}\le C\norm q$ (continuous level, as in Lemma~\ref{lem:infsup}) and its $P_2$ Fortin interpolant $v_A\in\VO$, which preserves edge integrals and hence $\int_T\div v_A=\int_Tq$ for every triangle \cite{GiraultRaviart}. At each locked vertex subtract the field $c\lambda_w\lambda_z^2+\delta n_s\lambda_z^2\lambda_w^2$ ($n_s$ the normal of $s$) with $c=c_{v_A}$ and $\delta$ chosen so that the field is flux-neutral on both triangles; this kills the vertex gradient of $v_A$ at $z$ without changing any element mean or any other vertex gradient. The remainder $q_1$ of $q$ has zero element means, and at a locked vertex its two vertex values are equal (to $\sigma_z$), because $q\in$ the constrained space.
+\item \emph{Locked vertices.} The radial fields $\sigma_z(w_z-z)\lambda_{w_z}\lambda_z^2$ of Lemma~\ref{lem:st:K}(c) match $(\sigma_z,\sigma_z)$, with zero element means, at a cost independent of $\phi_z$.
+\item \emph{Other vertices.} At a vertex $y$ with $\Theta(y)\ge\Theta_0$ and $m$ triangles, fields of the form $\lambda_y^2\ell+\sum_E\delta_En_E\lambda_y^2\lambda_{x_E}^2$ ($\ell$ linear on each triangle, $E=[y,x_E]$ the interior edges) realise every vector of vertex values with zero element means \cite{GuzmanScott2019,PadhiExt}; the map is onto because at least three edge lines meet at $y$, and uniformly so by compactness.
+\item \emph{Element bubbles.} What remains has zero element means and vanishes at all vertices, and the element bubble lemma of Scott and Vogelius \cite{ScottVogelius1985} inverts the divergence triangle by triangle.
+\end{enumerate} (b) The upper bound uses the same construction with the difference of the vertex values paid at cost $h_z/\sin\phi_z$; the lower bound tests with the $L^2$ representer of $q\mapsto q|_{T_1}(z)-q|_{T_2}(z)$. (c) Modify the interpolant of Theorem~\ref{thm:st:up} so that its vertex gradient vanishes at every locked vertex, at cost $C\hG a_z$ each; its divergence then satisfies the constraint of (a). (d) follows from (a), (b) and the error equation.
+\end{proof}
+
+At a locked vertex the loss is thus an \emph{approximation} loss caused by the zero trace, not a stability loss: the velocity bound in (c) does not see the degenerate inf-sup constant of (b).
+
+\subsection{Nearly singular wall stars}
+With a lower bound on the angles, a wall star with $m\ge3$ triangles is uniformly nonsingular, and there is nothing to add. Near-singularity requires a small angle $\varepsilon_z$ at $z$, and the Guzm\'an--Scott quantity $\Theta(z)$ does not detect it: there are three-triangle stars with $\Theta(z)\ge0.84$ whose attainable-gradient cost is that of a lock. The two relevant shapes are a \emph{needle at the wall} (the triangle next to a chord has angle $\varepsilon_z$ at $z$) and a \emph{split edge} (the middle triangle has angle $\varepsilon_z$, i.e.\ a lock with its interior edge doubled). For a wall vertex $z$ define the area-weighted distance of the exact gradient from the attainable ones,
+\[
+d_z^2:=\min_{(G_T)\in A_z}\sum_{T\ni z}|T|\,|\nabla\ut(z)-G_T|^2 .
+\]
+It is what the counting argument of Theorem~\ref{thm:st:count} actually bounds from below, and at a locked vertex $d_z^2=|\text{star}(z)|\,a_z^2$.
+
+\begin{theorem}[Needle-angle law]\label{thm:st:needle}
+Let $z$ have $m=3$ triangles with exactly one angle $\varepsilon_z\le\varepsilon_0$ at $z$ (the needle, in either position), the other two angles at $z$ at least $\theta_0$, ray lengths in $[c_rh_z,h_z]$, and (M0). Then, with constants depending only on $\theta_0,c_r,c_0$,
+\[
+c\,h_za_z\min\Bigl(1,\frac{\phi_z}{\sqrt{\varepsilon_z}}\Bigr)\le d_z\le C\,h_za_z\min\Bigl(1,\frac{\phi_z}{\sqrt{\varepsilon_z}}\Bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:st:local}(a), $\dim A_z=1$. In Hessian form the attainable tuples are $t$ times a fixed tuple whose entries are ratios of $3\times3$ determinants of the rank-one matrices of the four edge lines; the sine formula gives them exactly. With the regular triangle next to a chord normalised to carry the exact gradient ($t=a_z$), the other regular triangle carries a defect $O(a_z\phi_z)$ and the needle a defect $a_z\frac{\phi_z}{\varepsilon_z}(1+O(\phi_z+\varepsilon_z))$. \emph{Upper bound}: with $t=a_z$, $d_z^2\le Ch_z^2a_z^2(\phi_z^2+\varepsilon_z\phi_z^2/\varepsilon_z^2)$, since the needle has area $\le\varepsilon_zh_z^2$; with $t=0$, $d_z^2\le|\text{star}|a_z^2$. \emph{Lower bound}: either $t$ differs from $a_z$ by a fixed fraction of $\min(1,\phi_z/\varepsilon_z)a_z$, which costs that much on a regular triangle of area $\asymp h_z^2$, or the needle carries a defect $\gtrsim a_z\phi_z/\varepsilon_z$ on its area $\asymp\varepsilon_zh_z^2$. In both cases $d_z^2\ge ch_z^2a_z^2\min(1,\phi_z^2/\varepsilon_z)$.
+\end{proof}
+
+The square root comes from the needle's area: the cheapest admissible tuple puts a gradient defect $a_z\phi_z/\varepsilon_z$ on an area $\varepsilon_zh_z^2$. The maximum-norm defect, $a_z\min(1,\phi_z/\varepsilon_z)$, overstates the $H^1$ cost. Numerically the ratio $d_z/(h_za_z\min(1,\phi_z/\sqrt{\varepsilon_z}))$ lies in $[0.56,0.92]$ over $\phi_z\in[0.005,0.08]$, $\varepsilon_z\in[\phi_z^2/4,0.5]$. The counting argument of Theorem~\ref{thm:st:count} turns this into an $H^1$ lower bound, and under a mesh hypothesis that isolates each needle in its own pair of wall needles the matching upper bound is proved in \cite{PadhiExt}:
+\begin{gather*}
+\norm{\nabla(\ut-u_h)}\asymp\hG^{3/2}+\hG\Bigl(\sum_zw_z^2a_z^2\Bigr)^{1/2},\\
+w_z=\min\Bigl(1,\frac{\phi_z}{\sqrt{\varepsilon_z}}\Bigr)\ \text{at needles},\ w_z=1\ \text{at locks}.
+\end{gather*}
+One needle at the wall gives rate $\frac32$ for $\varepsilon\gtrsim\hG$ and rate $1$ for $\varepsilon\lesssim\hG^2$, and a positive fraction of needles with $\varepsilon\asymp\hG^p$ gives rates $\frac32,1,\frac12$ for $p=0,1,2$. Needles come in pairs across their short edge, and for a straight pair the inf-sup constant is at most $C\varepsilon$; the velocity estimate does not see this, because its proof never inverts the divergence on a needle.
+
+\begin{table}[t]
+\centering\small
+\caption{Strong imposition on mesh (s) (every wall vertex in three triangles), test A: $H^1$ error, observed rate, rate predicted by the fit $E=a\hG^{3/2}(1+\beta\hG)$, $E/\hG^{3/2}$, and the largest vertex-gradient error, which decays like $\hG$ (Lemma~\ref{lem:st:local}(d)).}\label{tab:drift}
+\begin{tabular}{rcccccc}
+\toprule
+$N$ & $\hG$ & $H^1$ error & rate & predicted & $E/\hG^{3/2}$ & vertex gradient\\
+\midrule
+64 & 0.1243 & $4.557\cdot10^{-2}$ & 1.657 & 1.653 & 1.040 & 0.307\\
+96 & 0.0831 & $2.384\cdot10^{-2}$ & 1.610 & 1.614 & 0.995 & 0.212\\
+128 & 0.0624 & $1.518\cdot10^{-2}$ & 1.576 & 1.584 & 0.974 & 0.162\\
+160 & 0.0500 & $1.073\cdot10^{-2}$ & 1.558 & 1.566 & 0.961 & 0.130\\
+192 & 0.0416 & $8.097\cdot10^{-3}$ & 1.547 & 1.555 & 0.953 & 0.109\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\caption{Strong imposition with locked vertices, test A: $H^1$ velocity error, raw pressure error $\norm{\pi_h}$ and filtered pressure error $\norm{\pi_h^f}$ (Theorem~\ref{thm:st:locks}(d)), with $\pi_h=p_h-\Pi p^\circ$.}\label{tab:locks}
+\begin{tabular}{llrcccccc}
+\toprule
+mesh & $\#\Lk$ & $N$ & $H^1$ error & rate & $\norm{\pi_h}$ & rate & $\norm{\pi_h^f}$ & rate\\
+\midrule
+one lock & 1 & 32 & $2.123\cdot10^{-1}$ & 1.36 & 7.291 & $-0.45$ & 0.900 & 1.71\\
+ & 1 & 64 & $9.376\cdot10^{-2}$ & 1.16 & 9.160 & $-0.29$ & 0.328 & 1.39\\
+ & 1 & 128 & $4.464\cdot10^{-2}$ & 1.06 & 10.447 & $-0.16$ & 0.145 & 1.12\\
+mesh (a) & 16 & 32 & $5.724\cdot10^{-1}$ & 0.70 & 19.747 & $-0.49$ & 1.378 & 0.79\\
+ & 32 & 64 & $3.746\cdot10^{-1}$ & 0.60 & 26.384 & $-0.42$ & 0.868 & 0.65\\
+ & 64 & 128 & $2.543\cdot10^{-1}$ & 0.55 & 35.653 & $-0.45$ & 0.580 & 0.57\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{What this says about Nitsche's method}
+Strong imposition and the Nitsche methods have the same rate under (M2); the constant of strong imposition is about $2.5$ times larger in our tests (Table~\ref{tab:strong}). On the alternating mesh, where every other wall vertex is locked, strong imposition degrades to rate $\frac12$ while $\GS$ and $\CNS$ are unaffected to within $6\%$ (an observation; that mesh lies outside our hypotheses for the Nitsche methods). The advantages of Nitsche imposition on an inscribed polygon are therefore robustness to locked and nearly singular wall stars, and a smaller error constant, not a better rate.

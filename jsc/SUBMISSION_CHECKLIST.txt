@@ -1,0 +1,88 @@
+Journal of Scientific Computing -- Editorial Manager / Snapp submission checklist
+===============================================================================
+(Submission site: via "Submit manuscript" on https://link.springer.com/journal/10915 . Fields below are the
+standard Springer Editorial Manager fields; the exact form may differ slightly. Items marked FILL need the
+author.)
+
+ARTICLE TYPE: Original Research (research article)
+
+TITLE (plain text):
+Exactly divergence-free Stokes elements with Nitsche's method on a polygonally approximated boundary: the missing pressure traction, Scott's rate, and the zero-gradient lock
+
+RUNNING / SHORT TITLE (if asked): Scott-Vogelius-Nitsche on polygonal boundaries
+
+AUTHOR: Jaideep Sai Padhi (sole, corresponding)
+  Department of Computer Science, Purdue University, West Lafayette, IN 47907, USA; jpadhi@purdue.edu
+  ORCID: FILL (also in main.src.tex, see the %% FILL comment; optional but requested "if available")
+  %% TBD: co-author decision (C. de S. Cavalcante) -- not added.
+
+ABSTRACT (plain text, no LaTeX; 244 words; limit 150-250):
+Scott-Vogelius elements compute pointwise divergence-free velocities, but when a curved no-slip wall is replaced by an inscribed polygon discrete velocities can be forced to have zero gradient at polygon vertices, and with strongly imposed no-slip the H^1 error can degrade to order h^(1/2). Gjerde and Scott imposed the wall condition weakly by Nitsche's method on the polygon, and Scott asked for a proof that the error behaves like h_Γ^(3/2) + h_Ω^k and, if not, why not. We answer the question in two dimensions. For the method as printed, the estimate holds if and only if the pressure is constant along the wall: the Nitsche form omits the pressure traction -pn, and the velocity leaks through the wall with normal velocity (h/μ)(p - p̄). We prove sharp rates for this error and identify its leading term. Restoring the traction with its wall mean removed, a device of Frachon, Nilsson and Zahedi, gives an exactly divergence-free method; we prove that it attains h_Γ^(3/2) + h_Ω^k for every k ≥ 4, uniformly in the penalty for flux-corrected data, and that h_Γ^(3/2) is sharp whenever the wall shear does not vanish identically and h_Γ is small relative to the smallest wall-triangle angle. The penalty must scale with the ratio of bulk to boundary mesh size (sufficient on every mesh, necessary on broad classes of meshes). Under the Guzmán-Scott angle condition strong imposition attains the same rate; the zero-gradient lock is caused by wall vertices lying in only two triangles. Computations confirm the rates and constants.
+(If the form rejects non-ASCII: replace Γ, Ω, μ, p̄, ≥, á by Gamma, Omega, mu, pbar, >=, a.)
+
+KEYWORDS (6; limit 4-6):
+Stokes equations; Scott-Vogelius elements; Nitsche's method; curved boundaries; divergence-free finite elements; penalty parameter
+
+MSC 2020: 65N30 (primary); 65N12; 65N15; 76D07
+
+DECLARATIONS (as in the manuscript's "Declarations" section; the form may ask for each separately):
+  Funding: This research received no external funding.  -- FILL/VERIFY: change if any grant/fellowship.
+  Competing interests: The question studied in this article is the subject of a prize offered by
+    L. R. Scott (Prize Problem Ledger problem PPL 115), and the author intends to submit this work for it.
+    The author declares no other competing interests.
+    -- TBD: if the AML letter with C. de S. Cavalcante is submitted first, mention it (and cite it in Sec. 2).
+  Ethics approval and consent to participate: Not applicable.
+  Consent for publication: Not applicable.
+  Data availability: All code, raw results and logs, and the scripts that regenerate every table and
+    figure, are available at https://github.com/jaideepsaipadhi/zero-gradient-prize. The extended version,
+    with all omitted proofs and computations, is archived on Zenodo, doi:10.5281/zenodo.23044296.
+  Code availability: same GitHub repository (solver, exact/interval certificates, table and figure scripts).
+    -- CHECK: the repository is public and the Zenodo record resolves before submitting.
+  Author contributions: sole author (conception, analysis, software/computations, writing; generative AI
+    use as described in Section 3.8).
+  Use of generative AI (if the form asks): Yes -- Claude (Anthropic, Claude Opus 5.5) used for proofs, code,
+    literature search and drafting; documented in Section 3.8 of the manuscript (the journal requires it in
+    the methods section); AI is not an author; the author takes full responsibility.
+  Generative-AI images policy confirmation: confirm -- no figure is AI-generated imagery (all plots are
+    produced by the repository scripts from computed data; Fig. 1 is a TikZ schematic).
+  Previously published / under consideration elsewhere: No. Preprint: extended version on Zenodo
+    (doi:10.5281/zenodo.23044296) -- declare if the form asks about preprints.
+  Related manuscripts: AML letter (joint with Cavalcante, in preparation) and 3D companion (in
+    preparation) -- see cover letter. %% AUTHOR CHECK: update if the letter has been submitted by then
+    (upload it as "related manuscript" for the editor if the form offers that).
+
+FILES TO UPLOAD
+  1. Manuscript: jsc/main.pdf (64 pages)  -- a single PDF suffices at first submission.
+  2. (Recommended, required at revision) LaTeX source: jsc/main.tex, jsc/refs.bib (or main.bbl),
+     jsc/sn-jnl.cls, jsc/sn-mathphys-num.bst, figures/h1_rates.pdf, figures/leading_term.pdf,
+     figures/leak_field.pdf, figures/threshold.pdf.  (Upload main.tex, NOT main.src.tex/sections/.)
+  3. Cover letter: jsc/cover_letter.txt (paste into the field, or save as PDF). Remove the %% lines first.
+  4. Optional supplementary file: none needed (extended version is cited by DOI).
+
+SUGGESTED REVIEWERS (form asks name, institution, e-mail; affiliations checked on the web 2026-09-29)
+  1. Michael Neilan -- Professor, Department of Mathematics, University of Pittsburgh
+     e-mail: neilan@pitt.edu  %% VERIFY (department page shows only math@pitt.edu; personal page
+     sites.pitt.edu/~neilan could not be loaded here). Reason: divergence-free SV elements on curved domains.
+  2. Johnny Guzman -- Professor, Division of Applied Mathematics, Brown University
+     e-mail: johnny_guzman@brown.edu (confirmed on appliedmath.brown.edu). Reason: SV stability, angle
+     condition. Note: same institution as the Editor-in-Chief; co-author of Scott (not of the author).
+  3. Alexander Linke -- PD Dr., Chair for Scientific Computing, RPTU Kaiserslautern-Landau (formerly WIAS)
+     e-mail: alexander.linke@rptu.de (confirmed on scicomp.rptu.de/team/linke). Reason: pressure robustness.
+  4. Leo G. Rebholz -- Professor, School of Mathematical and Statistical Sciences, Clemson University
+     e-mail: rebholz@clemson.edu (confirmed on clemson.edu profile). Reason: divergence-free methods for
+     incompressible flow.
+  5. Sara Zahedi -- Professor, Department of Mathematics, KTH Royal Institute of Technology
+     e-mail: sara7@kth.se (confirmed on kth.se/profile/sara7). Reason: Nitsche/CutFEM, divergence-free cut
+     methods; the corrected method analysed here is her group's device (FNZ 2024) -- expert, not a conflict.
+  None of these has collaborated with the author. Guzman and Neilan have co-authored with L. R. Scott,
+  the prize sponsor; the editor may weigh that.
+
+OPPOSED REVIEWERS (optional; not conflicts to hide, but people who should not referee for independence):
+  Consider listing L. Ridgway Scott (prize sponsor), Ingeborg G. Gjerde (author of the method analysed),
+  and C. de S. Cavalcante (co-author of the related letter), each with the reason stated.  -- AUTHOR CHOICE
+
+FINAL CHECKS BEFORE PRESSING SUBMIT
+  [ ] ORCID filled (optional)       [ ] funding statement confirmed      [ ] Cavalcante co-author decision
+  [ ] AML-letter status sentence in cover letter updated                 [ ] Neilan e-mail verified
+  [ ] %% comments stripped from the cover letter                         [ ] Zenodo DOI resolves
+  [ ] BCDG2016 theorem number (%% VERIFY in Section 3) and refs.bib VERIFY items (carried from paper2d)

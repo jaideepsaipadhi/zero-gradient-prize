@@ -1,0 +1,26 @@
+\section*{Declarations}
+
+\subsection*{Use of generative AI}
+The research reported here was carried out by the author with extensive use of a generative AI model, Claude (Anthropic; model Claude Opus~5.5), and we describe that use in detail.
+\begin{itemize}
+\item \emph{Mathematics.} The model was used to develop proof strategies and to draft and check proofs of the lemmas and theorems, including the leak analysis, the lower bounds, the penalty witnesses and the strong-imposition theory.
+\item \emph{Code.} The model wrote and ran the finite element code (the Scott--Vogelius--Nitsche solver, the penalty-threshold and dual-norm computations), the exact rational-arithmetic and interval certificates, and the scripts that produce the tables and figures.
+\item \emph{Literature.} The model was used for literature search and for checking bibliographic data and the content of cited results.
+\item \emph{Writing.} The model drafted and edited the text of this article and of its extended version.
+\end{itemize}
+We did not treat the model's output as verified. The proofs were subjected to independent checks by separate AI instances (fresh sessions of the model instructed to act as critical referees of individual arguments), and every error found in this way was corrected or the corresponding claim weakened; the author reviewed these referee reports and the resulting corrections, which are recorded in the public repository. Claims that could not be fully proved are labelled as numerical, conditional or open, here and in \cite{PadhiExt}. The computer-assisted steps (the penalty certificates and the star-condition constants) use exact rational or rigorous interval arithmetic, with negative controls. All numbers in the tables were checked against the logs of reproducible runs, and the code, raw outputs and logs are public \cite{ZeroGradRepo}. The author directed the project, made the decisions on what to prove and how to present it, and takes full responsibility for the content of this article, including any remaining errors. The AI model is not an author.
+
+\subsection*{Data and code availability}
+All code, raw results and logs, and the scripts that regenerate every table and figure, are available at \url{https://github.com/jaideepsaipadhi/zero-gradient-prize} \cite{ZeroGradRepo}. The extended version of this article, with all omitted proofs and computations, is archived on Zenodo \cite{PadhiExt}.
+
+\subsection*{Competing interests}
+The question studied in this article is the subject of a prize offered by L.~R.~Scott (Prize Problem Ledger problem PPL~115 \cite{ScottPrize}), and the author intends to submit this work for it. The author declares no other competing interests.
+%% TBD: if the joint AML letter with C. de S. Cavalcante is submitted, disclose it here (and cite it in Section 2).
+
+\subsection*{Funding}
+This research received no external funding.
+%% VERIFY with the author.
+
+\subsection*{Acknowledgements}
+The author thanks L.~Ridgway Scott for posing the problem and for making the prize statement and the computations of \cite{GjerdeScott2024} publicly available.
+%% TBD: further acknowledgements (e.g. correspondence with Scott and Cavalcante), at the author's discretion.

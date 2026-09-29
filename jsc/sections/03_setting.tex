@@ -1,0 +1,268 @@
+\section{Setting, methods and tools}\label{sec:setting}
+
+\subsection{The model problem}
+To keep the geometry explicit we work, as Gjerde and Scott do, with flow past a disk in a box. Let $R=(-L,L)^2$ with $L>1$, let $D$ be the open unit disk, $\Gamma=\partial D$ the wall, and $\Omega=R\setminus\overline D$. We seek $(u,p)$ with
+\[
+-\Delta u+\nabla p=f,\qquad \div u=0\quad\text{in }\Omega,\qquad u=0\ \text{on }\Gamma,\qquad u=g\ \text{on }\partial R .
+\]
+Curved domains bounded by several smooth curves, convex or not, are treated in \cite{PadhiExt} (Section~\ref{sec:further}). The disk has one feature that the general case lacks and that makes the exposition cleaner: every point of the polygon has an explicit nearest point on $\Gamma$.
+
+\emph{The polygon.} Let $P_h$ be a convex polygon with vertices on $\Gamma$, $\Gh=\partial P_h$ and $\Oh=R\setminus P_h$. Since $P_h\subset D$, the computational domain $\Oh$ contains $\Omega$; the difference $S_h=\Oh\setminus\overline\Omega$ is a union of thin circular segments, one between each chord and its arc. The outward normal of $\Oh$ on $\Gh$ is denoted $n$; it points into $P_h$. On a chord $e$ we write $n_e$ and $\tau_e$ for its normal and tangent, and $\ip{\cdot}{\cdot}$ for the $L^2(\Gh)$ pairing.
+
+\emph{The mesh.} $\Th$ is a conforming triangulation of $\Oh$ and $\EG$ the set of its edges on $\Gh$ (the chords). We use four parameters:
+\[
+h=\hO:=\max_{T\in\Th}\diam T,\qquad
+\hG:=\max_{e\in\EG}|e|,\qquad
+\rho:=\frac{h}{\min_{e\in\EG}|e|},\qquad
+\gamma:=\frac{\mu\hG}{h}.
+\]
+Here $h$ is the $h$ in Scott's penalty $\mu/h$, and $\gamma$ is the \emph{effective boundary penalty}: $\mu/h=\gamma/\hG$. Keeping $\hG$ and $\hO$ separate matters, because Scott's expected rate $\hG^{3/2}+\hO^k$ distinguishes them and because the penalty threshold depends on their ratio. We assume:
+
+\begin{assumption}[Mesh]\label{ass:mesh}\leavevmode
+\begin{enumerate}[label=(M\arabic*),start=0]
+\item \emph{Shape regularity and comparable chords}: the triangles are shape regular, and $c_0\hG\le|e|\le\hG$ for all $e\in\EG$. No quasi-uniformity is assumed; $\hG\ll h$ is allowed.
+\item \emph{No singular vertices}: no interior vertex has all its edges on two lines, and no boundary vertex lies in only one triangle or has all its edges on two lines.
+\item \emph{The Guzm\'an--Scott angle condition}: $\Theta(z):=\max_j|\sin(\theta_j+\theta_{j+1})|\ge\Theta_0>0$ at every vertex $z$, where $\theta_1,\theta_2,\dots$ are the consecutive angles at $z$ \cite{GuzmanScott2019} (at boundary vertices the wrap-around term is omitted).
+\end{enumerate}
+\end{assumption}
+At a vertex of $\Gh$ the angle of $\Oh$ is $\pi$ plus the two small angles between the chords and the tangent, so it is $\pi+O(\hG)$. With only two triangles at such a vertex, the only pair of consecutive angles sums to $\pi+O(\hG)$, and $\Theta(z)=O(\hG)$. So, for small $\hG$, (M2) at the vertices of $\Gh$ says precisely that \emph{every polygon vertex lies in at least three triangles} (Lemma~\ref{lem:st:local}(b) below). This innocent-looking consequence will turn out to be the whole story of the zero-gradient lock (Figure~\ref{fig:geometry} and Section~\ref{sec:strong}).
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[scale=1.0,>=stealth]
+% (a) chords, strip and bump (schematic, curvature exaggerated)
+\begin{scope}[shift={(0,0.4)}]
+\coordinate (V0) at (-4,-0.9); \coordinate (V1) at (-1.4,0); \coordinate (V2) at (1.4,0); \coordinate (V3) at (4,-0.9);
+\fill[gray!25] (V0) to[bend left=14] (V1) -- cycle;
+\fill[gray!25] (V1) to[bend left=14] (V2) -- cycle;
+\fill[gray!25] (V2) to[bend left=14] (V3) -- cycle;
+\draw[thick] (V0) to[bend left=14] (V1) to[bend left=14] (V2) to[bend left=14] (V3);
+\draw[thick,blue] (V0) -- (V1) -- (V2) -- (V3);
+\foreach \v in {V0,V1,V2,V3} \fill[blue] (\v) circle (1.5pt);
+\node at (-2.35,0.08) {$\Gamma$};
+\node[blue,below] at (0,-0.02) {$\Gamma_h$};
+\node at (-2.9,0.55) {fluid};
+\node at (0,-1.0) {disk $D$};
+% bump on the middle chord (tangential velocity profile, drawn as a graph over the chord)
+\draw[red,thick,domain=-1.4:1.4,samples=40] plot (\x,{0.9*(1-(\x/1.4)^2)+0.02});
+\node[red,above] at (0,0.95) {$\tilde u\cdot\tau_e\approx\tfrac12(\tfrac{\ell^2}4-s^2)W$};
+% leak arrows on the right chord (normal, varying sign)
+\foreach \t/\l in {0.2/0.45,0.5/0.3,0.8/-0.3} {
+  \draw[->,green!50!black,thick] ($(V2)!\t!(V3)$) -- ++(-0.33*\l,-1*\l);
+}
+\node[green!50!black] at (3.9,0.1) {leak $\frac h\mu(p-\bar p)n$};
+\node at (-4.2,-1.4) {(a)};
+\end{scope}
+% (b) locked vertex, two triangles
+\begin{scope}[shift={(-2.6,-3.3)}]
+\draw[thick,blue] (-1.5,-0.12) -- (0,0) -- (1.5,-0.12);
+\fill[blue] (0,0) circle (1.3pt);
+\draw (-1.5,-0.12) -- (0,1.3) -- (1.5,-0.12);
+\draw (0,0) -- (0,1.3);
+\node[below] at (0,0) {$z$};
+\node at (0,-0.75) {(b) two triangles: locked};
+\end{scope}
+% (c) three triangles
+\begin{scope}[shift={(2.6,-3.3)}]
+\draw[thick,blue] (-1.5,-0.12) -- (0,0) -- (1.5,-0.12);
+\fill[blue] (0,0) circle (1.3pt);
+\draw (-1.5,-0.12) -- (-0.7,1.3) -- (0.7,1.3) -- (1.5,-0.12);
+\draw (0,0) -- (-0.7,1.3); \draw (0,0) -- (0.7,1.3);
+\node[below] at (0,0) {$z$};
+\node at (0,-0.75) {(c) three triangles: no lock};
+\end{scope}
+\end{tikzpicture}
+\caption{(a) The wall $\Gamma$, the inscribed polygon $\Gh$ and the thin strip between them (grey, exaggerated). On each chord the extended solution is a tangential velocity whose profile along the chord is a parabola of height $\ell^2W/8$ (the chordal bump, red), which produces Scott's $\hG^{3/2}$. The printed method adds a normal leak $(h/\mu)(p-\pbar)$ (green). (b) A polygon vertex in two triangles: divergence-free fields vanishing on both chords have zero gradient at $z$. (c) With three triangles the gradient can jump across the interior edges, and the lock disappears (Section~\ref{sec:strong}).}
+\label{fig:geometry}
+\end{figure}
+
+\emph{Spaces.} Fix $k\ge4$. $\Vh$ is the space of continuous piecewise-$P_k$ vector fields on $\Th$, $\VR:=\{v\in\Vh:v|_{\partial R}=0\}$, $\VO:=\{v\in\Vh:v|_{\partial\Oh}=0\}$, $\Pih$ is the space of discontinuous piecewise-$P_{k-1}$ functions, $\Zh:=\{v\in\VR:\div v=0\}$ and $\Yh:=\Zh\cap\VO$. The discrete outer data $\gI$ are the $P_k$ Lagrange interpolant of $g$, and $\Wh:=\{z\in\Vh:z|_{\partial R}=\gI,\ \div z=0\}$.
+
+An exactly divergence-free method is sensitive to the net flux of its Dirichlet data \cite{EickmannScottTscherpel2025}: every $z\in\Wh$ has $\int_{\Gh}z\cdot n=-\int_{\partial R}\gI\cdot\nu$ ($\nu$ the outward normal of $R$), while the exact solution has zero flux through $\Gamma$. The interpolant $\gI$ has a small nonzero flux $m_R:=\int_{\partial R}\gI\cdot\nu$, of order $h^{\sigma_k}$ with $\sigma_k=k+2$ for even $k$ and $k+1$ for odd $k$ (Newton--Cotes). It is removed by a one-line correction.
+
+\begin{definition}[Flux-corrected outer data]\label{def:flux}
+$\tilde g_I:=\gI-\dfrac{m_R}{8L^2}\,x$ on $\partial R$, where $x$ is the position field. Since $\int_{\partial R}x\cdot\nu=\int_R\div x=8L^2$, $\tilde g_I$ has zero net flux, and it is again continuous and piecewise $P_k$.
+\end{definition}
+
+\subsection{The two Nitsche methods}
+With $Du=\nabla u+(\nabla u)^{\mathsf T}$, $a_h(u,v)=\frac12(Du,Dv)$ and $\dn u:=(\nabla u)n$, the symmetric Nitsche form of Gjerde and Scott is
+\[
+N_h(u,v)=a_h(u,v)-\ip{\dn u}{v}-\ip{u}{\dn v}+\frac{\mu}{h}\ip{u}{v}.
+\]
+In words: the viscous form, minus the normal flux of the solution tested against the test function (the consistency term), minus its symmetric counterpart, plus the penalty. The only piece of the Stokes traction that is represented is the viscous flux $(\nabla u)n$; the pressure traction $-pn$ is absent.
+
+\begin{definition}[The printed method $\GS$ {\cite[(27)--(28)]{GjerdeScott2024}}]
+Find $u_h\in\Vh$ with $u_h|_{\partial R}=\gI$ and $p_h\in\Pih$ such that
+\[
+N_h(u_h,v)-(p_h,\div v)=(\ft,v)\quad\forall v\in\VR,\qquad (q,\div u_h)=0\quad\forall q\in\Pih.
+\]
+\end{definition}
+Here $\ft$ is a smooth extension of $f$ to the strip $S_h$. Two details of the transcription: Gjerde and Scott write the pressure form with the opposite sign (our $p_h$ is their $-p_h$), and their text defines the test space as vanishing on $\Gh$, which would remove the Nitsche terms altogether; the evident intended test space is $\VR$. The outer boundary carries strongly imposed data; the Nitsche terms act only on the polygon.
+
+\begin{definition}[The mean-free correction $\CNS$]\label{def:cns}
+As $\GS$, with the momentum equation
+\begin{gather*}
+N_h(u_h,v)-(p_h,\div v)+\ip{p_h-\pbG(p_h)}{v\cdot n}=(\ft,v)\quad\forall v\in\VR,\\
+\pbG(q):=\frac1{|\Gh|}\int_{\Gh}q .
+\end{gather*}
+\end{definition}
+The added term is the missing pressure traction, with the wall mean of the discrete pressure removed. It sits in the momentum row only, so the continuity row, and with it the pointwise incompressibility of $u_h$, is unchanged. Removing the mean is what makes the square system nonsingular (Proposition~\ref{prop:singular}). Methods ``with flux-corrected data'' replace $\gI$ by $\tilde g_I$.
+
+\subsection{The exact solution on the polygonal domain}
+The exact solution lives on $\Omega$, the discrete one on the larger domain $\Oh$. To compare them we extend $u$ across $\Gamma$ in a divergence-free way. Since $u\cdot n=0$ on $\Gamma$, the stream function $\psi$ with $u=\curl\psi=(\partial_y\psi,-\partial_x\psi)$ is single-valued; let $\psit$ be a smooth extension of $\psi$ to a neighbourhood of $\overline\Omega$ and put $\ut:=\curl\psit$, so $\div\ut=0$ everywhere. Let $\pt$ be a smooth extension of $p$. The extended fields satisfy the momentum equation up to a defect $F:=\ft+\Delta\ut-\nabla\pt$, which vanishes on $\Omega$ and is supported in the thin strip $S_h$.
+
+\begin{assumption}[Smooth solution]\label{ass:D}
+$(u,p)$ and $\ft$ are smooth and bounded on a fixed neighbourhood of $\overline\Omega$, and $h\le h_\ast$ is small.
+\end{assumption}
+Near $\Gamma$ this follows from smooth data. At the four corners of the box it is a genuine hypothesis on the \emph{solution}: for generic smooth, compatible data the Stokes velocity at a right-angled corner is only in $H^s$ for $s<3.7396$ \cite{Dauge1989}. It holds for the manufactured tests of Section~\ref{sec:numerics}. For data-driven problems on meshes that are quasi-uniform at the corners the terms $h^k$ below become $h^{\min(k,2.7396)-\epsilon}$, and the terms $h^{k+1}$ of the $L^2$ bounds degrade likewise, unless the mesh is graded there \cite{PadhiExt}. The terms involving $\hG$ are unaffected.
+
+\emph{Norms and constants.} For fields with traces on $\Gh$ we use the mesh-dependent energy norm
+\[
+\tnorm{v}^2:=\norm{\nabla v}_{\Oh}^2+\frac{\mu}{h}\norm{v}_{\Gh}^2+\sum_{e\in\EG}|e|\,\norm{\dn v}_{L^2(e)}^2 .
+\]
+The middle term is the \emph{slip} part. We write $G:=\norm{p-\pbar}_{L^2(\Gamma)}$, where $\pbar$ is the mean of $p$ over $\Gamma$; $G=0$ exactly when the pressure is constant along the wall. Constants $C,c$ depend on (M0)--(M2), $k$, $L$ and norms of $(u,p,\psit)$, never on $h,\hG,\mu,\gamma,\rho$ unless displayed; $C_p$ may also depend on $\norm{p-\pbar}_{W^{1,\infty}(\Gamma)}$.
+
+\subsection{Geometry of chords}
+Everything that distinguishes the polygon from the circle is contained in the following elementary facts.
+
+\begin{lemma}[Chords]\label{lem:chords}
+Let $e$ be a chord of length $\ell$, $x\in e$, $s$ the signed arclength from the midpoint $m_e$ of $e$, and $x^\ast=x/|x|$ the nearest point of $\Gamma$. Then $d:=\dist(x,\Gamma)=\frac12(\frac{\ell^2}4-s^2)+O(\ell^4)$, in particular $d\le\ell^2/4$, and, up to a fixed orientation sign,
+\[
+n(x^\ast)-n_e=-s\,\tau_e+O(\ell^2).
+\]
+The arclength Jacobian of the radial projection $\Gh\to\Gamma$ is $1+O(\ell^2)$.
+\end{lemma}
+
+\begin{proof}
+$|x|^2=1-\ell^2/4+s^2$. The normal at $x^\ast$ is radial, and its angle differs from that of $n_e$ by the central angle to $x^\ast$, which is $s+O(s^3)$.
+\end{proof}
+
+\begin{lemma}[Wall structure and extension]\label{lem:wall}
+On $\Gamma$ we have $\nabla u=\dn u\otimes n$ and $\dn u\cdot n=0$; hence $\dn u=W\tau$ with the \emph{wall shear} $W:=\dn u\cdot\tau$. On $\Gh$, $\norm{\ut}_{L^\infty(\Gh)}\le C\hG^2$, and for $x\in e$,
+\begin{equation}\label{eq:bump}
+\ut(x)=d\,W(x^\ast)\tau(x^\ast)+O(d^2)=\tfrac12\bigl(\tfrac{\ell^2}4-s^2\bigr)W(m_e^\ast)\,\tau_e+O(\hG^3).
+\end{equation}
+Moreover $|(F,v)|\le C\hG^2\norm{\nabla v}$ for $v\in\VR$.
+\end{lemma}
+
+\begin{proof}
+Tangential derivatives of $u$ vanish on $\Gamma$, and $\div u=n\cdot\dn u$. Taylor-expand $\ut$ at $x^\ast$ and use Lemma~\ref{lem:chords}. For the last bound, $F$ is bounded and supported in the strip $S_h$ of width $O(\hG^2)$; apply a one-dimensional Poincar\'e inequality across the strip and the uniform Friedrichs inequality of Lemma~\ref{lem:korn}.
+\end{proof}
+
+Formula \eqref{eq:bump} is the \emph{chordal bump}: on each chord the extended solution is a parabola of height $\ell^2W/8$ in the tangential direction. It carries the whole of Scott's $\hG^{3/2}$ (Section~\ref{sec:corrected}).
+
+\begin{lemma}[Uniform trace, Friedrichs and Korn inequalities]\label{lem:korn}
+There are $C_{\mathrm{tr}},C_F,\kappa$, independent of $h$, such that every $v\in H^1(\Oh)^2$ with $v|_{\partial R}=0$ satisfies
+$\norm{v}_{L^2(\Gh)}\le C_{\mathrm{tr}}\norm{\nabla v}$, $\norm{v}\le C_F\norm{\nabla v}$ and $\norm{\nabla v}^2\le\kappa\,a_h(v,v)$.
+\end{lemma}
+
+\begin{proof}
+Write $\Gh$ in polar form as $r=\rho_h(\theta)$. On a chord with endpoint angles $\theta_m\pm\alpha$, $\rho_h=\cos\alpha/\cos(\theta-\theta_m)$, so $\norm{\rho_h-1}_\infty\le C\hG^2$ and $\norm{\rho_h'}_\infty\le C\hG$. Let $\chi$ be smooth with $\chi(1)=1$ and $\chi\equiv0$ outside a fixed collar in $\Omega$, and $\Phi_h(r,\theta)=(r+\chi(r)(\rho_h(\theta)-1),\theta)$. Then $\Phi_h$ maps $\Omega$ onto $\Oh$ and $\Gamma$ onto $\Gh$, is the identity near $\partial R$, and $\norm{D\Phi_h-I}_\infty\le C\hG$. For $w=v\circ\Phi_h$ we have $D(w)=D(v)\circ\Phi_h+E$ with $|E|\le C\hG|\nabla v\circ\Phi_h|$. On the fixed domain $\Omega$ the function $w$ vanishes on $\partial R$, so Korn's first inequality, the trace inequality and Friedrichs' inequality hold there; changing variables back gives $\norm{\nabla v}\le C(\norm{D(v)}+\hG\norm{\nabla v})$, and the last term is absorbed for $\hG\le h_\ast$.
+\end{proof}
+
+The next lemma is the first place where the geometry produces the exponent $\frac32$. Its content is a cancellation: the transposed-gradient term that the symmetric-gradient form leaves on the chords is only $O(\hG)$ pointwise, but its leading part is odd in $s$ on each chord.
+
+\begin{lemma}[Transposed-gradient term]\label{lem:transposed}
+For $v\in\VR$, $|\ip{(\nabla\ut)^{\mathsf T}n}{v}|\le C\hG^{3/2}\norm{\nabla v}$.
+\end{lemma}
+
+\begin{proof}
+By Taylor expansion at $x^\ast$ and Lemmas~\ref{lem:chords}--\ref{lem:wall}, $(\nabla\ut)^{\mathsf T}n_e=n(x^\ast)(\dn u(x^\ast)\cdot(n_e-n(x^\ast)))+O(\hG^2)=s\,a_e+O(\hG^2)$ on $e$, with $a_e:=n(m_e^\ast)W(m_e^\ast)$ constant on $e$. Since $\int_es\,ds=0$,
+\[
+\Bigl|\int_es\,a_e\cdot v\Bigr|=\Bigl|\int_es\,a_e\cdot(v-v(m_e))\Bigr|\le\frac{|e|^2}{4}\norm{\dt v}_{L^1(e)}\le C|e|^{5/2}\norm{\dt v}_{L^2(e)} .
+\]
+With the inverse trace inequality $|e|\norm{\dt v}_{L^2(e)}^2\le C_I^2\norm{\nabla v}^2_{T_e}$ and $\#\EG\le C/\hG$, the sum over the chords is at most $C\hG^{3/2}\norm{\nabla v}$. The remainder $O(\hG^2)$ is handled by the trace inequality of Lemma~\ref{lem:korn}.
+\end{proof}
+
+\subsection{Discrete tools}
+\begin{lemma}[Inverse traces]\label{lem:inverse}
+For $v\in\Vh$, $\sum_{e\in\EG}|e|\norm{\dn v}^2_{L^2(e)}\le C_I^2\norm{\nabla v}^2$, hence $\norm{\dn v}_{\Gh}\le C_I(\rho/h)^{1/2}\norm{\nabla v}$. For $q\in\Pih$, $\norm{q}^2_{\Gh}\le C_I^2(\rho/h)\norm{q}^2$.
+\end{lemma}
+
+The following lemma is the standard coercivity argument for Nitsche's method, written so that the role of $\rho$ is visible.
+
+\begin{lemma}[Coercivity and continuity]\label{lem:coercive}
+Let $\mu_0:=4\kappa\rho C_I^2$. If $\mu\ge\mu_0$ (which holds when $\gamma\ge\gamma_0:=4\kappa C_I^2/c_0$), then
+\[
+N_h(v,v)\ge c_1\tnorm{v}^2\quad\forall v\in\VR,\qquad |N_h(w,v)|\le M\tnorm{w}\,\tnorm{v},
+\]
+with $c_1,M$ independent of $h$, $\mu$ and $\rho$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:inverse} and Young's inequality, $2|\ip{\dn v}{v}|\le\frac12a_h(v,v)+2\kappa\rho C_I^2h^{-1}\norm{v}^2_{\Gh}$. Hence $N_h(v,v)\ge\frac12a_h(v,v)+(\mu-2\kappa\rho C_I^2)h^{-1}\norm{v}^2_{\Gh}$, and for $\mu\ge\mu_0$ this is at least $(2\kappa)^{-1}\norm{\nabla v}^2+(\mu/2h)\norm{v}^2_{\Gh}$. Adding the inverse trace bound for the last part of $\tnorm\cdot$ gives coercivity. Continuity: each $\dn$-term is at most $(\rho/\mu)^{1/2}\tnorm w\tnorm v\le(4\kappa C_I^2)^{-1/2}\tnorm w\tnorm v$.
+\end{proof}
+
+Scott--Vogelius theory enters through the next two results.
+
+\begin{lemma}[Uniform inf-sup constant]\label{lem:infsup}
+There is $\beta>0$, depending only on $k$, $\Theta_0$, shape regularity and $L$, such that for every $q\in\Pih\cap L^2_0(\Oh)$ there is $v\in\VO$ with $\div v=q$ and $\norm{\nabla v}\le\beta^{-1}\norm{q}$.
+\end{lemma}
+
+\begin{proof}[Sketch]
+Guzm\'an and Scott \cite[Theorem~1]{GuzmanScott2019} prove this for $k\ge4$ under (M1)--(M2), with a local Fortin construction that uses neither quasi-uniformity nor small $h$. The domain enters only through the continuous inf-sup constant and a Poincar\'e constant. The latter is uniform by Lemma~\ref{lem:korn}. For the former, cover $\Oh$ by the pieces $W_j\cap\Oh$, where the $W_j$ are fixed angular wedges about the centre of the disk; each piece is star-shaped with respect to a ball of fixed radius (every chord line meeting $W_j$ leaves the ball on its outer side, because $P_h\subset D$), and the pieces have diameters, ball radii and overlaps bounded independently of $h$. Gluing Bogovski\u{\i} operators over such a finite cover gives a uniform continuous inf-sup constant \cite{PadhiExt}. Alternatively, Bernardi, Costabel, Dauge and Girault prove directly that the continuous inf-sup constant of an inscribed polygonal approximation differs from that of the curved domain by $O(h)$ \cite[Theorem~4.6]{BCDG2016}. %% VERIFY: theorem number checked in the arXiv/author copies only, not the SIAM typeset version.
+\end{proof}
+
+\begin{lemma}[Divergence range and approximation]\label{lem:approx}
+Under (M1), $\div\VR=\Pih$, $\Wh\ne\emptyset$, and the velocities of $\GS$ and $\CNS$ are divergence-free pointwise. Moreover
+\[
+E_h:=\inf_{z\in\Wh}\tnorm{\ut-z}\le C\eps,\qquad \eps:=(1+(\gamma\hG)^{1/2})\,h^k+h^{\sigma_k}\bigl(\hG^{-1/2}+(\mu/h)^{1/2}\bigr).
+\]
+With flux-corrected data the flux part $h^{\sigma_k}(\cdots)$ is replaced by $(1+\gamma^{1/2})\hG^{\sigma_k-1/2}+|m_R|$.
+\end{lemma}
+
+\begin{proof}
+\emph{Divergence range.} Lemma~\ref{lem:infsup} gives $\div\VO=\Pih\cap L^2_0$. The quadratic edge bubble $b=\beta_en_e$ on a single chord lies in $\VR$ and has $\int\div b=\int_{\Gh}b\cdot n=|e|/6\ne0$; this adds the constants, so $\div\VR=\Pih$. For any $\mathcal G\in\Vh$ with trace $\gI$ on $\partial R$ we have $\div\mathcal G\in\Pih=\div\VR$, so $\mathcal G-v\in\Wh$ for a suitable $v\in\VR$. For the discrete velocity, $u_h-\mathcal G\in\VR$ and the continuity equation forces $\div u_h=0$.
+
+\emph{Interpolation.} Let $w_h:=I_h\ut$ be the Lagrange interpolant; $w_h=\gI$ on $\partial R$. Boundary triangles have diameter at most $C\hG$, so $\norm{\nabla(\ut-w_h)}\le Ch^k$, $\norm{\ut-w_h}_{L^\infty(\Gh)}\le C\hG^{k+1}$ and $\norm{\dn(\ut-w_h)}_{L^\infty(\Gh)}\le C\hG^k$, whence $\tnorm{\ut-w_h}\le C(1+(\gamma\hG)^{1/2})h^k$. Moreover $\div w_h=\div(w_h-\ut)\in\Pih$ has norm at most $Ch^k$.
+
+\emph{Net flux.} Since $\ut=g$ on $\partial R$ and $\div\ut=0$, $\int_{\Gh}\ut\cdot n=-\int_{\partial R}g\cdot\nu=0$, and therefore
+\[
+m:=\int_{\Oh}\div w_h=\int_{\partial R}(\gI-g)\cdot\nu+\int_{\Gh}(w_h-\ut)\cdot n,\qquad |m|\le Ch^{\sigma_k}.
+\]
+Equispaced $P_k$ interpolation on an edge integrates like the closed $(k+1)$-point Newton--Cotes rule, which is exact for polynomials of degree $\sigma_k-1$; so each edge contributes $O(|e|^{\sigma_k+1})$.
+
+\emph{Removing the mean.} Let $b:=\sum_{e\in\EG}\beta_en_e$, so $\int\div b=|\Gh|/6$, and $a:=6m/|\Gh|$. Since $\#\EG\le C/\hG$,
+$\tnorm{ab}\le C|a|(\hG^{-1/2}+(\mu/h)^{1/2})\le C\eps$, and $\norm{\div(ab)}\le C|a|\hG^{-1/2}\le C\eps$.
+
+\emph{Divergence correction.} The field $q:=\div(w_h-ab)\in\Pih$ has mean zero and $\norm q\le C\eps$. Lemma~\ref{lem:infsup} gives $v\in\VO$ with $\div v=q$ and $\norm{\nabla v}\le C\eps$; since $v=0$ on $\Gh$, $\tnorm v\le(1+C_I^2)^{1/2}\norm{\nabla v}$. Then $z:=w_h-ab-v\in\Wh$ and $\tnorm{\ut-z}\le C\eps$.
+
+\emph{Flux-corrected data.} Replace $w_h$ by $I_h\ut-c\,I_h(\zeta x)$ with $c=m_R/(8L^2)$ and $\zeta$ a cut-off equal to $1$ near $\partial R$ and $0$ near $\Gamma$. Its trace on $\partial R$ is $\tilde g_I$, it costs $C|m_R|$ in energy (no boundary terms on $\Gh$), and its net flux is now $\int_{\Gh}(I_h\ut-\ut)\cdot n=O(\hG^{\sigma_k})$, because only the chords contribute. The bubble step then costs $C(1+\gamma^{1/2})\hG^{\sigma_k-1/2}$.
+\end{proof}
+
+The flux term is genuine for the plain interpolant: every $z\in\Wh$, including the discrete velocity, has $\int_{\Gh}z\cdot n=-m_R$, so $\tnorm{\ut-z}\ge(\mu/h)^{1/2}|m_R|/|\Gh|^{1/2}$. For bounded $\gamma$ it is below $Ch^k$ whenever $\hG\ge h^{2(\sigma_k-k)}$ ($\hG\ge h^4$ for even $k$, $\hG\ge h^2$ for odd $k$).
+
+\subsection{The error equation}
+Testing the extended solution in the Nitsche form produces the pressure traction, which is where the two methods part ways.
+
+\begin{lemma}[Error equation]\label{lem:erroreq}
+For $v\in\VR$,
+\begin{gather*}
+N_h(\ut,v)-(\pt,\div v)+\ip{\pt}{v\cdot n}=(\ft,v)+\Gc(v),\\
+\Gc(v):=\ip{(\nabla\ut)^{\mathsf T}n}{v}-\ip{\ut}{\dn v}+\frac\mu h\ip{\ut}{v}-(F,v),
+\end{gather*}
+and $|\Gc(v)|\le C(1+\gamma^{1/2})\hG^{3/2}\tnorm v$; for $v\in\VO$, $|\Gc(v)|\le C\hG^{3/2}\norm{\nabla v}$.
+\end{lemma}
+
+\begin{proof}
+Since $D(\ut)$ is symmetric and $v=0$ on $\partial R$, $a_h(\ut,v)=-(\div D(\ut),v)+\ip{D(\ut)n}{v}$, and $\div D(\ut)=\Delta\ut$ because $\div\ut=0$. Insert $-\Delta\ut=\ft-F-\nabla\pt$, integrate $-(\nabla\pt,v)=(\pt,\div v)-\ip{\pt}{v\cdot n}$ by parts, and use $D(\ut)n-\dn\ut=(\nabla\ut)^{\mathsf T}n$. For the bound: the transposed term is Lemma~\ref{lem:transposed}; $|\ip{\ut}{\dn v}|\le C\hG^2\cdot C_I(\rho/h)^{1/2}\norm{\nabla v}\le C\hG^{3/2}\norm{\nabla v}$; the penalty term is at most $(\mu/h)^{1/2}C\hG^2\tnorm v=C\gamma^{1/2}\hG^{3/2}\tnorm v$; and the $F$-term is Lemma~\ref{lem:wall}. For $v\in\VO$ the transposed and penalty terms vanish.
+\end{proof}
+
+The functional $\Gc$ is the geometric consistency error, common to both methods and of Scott's order $\hG^{3/2}$. For $\GS$ the error equation has one more term. Testing with divergence-free $v\in\Zh$, which have zero net flux through $\Gh$, we can subtract any constant from the pressure:
+
+\begin{corollary}[The printed method on divergence-free test functions]\label{cor:GSerr}
+For $v\in\Zh$ and every constant $c$,
+\[
+N_h(\ut-u_h,v)=\Rc(v)+\Gc(v),\qquad \Rc(v):=-\ip{\pt-c}{v\cdot n}.
+\]
+\end{corollary}
+We will take $c=\pbar$. The functional $\Rc$ is the \emph{missing traction}. It is of size $G$, not small, and it is the subject of the next section.
+
+\subsection{A roadmap of the error analysis}
+All the upper bounds below are built from the same three ingredients, and it may help to see them side by side before the details.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Approximation.} How well can divergence-free discrete fields with the right outer data approximate the extended solution? Lemma~\ref{lem:approx} answers: to within $\eps$, which is $h^k$ plus a flux term that the flux-corrected data remove. This is where Scott--Vogelius theory (Lemma~\ref{lem:infsup}) and the angle condition (M2) enter.
+\item \emph{Geometric consistency.} The extended solution does not vanish on the chords; it has the chordal bump \eqref{eq:bump} of height $O(\hG^2)$. Every Nitsche term that sees this trace produces a consistency error, collected in $\Gc$, of order $\hG^{3/2}$ (Lemma~\ref{lem:erroreq}); the exponent $\frac32$ comes either from odd symmetry on each chord (Lemma~\ref{lem:transposed}) or from the $H^{1/2}$ size of the bump. This error is common to all methods that impose the wall condition on the polygon, weakly or strongly, and it is sharp (Theorems~\ref{thm:lb} and~\ref{thm:st:low}).
+\item \emph{Traction consistency.} For $\GS$ the missing traction $\Rc$ is an additional consistency error of order one, which the penalty converts into the leak of size $h/\mu$ (Section~\ref{sec:printed}). For $\CNS$ it is absent, but the pressure now enters the velocity estimate through the wall term, and it has to be controlled by the inf-sup condition and absorbed, which is why $\CNS$ needs $\gamma\ge\gamma_2$ (Theorem~\ref{thm:D}).
+\end{enumerate}
+The lower bounds use test fields tailored to each error: a divergence-free field with normal trace $-(p-\pbar)n$ for the leak (Section~\ref{sec:printed}), divergence-free fields vanishing on the wall and feeling the second moment of the bump for the geometric error (Section~\ref{sec:lb}), and local vertex-gradient arguments for strong imposition (Section~\ref{sec:strong}).

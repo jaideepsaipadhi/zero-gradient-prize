@@ -1,0 +1,318 @@
+\section{The corrected method: Scott's rate and its sharpness}\label{sec:corrected}
+
+\subsection{Why the plain pressure term fails}
+Adding the missing traction $\ip{p_h}{v\cdot n}$ to the momentum equation looks like the natural repair. With an exactly divergence-free pair it makes the square system singular, and the usual way of removing the singularity destroys exact incompressibility.
+
+\begin{proposition}[The naive consistent form and its mean-zero variant]\label{prop:singular}
+\begin{enumerate}[label=(\alph*)]
+\item Replace $\ip{p_h-\pbG(p_h)}{v\cdot n}$ in $\CNS$ by $\ip{p_h}{v\cdot n}$. The resulting square system has the kernel vector $(u,p)=(0,1)$, so it is singular and solvable only under one linear compatibility condition on the data.
+\item Restrict the pressure to $\Pih\cap L^2_0(\Oh)$ and test the continuity equation only with mean-zero $q$. Any solution has $\div u_h\equiv c$, a constant with
+\[
+c\,|\Oh|=\int_{\partial R}\gI\cdot\nu+\int_{\Gh}u_h\cdot n .
+\]
+\item For $\gamma\ge\gamma_2$ (Theorem~\ref{thm:D}) the naive system of (a) is solvable if and only if the $\CNS$ pressure has zero mean on $\Gh$, and then its solutions are the $\CNS$ solution up to a constant pressure.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) For $v\in\VR$, $-(1,\div v)+\ip{1}{v\cdot n}=-\int_{\partial\Oh}v\cdot n+\int_{\Gh}v\cdot n=0$, and the continuity row vanishes at $u=0$. (b) Since $\div u_h\in\Pih$ is orthogonal to all mean-zero $q\in\Pih$, it is constant; integrate over $\Oh$. (c) The naive pressure form evaluated at $r$ equals the $\CNS$ pressure form at $r-\pbG(r)$; use the uniqueness of Theorem~\ref{thm:D}.
+\end{proof}
+
+With weak imposition nothing forces $\int_{\Gh}u_h\cdot n$ to cancel the outer flux, even for flux-corrected data, so the constant $c$ in (b) is nonzero in general. In our computations it is: for test A at $N=16$, $c=9.69\cdot10^{-4}$, so the discrete divergence has $L^2$ norm $4.5\cdot10^{-3}$ (\cite{PadhiExt}; compare \cite[(5.9)]{FrachonNilssonZahedi2024}). The singularity in (a) is the analogue, for our square system, of the ill-posedness that Liu, Neilan and Otus observe when their zero-flux constraint is omitted \cite[Remark~3.2]{LiuNeilanOtus2023}.
+
+\subsection{The mean-free correction: well posed and of Scott's order}
+The correction $\CNS$ removes the wall mean of the discrete pressure inside the traction term. Its pressure form $B^\ast(q,v):=-(q,\div v)+\ip{q-\pbG(q)}{v\cdot n}$ satisfies $B^\ast(q+c,v)=B^\ast(q,v)-c\int_{\Gh}v\cdot n$, so a constant pressure is no longer invisible: it is tested by the net flux, and the chord bubbles have nonzero flux. At the same time the exact pressure normalised by its own wall mean, $p^\ast:=\pt-\pbG(\pt)$, is consistent:
+\begin{equation}\label{eq:cnserr}
+N_h(\ut-u_h,v)+B^\ast(p^\ast-p_h,v)=\Gc(v)\qquad\forall v\in\VR ,
+\end{equation}
+by Lemma~\ref{lem:erroreq}. The only remaining inconsistency is the geometric one, of Scott's order.
+
+\begin{theorem}[$\CNS$ is well posed and has Scott's rate]\label{thm:D}
+There is $\gamma_2\asymp\max(\gamma_0,\beta^{-2})$ such that for $\gamma\ge\gamma_2$ the method $\CNS$ has a unique solution, its velocity is divergence-free pointwise, and
+\[
+\tnorm{\ut-u_h}\le C\Bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\Bigr].
+\]
+In particular, for every fixed $k\ge4$, $\gamma$ in a bounded range $[\gamma_2,\gamma_{\max}]$ and $\hG\ge\hO^{2(\sigma_k-k)}$,
+\[
+\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^{k}\bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+Write $e_u:=\ut-u_h$ and $e_p:=p^\ast-p_h=\eta+\xi$ with $\eta:=p^\ast-\pi_hp^\ast$ ($\pi_h$ the $L^2$ projection onto $\Pih$) and $\xi\in\Pih$.
+
+\emph{Pressure.} For $v\in\VO$ the boundary terms vanish and $(\eta,\div v)=0$ because $\div\VO\subset\Pih$, so \eqref{eq:cnserr} gives $(\xi-\bar\xi,\div v)=a_h(e_u,v)-\ip{e_u}{\dn v}-\Gc(v)$. The right side is at most $C(\tnorm{e_u}+\hG^{3/2})\norm{\nabla v}$, and Lemma~\ref{lem:infsup} yields $\beta\norm{\xi-\bar\xi}\le C(\tnorm{e_u}+\hG^{3/2})$.
+
+\emph{Velocity.} For $z\in\Wh$ put $e_h:=z-u_h\in\Zh$ and test \eqref{eq:cnserr} with it. Since $\div e_h=0$ and $\int_{\Gh}e_h\cdot n=0$, only the mean-free parts of the pressure error survive:
+\[
+c_1\tnorm{e_h}^2\le ME_h\tnorm{e_h}+|\Gc(e_h)|+|\ip{\eta}{e_h\cdot n}|+|\ip{\xi-\bar\xi}{e_h\cdot n}| .
+\]
+Here $|\ip{\eta}{e_h\cdot n}|\le C\hG^k(h/\mu)^{1/2}\tnorm{e_h}$, and by Lemma~\ref{lem:inverse}
+\[
+|\ip{\xi-\bar\xi}{e_h\cdot n}|\le C_I(\rho/h)^{1/2}\norm{\xi-\bar\xi}\,(h/\mu)^{1/2}\tnorm{e_h}\le C(c_0\gamma)^{-1/2}\norm{\xi-\bar\xi}\,\tnorm{e_h}.
+\]
+The pressure error enters the velocity estimate with the small factor $\gamma^{-1/2}$. Insert the pressure bound and $\tnorm{e_u}\le E_h+\tnorm{e_h}$; for $\gamma\ge\gamma_2$ with $C(c_0\gamma_2)^{-1/2}\beta^{-1}\le c_1/2$ the pressure term is absorbed.
+
+\emph{Uniqueness.} For zero data the estimates give $u_h=0$, hence $p_h$ constant, and then $-c\int_{\Gh}v\cdot n=0$ for all $v$ forces $c=0$. The system is square, so uniqueness gives existence.
+\end{proof}
+
+The proviso $\hG\ge\hO^{2(\sigma_k-k)}$ only serves to make the flux term of $\eps$ smaller than $h^k$. It disappears with flux-corrected outer data, and then the $H^1$ bound is even uniform in the penalty.
+
+\begin{theorem}[Uniformity in the penalty; flux-corrected data]\label{thm:unif}
+For $\GS$ with any $\gamma\ge\gamma_0$ and for $\CNS$ with any $\gamma\ge\gamma_2$ (no upper bound),
+\[
+\norm{\nabla(\ut-u_h)}\le C_p\,\frac{\hG}{\gamma}\,\mathbf 1_{\GS}+C\Bigl(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2}\Bigr),
+\]
+where the first term is present only for $\GS$. With flux-corrected data the term $h^{\sigma_k}\hG^{-1/2}$ is replaced by $\hG^{\sigma_k-1/2}+|m_R|$, which is of higher order; in particular $\CNS$ with flux-corrected data satisfies, for every $\gamma\ge\gamma_2$ and every $\hG\le h$,
+\[
+\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+h^k\bigr),
+\]
+with $C$ independent of $\gamma$ and no relation between $\hG$ and $h$. This is the rate Scott conjectured, for general Stokes data.
+\end{theorem}
+
+The proof compares the Nitsche solution with a strongly imposed discrete Dirichlet solution. It needs two lemmas. Let $b=\sum_e\beta_en_e$ be the sum of the chord bubbles, so that $\int_{\Gh}b\cdot n=|\Gh|/6$.
+
+\begin{lemma}[Divergence-free lift of a trace]\label{lem:lift}
+Let $t$ be continuous and piecewise $P_k$ on $\Gh$ with $\int_{\Gh}t\cdot n=0$. There is $L\in\Zh$ with $L|_{\Gh}=t$ and $\norm{\nabla L}\le C\hG^{-1/2}\norm{t}_{L^2(\Gh)}$.
+\end{lemma}
+
+\begin{proof}
+Let $L_0\in\VR$ take the nodal values of $t$ at the Lagrange nodes on $\Gh$ and vanish at all other nodes. The nodal values on a chord are bounded by $C|e|^{-1/2}\norm{t}_{L^2(e)}$, and nodal basis functions have $\norm{\nabla\phi_i}\le C$ by scale invariance, so $\norm{\nabla L_0}\le C\hG^{-1/2}\norm t_{\Gh}$. Its divergence has mean $\int_{\Gh}t\cdot n=0$, and Lemma~\ref{lem:infsup} removes it by a field in $\VO$.
+\end{proof}
+
+\begin{lemma}[The discrete polygonal Dirichlet problem]\label{lem:dir}
+Put $a:=-6m_R/|\Gh|$ and $\Wh^D:=\{z\in\Wh:\ z|_{\Gh}=a\,b\}$. There is a unique $u^D\in\Wh^D$ with $a_h(u^D,v)=(\ft,v)$ for all $v\in\Yh$, and
+\[
+\norm{\nabla(\ut-u^D)}\le C\bigl(\hG^{3/2}+h^k+|m_R|\,\hG^{-1/2}\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Subtract from $I_h\ut$ the nodal extension of $I_h\ut|_{\Gh}-ab$, whose trace has $L^2$ norm $C(\hG^2+|m_R|)$ by Lemma~\ref{lem:wall}; the result has the right traces and total divergence $m_R+a|\Gh|/6=0$, and Lemma~\ref{lem:infsup} makes it divergence-free. This gives $z\in\Wh^D$ with $\norm{\nabla(\ut-z)}\le C(h^k+\hG^{3/2}+|m_R|\hG^{-1/2})$. For $v\in\Yh$, $a_h(\ut,v)=(\ft-F,v)$, so $a_h(\ut-u^D,v)=-(F,v)$, and a C\'ea argument with Korn's inequality on $\Yh$ finishes.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:unif}]
+We give the proof for $\CNS$; for $\GS$ one first removes the traction response $\delta_R$ of Theorem~\ref{thm:C}, whose $H^1$ norm is $C_p(\hG/\gamma+\hG^{3/2}+h^k)$ uniformly in $\gamma$, and applies the same argument to $u_h+\delta_R$.
+\begin{enumerate}
+\item \emph{The identity on $\Yh$.} By Lemma~\ref{lem:lbid} below, $a_h(u_h,v)-\ip{u_h}{\dn v}=(\ft,v)=a_h(u^D,v)$ for all $v\in\Yh$. On the fields that vanish on the polygon, $\CNS$ is the Dirichlet problem, except for the symmetric Nitsche term acting on the trace of $u_h$.
+\item \emph{The trace of $u_h$ is small.} By Lemma~\ref{lem:wall} and Theorem~\ref{thm:D},
+\[
+\norm{u_h}_{\Gh}\le\norm{\ut}_{\Gh}+(h/\mu)^{1/2}\tnorm{\ut-u_h}\le C\bigl(\hG^2+(\hG/\gamma)^{1/2}\eps\bigr),
+\]
+since $(\hG/\gamma)^{1/2}\gamma^{1/2}\hG^{3/2}=\hG^2$. Moreover $\hG^{-1/2}(\hG/\gamma)^{1/2}\eps=\gamma^{-1/2}\eps\le C(h^k+h^{\sigma_k}\hG^{-1/2})$: the two $\gamma$-growing parts of $\eps$ are exactly compensated, because $\gamma^{-1/2}(\gamma\hG)^{1/2}=\hG^{1/2}$ and $\gamma^{-1/2}(\mu/h)^{1/2}=\hG^{-1/2}$.
+\item \emph{Comparison.} $w:=u_h-u^D\in\Zh$ has trace $u_h-ab$ on $\Gh$ with zero flux. Let $L$ be its lift from Lemma~\ref{lem:lift}; then $y:=w-L\in\Yh$ and, by step~1, $a_h(y,y)=\ip{u_h}{\dn y}-a_h(L,y)$. With Lemma~\ref{lem:inverse} and $(\rho/h)^{1/2}\le(c_0\hG)^{-1/2}$,
+\[
+\norm{\nabla w}\le\norm{\nabla L}+\norm{\nabla y}\le C\hG^{-1/2}\bigl(\norm{u_h}_{\Gh}+|m_R|\bigr)\le C\bigl(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2}\bigr).
+\]
+\item \emph{Assemble} $\ut-u_h=(\ut-u^D)-w$ and use Lemma~\ref{lem:dir}.
+\end{enumerate}
+With flux-corrected data, $a=0$ in Lemma~\ref{lem:dir}, the term $|m_R|\hG^{-1/2}$ is absent in step~3, and $\eps$ is replaced by its flux-corrected version from Lemma~\ref{lem:approx}; this gives the second bound. The $L^2$ part of the $H^1$ norm follows from the trace estimate as in Theorem~\ref{thm:B}.
+\end{proof}
+
+The mechanism is the classical one for Nitsche's method as $\mu\to\infty$: the $H^1$ seminorm never sees the penalty directly, only through the trace of the discrete solution, which the energy estimate controls.
+
+\begin{remark}[Relation to the zero-flux formulation]\label{rem:fnz}
+Let $V_h^{R,\flat}:=\{v\in\VR:\int_{\Gh}v\cdot n=0\}$. Transcribed to our setting, the device of Frachon, Nilsson and Zahedi \cite[Section~5.1]{FrachonNilssonZahedi2024} tests the momentum equation with the naive form only for $v\in V_h^{R,\flat}$ and fixes the pressure constant separately. On $V_h^{R,\flat}$ the naive and the $\CNS$ pressure forms coincide, and the remaining direction only fixes the constant. So, for $\gamma\ge\gamma_2$, the two formulations have the \emph{same velocity} and pressures that differ by a constant. $\CNS$ is a square packaging of their device, with the constant fixed automatically so that $p_h\approx\pt-\pbG(\pt)$.
+\end{remark}
+
+\subsection{The rate \texorpdfstring{$\hG^{3/2}$}{h^(3/2)} is sharp}\label{sec:lb}
+Theorem~\ref{thm:D} is an upper bound. Could $\CNS$ (or $\GS$ at constant wall pressure) be better than $\hG^{3/2}$ in $H^1$? The scalar analogy suggests not: the chordal bump \eqref{eq:bump} has $H^{1/2}(\Gh)$ size $\hG^{3/2}$, and no discrete velocity that respects the no-slip condition on $\Gh$ can reproduce it. But the Nitsche velocities do \emph{not} vanish on $\Gh$, and the natural route to a lower bound, through the transposed-gradient term of Lemma~\ref{lem:transposed}, fails for $\CNS$: a test field with nonzero normal trace brings in the pressure error, which is itself of order $\hG^{3/2}$ and could cancel the bound. We use instead test fields that vanish on the polygon. On them the pressure and the penalty drop out completely, and what remains is Nitsche's symmetric term acting on the bump.
+
+\emph{Test spaces.} Recall $\Yh=\Zh\cap\VO$ and put
+\[
+\Yh^1:=\Bigl\{v\in\Yh:\ \int_e\dn v=0\ \ \forall e\in\EG\Bigr\}.
+\]
+For $v\in\Yh$ the normal component $\dn v\cdot n_e$ vanishes on each chord ($v$ vanishes on $e$, so $0=\div v=\dt(v\cdot\tau_e)+\dn(v\cdot n_e)$ there), so only the tangential component $\dn v\cdot\tau_e$ matters.
+
+\begin{lemma}[Error identity on fields vanishing on the wall]\label{lem:lbid}
+Let $u_h$ be the velocity of $\CNS$ ($\gamma\ge\gamma_2$) or of $\GS$ ($\gamma\ge\gamma_0$, any $G$), and $e_u:=\ut-u_h$. Then for all $v\in\Yh$,
+\[
+a_h(e_u,v)-\ip{e_u}{\dn v}=-\ip{\ut}{\dn v}-(F,v).
+\]
+\end{lemma}
+
+\begin{proof}
+For $v\in\Yh$ every pressure term vanishes ($\div v=0$ and $v=0$ on $\Gh$), and so do the penalty and transposed terms. What remains of \eqref{eq:cnserr}, or of Corollary~\ref{cor:GSerr}, is the displayed identity.
+\end{proof}
+
+So the discrete velocity satisfies $a_h(u_h,v)-\ip{u_h}{\dn v}=(\ft,v)$ on $\Yh$, and $\ut$ violates this by $-\ip{\ut}{\dn v}$: Nitsche's symmetric term applied to the nonzero trace of $\ut$ on the chords.
+
+\begin{lemma}[Lower bound by duality]\label{lem:lbabs}
+There is $\Lambda_0$, depending only on shape regularity, such that
+\[
+\Lambda_0\norm{\nabla e_u}\ \ge\ \sup_{0\ne v\in\Yh^1}\frac{|\ip{\ut}{\dn v}+(F,v)|}{\norm{\nabla v}} .
+\]
+\end{lemma}
+
+\begin{proof}
+On each chord $\int_e\dn v=0$, so $\int_ew\cdot\dn v=\int_e(w-\bar w_{T_e})\cdot\dn v$ for the mean $\bar w_{T_e}$ of $w$ over $T_e$. A scaled trace--Poincar\'e inequality and the inverse trace inequality give $|\ip{w}{\dn v}|\le C_{PT}C_I\norm{\nabla w}\norm{\nabla v}$ for every $w\in H^1(\Oh)^2$. Apply this to $w=e_u$ in Lemma~\ref{lem:lbid}, together with $|a_h(e_u,v)|\le2\norm{\nabla e_u}\norm{\nabla v}$.
+\end{proof}
+
+\begin{lemma}[The bump seen by $\Yh^1$]\label{lem:lbexp}
+For $v\in\Yh^1$,
+\[
+\Bigl|\ip{\ut}{\dn v}-\ell_W(v)\Bigr|\le C\hG^{5/2}\norm{\nabla v},\qquad \ell_W(v):=-\frac12\sum_{e\in\EG}W(m_e^\ast)\int_e s^2\,\dn v\cdot\tau_e\,ds .
+\]
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:bump} and $\dn v\cdot n_e=0$, $\ut\cdot\dn v=\frac12(\frac{\ell^2}4-s^2)W(m_e^\ast)\,\dn v\cdot\tau_e+O(\hG^3)|\dn v|$ on $e$. The constant part of the parabola integrates to zero against $\dn v\cdot\tau_e$, whose mean vanishes. Summing the remainders with $\sum_e\norm{\dn v}_{L^1(e)}\le C\hG^{-1/2}\norm{\nabla v}$ gives the claim.
+\end{proof}
+
+Only the oscillating part $-\frac12s^2W$ of the bump is seen, and it has amplitude $\hG^2$ and wavelength $\hG$: its $H^{1/2}$ size is $\hG^{3/2}$. What is needed now is a supply of fields in $\Yh^1$ that actually feel the second moment $\int_es^2\,\dn v\cdot\tau_e$. For the fields supported near a polygon vertex $z$ we measure this by
+\[
+\mathcal M(v):=-\frac12\sum_{e\in\EG}\int_e s^2\,\dn v\cdot\tau_e\,ds ,
+\]
+and we let $e_z$ be the chord following $z$ counterclockwise.
+
+\begin{definition}[Star condition]\label{def:star}
+The mesh satisfies the \emph{star condition} with constants $\kappa_0>0$, $K_{\mathrm{ov}}$ and $C_s$ if every vertex $z$ of $\Gh$ carries a field $v_z\in\Yh^1$ with $\norm{\nabla v_z}=1$, supported within distance $C_s\hG$ of $z$, with every triangle in at most $K_{\mathrm{ov}}$ supports, and with $\mathcal M(v_z)\ge\kappa_0|e_z|^2$.
+\end{definition}
+
+For large degree such fields are easy to write down.
+
+\begin{lemma}[Single-triangle fields for $k\ge7$]\label{lem:k7}
+If $k\ge7$, the star condition holds with $v_z$ supported in the triangle $T_{e_z}$, $K_{\mathrm{ov}}=1$, and $\kappa_0$ depending only on shape regularity.
+\end{lemma}
+
+\begin{proof}
+Let $\lambda_1,\lambda_2,\lambda_3$ be the barycentric coordinates of $T=T_{e_z}$ with $\lambda_3=0$ on $e=e_z$, $b:=\lambda_1\lambda_2\lambda_3$, and
+\[
+\phi:=b^2\bigl((\lambda_1-\lambda_2)^2-\tfrac17\bigr)\in P_8,\qquad v:=\curl\phi\in P_7^2 .
+\]
+$\phi$ vanishes to second order on $\partial T$, so $v$, extended by zero, is continuous, divergence-free and vanishes on $\partial T$; it lies in $\Yh$ for $k\ge7$. With $\sigma=\lambda_1-\lambda_2$ on $e$, $\dn v\cdot\tau_e=\pm\frac18|\nabla\lambda_3|^2(1-\sigma^2)^2(\sigma^2-\frac17)$, whose mean vanishes since $\int_{-1}^1(1-\sigma^2)^2=\frac{16}{15}$ and $\int_{-1}^1\sigma^2(1-\sigma^2)^2=\frac{16}{105}$; so $v\in\Yh^1$. Its second moment is proportional to $\int_{-1}^1\sigma^2(1-\sigma^2)^2(\sigma^2-\frac17)\,d\sigma=\frac{64}{2205}\ne0$. The ratio $|\mathcal M(v)|/(|e|^2\norm{\nabla v})$ is a continuous nonvanishing function of the shape of $T$ on a compact set of shapes; normalise and fix the sign.
+\end{proof}
+
+For $4\le k\le6$ no field of $\Yh^1$ lives in one triangle, or in the two triangles of a first-layer quadrilateral, and the construction is genuinely harder. The reason is instructive. Writing $v=\curl\phi$ with $\phi$ a $C^1$ piecewise quintic, $\dn v\cdot\tau_e$ is, up to sign, the second normal derivative of $\phi$ on the chord, a cubic with zero mean. At the far end of the chord the Hessian of $\phi$ vanishes, and if it also vanished at $z$ the cubic would be odd about the midpoint and its second moment zero. So $\mathcal M(v)\ne0$ requires the Hessian of $\phi$ to \emph{jump} across the interior edges at $z$, which is possible only when $z$ lies in at least three triangles. The star condition for small degree is thus tied to the same condition (M2) that governs the zero-gradient lock (Section~\ref{sec:strong}).
+
+\begin{theorem}[The star condition for every $k\ge4$ {\cite{PadhiExt}}]\label{thm:m3}
+Assume (M0)--(M2), let every triangle with a vertex on $\Gh$ have all angles at least $\theta_{\min}$, and let $\hG\le2\sin(\theta_{\min}/4)$. Then for every $k\ge4$ the star condition holds with $K_{\mathrm{ov}}=3$, $C_s=(\sin\theta_{\min})^{-3}$ and $\kappa_0=\kappa_\ast(\theta_{\min},\theta_{\min}/2)>0$, where $\kappa_\ast$ is the minimum of an explicit continuous function over a compact family of three-triangle fans. Rigorous interval certificates give $\kappa_\ast(30^\circ,10^\circ)\ge0.0012$ and $\kappa_\ast(20^\circ,15^\circ)\ge0.0003$.
+\end{theorem}
+
+\begin{proof}[Idea]
+On a fan of three triangles at $z$ the homogeneous quadratic $C^1$ splines that vanish to second order on the two wall rays form a one-dimensional space, spanned by a spline whose Hessians are given by a Pl\"ucker-type identity and have a sign when consecutive angle sums are below $\pi$. This quadratic part is completed in closed form by a cubic part to a $C^1$ quintic stream function with zero boundary data and zero chord means; its second moment is a sum of two terms of the same sign. The witness is a $P_4$ field, so it serves every $k\ge4$. The algebra and the certificates are in \cite{PadhiExt}.
+\end{proof}
+
+\emph{The witness in more detail.} Put $z=0$ and let the fan be $T_j=(0,p_{j-1},p_j)$, $j=1,2,3$, counterclockwise, with $[0,p_0]$ and $[0,p_3]$ the two chords; write $a\times b:=a_1b_2-a_2b_1$ and $D_{ij}:=p_i\times p_j$. On $T_j$ let $L_j$ be the barycentric coordinate of $z$, and $N_j(x):=p_j\times x$, a linear form vanishing on the ray through $p_j$. A piecewise quintic $\phi$ with $\phi=|\nabla\phi|=0$ on the boundary of the fan has the form $\phi|_{T_j}=L_j^2(Q_j+C_j)$ with $Q_j$, $C_j$ homogeneous of degrees $2$ and $3$, and the $C^1$ conditions across the interior rays reduce to four explicit conditions on the values of $Q_j$, $C_j$ and $\nabla C_j$ at $p_j$ \cite{PadhiExt}. With
+\begin{gather*}
+A:=D_{13}D_{23}=r_1r_2r_3^2\sin(\alpha_2+\alpha_3)\sin\alpha_3,\\
+A_3:=D_{01}D_{02}=r_0^2r_1r_2\sin\alpha_1\sin(\alpha_1+\alpha_2),
+\end{gather*}
+where $p_i=r_i(\cos\vartheta_i,\sin\vartheta_i)$ and $\alpha_j$ are the angles at $z$, both $A$ and $A_3$ are positive whenever $\alpha_1+\alpha_2<\pi$ and $\alpha_2+\alpha_3<\pi$. In barycentric coordinates $(\lambda_0,\lambda_1,\lambda_2)$ of $T_j$ (with $\lambda_0=L_j$) the witness is
+\begin{align*}
+\phi_1&=AD_{01}^2\,\lambda_0^2\lambda_2^2(\lambda_0-3\lambda_1),\qquad \phi_3=A_3D_{23}^2\,\lambda_0^2\lambda_1^2(\lambda_0-3\lambda_2),\\
+\phi_2&=\lambda_0^2\Bigl[AD_{01}^2\lambda_1^2(\lambda_0+\lambda_2)+A_3D_{23}^2\lambda_2^2(\lambda_0+\lambda_1)+2AD_{01}D_{02}\,\lambda_1\lambda_2(\lambda_0+\lambda_1+\lambda_2)\\
+&\qquad\ +AD_{01}(6D_{12}-5D_{02}+2D_{01})\,\lambda_1^2\lambda_2+A_3D_{23}(6D_{12}-5D_{13}+2D_{23})\,\lambda_1\lambda_2^2\Bigr],
+\end{align*}
+and $v=\curl\phi$. One checks that $\phi$ is $C^1$, vanishes with its gradient on the boundary of the fan, and that on both chords $\int\partial_{nn}\phi=0$ while
+\[
+\int_{[0,p_0]}s^2\,\partial_{nn}\phi\,ds=\frac{|p_0|^5A}{30},\qquad \int_{[0,p_3]}s^2\,\partial_{nn}\phi\,ds=\frac{|p_3|^5A_3}{30}.
+\]
+Since $\dn v\cdot\tau_e=\pm\partial_{nn}\phi$ with the same sign on both chords, $v\in\Yh^1$ and $|\mathcal M(v)|=(|p_0|^5A+|p_3|^5A_3)/60$ when the fan is the whole star, a sum of two terms of the same sign. (When the star has more than three triangles, the three next to $e_z$ are used, and $|\mathcal M(v)|=|p_0|^5A/60$.) The normalised constant $|\mathcal M(v)|/(|e_z|^2\norm{\nabla v})$ is a continuous positive function of the shape of the fan, and the compactness of the admissible shapes gives $\kappa_\ast>0$; an elementary closed-form lower bound and the interval certificates are in \cite{PadhiExt}.
+
+The constants are small but not tiny on real meshes. On every mesh of Section~\ref{sec:numerics} ($N=8,\dots,256$, and also $N=512$, $1024$) the three-triangle star at every polygon vertex carries a one-dimensional space of admissible fields, and the star constants $\kappa_z:=\mathcal M(v_z)/|e_z|^2$ (with $\norm{\nabla v_z}=1$) satisfy $\min_z\kappa_z\ge0.00287$, converging to about $0.0029$ as $N$ grows (Table~\ref{tab:stars}); the minimum is attained in the diagonal directions of the square, where the first-layer triangles are most elongated.
+
+\begin{table}[t]
+\centering\small
+\caption{The star condition on the meshes of Section~\ref{sec:numerics}: star constants $\kappa_z$ of the three-triangle wall stars (exact witnesses of Theorem~\ref{thm:m3}; a floating-point optimisation over the star gives the same values), and the assembled field of Lemma~\ref{lem:assemble}: $\ip{\ut}{\dn v}/(\norm{\nabla v}\hG^{3/2})$, with the leading term $\ell_W(v)/(\norm{\nabla v}\hG^{3/2})$ in parentheses, for test A.}\label{tab:stars}
+\begin{tabular}{rccc|rcc}
+\toprule
+$N$ & $\min_z\kappa_z$ & mean & $\max_z\kappa_z$ & $N$ & assembled field & rate\\
+\midrule
+8 & 0.00288 & 0.0055 & 0.0080 & 32 & 0.0606 (0.0605) & --\\
+16 & 0.00555 & 0.0109 & 0.0179 & 64 & 0.0651 (0.0651) & 1.39\\
+64 & 0.00366 & 0.0145 & 0.0252 & 128 & 0.0665 (0.0665) & 1.47\\
+256 & 0.00303 & 0.0149 & 0.0260 & 256 & 0.0669 (0.0669) & 1.49\\
+1024 & 0.00288 & 0.0149 & 0.0261 & 512 & 0.0670 (0.0670) & 1.50\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+With the local fields in hand, the lower bound is a matter of assembling them with weights $W(z)$ and comparing a Riemann sum with $\norm{W}^2_{L^2(\Gamma)}$.
+
+\begin{lemma}[Assembly]\label{lem:assemble}
+Assume the star condition, $W\not\equiv0$ and $\hG\le h_1$, with $h_1$ depending on $\norm{W}_{W^{1,\infty}(\Gamma)}/\norm{W}_{L^2(\Gamma)}$ and the constants. Then $v:=\sum_zW(z)\,v_z\in\Yh^1$ satisfies
+\[
+\ell_W(v)\ \ge\ \tfrac12\kappa_0c_0^{5/2}K_{\mathrm{ov}}^{-1/2}\,\norm{W}_{L^2(\Gamma)}\,\hG^{3/2}\,\norm{\nabla v}.
+\]
+\end{lemma}
+
+\begin{proof}
+By bounded overlap $\norm{\nabla v}^2\le K_{\mathrm{ov}}\sum_zW(z)^2$. Since $W$ varies by $O(\hG)$ over a support,
+\begin{align*}
+\ell_W(v)&\ge\sum_zW(z)^2\mathcal M(v_z)-C\hG^3\norm{W}_{W^{1,\infty}}\sum_z|W(z)|\\
+&\ge\kappa_0c_0^2\hG\sum_zW(z)^2|e_z|-C\hG^2\norm{W}^2_{W^{1,\infty}} .
+\end{align*}
+The sum $\Sigma_W:=\sum_zW(z)^2|e_z|$ is a Riemann sum for $\norm{W}^2_{L^2(\Gamma)}$ and $\sum_zW(z)^2\le\Sigma_W/(c_0\hG)$. For small $\hG$, $\Sigma_W\ge\frac34\norm{W}^2_{L^2(\Gamma)}$ and the negative term is at most a quarter of the positive one.
+\end{proof}
+
+\begin{theorem}[$H^1$ lower bound]\label{thm:lb}
+Assume (M0)--(M2), Assumption~\ref{ass:D} and the star condition (which holds for every $k\ge4$ when $\hG\le2\sin(\theta_{\min}/4)$, by Theorem~\ref{thm:m3}), and let the wall shear $W=\dn u\cdot\tau$ not vanish identically on $\Gamma$. Let $u_h$ be the velocity of $\CNS$ with $\gamma\ge\gamma_2$, or of $\GS$ with $\gamma\ge\gamma_0$ and any $G$. Then for $\hG\le h_1$,
+\[
+\norm{\nabla(\ut-u_h)}_{\Oh}\ \ge\ c_{\mathrm{LB}}\,\kappa_0\,\norm{W}_{L^2(\Gamma)}\,\hG^{3/2}-C\hG^{2},\qquad c_{\mathrm{LB}}:=\frac{c_0^{5/2}}{2\Lambda_0K_{\mathrm{ov}}^{1/2}},
+\]
+with constants independent of $\gamma$, $\mu$, $\rho$, $\hO$, the pressure and $\eps$.
+\end{theorem}
+
+\begin{proof}
+Insert the field of Lemma~\ref{lem:assemble} in Lemma~\ref{lem:lbabs} and use Lemma~\ref{lem:lbexp} and $|(F,v)|\le C\hG^2\norm{\nabla v}$.
+\end{proof}
+
+\begin{corollary}[Sharpness of Scott's rate]\label{cor:sharp}
+Under the assumptions of Theorem~\ref{thm:lb}, for $\CNS$ with $\gamma\in[\gamma_2,\gamma_{\max}]$, and for $\GS$ when $p$ is constant on $\Gamma$, and whenever $\eps\le C\hG^{3/2}$ (for instance with flux-corrected data and $\hO^k\le\hG^{3/2}$),
+\[
+c\,\hG^{3/2}\ \le\ \norm{\nabla(\ut-u_h)}\ \le\ \tnorm{\ut-u_h}\ \le\ C\,\hG^{3/2}.
+\]
+So the $H^1$ rate is exactly $\frac32$; it is the term $\hG^{3/2}$ of Scott's estimate, not $\hO^k$, that is shown to be sharp.
+\end{corollary}
+
+Three remarks put the lower bound in context. First, the bound is carried by the part of $\ut|_{\Gh}$ that oscillates on each chord; the chord mean of the bump contributes only $O(\hG^2)$. Second, the lower bound holds for $\CNS$ even though its pressure error is itself of order $\hG^{3/2}$, because every pressure term vanishes on $\Yh$. Third, Lemma~\ref{lem:lbabs} is method-independent: it applies to every Nitsche variant with this volume form and homogeneous wall data, tested on $\Zh$.
+
+\subsubsection*{Why the obvious route fails}
+It is instructive to see why the natural first attempt at a lower bound does not work for $\CNS$. That attempt tests the error equation with a field whose trace is odd on each chord, and uses that the transposed-gradient part of $\Gc$ is $\ip{s\,a_e}{v}$ to leading order (Lemma~\ref{lem:transposed}).
+\begin{enumerate}
+\item Since $a_e=n(m_e^\ast)W_e$, the relevant trace is the \emph{normal} one: $\ip{s\,a_e}{v}=\sum_eW_e\int_es\,v\cdot n_e+O(\hG^2)\norm{v}_{L^1}$. An odd tangential trace pairs to zero.
+\item Incompressibility allows an odd normal trace: for $v=\curl\phi$, $v\cdot n_e=-\dt\phi$, and a zero chord mean only says that $\phi$ takes equal values at the chord ends.
+\item On the normal trace the penalty part of $\Gc$ reinforces the transposed part, by the factor $1+(\mu/h)d(s)$ with $0\le(\mu/h)d\le\gamma\hG/8$.
+\item But a test field with $v\cdot n\ne0$ lies outside $\Yh$, and for $\CNS$ the error equation then contains the pressure term $\ip{\xi-\bar\xi}{v\cdot n}$, which by the proof of Theorem~\ref{thm:D} is only bounded by $C(c_0\gamma)^{-1/2}\beta^{-1}(\tnorm{e_u}+\hG^{3/2})\tnorm v$ -- the same order as the term one is trying to bound from below. It can cancel the lower bound unless $\gamma$ is large compared with constants we do not control.
+\item Even where the route works (for $\GS$ with $G=0$, where the traction term is of lower order), it gives only an \emph{energy} lower bound $\gtrsim\hG^{3/2}/(1+\gamma^{1/2})$, which may be carried entirely by the slip part of the norm; numerically, for $\GS$ on test A at $N=64$, $\mu=100$, the slip part is $0.0795$ against $\norm{\nabla e_u}=0.0182$.
+\end{enumerate}
+The fields of $\Yh^1$ avoid all of this: they see neither the pressure nor the penalty, and the symmetric Nitsche term $-\ip{\ut}{\dn v}$, which pairs the bump with $\dn v\cdot\tau_e$, has the same order $\hG^{3/2}$ as the transposed term.
+
+\subsection{A growing penalty for the printed method}\label{sec:growing}
+Since the leak is of size $h/\mu=\hG/\gamma$, one might hope to rescue the printed method by letting the penalty grow. Theorem~\ref{thm:unif} shows that this works in $H^1$.
+
+\begin{corollary}[Rescue in $H^1$]\label{cor:rescue}
+If $\gamma\ge\max(\gamma_0,c\,\hG^{-1/2})$, that is $\mu\ge c\,h\,\hG^{-3/2}$ ($\mu\gtrsim h^{-1/2}$ when $h\asymp\hG$), then $\GS$ with flux-corrected data satisfies $\norm{\ut-u_h}_{H^1(\Oh)}\le C_p(\hG^{3/2}+h^k)$, and by Theorem~\ref{thm:lb} the $H^1$ rate is exactly $\frac32$ when $W\not\equiv0$ and $h^k\le\hG^{3/2}$.
+\end{corollary}
+
+The energy norm cannot be rescued. The penalty consistency term $(\mu/h)\ip{\ut}{v}$ of $\Gc$ pairs the tangential chordal bump with the penalty, and its size $\gamma^{1/2}\hG^{3/2}$ in the energy norm is genuine.
+
+\begin{theorem}[The penalty consistency error is real in the energy norm]\label{thm:elower}
+Let $u_h$ be the velocity of $\GS$ ($\gamma\ge\gamma_0$) or of $\CNS$ ($\gamma\ge\gamma_2$), and $W\not\equiv0$. There are $\gamma_1$ and $h_1$, depending on $\norm W_{L^2(\Gamma)}$ and the data, such that for $\gamma\ge\gamma_1$, $\hG\le h_1$ and $h^k\le\hG$,
+\[
+\tnorm{\ut-u_h}\ \ge\ \Bigl(\frac\mu h\Bigr)^{1/2}\norm{\ut-u_h}_{\Gh}\ \ge\ \frac{c_0^2}{72}\,\norm{W}_{L^2(\Gamma)}\,\gamma^{1/2}\hG^{3/2}-C\,(\hG/\gamma)^{1/2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $e:=\ut-u_h$ and let $v_W:=\curl\Pi_{k+1}\varphi_W\in\Zh$ with $\varphi_W=\pm\chi_1(r)(r-1)W(\theta)$, so that $v_W\approx W\tau$ on $\Gh$ and $\norm{v_W}_{\Gh}\le2\norm W_{L^2(\Gamma)}$. Testing the discrete momentum equation with $v_W$ (the pressure term $(p_h,\div v_W)$ vanishes, and for $\CNS$ the wall term is $O(\hG^{1/2})$ because $v_W\cdot n=O(\hG)$) shows that the discrete trace is small along $v_W$: $\frac\mu h|\ip{u_h}{v_W}|\le C(1+\hG^{-1/2}\tnorm e)$. The exact trace is not: by the chordal bump \eqref{eq:bump}, $\int_ed\,ds=|e|^3/12+O(|e|^5)$ and a Riemann sum,
+\[
+\ip{\ut}{v_W}=\sum_eW_e^2\frac{|e|^3}{12}+O(\hG^3)\ \ge\ \frac{c_0^2\hG^2}{12}\bigl(\norm W^2_{L^2(\Gamma)}-C\hG\bigr).
+\]
+Now $\tnorm e\ge(\mu/h)^{1/2}\ip{e}{v_W}/\norm{v_W}_{\Gh}$, and $(\mu/h)^{1/2}\hG^2=\gamma^{1/2}\hG^{3/2}$, $(h/\mu)^{1/2}\hG^{-1/2}=\gamma^{-1/2}$. For $\gamma\ge\gamma_1$ the term $\gamma^{-1/2}\tnorm e$ produced by the discrete trace is at most $\frac12\tnorm e$ and can be moved to the left.
+\end{proof}
+Combined with Theorem~\ref{thm:A}, the leak and the penalty consistency error cannot both be below $\hG$ in the energy norm: their product is $(\hG/\gamma)^{1/2}\gamma^{1/2}\hG^{3/2}=\hG^2$. For a power-law penalty $\gamma\asymp\hG^{-\alpha}$ with $G>0$, $W\not\equiv0$, bounded $h/\hG$ and $h^k\le\hG^{3/2}$, Theorems~\ref{thm:A}, \ref{thm:B}, \ref{thm:unif}, \ref{thm:lb} and~\ref{thm:elower} give the following rates for $\GS$ \cite{PadhiExt}:
+\begin{center}\small
+\begin{tabular}{lll}
+\toprule
+& $H^1$ seminorm & energy norm\\
+\midrule
+$0\le\alpha<\frac12$ & $\asymp\hG^{1+\alpha}$ & $\asymp\hG^{(1+\alpha)/2}$\\
+$\frac12\le\alpha<1$ & $\asymp\hG^{3/2}$ & $\asymp\hG^{(1+\alpha)/2}$\\
+$\alpha=1$ & $\asymp\hG^{3/2}$ & $\lesssim\hG$\\
+$\alpha>1$ & $\asymp\hG^{3/2}$ & $\asymp\hG^{(3-\alpha)/2}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+So the $H^1$ rate is $\min(1+\alpha,\frac32)$, optimal for every $\alpha\ge\frac12$, and the energy rate is $\min(\frac{1+\alpha}2,\frac{3-\alpha}2)\le1$. At $\alpha=1$ the energy error is $\asymp\hG$ except possibly in a window of values of $\gamma\hG$ where the leak (normal) and the geometric slip (tangential) could partly cancel; we have no matching lower bound there. No scaling of the penalty gives the printed method the energy rate $\frac32$ of $\CNS$. The growing penalty also costs in conditioning: the condition number of the velocity block grows by the factor $1+\gamma$ and that of the pressure Schur complement by $1+\mu/h$ \cite{PadhiExt}. For $\CNS$, and for $\GS$ with $G=0$, bounded $\gamma$ is optimal.

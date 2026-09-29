@@ -1,0 +1,1006 @@
+%% BioMed_Central_Bib_Style_v1.01
+
+\begin{thebibliography}{64}
+% BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
+\ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
+\ifx \binits  \undefined \def \binits#1{#1}\fi
+\ifx \bauthor  \undefined \def \bauthor#1{#1}\fi
+\ifx \batitle  \undefined \def \batitle#1{#1}\fi
+\ifx \bjtitle  \undefined \def \bjtitle#1{#1}\fi
+\ifx \bvolume  \undefined \def \bvolume#1{\textbf{#1}}\fi
+\ifx \byear  \undefined \def \byear#1{#1}\fi
+\ifx \bissue  \undefined \def \bissue#1{#1}\fi
+\ifx \bfpage  \undefined \def \bfpage#1{#1}\fi
+\ifx \blpage  \undefined \def \blpage #1{#1}\fi
+\ifx \burl  \undefined \def \burl#1{\textsf{#1}}\fi
+\ifx \doiurl  \undefined \def \doiurl#1{\url{https://doi.org/#1}}\fi
+\ifx \betal  \undefined \def \betal{\textit{et al.}}\fi
+\ifx \binstitute  \undefined \def \binstitute#1{#1}\fi
+\ifx \binstitutionaled  \undefined \def \binstitutionaled#1{#1}\fi
+\ifx \bctitle  \undefined \def \bctitle#1{#1}\fi
+\ifx \beditor  \undefined \def \beditor#1{#1}\fi
+\ifx \bpublisher  \undefined \def \bpublisher#1{#1}\fi
+\ifx \bbtitle  \undefined \def \bbtitle#1{#1}\fi
+\ifx \bedition  \undefined \def \bedition#1{#1}\fi
+\ifx \bseriesno  \undefined \def \bseriesno#1{#1}\fi
+\ifx \blocation  \undefined \def \blocation#1{#1}\fi
+\ifx \bsertitle  \undefined \def \bsertitle#1{#1}\fi
+\ifx \bsnm \undefined \def \bsnm#1{#1}\fi
+\ifx \bsuffix \undefined \def \bsuffix#1{#1}\fi
+\ifx \bparticle \undefined \def \bparticle#1{#1}\fi
+\ifx \barticle \undefined \def \barticle#1{#1}\fi
+\bibcommenthead
+\ifx \bconfdate \undefined \def \bconfdate #1{#1}\fi
+\ifx \botherref \undefined \def \botherref #1{#1}\fi
+\ifx \url \undefined \def \url#1{\textsf{#1}}\fi
+\ifx \bchapter \undefined \def \bchapter#1{#1}\fi
+\ifx \bbook \undefined \def \bbook#1{#1}\fi
+\ifx \bcomment \undefined \def \bcomment#1{#1}\fi
+\ifx \oauthor \undefined \def \oauthor#1{#1}\fi
+\ifx \citeauthoryear \undefined \def \citeauthoryear#1{#1}\fi
+\ifx \endbibitem  \undefined \def \endbibitem {}\fi
+\ifx \bconflocation  \undefined \def \bconflocation#1{#1}\fi
+\ifx \arxivurl  \undefined \def \arxivurl#1{\textsf{#1}}\fi
+\csname PreBibitemsHook\endcsname
+
+%%% 1
+\bibitem[\protect\citeauthoryear{Scott and Vogelius}{1985}]{ScottVogelius1985}
+\begin{barticle}
+\bauthor{\bsnm{Scott}, \binits{L.R.}},
+\bauthor{\bsnm{Vogelius}, \binits{M.}}:
+\batitle{Norm estimates for a maximal right inverse of the divergence operator
+  in spaces of piecewise polynomials}.
+\bjtitle{RAIRO Mod\'el. Math. Anal. Num\'er.}
+\bvolume{19}(\bissue{1}),
+\bfpage{111}--\blpage{143}
+(\byear{1985})
+\end{barticle}
+\endbibitem
+
+%%% 2
+\bibitem[\protect\citeauthoryear{Guzm\'an and Scott}{2019}]{GuzmanScott2019}
+\begin{barticle}
+\bauthor{\bsnm{Guzm\'an}, \binits{J.}},
+\bauthor{\bsnm{Scott}, \binits{L.R.}}:
+\batitle{The {S}cott--{V}ogelius finite elements revisited}.
+\bjtitle{Math. Comp.}
+\bvolume{88}(\bissue{316}),
+\bfpage{515}--\blpage{529}
+(\byear{2019})
+\doiurl{10.1090/mcom/3346}
+\end{barticle}
+\endbibitem
+
+%%% 3
+\bibitem[\protect\citeauthoryear{Arnold and Qin}{1992}]{ArnoldQin1992}
+\begin{bchapter}
+\bauthor{\bsnm{Arnold}, \binits{D.N.}},
+\bauthor{\bsnm{Qin}, \binits{J.}}:
+\bctitle{Quadratic velocity/linear pressure {S}tokes elements}.
+In: \beditor{\bsnm{Vichnevetsky}, \binits{R.}},
+\beditor{\bsnm{Knight}, \binits{D.}},
+\beditor{\bsnm{Richter}, \binits{G.}} (eds.)
+\bbtitle{Advances in Computer Methods for Partial Differential Equations
+  {VII}},
+pp. \bfpage{28}--\blpage{34}.
+\bpublisher{IMACS},
+\blocation{New Brunswick, NJ}
+(\byear{1992})
+\end{bchapter}
+\endbibitem
+
+%%% 4
+\bibitem[\protect\citeauthoryear{Guzm\'an and Neilan}{2018}]{GuzmanNeilan2018}
+\begin{barticle}
+\bauthor{\bsnm{Guzm\'an}, \binits{J.}},
+\bauthor{\bsnm{Neilan}, \binits{M.}}:
+\batitle{Inf-sup stable finite elements on barycentric refinements producing
+  divergence-free approximations in arbitrary dimensions}.
+\bjtitle{SIAM J. Numer. Anal.}
+\bvolume{56}(\bissue{5}),
+\bfpage{2826}--\blpage{2844}
+(\byear{2018})
+\doiurl{10.1137/17M1153467}
+\end{barticle}
+\endbibitem
+
+%%% 5
+\bibitem[\protect\citeauthoryear{Neilan}{2020}]{Neilan2020}
+\begin{bchapter}
+\bauthor{\bsnm{Neilan}, \binits{M.}}:
+\bctitle{The {S}tokes complex: a review of exactly divergence-free finite
+  element pairs for incompressible flows}.
+In: \beditor{\bsnm{Brenner}, \binits{S.C.}},
+\beditor{\bsnm{Shparlinski}, \binits{I.}},
+\beditor{\bsnm{Shu}, \binits{C.-W.}},
+\beditor{\bsnm{Szyld}, \binits{D.B.}} (eds.)
+\bbtitle{75 Years of Mathematics of Computation}.
+\bsertitle{Contemp. Math.},
+vol. \bseriesno{754},
+pp. \bfpage{141}--\blpage{158}.
+\bpublisher{Amer. Math. Soc.},
+\blocation{Providence, RI}
+(\byear{2020})
+\end{bchapter}
+\endbibitem
+
+%%% 6
+\bibitem[\protect\citeauthoryear{John et~al.}{2017}]{JohnEtAl2017}
+\begin{barticle}
+\bauthor{\bsnm{John}, \binits{V.}},
+\bauthor{\bsnm{Linke}, \binits{A.}},
+\bauthor{\bsnm{Merdon}, \binits{C.}},
+\bauthor{\bsnm{Neilan}, \binits{M.}},
+\bauthor{\bsnm{Rebholz}, \binits{L.G.}}:
+\batitle{On the divergence constraint in mixed finite element methods for
+  incompressible flows}.
+\bjtitle{SIAM Rev.}
+\bvolume{59}(\bissue{3}),
+\bfpage{492}--\blpage{544}
+(\byear{2017})
+\doiurl{10.1137/15M1047696}
+\end{barticle}
+\endbibitem
+
+%%% 7
+\bibitem[\protect\citeauthoryear{Berger et~al.}{1972}]{BergerScottStrang1972}
+\begin{barticle}
+\bauthor{\bsnm{Berger}, \binits{A.}},
+\bauthor{\bsnm{Scott}, \binits{R.}},
+\bauthor{\bsnm{Strang}, \binits{G.}}:
+\batitle{Approximate boundary conditions in the finite element method}.
+\bjtitle{Symposia Mathematica}
+\bvolume{10},
+\bfpage{295}--\blpage{313}
+(\byear{1972})
+\end{barticle}
+\endbibitem
+
+%%% 8
+\bibitem[\protect\citeauthoryear{Scott}{1975}]{Scott1975}
+\begin{barticle}
+\bauthor{\bsnm{Scott}, \binits{R.}}:
+\batitle{Interpolated boundary conditions in the finite element method}.
+\bjtitle{SIAM J. Numer. Anal.}
+\bvolume{12}(\bissue{3}),
+\bfpage{404}--\blpage{427}
+(\byear{1975})
+\end{barticle}
+\endbibitem
+
+%%% 9
+\bibitem[\protect\citeauthoryear{Ciarlet}{1978}]{Ciarlet1978book}
+\begin{bbook}
+\bauthor{\bsnm{Ciarlet}, \binits{P.G.}}:
+\bbtitle{The Finite Element Method for Elliptic Problems}.
+\bsertitle{Studies in Mathematics and its Applications},
+vol. \bseriesno{4}.
+\bpublisher{North-Holland},
+\blocation{Amsterdam}
+(\byear{1978})
+\end{bbook}
+\endbibitem
+
+%%% 10
+\bibitem[\protect\citeauthoryear{Bramble
+  et~al.}{1972}]{BrambleDupontThomee1972}
+\begin{barticle}
+\bauthor{\bsnm{Bramble}, \binits{J.H.}},
+\bauthor{\bsnm{Dupont}, \binits{T.}},
+\bauthor{\bsnm{Thom\'ee}, \binits{V.}}:
+\batitle{Projection methods for {D}irichlet's problem in approximating
+  polygonal domains with boundary-value corrections}.
+\bjtitle{Math. Comp.}
+\bvolume{26}(\bissue{120}),
+\bfpage{869}--\blpage{879}
+(\byear{1972})
+\end{barticle}
+\endbibitem
+
+%%% 11
+\bibitem[\protect\citeauthoryear{Burman et~al.}{2018}]{BurmanHansboLarson2018}
+\begin{barticle}
+\bauthor{\bsnm{Burman}, \binits{E.}},
+\bauthor{\bsnm{Hansbo}, \binits{P.}},
+\bauthor{\bsnm{Larson}, \binits{M.G.}}:
+\batitle{A cut finite element method with boundary value correction}.
+\bjtitle{Math. Comp.}
+\bvolume{87}(\bissue{310}),
+\bfpage{633}--\blpage{657}
+(\byear{2018})
+\doiurl{10.1090/mcom/3240}
+\end{barticle}
+\endbibitem
+
+%%% 12
+\bibitem[\protect\citeauthoryear{Burman
+  et~al.}{2019}]{BurmanHansboLarson2019Stokes}
+\begin{bchapter}
+\bauthor{\bsnm{Burman}, \binits{E.}},
+\bauthor{\bsnm{Hansbo}, \binits{P.}},
+\bauthor{\bsnm{Larson}, \binits{M.G.}}:
+\bctitle{A cut finite element method with boundary value correction for the
+  incompressible {S}tokes equations}.
+In: \beditor{\bsnm{Radu}, \binits{F.A.}},
+\beditor{\bsnm{Kumar}, \binits{K.}},
+\beditor{\bsnm{Berre}, \binits{I.}},
+\beditor{\bsnm{Nordbotten}, \binits{J.M.}},
+\beditor{\bsnm{Pop}, \binits{I.S.}} (eds.)
+\bbtitle{Numerical Mathematics and Advanced Applications {ENUMATH} 2017}.
+\bsertitle{Lect. Notes Comput. Sci. Eng.},
+vol. \bseriesno{126},
+pp. \bfpage{183}--\blpage{192}.
+\bpublisher{Springer},
+\blocation{Cham}
+(\byear{2019}).
+\doiurl{10.1007/978-3-319-96415-7_15} .
+\bcomment{arXiv:1801.07463}
+\end{bchapter}
+\endbibitem
+
+%%% 13
+\bibitem[\protect\citeauthoryear{Dupont et~al.}{2025}]{DupontGuzmanScott2025}
+\begin{barticle}
+\bauthor{\bsnm{Dupont}, \binits{T.}},
+\bauthor{\bsnm{Guzm\'an}, \binits{J.}},
+\bauthor{\bsnm{Scott}, \binits{L.R.}}:
+\batitle{Obtaining higher-order {G}alerkin accuracy when the boundary is
+  polygonally approximated}.
+\bjtitle{J. Numer. Math.}
+\bvolume{33}(\bissue{1}),
+\bfpage{55}--\blpage{86}
+(\byear{2025})
+\doiurl{10.1515/jnma-2023-0135}
+\end{barticle}
+\endbibitem
+
+%%% 14
+\bibitem[\protect\citeauthoryear{Main and Scovazzi}{2018}]{MainScovazzi2018}
+\begin{barticle}
+\bauthor{\bsnm{Main}, \binits{A.}},
+\bauthor{\bsnm{Scovazzi}, \binits{G.}}:
+\batitle{The shifted boundary method for embedded domain computations. {P}art
+  {I}: {P}oisson and {S}tokes problems}.
+\bjtitle{J. Comput. Phys.}
+\bvolume{372},
+\bfpage{972}--\blpage{995}
+(\byear{2018})
+\doiurl{10.1016/j.jcp.2017.10.026}
+\end{barticle}
+\endbibitem
+
+%%% 15
+\bibitem[\protect\citeauthoryear{Scott}{2023}]{ScottPrize}
+\begin{botherref}
+\oauthor{\bsnm{Scott}, \binits{L.R.}}:
+Relaxing gradient constraints for exactly divergence-free spaces.
+Prize problem statement, University of Chicago, November 13, 2023,
+  \url{https://people.cs.uchicago.edu/~ridg/prizes/zerogradprize.pdf}.
+Listed as Prize Problem Ledger problem PPL~115
+(2023)
+\end{botherref}
+\endbibitem
+
+%%% 16
+\bibitem[\protect\citeauthoryear{Gjerde and Scott}{2024}]{GjerdeScott2024}
+\begin{barticle}
+\bauthor{\bsnm{Gjerde}, \binits{I.G.}},
+\bauthor{\bsnm{Scott}, \binits{L.R.}}:
+\batitle{Verification and validation of cylinder drag: Pressure and stress
+  approximations on curved boundaries}.
+\bjtitle{Adv. Comput. Sci. Eng.}
+\bvolume{2}(\bissue{3}),
+\bfpage{295}--\blpage{319}
+(\byear{2024})
+\doiurl{10.3934/acse.2024015} .
+\bcomment{arXiv:2306.12362}
+\end{barticle}
+\endbibitem
+
+%%% 17
+\bibitem[\protect\citeauthoryear{Neilan and Otus}{2021}]{NeilanOtus2021}
+\begin{barticle}
+\bauthor{\bsnm{Neilan}, \binits{M.}},
+\bauthor{\bsnm{Otus}, \binits{M.B.}}:
+\batitle{Divergence-free {S}cott--{V}ogelius elements on curved domains}.
+\bjtitle{SIAM J. Numer. Anal.}
+\bvolume{59}(\bissue{2}),
+\bfpage{1090}--\blpage{1116}
+(\byear{2021})
+\doiurl{10.1137/20M1360098}
+\end{barticle}
+\endbibitem
+
+%%% 18
+\bibitem[\protect\citeauthoryear{Durst and Neilan}{2024}]{DurstNeilan2024}
+\begin{barticle}
+\bauthor{\bsnm{Durst}, \binits{R.}},
+\bauthor{\bsnm{Neilan}, \binits{M.}}:
+\batitle{A general degree divergence-free finite element method for the
+  two-dimensional {S}tokes problem on smooth domains}.
+\bjtitle{J. Sci. Comput.}
+\bvolume{101}(\bissue{2}),
+\bfpage{33}
+(\byear{2024})
+\doiurl{10.1007/s10915-024-02674-3}
+\end{barticle}
+\endbibitem
+
+%%% 19
+\bibitem[\protect\citeauthoryear{Nitsche}{1971}]{Nitsche1971}
+\begin{barticle}
+\bauthor{\bsnm{Nitsche}, \binits{J.}}:
+\batitle{\"{U}ber ein {V}ariationsprinzip zur {L}\"osung von
+  {D}irichlet-{P}roblemen bei {V}erwendung von {T}eilr\"aumen, die keinen
+  {R}andbedingungen unterworfen sind}.
+\bjtitle{Abh. Math. Sem. Univ. Hamburg}
+\bvolume{36}(\bissue{1}),
+\bfpage{9}--\blpage{15}
+(\byear{1971})
+\doiurl{10.1007/BF02995904}
+\end{barticle}
+\endbibitem
+
+%%% 20
+\bibitem[\protect\citeauthoryear{Babu\v{s}ka}{1973}]{Babuska1973}
+\begin{barticle}
+\bauthor{\bsnm{Babu\v{s}ka}, \binits{I.}}:
+\batitle{The finite element method with penalty}.
+\bjtitle{Math. Comp.}
+\bvolume{27}(\bissue{122}),
+\bfpage{221}--\blpage{228}
+(\byear{1973})
+\doiurl{10.1090/S0025-5718-1973-0351118-5}
+\end{barticle}
+\endbibitem
+
+%%% 21
+\bibitem[\protect\citeauthoryear{Stenberg}{1995}]{Stenberg1995}
+\begin{barticle}
+\bauthor{\bsnm{Stenberg}, \binits{R.}}:
+\batitle{On some techniques for approximating boundary conditions in the finite
+  element method}.
+\bjtitle{J. Comput. Appl. Math.}
+\bvolume{63}(\bissue{1--3}),
+\bfpage{139}--\blpage{148}
+(\byear{1995})
+\doiurl{10.1016/0377-0427(95)00057-7}
+\end{barticle}
+\endbibitem
+
+%%% 22
+\bibitem[\protect\citeauthoryear{Freund and
+  Stenberg}{1995}]{FreundStenberg1995}
+\begin{bchapter}
+\bauthor{\bsnm{Freund}, \binits{J.}},
+\bauthor{\bsnm{Stenberg}, \binits{R.}}:
+\bctitle{On weakly imposed boundary conditions for second order problems}.
+In: \beditor{\bsnm{Morandi~Cecchi}, \binits{M.}}, \betal (eds.)
+\bbtitle{Proceedings of the Ninth International Conference on Finite Elements
+  in Fluids},
+pp. \bfpage{327}--\blpage{336}.
+\bpublisher{Universit\`a di Padova},
+\blocation{Padova}
+(\byear{1995})
+\end{bchapter}
+\endbibitem
+
+%%% 23
+\bibitem[\protect\citeauthoryear{Becker}{2002}]{Becker2002}
+\begin{barticle}
+\bauthor{\bsnm{Becker}, \binits{R.}}:
+\batitle{Mesh adaptation for {D}irichlet flow control via {N}itsche's method}.
+\bjtitle{Comm. Numer. Methods Engrg.}
+\bvolume{18},
+\bfpage{669}--\blpage{680}
+(\byear{2002})
+\doiurl{10.1002/cnm.529}
+\end{barticle}
+\endbibitem
+
+%%% 24
+\bibitem[\protect\citeauthoryear{Burman and Hansbo}{2014}]{BurmanHansbo2014}
+\begin{barticle}
+\bauthor{\bsnm{Burman}, \binits{E.}},
+\bauthor{\bsnm{Hansbo}, \binits{P.}}:
+\batitle{Fictitious domain methods using cut elements: {III}. {A} stabilized
+  {N}itsche method for {S}tokes' problem}.
+\bjtitle{ESAIM Math. Model. Numer. Anal.}
+\bvolume{48}(\bissue{3}),
+\bfpage{859}--\blpage{874}
+(\byear{2014})
+\doiurl{10.1051/m2an/2013123}
+\end{barticle}
+\endbibitem
+
+%%% 25
+\bibitem[\protect\citeauthoryear{Frachon
+  et~al.}{2024}]{FrachonNilssonZahedi2024}
+\begin{barticle}
+\bauthor{\bsnm{Frachon}, \binits{T.}},
+\bauthor{\bsnm{Nilsson}, \binits{E.}},
+\bauthor{\bsnm{Zahedi}, \binits{S.}}:
+\batitle{Divergence-free cut finite element methods for {S}tokes flow}.
+\bjtitle{BIT Numer. Math.}
+\bvolume{64},
+\bfpage{39}
+(\byear{2024})
+\doiurl{10.1007/s10543-024-01040-x} .
+\bcomment{arXiv:2304.14230}
+\end{barticle}
+\endbibitem
+
+%%% 26
+\bibitem[\protect\citeauthoryear{Padhi}{2026a}]{PadhiExt}
+\begin{botherref}
+\oauthor{\bsnm{Padhi}, \binits{J.S.}}:
+{S}cott--{V}ogelius--{N}itsche on a polygonally approximated boundary:
+  convergence, the missing pressure traction, and the penalty threshold.
+Preprint, Zenodo.
+Version 3 (extended version, with all proofs and computations)
+(2026).
+\doiurl{10.5281/zenodo.23044296}
+\end{botherref}
+\endbibitem
+
+%%% 27
+\bibitem[\protect\citeauthoryear{Padhi}{2026b}]{PadhiThreeD}
+\begin{botherref}
+\oauthor{\bsnm{Padhi}, \binits{J.S.}}:
+{S}cott--{V}ogelius--{N}itsche on inscribed polyhedra: convergence, sharpness
+  and the penalty threshold in three dimensions.
+In preparation
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 28
+\bibitem[\protect\citeauthoryear{Padhi}{2026c}]{ZeroGradRepo}
+\begin{botherref}
+\oauthor{\bsnm{Padhi}, \binits{J.S.}}:
+zero-gradient-prize: code, raw results and logs.
+\url{https://github.com/jaideepsaipadhi/zero-gradient-prize}
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 29
+\bibitem[\protect\citeauthoryear{Cavalcante}{2026}]{Cavalcante}
+\begin{botherref}
+\oauthor{\bsnm{Cavalcante}, \binits{C.d.S.}}:
+{S}cott--{V}ogelius--{N}itsche convergence for a zero-pressure-gradient problem
+  on a polygonally approximated boundary.
+Preprint, Zenodo
+(2026).
+\doiurl{10.5281/zenodo.22262466}
+\end{botherref}
+\endbibitem
+
+%%% 30
+\bibitem[\protect\citeauthoryear{Chen and Liu}{2026}]{ChenLiu2026}
+\begin{botherref}
+\oauthor{\bsnm{Chen}, \binits{W.}},
+\oauthor{\bsnm{Liu}, \binits{Z.}}:
+Pressure-robust finite elements for the {S}tokes problem on three-dimensional
+  curved domains.
+arXiv:2609.30008
+(2026)
+\end{botherref}
+\endbibitem
+
+%%% 31
+\bibitem[\protect\citeauthoryear{Liu et~al.}{2023a}]{LiuNeilanOtus2023}
+\begin{barticle}
+\bauthor{\bsnm{Liu}, \binits{H.}},
+\bauthor{\bsnm{Neilan}, \binits{M.}},
+\bauthor{\bsnm{Otus}, \binits{M.B.}}:
+\batitle{A divergence-free finite element method for the {S}tokes problem with
+  boundary correction}.
+\bjtitle{J. Numer. Math.}
+\bvolume{31}(\bissue{2}),
+\bfpage{105}--\blpage{123}
+(\byear{2023})
+\doiurl{10.1515/jnma-2021-0125} .
+\bcomment{arXiv:2105.10409}
+\end{barticle}
+\endbibitem
+
+%%% 32
+\bibitem[\protect\citeauthoryear{Liu et~al.}{2023b}]{LiuNeilanOlshanskii2023}
+\begin{barticle}
+\bauthor{\bsnm{Liu}, \binits{H.}},
+\bauthor{\bsnm{Neilan}, \binits{M.}},
+\bauthor{\bsnm{Olshanskii}, \binits{M.}}:
+\batitle{A {CutFEM} divergence-free discretization for the {S}tokes problem}.
+\bjtitle{ESAIM Math. Model. Numer. Anal.}
+\bvolume{57}(\bissue{1}),
+\bfpage{143}--\blpage{165}
+(\byear{2023})
+\doiurl{10.1051/m2an/2022072} .
+\bcomment{arXiv:2110.11456}
+\end{barticle}
+\endbibitem
+
+%%% 33
+\bibitem[\protect\citeauthoryear{Burman et~al.}{2024}]{BurmanHansboLarson2024}
+\begin{barticle}
+\bauthor{\bsnm{Burman}, \binits{E.}},
+\bauthor{\bsnm{Hansbo}, \binits{P.}},
+\bauthor{\bsnm{Larson}, \binits{M.G.}}:
+\batitle{Cut finite element method for divergence-free approximation of
+  incompressible flow: a {L}agrange multiplier approach}.
+\bjtitle{SIAM J. Numer. Anal.}
+\bvolume{62}(\bissue{2}),
+\bfpage{893}--\blpage{918}
+(\byear{2024})
+\doiurl{10.1137/22M1542933}
+\end{barticle}
+\endbibitem
+
+%%% 34
+\bibitem[\protect\citeauthoryear{Eickmann
+  et~al.}{2025}]{EickmannScottTscherpel2025}
+\begin{botherref}
+\oauthor{\bsnm{Eickmann}, \binits{F.}},
+\oauthor{\bsnm{Scott}, \binits{L.R.}},
+\oauthor{\bsnm{Tscherpel}, \binits{T.}}:
+{S}cott--{V}ogelius element and iterated penalty method for inhomogeneous
+  {D}irichlet boundary conditions.
+arXiv:2509.17899
+(2025)
+\end{botherref}
+\endbibitem
+
+%%% 35
+\bibitem[\protect\citeauthoryear{Burman}{2012}]{Burman2012}
+\begin{barticle}
+\bauthor{\bsnm{Burman}, \binits{E.}}:
+\batitle{A penalty-free nonsymmetric {N}itsche-type method for the weak
+  imposition of boundary conditions}.
+\bjtitle{SIAM J. Numer. Anal.}
+\bvolume{50}(\bissue{4}),
+\bfpage{1959}--\blpage{1981}
+(\byear{2012})
+\doiurl{10.1137/10081784X}
+\end{barticle}
+\endbibitem
+
+%%% 36
+\bibitem[\protect\citeauthoryear{Boiveau and Burman}{2016}]{BoiveauBurman2016}
+\begin{barticle}
+\bauthor{\bsnm{Boiveau}, \binits{T.}},
+\bauthor{\bsnm{Burman}, \binits{E.}}:
+\batitle{A penalty-free {N}itsche method for the weak imposition of boundary
+  conditions in compressible and incompressible elasticity}.
+\bjtitle{IMA J. Numer. Anal.}
+\bvolume{36}(\bissue{2}),
+\bfpage{770}--\blpage{795}
+(\byear{2016})
+\doiurl{10.1093/imanum/drv042}
+\end{barticle}
+\endbibitem
+
+%%% 37
+\bibitem[\protect\citeauthoryear{Juntunen and
+  Stenberg}{2009}]{JuntunenStenberg2009}
+\begin{barticle}
+\bauthor{\bsnm{Juntunen}, \binits{M.}},
+\bauthor{\bsnm{Stenberg}, \binits{R.}}:
+\batitle{Nitsche's method for general boundary conditions}.
+\bjtitle{Math. Comp.}
+\bvolume{78}(\bissue{267}),
+\bfpage{1353}--\blpage{1374}
+(\byear{2009})
+\doiurl{10.1090/S0025-5718-08-02183-2}
+\end{barticle}
+\endbibitem
+
+%%% 38
+\bibitem[\protect\citeauthoryear{Bernardi et~al.}{2016}]{BCDG2016}
+\begin{barticle}
+\bauthor{\bsnm{Bernardi}, \binits{C.}},
+\bauthor{\bsnm{Costabel}, \binits{M.}},
+\bauthor{\bsnm{Dauge}, \binits{M.}},
+\bauthor{\bsnm{Girault}, \binits{V.}}:
+\batitle{Continuity properties of the inf-sup constant for the divergence}.
+\bjtitle{SIAM J. Math. Anal.}
+\bvolume{48}(\bissue{2}),
+\bfpage{1250}--\blpage{1271}
+(\byear{2016})
+\doiurl{10.1137/15M1044989} .
+\bcomment{arXiv:1510.03978}
+\end{barticle}
+\endbibitem
+
+%%% 39
+\bibitem[\protect\citeauthoryear{Gr\"a{\ss}le
+  et~al.}{2024}]{GrassleBohneSauter2024}
+\begin{barticle}
+\bauthor{\bsnm{Gr\"a{\ss}le}, \binits{B.}},
+\bauthor{\bsnm{Bohne}, \binits{N.-E.}},
+\bauthor{\bsnm{Sauter}, \binits{S.}}:
+\batitle{The pressure-wired {S}tokes element: a mesh-robust version of the
+  {S}cott--{V}ogelius element}.
+\bjtitle{Numer. Math.}
+\bvolume{156}(\bissue{5}),
+\bfpage{1781}--\blpage{1807}
+(\byear{2024})
+\doiurl{10.1007/s00211-024-01430-x} .
+\bcomment{arXiv:2212.09673}
+\end{barticle}
+\endbibitem
+
+%%% 40
+\bibitem[\protect\citeauthoryear{Park}{2020}]{Park2020}
+\begin{barticle}
+\bauthor{\bsnm{Park}, \binits{C.}}:
+\batitle{Spurious pressure in {S}cott--{V}ogelius elements}.
+\bjtitle{J. Comput. Appl. Math.}
+\bvolume{363},
+\bfpage{370}--\blpage{391}
+(\byear{2020})
+\doiurl{10.1016/j.cam.2019.06.007} .
+\bcomment{arXiv:1905.03234}
+\end{barticle}
+\endbibitem
+
+%%% 41
+\bibitem[\protect\citeauthoryear{Bohne et~al.}{2025}]{BohneGrassleSauter2025}
+\begin{barticle}
+\bauthor{\bsnm{Bohne}, \binits{N.-E.}},
+\bauthor{\bsnm{Gr\"a{\ss}le}, \binits{B.}},
+\bauthor{\bsnm{Sauter}, \binits{S.A.}}:
+\batitle{Pressure-improved {S}cott--{V}ogelius type elements}.
+\bjtitle{Calcolo}
+\bvolume{62}(\bissue{1}),
+\bfpage{8}
+(\byear{2025})
+\doiurl{10.1007/s10092-024-00627-8} .
+\bcomment{arXiv:2403.04499}
+\end{barticle}
+\endbibitem
+
+%%% 42
+\bibitem[\protect\citeauthoryear{Kean et~al.}{2022}]{KeanNeilanSchneier2022}
+\begin{barticle}
+\bauthor{\bsnm{Kean}, \binits{K.}},
+\bauthor{\bsnm{Neilan}, \binits{M.}},
+\bauthor{\bsnm{Schneier}, \binits{M.}}:
+\batitle{The {S}cott--{V}ogelius method for the {S}tokes problem on anisotropic
+  meshes}.
+\bjtitle{Int. J. Numer. Anal. Model.}
+\bvolume{19}(\bissue{2-3}),
+\bfpage{157}--\blpage{174}
+(\byear{2022}).
+\bcomment{arXiv:2109.14780}
+\end{barticle}
+\endbibitem
+
+%%% 43
+\bibitem[\protect\citeauthoryear{Zhang}{2005}]{Zhang2005}
+\begin{barticle}
+\bauthor{\bsnm{Zhang}, \binits{S.}}:
+\batitle{A new family of stable mixed finite elements for the {3D} {S}tokes
+  equations}.
+\bjtitle{Math. Comp.}
+\bvolume{74}(\bissue{250}),
+\bfpage{543}--\blpage{554}
+(\byear{2005})
+\doiurl{10.1090/S0025-5718-04-01711-9}
+\end{barticle}
+\endbibitem
+
+%%% 44
+\bibitem[\protect\citeauthoryear{Guzm\'an
+  et~al.}{2022}]{GuzmanLischkeNeilan2022}
+\begin{barticle}
+\bauthor{\bsnm{Guzm\'an}, \binits{J.}},
+\bauthor{\bsnm{Lischke}, \binits{A.}},
+\bauthor{\bsnm{Neilan}, \binits{M.}}:
+\batitle{Exact sequences on {W}orsey--{F}arin splits}.
+\bjtitle{Math. Comp.}
+\bvolume{91}(\bissue{338}),
+\bfpage{2571}--\blpage{2608}
+(\byear{2022}).
+\bcomment{arXiv:2008.05431}
+\end{barticle}
+\endbibitem
+
+%%% 45
+\bibitem[\protect\citeauthoryear{Zhang}{2011}]{Zhang2011}
+\begin{barticle}
+\bauthor{\bsnm{Zhang}, \binits{S.}}:
+\batitle{Divergence-free finite elements on tetrahedral grids for $k\ge6$}.
+\bjtitle{Math. Comp.}
+\bvolume{80}(\bissue{274}),
+\bfpage{669}--\blpage{695}
+(\byear{2011})
+\doiurl{10.1090/S0025-5718-2010-02412-3}
+\end{barticle}
+\endbibitem
+
+%%% 46
+\bibitem[\protect\citeauthoryear{Neilan}{2015}]{Neilan2015}
+\begin{barticle}
+\bauthor{\bsnm{Neilan}, \binits{M.}}:
+\batitle{Discrete and conforming smooth de {R}ham complexes in three
+  dimensions}.
+\bjtitle{Math. Comp.}
+\bvolume{84}(\bissue{295}),
+\bfpage{2059}--\blpage{2081}
+(\byear{2015})
+\doiurl{10.1090/S0025-5718-2015-02958-5}
+\end{barticle}
+\endbibitem
+
+%%% 47
+\bibitem[\protect\citeauthoryear{Fu et~al.}{2020}]{FuGuzmanNeilan2020}
+\begin{barticle}
+\bauthor{\bsnm{Fu}, \binits{G.}},
+\bauthor{\bsnm{Guzm\'an}, \binits{J.}},
+\bauthor{\bsnm{Neilan}, \binits{M.}}:
+\batitle{Exact smooth piecewise polynomial sequences on {A}lfeld splits}.
+\bjtitle{Math. Comp.}
+\bvolume{89}(\bissue{323}),
+\bfpage{1059}--\blpage{1091}
+(\byear{2020})
+\doiurl{10.1090/mcom/3520} .
+\bcomment{arXiv:1807.05883}
+\end{barticle}
+\endbibitem
+
+%%% 48
+\bibitem[\protect\citeauthoryear{Farrell
+  et~al.}{2024}]{FarrellMitchellScott2024}
+\begin{barticle}
+\bauthor{\bsnm{Farrell}, \binits{P.E.}},
+\bauthor{\bsnm{Mitchell}, \binits{L.}},
+\bauthor{\bsnm{Scott}, \binits{L.R.}}:
+\batitle{Two conjectures on the {S}tokes complex in three dimensions on
+  {F}reudenthal meshes}.
+\bjtitle{SIAM J. Sci. Comput.}
+\bvolume{46}(\bissue{2}),
+\bfpage{629}--\blpage{644}
+(\byear{2024})
+\doiurl{10.1137/22M1533943} .
+\bcomment{arXiv:2211.05494}
+\end{barticle}
+\endbibitem
+
+%%% 49
+\bibitem[\protect\citeauthoryear{Eickmann et~al.}{2026}]{EickmannGNST2026}
+\begin{barticle}
+\bauthor{\bsnm{Eickmann}, \binits{F.}},
+\bauthor{\bsnm{Guzm\'an}, \binits{J.}},
+\bauthor{\bsnm{Neilan}, \binits{M.}},
+\bauthor{\bsnm{Scott}, \binits{L.R.}},
+\bauthor{\bsnm{Tscherpel}, \binits{T.}}:
+\batitle{A local {F}ortin projection for the {S}cott--{V}ogelius elements on
+  general meshes}.
+\bjtitle{J. Numer. Math.}
+(\byear{2026})
+\doiurl{10.1515/jnma-2025-0178} .
+\bcomment{Published online 28 July 2026. arXiv:2512.18033}
+\end{barticle}
+\endbibitem
+
+%%% 50
+\bibitem[\protect\citeauthoryear{Arnold and Liu}{1995}]{ArnoldLiu1995}
+\begin{barticle}
+\bauthor{\bsnm{Arnold}, \binits{D.N.}},
+\bauthor{\bsnm{Liu}, \binits{X.}}:
+\batitle{Local error estimates for finite element discretization of the
+  {S}tokes equations}.
+\bjtitle{RAIRO Mod\'el. Math. Anal. Num\'er.}
+\bvolume{29}(\bissue{3}),
+\bfpage{367}--\blpage{389}
+(\byear{1995})
+\doiurl{10.1051/m2an/1995290303671}
+\end{barticle}
+\endbibitem
+
+%%% 51
+\bibitem[\protect\citeauthoryear{Demlow et~al.}{2011}]{DemlowGuzmanSchatz2011}
+\begin{barticle}
+\bauthor{\bsnm{Demlow}, \binits{A.}},
+\bauthor{\bsnm{Guzm\'an}, \binits{J.}},
+\bauthor{\bsnm{Schatz}, \binits{A.H.}}:
+\batitle{Local energy estimates for the finite element method on sharply
+  varying grids}.
+\bjtitle{Math. Comp.}
+\bvolume{80}(\bissue{273}),
+\bfpage{1}--\blpage{9}
+(\byear{2011})
+\end{barticle}
+\endbibitem
+
+%%% 52
+\bibitem[\protect\citeauthoryear{Kellogg and Osborn}{1976}]{KelloggOsborn1976}
+\begin{barticle}
+\bauthor{\bsnm{Kellogg}, \binits{R.B.}},
+\bauthor{\bsnm{Osborn}, \binits{J.E.}}:
+\batitle{A regularity result for the {S}tokes problem in a convex polygon}.
+\bjtitle{J. Funct. Anal.}
+\bvolume{21}(\bissue{4}),
+\bfpage{397}--\blpage{431}
+(\byear{1976})
+\doiurl{10.1016/0022-1236(76)90035-5}
+\end{barticle}
+\endbibitem
+
+%%% 53
+\bibitem[\protect\citeauthoryear{Brezzi et~al.}{1980}]{BRR1980}
+\begin{barticle}
+\bauthor{\bsnm{Brezzi}, \binits{F.}},
+\bauthor{\bsnm{Rappaz}, \binits{J.}},
+\bauthor{\bsnm{Raviart}, \binits{P.-A.}}:
+\batitle{Finite dimensional approximation of nonlinear problems. {P}art {I}:
+  {B}ranches of nonsingular solutions}.
+\bjtitle{Numer. Math.}
+\bvolume{36}(\bissue{1}),
+\bfpage{1}--\blpage{25}
+(\byear{1980})
+\doiurl{10.1007/BF01395985}
+\end{barticle}
+\endbibitem
+
+%%% 54
+\bibitem[\protect\citeauthoryear{Girault and Raviart}{1986}]{GiraultRaviart}
+\begin{bbook}
+\bauthor{\bsnm{Girault}, \binits{V.}},
+\bauthor{\bsnm{Raviart}, \binits{P.-A.}}:
+\bbtitle{Finite Element Methods for {N}avier--{S}tokes Equations: Theory and
+  Algorithms}.
+\bsertitle{Springer Series in Computational Mathematics},
+vol. \bseriesno{5}.
+\bpublisher{Springer},
+\blocation{Berlin}
+(\byear{1986}).
+\doiurl{10.1007/978-3-642-61623-5}
+\end{bbook}
+\endbibitem
+
+%%% 55
+\bibitem[\protect\citeauthoryear{Schatz}{1974}]{Schatz1974}
+\begin{barticle}
+\bauthor{\bsnm{Schatz}, \binits{A.H.}}:
+\batitle{An observation concerning {R}itz--{G}alerkin methods with indefinite
+  bilinear forms}.
+\bjtitle{Math. Comp.}
+\bvolume{28}(\bissue{128}),
+\bfpage{959}--\blpage{962}
+(\byear{1974})
+\doiurl{10.1090/S0025-5718-1974-0373326-0}
+\end{barticle}
+\endbibitem
+
+%%% 56
+\bibitem[\protect\citeauthoryear{Warburton and
+  Hesthaven}{2003}]{WarburtonHesthaven2003}
+\begin{barticle}
+\bauthor{\bsnm{Warburton}, \binits{T.}},
+\bauthor{\bsnm{Hesthaven}, \binits{J.S.}}:
+\batitle{On the constants in $hp$-finite element trace inverse inequalities}.
+\bjtitle{Comput. Methods Appl. Mech. Engrg.}
+\bvolume{192}(\bissue{25}),
+\bfpage{2765}--\blpage{2773}
+(\byear{2003})
+\doiurl{10.1016/S0045-7825(03)00294-9}
+\end{barticle}
+\endbibitem
+
+%%% 57
+\bibitem[\protect\citeauthoryear{Babu\v{s}ka and Aziz}{1976}]{BabuskaAziz1976}
+\begin{barticle}
+\bauthor{\bsnm{Babu\v{s}ka}, \binits{I.}},
+\bauthor{\bsnm{Aziz}, \binits{A.K.}}:
+\batitle{On the angle condition in the finite element method}.
+\bjtitle{SIAM J. Numer. Anal.}
+\bvolume{13}(\bissue{2}),
+\bfpage{214}--\blpage{226}
+(\byear{1976})
+\doiurl{10.1137/0713021}
+\end{barticle}
+\endbibitem
+
+%%% 58
+\bibitem[\protect\citeauthoryear{Apel}{1999}]{Apel1999}
+\begin{bbook}
+\bauthor{\bsnm{Apel}, \binits{T.}}:
+\bbtitle{Anisotropic Finite Elements: Local Estimates and Applications}.
+\bsertitle{Advances in Numerical Mathematics}.
+\bpublisher{Teubner},
+\blocation{Stuttgart}
+(\byear{1999})
+\end{bbook}
+\endbibitem
+
+%%% 59
+\bibitem[\protect\citeauthoryear{Acosta
+  et~al.}{2006}]{AcostaDuranMuschietti2006}
+\begin{barticle}
+\bauthor{\bsnm{Acosta}, \binits{G.}},
+\bauthor{\bsnm{Dur\'an}, \binits{R.G.}},
+\bauthor{\bsnm{Muschietti}, \binits{M.A.}}:
+\batitle{Solutions of the divergence operator on {J}ohn domains}.
+\bjtitle{Adv. Math.}
+\bvolume{206}(\bissue{2}),
+\bfpage{373}--\blpage{401}
+(\byear{2006})
+\doiurl{10.1016/j.aim.2005.09.004}
+\end{barticle}
+\endbibitem
+
+%%% 60
+\bibitem[\protect\citeauthoryear{Dauge}{1989}]{Dauge1989}
+\begin{barticle}
+\bauthor{\bsnm{Dauge}, \binits{M.}}:
+\batitle{Stationary {S}tokes and {N}avier--{S}tokes systems on two- or
+  three-dimensional domains with corners. {P}art {I}: {L}inearized equations}.
+\bjtitle{SIAM J. Math. Anal.}
+\bvolume{20}(\bissue{1}),
+\bfpage{74}--\blpage{97}
+(\byear{1989})
+\doiurl{10.1137/0520006}
+\end{barticle}
+\endbibitem
+
+%%% 61
+\bibitem[\protect\citeauthoryear{Morgan and Scott}{1975}]{MorganScott1975}
+\begin{barticle}
+\bauthor{\bsnm{Morgan}, \binits{J.}},
+\bauthor{\bsnm{Scott}, \binits{R.}}:
+\batitle{A nodal basis for {$C^1$} piecewise polynomials of degree $n\ge5$}.
+\bjtitle{Math. Comp.}
+\bvolume{29},
+\bfpage{736}--\blpage{740}
+(\byear{1975})
+\end{barticle}
+\endbibitem
+
+%%% 62
+\bibitem[\protect\citeauthoryear{Argyris et~al.}{1968}]{Argyris1968}
+\begin{barticle}
+\bauthor{\bsnm{Argyris}, \binits{J.H.}},
+\bauthor{\bsnm{Fried}, \binits{I.}},
+\bauthor{\bsnm{Scharpf}, \binits{D.W.}}:
+\batitle{The {TUBA} family of plate elements for the matrix displacement
+  method}.
+\bjtitle{Aeronaut. J. R. Aeronaut. Soc.}
+\bvolume{72}(\bissue{692}),
+\bfpage{701}--\blpage{709}
+(\byear{1968})
+\doiurl{10.1017/S000192400008489X}
+\end{barticle}
+\endbibitem
+
+%%% 63
+\bibitem[\protect\citeauthoryear{Li}{2005}]{SuperLU}
+\begin{barticle}
+\bauthor{\bsnm{Li}, \binits{X.S.}}:
+\batitle{An overview of {SuperLU}: Algorithms, implementation, and user
+  interface}.
+\bjtitle{ACM Trans. Math. Software}
+\bvolume{31}(\bissue{3}),
+\bfpage{302}--\blpage{325}
+(\byear{2005})
+\doiurl{10.1145/1089014.1089017}
+\end{barticle}
+\endbibitem
+
+%%% 64
+\bibitem[\protect\citeauthoryear{Gjerde and Scott}{2022}]{GjerdeScott2022}
+\begin{barticle}
+\bauthor{\bsnm{Gjerde}, \binits{I.G.}},
+\bauthor{\bsnm{Scott}, \binits{L.R.}}:
+\batitle{Nitsche's method for {N}avier--{S}tokes equations with slip boundary
+  conditions}.
+\bjtitle{Math. Comp.}
+\bvolume{91}(\bissue{334}),
+\bfpage{597}--\blpage{622}
+(\byear{2022})
+\doiurl{10.1090/mcom/3682}
+\end{barticle}
+\endbibitem
+
+\end{thebibliography}
