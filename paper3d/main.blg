@@ -5,30 +5,30 @@ The style file: amsplain.bst
 Database file #1: refs.bib
 You've used 33 entries,
             2213 wiz_defined-function locations,
-            759 strings with 10062 characters,
-and the built_in function-call counts, 10710 in all, are:
-= -- 1019
-> -- 403
+            761 strings with 10087 characters,
+and the built_in function-call counts, 10766 in all, are:
+= -- 1023
+> -- 411
 < -- 3
-+ -- 166
-- -- 126
-* -- 951
-:= -- 1686
++ -- 168
+- -- 128
+* -- 961
+:= -- 1698
 add.period$ -- 33
 call.type$ -- 33
 change.case$ -- 162
 chr.to.int$ -- 0
 cite$ -- 33
-duplicate$ -- 405
-empty$ -- 951
-format.name$ -- 126
-if$ -- 2235
+duplicate$ -- 406
+empty$ -- 952
+format.name$ -- 128
+if$ -- 2245
 int.to.chr$ -- 0
 int.to.str$ -- 33
 missing$ -- 66
 newline$ -- 109
-num.names$ -- 66
-pop$ -- 185
+num.names$ -- 68
+pop$ -- 184
 preamble$ -- 1
 purify$ -- 128
 quote$ -- 0
@@ -41,6 +41,6 @@ text.prefix$ -- 0
 top$ -- 0
 type$ -- 126
 warning$ -- 0
-while$ -- 121
+while$ -- 122
 width$ -- 35
-write$ -- 319
+write$ -- 321

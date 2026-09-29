@@ -39,8 +39,9 @@ Monique Dauge, \emph{Stationary {S}tokes and {N}avier--{S}tokes systems on two-
 
 \bibitem{Dziuk1988}
 Gerhard Dziuk, \emph{Finite elements for the {B}eltrami operator on arbitrary
-  surfaces}, Partial Differential Equations and Calculus of Variations, Lecture
-  Notes in Math., vol. 1357, Springer, Berlin, 1988, pp.~142--155.
+  surfaces}, Partial Differential Equations and Calculus of Variations (Stefan
+  Hildebrandt and Rolf Leis, eds.), Lecture Notes in Math., vol. 1357,
+  Springer, Berlin, 1988, pp.~142--155.
 
 \bibitem{DziukElliott2013}
 Gerhard Dziuk and Charles~M. Elliott, \emph{Finite element methods for surface
@@ -92,7 +93,7 @@ Johnny Guzm\'an and L.~Ridgway Scott, \emph{The {S}cott--{V}ogelius finite
 
 \bibitem{Hestenes1941}
 Magnus~R. Hestenes, \emph{Extension of the range of a differentiable function},
-  Duke Math. J. \textbf{8} (1941), 183--192.
+  Duke Math. J. \textbf{8} (1941), no.~1, 183--192.
 
 \bibitem{HildebrandtPolthierWardetzky2006}
 Klaus Hildebrandt, Konrad Polthier, and Max Wardetzky, \emph{On the convergence
@@ -132,9 +133,9 @@ Joachim Nitsche, \emph{\"{U}ber ein {V}ariationsprinzip zur {L}\"osung von
   \textbf{36} (1971), no.~1, 9--15.
 
 \bibitem{PadhiLong2D}
-Jaideep~Sai Padhi, \emph{Scott--{V}ogelius--{N}itsche on a polygonally
+Jaideep~Sai Padhi, \emph{{S}cott--{V}ogelius--{N}itsche on a polygonally
   approximated boundary: convergence, the missing pressure traction, and the
-  penalty threshold}, Zenodo preprint (DOI to be assigned), 2026.
+  penalty threshold}, Preprint, Zenodo, 2026, Version 3.
 
 \bibitem{Schatz1974}
 Alfred~H. Schatz, \emph{An observation concerning {R}itz--{G}alerkin methods

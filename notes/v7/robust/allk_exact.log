@@ -1,0 +1,10 @@
+edge-integral regression: OK
+k=4 {'F1': (True, True), 'F2': (True, True), 'F3': (True, True), 'F4': (True, True), 'F5_rank': True, 'F5_kernel=Ker_T': True, 'F6': True, 'F7': (True, True), 'beta_k': 1/630, 'secs': 0.6}
+k=5 {'F1': (True, True), 'F2': (True, True), 'F3': (True, True), 'F4': (True, True), 'F5_rank': True, 'F5_kernel=Ker_T': True, 'F6': True, 'F7': (True, True), 'beta_k': 1/2772, 'F8': (True, True, True, True), 'secs': 1.1}
+k=6 {'F1': (True, True), 'F2': (True, True), 'F3': (True, True), 'F4': (True, True), 'F5_rank': True, 'F5_kernel=Ker_T': True, 'F6': True, 'F7': (True, True), 'beta_k': 1/12012, 'F8': (True, True, True, True), 'secs': 1.7}
+k=7 {'F1': (True, True), 'F2': (True, True), 'F3': (True, True), 'F4': (True, True), 'F5_rank': True, 'F5_kernel=Ker_T': True, 'F6': True, 'F7': (True, True), 'beta_k': 1/51480, 'F8': (True, True, True, True), 'secs': 3.1}
+k=8 {'F1': (True, True), 'F2': (True, True), 'F3': (True, True), 'F4': (True, True), 'F5_rank': True, 'F5_kernel=Ker_T': True, 'F6': True, 'F7': (True, True), 'beta_k': 1/218790, 'F8': (True, True, True, True), 'secs': 6.1}
+k=9 {'F1': (True, True), 'F2': (True, True), 'F3': (True, True), 'F4': (True, True), 'F5_rank': True, 'F5_kernel=Ker_T': True, 'F6': True, 'F7': (True, True), 'beta_k': 1/923780, 'F8': (True, True, True, True), 'secs': 8.7}
+k=10 {'F1': (True, True), 'F2': (True, True), 'F3': (True, True), 'F4': (True, True), 'F5_rank': True, 'F5_kernel=Ker_T': True, 'F6': True, 'F7': (True, True), 'beta_k': 1/3879876, 'F8': (True, True, True, True), 'secs': 11.8}
+k=11 {'F1': (True, True), 'F2': (True, True), 'F3': (True, True), 'F4': (True, True), 'F5_rank': True, 'F5_kernel=Ker_T': True, 'F6': True, 'F7': (True, True), 'beta_k': 1/16224936, 'F8': (True, True, True, True), 'secs': 22.7}
+k=12 {'F1': (True, True), 'F2': (True, True), 'F3': (True, True), 'F4': (True, True), 'F5_rank': True, 'F5_kernel=Ker_T': True, 'F6': True, 'F7': (True, True), 'beta_k': 1/67603900, 'F8': (True, True, True, True), 'secs': 37.7}

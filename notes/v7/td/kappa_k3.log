@@ -1,0 +1,10 @@
+k=3: domain pts=15 unknowns=45 div rows=40 rank(div)=39 dim Y=6  (0.0s)
+rank of mean on Y: 2
+dim Y^1=4; rank quadratic moments on Y^1 = 1; rank first moments on Y^1 = 1 (with mu1 too: 1)
+  quadratic edge moments E^ (kappa_0 of Thm sh:alfeld): not onto (rank 1 < 6)
+  quadratic edge moments E^ (kappa_0 of Thm sh:alfeld): eigenvalues of E G^-1 E^T (float): [-5.92590093e-19 -5.43211038e-52  6.16801700e-69  6.13276153e-36
+  7.60625254e-19  1.55574076e-02]
+  first moments E^1 (leak witness): not onto (rank 1 < 4)
+  first moments E^1 (leak witness): eigenvalues of E G^-1 E^T (float): [0.         0.         0.         0.07000833]
+local Stokes (V0(T^A) x P_(k-1)^disc): smallest gen. eigenvalues [-1.08107096e-16  2.61463537e-02  2.61463537e-02] -> beta^_loc = 0.161698, C^_loc = 1/beta^_loc = 6.1844  (float)
+done (0.3s)

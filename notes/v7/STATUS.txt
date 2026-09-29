@@ -1,0 +1,10 @@
+v7 round (Sept 28-29 2026). Agents interrupted by usage limit are marked INCOMPLETE; their scripts/logs are partial work.
+- penalty/  : COMPLETE. Necessity mu* >= c(theta,c0) rho on every (M0) mesh (constants ~1e-39); global polar column mesh: star counterexample is local, gamma* = mu*/rho ~ 3.06-3.13; tall columns mu* >= 0.85 h/(H h_G). Not yet refereed.
+- reg/      : COMPLETE. (R),(R_S) proved (Kellogg-Osborn + collar regularity); (LF),(IE) proved; graded-mesh L2 bound proved. Flag: box corners limit u to H^s, s<3.74, for generic data. Not yet refereed.
+- robust/   : COMPLETE. R-final (b),(c) for all k>=4; (S_LP) proved (resolves rb:conj) on equal-height/LP+ families; order k+1 and k+3/2 sharpness cases. Not yet refereed.
+- cites/    : COMPLETE. Bib fixes applied in paper/, paper3d/, letter/ (Hestenes DOI, Arnold-Liu title, Neilan2015 DOI, ...); PadhiLong2D/PadhiExt unified.
+- P/        : INCOMPLETE (usage limit). Cell-problem scripts and logs for hypothesis (P); no report.
+- needle/   : INCOMPLETE (usage limit). Probe scripts for (L_N) / split-edge stability; no report.
+- nsconst/  : PARTIAL. REPORT.tex draft + runs for C_R, beta_O, discrete (L), gamma*_inf cell limit; unfinished.
+- td/       : INCOMPLETE (usage limit). 3D Oseen leak/drag + explicit 3D constants; check contents.
+None of the v7 results is merged into the papers yet (except citation fixes).

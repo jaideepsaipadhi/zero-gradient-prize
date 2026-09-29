@@ -1,0 +1,2 @@
+lambda0=20.0 delta=0.05: boxes processed=47, certified=24, remaining=0, min certified lower bound=20.2112  (5.0s)
+CERTIFIED: lambda_T >= 20.0 for every tetrahedron with p1=0,p2=e1,p3=(a,b,0),p0=(x,y,z) and |(a,b,x,y,z)-regular|_inf <= 0.05

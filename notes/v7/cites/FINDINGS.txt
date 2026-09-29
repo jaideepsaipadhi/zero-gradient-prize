@@ -1,0 +1,105 @@
+notes/v7/cites/FINDINGS.txt -- bibliographic verification pass v7, 2026-09-28
+============================================================================
+Scope: every %% VERIFY in paper/, paper3d/, letter/; bib entries "added from memory" (paper/CHANGES_v6.txt,
+paper3d/NOTES.txt); PadhiLong2D / PadhiExt unification. Edits: .bib files and %% VERIFY comment lines only.
+Nothing committed. Rebuilt: paper (138 pp, bibtex 0 warnings), paper3d (37 pp, 0 warnings), letter (6 pp; 5p: 5 pp).
+
+Access log: Bash has no outbound network (proxy 403 policy denial for api.crossref.org, api.zbmath.org), so all
+checks via WebFetch. Crossref API worked until rate-limited (429). zbmath.org 403 / api.zbmath.org robots 502.
+epubs.siam.org, export.arxiv.org, dblp API: robots-blocked. googleapis books: 429. HAL fetch: permission timeout.
+ACM DL 403. Project Euclid: bot wall. Scribd: JS wall. All WebFetch reads go through a summarising model.
+
+--------------------------------------------------------------------------
+PART 1 -- %% VERIFY items
+--------------------------------------------------------------------------
+[1] BCDG2016 theorem numbers (paper 04_discrete:65 Thm 4.6; paper3d 04_stability:30 Thm 4.4).
+    Numbering is IDENTICAL in three author copies: arXiv:1510.03978 PDF, costabel.perso.math.cnrs.fr BCDG_Conti.pdf,
+    dauge.pages.math.cnrs.fr/publis/BeCoDaGi_conti.pdf (24 pp., no SIAM header): Def 4.1 (eps-close), Thm 4.4
+    (|beta(Omega)-beta(Omega~)| <= c(d) eps), Def 4.5 (polygonal h-approximation; (ii) corners on dOmega),
+    Thm 4.6 (|beta(Omega)-beta(Omega_h)| <= c(Omega) h), Remark 4.7 (3D polyhedral approximations; v6 said
+    "not a numbered remark" -- it IS Remark 4.7 in these copies). SIAM typeset version NOT seen.
+    STATUS: flag kept (narrowed); comments updated in 04_discrete.tex and both refs.bib.
+[2] Galdi locators (2nd ed. 2011).
+    - Lemma III.3.1 (10_general_domains:221): unchanged, CORRECTED-per-secondary in v6 (Duran et al.).
+    - Lemma II.1.3 (10_general_domains:242): UNVERIFIABLE. No quote found anywhere.
+    - Thm III.3.3 (10_general_domains:334): UNVERIFIABLE. No quote found.
+    Ch. III "The Function Spaces of Hydrodynamics" = pp. 139-230 (Springer chapter page, re-confirmed).
+    No book access (Springer no preview; Google Books blocked; zbMATH blocked).
+[3] GN18 Thm 3.1 wording (paper3d 04_stability:56). arXiv:1710.08044 (PDF dated 7 May 2018; Neilan homepage
+    links it as the preprint of SINUM 56(5) 2826-2844): "Let k>=1. For any K and any p in P°_{k-1}(K^r) there
+    exists v in P°^c_k(K^r) such that div v = p on K, with ||v||_{H^1(K)} <= C||p||_{L^2(K)}, where C only depends
+    on k and the shape regularity of K^r". Prop 4.1 (Bernardi-Raugel P0 surjectivity), Prop 6.1, Cor 6.2 (k>=d)
+    also as cited. Fact st:gn matches. STATUS: flag kept (published version not seen; read via summarising tool).
+[4] Bogovskii H^k_0 -> H^{k+1}_0 on Lipschitz domains (paper3d 05_error:80). CONFIRMED from Costabel-McIntosh
+    arXiv:0808.2614 (= Math. Z. 265): intro states solvability of div u = f in W^{m,p}_0(Omega)^n for
+    f in W^{m-1,p}_0, int f = 0, on all bounded Lipschitz domains; Cor 3.4 (starlike) / Lemma 4.3 and Thm 4.6
+    (Lipschitz) give T: H^s -> H^{s+1}, all s, with dT_n u = u - L_n u (L_n smoothing). The text cites no
+    Galdi locator there. STATUS: RESOLVED; %% VERIFY replaced by %% CHECKED (v7) comment.
+[5] Neilan 2015 Prop 6.5 (paper3d 04_stability:85, 10_open; paper 12_three_d:36, not compiled). Still only the
+    FMS24 sentence (ORA PDF, re-read verbatim): "Neilan [36, Proposition 6.5] extends this to more general meshes
+    that satisfy a special condition, which he states as a conjecture, but still for k >= 6." AMS blocked, no
+    preprint on Neilan's page. Metadata + DOI 10.1090/S0025-5718-2015-02958-5 CONFIRMED by Crossref (DOI added
+    to both refs.bib). STATUS: flag kept.
+[6] Dauge 1989 statement (paper 11c_ns_branch:62; paper3d 08_navier_stokes:47). Metadata CONFIRMED (Crossref,
+    SIAM J. Math. Anal. 20(1) 74-97, DOI 10.1137/0520006). Statement NOT checked (SIAM robots-blocked; no
+    secondary source found giving a locator). Suggestion: for 2D convex corners the classical source is
+    Kellogg-Osborn, J. Funct. Anal. 21(4) (1976) 397-431, DOI 10.1016/0022-1236(76)90035-5 (ScienceDirect;
+    abstract: H^2 regularity of Stokes in a convex polygon). Added to paper/refs.bib as KelloggOsborn1976,
+    NOT cited (adding a \cite would change text). STATUS: flags kept.
+[7] Galdi Lemma III.3.4 (paper 12_three_d:113, not compiled). PLAUSIBLE only: arXiv:2412.21048 (Cor 3.5 proof)
+    cites "[Galdi 2011, Pag. 132, Lemma 3.4]" for decomposing mean-zero f into mean-zero pieces on star-shaped
+    subdomains; but p.132 precedes Ch. III (p.139) of the 2nd ed., so the page/edition there is inconsistent
+    (probably 1st-ed. pagination). Comment updated; flag kept.
+[8] Items not re-examined (no new sources reachable): Gjerde-Scott ACSE numbering (07b:269), FreundStenberg /
+    Becker (01_intro:99), GjerdeScott2022 slip form (01_intro:118), Galdi Ch. IV locator for (R_S)(b) (11c:62),
+    internal 4.5e-3 run archive (07:32), HCT/Ciarlet 6.1, Temam Thm I.1.6, letter Cavalcante/Clough-Tocher
+    attribution (letter.tex:91, :266; letter/refs.bib:43 -- need Cavalcante's PDF / Cavalcante himself).
+[9] Kellogg-Osborn 1976: not cited in any of the three sources (see [6]).
+[10] Forster Thm 4.22 (paper3d 03_geometry:74, "proper local homeomorphism onto ... is a finite covering"):
+    no %% VERIFY; tried to confirm, NOT found (Scribd JS wall; lecture notes state it without a Forster number).
+    Metadata CONFIRMED (Springer: GTM 81, 1981; chapters 1-3 only, so "4.22" is the §4 numbering, plausible).
+
+--------------------------------------------------------------------------
+PART 2 -- "from memory" bib entries
+--------------------------------------------------------------------------
+paper/refs.bib
+  WarburtonHesthaven2003  CONFIRMED (Crossref): CMAME 192(25) 2765-2773, 2003, DOI as given. (Content claim
+                          "sharp P_{k-1} edge trace-inverse constant" in 07b:85 NOT checked.)
+  ArnoldLiu1995           CORRECTED: title is "... finite element discretization of the Stokes equations"
+                          (singular; Crossref + Numdam M2AN_1995__29_3_367_0). 29(3) 367-389 confirmed.
+                          DOI 10.1051/m2an/1995290303671 ADDED.
+  BabuskaAziz1976         CONFIRMED (Crossref): SINUM 13(2) 214-226, DOI 10.1137/0713021.
+  Apel1999                CONFIRMED (UniBw Munich IMCS page): Teubner, Stuttgart, 1999, Advances in Numerical
+                          Mathematics, ISBN 3-519-02744-5.
+  Dauge1989               metadata CONFIRMED (Crossref).
+  Neilan2015              DOI added (Crossref-confirmed).
+  KelloggOsborn1976       NEW, uncited (see [6]).
+paper3d/refs.bib
+  CostabelMcIntosh2010    CONFIRMED (Crossref): Math. Z. 265(2) 297-320, 2010.
+  Hestenes1941            CORRECTED DOI: 10.1215/S0012-7094-41-00813-0 (404 at Crossref) -> 10.1215/S0012-7094-
+                          41-00812-8 (Crossref). Issue 1 added. Pages 183-192 CONFIRMED (Seeley, Proc. AMS 15
+                          (1964) reference list).
+  Dauge1989               metadata CONFIRMED.
+  BernardiRaugel1985      CONFIRMED (Crossref): Math. Comp. 44(169) 71-79, DOI 10.2307/2007793.
+  Forster1981             CONFIRMED (Crossref + Springer): GTM 81, Springer New York 1981.
+  AmentaChoiDeyLeekha2000 CONFIRMED (Crossref): SoCG 2000, pp. 213-222.
+  Dziuk1988               CONFIRMED (Springer chapter page): LNM 1357, pp. 142-155; editors S. Hildebrandt,
+                          R. Leis ADDED.
+  Wardetzky2008           pages 275-286 CONFIRMED (Crossref); editors/vol. 38 not in record (uncited anyway).
+  AinsworthParker2022     CONFIRMED (ScienceDirect): CMAME 395 (2022) 115034, DOI 10.1016/j.cma.2022.115034.
+  Neilan2015              DOI added.
+
+--------------------------------------------------------------------------
+PART 3 -- PadhiLong2D (paper3d) / PadhiExt (letter)
+--------------------------------------------------------------------------
+Unified: both now = author Padhi, Jaideep Sai; title "{S}cott--{V}ogelius--{N}itsche on a polygonally approximated
+boundary: convergence, the missing pressure traction, and the penalty threshold" (= paper/main.tex title);
+howpublished "Preprint, Zenodo"; year 2026; doi 10.5281/zenodo.XXXXXXXX (placeholder, "%% FILL v3 DOI" marker in
+both); note "Version 3". amsplain does not print doi; elsarticle-num does.
+
+--------------------------------------------------------------------------
+REMAINING UNVERIFIABLE (reason)
+--------------------------------------------------------------------------
+Galdi II.1.3, III.3.3, III.3.4 (no book access, no secondary quote); BCDG SIAM numbering (SIAM blocked; preprints
+consistent); GN18 published wording (SIAM blocked; arXiv consistent); Neilan 2015 Prop 6.5 (AMS blocked, secondary
+only); Dauge 1989 statement (SIAM blocked); Forster 4.22 number; items in [8].

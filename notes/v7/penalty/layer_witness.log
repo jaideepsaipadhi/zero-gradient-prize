@@ -1,0 +1,35 @@
+Q = h_G(2B-A)/C of v = curl I_A F (h_G = 1).  beta=1,T1=1 is the one-slope profile (no two-slope spreading).
+cols H=5 : min angle 11.31 deg
+   y1= 5.0 beta=0.30 T1=  4 Xc= 60: s=0.07018, 1D limit 2s-int q'^2 = 0.09947
+      X=  200: continuum   0.06537   DISCRETE Q =   0.06544   [19200 triangles, 4s]
+      X=  800: continuum   0.06924   DISCRETE Q =   0.06931   [76800 triangles, 17s]
+   y1= 5.0 beta=1.00 T1=  1 Xc= 60: s=0.13333, 1D limit 2s-int q'^2 = 0.15525
+      X=  200: continuum   0.13618   DISCRETE Q =   0.13666   [19200 triangles, 20s]
+      X=  800: continuum   0.13723   DISCRETE Q =   0.13771   [76800 triangles, 34s]
+   y1= 2.5 beta=0.30 T1=  4 Xc= 60: s=0.14035, 1D limit 2s-int q'^2 = 0.19894
+      X=  200: continuum   0.18224   DISCRETE Q =   0.18417   [19200 triangles, 39s]
+      X=  800: continuum   0.18370   DISCRETE Q =   0.18563   [76800 triangles, 49s]
+cols H=8 : min angle 7.13 deg
+   y1= 8.0 beta=0.30 T1=  4 Xc= 64: s=0.04386, 1D limit 2s-int q'^2 = 0.05921
+      X=  200: continuum  -0.00288   DISCRETE Q =  -0.00284   [12800 triangles, 51s]
+      X=  800: continuum   0.00493   DISCRETE Q =   0.00498   [51200 triangles, 57s]
+   y1= 8.0 beta=1.00 T1=  1 Xc= 64: s=0.08333, 1D limit 2s-int q'^2 = 0.09932
+      X=  200: continuum   0.07926   DISCRETE Q =   0.07953   [12800 triangles, 58s]
+      X=  800: continuum   0.08115   DISCRETE Q =   0.08146   [51200 triangles, 65s]
+dyadic   : min angle 26.57 deg
+   y1= 1.0 beta=0.30 T1=  4 Xc= 50: s=0.35088, 1D limit 2s-int q'^2 = 0.47370
+      X=  200: continuum   0.47321   DISCRETE Q =   0.47917   [1988 triangles, 66s]
+      X=  800: continuum   0.47368   DISCRETE Q =   0.47963   [7926 triangles, 67s]
+   y1= 2.0 beta=0.30 T1=  4 Xc= 50: s=0.17544, 1D limit 2s-int q'^2 = 0.23685
+      X=  200: continuum   0.22948   DISCRETE Q =   0.23380   [1988 triangles, 68s]
+      X=  800: continuum   0.23058   DISCRETE Q =   0.23486   [7926 triangles, 69s]
+   y1= 1.0 beta=1.00 T1=  1 Xc= 50: s=0.66667, 1D limit 2s-int q'^2 = 0.79456
+      X=  200: continuum   0.70135   DISCRETE Q =   0.73257   [1988 triangles, 70s]
+      X=  800: continuum   0.70152   DISCRETE Q =   0.73274   [7926 triangles, 71s]
+colgrad 5: min angle 11.31 deg
+   y1= 5.0 beta=0.30 T1=  4 Xc= 60: s=0.07018, 1D limit 2s-int q'^2 = 0.09947
+      X=  200: continuum   0.06537   DISCRETE Q =   0.08074   [1988 triangles, 72s]
+      X=  800: continuum   0.06924   DISCRETE Q =   0.08764   [7926 triangles, 73s]
+   y1= 5.0 beta=1.00 T1=  1 Xc= 60: s=0.13333, 1D limit 2s-int q'^2 = 0.15525
+      X=  200: continuum   0.13618   DISCRETE Q =   0.13828   [1988 triangles, 74s]
+      X=  800: continuum   0.13723   DISCRETE Q =   0.13969   [7926 triangles, 75s]

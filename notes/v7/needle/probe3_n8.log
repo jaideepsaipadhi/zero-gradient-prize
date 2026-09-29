@@ -1,0 +1,4 @@
+{"n": 8, "eps": 0.1, "gamma_off0": 0.1983, "range_resid": 3.2e-15, "min_nonzero_eig_Sd": 1.56e-09, "beta_slit": 0.1726, "secs": 45.3}
+{"n": 8, "eps": 0.01, "gamma_off0": 0.1965, "range_resid": 3.4e-15, "min_nonzero_eig_Sd": 2.25e-12, "beta_slit": 0.1768, "secs": 6.9}
+{"n": 8, "eps": 0.001, "gamma_off0": 0.197, "range_resid": 9.8e-09, "min_nonzero_eig_Sd": 4.29e-13, "beta_slit": 0.1772, "secs": 39.5}
+{"n": 8, "eps": 0.0001, "gamma_off0": 0.196, "range_resid": 1.8e-08, "min_nonzero_eig_Sd": 1.49e-11, "beta_slit": 0.1772, "secs": 9.5}

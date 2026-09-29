@@ -1,0 +1,12 @@
+== polar column mesh, H = 1.0, N = 128 boundary edges
+L=  2.5 J=2 ntri=928  h=1.0060  h_G=0.04908  rho=  20.50  min angle=12.96 deg  Theta_0=0.8315  singular vertices=0
+   GLOBAL: mu* = 327.9043   mu*/rho = gamma* = mu* h_G/h = 15.9987   (8s)
+== polar column mesh, H = 2.0, N = 128 boundary edges
+L=  2.5 J=2 ntri=864  h=1.0365  h_G=0.04908  rho=  21.12  min angle=14.53 deg  Theta_0=0.8315  singular vertices=0
+   GLOBAL: mu* = 166.4965   mu*/rho = gamma* = mu* h_G/h = 7.8844   (7s)
+== polar column mesh, H = 3.0, N = 128 boundary edges
+L=  2.5 J=2 ntri=864  h=1.0269  h_G=0.04908  rho=  20.92  min angle=14.05 deg  Theta_0=0.8315  singular vertices=0
+   GLOBAL: mu* = 108.7675   mu*/rho = gamma* = mu* h_G/h = 5.1987   (8s)
+== polar column mesh, H = 12.0, N = 128 boundary edges
+L=  2.5 J=2 ntri=736  h=1.0317  h_G=0.04908  rho=  21.02  min angle=4.75 deg  Theta_0=0.8315  singular vertices=0
+   GLOBAL: mu* = 24.9023   mu*/rho = gamma* = mu* h_G/h = 1.1847   (9s)

@@ -1,0 +1,413 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,booktabs,geometry}
+\geometry{margin=2.3cm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\tn}[1]{|\!|\!|#1|\!|\!|}
+\title{notes/v7/robust: Theorem R-final for every $k\ge4$; (S$_{\rm LP}$) proved via an \emph{effective penalty};\\
+sharpness of the orders $k+1$ and $k+\tfrac32$; resolution of Conjecture rb:conj}
+\date{2026-09-28 (subagent report; nothing in paper/, paper3d/, letter/ touched; nothing committed)}
+\begin{document}\maketitle
+
+\noindent Labels: \textbf{PROVED}, \textbf{PROVED MODULO X}, \textbf{NUMERICAL}. A computer step counts as proof only if it is exact
+rational/symbolic algebra. Notation is that of robust3--6 and paper Section~11b. ``Paper lemmas'' means the inputs of robust5 Thm~S1:
+Lemmas coercive, inverse, infsup, Lemma layer (robust5), and, new here, unifmu Thm~up and Lemma~size (both PROVED in notes/v6/unifmu).
+Scripts and logs are in \texttt{notes/v7/robust/}. Every run took under 3 minutes.
+
+\section*{Summary}
+\begin{enumerate}
+\item \textbf{R-final (b), (c) hold for every $k\ge4$ (PROVED).} Every $k$-dependent ingredient now has a structural proof valid for all $k$
+(\S1):
+ \begin{itemize}
+ \item full rank of the reference moment map;
+ \item $\dim U_k=(k-1)(k-2)/2$, with traces exactly $P_e$;
+ \item the zero-flux lemma, via a one-line slicing argument;
+ \item the kernel of the defect pairing is exactly $\operatorname{Ker}_T$ (Dubiner basis);
+ \item the vertex field, using the \emph{same} quintic Argyris stream function for every $k$.
+ \end{itemize}
+ For $k\ge5$, condition (G$^\pm$) is not needed. All facts are re-verified in exact rationals for $4\le k\le12$, with edge integrals computed by
+ restriction and a regression test for the robust5 bug (\texttt{allk\_exact.log}). The full vertex field is checked on 4 stars for $k=5$ and 3 stars for $k=6$ (\texttt{vf\_allk.log}).
+ For $k\ge5$ the constants $\kappa_T,\kappa_K$ are not explicit.
+\item \textbf{The Nitsche pressure layer is an effective penalty (PROVED identity).}
+ \begin{itemize}
+ \item On $Z_h$, CNS$^\ast$ equals GS with normal penalty $\lambda-m_h$. Here $m_h(u,v)=\sum_e(\xi_b[u\cdot n],\xi_b[v\cdot n])_{T_e}$ is symmetric positive semidefinite, bounded by
+ $k(k+1)/H_e$ (sharp, attained on edge constants).
+ \item The remaining ``regular'' pressure $\tilde\xi=\xi+\xi_b[W\cdot n]$ sees only the \emph{tangential} slip.
+ \end{itemize}
+ Consequently:
+ \begin{itemize}
+ \item (S) is PROVED on equal-height families (e.g.\ \textsf{UP}) for $\gamma'=\gamma-k(k+1)\hG/H\ge\gamma_0$, with a two-sided asymptotic;
+ \item (S$_{\rm LP}$) is PROVED on LP$^{++}$ families (LP$^+$ with $C^3$ shape/size maps) for $\gamma\ge\gamma_{\rm LP}$.
+ \end{itemize}
+ This \textbf{resolves Conjecture rb:conj} (for $\gamma\ge\gamma_{\rm LP}$). R-final (c) loses its $\gamma^{-3/2}$ term, and (d) becomes order $k+1$.
+\item \textbf{Sharpness.}
+ \begin{itemize}
+ \item Order $k+1$ for $K$-degenerate data with non-constant edge constant is PROVED on equal-height families, and on LP$^{++}$ for $\gamma\ge\gamma(\phi)$.
+ \item Order $k+\frac32$ is PROVED for $\phi=(r-1)^k$ on \textsf{UP} ($k=4,\dots,7$). The key coefficient is exact: $c_1=\rho^3/900$ and $c_2=\rho^3/525$ for $k=4$.
+ \end{itemize}
+\item \textbf{NUMERICAL (exact Floquet reduction, $N\le4096$).}
+ \begin{itemize}
+ \item On \textsf{UP}, $W^a$ agrees with GS at penalty $\gamma-20\hG/H$ to $10^{-4}$ relative. The remainder is $\approx180\,\gamma^{-2}\hG^{3/2}$.
+ \item On the 2-periodic non-LP mesh `alt', (S) fails at \emph{every} $\gamma\in[100,3000]$, cleanly: $\|\nabla(W-\delta)\|\approx63\,\gamma^{-2}\hG^{1/2}$.
+ So robust5's $\gamma^{-3/2}$ is not the true $\gamma$-power, and its ``near-criticality'' is the effective penalty $\gamma-20\hG/H_e$ reaching the GS threshold.
+ \end{itemize}
+\end{enumerate}
+
+\section{Theorem R-final for all $k\ge4$}
+Reference triangle $\hat T=(z,a,c)=(0,0),(1,0),(0,1)$, $e=[z,a]=\{y=0\}$, $\lambda_z=1-x-y$, $\lambda_a=x$, $\lambda_c=y$.
+Put $X_k:=\{p\in P_k^2:p=0$ on $\partial\hat T\setminus e\}=\lambda_z\lambda_aP_{k-2}^2$ and $U_k:=\{p\in X_k:(p,\nabla r)=0\ \forall r\in P_{k-1}\}$.
+Let $P_e$ be the set of zero-mean elements of $\lambda_z\lambda_aP_{k-2}(e)$, of dimension $k-2$.
+
+\begin{lemma}[full rank; PROVED, all $k$]\label{lem:rank}
+If $r\in P_{k-1}$ and $(p,\nabla r)=0$ for all $p\in X_k$, then $r$ is constant. Hence the moment map has rank $\dim P_{k-1}-1$, and
+$\dim U_k=k(k-1)-\frac{k(k+1)}2+1=\frac{(k-1)(k-2)}2$.
+\end{lemma}
+\begin{proof}Take $p=\lambda_z\lambda_a\nabla r\in X_k$. Then $\int\lambda_z\lambda_a|\nabla r|^2=0$.\end{proof}
+
+\begin{lemma}[zero flux; PROVED, all $k$]\label{lem:flux}
+There is $f\in P_{k-1}(\mathbb R)$ with $(p,\nabla f(\lambda_c))_{\hat T}=\int_ep\cdot n$ for all $p\in X_k$. Consequently:
+\begin{itemize}
+\item every $u\in U_k$ has $\int_eu\cdot n=0$;
+\item every solution of $(p,\nabla r)=-\ip gr_e$ ($r\in P_{k-1}$), with $g\in P_k(e)$ and $\int_eg=0$, has zero flux.
+\end{itemize}
+This is robust6 Lemma~flux0, for every $k$.
+\end{lemma}
+\begin{proof}
+\emph{Tangential part.} For $p=\lambda_z\lambda_aq\,e_x$ both sides vanish.
+
+\emph{Normal part.} For $p=\lambda_z\lambda_aq\,e_y$ we need $g:=f'\in P_{k-2}$ with $\int_{\hat T}\lambda_z\lambda_aq\,g(y)=-\int_e\lambda_z\lambda_aq$ for all $q\in P_{k-2}$.
+Slice at height $y$, with $x=(1-y)s$:
+\[
+\int_{\hat T}\lambda_z\lambda_aq\,g=\int_0^1g(y)(1-y)^3Q(y)\,dy,\qquad Q(y):=\int_0^1s(1-s)q((1-y)s,y)\,ds\in P_{k-2}.
+\]
+Also $\int_e\lambda_z\lambda_aq=Q(0)$. So $g$ is the Riesz representative of $Q\mapsto-Q(0)$ on $P_{k-2}$ in the weight $(1-y)^3$, and it exists.
+
+\emph{Consequences.} For the first, take $p=u$: $\int_eu\cdot n=(u,\nabla f(\lambda_c))=0$. For the second, $\int_ep\cdot n=-\ip g{f(0)}_e=-f(0)\int_eg=0$.
+\end{proof}
+
+\begin{lemma}[traces; PROVED, all $k$]\label{lem:tr}
+$\{u\cdot n|_e:u\in U_k\}=P_e$.
+\end{lemma}
+\begin{proof}
+The traces lie in $P_e$ by Lemma~\ref{lem:flux}. The kernel of the trace map on $U_k$ consists of the divergence-free fields in $X_k$ with $p\cdot n|_e=0$; for such $p$,
+$(p,\nabla r)=-(\operatorname{div}p,r)$.
+\begin{itemize}
+\item Such a field is $\operatorname{curl}\psi$ with $\psi$ constant on $\partial\hat T$ (normalise $\psi=0$) and $\nabla\psi=0$ on the two other edges.
+So $\psi=\lambda_z^2\lambda_a^2\lambda_c\varphi$ with $\varphi\in P_{k-4}$, and the kernel has dimension $\frac{(k-3)(k-2)}2$.
+\item The image therefore has dimension $\frac{(k-1)(k-2)}2-\frac{(k-3)(k-2)}2=k-2=\dim P_e$.
+\end{itemize}
+\end{proof}
+
+\begin{lemma}[$\zeta_T$; PROVED, all $k$]\label{lem:zeta}
+The Riesz representative $\zeta$ in $P_{k-1}(\hat T)$ of $w\mapsto\int_ew$ is a function of $\lambda_c$ alone, with trace $k(k+1)$ on $e$.
+On a physical triangle it is $k(k+1)/H_e$.
+\end{lemma}
+\begin{proof}
+The same slicing gives a function of $\lambda_c$ alone; uniqueness does the rest. The value is exact for $k\le12$ (\texttt{allk\_exact.log}, F4).
+In general it is the Christoffel number $K_{k-1}(0,0)$ of the Jacobi weight $(1-y)$ on $[0,1]$, which equals $k(k+1)$; this is also the sharp
+Warburton--Hesthaven single-edge constant.
+\end{proof}
+
+\begin{lemma}[kernel $=\operatorname{Ker}_T$; PROVED, all $k$]\label{lem:ker}
+The pairing $\mathrm{Hom}_k\times P_e\to\mathbb R$, $(H,p)\mapsto\ip{(I-\pi_T)H}p_e$, has left kernel exactly
+$\operatorname{Ker}_T=\operatorname{span}\{\ell_c^k,\ell_z^k,\ell_a^k\}$.
+\end{lemma}
+\begin{proof}
+\emph{Restriction is an isomorphism.} $H\mapsto(I-\pi_T)H$ maps $\mathrm{Hom}_k$ isomorphically onto the degree-$k$ orthogonal space $O_k$, which has the Dubiner basis
+\[
+D_{m,k-m}=L_m(s)(1-y)^mP^{(2m+1,0)}_{k-m}(2y-1),\qquad x=(1-y)s .
+\]
+On $e$ ($y=0$), $D_{m,k-m}=(-1)^{k-m}L_m(s)$. So restriction $O_k\to P_k(e)$ is an isomorphism.
+
+\emph{Dimension count.} The left kernel is the preimage of $P_e^\perp\cap P_k(e)$, of dimension $(k+1)-(k-2)=3$.
+
+\emph{It contains $\operatorname{Ker}_T$.} $(I-\pi_T)\lambda_w^k=J_k(\lambda_w)$, and $J_k\perp(1-s)P_{k-1}$, while $s(1-s)P_{k-2}\subset(1-s)P_{k-1}$.
+The three powers are independent for $k\ge2$.
+\end{proof}
+
+\noindent\emph{Also PROVED, all $k$.}
+\begin{itemize}
+\item robust5 Lemma~J: $\ip{J_k(\lambda_w)}g_e=\beta_k|e|g(w)$ with $\beta_k=\int_0^1J_k$. Exactly, $\beta_k=(k!)^2/(2k+1)!$ for $k\le12$.
+\item For $k\ge5$, the single-triangle stream functions $\psi_z=\lambda_z^{k-2}\lambda_a^2\lambda_c$ and $\psi_c=\lambda_z^{k-3}\lambda_a^2\lambda_c^2$ satisfy:
+ \begin{itemize}
+ \item they are $C^1$ across both interior edges (the gradient vanishes there), vanish on $e$, and have $\nabla\psi(z)=0$;
+ \item their curls give the triangular system $M_t(\operatorname{curl}\psi_c)=0$, $M_t(\operatorname{curl}\psi_z)=\int_e\lambda_z^{k-2}\lambda_a^2\,\partial_n\lambda_c\ne0$, $D_t(\operatorname{curl}\psi_c)=2\int_e\lambda_z^{k-3}\lambda_a^2(\partial_n\lambda_c)^2\ne0$.
+ \end{itemize}
+ This is F8 in \texttt{allk\_exact.log}.
+\end{itemize}
+
+\begin{theorem}[$(P^T)$, $(V)$, $(P^K)$ for all $k\ge4$; PROVED]\label{thm:allk}
+Assume the hypotheses of R-final. For $k=4$ this is robust6. For $k\ge5$, (G) and (G$^\pm$) are not needed.
+\begin{enumerate}
+\item[(i)] \emph{$(P^T)$.} The fields $v=\mathrm{Piola}(\hat u)+\alpha\operatorname{curl}\psi_z+\beta\operatorname{curl}\psi_c$, with $\hat u\in U_k$, are supported
+in $T_e$ and pressure-blind. Their normal traces span $P_e$, and they satisfy (M),(D):
+\begin{itemize}
+\item the normal parts vanish by Lemma~\ref{lem:flux} and Lemma~\ref{lem:zeta};
+\item the tangential parts vanish by the triangular system.
+\end{itemize}
+By Lemma~\ref{lem:ker}, the pairing with $\mathrm{Hom}_k/\operatorname{Ker}_T$ is nondegenerate and shape independent in the $\ell_z^j\ell_a^{k-j}$ basis, and the norms
+are continuous in the shape. So $\kappa_T(k,\theta)>0$ by compactness.
+\item[(ii)] \emph{(V).} $v_z^0=\operatorname{curl}\Psi_z+p_e+p_{e'}$ as in robust6 Prop.~vz, with $\Psi_z$ the \emph{quintic} Argyris function (so
+$\operatorname{curl}\Psi_z\in P_4\subset P_k$) and $p_e,p_{e'}$ from Lemma~\ref{lem:flux} at degree $k$. For $k\ge5$ the (M),(D) corrections are
+$\operatorname{curl}\psi_z,\operatorname{curl}\psi_c$ on $T_e$ and $T_{e'}$ instead of $w_A,w_C$ on $Q$. They leave $v(z)$, the fluxes and
+pressure-blindness unchanged, and robust6 Thm~V applies verbatim ($D_t^e=-D_t^{e'}=-\cos\varphi$).
+\item[(iii)] \emph{$(P^K)$}, hence \textbf{R-final (b) and (c) for every $k\ge4$}. Cor.~PK needs only Lemma~J ($\beta_k>0$), (i) and (ii).
+\end{enumerate}
+\end{theorem}
+
+\noindent\textbf{Exact verification.}
+\begin{itemize}
+\item \texttt{allk\_exact.py} (flint over $\mathbb Q$; edge integrals by restriction $y=0$; regression test $\int_ey\,x^3=0$) checks F1--F8 for every
+$4\le k\le12$: rank, $\dim U_k$, traces $=P_e$, the flux certificate $f(\lambda_c)$ and the direct zero-flux check, $\zeta$,
+kernel $=\operatorname{Ker}_T$, the Dubiner restriction, $J_k$ and $\beta_k$, and $\psi_z,\psi_c$. It runs in 2 minutes and all checks are true.
+\item \texttt{vf\_allk.py} builds the whole vertex field in rationals on robust6's stars and re-checks every constraint of $V^\sharp$ at degree $k$
+(moments against all of $P_{k-1}$). Results:
+ \begin{itemize}
+ \item for $k=5$ on 4 stars and $k=6$ on 3 stars: both per-edge fluxes are $0$ before and after the corrections, (M),(D) hold, and $v(z)\cdot n_e=1$;
+ \item the correction rank is $2$ on flat stars and $4$ on tilted stars.
+ \end{itemize}
+\end{itemize}
+This replaces the robust5 \texttt{higher\_k.log} evidence, which is void because of the edge-integral bug.
+
+\section{(S$_{\rm LP}$): the pressure layer is an effective penalty}
+Let $(W,\xi)$ solve CNS$^\ast$ with load $v\mapsto\ip a{v\cdot n}_{\Gh}$, $a$ the trace of a smooth $\alpha$ with $\int_\Gamma\alpha=0$ (robust5 \S5).
+For $g\in L^2(e)$ let $\xi_b[g]\in P_{k-1}(T_e)$ satisfy $(\xi_b[g],r)_{T_e}=\ip gr_e$ for all $r\in P_{k-1}$, extended by $0$. Put
+\[
+m_h(u,v):=\sum_{e}\ip{\xi_b[u\cdot n]}{v\cdot n}_e=\sum_e(\xi_b[u\cdot n],\xi_b[v\cdot n])_{T_e},\qquad \tilde N_h:=N_h-m_h,\qquad \tilde\xi:=\xi+\xi_b[W\cdot n].
+\]
+
+\begin{lemma}[PROVED]\label{lem:mh}
+\begin{enumerate}
+\item[(a)] $m_h$ is symmetric positive semidefinite, and $m_h(u,u)\le\sum_e\frac{k(k+1)}{H_e}\|u\cdot n\|_e^2$. The constant is sharp:
+$m_h(u,v)=\sum_e\frac{k(k+1)}{H_e}|e|\,\bar u_e\bar v_e+m_h(\tilde u,\tilde v)$, with $\bar{\ }$ the edge mean and $\tilde{\ }$ the fluctuation of the normal trace.
+\item[(b)] For all $v\in Z_h$ and every constant $c$: $\tilde N_h(W,v)+\ip{\tilde\xi-c}{v\cdot n}=\ip a{v\cdot n}$.
+\item[(c)] For all $v\in V_O$: $(\tilde\xi,\operatorname{div}v)=a_h(W,v)-\ip{W\cdot\tau}{\partial_nv\cdot\tau}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a) $\|\xi_b[g]\|_T^2=\ip g{\xi_b[g]}_e\le\|g\|_e\|\xi_b[g]\|_e$, and $\|r\|_e^2\le\frac{k(k+1)}{H_e}\|r\|_T^2$ on $P_{k-1}$ (Warburton--Hesthaven, one edge).
+The split holds because $\xi_b[1]=\zeta_T$ has constant trace (Lemma~\ref{lem:zeta}).
+
+(b) For $v\in Z_h$, $\operatorname{div}v=0$ and the flux is zero, so $B^\ast(\xi,v)=\ip{\xi-c}{v\cdot n}$ and $\ip{\xi_b[W\cdot n]}{v\cdot n}=m_h(W,v)$.
+
+(c) This is robust5 Lemma~layer.
+\end{proof}
+
+So CNS$^\ast$ is GS with the normal penalty reduced by $m_h$, plus a pressure $\tilde\xi$ whose equation contains only the \emph{tangential} slip
+$W\cdot\tau$. In robust5 Thm~S1 the full slip $\hG^{-1/2}\|W\|_{\Gh}\sim\gamma^{-1}\hG^{1/2}$ entered the pressure bound. Here only
+$\hG^{-1/2}\|W\cdot\tau\|_{\Gh}\sim\gamma^{-1}\hG^{3/2}$ does. That is the whole mechanism.
+
+\begin{theorem}[(S) on equal-height families; PROVED given the paper lemmas]\label{thm:Seq}
+Assume $k(k+1)\hG/H_e\equiv\bar c$ on all boundary triangles; \textsf{UP} and every rotation-invariant mesh qualify. Put $\gamma':=\gamma-\bar c$, and let $\delta'\in Z_h$ be the GS leak solution
+at penalty $\lambda'=\gamma'/\hG$: $N_h^{\lambda'}(\delta',v)=\ip a{v\cdot n}$ on $Z_h$. Suppose $\gamma'\ge\gamma_0$ and
+$\gamma\ge\max(\gamma_m,\gamma_S)$, where $\gamma_m:=2k(k+1)\hG/(c_1H_{\min})$ and $\gamma_S$ is as in Thm~S1. Then
+\[
+\big|\|\nabla W^a\|-\|\nabla\delta'\|\big|\le C\beta^{-1}\gamma^{-1/2}\|\nabla\delta'\|+C_\alpha\hG^{3/2},\qquad
+\Big|\|\nabla\delta'\|-\frac{\hG}{\gamma'}\|\nabla\tilde U_\alpha\|\Big|\le C_\alpha\frac{\hG}{\gamma'}(\hG^{1/2}+E_U).
+\]
+In particular $\|\nabla W^a\|\le C\gamma'^{-1}\hG\|\alpha\|_{C^3}$, and $\|\nabla W^a\|\ge c\,\gamma'^{-1}\hG\|\nabla\tilde U_\alpha\|$ for $\gamma\ge\gamma_S'$ and small $\hG$.
+\end{theorem}
+\begin{proof}
+\emph{Splitting the form.} From $\lambda\ip uv=\lambda'\ip uv+\frac{\bar c}{\hG}(\ip{u\cdot\tau}{v\cdot\tau}+\ip{\bar u}{\bar v}+\ip{\tilde u}{\tilde v})$ and
+Lemma~\ref{lem:mh}(a),
+\[
+\tilde N_h=N_h^{\lambda'}+f_h,\qquad f_h(u,v)=\frac{\bar c}{\hG}\big(\ip{u\cdot\tau}{v\cdot\tau}+\ip{\tilde u}{\tilde v}\big)-m_h(\tilde u,\tilde v),
+\]
+with $|f_h(u,v)|\le\frac{2\bar c}{\hG}(\|u\cdot\tau\|+\|\tilde u\|)_{\Gh}\|v\|_{\Gh}$.
+
+\emph{Sizes of $\delta'$ on $\Gh$.} By unifmu Thm~up and Lemma~size at penalty $\gamma'$, $X':=\lambda'\delta'$ satisfies
+$\|X'-\tilde U\|_{\Gh}\le\|D\|_{\Gh}+\|t^\ast-\tilde U\|_{\Gh}\le C\hG$. On chords, $\tilde U\cdot\tau_e=O(\hG)$ and $\tilde U\cdot n$ varies by $O(\hG)$ (hc:thm step~4). Hence
+\[
+\|\delta'\cdot\tau\|_{\Gh}+\|\widetilde{\delta'\cdot n}\|_{\Gh}\le C\hG^2/\gamma' .
+\]
+
+\emph{Error equation.} $\varepsilon:=W-\delta'\in Z_h$ satisfies, on $Z_h$, $\tilde N_h(\varepsilon,v)=-f_h(\delta',v)-\ip{\tilde\xi-\tilde\xi_\Omega}{v\cdot n}$ (Lemma~\ref{lem:mh}(b)).
+
+\emph{Coercivity.} For $\gamma\ge\gamma_m$, $\tilde N_h(u,u)\ge\frac{c_1}2\tn u^2$.
+
+\emph{Pressure.} Inverse trace gives $|\ip{\tilde\xi-\tilde\xi_\Omega}{\varepsilon\cdot n}|\le C\gamma^{-1/2}\|\tilde\xi-\tilde\xi_\Omega\|\tn\varepsilon$. By Lemma~\ref{lem:mh}(c) and
+Lemma infsup,
+\[
+\beta\|\tilde\xi-\tilde\xi_\Omega\|\le2\|\nabla W\|+C_I\hG^{-1/2}\|W\cdot\tau\|_{\Gh}\le2\|\nabla\delta'\|+C\hG^{3/2}/\gamma'+C\tn\varepsilon .
+\]
+Absorb for $\gamma\ge\gamma_S$. The result is $\tn\varepsilon\le C\beta^{-1}\gamma^{-1/2}\|\nabla\delta'\|+C\hG^{3/2}$.
+
+\emph{Conclusion.} The second estimate is unifmu Thm~up, $\|\nabla(X'-\tilde U)\|\le C(\hG^{1/2}+E_U)$, divided by $\lambda'$.
+\end{proof}
+
+\begin{theorem}[(S$_{\rm LP}$); PROVED given the paper lemmas]\label{thm:SLP}
+Let the family be LP$^{++}$: LP$^+$ with $C^3$ maps $\mathcal K,\ell$. Then $k(k+1)\hG/H_e=\bar c+\varphi(x_e)+r_e$ with
+$\varphi\in C^3(\Gamma)$ of mean $0$ and $|r_e|\le C\hG$. There is $\gamma_{\rm LP}=\bar c+\gamma_0+C\|\varphi\|_{C^3}$ such that, for
+$\gamma\ge\max(\gamma_{\rm LP},\gamma_m,\gamma_S)$,
+\[
+\|\nabla W^a\|\le C\gamma^{-1}\hG\|\alpha\|_{C^3}.
+\]
+\end{theorem}
+\begin{proof}
+\emph{The smooth series.} Define $a_0=a$ and $a_{j+1}=(\varphi/\gamma')a_j$, and let $\delta_j$ be the GS leak solution at penalty $\gamma'=\gamma-\bar c$ with data
+$a_j$. Then $\|a_j\|_{C^3}\le q^j\|a\|_{C^3}$ with $q=C_3\|\varphi\|_{C^3}/\gamma'<1$. Put $W^\flat:=\sum_j\delta_j$.
+
+\emph{The error equation.} By Theorem~\ref{thm:Seq}'s decomposition, with the extra term $-\hG^{-1}\ip{(\varphi+r)\bar u}{\bar v}$ in $\tilde N_h$, the series telescopes.
+Here $\overline{\delta_j\cdot n}=\frac{\hG}{\gamma'}a_j+\rho_j$ with $\|\rho_j\|_{\Gh}\le C\hG^2q^j/\gamma'$, by the same unifmu sizes. So
+$\varepsilon=W-W^\flat$ satisfies $\tilde N_h(\varepsilon,v)=\ip{\mathcal R}{v\cdot n}-\sum_jf_h(\delta_j,v)-\ip{\tilde\xi-\tilde\xi_\Omega}{v\cdot n}$ with
+$\|\mathcal R\|_{\Gh}\le C\hG/\gamma'$.
+
+\emph{Close.} Finish as in Theorem~\ref{thm:Seq}. All constants are linear in the data (linear problem), which is what makes the $C^3$ bookkeeping
+close.
+\end{proof}
+\noindent The bookkeeping in the last step is routine but has been written at the level of detail of robust5 Thm~S1, not beyond.
+
+\begin{corollary}[upgrade of R-final (c), (d); PROVED on LP$^{++}$, $\gamma\ge\max(\gamma_{\rm LP},\gamma_m,\gamma_S)$, every $k\ge4$]\label{cor:Rc}
+\begin{itemize}
+\item In (c), the $\gamma^{-3/2}\|\phi\|$ term disappears: $c\gamma^{-1}D(\phi)\le\liminf\le\limsup\le C\gamma^{-1}D(\phi)$. In particular
+$\|\nabla W\|=o(\hG^{k+1/2})\iff D(\phi)=0$.
+\item In (d), $\|\nabla W\|\le C\gamma^{-1}\hG^{k+1}$ for every $K$-degenerate $\phi$.
+\end{itemize}
+\end{corollary}
+\begin{proof}
+Use the R-final split. The edge constant is $A_e=\hG^k\alpha(x_e)+\text{rough }O(\hG^{k+1})$ with $\alpha\in C^3$ on LP$^{++}$. The smooth part goes through Theorem~\ref{thm:SLP}.
+The rough part goes through Thm~S1 plus the energy bound, and is $O(\gamma^{-1/2}\hG^{k+3/2})$.
+\end{proof}
+
+\noindent\textbf{NUMERICAL: exact Floquet reduction} (\texttt{cns\_cell.py}). The setting is a rotation-invariant mesh, a single cell of $p$ wall edges, the quasi-periodic condition, and the load $e^{2i\theta}$. The CNS$^\ast$ coupling is
+$B-C$ (Gamma-mean terms vanish for $m\ne0$), $k=4$, and $\gamma:=\lambda\hG$. The reported quantities are:
+\begin{itemize}
+\item $S=\|\nabla W\|\gamma/\hG$;
+\item $E=\|\nabla(W-\delta)\|\gamma/\hG$;
+\item $E_{\rm lay}=\|\nabla(W-\delta)\|\gamma^{3/2}/\hG^{1/2}$;
+\item $\mathrm{SP}$ is $S$ for GS at $\gamma'=\gamma-20\hG/H$.
+\end{itemize}
+
+\smallskip\noindent{\small
+\begin{tabular}{llrrrrr}\toprule
+mesh, $N$ & & $\gamma=30$ & 100 & 300 & 1000 & 3000\\\midrule
+\textsf{UP}, 256/1024/4096 & $E$ & 11.34/11.69/11.79 & 1.447/1.469/1.475 & .421/.421/.422 & .122/.121/.121 & .040/.040/.040\\
+\textsf{UP}, 4096 & $S$ / SP & 17.683/17.677 & 7.3711/7.3705 & 6.3189/6.3187 & 6.0184/6.0183 & 5.9377/5.9377\\
+alt, 256/1024/4096 & $E_{\rm lay}$ & 196.6/196.8/196.8 & 8.32/8.05/7.97 & 3.84/3.68/3.64 & 2.10/2.00/1.97 & 1.25/1.18/1.16\\
+alt, 256/1024/4096 & $E$ & 229/459/917 & 5.3/10.3/20.4 & 1.41/2.71/5.36 & .42/.81/1.59 & .15/.28/.54\\\bottomrule
+\end{tabular}}
+
+\smallskip\noindent Reading:
+\begin{itemize}
+\item \emph{\textsf{UP}.} $E$ converges, so (S) holds, and $E\gamma\to\approx118=20\cdot\mathrm{SD}$, as the effective penalty predicts.
+ $W$ equals GS at $\gamma'$ to $10^{-4}$ relative, including at $\gamma=30$ ($\gamma'=10$). The remainder is $\|\nabla(W-\delta')\|\approx(170$--$190)\gamma^{-2}\hG^{3/2}$, which is better than the theorem's bound.
+\item \emph{alt} (heights $0.7|e|,1.4|e|$, not LP$^+$). $E_{\rm lay}$ converges at every $\gamma$, so $\|\nabla(W-\delta)\|\asymp\hG^{1/2}$ and (S) \emph{fails}.
+ The amplitude is $\approx63\gamma^{-2}$ ($E_{\rm lay}\gamma^{1/2}=80,63,62,64$), so it is $\gamma^{-2}$, not $\gamma^{-3/2}$.
+ At $\gamma=30$ the effective penalties are $30-28.6$ and $30-14.3$: that is the ``near-criticality''.
+ The effective-penalty GS (form $K-C^{\mathsf T}M^{-1}C$) captures $85$--$96\%$ of $W-\delta$ for $\gamma\ge100$ ($N=4096$). The rest decreases like $\gamma^{-1}$ relative.
+\item \emph{Smooth heights} (\texttt{smooth\_S.py}; full solver, $\rho_i=1+0.35\cos3\theta_i$, genuinely LP$^{++}$, not rotation invariant).
+ At $\mu=1000$, $E=.606,.610,.617,.622,.629$ for $N=24,32,48,64,96$. $E\gamma$ decreases ($127\to109$) as the mesh $\gamma$ drifts from $210$ to $173$, so $E$ is bounded.
+ At $\mu=300$ (min effective penalty $\approx23$), $E\gamma$ grows $159\to176$ ($N=24\to64$), far below the $\sqrt{N}$ growth of alt. We read this as approach to the effective threshold. NUMERICAL.
+\end{itemize}
+
+\begin{remark}[consequence for the paper's $\mu=100$ numerics; heuristic]
+CNS$^\ast$ is only as coercive as GS at $\gamma-k(k+1)\hG/H_e$. With first-layer aspects $0.75$--$2.04$ and $k=4$ the shift is $10$--$27$, against
+$\gamma\approx30$. That is consistent with the paper's caveat that the proof thresholds are not met at $\mu=100$.
+\end{remark}
+
+\section{Sharpness of the orders $k+1$ and $k+\frac32$}
+\begin{theorem}[order $k+1$; PROVED]\label{thm:k1}
+Let $\phi\in C^{k+3}$ be $K$-degenerate on an LP$^{++}$ family. Suppose its normalised edge constant $\alpha$, defined by $A_e=\hG^k\alpha(x_e)+O(\hG^{k+1})$ and in $C^3$, is not constant.
+\begin{itemize}
+\item \emph{Equal-height families, $\gamma\ge\max(\gamma_m,\gamma_S')$, $\gamma'\ge\gamma_0$:}
+\[
+\|\nabla W\|\ge(1-C\beta^{-1}\gamma^{-1/2})\frac{\hG^{k+1}}{\gamma'}\|\nabla\tilde U_{\alpha-\bar\alpha}\|-C\hG^{k+3/2}.
+\]
+\item \emph{General LP$^{++}$:} the same holds for $\gamma\ge\gamma(\phi)$, a threshold depending on $\|\varphi\|_{C^3}\|\alpha\|_{C^3}/\|\nabla\tilde U_{\alpha-\bar\alpha}\|$.
+\end{itemize}
+With Cor.~\ref{cor:Rc}, $\|\nabla W\|\asymp\gamma^{-1}\hG^{k+1}$. Example: $(r-1)^k\cos m\theta$ on \textsf{UP}, where robust4 observed orders $5.28\downarrow$.
+\end{theorem}
+\begin{proof}
+$W=W^{A}+W^{\rm rest}$, with $\|\nabla W^{\rm rest}\|\le C\gamma^{-1}\hG^{k+3/2}$ (the R-final (d) split). Apply Theorem~\ref{thm:Seq} to the smooth part of $A$.
+In the general case, apply Theorem~\ref{thm:SLP}: the $j\ge1$ terms are $\le Cq(1-q)^{-1}\hG\|\alpha\|_{C^3}/\gamma'$.
+\end{proof}
+
+\begin{theorem}[order $k+\frac32$ for $(r-1)^k$ on \textsf{UP}; PROVED, $4\le k\le7$]\label{thm:k32}
+Take \textsf{UP} with first-layer ratio $\rho>0$ and $\phi=(r-1)^k$. For every $\gamma>0$,
+\[
+\|\nabla W\|\ge c_\rho(1+\gamma)^{-1}\hG^{k+3/2}\quad(\hG\le h_0),
+\]
+and $\|\nabla W\|\le C\gamma^{-1}\hG^{k+3/2}$ (R-final (d), since $A$ is constant). So the order is exactly $k+\frac32$.
+\end{theorem}
+\begin{proof}
+All boundary stars are congruent. Use Thm~rb:cert in its first form, which has no remainder, with one pressure-blind field per wall edge:
+\begin{itemize}
+\item for $k=4$, robust6's $v_f$ on $Q$;
+\item for $k\ge5$, those of Theorem~\ref{thm:allk}(i) on $T_e$.
+\end{itemize}
+The overlap is $K=1$, and $\Phi^\ast(v_f)$ is the same on every star and converges as $N\to\infty$. The stream parts have zero normal trace on $e$, so
+$\ip\eta{v_f\cdot n}$ is proportional to $P_f=\int_e(I-\pi_{T_e})\phi\,t_f\,ds$, with $t_f=B_1-B_{f+1}\in P_e$.
+
+The blow-up at $z$ gives $(r-1)^k/\ell^k=\xi^k+\frac k2\ell\,\xi^{k-1}\upsilon^2+O(\ell^2)$ and
+$T_e=\{0,(-\frac\ell2,1),(\rho-\frac\ell2,1+\rho\ell)\}+O(\ell^2)$. The order-$\ell^{k+1}$ term vanishes ($\xi^k\in\operatorname{Ker}_T$), and exact
+rational algebra (\texttt{pairing\_exact.py}) gives $P_f/\ell^{k+2}\to c_f(\rho)$:
+\begin{itemize}
+\item $k=4$: $c_f=\rho^3/900,\ \rho^3/525$;
+\item $k=5$: $-13\rho^4/33264,\dots$;
+\item $k=6$: $\rho^5/8008,\dots$;
+\item $k=7$: $-31\rho^6/823680,\dots$
+\end{itemize}
+All are nonzero (\texttt{pairing\_exact.log}). The double-precision evaluation at $N\le8192$ (\texttt{pairing\_asym.py}) agrees to 8 digits.
+
+Summing $N\asymp\hG^{-1}$ stars with pairing $\asymp\hG^{k+2}$ gives $\hG^{k+3/2}$.
+\end{proof}
+
+\noindent\emph{Remark.}
+\begin{itemize}
+\item The same argument gives order $k+\frac32$ for any $K$-degenerate $\phi$ with constant $A$ on a family with congruent boundary stars. The condition is that the explicit
+first-order pairing (degree-$k$ rotation term plus degree-$(k+1)$ Taylor term) is not identically zero.
+\item For $\phi_B$ it requires its fifth derivatives on $\Gamma$ (robust4's
+explicit $c_j$). That was not evaluated.
+\end{itemize}
+
+\section{Resolution of Conjecture rb:conj (suggested text; not applied)}
+Replace Conjecture~\ref{rb:conj} by:
+
+\begin{quote}\small
+\textbf{Theorem (S$_{\rm LP}$).} Assume the family is LP$^+$ with $C^3$ maps $\mathcal K,\ell$, and let $\gamma\ge\gamma_{\rm LP}$. Then
+$\|\nabla W^a\|\le C\gamma^{-1}\hG\|a\|_{C^3}$. On families with equal first-layer heights the constant is asymptotically sharp:
+$\|\nabla W^a\|\sim(\hG/\gamma')\|\nabla\tilde U_\alpha\|$ with $\gamma'=\gamma-k(k+1)\hG/H$.
+
+\emph{Proof idea.} On $Z_h$ the Nitsche pressure layer $\xi_b[W\cdot n]$ acts as a reduction $m_h\le k(k+1)/H_e$ of the normal penalty. The remaining
+pressure sees only the tangential slip, which is $O(\hG^2/\gamma)$.
+\end{quote}
+
+\noindent Consequential edits:
+\begin{itemize}
+\item In Thm~rb:final, (c) becomes two-sided with $C\gamma^{-1}D(\phi)$ only, and (d) becomes $C\gamma^{-1}\hG^{k+1}$ (both for $\gamma\ge\gamma_{\rm LP}$).
+\item ``Parts (b)--(d) are proved for $k=4$'' becomes ``for every $k\ge4$ ($\kappa_T,\kappa_K$ explicit only for $k=4$)''.
+\item The sentence ``(P$^T$) and the vertex field for $k\ge9$ are unverified'' is deleted.
+\item The paragraph after the conjecture reads: the non-LP failure is NUMERICAL but clean ($\hG^{1/2}$ at every
+$\gamma\in[100,3000]$, amplitude $\propto\gamma^{-2}$, exact Floquet computation to $N=4096$).
+\item ``What is not proved'' loses Conjecture rb:conj and the sharpness of $k+1$. It keeps the sharpness of $k+\frac32$ for general data, and
+explicit $\kappa_K$.
+\end{itemize}
+
+\section{Still open}
+\begin{enumerate}
+\item The thresholds $\gamma_{\rm LP},\gamma_m,\gamma_S$ are not explicit, and (S$_{\rm LP}$) for $\gamma$ between $\gamma_2$ and $\gamma_{\rm LP}$ when the height map varies strongly is open.
+ The observed controlling quantity is $\min_e(\gamma-k(k+1)\hG/H_e)$ against the GS threshold.
+\item Explicit $\kappa_T$ for $k\ge5$, and explicit $\kappa_K,a_0$ for any $k$.
+\item Order $k+\frac32$ for general constant-$A$ data (criterion in the remark after Theorem~\ref{thm:k32}), including $\phi_B$; and on non-congruent LP$^{++}$ stars.
+\item Failure of (S) off LP$^+$ is NUMERICAL only. A proof would take the alt cell and the effective-penalty reduction with 2-periodic $\gamma_{\rm eff}$.
+\item 3D is not addressed.
+\end{enumerate}
+
+\section*{Files (\texttt{notes/v7/robust/})}
+\begin{itemize}
+\item \texttt{allk\_exact.py} (usage \texttt{12}) and \texttt{allk\_exact.log}: F1--F8, $k=4..12$.
+\item \texttt{vf\_allk.py} (usage \texttt{k [stars]}) and \texttt{vf\_allk.log}: the vertex field for $k=5$ (4 stars) and $k=6$ (3 stars).
+\item \texttt{cns\_cell.py} (usage \texttt{u|alt N,.. gamma,..}), with \texttt{cell\_u.jsonl} and \texttt{cell\_alt.jsonl}: the Floquet cell for CNS$^\ast$, GS, the effective-penalty GS,
+and GS at $\gamma'$.
+\item \texttt{smooth\_S.py} and \texttt{smooth\_S.jsonl}: the smooth-height LP$^{++}$ full-mesh test.
+\item \texttt{pairing\_exact.py} (usage \texttt{k}), \texttt{pairing\_exact.log}, and \texttt{pairing\_asym.py}: Theorem~\ref{thm:k32}.
+\end{itemize}
+\end{document}

@@ -1,0 +1,14 @@
+== polar column mesh, H = 5.0, N = 128 boundary edges
+L=  2.5 J=2 ntri=800  h=1.0589  h_G=0.04908  rho=  21.57  min angle=11.25 deg  Theta_0=0.8315  singular vertices=0
+    1 consecutive boundary star(s): lambda = <= 1e-3 (no witness)   (0s)
+    2 consecutive boundary star(s): lambda = 0.4315   (0s)
+    3 consecutive boundary star(s): lambda = 1.1104   (0s)
+    4 consecutive boundary star(s): lambda = 1.4588   (0s)
+    8 consecutive boundary star(s): lambda = 2.0959   (0s)
+   16 consecutive boundary star(s): lambda = 2.6235   (1s)
+   whole first layer: lambda = 3.0526   (2s)
+   GLOBAL: mu* = 65.9360   mu*/rho = gamma* = mu* h_G/h = 3.0562   (7s)
+L=  5.0 J=3 ntri=720  h=3.3088  h_G=0.04908  rho=  67.41  min angle=11.25 deg  Theta_0=0.9239  singular vertices=0
+   GLOBAL: mu* = 206.0174   mu*/rho = gamma* = mu* h_G/h = 3.0560   (12s)
+L= 10.0 J=4 ntri=664  h=10.1936  h_G=0.04908  rho= 207.68  min angle=11.18 deg  Theta_0=0.9324  singular vertices=0
+   GLOBAL: mu* = 634.6748   mu*/rho = gamma* = mu* h_G/h = 3.0560   (16s)

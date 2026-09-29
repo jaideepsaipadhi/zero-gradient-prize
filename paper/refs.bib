@@ -265,6 +265,7 @@
 % AUDIT: 84(295):2059--2081 confirmed (AMS issue TOC, Neilan CV, FMS 2024 ref. [36]). Bibliographic TODO
 %        removed. The CONTENT claim made in Section 12 could not be checked against the paper itself
 %        (AMS blocked); FMS 2024 describes Neilan's Prop. 6.5 differently from our text -- see bib_audit.md.
+% VERIFY V (v7): Crossref record for DOI 10.1090/S0025-5718-2015-02958-5 matches metadata (DOI added).
 % VERIFY (unresolved): TODO verify content claim in Section~12 against Prop.~6.5 (see notes/v4/bib\_audit.md)
 @article{Neilan2015,
   author  = {Neilan, Michael},
@@ -273,7 +274,8 @@
   volume  = {84},
   number  = {295},
   year    = {2015},
-  pages   = {2059--2081}
+  pages   = {2059--2081},
+  doi     = {10.1090/S0025-5718-2015-02958-5}
 }
 
 % AUDIT: ORA (Oxford) record: SIAM J. Sci. Comput. 46(2), A629--A644, published 5 March 2024. TODO removed.
@@ -642,8 +644,11 @@
   year         = {2026}
 }
 
-% Thm 4.4 (Lipschitz-perturbation continuity) and Thm 4.6 (inscribed polygonal h-approximations) are numbered as in the
-% author preprint PDF; check against the published version.
+% Thm 4.4 (Lipschitz-perturbation continuity), Def. 4.5 / Thm 4.6 (inscribed polygonal h-approximations) and Remark 4.7
+% (3D polyhedral approximations) -- numbering identical in three author copies read in v7: arXiv:1510.03978 PDF,
+% costabel.perso.math.cnrs.fr/publis/BCDG_Conti.pdf and dauge.pages.math.cnrs.fr/publis/BeCoDaGi_conti.pdf (24 pp.,
+% no SIAM header). The SIAM typeset version (epubs.siam.org: robots-blocked; HAL v3 not fetched) was NOT seen.
+% VERIFY (unresolved): theorem numbers against the SIAM version.
 @article{BCDG2016,
   author  = {Bernardi, Christine and Costabel, Martin and Dauge, Monique and Girault, Vivette},
   title   = {Continuity properties of the inf-sup constant for the divergence},
@@ -731,18 +736,20 @@
   pages   = {2765--2773},
   doi     = {10.1016/S0045-7825(03)00294-9}
 }
-% VERIFY (unresolved): WarburtonHesthaven2003 metadata cited from memory (notes/v6/misc merge notes); not re-checked.
+% VERIFY V (v7): Crossref record for DOI 10.1016/S0045-7825(03)00294-9 matches authors/title/vol/issue/pages/year.
 
 @article{ArnoldLiu1995,
   author  = {Arnold, Douglas N. and Liu, Xiaobo},
-  title   = {Local error estimates for finite element discretizations of the {S}tokes equations},
+  title   = {Local error estimates for finite element discretization of the {S}tokes equations},
   journal = {RAIRO Mod\'el. Math. Anal. Num\'er.},
   volume  = {29},
   number  = {3},
   year    = {1995},
-  pages   = {367--389}
+  pages   = {367--389},
+  doi     = {10.1051/m2an/1995290303671}
 }
-% VERIFY (unresolved): ArnoldLiu1995 metadata cited from memory (notes/v6/misc merge notes); not re-checked.
+% VERIFY V (v7): Crossref (DOI 10.1051/m2an/1995290303671): vol/issue/pages/year confirmed; title is singular
+%           "discretization" (corrected); DOI added.
 
 @article{BabuskaAziz1976,
   author  = {Babu\v{s}ka, Ivo and Aziz, A. Kadir},
@@ -754,7 +761,7 @@
   pages   = {214--226},
   doi     = {10.1137/0713021}
 }
-% VERIFY (unresolved): BabuskaAziz1976 metadata from memory (notes/v6/nearsing prior-art list); not re-checked.
+% VERIFY V (v7): Crossref record for DOI 10.1137/0713021 matches authors/title/vol/issue/pages/year.
 
 @book{Apel1999,
   author    = {Apel, Thomas},
@@ -764,10 +771,12 @@
   address   = {Stuttgart},
   year      = {1999}
 }
-% VERIFY (unresolved): Apel1999 metadata from memory; not re-checked.
+% VERIFY V (v7): Univ. Bundeswehr Munchen IMCS page: Teubner, Stuttgart, 1999, series "Advances in Numerical
+%           Mathematics", ISBN 3-519-02744-5 (Habilitationsschrift). Title as in the entry.
 
-% VERIFY (unresolved): Dauge1989 cited (notes/v6/ns2) for H^2 Stokes regularity at convex corners; the exact
-%                      statement used for (R_S)(a) was not re-checked.
+% VERIFY V (v7): metadata confirmed by Crossref (DOI 10.1137/0520006).
+% VERIFY (unresolved): the exact statement used for (R_S)(a) (H^2 Stokes regularity at convex corners) was not
+%                      re-checked against the paper (SIAM full text not accessible).
 @article{Dauge1989,
   author  = {Dauge, Monique},
   title   = {Stationary {S}tokes and {N}avier--{S}tokes systems on two- or three-dimensional domains with corners. {P}art {I}: {L}inearized equations},
@@ -777,4 +786,17 @@
   year    = {1989},
   pages   = {74--97},
   doi     = {10.1137/0520006}
+}
+
+% NOT CITED (v7 suggestion): classical source for H^2 x H^1 Stokes regularity on convex polygons, a candidate
+% alongside Dauge1989 for (R_S)(a). Metadata from the ScienceDirect record (J. Funct. Anal. 21(4) 397-431, 1976).
+@article{KelloggOsborn1976,
+  author  = {Kellogg, R. Bruce and Osborn, John E.},
+  title   = {A regularity result for the {S}tokes problem in a convex polygon},
+  journal = {J. Funct. Anal.},
+  volume  = {21},
+  number  = {4},
+  year    = {1976},
+  pages   = {397--431},
+  doi     = {10.1016/0022-1236(76)90035-5}
 }
