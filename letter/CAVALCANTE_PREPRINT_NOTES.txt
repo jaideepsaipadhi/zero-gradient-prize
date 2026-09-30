@@ -1,0 +1,166 @@
+CAVALCANTE PREPRINT NOTES  (prepared 2026-09-30)
+==================================================
+
+SOURCE
+------
+Zenodo record 22262466, DOI 10.5281/zenodo.22262466, "v1", published 2026-09-03, CC-BY-4.0.
+  Creator: Claudemir Cavalcante (ORCID 0009-0007-4426-1869), Universidade Federal do Para (ROR 03q9sr818).
+  Files: Scott__Vogelius__Nitsche_Convergence_for_a_Zero_Pressure_Gradient_Problem_on_a_Polygonally_Approximated_Boundary.pdf (499.2 kB)
+         scott_vogelius_nitsche_supplement.zip (92.2 kB)
+  Versions: only v1 is listed on the record page.
+
+How it was read: zenodo.org is blocked by this session's egress proxy (curl: CONNECT 403). The Zenodo API is
+disallowed by robots.txt. WebFetch of the record page worked (metadata above), but the PDF came back as binary.
+The PDF was read from the user's upload:
+  /root/.claude/uploads/.../3bbcb1bc-Scott__Vogelius__Nitsche_..._Boundary.pdf
+  499212 bytes (matches the record's 499.2 kB), 15 pages, PDF metadata author "Claudemir de Souza Cavalcante",
+  created 2026-09-03, sha256 80cf03501975c9ede3c988702e891cda472f4ac515c064709b9039a66146882c.
+  The manuscript itself is dated "September 2, 2026". The supplement zip was NOT read (not needed for these notes).
+All quotations below are verbatim from pdftotext output. Line breaks are joined, and math is transcribed in
+plain text, e.g. h_Gamma^{3/2}.
+
+Author block (p.1 and p.15):
+  "Corresponding author: Claudemir de Souza Cavalcante, claudemir.cavalcante@icen.ufpa.br. ORCID: 0009-0007-4426-1869."
+  "Graduate Program in Mathematics and Statistics, Institute of Exact and Natural Sciences, Federal University
+   of Para (UFPA), Belem, Brazil"
+  MSC: "Primary 65N30; Secondary 65N12, 76D07."
+
+1. ABSTRACT (verbatim)
+----------------------
+"We prove an H^1 error estimate for the Scott-Vogelius-Nitsche approximation of a two-dimensional Stokes
+benchmark with constant pressure. The physical no-slip circle is represented by an inscribed polygon, while the
+outer boundary is fixed. The volume form uses the symmetric gradient, but the Nitsche terms use the componentwise
+normal derivative. Their flux mismatch is (grad u)^T n. On each polygon edge, incompressibility and tangential
+integration by parts express this mismatch in terms of the exact velocity trace; the endpoint terms vanish because
+the vertices lie on the no-slip circle. The chordal trace is O(h_Gamma^2), giving a consistency defect of order
+h_Gamma^{3/2} after an inverse trace estimate. A local divergence-preserving approximation, with explicitly
+specified compatible outer data, then gives ||u - u_h||_{H^1(Omega_h)} <= C (h_Omega^k + h_Gamma^{3/2}). The result
+holds for fixed k >= 4 on shape-regular mesh families without boundary singular vertices and with uniform control
+of nearly singular vertices. It also holds for k >= 2 on admissible Clough-Tocher splits. The effective penalty
+gamma = mu h_Gamma / h_Omega must remain above a coercivity threshold and bounded from above. A reproducible quartic
+computation studies the penalty on four meshes, enforces all cubic divergence moments, and locates the
+finest-mesh coercivity transition near mu = 60.3383."
+
+2. SETTING AND HYPOTHESES
+-------------------------
+- Case treated: ONLY the zero-pressure (constant-pressure) benchmark, eq. (2):
+    "u(x,y) = (1 - 1/(x^2+y^2)) (-y, x),  p = 0."   Stream function psi = log r - r^2/2.
+  Remark 5.4: "For general Stokes data, additional pressure and extension residuals must be analyzed; the theorem
+  makes no assertion about those terms."
+- Domain: D a bounded polygon with B_{1+delta}(0) in D; Omega = D \ B_1(0); P_h an inscribed convex polygon;
+  Omega_h = D \ P_h ("Thus Omega subset Omega_h").
+- Mesh scales (4): h_Omega = max diam T, h_Gamma = max |e| on Gamma_h, "c0 h_Gamma <= |e| <= h_Gamma".
+- (M1) "no vertex of dOmega_h is singular"; (M2) "Theta(z) >= Theta_0 > 0 at every nonsingular vertex, with
+  Theta_0 independent of the mesh." "Interior singular vertices are allowed."
+- Nitsche form (13): N_h(w,v) = a_h(w,v) - <d_n w, v> - <w, d_n v> + (mu/h_Omega) <w,v>, with
+  a_h = (1/2) int Dw:Dv. "This is the componentwise-normal-derivative Nitsche form associated with the benchmark
+  in [4]" ([4] = Gjerde-Scott 2024). Effective penalty (15): gamma = mu h_Gamma / h_Omega.
+- Method (14): u_h in Z_h(g_h), N_h(u_h, z_h) = 0 for z_h in Z_h (divergence-free kernel formulation; "Only the
+  outer trace is enforced strongly"). Outer datum (12): g_h = (J_h u)|_Sigma, where J_h (10) = degree-k Lagrange
+  interpolant + edge-bubble flux correction (flux-compatible). NOTE: this is NOT the plain P_k interpolant g_I of
+  our letter; it is a flux-compatible datum.
+
+3. MAIN RESULTS (numbers as in the preprint)
+--------------------------------------------
+Lemma 2.1 (uniform Korn-Poincare): "For all sufficiently small h_Gamma there is a constant C_K, independent of the
+  polygon, such that ||v||_{H^1(Omega_h)} <= C_K ||Dv||_{L^2(Omega_h)} ... for every v in H^1(Omega_h)^2 with
+  v|_Sigma = 0."
+Lemma 3.1 (Flux-compatible interpolation): J_h "preserves the normal integral on every mesh edge and the integral
+  of divergence on every triangle", with |u - J_h u|_{H^m(T)} <= C h_T^{k+1-m} |u|_{H^{k+1}(omega_T)}, m = 0,1.
+Lemma 4.1 (Inverse trace estimate).
+Proposition 4.2 (Stability): "There is a mesh-independent gamma_0 > 0 such that, for gamma >= gamma_0,
+  N_h(v_h, v_h) >= (1/4) ||v_h||^2_{N,h} (v_h in V_{h,Sigma})." Continuity (20) "does not require an upper bound on
+  gamma."
+Lemma 4.3 (Trace on the polygon): "||u||_{L^inf(e)} <= C|e|^2, ||u||_{L^2(Gamma_h)} <= C h_Gamma^2."
+Lemma 4.4 (Tangential identity): "On a straight edge e with constant orthonormal directions n, t, suppose that u is
+  smooth, divergence free, and zero at both endpoints. Then int_e ((grad u)^T n).v ds = int_e (u_t d_t v_n -
+  u_n d_t v_t) ds for every smooth edge test function v." "...it places no restriction on vorticity."
+Proposition 4.5 (Geometric consistency): "For the benchmark (2) and gamma > 0,
+  |N_h(u, z_h)| <= C (1 + sqrt(gamma)) h_Gamma^{3/2} ||z_h||_{N,h}  (z_h in Z_h)."
+Lemma 5.1 (Compatible approximation): "Assume (M1)-(M2), k >= 4, and 0 < gamma <= gamma_1 for a fixed gamma_1. If
+  u in H^{k+1}(Omega_h)^2 is divergence free, then there is w_h in Z_h(g_h) ... such that ||u - w_h||_{H^1} +
+  ||u - w_h||_{*,h} <= C h_Omega^k ||u||_{H^{k+1}(Omega_h)}." Uses "the homogeneous local correction R_h = Pi_2 in
+  [2, Lemma 6 and Theorem 7]" ([2] = Eickmann-Guzman-Neilan-Scott-Tscherpel, local Fortin projection).
+
+*** THEOREM 5.2 (main theorem), verbatim: ***
+  "Let the domains and meshes satisfy the conditions of section 2, including (M1)-(M2), and fix k >= 4. Let u be
+  the field (2), prescribe (12), and assume
+        gamma_0 <= mu h_Gamma / h_Omega <= gamma_1,                                        (31)
+  where gamma_0 is large enough for proposition 4.2 and gamma_1 < inf is fixed. For sufficiently fine meshes, (14)
+  has a unique solution and
+        ||u - u_h||_{H^1(Omega_h)} <= C (h_Omega^k + h_Gamma^{3/2}).                       (32)
+  The constant is independent of the two mesh scales."
+
+*** COROLLARY 5.3 (Clough-Tocher meshes), verbatim: ***
+  "Let T_h be the barycentric Clough-Tocher refinement of a uniformly shape-regular macrotriangulation,
+  satisfying the geometric conditions and (M1)-(M2). Then (32) holds for every fixed k >= 2 under the same penalty
+  window, with the degree-k spaces and trace interpolant."
+  Proof: "The macroelement divergence characterization and local correction are available on these splits for
+  k >= 2 [2, Remark 9]; see also [5]. Its patches are macroelements. The interpolation (10) preserves triangle
+  fluxes, and hence macroelement fluxes. The rest of the proof is unchanged."
+  ==> ANSWER TO THE VERIFY ITEM: YES, the Clough-Tocher k >= 2 result IS in his preprint (abstract + Corollary 5.3),
+      but ONLY for the zero-pressure benchmark (2). The letter draft attributes exactly that and cites Cor. 5.3.
+      paper/sections/09_clough_tocher.tex line 175 ("that record does not mention Clough--Tocher splits") is
+      therefore WRONG and should be corrected. The same applies to its claim that he treats "quartic velocities on
+      unsplit meshes" only. paper/sections/01_introduction.tex l.70 and jsc/sections/02_related.tex l.6 describe his
+      result as "with quartic velocities". Theorem 5.2 is for every fixed k >= 4, so that should be "k >= 4"
+      (and "k >= 2 on Clough-Tocher splits").
+
+Remark 5.4 (Penalty scaling and scope): "The result is uniform for a bounded, sufficiently large effective penalty
+  gamma. Equivalently, one may choose mu = gamma h_Omega / h_Gamma. A fixed mu works within the theorem only when it
+  keeps gamma in (31); in particular, a lower bound for h_Gamma/h_Omega is then needed. The factor sqrt(gamma) in
+  (23) explains the upper bound."
+
+4. PENALTY THRESHOLD / NUMERICS (Section 6)
+-------------------------------------------
+- Mesh: D = (-2.5,2.5)^2, N in {8,12,16,20} inner edges, "N/4 equally spaced outer segments on each side of the
+  square ... Radially project these vertices to the unit circle", m = N/4 layers, "Each quadrilateral between
+  consecutive rings is split along the same forward diagonal." P4 velocities, "all ten discontinuous cubic
+  divergence moments on each triangle".
+- Coercivity measure (34): lambda_min(mu) = min over ker B_f of z^T A_mu z / z^T H z, with H the full H^1 norm;
+  bisection. "These are floating-point eigenvalue results, not interval-arithmetic certificates."
+- Result (35), N = 20 (finest) mesh:  "60.33821 < mu* < 60.33831,  19.06512 < gamma* < 19.06516."
+  "The explicit safe sign separation in the main table remains 60 < mu* < 65; the finer interval reports the
+  computed resolution."
+- "The choice mu = 100 is coercive on all four tested meshes and gives 29.32 <= gamma <= 33.11. The errors decrease
+  from approximately 0.509 to 0.123." Table 1: H^1 errors 5.0856e-1, 2.8642e-1, 1.7807e-1, 1.2348e-1 for
+  N = 8,12,16,20 at mu = 100. "this short mesh sequence does not determine an asymptotic exponent."
+- The introduction states that the study "does not establish a universal numerical threshold or an asymptotic
+  rate from four data points."
+- COMPARISON WITH OURS (not put in the letter draft): paper/sections/13_numerics.tex l.8 reports that our code gives
+  mu* = 60.343 at N = 20 for this benchmark. That lies about 0.005 above his bracket (relative 8e-5). Our criterion
+  is the inertia of the velocity block plus a divergence penalty. His is the kernel-restricted generalized eigenvalue
+  with the H^1 norm. The meshes may also differ (diagonal direction). Both criteria should give the same zero, so
+  the gap probably comes from the mesh or from the bisection tolerance. Reconcile it before either number is
+  quoted next to the other.
+
+5. METHOD / PROOF IDEA (summary)
+--------------------------------
+(i) Uniform Korn on the polygonal domains via a radial bi-Lipschitz map F_h with ||DF_h - I|| = O(h_Gamma)
+    (Lemma 2.1).
+(ii) Standard Nitsche stability for gamma >= gamma_0 (Prop. 4.2).
+(iii) Consistency (Prop. 4.5): Green's formula gives N_h(u,z) = <(grad u)^T n, z> - <u, d_n z> + (gamma/h_Gamma)<u,z>.
+     The flux mismatch (grad u)^T n is integrated by parts along each chord (Lemma 4.4, using div u = 0 and
+     u = 0 at the chord endpoints, which lie on the circle), so it costs ||u||_{L^2(Gamma_h)} ||d_t z||. Then
+     ||u||_{L^2(Gamma_h)} = O(h_Gamma^2) (Lemma 4.3) and the inverse trace estimate give h_Gamma^{3/2}; the
+     penalty term gives sqrt(gamma) h_Gamma^{3/2}.
+(iv) Approximation (Lemma 5.1): a flux-compatible interpolant J_h plus the local Fortin correction of
+     Eickmann-Guzman-Neilan-Scott-Tscherpel gives a divergence-free comparison function with the imposed outer
+     trace and error h_Omega^k. The upper penalty bound gamma_1 is used here.
+(v) Theorem 5.2 by coercivity on Z_h + (iii) + (iv).
+Note: his Lemma 4.4 (the edge identity for (grad u)^T n) is the same mechanism our letter uses in Lemma 2
+("normal-load cancellation": div v = 0 turns d_n v . n into a tangential derivative, then integrate by parts along
+the edge). The difference is that he applies it to the exact u, and we apply it to the discrete test v.
+
+6. AI DECLARATION IN THE PREPRINT (verbatim)
+--------------------------------------------
+"The author used OpenAI's ChatGPT 5.6 as a research-support tool to assist with identifying the research problem,
+conducting literature searches, implementing code and improving grammar. The author directed the project and
+retains authorship of the work. Responsibility for all mathematical statements, computations, references, and
+conclusions rests with the author."
+
+7. REFERENCES HE CITES (for cross-checking ours)
+------------------------------------------------
+[1] Dupont-Guzman-Scott 2025 JNM; [2] Eickmann-Guzman-Neilan-Scott-Tscherpel, local Fortin projection, JNM 2026,
+arXiv:2512.18033; [3] Eickmann-Scott-Tscherpel arXiv:2509.17899; [4] Gjerde-Scott 2024 ACSE; [5] Guzman-Neilan
+SINUM 2018; [6] Guzman-Scott Math Comp 2019; [7] Scott-Vogelius 1985; [8] Scott, Zero gradient prize.

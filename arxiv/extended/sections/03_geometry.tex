@@ -1,0 +1,77 @@
+\section{Geometry}\label{sec:geometry}
+
+\begin{lemma}[Chords]\label{lem:chords}
+Let $e$ be a chord of length $\ell$ and $x\in e$. Then $\dist(x,\Gamma)\le\ell^2/8+O(\ell^4)\le\ell^2/4$.
+Let $s$ be the signed arclength from the chord midpoint $m_e$, $x^\ast$ the nearest point of $\Gamma$, and $\tau_e$ the unit tangent of $e$. Then, up to a fixed orientation sign,
+\[
+n(x^\ast)-n_e=-s\,\tau_e+O(\ell^2).
+\]
+The arclength Jacobian of the radial projection $\Gh\to\Gamma$ is $1+O(\ell^2)$.
+\end{lemma}
+
+\begin{proof}
+The sagitta is $1-\sqrt{1-\ell^2/4}=\ell^2/8+\ell^4/128+\cdots$. The normal at $x^\ast$ is the radial unit vector. Its angle differs from that of $n_e$ by the central angle to $x^\ast$, which is $s+O(s^3)$.
+\end{proof}
+
+\begin{lemma}[Uniform trace, Friedrichs and Korn]\label{lem:korn}
+There are $C_{\mathrm{tr}},C_F,\kappa$, independent of $h$, such that every $v\in H^1(\Oh)^2$ with $v|_{\partial R}=0$ satisfies
+\[
+\norm{v}_{L^2(\Gh)}\le C_{\mathrm{tr}}\norm{\nabla v},\qquad
+\norm{v}\le C_F\norm{\nabla v},\qquad
+\norm{\nabla v}^2\le\kappa\,a_h(v,v).
+\]
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Write $\Gh$ in polar form as $r=\rho_h(\theta)$. On a chord with endpoint angles $\theta_m\pm\alpha$ we have $\rho_h=\cos\alpha/\cos(\theta-\theta_m)$. Hence $\norm{\rho_h-1}_\infty\le C\hG^2$ and $\norm{\rho_h'}_\infty\le C\hG$.
+\item Let $\chi$ be smooth, with $\chi(1)=1$ and $\chi\equiv0$ outside a fixed collar in $\Omega$. Define $\Phi_h(r,\theta)=(r+\chi(r)(\rho_h(\theta)-1),\theta)$.
+\item $\Phi_h$ maps $\Omega$ onto $\Oh$ and $\Gamma$ onto $\Gh$, is the identity near $\partial R$, and is bi-Lipschitz with $\norm{D\Phi_h-I}_\infty\le C\hG$ almost everywhere.
+\item For $w=v\circ\Phi_h$ we have $D(w)=D(v)\circ\Phi_h+E$ with $|E|\le C\hG|\nabla v\circ\Phi_h|$.
+\item On the fixed domain $\Omega$, $w$ vanishes on $\partial R$, a set of positive measure. So the first Korn inequality, the trace inequality and the Friedrichs inequality hold.
+\item Changing variables back gives $\norm{\nabla v}\le C(\norm{D(v)}+\hG\norm{\nabla v})$; absorb the last term for $\hG\le h_\ast$. The other two inequalities transfer the same way.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[Extension]\label{lem:ext}
+$\norm{\ut}_{L^\infty(\Gh)}\le C\hG^2$, so $\norm{\ut}_{L^2(\Gh)}\le C\hG^2$. For $v\in\VR$, $|(F,v)|\le C\hG^2\norm{\nabla v}$.
+\end{lemma}
+
+\begin{proof}
+The first bound follows from Lemma~\ref{lem:chords} and $\ut|_\Gamma=0$. For the second, apply a one-dimensional Poincar\'e inequality across strips of width at most $C\hG^2$, and use $|S_h|\le C\hG^2$, $\norm{F}_\infty\le C$ (by (D)) and Lemma~\ref{lem:korn}.
+\end{proof}
+
+\begin{lemma}[Wall structure]\label{lem:wall}
+On $\Gamma$: $\nabla u=\dn u\otimes n$, $\dn u\cdot n=0$ and $(\nabla u)^{\mathsf T}n=0$.
+\end{lemma}
+
+\begin{proof}
+The tangential derivatives vanish, and $\div u=n\cdot\dn u$.
+\end{proof}
+
+\begin{lemma}[Transposed-gradient term]\label{lem:transposed}
+For $v\in\VR$,
+\[
+|\ip{(\nabla\ut)^{\mathsf T}n}{v}|\le C\sum_{e\in\EG}\bigl(|e|^2\norm{v}_{L^1(e)}+|e|^2\norm{\dt v}_{L^1(e)}\bigr)\le C\hG^{3/2}\norm{\nabla v}.
+\]
+\end{lemma}
+
+Pointwise the transposed term is only $O(\hG)$ on $\Gh$, not $O(\hG^2)$: although $\ut=O(\hG^2)$ there, the chord normal $n_e$ is tilted by $O(\hG)$ against $n(x^\ast)$ (step~1 below). The rate $\hG^{3/2}$ comes from the odd symmetry of the leading term in $s$ (step~2), not from the size of $\ut$. In the energy dual it can also be obtained from the penalty alone, $|\ip{(\nabla\ut)^{\mathsf T}n}{v}|\le C\hG\norm{v}_{\Gh}\le C\gamma^{-1/2}\hG^{3/2}\tnorm v$ (Lemma~\ref{pd:lem:G}); in the plain $H^1$ dual, without odd symmetry, it would be only $O(\hG)$.
+
+The rate $\hG^{3/2}$ is sharp on $\VR$: a first-layer field with odd trace on each chord attains it, and the dual-norm test of Section~\ref{sec:numerics} gives $1.56$--$1.57$. For the method itself, which is tested on $\Zh$, Theorem~\ref{lb:thm} proves the matching lower bound $c\,\hG^{3/2}$ for the $H^1$ error, by a different route, for every $k\ge4$. The $\CNS$ $H^1$ rates of Table~\ref{tab:cns} decrease monotonically toward $3/2$. Lemma~\ref{lem:transposed} is a sharper dual-norm statement than the upper bounds need. Lemma~\ref{lem:Gbound} and Theorem~\ref{thm:D} also follow from the cruder energy-dual bound $C\gamma^{-1/2}\hG^{3/2}\tnorm v$ above, which holds without the odd-in-$s$ cancellation; likewise, in step~4 of Theorem~\ref{thm:C} the $O(\hG)$ tangential load $(p-\pbar)(n_e-n(x^\ast))$ can be bounded in the energy dual by $C_p\hG(h/\mu)^{1/2}$, which suffices because step~6 tests with $r_h$ in $\tnorm\cdot$. The cancellation matters for the plain $H^1$ duals, and in the companion three-dimensional analysis \cite{PadhiThreeD} it is not available.
+
+\begin{proof}
+\begin{enumerate}
+\item Taylor-expand about $x^\ast$ and apply Lemmas~\ref{lem:chords} and~\ref{lem:wall}:
+\[
+(\nabla\ut(x))^{\mathsf T}n_e=n(x^\ast)\bigl(\dn u(x^\ast)\cdot(n_e-n(x^\ast))\bigr)+O(\hG^2)=s\,a_e+O(\hG^2),
+\]
+where $a_e:=n(m_e^\ast)\bigl(\dn u(m_e^\ast)\cdot\tau_e\bigr)$ is constant on $e$. The $O(\hG^2)$ remainder collects $|x-x^\ast|$, the $O(\ell^2)$ term of Lemma~\ref{lem:chords}, and $s\cdot O(s)$.
+\item Since $\int_e s\,ds=0$,
+\[
+\Bigl|\int_e s\,a_e\cdot v\Bigr|=\Bigl|\int_e s\,a_e\cdot(v-v(m_e))\Bigr|\le\frac{|e|^2}{4}\norm{\dt v}_{L^1(e)} .
+\]
+\item Use $\norm\cdot_{L^1(e)}\le|e|^{1/2}\norm\cdot_{L^2(e)}$ and the inverse trace inequality $|e|\norm{\dt v}^2_{L^2(e)}\le C_I^2\norm{\nabla v}^2_{T_e}$.
+\item Summing, $\sum_e|e|^{5/2}\norm{\dt v}_{L^2(e)}\le C\hG^2(\#\EG)^{1/2}\norm{\nabla v}\le C\hG^{3/2}\norm{\nabla v}$. The zeroth-order term is handled the same way, finishing with Lemma~\ref{lem:korn}.\qedhere
+\end{enumerate}
+\end{proof}

@@ -1,0 +1,47 @@
+\section{What is proved and what is open}\label{sec:open}
+
+We list the status of the main claims. ``Proved'' means proved in this paper from the stated mesh hypotheses, the smooth-solution hypothesis (D) (see Remark~\ref{rem:corners} for what it means at the corners of $R$) and standard cited results. ``Proved modulo X'' means proved except for the named hypothesis X. ``Numerical'' means observed only.
+
+\paragraph{Proved.}
+\begin{itemize}
+\item The leak analysis of the printed method: Theorems~A--C, Corollary~B$'$, Theorem~B$''$ (fixed $\gamma$, bounded $\rho$), its penalty-uniform version at the exact rate $\frac12$ (Theorem~U), Theorem~R, and the convergence of the leak constant for every penalty, including $\gamma\hG\to\infty$ (Corollary~\ref{u:Kall}; for general data the normalised $\GS$ constant diverges when $\gamma\hG^{1/2}\to\infty$).
+\item Scott's rate $\hG^{3/2}+h^k$ for $\CNS$ (Theorem~D) and its sharpness for every $k\ge4$ (Theorem~D$'$, with (M3) proved in Theorem~\ref{m3:thm} for $\hG\le2\sin(\theta_{\min}/4)$).
+\item Stokes $H^2\times H^1$ regularity on $\Omega$ (Theorem~\ref{l2:thm:R}) and local higher regularity at $\Gamma$ (Proposition~\ref{l2:prop:loc}); on general domains, (R) holds if and only if $\Sigma$ is a convex outer polygon (Theorem~\ref{gd:thm:R}).
+\item The $L^2$ theory: the upper bounds of Theorems~\ref{l2:thm:L1}, \ref{l2:thm:L2}, the graded-mesh bound $C(\hG^2+h^{k+1})$ with the local divergence correction (LF) and the pressure-free local energy estimate (IE) (Lemma~\ref{l2:lem:LF}, Theorems~\ref{l2:thm:IE}, \ref{l2:thm:G}), and the lower bound $c\hG^2$ (Theorem~\ref{l2:thm:L3}).
+\item The pressure bounds and the drag, lift and torque expansions of Section~\ref{pd:sec} (the $\CNS$ drag leading term as $\gamma\to\infty$); the first-layer cell problem: well-posedness, the closed-form traction cell with its resonance, the flux identity and the mirror antisymmetry (Proposition~\ref{pd:prop:cell}).
+\item The penalty threshold: sufficiency, the single-triangle certificates, Theorem~\ref{pb:thmA} with explicit constants, necessity $\mu^\ast\ge c_\ast(\theta_{\min},c_0)\rho$ on every (M0) mesh with explicit but astronomically small constants (Theorem~\ref{pb:thmM0}), the exact column-layer witness $\mu^\ast\ge0.85\,h/(H\hG)$ at every mesh size (Proposition~\ref{pb:cols}), the exact counterexamples to a local necessity statement (Proposition~\ref{pb:counter}), and $\liminf_N\gamma^\ast(N)\ge\Gamma_\infty$ (Proposition~\ref{pb:gamlim}).
+\item Strong imposition: the two-sided rate under (M2), the counting lower bound, uniform constrained inf-sup, the sharp stability at locked vertices, the two-sided rate with locks and the pressure filter; the needle-angle law as a two-sided estimate under (H$_K$) (Theorem~\ref{st:N3u}), with the slit-domain right inverse (Theorem~\ref{st:Sp}); the bound $\beta_h\le C(\varepsilon+\vartheta)$ for needle pairs, so (L$_\Nset$) is false for straight pairs (Proposition~\ref{st:slit}). The scope of (H$_K$) is narrow: each needle in its own wall pair.
+\item Pressure robustness: the splitting, non-robustness of $\GS$, the single $\CNS$ defect with its upper bounds, exact gradient robustness of $\CNSR$, the energy duality, the certificate for every $\gamma>0$, Theorem~\ref{rb:final}(a)--(d) for every $k\ge4$, the effective-penalty identity (Lemma~\ref{rb:lem:mh}), the equal-height and LP$^{++}$ bounds (Theorems~\ref{rb:Seq}, \ref{rb:SLP}; the latter for $\gamma\ge\gamma_{\rm LP}$, not explicit), and the orders $k+1$ and $k+\frac32$ (Theorem~\ref{rb:sharp}; the upper bound for $k+\frac32$ needs $\gamma\ge\gamma_2$).
+\item Navier--Stokes on nonsingular branches: stability (Theorems~\ref{nb:L}, \ref{n2:Ldag}), the explicit thresholds, the Oseen leak flow, $K_{NS}$, the $\GS$ and $\CNS$ drag and the penalty-uniform leak limit (under (H$_{\rm ns}$)); Clough--Tocher refinements and general domains (Theorems~F, G).
+\end{itemize}
+
+\paragraph{Proved modulo a named hypothesis.}
+\begin{itemize}
+\item The $\CNS$ pressure lower bounds under the boundary moment hypothesis (P) (Theorem~\ref{pd:thm:P}).
+\item Modulo the cell decay (D$_{\rm c}$) (numerical) and the transplant lemma (TL) (not proved), on LPC mesh families: the two-scale expansion of the boundary moment, the $L^2$ pressure error and the traction error (Theorem~\ref{pd:thm:ts}); the corrected (P), which holds if and only if the cell density $\mathcal F$ is not constant, and \emph{fails} on mirror-symmetric columns (Corollary~\ref{pd:cor:P}); the pressure and traction lower bounds without (P), under the numerically verified non-degeneracy $Q_x\not\equiv0$, resp.\ $\Theta_x$ not a.e.\ a constant multiple of $n$ (Corollary~\ref{pd:cor:ac}); and the fixed-$\gamma$ drag coefficient (Corollary~\ref{pd:cor:drag}; its analyticity in $\gamma$ needs (D$_{\rm c}$) on a complex neighbourhood). All constants are tied to the paper's Nitsche flux $(\nabla u)n$.
+\item The limit $\gamma^\ast_\infty$ of the coercivity threshold: $\limsup_N\gamma^\ast(N)\le\Gamma^{\rm cell}_\infty$ modulo (LOC), and $\Gamma_\infty=\Gamma^{\rm cell}_\infty$ modulo (CUT) (Proposition~\ref{pb:gamlim}).
+\item Penalty necessity on Clough--Tocher refinements of every (M0) mesh, modulo the standard HCT interpolation estimate (Theorem~\ref{pb:thmM0}).
+\end{itemize}
+
+\paragraph{Numerical only.}
+\begin{itemize}
+\item The existence of $\lim d_h/\hG^{1/2}$ on a given mesh family (a periodic cell formula predicts $0.2256$ at $\mu=100$ on the production meshes, against the fitted $0.225$).
+\item (D$_{\rm c}$); $A_1\ne0$ on asymmetric columns; the non-degeneracy of $Q_x$ and $\Theta_x$; hypothesis (P) on the production meshes; the sign and size of the $\CNS$ drag lower bound at fixed $\gamma$; the fixed-$\gamma$ torque lower bound.
+\item The value $\gamma^\ast_\infty=21.408$ ($21.4045$ for the first two layers, matching the extrapolated global two-layer thresholds $21.40452$).
+\item The penalty threshold on the global polar column meshes containing the star counterexamples: $\gamma^\ast=3.06$--$3.13$ ($H=5$), independent of the box, and $\gamma^\ast H\approx15$--$16$ over $H=1,\dots,12$; the transfer of the column witness to these meshes is heuristic, and the star failure is certified only for $H=5$ and $8$.
+\item The production penalty $\mu=100$: above the $\CNS$ stability threshold on every production mesh, with a margin shrinking from $27\%$ ($N=16$) to $13\%$ ($N=64$) and to about $7\%$ in the limit ($\mu_c^{\CNS}\to\approx93$).
+\item Strong imposition: (L$_\Nset$) for shape~I needles, and $\beta\ge c\varepsilon$ for straight needle pairs.
+\item The failure of (S$_{\rm LP}$) off LP$^+$ (amplitude $\propto\gamma^{-2}\hG^{1/2}$).
+\item The Navier--Stokes constants for the test case: $U_\infty=175.6$, $\beta_O=0.8225$ ($\nu=1$), $0.0533$ ($\nu=0.1$), $C_R\approx3.5$ (the box-corner contribution not computed); the discrete stability constant (L), checked on $N=16,32,48$ only. The resulting explicit $h_0$ is hopelessly small.
+\end{itemize}
+
+\paragraph{Open.}
+\begin{itemize}
+\item A proof of (TL), and of (D$_{\rm c}$) and $A_1\ne0$ for all asymmetric columns; whether the deeper production rows are LPC; the second-order (global) coefficient of $\Pm$ on symmetric columns.
+\item Sharpness of the $\CNS$ drag rate $2$ at a given fixed $\gamma$; the constant $C_\sharp$ of the Navier--Stokes threshold.
+\item An explicit, moderate constant in the penalty necessity for general coarse meshes (numerically $\mu^\ast\approx(15\text{--}16)h/\delta_1$ with $\delta_1$ the first-layer height); proofs of (LOC) and (CUT).
+\item (S$_{\rm LP}$) for $\gamma_2\le\gamma<\gamma_{\rm LP}$ when the first-layer heights vary strongly; explicit $\kappa_T$ ($k\ge5$) and $\kappa_K$; order $k+\frac32$ for general constant-$A$ data.
+\item Strong imposition on meshes whose needles do not come in isolated wall pairs.
+\item Nonsymmetric and penalty-free Nitsche variants; slip conditions; other divergence-free families; cut meshes.
+\item Three-dimensional versions of the results of this paper are treated separately \cite{PadhiThreeD}.
+\end{itemize}

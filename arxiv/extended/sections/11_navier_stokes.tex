@@ -1,0 +1,286 @@
+\section{Steady Navier--Stokes}\label{ns:sec}
+
+Gjerde and Scott's application is cylinder drag, which is a Navier--Stokes computation \cite{GjerdeScott2024}. This section extends Theorems~\ref{thm:A}--\ref{thm:D} and Corollary~\ref{cor:Bp} to
+\[
+-\nu\Delta u+(u\cdot\nabla)u+\nabla p=f,\qquad \div u=0\quad\text{in }\Omega,\qquad u|_\Gamma=0,\quad u|_{\partial R}=g .
+\]
+All results of this section assume a discrete stability property of the linearisation at the exact solution, (L) for $\GS$ or (L$^\ast$) for $\CNS$. They follow from a small-data condition (SD) (Lemma~\ref{ns:SD}) and, more generally, from nonsingularity of the solution branch, with a threshold $h_0$ independent of the penalty (Theorem~\ref{nb:L}); with the Stokes regularity of Theorem~\ref{l2:thm:R}, $h_0$ is explicit (Theorem~\ref{n2:L}), although far too small to be useful (Section~\ref{n2:unif}). Sections~\ref{nb:oseen}--\ref{n2:unif} identify the Navier--Stokes leak flow and $H^1$ constant, give the $\GS$ and $\CNS$ drag expansions, and make the leak limit uniform in the penalty. The Stokes estimates are reused, in particular steps~4--5 of the proof of Theorem~\ref{thm:C}. The only new ingredients are a fixed-point argument around the linearisation at the exact solution, and a check that the Stokes estimates are stable under lower-order perturbations that are bounded in the $H^1$ dual norm.
+
+\subsection{What Gjerde--Scott print}\label{ns:gsprint}
+The arXiv version of \cite{GjerdeScott2024} (arXiv:2306.12362) states the continuous problem $-\nu\Delta u+u\cdot\nabla u+\nabla p=0$. The drag functional (their (7)) contains the standard convective term $(u\cdot\nabla u)\cdot v$. The discrete Nitsche system (27)--(28) is printed for the Stokes operator only. No discrete convective form is printed, and in particular there is no skew-symmetrisation and no inflow/outflow boundary term. The nonlinear solve is described only as the iterated penalty method. We therefore analyse both natural choices below, and show that the conclusions are the same for both.
+
+\subsection{Methods}
+Let $\ip\cdot\cdot$, $N_h$, $\VR$, $\Zh$, $\Wh$, $\Pih$ and $\tnorm\cdot$ be as in Section~\ref{sec:setting}. For $w,u,v\in H^1(\Oh)^2$ define
+\[
+c_1(w;u,v):=((w\cdot\nabla)u,v),\qquad
+c_s(w;u,v):=\tfrac12\bigl[((w\cdot\nabla)u,v)-((w\cdot\nabla)v,u)\bigr].
+\]
+Here $c$ denotes either one.
+
+\begin{definition}[$\GS$ and $\CNS$ for Navier--Stokes]\label{ns:def}
+Find $u_h\in\Vh$ with $u_h|_{\partial R}=\gI$ and $p_h\in\Pih$ such that, for all $v\in\VR$ and $q\in\Pih$,
+\[
+\nu N_h(u_h,v)+c(u_h;u_h,v)-(p_h,\div v)\;\bigl[+\ip{p_h-\pbG(p_h)}{v\cdot n}\bigr]=(\ft,v),\qquad(q,\div u_h)=0 .
+\]
+Without the bracket this is $\GS$; with it, it is $\CNS$.
+\end{definition}
+
+\begin{remark}[Penalty convention]\label{ns:conv}
+Multiplying $N_h$ by $\nu$ makes the wall penalty $\nu\mu/h$. If instead one uses $\nu a_h-\nu\ip{\dn u}{v}-\nu\ip{u}{\dn v}+(\hat\mu/h)\ip{u}{v}$ with an unscaled $\hat\mu$, this equals $\nu N_h$ with $\mu=\hat\mu/\nu$. Every statement below holds with $\nu\mu$ replaced by $\hat\mu$. In particular the leak velocity below is then $(h/\hat\mu)(p-\pbar)$, and coercivity needs $\hat\mu\ge\nu\mu_0$.
+\end{remark}
+
+\subsection{Assumptions}
+\begin{assumption}\label{ns:ass}\leavevmode
+\begin{enumerate}[label=(NS\arabic*)]
+\item $(u,p)$ is a smooth solution on $\overline\Omega$, $\ft$ is a smooth extension of $f$, and (M0)--(M2) and (D) hold.
+\item The extensions are as in Section~\ref{sec:setting}: $\ut=\curl\psit$ (so $\div\ut=0$ on a neighbourhood of $\overline\Omega$) and $\pt$ is smooth. The defect
+\[
+F:=\ft+\nu\Delta\ut-(\ut\cdot\nabla)\ut-\nabla\pt
+\]
+vanishes on $\Omega$, is supported in $\overline{S_h}$, and $\norm F_\infty\le C$.
+\end{enumerate}
+\end{assumption}
+
+Stability is assumed in one of two forms, (L) or (L$^\ast$) below. Lemma~\ref{ns:SD} shows that the standard small-data condition implies both. Let $\Aop$ be the linearisation at $\ut$:
+\[
+\Aop(w,v):=\nu N_h(w,v)+c(w;\ut,v)+c(\ut;w,v).
+\]
+Set $\norm{\ell}_{\ast,X}:=\sup_{0\ne v\in X}\ell(v)/\tnorm v$ for $X=\Zh$ or $X=\VR$.
+
+\begin{enumerate}[label=(L\arabic*)]
+\item[(L)] There is $\beta_L>0$, independent of $h$, with $\beta_L\tnorm\delta\le\norm{\Aop(\delta,\cdot)}_{\ast,\Zh}$ for all $\delta\in\Zh$.
+\item[(L$^\ast$)] There is $\beta_\ast>0$, independent of $h$, such that for every linear functional $\ell$ on $\VR$ the problem
+\[
+(\delta,\xi)\in\Zh\times\Pih:\qquad \Aop(\delta,v)+B^\ast(\xi,v)=\ell(v)\quad\forall v\in\VR,
+\]
+with $B^\ast(q,v)=-(q,\div v)+\ip{q-\pbG(q)}{v\cdot n}$, has a unique solution, and $\beta_\ast\tnorm\delta\le\norm\ell_{\ast,\VR}$.
+\end{enumerate}
+(L) and (L$^\ast$) are the discrete forms of ``$u$ lies on a nonsingular branch'' for $\GS$ and $\CNS$ respectively; see Theorem~\ref{nb:L}.
+
+\subsection{Tools}
+
+\begin{lemma}[Uniform Sobolev constants]\label{ns:tri}
+There are $C_1$ and $N$, independent of $h$, such that
+\begin{enumerate}[label=(\alph*)]
+\item $\norm v_{H^1(\Oh)}\le C_1\norm{\nabla v}$ for all $v\in H^1(\Oh)^2$ with $v|_{\partial R}=0$;
+\item $|c(w;u,v)|\le N\norm w_{H^1(\Oh)}\norm u_{H^1(\Oh)}\norm{\nabla v}$ for all $w,u\in H^1(\Oh)^2$ and all $v\in H^1(\Oh)^2$ with $v|_{\partial R}=0$, for $c=c_1$ and $c=c_s$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) is Lemma~\ref{lem:korn}. For (b), let $\Phi_h$ be the bi-Lipschitz map of Lemma~\ref{lem:korn} with $\norm{D\Phi_h-I}_\infty\le C\hG$. The embedding $H^1(\Omega)\subset L^4(\Omega)$ on the fixed Lipschitz domain $\Omega$ ($d=2,3$) transfers to $\norm w_{L^4(\Oh)}\le S\norm w_{H^1(\Oh)}$ with $S$ independent of $h$. Then $|c_1(w;u,v)|\le\norm w_{L^4}\norm{\nabla u}\norm v_{L^4}$ and $|((w\cdot\nabla)v,u)|\le\norm w_{L^4}\norm{\nabla v}\norm u_{L^4}$. Finish with (a).
+\end{proof}
+
+\begin{lemma}[Convective boundary identities]\label{ns:bdry}
+Let $w\in H^1(\Oh)^2$ with $\div w=0$, and $u,v\in H^1(\Oh)^2$ with $v|_{\partial R}=0$. Then
+\[
+c_1(w;u,v)-c_s(w;u,v)=\tfrac12\ip{(w\cdot n)\,u}{v},\qquad c_1(w;v,v)=\tfrac12\ip{w\cdot n}{|v|^2},\qquad c_s(w;v,v)=0 .
+\]
+\end{lemma}
+
+\begin{proof}
+$((w\cdot\nabla)u,v)+((w\cdot\nabla)v,u)=\int_{\Oh}w\cdot\nabla(u\cdot v)=\int_{\partial\Oh}(w\cdot n)(u\cdot v)-\int_{\Oh}(\div w)(u\cdot v)$. The last integral vanishes, and so does the part of the boundary integral on $\partial R$, since $v=0$ there. The outward normal of $\Oh$ on $\Gh$ is $n$.
+\end{proof}
+
+So $c_1(u_h;v,v)$ vanishes for all $v$ only if $u_h\cdot n=0$ on $\Gh$. Nitsche's method never enforces this, and for $\GS$ the normal trace is the leak $(h/\nu\mu)(p-\pbar)$ of Corollary~\ref{ns:Bp}. Section~\ref{ns:inflow} shows that this term nevertheless does not affect any result.
+
+\begin{lemma}[Error equation]\label{ns:erreq}
+For $v\in\VR$,
+\[
+\nu N_h(\ut,v)+c(\ut;\ut,v)-(\pt,\div v)+\ip{\pt}{v\cdot n}=(\ft,v)+\Gc_\nu(v)+\kappa_c(v),
+\]
+where
+\[
+\Gc_\nu(v):=\nu\Bigl[\ip{(\nabla\ut)^{\mathsf T}n}{v}-\ip{\ut}{\dn v}+\frac\mu h\ip{\ut}{v}\Bigr]-(F,v),
+\qquad \kappa_{c_1}=0,\qquad \kappa_{c_s}(v)=-\tfrac12\ip{(\ut\cdot n)\ut}{v}.
+\]
+Moreover $|\Gc_\nu(v)|\le C(1+\gamma^{1/2})\hG^{3/2}\tnorm v$ on $\VR$, $|\Gc_\nu(v)|\le C\hG^{3/2}\norm{\nabla v}$ on $\VO$, and $|\kappa_{c_s}(v)|\le C\hG^4\norm{\nabla v}$.
+\end{lemma}
+
+\begin{proof}
+Follow Lemma~\ref{lem:erroreq}: $\nu a_h(\ut,v)=-\nu(\Delta\ut,v)+\nu\ip{D(\ut)n}{v}$ and $-\nu\Delta\ut=\ft-F-(\ut\cdot\nabla)\ut-\nabla\pt$. This gives the identity for $c_1$. For $c_s$, apply Lemma~\ref{ns:bdry} with $w=u=\ut$. The bound on $\Gc_\nu$ is Lemma~\ref{lem:Gbound}, since $F$ enters only through Lemma~\ref{lem:ext}, which uses only $\norm F_\infty\le C$ and $\operatorname{supp}F\subset\overline{S_h}$. For $\kappa_{c_s}$, use $\norm{\ut}_{L^\infty(\Gh)}\le C\hG^2$ (Lemma~\ref{lem:ext}) and Lemma~\ref{lem:korn}.
+\end{proof}
+
+\begin{lemma}[Small data implies (L) and (L$^\ast$)]\label{ns:SD}
+Let $\gamma\ge\gamma_0$ and
+\[
+\lambda:=\frac{N C_1\norm{\ut}_{H^1(\Oh)}}{\nu c_1}\le\frac14 .\tag{SD}
+\]
+Then (L) holds with $\beta_L=\nu c_1/2$. There is $\gamma_2'\ge\gamma_0$, independent of $\nu$ and $h$, such that for $\gamma\ge\gamma_2'$ (L$^\ast$) holds with $\beta_\ast=\nu/C_\ast$, where $C_\ast$ is independent of $\nu$ and $h$.
+\end{lemma}
+
+(SD) follows for small $h$ from $NC_1\norm u_{H^1(\Omega)}<\nu c_1/4$, since $\norm{\ut}_{H^1(\Oh)}\to\norm u_{H^1(\Omega)}$. This is the usual small-data (low Reynolds number) condition. It is stated with the \emph{discrete} Nitsche coercivity constant $c_1$ of Lemma~\ref{lem:coercive}, so it is more restrictive than the continuous one.
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{(L).} For $\delta\in\VR$, Lemma~\ref{ns:tri} gives $|c(\delta;\ut,\delta)|+|c(\ut;\delta,\delta)|\le2NC_1\norm{\ut}_{H^1}\norm{\nabla\delta}^2\le2\lambda\nu c_1\tnorm\delta^2$. With Lemma~\ref{lem:coercive}, $\Aop(\delta,\delta)\ge\frac12\nu c_1\tnorm\delta^2$.
+\item \emph{Pressure bound for (L$^\ast$).} Let $(\delta,\xi)$ solve the problem in (L$^\ast$) and $v\in\VO$. Then $B^\ast(\xi,v)=-(\xi-\bar\xi,\div v)$, so $(\xi-\bar\xi,\div v)=\Aop(\delta,v)-\ell(v)$. On $\VO$,
+\[
+N_h(\delta,v)=a_h(\delta,v)-\ip{\delta}{\dn v}\le C_N\tnorm\delta\norm{\nabla v},\qquad C_N:=2+C_I(c_0\gamma_0)^{-1/2},
+\]
+the convective terms are at most $2\lambda\nu c_1\tnorm\delta\norm{\nabla v}$, and $\tnorm v\le(1+C_I^2)^{1/2}\norm{\nabla v}$. Lemma~\ref{lem:infsup} gives
+\[
+\beta\norm{\xi-\bar\xi}\le\nu(C_N+c_1/2)\tnorm\delta+(1+C_I^2)^{1/2}\norm\ell_{\ast,\VR}.
+\]
+\item \emph{Velocity bound.} Test with $v=\delta\in\Zh$. Since $\div\delta=0$ and $\int_{\Gh}\delta\cdot n=0$, we have $B^\ast(\xi,\delta)=\ip{\xi-\bar\xi}{\delta\cdot n}$. As in step~4 of Theorem~\ref{thm:D}, its modulus is at most $C_I(c_0\gamma)^{-1/2}\norm{\xi-\bar\xi}\tnorm\delta$. So
+\[
+\tfrac12\nu c_1\tnorm\delta\le\norm\ell_{\ast,\VR}+C_I(c_0\gamma)^{-1/2}\beta^{-1}\bigl[\nu(C_N+c_1/2)\tnorm\delta+(1+C_I^2)^{1/2}\norm\ell_{\ast,\VR}\bigr].
+\]
+Choose $\gamma_2'$ with $C_I(c_0\gamma_2')^{-1/2}\beta^{-1}(C_N+c_1/2)\le c_1/4$. The factor $\nu$ cancels, so $\gamma_2'$ does not depend on $\nu$. This gives $\tnorm\delta\le C_\ast\nu^{-1}\norm\ell_{\ast,\VR}$.
+\item \emph{Existence and uniqueness.} If $\ell=0$, then $\delta=0$, then $\xi$ is constant by step~2, and $\xi=0$ by the edge bubble of Lemma~\ref{lem:divrange}. The system is square, because $\dim\Zh+\dim\Pih=\dim\VR$ by Lemma~\ref{lem:divrange}.\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsection{The printed method}
+Let $z\in\Wh$ attain the bound of Lemma~\ref{lem:approx}, so $\tnorm{\ut-z}\le C\eps$. With the lift $E$ from the proof of Theorem~\ref{thm:B}(ii) and Lemma~\ref{ns:tri}(a),
+\begin{equation}\label{ns:zH1}
+\norm{\ut-z}_{H^1(\Oh)}\le C\bigl(\eps+h^{k+1/2}\bigr)\le C\eps .
+\end{equation}
+Put $\Rc(v):=-\ip{\pt-\pbar}{v\cdot n}$, as in Corollary~\ref{cor:GSerr}, where $\pbar$ is the mean over $\Gamma$ of the Navier--Stokes pressure $p$. Let $v_\varphi\in\Zh$ be the field of Section~\ref{sec:printed}, built from this $p$. Write $G=\norm{p-\pbar}_{L^2(\Gamma)}$ and
+\[
+X:=h/\mu+(1+\gamma^{1/2})\hG^{3/2}+\eps .
+\]
+
+\begin{theorem}[$\GS$ for Navier--Stokes]\label{ns:thmGS}
+Assume (NS1)--(NS2), (L) and $\gamma\ge\gamma_0$, for either convective form. There are $c_\ast>0$ and $C$, depending on $\nu$, $\beta_L$, $N$, $C_1$, the mesh constants and the solution (and on $\norm{p-\pbar}_{W^{1,\infty}(\Gamma)}$), such that if $X\le c_\ast$, then:
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Existence and local uniqueness.} $\GS$ has a solution $(u_h,p_h)$. It is the only one with $u_h\in z-\bigl(\delta_0+\{\tnorm\cdot\le r\}\bigr)$, where $\delta_0\in\Zh$ is the linearised error defined in \eqref{ns:delta0} and $r=CX$.
+\item \emph{$H^1$ rate $1$.} $\norm{\nabla(\ut-u_h)}\le C\bigl[h/\mu+(1+\gamma^{1/2})\hG^{3/2}+\eps\bigr]$.
+\item \emph{Energy rate $1/2$.} $\tnorm{\ut-u_h}\le\nu^{-1}(h/\mu)^{1/2}G+CX$.
+\item \emph{Quadratic closeness to the linearisation.} $\tnorm{(\ut-u_h)-(\ut-z)-\delta_0}\le CX^2$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Reformulation.} Subtracting the $\GS$ equations from Lemma~\ref{ns:erreq}, and using $\div v=0$ and $\int_{\Gh}v\cdot n=0$ for $v\in\Zh$, the error $e:=\ut-u_h$ satisfies
+\[
+\nu N_h(e,v)+c(\ut;\ut,v)-c(u_h;u_h,v)=\Rc(v)+\Gc_\nu(v)+\kappa_c(v)\qquad\forall v\in\Zh .
+\]
+By bilinearity, $c(\ut;\ut,v)-c(\ut-e;\ut-e,v)=c(e;\ut,v)+c(\ut;e,v)-c(e;e,v)$, so
+\[
+\Aop(e,v)=\Rc(v)+\Gc_\nu(v)+\kappa_c(v)+c(e;e,v).
+\]
+Write $u_h=z-\delta$ with $\delta\in\Zh$, so $e=e(\delta):=(\ut-z)+\delta$. Then $u_h$ solves the $\GS$ momentum equation on $\Zh$ if and only if
+\begin{equation}\label{ns:fp}
+\Aop(\delta,v)=\ell_0(v)+c(e(\delta);e(\delta),v)\quad\forall v\in\Zh,\qquad \ell_0:=\Rc+\Gc_\nu+\kappa_c-\Aop(\ut-z,\cdot).
+\end{equation}
+Given such $u_h\in\Wh$, the functional $v\mapsto\nu N_h(u_h,v)+c(u_h;u_h,v)-(\ft,v)$ vanishes on $\Zh=\ker(\div|_{\VR})$. Since $\div\VR=\Pih$ (Lemma~\ref{lem:divrange}), there is a unique $p_h\in\Pih$ with $(p_h,\div v)$ equal to it on $\VR$. So solving \eqref{ns:fp} is equivalent to solving $\GS$.
+\item \emph{Linearised error.} By (L), $\Aop$ is invertible on $\Zh$ (a square system). Let
+\begin{equation}\label{ns:delta0}
+\delta_0:=\Aop^{-1}\ell_0=\delta_R+\delta_G,\qquad \Aop(\delta_R,\cdot)=\Rc,\qquad \Aop(\delta_G,\cdot)=\Gc_\nu+\kappa_c-\Aop(\ut-z,\cdot)\quad\text{on }\Zh .
+\end{equation}
+\item \emph{Bound on $\delta_G$.} Since $|\Aop(\ut-z,v)|\le\nu M\tnorm{\ut-z}\tnorm v+2N\norm{\ut}_{H^1}\norm{\ut-z}_{H^1}\norm{\nabla v}$, Lemma~\ref{ns:erreq} and \eqref{ns:zH1} give $\tnorm{\delta_G}\le C\beta_L^{-1}\bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\bigr]$.
+\item \emph{Ansatz for $\delta_R$.} Set $\delta_R=(h/\nu\mu)v_\varphi+r$. Since $\nu N_h\cdot(h/\nu\mu)=(h/\mu)N_h$,
+\[
+\Aop(r,v)=m(v)+\ell(v)-\frac{h}{\nu\mu}\bigl[c(v_\varphi;\ut,v)+c(\ut;v_\varphi,v)\bigr],
+\]
+where $m$ and $\ell$ are exactly the functionals of step~3 of Theorem~\ref{thm:C}. Steps~4--5 of that proof give $|m(v)|+|\ell(v)|\le\bigl[C(h/\mu+\hG^{3/2}+h^k)+C(h/\mu)h^k\hG^{-1/2}\bigr]\norm{\nabla v}$. The convective term is at most $C(h/\mu)\norm{\nabla v}$ by Lemma~\ref{ns:tri}, since $\norm{v_\varphi}_{H^1}\le C$. Using $(h/\mu)h^k\hG^{-1/2}\le Ch^k$, $\norm{\nabla v}\le\tnorm v$ and (L),
+\[
+\tnorm r\le C\beta_L^{-1}\bigl(h/\mu+\hG^{3/2}+\eps\bigr).
+\]
+\item \emph{Consequences for $\delta_0$.} Since $\norm{\nabla v_\varphi}\le C$ and $\tnorm{v_\varphi}\le(\mu/h)^{1/2}(G+C\hG^2+Ch^k)+C$ (step~2 of the lower bound in Theorem~\ref{thm:A}),
+\begin{equation}\label{ns:d0}
+\norm{\nabla\delta_0}\le CX,\qquad \tnorm{\delta_0}\le\nu^{-1}(h/\mu)^{1/2}G+CX .
+\end{equation}
+\item \emph{Contraction.} Let $\Phi(\delta):=\Aop^{-1}\bigl[\ell_0+c(e(\delta);e(\delta),\cdot)\bigr]$ on $\Zh$. Set $A:=\norm{\ut-z}_{H^1}+C_1\norm{\nabla\delta_0}$, so $A\le CX$ by \eqref{ns:zH1} and \eqref{ns:d0}. Consider the ball $B:=\{\delta\in\Zh:\tnorm{\delta-\delta_0}\le A/C_1\}$. For $\delta\in B$, Lemma~\ref{ns:tri}(a) gives $\norm{e(\delta)}_{H^1}\le A+C_1\tnorm{\delta-\delta_0}\le2A$.
+\begin{itemize}
+\item By (L) and Lemma~\ref{ns:tri}(b), $\tnorm{\Phi(\delta)-\delta_0}\le\beta_L^{-1}N(2A)^2$, which is at most $A/C_1$ if $A\le\beta_L/(4NC_1)$.
+\item For $\delta_1,\delta_2\in B$ with $d:=\delta_1-\delta_2$, we have $c(e_1;e_1,v)-c(e_2;e_2,v)=c(d;e_1,v)+c(e_2;d,v)$. Hence
+\[
+\tnorm{\Phi(\delta_1)-\Phi(\delta_2)}\le\beta_L^{-1}N\cdot4A\cdot C_1\tnorm d\le\tfrac12\tnorm d\qquad\text{if }A\le\beta_L/(8NC_1).
+\]
+\end{itemize}
+Both conditions follow from $X\le c_\ast$. Banach's fixed-point theorem gives a unique $\delta\in B$ with $\Phi(\delta)=\delta$, which proves (a), and $\tnorm{\delta-\delta_0}\le4\beta_L^{-1}NA^2\le CX^2$, which proves (d).
+\item \emph{(b) and (c).} From $e=(\ut-z)+\delta_0+(\delta-\delta_0)$, \eqref{ns:d0}, (d), $\tnorm{\ut-z}\le C\eps$ and $X^2\le X$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}[Exact leading term; sharpness]\label{ns:Bp}
+Assume in addition that $G>0$, $\hG\to0$, $h/\mu\to0$, $\gamma\hG\to0$ and $\eps/(\hG/\gamma)^{1/2}\to0$ (the hypotheses of Corollary~\ref{cor:Bp}). Then
+\[
+\ut-u_h=\frac{h}{\nu\mu}\,v_\varphi+\vartheta_h,\qquad \tnorm{\vartheta_h}=o\bigl((h/\mu)^{1/2}\bigr),\qquad\norm{\vartheta_h}_{\Gh}=o(h/\mu),
+\]
+and consequently
+\[
+\frac{\norm{\ut-u_h}_{L^2(\Gh)}}{(h/\nu\mu)\,G}\to1,\qquad
+\frac{\tnorm{\ut-u_h}}{\nu^{-1}(h/\mu)^{1/2}G}\to1,\qquad
+\norm{\nabla(\ut-u_h)}\ge c\,\frac{h}{\nu\mu}\,G-Ch^{k+1/2}\ \ \text{for small }h .
+\]
+So $u_h\cdot n\approx(h/\nu\mu)(p-\pbar)$ on $\Gh$, with the Navier--Stokes pressure, and, if moreover $\mu$ is bounded (for instance fixed $\gamma$ and bounded $\rho$), the $H^1$ rate $1$ of Theorem~\ref{ns:thmGS}(b) is sharp.
+\end{corollary}
+
+\begin{proof}
+\begin{enumerate}
+\item Set $\vartheta_h:=(\ut-z)+\delta_G+r+(\delta-\delta_0)$. Steps~3--4 and~6 of the proof of Theorem~\ref{ns:thmGS} give $\tnorm{\vartheta_h}\le C\bigl[h/\mu+(1+\gamma^{1/2})\hG^{3/2}+\eps\bigr]+CX^2\le CX$.
+\item Under the hypotheses, $X/(h/\mu)^{1/2}\to0$. Indeed,
+\[
+\frac{h/\mu}{(h/\mu)^{1/2}}\to0,\qquad \frac{(1+\gamma^{1/2})\hG^{3/2}}{(\hG/\gamma)^{1/2}}=(\gamma^{1/2}+\gamma)\hG\to0\ \ (\gamma\ge\gamma_0),\qquad \frac{\eps}{(h/\mu)^{1/2}}\to0 .
+\]
+Hence $\tnorm{\vartheta_h}=o((h/\mu)^{1/2})$ and $\norm{\vartheta_h}_{\Gh}\le(h/\mu)^{1/2}\tnorm{\vartheta_h}=o(h/\mu)$.
+\item Step~4 of the proof of Corollary~\ref{cor:Bp} gives $\norm{v_\varphi}_{\Gh}=G(1+o(1))$ and $\tnorm{v_\varphi}^2=(\mu/h)\norm{v_\varphi}^2_{\Gh}+O(1)$. This yields the two limits.
+\item For the $H^1$ lower bound, use $\norm{e}_{\Gh}\le C_{\mathrm{tr}}(\norm{\nabla e}+\norm{\nabla E})$ with $\norm{\nabla E}\le Ch^{k+1/2}$, where $E$ is the lift from the proof of Theorem~\ref{thm:B}(ii). If $\mu$ is bounded, $h^{k+1/2}=o(h/\mu)$ and the term is absorbed.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{remark}\label{ns:H1const}
+The slip and energy constants are universal ($=1$), exactly as for Stokes. The $H^1$ constant $\lim\norm{\nabla(\ut-u_h)}\,\nu\mu/(hG)$, if it exists, is not universal. It now depends on the \emph{Oseen} response: $r$ solves the linearised problem, including $c(v_\varphi;\ut,\cdot)+c(\ut;v_\varphi,\cdot)$, which is of the same order as $\nabla v_\varphi$. So the Stokes value $K=\norm{\nabla U}/G$ of Corollary~\ref{hc:cor} does not carry over in general. The Navier--Stokes analogue is $K_{NS}=\norm{\nabla U_O}/G$ with the Oseen leak flow $U_O$, and $K_{NS}\ge K_S$ (Corollary~\ref{nb:KNS}).
+\end{remark}
+
+\begin{remark}[Cylinder drag forces $G>0$]\label{ns:drag}
+Under (L) and the hypotheses of Corollary~\ref{ns:Bp}, the following holds. For flow past the cylinder, the pressure drag is $D_p=\int_\Gamma p\,n_1$, up to the orientation of $n$. Since $\int_\Gamma n_1=0$, $|D_p|=|\int_\Gamma(p-\pbar)n_1|\le|\Gamma|^{1/2}G$, so $G\ge|D_p|/\sqrt{2\pi}$. In Gjerde--Scott's own application, the printed method therefore always leaks, at velocity $(h/\nu\mu)(p-\pbar)$, and its asymptotic $H^1$ rate at fixed $\mu$ is $1$, not $3/2$. With their $\mu=10^6$ the leak is small in absolute terms, which is consistent with their accurate drag values. For Stokes, the effect of the leak on the computed drag is quantified in Section~\ref{pd:sec} (Theorem~\ref{pd:thm:gsdrag}, Remark~\ref{pd:rem:eps}); for Navier--Stokes the leading term $-(h/\nu\mu)K^\dagger_\psi$ is identified in Corollary~\ref{nb:gsdrag}.
+\end{remark}
+
+\subsection{The pressure-consistent method}
+
+\begin{theorem}[$\CNS$ for Navier--Stokes: Scott's rate]\label{ns:thmD}
+Assume (NS1)--(NS2) and (L$^\ast$); by Lemma~\ref{ns:SD}, (SD) and $\gamma\ge\gamma_2'$ suffice. Let $Y:=(1+\gamma^{1/2})\hG^{3/2}+\eps$. There are $c_\ast,C$ such that if $Y\le c_\ast$, then $\CNS$ has a solution, whose velocity is unique in the $\tnorm\cdot$-ball of radius $CY$ about $z-\delta_0$, where $\delta_0$ is defined in step~2 below. It satisfies
+\[
+\tnorm{\ut-u_h}\le C\bigl[(1+\gamma^{1/2})\hG^{3/2}+\eps\bigr].
+\]
+Hence, for fixed $k\ge4$, $\gamma\in[\gamma_2',\gamma_{\max}]$ and $\hG\ge\hO^{2(\sigma_k-k)}$,
+\[
+\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^k\bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Error equation.} Let $p^\ast:=\pt-\pbG(\pt)$, $\eta:=p^\ast-\pi_hp^\ast$ (with $\pi_h$ the $L^2$ projection onto $\Pih$), and write $p_h=p^\ast-\eta-\xi$ and $u_h=z-\delta$. As in step~1 of Theorem~\ref{thm:D} and step~1 above, $(u_h,p_h)$ solves $\CNS$ if and only if $(\delta,\xi)\in\Zh\times\Pih$ solves
+\[
+\Aop(\delta,v)+B^\ast(\xi,v)=\ell_0(v)+c(e(\delta);e(\delta),v)\quad\forall v\in\VR,
+\qquad \ell_0:=\Gc_\nu+\kappa_c-\Aop(\ut-z,\cdot)-B^\ast(\eta,\cdot).
+\]
+The continuity row holds because $\div u_h=\div z-\div\delta=0$.
+\item \emph{Size of $\ell_0$.} We have $(\eta,\div v)=0$ for all $v\in\VR$, because $\div\VR\subset\Pih$. Hence $|B^\ast(\eta,v)|\le2\norm\eta_{\Gh}(h/\mu)^{1/2}\tnorm v\le C\hG^k\tnorm v$. With Lemma~\ref{ns:erreq} and \eqref{ns:zH1}, $\norm{\ell_0}_{\ast,\VR}\le CY$. Let $(\delta_0,\xi_0)$ be the solution of (L$^\ast$) with data $\ell_0$; then $\tnorm{\delta_0}\le\beta_\ast^{-1}CY$.
+\item \emph{Fixed point.} Let $\Phi(\delta)$ be the $\Zh$-component of the (L$^\ast$) solution with data $\ell_0+c(e(\delta);e(\delta),\cdot)$. Since $\norm{c(e;e,\cdot)}_{\ast,\VR}\le N\norm e_{H^1}^2$, step~6 of the proof of Theorem~\ref{ns:thmGS} applies verbatim, with $\beta_L$ replaced by $\beta_\ast$ and $A:=\norm{\ut-z}_{H^1}+C_1\tnorm{\delta_0}\le CY$.
+\item \emph{Conclusion.} This gives the unique fixed point and $\tnorm{\ut-u_h}\le\tnorm{\ut-z}+\tnorm{\delta_0}+CY^2\le CY$. The $H^1$ statement follows as in Theorem~\ref{thm:D}, using the lift $E$ for the $L^2$ part.\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsection{Is an inflow/outflow correction needed?}\label{ns:inflow}
+
+The next lemma quantifies the convective boundary term.
+
+\begin{lemma}[Wall P\'eclet number]\label{ns:pe}
+Let $\mu\ge\mu_0$, $w\in\Vh$ with $\div w=0$, and $v\in\VR$. Then $\nu N_h(v,v)+c_s(w;v,v)\ge\nu c_1\tnorm v^2$, and
+\[
+\nu N_h(v,v)+c_1(w;v,v)\ge\bigl(\nu c_1-\tfrac12\,\mathrm{Pe}_\Gamma(w)\bigr)\tnorm v^2,\qquad
+\mathrm{Pe}_\Gamma(w):=\frac{h}{\mu}\,\norm{(w\cdot n)_-}_{L^\infty(\Gh)},
+\]
+where $(w\cdot n)_-:=\max(-w\cdot n,0)$ is the inflow part. Here $n$ points out of $\Oh$ (into $P_h$).
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{ns:bdry}, $c_1(w;v,v)=\frac12\ip{w\cdot n}{|v|^2}\ge-\frac12\norm{(w\cdot n)_-}_\infty\norm v^2_{\Gh}$, and $\norm v^2_{\Gh}\le(h/\mu)\tnorm v^2$.
+\end{proof}
+
+Consequences:
+\begin{enumerate}
+\item \emph{The results above need no correction, for either form.} (L) and (L$^\ast$) linearise at $\ut$, whose normal trace on $\Gh$ is $O(\hG^2)$. For $c_1$ versus $c_s$, $\Aop$ changes by $\tfrac12\ip{(\ut\cdot n)\delta}{v}+\tfrac12\ip{(\delta\cdot n)\ut}{v}=O(\hG^2)\norm\delta_{\Gh}\norm v_{\Gh}$ (Lemma~\ref{ns:bdry}). So (L) for one form implies (L) for the other with $\beta_L-C\hG^2h/\mu$. The discrete leak enters only through the quadratic term $c(e;e,v)$, which the contraction controls by continuity alone (Lemma~\ref{ns:tri}); no sign is needed.
+\item \emph{The leak does make $c_1(u_h;u_h,u_h)\ne0$.} For $\GS$, Corollary~\ref{ns:Bp} gives $u_h\cdot n=(h/\nu\mu)(p-\pbar)+o(h/\mu)$ in $L^2(\Gh)$, with $n$ pointing into the cylinder. The discrete wall is porous: fluid leaves $\Oh$ where $p>\pbar$ (the front stagnation region) and re-enters where $p<\pbar$. The leak law $(\nu\mu/h)\,u_h\cdot n\approx p-\pbar$ is a Darcy-type condition with permeability $h/\nu\mu$. If the leading term also held in $L^\infty(\Gh)$ (Corollary~\ref{ns:Bp} is an $L^2$ statement; an $L^\infty$ version would need an inverse estimate and is not proved here), the inflow part would give $\mathrm{Pe}_\Gamma(u_h)\approx(h/\mu)(h/\nu\mu)\norm{(p-\pbar)_-}_\infty=O((h/\mu)^2)$. The penalty would then dominate the inflow term by a factor of order $(h/\mu)^{-2}$. Formally, the kinetic-energy flux $\tfrac12\int_{\Gh}(u_h\cdot n)|u_h|^2$ is cubic in a boundary trace of size $\hG^2+h/\mu$, which is negligible against the penalty dissipation $(\nu\mu/h)\norm{u_h}^2_{\Gh}\approx(h/\nu\mu)G^2$. Point~1 is what the proofs actually use; point~2 is only the physical picture.
+\item \emph{When a correction would matter.} Lemma~\ref{ns:pe} degrades only when $\mathrm{Pe}_\Gamma(w)\gtrsim\nu c_1$ for iterates $w$ far from $\ut$. This happens on coarse meshes, at large Reynolds number with fixed $\mu$, or in Picard or iterated-penalty sweeps that start far from the solution. There $c_s$ (for which $c_s(w;v,v)=0$ identically), or an upwind inflow term $-\ip{(w\cdot n)_-u}{v}$ in the style of Nitsche methods for Oseen problems (consistent to $O(\hG^4)$ at $\ut$), restores the energy inequality. For the asymptotic statements above neither is needed. $c_s$ is also the natural choice for proving existence for arbitrary data, which we do not attempt: that would need a discrete Hopf extension of $\gI$ inside $\Wh$.
+\end{enumerate}
+
+\input{sections/11c_ns_branch}
+

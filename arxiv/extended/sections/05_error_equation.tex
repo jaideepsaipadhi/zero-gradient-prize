@@ -1,0 +1,47 @@
+\section{The error equation}\label{sec:erroreq}
+
+\begin{lemma}\label{lem:erroreq}
+For $v\in\VR$,
+\[
+N_h(\ut,v)-(\pt,\div v)+\ip{\pt}{v\cdot n}=(\ft,v)+\Gc(v),
+\]
+where
+\[
+\Gc(v):=\ip{(\nabla\ut)^{\mathsf T}n}{v}-\ip{\ut}{\dn v}+\frac\mu h\ip{\ut}{v}-(F,v).
+\]
+\end{lemma}
+
+\begin{proof}
+The argument has four steps.
+\begin{enumerate}
+\item By symmetry of $D(\ut)$ and since $v=0$ on $\partial R$,
+\[
+a_h(\ut,v)=(D(\ut),\nabla v)=-(\div D(\ut),v)+\ip{D(\ut)n}{v}.
+\]
+\item $\div D(\ut)=\Delta\ut$.
+\item $-\Delta\ut=\ft-F-\nabla\pt$, and $-(\nabla\pt,v)=(\pt,\div v)-\ip{\pt}{v\cdot n}$.
+\item $D(\ut)n-\dn\ut=(\nabla\ut)^{\mathsf T}n$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}\label{lem:Gbound}
+For $v\in\VR$, $|\Gc(v)|\le C(1+\gamma^{1/2})\hG^{3/2}\tnorm v$. For $v\in\VO$, $|\Gc(v)|\le C\hG^{3/2}\norm{\nabla v}$.
+\end{lemma}
+
+\begin{proof}
+We bound the four terms of $\Gc(v)$ in turn.
+\begin{itemize}
+\item The transposed term is at most $C\hG^{3/2}\norm{\nabla v}$ by Lemma~\ref{lem:transposed}.
+\item $|\ip{\ut}{\dn v}|\le C\hG^2\cdot C_I(\rho/h)^{1/2}\norm{\nabla v}\le C\hG^{3/2}\norm{\nabla v}$.
+\item The penalty term is at most $(\mu/h)^{1/2}C\hG^2\tnorm v=C\gamma^{1/2}\hG^{3/2}\tnorm v$.
+\item The $F$ term is bounded by Lemma~\ref{lem:ext}.
+\end{itemize}
+For $v\in\VO$, the transposed and penalty terms vanish.
+\end{proof}
+
+\begin{corollary}[$\GS$ on $\Zh$]\label{cor:GSerr}
+Let $v\in\Zh$. Then $(\cdot,\div v)=0$ and $\int_{\Gh}v\cdot n=0$, so for every constant $c$,
+\[
+N_h(\ut-u_h,v)=\Rc(v)+\Gc(v),\qquad \Rc(v):=-\ip{\pt-c}{v\cdot n}.
+\]
+\end{corollary}

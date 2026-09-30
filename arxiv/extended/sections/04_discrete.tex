@@ -1,0 +1,108 @@
+\section{Discrete tools}\label{sec:discrete}
+
+\begin{lemma}[Inverse traces]\label{lem:inverse}
+For $v\in\Vh$,
+\[
+\sum_{e\in\EG}|e|\norm{\dn v}^2_{L^2(e)}\le C_I^2\norm{\nabla v}^2,
+\qquad\text{hence}\qquad
+\norm{\dn v}_{\Gh}\le C_I(\rho/h)^{1/2}\norm{\nabla v}.
+\]
+For $q\in\Pih$,
+\[
+\norm{q}^2_{\Gh}\le C_I^2\sum_{T\in\Th^\Gamma}|e_T|^{-1}\norm{q}^2_T\le C_I^2(\rho/h)\norm{q}^2 .
+\]
+\end{lemma}
+
+\begin{lemma}[Coercivity and continuity]\label{lem:coercive}
+Let $\mu_0:=4\kappa\rho C_I^2$. The condition $\gamma\ge\gamma_0:=4\kappa C_I^2/c_0$ is sufficient for $\mu\ge\mu_0$. If $\mu\ge\mu_0$, then
+\[
+N_h(v,v)\ge c_1\tnorm{v}^2\quad\forall v\in\VR,\qquad
+|N_h(w,v)|\le M\tnorm{w}\,\tnorm{v},
+\]
+with $c_1=1/\max(2\kappa(1+C_I^2),2)$ and $M=3+(\kappa C_I^2)^{-1/2}$. Both constants are independent of $h$, $\mu$ and $\rho$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item By Lemma~\ref{lem:inverse} and Young's inequality with $\varepsilon=1/(2\kappa)$,
+\[
+2|\ip{\dn v}{v}|\le2C_I\norm{\nabla v}(\rho/h)^{1/2}\norm{v}_{\Gh}\le\tfrac12a_h(v,v)+2\kappa\rho C_I^2h^{-1}\norm{v}^2_{\Gh}.
+\]
+\item Hence $N_h(v,v)\ge\frac12a_h(v,v)+(\mu-2\kappa\rho C_I^2)h^{-1}\norm{v}^2$. For $\mu\ge\mu_0$ this is at least $(2\kappa)^{-1}\norm{\nabla v}^2+(\mu/2h)\norm{v}^2$.
+\item Adding $\sum_e|e|\norm{\dn v}^2\le C_I^2\norm{\nabla v}^2$ gives the coercivity constant.
+\item For continuity, $a_h(w,v)\le2\norm{\nabla w}\norm{\nabla v}$. Each $\dn$-term is at most $(\rho/\mu)^{1/2}\tnorm w\tnorm v\le(4\kappa C_I^2)^{-1/2}\tnorm w\tnorm v$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}[Divergence range]\label{lem:divrange}
+Under (M1), $\div\VR=\Pih$ and $\Wh\neq\emptyset$. The velocities of $\GS$ and $\CNS$ are pointwise divergence-free.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item $\div\VO=\Pih\cap L^2_0$ by the inf-sup condition of Lemma~\ref{lem:infsup} below (Guzm\'an--Scott \cite{GuzmanScott2019}, extending Scott--Vogelius \cite{ScottVogelius1985}). This holds on the doubly connected domain $\Oh$; there is no circularity, since Lemma~\ref{lem:infsup} does not use the present lemma.
+\item The edge bubble $b=\beta_en_e$ on one $e\subset\Gh$ lies in $\VR$ and has $\int\div b=\int_{\Gh}b\cdot n=|e|/6\ne0$. This adds the constants, so $\div\VR=\Pih$.
+\item For any $\mathcal G\in\Vh$ with trace $\gI$, we have $\div\mathcal G\in\Pih=\div\VR$. Hence $\mathcal G-v\in\Wh$ for a suitable $v\in\VR$.
+\item For the discrete velocity, $u_h-\mathcal G\in\VR$, and the continuity row forces $\div u_h=0$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{remark}\label{rem:corner}
+If a vertex of $\partial R$ is singular (for example a corner with one triangle), then $A_z(\div\mathcal G)=0$ is a condition on $\gI$ that generic data violate, and $\Wh=\emptyset$.
+\end{remark}
+
+\begin{lemma}[Uniform inf-sup constant]\label{lem:infsup}
+There is $\beta>0$, depending only on $k$, $\Theta_0$, shape regularity and $L$, such that for every $q\in\Pih\cap L^2_0(\Oh)$ there exists $v\in\VO$ with $\div v=q$ and $\norm{\nabla v}\le\beta^{-1}\norm{q}$.
+\end{lemma}
+
+\begin{proof}
+Guzm\'an and Scott \cite[Theorem~1]{GuzmanScott2019} prove the inf-sup condition for $(\VO,\Pih\cap L^2_0)$ for $k\ge4$ under (M1)--(M2). Their proof needs neither quasi-uniformity, nor small $h$, nor an interior vertex in each triangle. The discrete Fortin operator is built locally from vertex and edge patches, using shape regularity and (M2) only. The domain enters only through the continuous inf-sup constant (via the $P_2$--$P_0$ Bernardi--Raugel pair) and a Poincar\'e constant. The Poincar\'e constant is uniform by Lemma~\ref{lem:korn}, so it remains to show that the continuous inf-sup constant is uniform over the domains $\Oh$.
+\begin{itemize}
+\item Cover $\Oh$ by the $h$-dependent pieces $W_j\cap\Oh$, where the $W_j$ are fixed angular wedges of half-angle $\alpha<\pi/2$ about the origin. Each $W_j\cap R$ is convex, and $W_j\cap\Oh=(W_j\cap R)\setminus P_h$.
+\item Each $W_j\cap\Oh$ is star-shaped with respect to a ball $B(c_j,r_B)\subset W_j\cap R$ with $|c_j|=r_b$, provided every chord line meeting $W_j$ leaves the ball on its outer side. This holds uniformly when $(r_b-r_B)\cos(\alpha+\arcsin(r_B/r_b)+\hG)>1$, which can be arranged with fixed $\alpha,r_b,r_B$ because $P_h\subset D$.
+\item The pieces have diameters, ball radii and pairwise overlap measures bounded above and below independently of $h$.
+\end{itemize}
+The standard gluing of Bogovski\u{\i} operators over a finite union of such pieces (Lemma~\ref{gd:lem:bog}) then gives a Bogovski\u{\i} constant, and hence a continuous inf-sup constant, independent of $h$. Alternatively, Bernardi, Costabel, Dauge and Girault prove directly that the continuous inf-sup constant of an inscribed polygonal approximation differs from that of the curved domain by $O(h)$ \cite[Theorem~4.6]{BCDG2016}. %% VERIFY: Theorem 4.6 (with Def. 4.5, inscribed h-approximations) is the number in all three author copies (arXiv:1510.03978, Costabel's and Dauge's PDFs; notes/v7/cites/FINDINGS.txt [1]); the SIAM typeset version was not seen. The equivalence of the inf-sup condition with a bounded right inverse of $\div$ gives the statement.
+\end{proof}
+
+\begin{lemma}[Approximation in $\Wh$]\label{lem:approx}
+Let $k\ge4$.
+Let $\sigma_k:=k+2$ for even $k$ and $\sigma_k:=k+1$ for odd $k$. Then
+\[
+E_h:=\inf_{z\in\Wh}\tnorm{\ut-z}\le C\eps,\qquad \eps:=(1+(\gamma\hG)^{1/2})\,h^k+h^{\sigma_k}\bigl(\hG^{-1/2}+(\mu/h)^{1/2}\bigr).
+\]
+\end{lemma}
+
+The second term comes from the net flux of the interpolated boundary data. It cannot be removed for the method as posed with $\gI$. Recall $m_R=\int_{\partial R}\gI\cdot\nu$ (Definition~\ref{rs:def}). Every $z\in\Wh$ (including the discrete velocity) has $\int_{\Gh}z\cdot n=-m_R$, while $\int_{\Gh}\ut\cdot n=0$. Hence $\tnorm{\ut-z}\ge(\mu/h)^{1/2}|m_R|/|\Gh|^{1/2}$, and $|m_R|\asymp h^{\sigma_k}$ for generic $g$.
+
+For bounded $\gamma$ the term is at most $Ch^k$ whenever $\hG\ge h^{2(\sigma_k-k)}$: that is, $\hG\ge h^4$ for even $k$ and $\hG\ge h^2$ for odd $k$. If $\gI$ is replaced by the flux-corrected $\tilde g_I$ of Definition~\ref{rs:def} (Lemma~\ref{rs:approx}), or for the test data of Section~\ref{sec:numerics}, where $g\cdot\nu$ is a polynomial of degree at most $5$ on each side and the flux integrals over $\partial R$ are exact, only the contribution of $\Gh$ to the net flux remains. By step~2 of the proof below it is $O(\hG^{\sigma_k})$, so the term reduces to $C(1+\gamma^{1/2})\hG^{\sigma_k-1/2}$, which is below $h^k$ for bounded $\gamma$.
+
+\begin{proof}
+\begin{enumerate}
+\item \emph{Interpolation.} Let $w_h:=I_h\ut\in\Vh$ be the Lagrange interpolant of $\ut$, which is smooth on $\Oh$. On $\partial R$, $w_h=\gI$. Boundary triangles have diameter at most $C\hG$ by shape regularity, so
+\[
+\norm{\nabla(\ut-w_h)}\le Ch^k,\qquad \norm{\ut-w_h}_{L^\infty(\Gh)}\le C\hG^{k+1},\qquad \norm{\dn(\ut-w_h)}_{L^\infty(\Gh)}\le C\hG^{k}.
+\]
+Hence $\tnorm{\ut-w_h}\le C(h^k+(\mu/h)^{1/2}\hG^{k+1}+\hG^k)\le C(1+(\gamma\hG)^{1/2})h^k$. Moreover $\div w_h=\div(w_h-\ut)\in\Pih$, with $\norm{\div w_h}\le Ch^k$.
+\item \emph{Net flux.} Let $\nu$ be the outward normal of $R$. Since $\ut|_{\partial R}=g$ and $\div\ut=0$, we have $\int_{\Gh}\ut\cdot n=-\int_{\partial R}g\cdot\nu=0$. Therefore
+\[
+m:=\int_{\Oh}\div w_h=\int_{\partial R}(\gI-g)\cdot\nu+\int_{\Gh}(w_h-\ut)\cdot n,
+\qquad |m|\le Ch^{\sigma_k}.
+\]
+Here equispaced $P_k$ Lagrange interpolation on an edge integrates like the closed $(k+1)$-point Newton--Cotes rule. That rule is exact for polynomials of degree $\sigma_k-1$, so each edge contributes $O(|e|^{\sigma_k+1})$.
+\item \emph{Removing the mean.} Let $b:=\sum_{e\in\EG}\beta_en_e$, where $\beta_e$ is the quadratic edge bubble of the boundary triangle on $e$. Then $b\in\VR$, $\int\div b=\int_{\Gh}b\cdot n=|\Gh|/6$, and with $a:=6m/|\Gh|$,
+\[
+\tnorm{ab}\le C|a|\bigl(\hG^{-1/2}+(\mu/h)^{1/2}\bigr)\le Ch^{\sigma_k}\bigl(\hG^{-1/2}+(\mu/h)^{1/2}\bigr)\le C\eps,
+\]
+using $\#\EG\le C/\hG$. Also $\norm{\div(ab)}\le C|a|\hG^{-1/2}\le C\eps$.
+\item \emph{Divergence correction.} The field $q:=\div(w_h-ab)\in\Pih$ has mean zero and $\norm q\le C\eps$. Lemma~\ref{lem:infsup} gives $v\in\VO$ with $\div v=q$ and $\norm{\nabla v}\le\beta^{-1}\norm q\le C\eps$. Since $v=0$ on $\Gh$, $\tnorm v^2=\norm{\nabla v}^2+\sum_e|e|\norm{\dn v}^2_{L^2(e)}\le(1+C_I^2)\norm{\nabla v}^2$.
+\item Set $z:=w_h-ab-v$. Then $z|_{\partial R}=\gI$ and $\div z=0$, so $z\in\Wh$, and
+\[
+\tnorm{\ut-z}\le\tnorm{\ut-w_h}+\tnorm{ab}+\tnorm{v}\le C\eps.\qedhere
+\]
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+Version~1 of this preprint proved Lemma~\ref{lem:approx} for $k=4$ by matching Argyris stream-function data on $\partial R$. The proof above avoids stream functions and holds for every $k\ge4$.
+\end{remark}

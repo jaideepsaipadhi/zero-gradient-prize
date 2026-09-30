@@ -1,0 +1,162 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,longtable,array,enumitem}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[expansion=false]{microtype}
+\usepackage{graphicx}
+
+\setlist{leftmargin=2em}
+\emergencystretch=2em
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{theoremA}{Theorem A}
+\newtheorem*{theoremB}{Theorem B}
+\newtheorem*{theoremC}{Theorem C}
+\newtheorem*{theoremD}{Theorem D}
+\newtheorem*{corollaryBp}{Corollary B$'$}
+\newtheorem*{theoremBpp}{Theorem B$''$}
+\newtheorem*{theoremDp}{Theorem D$'$}
+\newtheorem*{propositionE}{Proposition E}
+\newtheorem*{theoremF}{Theorem F}
+\newtheorem*{theoremG}{Theorem G}
+\newtheorem*{theoremH}{Theorem H}
+\newtheorem*{theoremI}{Theorem I}
+\newtheorem*{theoremP}{Theorem P}
+\newtheorem*{theoremR}{Theorem R}
+\newtheorem*{theoremS}{Theorem S}
+\newtheorem*{theoremL}{Theorem L}
+\newtheorem*{theoremT}{Theorem T}
+\newtheorem*{theoremU}{Theorem U}
+\newtheorem*{theoremM}{Theorem M}
+\newtheorem{fact}[theorem]{Fact}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+% Pointer to the script that produced a number
+\newcommand{\cert}[2]{\par\smallskip{\raggedright\noindent\emph{Computation:} \texttt{#1}; output \texttt{#2}.\par}}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\hG}{h_\Gamma}
+\newcommand{\hO}{h_\Omega}
+\newcommand{\Gh}{\Gamma_h}
+\newcommand{\Oh}{\Omega_h}
+\newcommand{\Th}{\mathcal T_h}
+\newcommand{\EG}{\mathcal E_h^\Gamma}
+\newcommand{\Vh}{V_h}
+\newcommand{\VR}{V_h^R}
+\newcommand{\VO}{V_h^0}
+\newcommand{\Pih}{\Pi_h}
+\newcommand{\Zh}{Z_h}
+\newcommand{\Wh}{W_h}
+\newcommand{\gI}{g_I}
+\newcommand{\dn}{\partial_n}
+\newcommand{\dt}{\partial_\tau}
+\newcommand{\ut}{\tilde u}
+\newcommand{\pt}{\tilde p}
+\newcommand{\ft}{\tilde f}
+\newcommand{\psit}{\tilde\psi}
+\newcommand{\pbar}{\bar p}
+\newcommand{\pbG}{\bar p_{\Gamma}}
+\newcommand{\ip}[2]{\langle #1,\, #2\rangle}
+\newcommand{\tnorm}[1]{|\!|\!|#1|\!|\!|}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\GS}{\mathrm{GS}}
+\newcommand{\CNS}{\mathrm{CNS}^\ast}
+\newcommand{\eps}{\varepsilon_h}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\Rc}{\mathcal R}
+\newcommand{\Gc}{\mathcal G}
+\newcommand{\cS}{\mathcal S}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\dist}{dist}
+% General domains section: curvature is \kap, since \kappa is the Korn constant
+\newcommand{\kap}{\varkappa}
+\newcommand{\kapi}{\norm{\kap}_\infty}
+\newcommand{\Tr}{\mathcal T_r}
+% Navier--Stokes section
+\newcommand{\Aop}{\mathfrak A}
+% Pressure, stress and drag section
+\newcommand{\Lay}{L_1}
+\newcommand{\RM}{\mathrm{RM}}
+\newcommand{\Bh}{B_h}
+\newcommand{\xib}{\xi_{\mathrm b}}
+\newcommand{\chat}{\hat c_k}
+% v6 additions: pressure moments, strong imposition, trace space, robustness
+\newcommand{\Pm}{\mathsf P_h}
+\newcommand{\Sm}{\mathsf S_h}
+\newcommand{\Phih}{\Phi_h}
+\newcommand{\Ql}{Q_{\mathrm{lock}}}
+\newcommand{\Lk}{\mathcal L}
+\newcommand{\Nset}{\mathcal N}
+\newcommand{\Tsp}{\mathsf T_h}
+\newcommand{\PT}{\Pi_{\mathsf T}}
+\newcommand{\Yh}{Y_h}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\rot}{rot}
+\newcommand{\CNSR}{\mathrm{CNS}^\ast\text{-R}}
+\newcommand{\Rop}{\mathcal R_{\mathrm b}}
+
+\begin{document}
+
+\title[Scott--Vogelius--Nitsche on polygonal boundaries]{Scott--Vogelius--Nitsche on a polygonally approximated boundary: convergence, the missing pressure traction, and the penalty threshold}
+\author{Jaideep Sai Padhi}
+\address{Department of Computer Science, Purdue University, West Lafayette, IN 47907, USA}
+\email{jpadhi@purdue.edu}
+\date{\today}
+\subjclass[2020]{Primary 65N30; Secondary 65N12, 65N15, 76D07}
+\keywords{Stokes equations, Navier--Stokes equations, Scott--Vogelius elements, Nitsche's method, curved boundaries, divergence-free finite elements, Clough--Tocher splits}
+
+\begin{abstract}
+We analyse the Scott--Vogelius--Nitsche method of Gjerde and Scott for two-dimensional Stokes flow whose no-slip curve is replaced by an inscribed polygon: continuous $P_k$ velocities that are exactly divergence-free, with Dirichlet data imposed weakly on the polygon by Nitsche's method. This answers Scott's zero-gradient prize question, which asks whether the error behaves like $h_\Gamma^{3/2}+h_\Omega^k$ and, if not, why not.
+
+For the method as printed, the answer is no as soon as the pressure is not constant on the boundary. The printed Nitsche form omits the traction $-pn$. We prove that the method converges, at the sharp rate $h/\mu$ in the $H^1$ seminorm and at the exact rate $(h/\mu)^{1/2}$ in the mesh-dependent energy norm. To leading order the error is an explicit field: the discrete velocity leaks through the wall with normal velocity $(h/\mu)(p-\bar p)$, with constant exactly $1$ in the slip and energy norms. The $H^1$ rate is $1$ and not $1/2$ only because incompressibility turns the normal part of the missing traction into a tangential derivative. For fixed $\gamma$ and bounded $\rho$, $(\mu/h)$ times the error converges in $H^1$ to the Stokes flow driven by the leak as Dirichlet data; the resulting constant depends on the domain ($2.7565$ for our test, tending to $3/\sqrt7$ as the outer box grows). A penalty growing like $\mu\gtrsim h\,h_\Gamma^{-3/2}$ restores the $H^1$ rate $3/2$ of the printed method, but no power-law scaling of the penalty lifts its energy rate above $1$. When the wall pressure varies, its pressure converges in $L^2$ only at rate $1/2$, because of an explicit boundary layer in the first row of triangles, and its drag error is, to leading order, $-(h/\mu)$ times an explicit reciprocity constant.
+
+Adding the plain pressure term makes the square system singular. Subtracting the wall mean of the discrete pressure gives a well-posed, exactly divergence-free method; this mean-free correction is not new, since its velocity coincides with that of the zero-net-flux formulation of Frachon, Nilsson and Zahedi, and what we contribute is its analysis. We prove that it attains $h_\Gamma^{3/2}+h_\Omega^k$ for general Stokes data, for every fixed $k\ge4$ on meshes satisfying (M0)--(M2) and every $k\ge2$ on Clough--Tocher refinements. With flux-corrected outer data the $H^1$ bound holds uniformly in the penalty and with no relation between $h_\Gamma$ and $h_\Omega$; its pressure then converges at the same rate and its drag at rate $2$. Whenever the wall shear is not identically zero, we prove a matching lower bound $c\,h_\Gamma^{3/2}$ for the $H^1$ error, so the $h_\Gamma^{3/2}$ term of Scott's rate is sharp. The lower bound holds for every $k\ge4$; the local star condition it needs is proved with certified constants. In $L^2$ the method converges at the sharp rate $h_\Gamma^2$, while the printed method has $L^2$ rate exactly $1$. The leak limit of the printed method holds uniformly in the penalty at the exact rate $h_\Gamma^{1/2}$.
+
+The Nitsche penalty must scale like $\rho=h_\Omega/\min_e|e|$. Sufficiency is proved on every mesh. Necessity is certified in exact rational arithmetic for every mesh whose shortest boundary edge carries a triangle with apex angle at least $35^\circ$ and base angles at least $5^\circ$, and is proved with explicit constants on every mesh that is locally fine enough near one boundary edge; on every shape-regular mesh the scaling is proved, with explicit but impractically small constants. A purely local necessity statement is false, by exact counterexamples. The convergence theory extends to general smooth curved boundaries in two dimensions and to steady Navier--Stokes on nonsingular solution branches, with the Oseen leak flow, $K_{NS}$ and rate-$2$ drag for the corrected method.
+
+We also analyse strongly imposed no-slip on the same polygon. Under our mesh condition it already attains $h_\Gamma^{3/2}+h_\Omega^k$, two-sided; the zero-gradient lock is caused by wall vertices in only two triangles, each costing $h_\Gamma|\partial_nu|$, or by nearly singular wall stars, where the cost follows a needle-angle law. The advantages of Nitsche imposition on an inscribed polygon are therefore robustness to such meshes and a smaller constant, not a better rate. Finally, the printed method is not pressure-robust, the corrected method has a single pressure defect of order $h_\Gamma^{k+1/2}/\nu$, and a local $\mathrm{BDM}_k$ load correction on the boundary triangles makes it exactly gradient-robust. The three-dimensional analysis is given in a companion paper \cite{PadhiThreeD}.
+
+A computational study up to $N=256$ boundary chords, for $k=4,5,6$ and for Clough--Tocher refinements with $k=2,3$, confirms the rates and constants. It includes a pure-pressure test that isolates the traction response exactly, pressure errors, a penalty study in which the threshold is linear in $h_\Omega/h_\Gamma$, with $\mu^\ast h_\Gamma/h_\Omega\approx20$ for $k=4$, strong imposition with and without locked vertices, and a hydrostatic pressure-robustness test.
+\end{abstract}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_setting}
+\input{sections/03_geometry}
+\input{sections/04_discrete}
+\input{sections/05_error_equation}
+\input{sections/06_printed_method}
+\input{sections/07_consistent_method}
+\input{sections/07a_rescue}
+\input{sections/07d_uniform_mu}
+\input{sections/07b_pressure_drag}
+\input{sections/07c_l2}
+\input{sections/08_penalty}
+\input{sections/08b_strong}
+\input{sections/09_clough_tocher}
+\input{sections/10_general_domains}
+\input{sections/11_navier_stokes}
+\input{sections/11b_robust}
+\input{sections/13_numerics}
+\input{sections/14_open}
+
+\appendix
+\input{sections/A_reproducibility}
+
+\input{sections/Z_ai_declaration}
+
+\bibliographystyle{amsplain}
+\bibliography{refs}
+
+\end{document}

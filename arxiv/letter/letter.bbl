@@ -1,0 +1,133 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{ScottVogelius1985}
+L.~R. Scott, M.~Vogelius, Norm estimates for a maximal right inverse of the
+  divergence operator in spaces of piecewise polynomials, RAIRO Mod\'el. Math.
+  Anal. Num\'er. 19~(1) (1985) 111--143.
+
+\bibitem{GuzmanScott2019}
+J.~Guzm\'an, L.~R. Scott, The {S}cott--{V}ogelius finite elements revisited,
+  Math. Comp. 88~(316) (2019) 515--529.
+\newblock \href {https://doi.org/10.1090/mcom/3346}
+  {\path{doi:10.1090/mcom/3346}}.
+
+\bibitem{JohnEtAl2017}
+V.~John, A.~Linke, C.~Merdon, M.~Neilan, L.~G. Rebholz, On the divergence
+  constraint in mixed finite element methods for incompressible flows, SIAM
+  Rev. 59~(3) (2017) 492--544.
+\newblock \href {https://doi.org/10.1137/15M1047696}
+  {\path{doi:10.1137/15M1047696}}.
+
+\bibitem{ScottPrize}
+L.~R. Scott, Relaxing gradient constraints for exactly divergence-free spaces,
+  Prize problem statement, University of Chicago, November 13, 2023,
+  \url{https://people.cs.uchicago.edu/~ridg/prizes/zerogradprize.pdf}, listed
+  as Prize Problem Ledger problem PPL~115 (2023).
+
+\bibitem{GjerdeScott2024}
+I.~G. Gjerde, L.~R. Scott, Verification and validation of cylinder drag:
+  pressure and stress approximations on curved boundaries, Adv. Comput. Sci.
+  Eng. 2~(3) (2024) 295--319.
+\newblock \href {https://doi.org/10.3934/acse.2024015}
+  {\path{doi:10.3934/acse.2024015}}.
+
+\bibitem{PadhiExt}
+J.~S. Padhi, {S}cott--{V}ogelius--{N}itsche on a polygonally approximated
+  boundary: convergence, the missing pressure traction, and the penalty
+  threshold, Preprint, Zenodo, version 3 (2026).
+\newblock \href {https://doi.org/10.5281/zenodo.23044296}
+  {\path{doi:10.5281/zenodo.23044296}}.
+
+\bibitem{Nitsche1971}
+J.~Nitsche, \"{U}ber ein {V}ariationsprinzip zur {L}\"osung von
+  {D}irichlet-{P}roblemen bei {V}erwendung von {T}eilr\"aumen, die keinen
+  {R}andbedingungen unterworfen sind, Abh. Math. Sem. Univ. Hamburg 36~(1)
+  (1971) 9--15.
+\newblock \href {https://doi.org/10.1007/BF02995904}
+  {\path{doi:10.1007/BF02995904}}.
+
+\bibitem{BrambleDupontThomee1972}
+J.~H. Bramble, T.~Dupont, V.~Thom\'ee, Projection methods for {D}irichlet's
+  problem in approximating polygonal domains with boundary-value corrections,
+  Math. Comp. 26~(120) (1972) 869--879.
+
+\bibitem{DupontGuzmanScott2025}
+T.~Dupont, J.~Guzm\'an, L.~R. Scott, Obtaining higher-order {G}alerkin accuracy
+  when the boundary is polygonally approximated, J. Numer. Math. 33~(1) (2025)
+  55--86.
+\newblock \href {https://doi.org/10.1515/jnma-2023-0135}
+  {\path{doi:10.1515/jnma-2023-0135}}.
+
+\bibitem{BurmanHansbo2014}
+E.~Burman, P.~Hansbo, Fictitious domain methods using cut elements: {III}. {A}
+  stabilized {N}itsche method for {S}tokes' problem, ESAIM Math. Model. Numer.
+  Anal. 48~(3) (2014) 859--874.
+\newblock \href {https://doi.org/10.1051/m2an/2013123}
+  {\path{doi:10.1051/m2an/2013123}}.
+
+\bibitem{BurmanHansboLarson2019Stokes}
+E.~Burman, P.~Hansbo, M.~G. Larson, A cut finite element method with boundary
+  value correction for the incompressible {S}tokes equations, in: F.~A. Radu,
+  K.~Kumar, I.~Berre, J.~M. Nordbotten, I.~S. Pop (Eds.), Numerical Mathematics
+  and Advanced Applications {ENUMATH} 2017, Vol. 126 of Lect. Notes Comput.
+  Sci. Eng., Springer, Cham, 2019, pp. 183--192.
+\newblock \href {https://doi.org/10.1007/978-3-319-96415-7_15}
+  {\path{doi:10.1007/978-3-319-96415-7_15}}.
+
+\bibitem{Babuska1973}
+I.~Babu\v{s}ka, The finite element method with penalty, Math. Comp. 27~(122)
+  (1973) 221--228.
+\newblock \href {https://doi.org/10.1090/S0025-5718-1973-0351118-5}
+  {\path{doi:10.1090/S0025-5718-1973-0351118-5}}.
+
+\bibitem{FrachonNilssonZahedi2024}
+T.~Frachon, E.~Nilsson, S.~Zahedi, Divergence-free cut finite element methods
+  for {S}tokes flow, BIT Numer. Math. 64 (2024) Paper No. 39.
+\newblock \href {https://doi.org/10.1007/s10543-024-01040-x}
+  {\path{doi:10.1007/s10543-024-01040-x}}.
+
+\bibitem{Cavalcante2026}
+C.~de~Souza~Cavalcante, {S}cott--{V}ogelius--{N}itsche convergence for a
+  zero-pressure-gradient problem on a polygonally approximated boundary,
+  Preprint, Zenodo (2026).
+\newblock \href {https://doi.org/10.5281/zenodo.22262466}
+  {\path{doi:10.5281/zenodo.22262466}}.
+
+\bibitem{NeilanOtus2021}
+M.~Neilan, M.~B. Otus, Divergence-free {S}cott--{V}ogelius elements on curved
+  domains, SIAM J. Numer. Anal. 59~(2) (2021) 1090--1116.
+\newblock \href {https://doi.org/10.1137/20M1360098}
+  {\path{doi:10.1137/20M1360098}}.
+
+\bibitem{ChenLiu2026}
+W.~Chen, Z.~Liu, Pressure-robust finite elements for the {S}tokes problem on
+  three-dimensional curved domains, arXiv:2609.30008 (2026).
+
+\bibitem{LiuNeilanOtus2023}
+H.~Liu, M.~Neilan, M.~B. Otus, A divergence-free finite element method for the
+  {S}tokes problem with boundary correction, J. Numer. Math. 31~(2) (2023)
+  105--123.
+\newblock \href {https://doi.org/10.1515/jnma-2021-0125}
+  {\path{doi:10.1515/jnma-2021-0125}}.
+
+\bibitem{LiuNeilanOlshanskii2023}
+H.~Liu, M.~Neilan, M.~Olshanskii, A {CutFEM} divergence-free discretization for
+  the {S}tokes problem, ESAIM Math. Model. Numer. Anal. 57~(1) (2023) 143--165.
+\newblock \href {https://doi.org/10.1051/m2an/2022072}
+  {\path{doi:10.1051/m2an/2022072}}.
+
+\bibitem{EickmannScottTscherpel2025}
+F.~Eickmann, L.~R. Scott, T.~Tscherpel, {S}cott--{V}ogelius element and
+  iterated penalty method for inhomogeneous {D}irichlet boundary conditions,
+  arXiv:2509.17899 (2025).
+
+\bibitem{MorganScott1975}
+J.~Morgan, R.~Scott, A nodal basis for {$C^1$} piecewise polynomials of degree
+  $n\ge5$, Math. Comp. 29 (1975) 736--740.
+
+\end{thebibliography}

@@ -1,0 +1,149 @@
+\section{Introduction}\label{sec:intro}
+
+\subsection*{Background}
+\emph{Exactly divergence-free elements.} Scott and Vogelius \cite{ScottVogelius1985} showed that continuous piecewise-$P_k$ velocities with discontinuous piecewise-$P_{k-1}$ pressures satisfy $\div\Vh=\Pih$ for $k\ge4$ on meshes without singular vertices; the inf-sup constant was later made explicit in terms of the local mesh geometry \cite{GuzmanScott2019}. The discrete velocity is then divergence-free pointwise, not only weakly. This gives exact mass conservation. On fitted meshes with strongly imposed no-slip data it also gives pressure robustness: the velocity error does not depend on the pressure, which matters when pressure gradients are large or the viscosity is small \cite{JohnEtAl2017}. Split meshes give similar pairs of lower degree \cite{GuzmanNeilan2018}; see \cite{Neilan2020} for a review.
+
+\emph{Curved walls.} Exact incompressibility has a cost at a curved wall. A divergence-free field that is smooth at a polygon vertex and vanishes on both adjacent edges has zero gradient there, and piecewise-polynomial divergence-free fields inherit such gradient constraints at the vertices of a polygonal wall \cite{ScottPrize,GjerdeScott2024}. If the wall is replaced by an inscribed polygon and no-slip is imposed strongly, the computed gradient can therefore be off by $O(1)$ at the polygon vertices, and the $H^1$ error of Scott--Vogelius elements then decays only like $h^{1/2}$ \cite{ScottPrize,GjerdeScott2024}, compared with $h^{3/2}$ for scalar problems \cite{BergerScottStrang1972,Scott1975}. We show in Section~\ref{st:sec} that this \emph{zero-gradient lock} is a property of the wall mesh, not of strong imposition as such. Under the mesh condition (M2) used throughout this paper, strong imposition already attains the error $\hG^{3/2}+h^k$, with matching lower bound (Theorem~S). The lock is caused by wall vertices lying in only two triangles, which (M2) excludes: each such vertex costs $\hG|\dn u(z)|$ in $H^1$, and a positive fraction of them gives the rate $\frac12$. With three or more triangles the same loss appears continuously as one triangle at the wall vertex degenerates. Scott's observation that there is no constraint for more than two triangles \cite{ScottPrize} is thus correct for the rate under (M2), and the strong-imposition meshes of \cite{GjerdeScott2024} must have contained locked or nearly singular wall stars.
+
+One remedy is to fit the geometry, with isoparametric or Piola-mapped elements \cite{NeilanOtus2021,DurstNeilan2024}. Gjerde and Scott \cite{GjerdeScott2024} keep the polygon and impose the wall condition weakly by Nitsche's method \cite{Nitsche1971}, with penalty $\mu/h$ and no pressure term, and report errors orders of magnitude below those of strong imposition. By the above, the advantages of the Nitsche approach on an inscribed polygon are robustness to locked and nearly singular wall stars, on which $\GS$ and $\CNS$ are unaffected (Section~\ref{num:strong}), and a smaller error constant (about $2.5$ times smaller in our tests); under (M2) the rate is the same. Scott observed $H^1$ errors of order $h^{3/2}$ for this Scott--Vogelius--Nitsche method on a benchmark with constant pressure \cite{ScottPrize}. His zero-gradient prize \cite{ScottPrize} asks for a published proof that Scott--Vogelius--Nitsche converges, including a computational study of the influence of the Nitsche penalty. It states the expected error $\hG^{3/2}+\hO^k$ and adds: \emph{if this does not hold, why not?} We treat the question for general Stokes data.
+
+\subsection*{Answer}
+For the method as printed in \cite[(27)--(28)]{GjerdeScott2024} and bounded $\gamma$, the expected estimate holds if and only if the pressure is constant on the wall. The printed Nitsche form contains no traction term $-pn$. When $p$ varies along $\Gamma$, the penalty, not a traction, balances the pressure. The discrete velocity then leaks through the wall with normal velocity $(h/\mu)(p-\pbar)$, and the error is dominated by this leak (Theorems~A--C, Corollary~B$'$ and Theorem~B$''$). The mean-free correction $\CNS$ (cf.\ Frachon, Nilsson and Zahedi \cite{FrachonNilssonZahedi2024}), well posed for $\gamma\ge\gamma_2$, restores the expected rate (Theorem~D), and its $\hG^{3/2}$ term cannot be improved whenever the wall shear is not identically zero (Theorem~D$'$). On every mesh whose shortest boundary edge carries a triangle with apex angle at least $35^\circ$ and base angles at least $5^\circ$, the penalty threshold must grow with the ratio of bulk to boundary mesh size (Proposition~E).
+
+\subsection*{Main results}
+The notation is fixed in Section~\ref{sec:setting}. Throughout, $h=\hO$ is the bulk mesh size used in Scott's penalty $\mu/h$, $\hG$ is the length of the longest boundary edge, $\rho=h/\min_e|e|$, $\gamma=\mu\hG/h$ and $G=\norm{p-\pbar}_{L^2(\Gamma)}$. Constants do not depend on $h,\hG,\mu,\gamma$ or $\rho$. The solution $(u,p)$ is assumed smooth on $\overline\Omega$; near $\Gamma$ this follows from smooth data, but at the right-angled corners of the outer box it is a hypothesis on the solution, and every $h^k$ and $h^{k+1}$ term below relies on it (Remark~\ref{rem:corners}).
+
+\begin{theoremA}[Theorem~\ref{thm:A}]
+The printed method $\GS$ converges, and its error in the mesh-dependent energy norm is
+\[
+\tnorm{\ut-u_h}\;\asymp\;(h/\mu)^{1/2}\,G\;+\;O\bigl((1+\gamma^{1/2})\hG^{3/2}+\eps\bigr),
+\]
+with matching upper and lower bounds.
+\end{theoremA}
+
+\begin{theoremC}[Theorem~\ref{thm:C}]
+$\norm{\nabla(\ut-u_h)}\le C_p\,h/\mu+C\bigl((1+\gamma^{1/2})\hG^{3/2}+\eps\bigr)$.
+The rate $1$ (rather than $1/2$) holds because $\div v=0$ turns the normal load into a tangential derivative (Lemma~\ref{lem:cancel}).
+\end{theoremC}
+
+\begin{theoremB}[Theorem~\ref{thm:B}]
+In the regime where the pressure term dominates, the slip satisfies $\norm{\ut-u_h}_{L^2(\Gh)}\asymp (h/\mu)G$ and $\norm{\nabla(\ut-u_h)}\asymp h/\mu$. So Theorem~C is sharp.
+\end{theoremB}
+
+\begin{corollaryBp}[Corollary~\ref{cor:Bp}]
+$\ut-u_h=(h/\mu)\,v_\varphi+o\bigl((h/\mu)^{1/2}\bigr)$ in the energy norm, where $v_\varphi$ is an explicit divergence-free field with $v_\varphi\approx-(p-\pbar)n$ on $\Gh$. In particular
+\[
+\frac{\norm{\ut-u_h}_{L^2(\Gh)}}{(h/\mu)G}\to1,
+\qquad
+\frac{\tnorm{\ut-u_h}}{(h/\mu)^{1/2}G}\to1.
+\]
+\end{corollaryBp}
+
+\begin{theoremBpp}[Theorem~\ref{hc:thm}, Corollary~\ref{hc:cor}]
+Let $U$ be the Stokes flow in $\Omega$ with Dirichlet data $-(p-\pbar)n$ on $\Gamma$ and $0$ on $\partial R$. For fixed $\gamma$ and bounded $\rho$, $(\mu/h)(\ut-u_h)\to U$ in $H^1$, so
+\[
+\frac{\norm{\nabla(\ut-u_h)}}{(h/\mu)G}\to K:=\frac{\norm{\nabla U}_{L^2(\Omega)}}{G}.
+\]
+The constant $K$ is not universal: it depends on the domain. For the pressure of our test P it is $K=2.7565157$ (series computation, inside a rigorous bracket $[2.0746,3.0526]$), and $K\to3/\sqrt7$ as the outer box grows. In the regime $\gamma\hG\to\infty$ the leak constant still converges to $K$ (Corollary~\ref{u:Kall}), while for general data the normalised $\GS$ constant diverges.
+\end{theoremBpp}
+
+\begin{theoremD}[Theorems~\ref{thm:D}, \ref{rs:unif} and~\ref{rs:Dfc}]
+The naive consistent form, which adds $\ip{p_h}{v\cdot n}$, is singular; its $L^2_0$ variant is square but only gives $\div u_h\equiv c$, with $c\ne0$ in general (Proposition~\ref{prop:singular}). The mean-free correction $\CNS$, which adds $\ip{p_h-\pbG(p_h)}{v\cdot n}$ to the momentum row only, is well posed for $\gamma\ge\gamma_2$ and keeps $u_h$ exactly divergence-free; its velocity coincides with that of the zero-net-flux formulation of \cite{FrachonNilssonZahedi2024} (Remark~\ref{rem:fnz}). With the flux-corrected outer data $\tilde g_I$ of Definition~\ref{rs:def}, for general Stokes data, every fixed $k\ge4$ and every $\gamma\ge\gamma_2$,
+\[
+\norm{\ut-u_h}_{H^1(\Oh)}\le C\bigl(\hG^{3/2}+\hO^{k}\bigr),
+\]
+with $C$ independent of $\gamma$ and with no relation between $\hG$ and $\hO$. This is Scott's expected rate. With the plain interpolant $\gI$ the same holds under the proviso that the boundary edges are not too short relative to the bulk ($\hG\ge\hO^4$ for even $k$, $\hG\ge\hO^2$ for odd $k$); without it a single lower-order term, due to the net flux of the interpolated outer data, remains. On Clough--Tocher refinements the estimate of Theorem~\ref{thm:D} holds for every $k\ge2$ (Theorem~F).
+\end{theoremD}
+
+\begin{theoremDp}[Theorem~\ref{lb:thm}, Corollary~\ref{lb:cor}]
+Suppose the wall shear $W=\dn u\cdot\tau$ is not identically zero. For $\CNS$, and for $\GS$ with any $G$,
+\[
+\norm{\nabla(\ut-u_h)}\ge c\,\norm{W}_{L^2(\Gamma)}\,\hG^{3/2}-C\hG^2 ,
+\]
+with $c$ independent of $\gamma,\mu,\rho$ and the pressure. So, whenever $\eps\le C\hG^{3/2}$ and $\gamma$ is bounded (or the data are flux-corrected and $\hO^k\le\hG^{3/2}$), the rate $\hG^{3/2}$ of Theorem~D (and of Theorem~A at $G=0$) is exact; it is the $\hG^{3/2}$ term, not the $\hO^k$ term, that is shown to be sharp. This holds for every $k\ge4$: the local star condition (M3) used in the proof is proved for $k\ge4$ once $\hG\le2\sin(\theta_{\min}/4)$ (Theorem~\ref{m3:thm}), with certified constants.
+\end{theoremDp}
+
+\begin{propositionE}[Proposition~\ref{prop:penalty}, Theorems~\ref{pb:thm}, \ref{pb:thmM0}, Corollary~\ref{pb:rho}]
+The condition $\mu\ge4\kappa C_I^2\rho$, $\rho=h/\min_{e\in\EG}|e|$, is sufficient for coercivity on every mesh. On every mesh, coercivity requires $\mu\ge\lambda_T\,h/|e|$ for each triangle $T$ with an edge $e$ on $\Gh$ (and not touching $\partial R$), with an explicit $\lambda_T$ depending only on the shape of $T$. In exact rational arithmetic, $\lambda_T>1$ whenever the apex angle is at least $35^\circ$ and $\lambda_T>9.3$ when it is at least $60^\circ$ (base angles at least $5^\circ$). So $\mu\gtrsim\rho$ is necessary on every mesh whose shortest boundary edge carries a triangle with apex angle at least $35^\circ$ and base angles at least $5^\circ$. On arbitrary (M0)--(M2) meshes, necessity holds with moderate explicit constants as soon as the mesh is locally fine enough near one boundary edge (Theorem~\ref{pb:thmA}), and on \emph{every} shape-regular mesh satisfying (M0), $\mu^\ast\ge c_\ast(\theta_{\min},c_0)\rho$ for small $h$, with explicit but astronomically small $c_\ast$ (Theorem~\ref{pb:thmM0}): the scaling is proved, a usable threshold is not. A local version for tall boundary triangles is false: there are (M0)--(M2) stars on which no field supported in the star is a witness (Proposition~\ref{pb:counter}); on a global mesh built from them the threshold still scales exactly like $\rho$ (numerically).
+\end{propositionE}
+
+Theorem~A with $G=0$ gives $\tnorm{\ut-u_h}\le C((1+\gamma^{1/2})\hG^{3/2}+\eps)$. This recovers, for the printed method, the constant-pressure benchmark studied numerically in \cite{GjerdeScott2024,ScottPrize} and analysed in \cite{Cavalcante}, whose abstract states the bound $\norm{u-u_h}_{H^1}\le C(\hO^k+\hG^{3/2})$ for that benchmark with quartic velocities. Our proof does not use \cite{Cavalcante}. Theorems~A--D$'$ hold for every fixed $k\ge4$ on meshes satisfying (M0)--(M2). All rates assume a solution that is smooth up to the boundary; at the corners of the box this is a hypothesis on the solution, not on the data (Remark~\ref{rem:corners}).
+
+\subsection*{Further results}
+\begin{theoremR}[Theorems~\ref{rs:unif}, \ref{rs:elower}, Corollaries~\ref{rs:rescue}, \ref{rs:rates}, Proposition~\ref{rs:cond}]
+The $H^1$ error of the printed method is bounded uniformly in the penalty: $\norm{\nabla(\ut-u_h)}\le C_p\,\hG/\gamma+C(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$ for every $\gamma\ge\gamma_0$. So a growing penalty $\mu\gtrsim h\hG^{-3/2}$ ($\mu\gtrsim h^{-1/2}$ when $h\asymp\hG$) restores the $H^1$ rate $\frac32$ of $\GS$ for general data. It cannot restore the energy norm: if $W\not\equiv0$ the energy error is at least $c\norm{W}\gamma^{1/2}\hG^{3/2}-C(\hG/\gamma)^{1/2}$ for large $\gamma$, so under a power-law penalty $\gamma\asymp\hG^{-\alpha}$ the energy rate of $\GS$ is $\min(\frac{1+\alpha}2,\frac{3-\alpha}2)\le1$ when $G>0$ and $W\not\equiv0$. The condition number of the velocity block grows by the factor $1+\gamma$, that of the pressure Schur complement by the factor $1+\mu/h$.
+\end{theoremR}
+
+\begin{theoremP}[Section~\ref{pd:sec}]
+Let $p^\circ=\pt-\pbG(\pt)$. For $\CNS$ with flux-corrected data and $\gamma\in[\gamma_2,\gamma_{\max}]$, $\norm{p^\circ-p_h}_{L^2(\Oh)}\le C(\hG^{3/2}+\hO^k)$, including the constant, with $C$ depending on $\gamma_{\max}$ (Theorem~\ref{pd:thm:cnsp}). For $\GS$ the pressure is uniquely determined, but carries an explicit first-layer field $\xib$ produced by the symmetric Nitsche term acting on the leak; for fixed $\gamma$, bounded $\rho$ and $G>0$ the $L^2$ pressure error converges at the exact rate $\frac12$, and not at all pointwise in the first layer (Theorem~\ref{pd:thm:gsp}). The variational drag, lift and torque coincide with the integral of the Nitsche flux. For $\GS$ with fixed $\gamma$ and bounded $\rho$ their error is $-(h/\mu)\int_\Gamma(p-\pbar)(R_\psi-\bar R_\psi)+O(h^{3/2})$, with $R_\psi$ the pressure of a dual Stokes problem, so the rate is $1$ (Theorem~\ref{pd:thm:gsdrag}); for $\CNS$ with $\gamma\ge\max(1,\gamma_2)$ and $\gamma\hG\le1$ it is $O(\hG^2+\eps)$ (Theorem~\ref{pd:thm:cnsdrag}). Under a hypothesis (P) on a boundary pressure moment the $\CNS$ pressure error is also bounded below by $c\hG^{3/2}$ in $L^2$ and $c\hG$ in $L^\infty$ (Theorem~\ref{pd:thm:P}). A periodic first-layer cell problem shows that (P) holds exactly when an explicit cell density is not constant along $\Gamma$, that it fails on mirror-symmetric first layers, and gives the $L^2$ pressure and traction lower bounds without (P); these statements are proved modulo a cell-decay hypothesis (numerical) and a transplant lemma (not proved) (Section~\ref{pd:sec:cell}).
+\end{theoremP}
+
+\begin{theoremU}[Section~\ref{u:sec}]
+For the leak of the printed method the convergence $(\mu/h)(\ut-u_h)\to U$ of Theorem~B$''$ holds uniformly in the penalty, at the exact rate $\frac12$: $c\,G\hG^{1/2}\le\norm{\nabla((\mu/h)\delta_R-\tilde U)}\le C(\hG^{1/2}+h^k)$ for every $\gamma\ge\gamma_0$, the Dirichlet limit included (Theorems~\ref{u:up}, \ref{u:low}).
+\end{theoremU}
+
+\begin{theoremL}[Section~\ref{l2:sec}]
+For $\CNS$ with flux-corrected data, $\norm{\ut-u_h}_{L^2}\le C(\hG^2+h\hG^{3/2}+h^{k+1})$ uniformly in $\gamma$; the Stokes $H^2$ regularity this needs is proved from the Kellogg--Osborn theorem on the convex box and smooth-domain regularity at $\Gamma$ (Theorem~\ref{l2:thm:R}). On graded meshes the bound improves to $C(\hG^2+h^{k+1})$ (Theorem~\ref{l2:thm:G}). For bounded $\gamma$ the $\hG^2$ is sharp when the wall shear is not identically zero, without any regularity assumption. For $\GS$ with $G>0$ the $L^2$ rate is exactly $1$, with leading term $(h/\mu)\norm U_{L^2}$.
+\end{theoremL}
+
+\begin{theoremS}[Section~\ref{st:sec}]
+Strongly imposed no-slip on the same inscribed polygon satisfies $c\hG^{3/2}\le\norm{\nabla(\ut-u_h)}\le C(\hG^{3/2}+h^k)$ under (M0)--(M2). If (M2) fails only at the set $\Lk$ of wall vertices with two triangles, then $\norm{\nabla(\ut-u_h)}\asymp\hG^{3/2}+\hG(\sum_{z\in\Lk}|\dn u(z)|^2)^{1/2}$; the divergence inf-sup constant is then $\asymp\min_{\Lk}\phi_z\asymp\hG$, but it is uniform on the pressures that are continuous at the locked vertices, and a cheap filter recovers a convergent pressure. At a wall vertex whose star contains a needle of angle $\varepsilon_z$ at the wall, the local cost is $\hG\min(1,\phi_z/\sqrt{\varepsilon_z})|\dn u(z)|$, two-sided, under a mesh hypothesis (H$_K$) that isolates each needle pair (Theorem~\ref{st:N3u}). Needles come in pairs, and a straight pair has inf-sup constant $\lesssim\varepsilon$; the velocity does not see this, because the approximation argument never inverts the divergence on a needle.
+\end{theoremS}
+
+\begin{theoremT}[Section~\ref{rb:sec}]
+$\GS$ is not pressure-robust: the pressure part of its velocity error at viscosity $\nu$ is the leak flow times $h/(\nu\mu)$. $\CNS$ has exactly one pressure-dependent defect, the projection error $p-\pi_hp$ on $\Gh$, of $H^1$ size $\asymp\nu^{-1}\gamma^{-1}\hG^{k+1/2}$ for generic pressures on locally periodic meshes (every $k\ge4$; the lower bound holds for every $\gamma>0$), and of higher order for pressures whose $k$-th derivatives lie in an explicit invisible plane. A local $\mathrm{BDM}_k$ correction of the load on the boundary triangles ($\CNSR$) makes $\CNS$ exactly gradient-robust, without changing its matrix or its rates.
+\end{theoremT}
+
+\subsection*{Related work and what is new}
+For Stokes, the consistent Nitsche form uses the full traction $\sigma(u,p)n$. It therefore contains the pressure term $\ip{p}{v\cdot n}$ \cite{FreundStenberg1995,Stenberg1995,Becker2002,BurmanHansbo2014}, and this term is recognised as essential for consistency \cite{BurmanHansboLarson2019Stokes}. The Gjerde--Scott form omits it. On the geometric side, boundary-value correction \cite{BrambleDupontThomee1972} has been combined with Nitsche's method for cut elements \cite{BurmanHansboLarson2018,BurmanHansboLarson2019Stokes} and for polygonal approximations of scalar problems \cite{DupontGuzmanScott2025}; the shifted boundary method \cite{MainScovazzi2018} is a related approach. None of these works uses exactly divergence-free spaces.
+%% VERIFY: FreundStenberg1995 treats Stokes only per a secondary citation; Becker2002 content not read (notes/v5/lit_report.md).
+
+With such spaces, the placement of the pressure term decides whether exact incompressibility survives. If the term also appears in the continuity equation, $\div u_h$ vanishes only away from an $O(h)$ boundary strip \cite{LiuNeilanOlshanskii2023}. If it appears only in the momentum equation, the constant pressure mode must be handled separately. Frachon, Nilsson and Zahedi \cite{FrachonNilssonZahedi2024} show that fixing the pressure mean by a Lagrange multiplier makes $\div u_h$ equal to that multiplier, and avoid this by testing the momentum equation only with velocities of zero net flux. Our $\CNS$ is this device in square form: its velocity coincides with theirs (Remark~\ref{rem:fnz}), and its wall-mean subtraction fixes the pressure constant automatically. The work closest to ours is that of Liu, Neilan and Otus \cite{LiuNeilanOtus2023}, for Scott--Vogelius elements on Clough--Tocher splits of a mesh inside a curved domain. They add a mean-free boundary multiplier that approximates the wall pressure up to a constant, together with a zero-flux constraint and a Taylor boundary correction. Their velocity is exactly divergence-free and converges at the optimal order $h^k$; without the constraint, they note, the method is ill posed \cite[Remark~3.2]{LiuNeilanOtus2023}. Related multiplier formulations for cut elements are given in \cite{BurmanHansboLarson2024}. Exactly divergence-free methods also require discrete Dirichlet data with zero net flux \cite{EickmannScottTscherpel2025}; our flux-corrected $\tilde g_I$ is a simple instance.
+
+Our subject is the method as Gjerde and Scott printed it, and its minimal repair: no extra unknowns, no boundary correction, and the pressure itself on the wall. We do not claim the mean-free device as new. As far as we know, what is new is the analysis:
+\begin{itemize}
+\item the two-sided leak analysis of the printed method (Theorems~A--C, Corollary~B$'$), including the identification of its $H^1$ constant (Theorem~B$''$) and of its pressure and drag defects (Theorem~P);
+\item the proof of Scott's conjectured rate $\hG^{3/2}+\hO^k$ for the mean-free correction on an inscribed polygon (Theorem~D), with the penalty-uniform $H^1$ bound, and the proof that its $\hG^{3/2}$ term is sharp (Theorem~D$'$);
+\item the penalty threshold $\propto\rho$: sufficiency is a standard consequence of the trace-inverse inequality \cite{Stenberg1995,JuntunenStenberg2009}, while the explicit necessity certificates of Proposition~E appear to be new;
+\item the extensions: Clough--Tocher refinements, general smooth domains and steady Navier--Stokes (Theorems~F--H), and the growing-penalty and penalty-uniform analyses (Theorems~R and~U);
+\item the $L^2$ theory (Theorem~L), the two-sided strong-imposition theory with locked and nearly singular wall vertices (Theorem~S), and the quantitative pressure-robustness analysis (Theorem~T).
+\end{itemize}
+For strong imposition, pressure constraints that restore a shape-robust inf-sup constant at nearly singular vertices are due to Gr\"a\ss le, Bohne and Sauter \cite{GrassleBohneSauter2024}, and spurious pressures with robust velocities and pressure filters to Park \cite{Park2020} and Bohne, Gr\"a\ss le and Sauter \cite{BohneGrassleSauter2025}; our constrained inf-sup result is essentially the wall-vertex case of theirs. Scott--Vogelius elements on anisotropic meshes obtained by barycentric and incenter refinement are analysed by Kean, Neilan and Schneier \cite{KeanNeilanSchneier2022}; our needle-pair results concern single needles attached to the wall. What is new there is the two-sided velocity theory: at locked wall vertices the loss is an approximation loss caused by the zero trace, not a stability loss. For pressure robustness on curved domains with exact boundary conditions, load reconstruction with commuting interpolants is due to Neilan and Otus \cite[Theorem~6.1]{NeilanOtus2021} in two dimensions and Chen and Liu \cite{ChenLiu2026} in three; Chen and Liu attain the optimal order $h^k$ with isoparametric Piola-mapped elements, so the inscribed-polygon Nitsche route studied here is the low-cost straight-sided alternative, whose best rate is $\hG^{3/2}+h^k$, not a competitor on rate.
+That the pressure term is needed for consistency is not new \cite{BurmanHansboLarson2019Stokes}; the mechanism of the leak is the classical consistency error of boundary penalty methods \cite{Babuska1973}, here acting only on the pressure and with vanishing penalty parameter $h/\mu$, which is why the method converges at all.
+
+\subsection*{Scope and related variants}
+We analyse the symmetric Nitsche form of \cite{GjerdeScott2024}. The leak comes from the missing pressure term, not from the symmetry of the viscous terms, so we expect it in nonsymmetric variants as well; we have not analysed these, nor penalty-free variants \cite{FreundStenberg1995,Burman2012,BoiveauBurman2016}. Nitsche's method with Robin-type data is treated in \cite{JuntunenStenberg2009}. Multiplier and boundary-correction methods \cite{LiuNeilanOtus2023,BurmanHansboLarson2024,BrambleDupontThomee1972,DupontGuzmanScott2025} reach higher order than $\hG^{3/2}$, at the price of extra unknowns or Taylor corrections.
+A common alternative restricts the pressure to $L^2_0$ and adds the plain term $\ip{p_h}{v\cdot n}$, testing the continuity equation only with mean-zero pressures. Because $\div\Vh=\Pih$, this gives only $\div u_h\equiv c$ with $c|\Oh|=\int_{\partial\Oh}u_h\cdot n$ (Proposition~\ref{prop:singular}; compare \cite[(5.9)]{FrachonNilssonZahedi2024}). The constant vanishes exactly when the naive system is solvable, equivalently when the $\CNS$ pressure has zero mean on $\Gh$. With weak imposition nothing forces the flux through $\Gh$ to vanish, even for flux-corrected data, and in our computations $c\ne0$.
+Our proofs use Scott--Vogelius elements with $k\ge4$, and $k\ge2$ on Clough--Tocher splits, in two dimensions. The three-dimensional analysis (inscribed polyhedra, Alfeld splits) is in \cite{PadhiThreeD}. Other divergence-free families, and cut or unfitted meshes, are not treated. Gjerde and Scott also treat slip conditions by Nitsche's method \cite{GjerdeScott2022}; we have not examined that method.
+%% VERIFY: GjerdeScott2022 full text not read; whether its slip-Nitsche form contains a pressure term is unknown (notes/v5/lit_report.md).
+
+\subsection*{Extensions}
+\begin{theoremF}[Theorem~\ref{ct:thm:main}, Proposition~\ref{ct:prop:penalty}]
+On the Clough--Tocher refinement of any shape-regular mesh whose boundary edges have comparable lengths, Theorems~A--D, Corollary~B$'$ and the sufficiency part of Proposition~E hold for every $k\ge2$, with no angle or singular-vertex condition. For example, $\CNS$ satisfies $\norm{\ut-u_h}_{H^1}\le C(\hG^{3/2}+h^2)$ for $k=2$ if $\hG\ge h^4$. The penalty necessity is recertified exactly on split stars.
+\end{theoremF}
+
+\begin{theoremG}[Section~\ref{gd:sec}]
+In two dimensions, Theorems~A--D and Corollary~B$'$ extend to a bounded connected domain whose curved boundary consists of finitely many closed smooth curves, convex or not, with a nonempty polygonal component $\Sigma$ on which the data are imposed strongly. The geometric lemmas use only $C^3$ curves; the results assume the regularity (R1) of the solution, which for generic $f$ requires $\Gamma\in C^{k+1,\alpha}$ (and vanishing corner coefficients at the vertices of $\Sigma$), and the results that use the leak test field assume $\Gamma\in C^{k+3}$. With several curved components, the correct pressure constant is the \emph{global} boundary mean. $\CNS$ needs one global correction, and a per-component correction is inconsistent. Stokes $H^2$ regularity with $L^2$ data holds on such a domain if and only if $\Sigma$ is a convex outer polygon (Theorem~\ref{gd:thm:R}).
+\end{theoremG}
+
+\begin{theoremH}[Section~\ref{ns:sec}]
+For steady Navier--Stokes on a nonsingular solution branch, the discrete linearisation is uniformly stable for $h\le h_0$, with $h_0$ independent of the penalty (explicit, but far too small to be useful). Then $\GS$ converges at $H^1$ rate $h/\mu$ with the same leak (slip and energy constants $1$) and an $H^1$ constant $K_{NS}\ge K$ given by an Oseen leak flow, and $\CNS$ attains $\hG^{3/2}+\hO^k$; the $\CNS$ drag, lift and torque converge at rate $2$. No inflow/outflow correction of the convective term is needed for these statements.
+\end{theoremH}
+
+\subsection*{Computations}
+Section~\ref{sec:numerics} reports computations with up to $N=256$ boundary chords, mostly for $k=4$, with $k=5,6$ and Clough--Tocher $k=2,3$ in Section~\ref{sec:numv3}. They show the following.
+\begin{itemize}
+\item The $\CNS$ $H^1$ rate decreases monotonically to $3/2$, independently of the pressure, for $k=4,5,6$.
+\item The printed method has rate $1$ whenever $G>0$.
+\item On a pure-pressure test that isolates the traction response exactly, the slip and energy constants of Corollary~B$'$ approach $1$ for every element tested. For $k=4$ the $H^1$ constants approach the $K$ of Theorem~B$''$; that they do so also for $k=5,6$ and on Clough--Tocher refinements is observed, not proved.
+\item In the penalty study, the coercivity threshold $\mu^\ast$ is linear in $h/\hG$ over more than a decade, with $\gamma^\ast=\mu^\ast\hG/h\approx18$--$21$ for $k=4$. It is larger for higher $k$ and on Clough--Tocher refinements.
+\item Strongly imposed no-slip has rate $\frac32$ on our production meshes (every wall vertex in three triangles), rate $1$ with one locked vertex and rate $\frac12$ with alternating locks, as Theorem~S predicts, while $\GS$ and $\CNS$ are insensitive to the change of mesh (Sections~\ref{num:strong} and~\ref{st:sec:num}).
+\item The pressure errors follow Theorem~P: rate $\to\frac32$ for $\CNS$, and rate $\to\frac12$ for $\GS$ when $G>0$, carried by the first layer (Section~\ref{pd:sec:num}).
+\item A growing penalty behaves as Theorem~R predicts, and flux-corrected data remove the flux floor exactly (Section~\ref{rs:sec:num}).
+\item On a hydrostatic test $\GS$ is first order, $\CNS$ has order $k+\frac12$, and $\CNSR$ is at round-off (Section~\ref{rb:sec}).
+\end{itemize}
+Most runs use the penalty $\mu=100$, which is only about $1.4$ times the coercivity threshold of $\GS$ and $1.13$--$1.27$ times the stability threshold of $\CNS$ (a margin that shrinks to about $7\%$ as $h\to0$); the proofs' thresholds are not verified there, so the computations illustrate the theorems rather than being covered by them (Section~\ref{sec:numerics}).
+All code, raw outputs and logs are in the accompanying repository (Appendix~\ref{app:repro}).
+
+\subsection*{Organisation}
+Section~\ref{sec:setting} fixes the setting. Sections~\ref{sec:geometry}--\ref{sec:erroreq} collect geometric and discrete tools and the error equation. Section~\ref{sec:printed} treats the printed method and identifies its $H^1$ constant. Section~\ref{sec:consistent} treats the pressure-consistent method, proves the lower bound (with the proof of (M3) in Section~\ref{m3:sec}), and treats flux-corrected data, a growing penalty and the penalty-uniform leak limit. Section~\ref{pd:sec} treats the pressure, the boundary stress and drag, and Section~\ref{l2:sec} the $L^2$ error. Section~\ref{sec:penalty} treats the penalty threshold, and Section~\ref{st:sec} strong imposition. Sections~\ref{ct:sec}--\ref{ns:sec} contain the extensions: Clough--Tocher refinements, general domains and Navier--Stokes. Section~\ref{rb:sec} treats pressure robustness, Section~\ref{sec:numerics} reports the computations, and Section~\ref{sec:open} summarises what is proved and what is open.

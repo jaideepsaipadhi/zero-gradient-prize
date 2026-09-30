@@ -1,0 +1,57 @@
+CUTS MADE IN letter_with_cavalcante_draft.tex TO FIT 6 PAGES (elsarticle 3p)
+==========================================================================
+These are wording changes only: no theorem, hypothesis, proof step, number or reference was removed.
+Baseline: letter.tex = 6 pp. (the last page was already full). With the Cavalcante drafts inserted and no cuts,
+the draft ran to 7 pp. (about 5 lines over). After the cuts below it is 6 pp. The 5p check build is 5 pp. There
+are no overfull boxes and no undefined references.
+
+ADDED (Cavalcante drafts, all marked %% DRAFT FOR CAVALCANTE TO APPROVE)
+- Sec. 1, intro: one sentence stating his Thm 5.2 (zero-pressure benchmark, k>=4, (M1)-(M2), penalty window).
+  The definition "h_Gamma the longest polygon edge" moved into this sentence, because it is now the first use.
+- Sec. 1, related work: two sentences on his method, Cor. 5.3 (Clough-Tocher, k>=2) and eq. (35) (mu* bracket).
+- Front matter: e-mail and affiliation (%% CONFIRM), plus an ORCID comment. elsarticle has no ORCID field.
+- CRediT: proposed roles for Cavalcante.
+- AI declaration: one sentence about his ChatGPT use, taken from his preprint's own declaration.
+- "He offered a prize" became "Scott's prize asks for" (after the inserted sentence, "He" was ambiguous).
+
+CUTS (old -> new)
+ 1. Intro: "Scott offered a prize for a proof of the error $h_G^{3/2}+h_O^k$, $h_G$ the longest polygon edge, for
+    general Stokes data" -> "Scott's prize asks for $h_G^{3/2}+h_O^k$ for general Stokes data" (the definition of
+    h_G moved into the Cavalcante sentence).
+ 2. Intro: "(corrections beyond it for scalar problems go back to [8]; see [9])" -> "(scalar corrections beyond it
+    go back to [8]; see [9])".
+ 3. Intro (draft): "under (M1)--(M2) below and" -> "under (M1)--(M2) and"; "for fixed $k\ge4$" -> "for $k\ge4$";
+    "For this benchmark, with ..." -> "For it, with ...".
+ 4. Related work: "The work was done with the AI model Claude (Anthropic), as declared at the end." -> "AI use is
+    declared at the end." Claude is still named in the declaration itself.
+ 5. Related work: "of the optimal order $h^k$" -> "of optimal order $h^k$".
+ 6. Related work: "[15, Theorem~6.1]" -> "[15, Thm.~6.1]" (matches the other abbreviations).
+ 7. Related work: "is discussed in" -> "is studied in".
+ 8. Related work: "(ii) the proof that" -> "(ii) proof that".
+ 9. Related work: "(iv) computations with $k=4$ confirming all of this, including the penalty study requested in the
+    prize" -> "(iv) $k=4$ computations confirming all this, including the penalty study the prize requests".
+10. Related work (draft): "in which there is no leak" -> "where there is no leak"; "by parts along each chord" ->
+    "by parts on each chord".
+11. Sec. 3 opening: "The polygon enters through a consistency error G, small because ... odd on each edge." ->
+    "The polygon causes a consistency error G, small as ... odd per edge."
+12. Proof of Lemma 2: "the endpoint terms combine" -> "endpoint terms combine"; "and the edge directions differ" ->
+    "and edge directions differ"; "A one-dimensional inverse inequality" -> "A 1D inverse inequality".
+13. "Naive and L^2_0 forms" paragraph: deleted the opening sentence "Adding the traction back naively fails."
+    (Section 1 already says this, and the paragraph shows it.) "lies in the kernel of its matrix" -> "is in the
+    kernel of its matrix".
+14. Before Prop. 3: "On one well-shaped triangle ... has negative Nitsche energy unless" -> "On a well-shaped
+    triangle ... has negative energy unless".
+15. Proof of Prop. 3: "proved only with astronomically small constants" -> "proved only with very small constants".
+16. Sec. 4: "Direct solves give residuals below $10^{-12}$" -> "Residuals are below $10^{-12}$"; "each vertex of
+    Gamma_h lies in three triangles" -> "is in three triangles".
+17. Competing interest: two sentences merged: "...; the authors intend to submit this work for it and declare no
+    other competing interests."
+18. Data availability: "for every number reported here" -> "for all reported numbers".
+19. AI declaration: "used Claude (Anthropic), a large language model, in order to develop" -> "used Claude
+    (Anthropic) to develop".
+
+NOT CUT: the abstract (205 words, unchanged), all theorem/lemma/proposition statements, Table 1, Remark 1, the
+penalty-sweep paragraph, and the reference list (20 entries; no reference added or removed).
+
+SPACE NOTE: the last page is full again. If Cavalcante lengthens his sentences, the next candidates are the
+caption of Table 1 and the parenthetical "(The sweep cannot separate rho from h/h_G; ...)" in Sec. 4.

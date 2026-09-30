@@ -1,0 +1,289 @@
+\section{The \texorpdfstring{$L^2$}{L2} error}\label{l2:sec}
+
+The $H^1$ theory of Sections~\ref{sec:printed}--\ref{pd:sec} leaves open the $L^2$ error of the velocity. For $\CNS$ it is of order $\hG^2$, and this rate is sharp; for $\GS$ it is of order $h/\mu$, with an explicit leading term. The pressure term of $\CNS$ is not adjoint consistent (Remark~\ref{l2:rem:adj}), so the duality arguments below test only with fields in $Y_h=\Zh\cap\VO$ (upper bound) or with a dual problem whose pressure vanishes (lower bound). The dual problem is posed on $\Omega$, not on $\Oh$: the vertices of $\Gh$ are re-entrant corners of $\Oh$ with Stokes singular exponent below $1$, so there is no $h$-uniform $H^2$ bound on $\Oh$.
+
+\subsection{Stokes regularity on $\Omega$}\label{l2:sec:R}
+
+The dual problems below, the leak flow $U$ (Definition~\ref{hc:def}), the drag dual $Z_\psi$ (Section~\ref{pd:sec:drag}) and the Navier--Stokes duality of Section~\ref{ns:sec} all use $H^2\times H^1$ regularity of the Stokes problem on $\Omega=R\setminus\overline D$. We prove it from two classical results.
+\begin{enumerate}[label=(K\arabic*)]
+\item\label{l2:K1} \emph{Convex polygons} \cite[Theorem~2]{KelloggOsborn1976}. If $P$ is a convex polygon, $F\in L^2(P)^2$ and $(w,\varpi)\in H^1_0(P)^2\times L^2(P)$ solves $-\Delta w+\nabla\varpi=F$, $\div w=0$, then $\norm w_{H^2(P)}+\norm{\nabla\varpi}_{L^2(P)}\le c(P)\norm F$.
+\item\label{l2:K2} \emph{Smooth domains} (Cattabriga; \cite[Ch.~I, Prop.~2.2]{Temam}, \cite[Thm.~IV.6.1]{Galdi}). If $A$ is a bounded domain of class $C^{m+2}$, $F\in H^m(A)^2$ and $(w,\varpi)\in H^1_0(A)^2\times L^2(A)$ solves the same system, then $\norm w_{H^{m+2}(A)}+\norm{\varpi-\bar\varpi}_{H^{m+1}(A)}\le c(A,m)\norm F_{H^m(A)}$. %% VERIFY: Temam/Galdi locators from a secondary source (notes/v7/reg, citation audit); the fact is classical.
+\end{enumerate}
+We use \ref{l2:K2} only on annuli bounded by two circles.
+
+\begin{theorem}[(R): Stokes regularity on $\Omega$]\label{l2:thm:R}
+There is $C_R=C_R(L)$ such that for every $g\in L^2(\Omega)^2$ the weak solution $(\varphi,\pi)\in H^1_0(\Omega)^2\times L^2(\Omega)$ of $-\Delta\varphi+\nabla\pi=g$, $\div\varphi=0$ satisfies
+\[
+\norm\varphi_{H^2(\Omega)}+\norm{\pi-\bar\pi_\Omega}_{H^1(\Omega)}\le C_R\norm g_{L^2(\Omega)} .
+\]
+With viscosity $\nu$, $\norm\varphi_{H^2}\le C_R\nu^{-1}\norm g$ and $\norm{\pi-\bar\pi}_{H^1}\le C_R\norm g$.
+\end{theorem}
+
+\begin{proof}
+\emph{Energy and stream function.} $\norm{\nabla\varphi}\le C_F\norm g$, and the continuous inf-sup condition on the Lipschitz domain $\Omega$ bounds $\norm{\pi-\bar\pi}$; replace $\pi$ by $\pi-\bar\pi$. Since $\varphi=0$ on $\partial\Omega$ its flux through $\Gamma$ vanishes, so $\varphi=\curl\zeta$ with a single-valued $\zeta\in H^2(\Omega)$, $\int_\Omega\zeta=0$, $\norm\zeta_{H^2}\le C\norm\varphi_{H^1}$.
+
+\emph{Partition.} Fix $1<r_1<r_2<\rho_A<L$ and a radial $\chi_1\in C^\infty$ with $\chi_1=0$ for $|x|\le r_1$, $\chi_1=1$ for $|x|\ge r_2$, and put $\chi_2:=1-\chi_1$. Then $\varphi=w_1+w_2$ with $w_i:=\curl(\chi_i\zeta)=\chi_i\varphi+\zeta\curl\chi_i$, and each $w_i$ is exactly divergence free.
+
+\emph{Near $\partial R$.} Extended by $0$, $w_1\in H^1_0(R)^2$, and in the weak sense on $R$
+\[
+-\Delta w_1+\nabla(\chi_1\pi)=\chi_1g+\mathcal R_1,\qquad \mathcal R_1:=-2(\nabla\varphi)\nabla\chi_1-\varphi\Delta\chi_1-\Delta(\zeta\curl\chi_1)+\pi\nabla\chi_1,
+\]
+with $\norm{\mathcal R_1}\le C(\norm\varphi_{H^1}+\norm\zeta_{H^2}+\norm\pi)\le C\norm g$. $R$ is a convex polygon, so \ref{l2:K1} applies; by uniqueness (pressures modulo constants) its pressure is $\chi_1\pi+c$, and $\norm{w_1}_{H^2(R)}+\norm{\nabla(\chi_1\pi)}\le C\norm g$.
+
+\emph{Near $\Gamma$.} On the annulus $A:=\{1<|x|<\rho_A\}$, $w_2\in H^1_0(A)^2$ solves the same system with $\chi_2$ in place of $\chi_1$, and \ref{l2:K2} with $m=0$ gives $\norm{w_2}_{H^2(A)}+\norm{\nabla(\chi_2\pi)}_{L^2(A)}\le C\norm g$. Add the two pieces and use Poincar\'e for $\pi-\bar\pi$. The viscous form follows by scaling $\pi\mapsto\pi/\nu$.
+\end{proof}
+
+The stream-function cut-off keeps both pieces exactly divergence free, so no Bogovski\u\i{} operator is needed. The proof uses only that $\partial R$ and $\Gamma$ are disjoint, that $R$ is a convex polygon and that $\Gamma$ is $C^2$ (here $C^\infty$).
+
+\begin{proposition}[Local higher regularity at $\Gamma$]\label{l2:prop:loc}
+Let $(\varphi,\pi)$ be as in Theorem~\ref{l2:thm:R}, $0<r_1<L-1$, $N_s:=\{1<|x|<1+sr_1\}$, and $g\in H^m(N_1)^2$, $m\ge0$. Then
+\[
+\norm\varphi_{H^{m+2}(N_{1/2})}+\norm{\pi-\bar\pi_\Omega}_{H^{m+1}(N_{1/2})}\le C(m,r_1,L)\bigl(\norm g_{H^m(N_1)}+\norm g_{L^2(\Omega)}\bigr).
+\]
+In particular, if $f$ is smooth up to $\Gamma$ then $u$, $p$ and $\psi$ are smooth up to $\Gamma$.
+\end{proposition}
+
+\begin{proof}
+Induction on $j=0,\dots,m$ for $\varphi\in H^{j+2}(N_{s_j})$, $\pi\in H^{j+1}(N_{s_j})$, $s_j:=1-j/(2m)$; $j=0$ is Theorem~\ref{l2:thm:R}. Given step $j<m$, take a radial cut-off $\chi$ equal to $1$ on $N_{s_{j+1}}$ and $0$ for $|x|\ge1+s_jr_1$, and $w:=\curl(\chi\zeta)\in H^1_0(N_{s_j})^2$. As above, $-\Delta w+\nabla(\chi\pi)=\chi g+\mathcal R$ with $\mathcal R$ supported where $\nabla\chi\ne0$ and built from $\nabla\varphi,\varphi,\pi$ and at most second derivatives of $\zeta$ ($\nabla\zeta$ is $\varphi$ rotated), so $\mathcal R\in H^{j+1}$ by the induction hypothesis, and $\chi g\in H^{j+1}$ since $j+1\le m$. \ref{l2:K2} with $m\to j+1$ gives the step. For the last claim apply this to $u-G$ with a divergence-free lift $G$ of the outer data supported near $\partial R$, and use Sobolev embedding.
+\end{proof}
+
+This covers the regularity used for $U$ (whose Dirichlet datum $-(p-\pbar)n$ on $\Gamma$ is lifted by the smooth divergence-free field $w$ of Section~\ref{sec:printed}), for $Z_\psi$ and for the dual problems below. At the corners of $R$ the solution of a data-driven problem is less regular; see Remark~\ref{rem:corners}.
+
+\subsection{Tools}
+
+\begin{lemma}[Strip]\label{l2:strip}
+Let $N$ be a fixed collar of $\Gamma$ containing $S_h$. For $w\in H^1(\Oh\cup\Omega)$:
+\begin{enumerate}[label=(\alph*)]
+\item $\norm w_{S_h}\le C(\hG\norm w_{\Gh}+\hG^2\norm{\nabla w}_{S_h})$ and $\norm w_{\Gh}\le C\norm w_{H^1(N)}$;
+\item if $w\in H^2(N)$ and $w|_\Gamma=0$, then $\norm w_{\Gh}\le C\hG^2\norm w_{H^2(N)}$ and $\norm w_{\Gh}\le C\hG\norm{\nabla w}_{S_h}\le C\hG^{3/2}\norm w_{H^2(N)}$;
+\item if $w|_{\Gh}=0$, then $\norm w_{S_h}\le C\hG^2\norm{\nabla w}_{S_h}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Write $\Gh$ in polar form $r=\rho_h(\theta)$ with $0\le1-\rho_h\le C\hG^2$ (Lemma~\ref{lem:korn}) and integrate along radial segments. For (b), $|\nabla w|\le C\hG^2\norm{w}_{W^{2,\infty}}$ is not available, but $\norm{\nabla w}_{S_h}\le|S_h|^{1/4}\norm{\nabla w}_{L^4(N)}\le C\hG^{1/2}\norm w_{H^2(N)}$.
+\end{proof}
+
+\begin{lemma}[Extension of the dual]\label{l2:ext}
+Every $\varphi\in H^1_0(\Omega)^2\cap H^2(\Omega)^2$ with $\div\varphi=0$ and every $\pi\in H^1(\Omega)$ have extensions $\tilde\varphi\in H^2(\Omega\cup N)^2$, $\tilde\pi\in H^1(\Omega\cup N)$ with $\div\tilde\varphi=0$, $\norm{\tilde\varphi}_{H^2}\le C_E\norm\varphi_{H^2(\Omega)}$ and $\norm{\tilde\pi}_{H^1}\le C_E\norm\pi_{H^1(\Omega)}$.
+\end{lemma}
+
+\begin{proof}
+$\int_\Gamma\varphi\cdot n=0$, so $\varphi=\curl\zeta$ with $\zeta$ single valued near $\Gamma$, $\zeta|_\Gamma=0$, $\nabla\zeta|_\Gamma=0$ and $\norm\zeta_{H^3}\le C\norm\varphi_{H^2}$ on a collar. Extend $\zeta$ across $r=1$ by a Hestenes reflection of order $3$ in the radial variable, and put $\tilde\varphi:=\curl\tilde\zeta$; extend $\pi$ by a first-order reflection.
+\end{proof}
+
+\begin{lemma}[Approximation in $Y_h$]\label{l2:Y}
+Let $\varphi$ and $\tilde\varphi$ be as in Lemma~\ref{l2:ext}. There is $y_h\in Y_h$ with
+\[
+\norm{\nabla(\tilde\varphi-y_h)}_{\Oh}\le C_Y(h+\hG)\norm\varphi_{H^2},\quad
+\norm{\dn y_h}_{\Gh}\le C_Y\bigl(1+h\hG^{-1/2}\bigr)\norm\varphi_{H^2},\quad
+\norm{\nabla y_h}\le C_Y\norm\varphi_{H^2},
+\]
+with $C_Y$ depending only on $C_E$, $k$, (M0)--(M2) and $\beta$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item By Lemma~\ref{l2:strip}(b), $\norm{\tilde\varphi}_{\Gh}\le C\hG^{3/2}\norm\varphi_{H^2}$; the scaled trace inequality on $T_e$ gives $\norm{\tilde\varphi-I_h\tilde\varphi}_{L^2(e)}\le C|e|^{3/2}|\tilde\varphi|_{H^2(T_e)}$. So $\norm{I_h\tilde\varphi}_{\Gh}\le C\hG^{3/2}\norm\varphi_{H^2}$.
+\item Let $L_0\in\Vh$ take the nodal values of $I_h\tilde\varphi$ at the Lagrange nodes on $\Gh$ and vanish at all other nodes. By step~2 of Lemma~\ref{rs:lift}, $\norm{\nabla L_0}\le C\hG^{-1/2}\norm{I_h\tilde\varphi}_{\Gh}\le C\hG\norm\varphi_{H^2}$, and $z_0:=I_h\tilde\varphi-L_0\in\VO$.
+\item $\div z_0\in\Pih$ has zero mean and $\norm{\div z_0}\le C(h+\hG)\norm\varphi_{H^2}$; Lemma~\ref{lem:infsup} gives $v_B\in\VO$ with $\div v_B=\div z_0$. Put $y_h:=z_0-v_B$.
+\item $\norm{\dn\tilde\varphi}_{\Gh}\le C\norm{\tilde\varphi}_{H^2}$ (uniform trace from the collar), $\norm{\nabla(I_h\tilde\varphi-\tilde\varphi)}_{L^2(e)}\le C|e|^{1/2}|\tilde\varphi|_{H^2(T_e)}$, and $L_0+v_B$ is discrete, so Lemma~\ref{lem:inverse} gives $\norm{\dn(L_0+v_B)}_{\Gh}\le C\hG^{-1/2}(h+\hG)\norm\varphi_{H^2}$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsection{Upper bound: rate \texorpdfstring{$2$}{2} for \texorpdfstring{$\CNS$}{CNS*}}
+
+\begin{theorem}[$L^2$ error of $\CNS$]\label{l2:thm:L1}
+Let $\CNS$ use flux-corrected data $\tilde g_I$ and $\gamma\ge\gamma_2$ (no upper bound), and let $e:=\ut-u_h$. Then
+\[
+\norm e_{L^2(\Oh)}\le C\bigl(\hG^2+h\,\hG^{3/2}+h^{k+1}\bigr),
+\]
+with $C$ independent of $\gamma$. On quasi-uniform meshes ($h\le C\hG$) this is $C(\hG^2+h^{k+1})$. The same bound holds for $\GS$ when $G=0$.
+\end{theorem}
+
+\begin{proof}
+Put $\phi:=e|_\Omega$, let $(z,r)$ solve the dual Stokes problem of Theorem~\ref{l2:thm:R} with $g=\phi$, and extend by Lemma~\ref{l2:ext}. On $\Omega$, $-\Delta\tilde z+\nabla\tilde r=\phi$; on $S_h$ the left side is some $L^2$ field of norm $\le C\norm z_{H^2}$. Since $\div e=0$ pointwise, $-\Delta\tilde z=-\div D(\tilde z)$ and $e=g-\tilde g_I$ on $\partial R$, integration by parts on $\Oh$ gives
+\[
+\norm\phi^2=a_h(e,\tilde z)-\ip{\sigma(\tilde z,\tilde r)n}e_{\Gh}-\ip{\sigma(\tilde z,\tilde r)\nu}{g-\tilde g_I}_{\partial R}-(e,-\Delta\tilde z+\nabla\tilde r)_{S_h}.
+\]
+Let $y_h\in Y_h$ be as in Lemma~\ref{l2:Y}. By Lemma~\ref{lb:identity}, $a_h(e,y_h)=\ip e{\dn y_h}-\ip\ut{\dn y_h}-(F,y_h)=-\ip{u_h}{\dn y_h}-(F,y_h)$. Hence
+\[
+\norm\phi^2=a_h(e,\tilde z-y_h)-\ip{u_h}{\dn y_h}-(F,y_h)-\ip{\sigma n}e_{\Gh}-\ip{\sigma\nu}{g-\tilde g_I}_{\partial R}-(e,-\Delta\tilde z+\nabla\tilde r)_{S_h}.
+\]
+Two inputs, both uniform in $\gamma$: $\norm{\nabla e}\le C(\hG^{3/2}+h^k)$ (Theorem~\ref{rs:Dfc}), and $\norm e_{\Gh}\le(\hG/\gamma)^{1/2}\tnorm e\le C(\hG^2+\hG^{1/2}h^k)$ (Theorem~\ref{rs:Dfc} and $(\hG/\gamma)^{1/2}\tilde\varepsilon_h\le C(\hG^{1/2}h^k+\hG^{\sigma_k})$). So $\norm{u_h}_{\Gh}\le\norm\ut_{\Gh}+\norm e_{\Gh}\le C(\hG^2+\hG^{1/2}h^k)$. The six terms are bounded, in order, by $C\norm z_{H^2}$ times
+\begin{enumerate}
+\item $h(\hG^{3/2}+h^k)$ (Lemma~\ref{l2:Y});
+\item $(\hG^2+\hG^{1/2}h^k)(1+h\hG^{-1/2})$;
+\item $\hG^3$ ($F$ is bounded on $S_h$, $|S_h|\le C\hG^2$, and Lemma~\ref{l2:strip}(c) for $y_h$);
+\item $\hG^2+\hG^{1/2}h^k$ (uniform trace of $\sigma\in H^1$);
+\item $h^{k+1}$ ($|g-\tilde g_I|\le Ch^{k+1}+|m_R|$);
+\item $\hG(\norm e_{\Gh}+\hG\norm{\nabla e})\le C(\hG^3+\hG^{3/2}h^k)$ (Lemma~\ref{l2:strip}(a)).
+\end{enumerate}
+With $\norm z_{H^2}\le C_R\norm\phi$ and Young's inequality $\hG^{1/2}h^k\le\hG^2+h^{4k/3}\le\hG^2+Ch^{k+1}$ ($k\ge3$), $\norm e_{L^2(\Omega)}\le C(\hG^2+h\hG^{3/2}+h^{k+1})$. Finally $\norm e_{S_h}\le C\hG(\norm e_{\Gh}+\hG\norm{\nabla e})$.
+
+For $\GS$ with $G=0$, apply the same argument to $u_h':=u_h+\delta_R$ of the proof of Theorem~\ref{rs:unif}, which satisfies the identity of Lemma~\ref{lb:identity} on $Y_h$; the proof of Theorem~\ref{rs:unif} supplies both inputs, and $\norm{\delta_R}\le C\hG^2$ when $|\pt-\pbar|\le C\hG^2$ on $\Gh$.
+\end{proof}
+
+\begin{remark}[Adjoint inconsistency]\label{l2:rem:adj}
+The pressure term of $\CNS$, with the $\Gh$-mean removed, is not adjoint consistent. The algebraic transpose of the $\CNS$ saddle system has the plain $\GS$ pressure form in its momentum row, and relative to a smooth dual pair its consistency defect is the $\GS$ leak functional $v\mapsto\ip{r-\bar r}{v\cdot n}$ driven by the dual pressure (Corollary~\ref{cor:GSerr}). The proof above avoids it by testing only with $y_h\in Y_h$, on which every pressure and penalty term vanishes. The same issue, and the same cure, appear in the Navier--Stokes drag analysis (Section~\ref{n2:adj}).
+\end{remark}
+
+\subsection{Lower bound: the rate \texorpdfstring{$2$}{2} is sharp}
+
+\begin{theorem}[Sharpness of the $L^2$ rate]\label{l2:thm:L3}
+Let $W=\dn u\cdot\tau\not\equiv0$, and let $u_h$ be the $\CNS$ velocity with flux-corrected data, or the $\GS$ velocity with $G=0$. There are $\delta_0,c>0$ such that if $(1+\gamma)\hG\le\delta_0$ (in particular for bounded $\gamma$ and small $\hG$) and $h^k\le\delta_0\hG^2$, then
+\[
+\norm{\ut-u_h}_{L^2(\Oh)}\ \ge\ c\,\norm W^2_{L^2(\Gamma)}\,\hG^2/C_W,\qquad C_W:=\norm{\Delta(\chi(r-1)^2W)}_{H^1}.
+\]
+No (M3) and no regularity theory are needed: the dual problem is explicit.
+\end{theorem}
+
+\begin{proof}
+\emph{Dual.} Let $\zeta:=\pm\frac12\chi(r)(r-1)^2W(\theta)$, with $\chi$ a smooth cut-off equal to $1$ near $\Gamma$ and $0$ near $\partial R$, the sign chosen so that $z:=\curl\zeta$ has $\dn z\cdot\tau=W$ on $\Gamma$. Then $z$ is smooth on $\overline\Oh$, $z|_\Gamma=0$, $z|_{\partial R}=0$, $\div z=0$, and with $\tilde\phi:=-\Delta z$ the pair $(z,0)$ is an exact Stokes pair on $\Oh$: $-\Delta z+\nabla0=\tilde\phi$. Let $(z_h,r_h)\in\Zh\times\Pih$ be the $\CNS$ (resp.\ $\GS$) solution with body force $\tilde\phi$ and zero data. By Lemma~\ref{lem:erroreq} applied to $(z,0)$ (with $F\equiv0$), $\tnorm{z-z_h}\le CY_z$, $Y_z:=(1+\gamma^{1/2})\hG^{3/2}+h^k$, and, since the dual pressure vanishes, step~3 of Theorem~\ref{thm:D} gives $\beta\norm{r_h-\bar r_h}\le CY_z$.
+
+\emph{Identity.} Let $Z\in\tilde W_h$ attain Lemma~\ref{rs:approx} and $e_h:=Z-u_h\in\Zh$. Testing the dual problem with $e_h$ and the error equation \eqref{eq:cnserr} with $z_h$ gives, since $\div e_h=\div z_h=0$ and $N_h$ is symmetric,
+\[
+(e,\tilde\phi)=\underbrace{(\ut-Z,\tilde\phi)-N_h(\ut-Z,z_h)}_{T_1}+\Gc(z_h)-\ip{e_p-\pbG(e_p)}{z_h\cdot n}+\ip{r_h-\bar r_h}{e_h\cdot n}.
+\]
+\emph{Bounds.} $|T_1|\le Ch^k$. By Lemma~\ref{pd:lem:G}, $|\Gc(z_h)-\Gc(z)|\le C(1+\gamma^{1/2})\hG^{3/2}Y_z$. On $\Gh$, $|z|\le C\hG^2$, $|(\nabla\ut)^{\mathsf T}n|\le C\hG$, and $\ut$ and $z$ are both tangential to leading order ($\ut\cdot z=O(\hG^4)$), so $\Gc(z)=-\ip\ut{\dn z}+O((1+\gamma)\hG^3)$. For the third term, $\norm{e_p-\pbG(e_p)}_{\Gh}\le C\hG^{-1/2}Y$ (step~3 of Theorem~\ref{thm:D} and Lemma~\ref{lem:inverse}) and $\norm{z_h\cdot n}_{\Gh}\le\norm{z\cdot n}_{\Gh}+\norm{z_h-z}_{\Gh}\le C\hG^3+(\hG/\gamma)^{1/2}CY_z$; the product is $O((1+\gamma)\hG^3+h^k)$. (Pointwise $z\cdot n=O(\hG^3)$, but $z_h\cdot n$ is only $O(\hG^2)$ in $L^2(\Gh)$; it is the $\hG^{-1/2}$ trace factor of the pressure that makes the product small.) For the last term, $\norm{r_h-\bar r_h}_{\Gh}\le C\hG^{-1/2}Y_z$ and $\norm{e_h\cdot n}_{\Gh}\le(\hG/\gamma)^{1/2}CY$, so it is $O(\gamma^{-1/2}YY_z)=O((1+\gamma)\hG^3+h^k)$. For $\GS$ with $G=0$ the leak term of the dual vanishes because its pressure is zero, and there are no pressure terms.
+
+\emph{Leading term.} On $e$, $\ut=d\,W(x^\ast)\tau(x^\ast)+O(d^2)$ with $d=\frac12(|e|^2/4-s^2)+O(|e|^4)$ (Lemma~\ref{lb:expand}), $\dn z=W\tau+O(\hG)$ and $\int_ed=|e|^3/12+O(|e|^5)$. So $\ip\ut{\dn z}=\sum_e\frac{|e|^3}{12}W^2(m_e^\ast)+O(\hG^3)\ge\frac{c_0^2}{12}\hG^2\bigl(\norm W^2_{L^2(\Gamma)}-C\hG\bigr)$ by the Riemann sum of Lemma~\ref{lb:assemble}. Altogether $|(e,\tilde\phi)|\ge\frac{c_0^2}{12}\hG^2\norm W^2-C((1+\gamma)\hG^3+h^k)$; divide by $\norm{\tilde\phi}\le C_W$.
+\end{proof}
+
+The proof shows more: to leading order $e$ is the Stokes flow driven by the chord-mean slip $\frac{|e|^2}{12}\dn u$, a smooth tangential boundary datum of size $\hG^2$, plus a normal-slip remainder of size $O(\gamma^{-1/2}\hG^2)$. Numerically (test A, $N=96$, $\mu=100$), $(e,\tilde\phi)/(-\Lambda_h)=0.980$ for $\CNS$ and $0.987$ for $\GS$, where $\Lambda_h=\sum_e\frac{|e|^3}{12}W^2(m_e^\ast)$, and the difference settles at a constant times $\hG^3$.
+
+\subsection{The printed method: rate exactly \texorpdfstring{$1$}{1}}
+
+\begin{theorem}[$L^2$ error of $\GS$]\label{l2:thm:L2}
+For $\GS$ with fixed $\gamma\ge\gamma_0$ and bounded $\rho$,
+\[
+\norm{\ut-u_h}_{L^2(\Oh)}=\frac h\mu\,\norm U_{L^2(\Omega)}\bigl(1+O(h^{1/2})\bigr)+O(\hG^2+h\hG^{3/2}+h^{k+1}),
+\]
+where $U$ is the leak flow of Definition~\ref{hc:def}. Hence the $L^2$ rate of $\GS$ is exactly $1$ whenever $G>0$. Uniformly in $\gamma\ge\gamma_0$, $\norm{\ut-u_h}_{L^2}\le C_p\hG/\gamma+C(\hG^{3/2}+h^k+h^{\sigma_k}\hG^{-1/2})$.
+\end{theorem}
+
+\begin{proof}
+Write $\ut-u_h=(\ut-u_h')+\delta_R$ as in the proof of Theorem~\ref{rs:unif}. By Friedrichs' inequality (Lemma~\ref{lem:korn}; $\delta_R=0$ on $\partial R$) and Theorem~\ref{hc:thm}, $\norm{(\mu/h)\delta_R-\tilde U}_{L^2(\Oh)}\le C_F\norm{\nabla((\mu/h)\delta_R-\tilde U)}\le Ch^{1/2}$ at fixed $\gamma$ and bounded $\rho$, and $\norm{\tilde U}_{S_h}\le C\hG$. The part $\ut-u_h'$ satisfies the identity of Lemma~\ref{lb:identity} on $Y_h$ and the bounds of steps 1--4 of Theorem~\ref{rs:unif}, so the proof of Theorem~\ref{l2:thm:L1} bounds it by $C(\hG^2+h\hG^{3/2}+h^{k+1})$. The uniform bound is Theorem~\ref{rs:unif} with Friedrichs' inequality.
+\end{proof}
+
+For test P, $\norm U_{L^2(\Omega)}/G=1.2736341$ (series solution of Section~\ref{hc:sec}). The ratio $\norm{\ut-u_h}/((h/\mu)\norm U)$ at $N=96$ is $0.980$, $0.997$ and $0.999$ for $\mu=10^2,10^3,10^4$, and $\norm{(\mu/h)e-U}_{L^2}/\norm U$ decays like $h$ at $\mu=100$ (\texttt{notes/v6/l2/leak.log}).
+
+\subsection{Graded meshes}\label{l2:sec:graded}
+
+The term $h\hG^{3/2}$ of Theorem~\ref{l2:thm:L1} matters only when $h\gg\hG^{1/2}$, i.e.\ on strongly graded meshes. It arises twice: in $\ip{u_h}{\dn y_h}$, through the global divergence correction of $y_h$, and in $a_h(e,\tilde z-y_h)$, through the global product $\norm{\nabla e}\norm{\nabla(\tilde z-y_h)}\le\hG^{3/2}\cdot h$. Both are removed by localisation: a local right inverse of the divergence (Lemma~\ref{l2:lem:LF}) and a local energy estimate in which the pressure never appears (Theorem~\ref{l2:thm:IE}). The grading hypothesis is
+\begin{enumerate}
+\item[(G$_\kappa$)] $h_T\le\max(C_g\hG,\ \kappa\dist(T,\Gh))$ for all $T\in\Th$.
+\end{enumerate}
+
+\begin{lemma}[(LF): local divergence correction]\label{l2:lem:LF}
+Assume (M0)--(M2), $k\ge4$. There is a linear map $\mathcal L:\{q\in\Pih:\int_Tq=0\ \forall T\}\to\VO$ with $\div\mathcal Lq=q$,
+\[
+\norm{\nabla\mathcal Lq}_T\le C_{\rm loc}\norm q_{\omega_T},\qquad (\mathcal Lq)|_T=0\ \text{if } q=0 \text{ on }\omega_T,
+\]
+where $\omega_T$ is the union of the stars of the vertices of $T$ and $C_{\rm loc}$ depends only on $k$, shape regularity and $\Theta_0$.
+\end{lemma}
+
+\begin{proof}
+The Guzm\'an--Scott construction \cite{GuzmanScott2019} has three steps: a global $P_2$ step for element means, a vertex step (their Lemma~6: for each vertex $z$ a field $v^z$ supported in the star of $z$, with $\div v^z|_T(z)=q|_T(z)$ for $T\ni z$, $\div v^z=0$ at the other vertices, zero element means of $\div v^z$, and $\norm{\nabla v^z}\le C(\Theta(z)^{-1}+1)\norm q_{\text{star}(z)}$; boundary vertices use the boundary $\Theta$), and an element step (their Proposition~2: for $p_T\in P_{k-1}(T)$ with zero mean vanishing at the vertices, $v_T\in P_k(T)^2\cap H^1_0(T)^2$ with $\div v_T=p_T$, $\norm{v_T}_{H^1}\le\alpha_2\norm{p_T}$). The global step is needed only for element means, which $q$ already has. Put $v_2:=\sum_zv^z$; then $q-\div v_2$ vanishes at every vertex and has zero element means, and $\mathcal Lq:=v_2+\sum_Tv_T$ with $v_T$ for $q-\div v_2$. On $T$, $\norm{\nabla v_2}_T\le C\norm q_{\omega_T}$ by (M2) and $\norm{\nabla v_T}\le\alpha_2(\norm q_T+\sqrt2\norm{\nabla v_2}_T)$. All fields vanish on $T$ if $q=0$ on $\omega_T$. (The lemma numbers are those of arXiv:1705.00020.)
+\end{proof}
+
+\begin{lemma}[Local divergence-free interpolant]\label{l2:lem:Pz}
+For a continuous, piecewise $H^{k+1}$ field $v$ on $\Oh$ with $\div v=0$ elementwise, let $y:=I_hv+\sum_E\alpha_Eb_En_E$ over all edges $E$ ($b_E$ the quadratic edge bubble, $\alpha_E:=\int_E(v-I_hv)\cdot n_E/\int_Eb_E$), and $\Pi^{\rm div}_hv:=y-\mathcal L(\div y)$. Then $\Pi^{\rm div}_hv\in\Vh$, $\div\Pi^{\rm div}_hv=0$,
+\[
+\norm{\nabla(v-\Pi^{\rm div}_hv)}_T+h_T^{-1}\norm{v-\Pi^{\rm div}_hv}_T\le C\textstyle\sum_{T'\subset\omega^2_T}h_{T'}^k|v|_{H^{k+1}(T')},
+\]
+with $\omega^2_T$ the two-layer patch; $\Pi^{\rm div}_hv\in\VO$ if $v=0$ on $\partial\Oh$, and $\Pi^{\rm div}_hv=0$ outside the two-layer neighbourhood of $\operatorname{supp}v$.
+\end{lemma}
+
+\begin{proof}
+$b_E$ vanishes on the other edges, so $\int_E(y-v)\cdot n_E=0$ for every $E$ and $\int_T\div y=\int_T\div v=0$; Lemma~\ref{l2:lem:LF} applies to $\div y=\div(y-v)$. The bound follows from $|\alpha_E|\le C|E|^{-1/2}\norm{v-I_hv}_{L^2(E)}$, the scaled trace inequality, one more layer for $\mathcal L$, and Poincar\'e on patches for the $L^2$ part.
+\end{proof}
+
+For $x_0\in\overline\Oh$ and $r>0$ put $B(r):=B(x_0,r)\cap\Oh$.
+
+\begin{theorem}[(IE): a pressure-free local energy estimate]\label{l2:thm:IE}
+Assume (M0)--(M2), $k\ge4$, $d>0$, and either (I) $B(x_0,2d)\subset R$ or (B) $x_0\in\partial R$ and $2d\le L$; in both cases $\dist(B(x_0,2d),\Gh)\ge d$ and $h_T\le\kappa_0d$ for every $T$ meeting $B(x_0,2d)$. Let $U_h\in\Vh$ satisfy (i) $\div U_h=0$; (ii) $a_h(\ut-U_h,v)=0$ for every $v\in\Zh$ supported in $B(x_0,2d)$; (iii) in case (B), $U_h=\Pi^{\rm div}_h\ut$ on $\partial R\cap B(x_0,2d)$. There are $\kappa_{\rm IE}>0$ and $C_{\rm IE}$, depending only on $k$, shape regularity and $\Theta_0$, such that for $\kappa_0\le\kappa_{\rm IE}$, with $\eta:=\ut-\Pi^{\rm div}_h\ut$,
+\[
+\norm{\nabla(\ut-U_h)}_{B(d)}\le C_{\rm IE}\bigl(d^{-1}\norm{\ut-U_h}_{B(2d)}+d^{-1}\norm\eta_{B(2d)}+\norm{\nabla\eta}_{B(2d)}\bigr).
+\]
+\end{theorem}
+
+Hypothesis (ii) holds for the $\CNS$ and the $\GS$ velocities, with any outer data and any $\gamma$ for which they exist: for $v\in\Zh$ supported at distance $\ge(1-\kappa_0)d$ from $\Gh$, $v$ and $\dn v$ vanish on $\Gh$ and $(F,v)=0$, so the error equation \eqref{eq:cnserr} (resp.\ Corollary~\ref{cor:GSerr}) reduces to $a_h(\ut-u_h,v)=0$.
+
+\begin{proof}
+\emph{Setup.} $E:=\ut-U_h=\eta+\psi$ with $\psi:=\Pi^{\rm div}_h\ut-U_h$, $\div\psi=0$, and in case (B) $\psi=0$ on $\partial R\cap B(x_0,2d)$. Let $B':=B(x_0,2d)\cap R$; it is convex, and in case (B) $\partial R\cap B(x_0,2d)$ is connected ($2d\le L$ excludes two corners). Let $\varphi$ be the stream function, $\curl\varphi=\psi$; it is $C^1$ and piecewise $P_{k+1}$. Normalise $\int_{B'}\varphi=0$ in case (I) and $\varphi=0$ on $\partial R\cap B(x_0,2d)$ in case (B) ($\psi\cdot\nu=0$ there). The domains $B'$ are convex and, after scaling by $d$, range over a compact family (in case (B) they contain a boundary segment of length $\ge2d$ on which $\varphi$ vanishes), so Poincar\'e, resp.\ Friedrichs, holds with a uniform constant: $\norm\varphi_{B'}\le C_Pd\norm\psi_{B'}$.
+
+Fix $\omega\in C^\infty_c(B(x_0,\frac32d))$, $0\le\omega\le1$, $\omega=1$ on $B(x_0,d)$, $|\nabla^j\omega|\le C_jd^{-j}$, put $\sigma:=\omega^2$, $w:=\curl(\sigma^2\varphi)=\sigma^2\psi+\varphi\curl(\sigma^2)$ and $v:=\Pi^{\rm div}_hw$. Then $w$ is continuous, divergence free, in $H^1_0(\Oh)$, and $v\in\Zh$ is supported in $B(x_0,2d)$ once $C\kappa_0\le\frac12$ (Lemma~\ref{l2:lem:Pz}). By (ii), $a_h(E,v)=0$; since $\div\psi=0$ and $w,w-v\in H^1_0$, $a_h(\psi,\cdot)=(\nabla\psi,\nabla\cdot)$ on them, so
+\[
+(\nabla\psi,\nabla w)=(\nabla\psi,\nabla(w-v))-a_h(\eta,v).
+\]
+Put $M:=d^{-1}\norm\psi_{B'}+d^{-2}\norm\varphi_{B'}\le(1+C_P)d^{-1}\norm\psi_{B'}$.
+
+\emph{(A) Coercivity.} Every term of $\nabla(\varphi\curl\sigma^2)$ carries a factor $\sigma$ or $|\nabla\sigma|^2\le Cd^{-2}\sigma$, so $(\nabla\psi,\nabla w)\ge\norm{\sigma\nabla\psi}^2-C\norm{\sigma\nabla\psi}M$ and $\norm{\nabla w}\le\norm{\sigma\nabla\psi}+CM$.
+
+\emph{(B) Superapproximation.} On an element $T'$, $\varphi\in P_{k+1}$, so by Lemma~\ref{l2:lem:Pz}, Leibniz and inverse estimates,
+\[
+h^k|w|_{H^{k+1}(T')}\le C\textstyle\sum_{j=1}^{k}(h/d)^j\bar\omega^{(4-j)_+}\norm{\nabla\psi}_{T'}+C(h/d)^k\bigl(d^{-1}\norm\psi_{T'}+d^{-2}\norm\varphi_{T'}\bigr),
+\]
+with $\bar\omega$ the maximum of $\omega$ on the three-layer patch, $\bar\omega\le\omega+Ch/d$ there. Young's inequality $(h/d)^j\bar\omega^{4-j}\le\epsilon\omega^4+C_\epsilon(h/d)^4$ and the inverse inequality $(h_T/d)^4\norm{\nabla\psi}_T^2\le C\kappa_0^2d^{-2}\norm\psi_T^2$ give
+\[
+|(\nabla\psi,\nabla(w-v))|\le\tfrac14\norm{\sigma\nabla\psi}^2+C\bigl(d^{-2}\norm\psi_{B'}^2+M^2\bigr),\qquad \norm{\nabla(w-v)}\le C\bigl(\norm{\sigma\nabla\psi}+d^{-1}\norm\psi_{B'}\bigr).
+\]
+No norm of $\nabla\psi$ outside the weight survives: where $\omega$ is small the factor $h/d$ is present and the inverse inequality turns $h_T\norm{\nabla\psi}_T$ into $\norm\psi_T$. This is the device of Demlow, Guzm\'an and Schatz for the Laplacian \cite{DemlowGuzmanSchatz2011}, applied to $\sigma^2=\omega^4$.
+
+\emph{(C)} $|a_h(\eta,v)|\le C\norm{\nabla\eta}_{B(2d)}(\norm{\sigma\nabla\psi}+d^{-1}\norm\psi_{B'})$. Inserting (A)--(C), $\norm{\nabla\psi}_{B(d)}\le\norm{\sigma\nabla\psi}\le C(d^{-1}\norm\psi_{B'}+\norm{\nabla\eta}_{B(2d)})$; finally $\norm\psi\le\norm E+\norm\eta$.
+\end{proof}
+
+Arnold and Liu prove local estimates for Stokes under abstract approximation, superapproximation, inverse and inf-sup hypotheses at fixed scale \cite{ArnoldLiu1995}; Scott--Vogelius is not among their examples. Theorem~\ref{l2:thm:IE} combines the Demlow--Guzm\'an--Schatz weighting with an exactly divergence-free test field, so that for $\Zh$-Galerkin orthogonality neither a local inf-sup condition nor a pressure norm is needed. We claim no novelty beyond this combination.
+
+\begin{lemma}[Data shift]\label{l2:lem:shift}
+Let $\CNS$ use flux-corrected data and $\gamma\in[\gamma_2,\gamma_{\max}]$, let $u_h^\sharp$ be the $\CNS$ velocity with the same $\ft$ and outer data $\hat g:=(\Pi^{\rm div}_h\ut)|_{\partial R}$, and $\ell_h:=u_h^\sharp-u_h$. If $\ut\in W^{k+1,\infty}$ near $\partial R$, then $\tnorm{\ell_h}\le Ch^{k+1/2}$ and $\norm{\ell_h}_{L^2(\Oh)}\le Ch^{k+1}$.
+\end{lemma}
+
+\begin{proof}
+$\ell_h$ is the $\CNS$ velocity with $\ft=0$ and data $\epsilon:=\hat g-\tilde g_I=c_Rx+\sum_{E\subset\partial R}\alpha_Eb_E\nu$, where $|c_R|=|m_R|/(8L^2)\le Ch^{k+1}$ and $|\alpha_E|\le Ch_E^{k+1}\norm\ut_{W^{k+1,\infty}}$; the data have zero flux. \emph{Energy.} A divergence-free $\mathcal E\in\Vh$ with $\mathcal E|_{\partial R}=\epsilon$, vanishing on the triangles touching $\Gh$, is built from $c_RI_h(\hat\chi x)$ ($\hat\chi$ a cut-off equal to $1$ near $\partial R$), the $P_k$ extensions of $\alpha_Eb_E\nu$, and a $\VO$ correction of the (mean-zero) divergence by Lemma~\ref{lem:infsup}; $\norm{\nabla\mathcal E}\le C(|c_R|+(\sum_E\alpha_E^2)^{1/2})\le Ch^{k+1/2}$ since $\sum_Eh_E^{2k+2}\le Ch^{2k+1}$. The energy argument of Theorem~\ref{thm:D} with exact solution $(0,0)$ ($\Gc=0$, $\eta=0$) and $z:=\mathcal E$ gives $\tnorm{\ell_h}\le C\tnorm{\mathcal E}\le Ch^{k+1/2}$. \emph{$L^2$.} Repeat the proof of Theorem~\ref{l2:thm:L1} with $e:=-\ell_h$; since $\ft=0$, Lemma~\ref{lb:identity} reads $a_h(\ell_h,y)=\ip{\ell_h}{\dn y}$ on $Y_h$. The six terms are bounded by $C\norm z_{H^2}$ times: $h\tnorm{\ell_h}$; $\norm{\ell_h}_{\Gh}(1+h\hG^{-1/2})$ with $\norm{\ell_h}_{\Gh}\le(\hG/\gamma)^{1/2}\tnorm{\ell_h}$; $0$ (no strip force); $\norm{\ell_h}_{\Gh}$; $\norm\epsilon_{L^2(\partial R)}\le Ch^{k+1}$; and the strip term $\norm{\ell_h}_{S_h}\le C\hG(\norm{\ell_h}_{\Gh}+\hG\norm{\nabla\ell_h})\le C\hG h^{k+1/2}$ (Lemma~\ref{l2:strip}(a)). Each is $\le Ch^{k+1}\norm z_{H^2}$, and Theorem~\ref{l2:thm:R} closes the argument.
+\end{proof}
+
+\begin{theorem}[Graded meshes]\label{l2:thm:G}
+Let $\CNS$ use flux-corrected data, $\gamma\in[\gamma_2,\gamma_{\max}]$, and assume (M0)--(M2), (D), $\ut\in H^{k+1}(\Oh)\cap W^{k+1,\infty}$ near $\partial R$, and (G$_\kappa$) with $\kappa\le\kappa_\ast$ ($\kappa_\ast$ depending only on $k$, shape regularity, $\Theta_0$, $L$, $C_g$). Then
+\[
+\norm{\ut-u_h}_{L^2(\Omega)}\le C\bigl(\hG^2+h^{k+1}\bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{l2:lem:shift} it suffices to bound $e:=\ut-u_h^\sharp$, whose inputs ($\norm{\nabla e}\le C(\hG^{3/2}+h^k)$, $\norm e_{\Gh},\norm{u_h^\sharp}_{\Gh}\le C(\hG^2+\hG^{1/2}h^k)$) are those of $\ut-u_h$ up to $Ch^{k+1/2}$. Run the proof of Theorem~\ref{l2:thm:L1} with a local dual approximant: start from $y^0:=I_h\tilde z-L_0\in\VO$ ($L_0$ the nodal lift of $I_h\tilde z|_{\Gh}$, $\norm{\nabla L_0}\le C\hG\norm z_{H^2}$) and add $\alpha_Eb_En_E$ on each interior edge so that $\int_E(y^1-\tilde z)\cdot n_E=0$. On every $e\in\EG$, $\int_e\tilde z\cdot n_e=-\int_e\dt\tilde\zeta=0$ exactly, because both endpoints of $e$ lie on $\Gamma$, where $\zeta=0$. Hence $\int_T\div y^1=0$ for every $T$, and $y_h:=y^1-\mathcal L(\div y^1)\in Y_h$ (Lemma~\ref{l2:lem:LF}) satisfies $\norm{\nabla(\tilde z-y_h)}_T\le C(h_T|\tilde z|_{H^2(\omega^2_T)}+\norm{\nabla L_0}_{\omega^2_T})$ and $\norm{\dn y_h}_{\Gh}\le C\norm z_{H^2}$. Term~5 becomes $\ip{\sigma\nu}{g-\hat g}_{\partial R}=O(h^{k+1})\norm z_{H^2}$, terms 2--6 give $C(\hG^2+h^{k+1}+\hG^{1/2}h^k)\norm z_{H^2}$, and $|\text{term }1|\le C(\norm{h_T\nabla e}+\hG\norm{\nabla e})\norm z_{H^2}$.
+
+\emph{Near zone.} On elements with $\dist(T,\Gh)<d_0:=C_g\hG/\kappa$, $h_T\le C_g\hG$, contributing $\le C\hG(\hG^{3/2}+h^k)$ to $\norm{h_T\nabla e}$.
+
+\emph{Far zone.} Let $r(x):=\min(\dist(x,\Gh),(L-1)/8)$. Points with $\dist(x,\partial R)\ge r(x)/16$ get the interior ball $B(x,r(x)/32)$; the others are within $r/16$ of some $x'\in\partial R$ and get the boundary ball $B(x',r(x)/8)$. In both cases the doubled ball is at distance $\ge\frac{11}{16}r(x)\ge d$ from $\Gh$, $d$ its radius. Besicovitch's covering theorem applied to $\{B(x,r(x)/32)\}$, and the Lipschitz continuity of $r$, give balls $B_i=B(x_i,d_i)$ covering $\{\dist\ge d_0\}$ whose doubled balls have bounded overlap and satisfy $h_T\le C\kappa d_i$ on $2B_i$ by (G$_\kappa$). So Theorem~\ref{l2:thm:IE} applies with $\kappa_0=C\kappa$, with (iii) guaranteed by the choice of $\hat g$, and gives $\norm{h_T\nabla e}_{B_i}\le C\kappa\norm e_{2B_i}+C\kappa\norm\eta_{2B_i}+C\max_{2B_i}h_T\norm{\nabla\eta}_{2B_i}$. Summing with Lemma~\ref{l2:lem:Pz},
+\[
+\norm{h_T\nabla e}\le C\bigl(\hG^{5/2}+\hG h^k+h^{k+1}+\kappa\norm e_{L^2(\Omega)}\bigr).
+\]
+\emph{Absorb.} With $\norm z_{H^2}\le C_R\norm e_{L^2(\Omega)}$, $\hG^{1/2}h^k\le\hG^2+h^{k+1}$ and $\hG h^k\le\hG^2+h^{2k}$, $\norm e_{L^2(\Omega)}\le C(\hG^2+h^{k+1})+C\kappa\norm e_{L^2(\Omega)}$; absorb for $\kappa\le\kappa_\ast$ and add $\norm{\ell_h}\le Ch^{k+1}$.
+\end{proof}
+
+The theorem needs $\ut\in H^{k+1}$ up to $\partial R$, which is the smooth-solution hypothesis of Remark~\ref{rem:corners}; for data-driven problems the term $h^{k+1}$ degrades at the corners of $R$ unless the mesh is graded there. The same statement holds for $\GS$ with $G=0$ by the device $u_h'=u_h+\delta_R$ of Theorem~\ref{l2:thm:L1}; we have not written it out. With only global energy information the product $h\hG^{3/2}$ cannot be improved, since both factors are attained; the localisation of Theorem~\ref{l2:thm:IE} is what removes it. We did not test graded meshes numerically (\texttt{notes/v7/reg}).
+
+\subsection{Computations}\label{l2:sec:num}
+
+The stored runs of Section~\ref{sec:numerics} contain the $L^2$ errors (Table~\ref{l2:tab}). For $\CNS$, $\norm e_{L^2}/\hG^2$ is constant to two digits from $N=32$ on, independently of $\mu$ and of the pressure (B$_1$, B$_{100}$ and C agree). For $\GS$, the $L^2$ rate is $2$ on test A ($G=0$) and $0.95$--$0.98$ on P, B$_1$ and C, and $\norm e\,\mu/h$ on B$_1$ tends to $2.085$ at $N=256$, close to $\norm U_{L^2}=2.112$ for the common wall pressure of B$_1$ and P.
+
+\begin{table}[t]
+\centering\small
+\caption{$L^2$ velocity errors, $\mu=100$, $k=4$ (\texttt{notes/v6/l2/existing\_l2.txt}). Rates between consecutive runs of the full sequence.}\label{l2:tab}
+\begin{tabular}{rcccccccc}
+\toprule
+ & \multicolumn{3}{c}{$\CNS$, test A} & \multicolumn{3}{c}{$\CNS$, test B$_1$} & \multicolumn{2}{c}{$\GS$, test B$_1$}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-9}
+$N$ & $\norm e$ & rate & $\norm e/\hG^2$ & $\norm e$ & rate & $\norm e/\hG^2$ & $\norm e$ & $\norm e\,\mu/h$\\
+\midrule
+16 & $4.58\cdot10^{-2}$ & -- & 0.217 & $1.32\cdot10^{-2}$ & -- & 0.0625 & $2.94\cdot10^{-2}$ & 1.950\\
+32 & $1.24\cdot10^{-2}$ & 2.03 & 0.208 & $2.95\cdot10^{-3}$ & 2.05 & 0.0494 & $1.58\cdot10^{-2}$ & 1.943\\
+64 & $3.21\cdot10^{-3}$ & 1.99 & 0.208 & $7.87\cdot10^{-4}$ & 1.95 & 0.0510 & $8.51\cdot10^{-3}$ & 2.015\\
+128 & $8.15\cdot10^{-4}$ & 1.99 & 0.209 & $2.04\cdot10^{-4}$ & 1.97 & 0.0523 & $4.44\cdot10^{-3}$ & 2.060\\
+256 & $2.05\cdot10^{-4}$ & 1.99 & 0.210 & $5.18\cdot10^{-5}$ & 1.98 & 0.0531 & $2.27\cdot10^{-3}$ & 2.085\\
+\bottomrule
+\end{tabular}
+\end{table}
+\cert{notes/v6/l2/collect\_l2.py; notes/v6/l2/l2\_numerics.py}{notes/v6/l2/existing\_l2.txt, leak.log, pair.log, slip.log}
