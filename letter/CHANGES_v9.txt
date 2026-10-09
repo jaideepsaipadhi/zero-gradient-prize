@@ -53,3 +53,8 @@ v9.1 (Cavalcante's answers, 9 Oct 2026)
  - Reference [10]: DOI 10.5281/zenodo.22262466 confirmed; version date changed to 3 September 2026 (also jsc/, paper2d/).
  - L^2_0 numerical example stays omitted (his decision). The archived run remains in code/ and logs/ only.
  - He agrees to arXiv posting (math.NA) at submission, Padhi corresponding. Padhi has no math.NA endorsement yet.
+
+v9.2 (9 Oct 2026): author order changed to Padhi, Cavalcante, with Cavalcante's written agreement (e-mail of
+9 Oct 2026, "I agree to listing you as first author and corresponding author"). CRediT order, cover letter, JSC
+citation and arXiv metadata updated. letter_em.tex = letter.tex with the bibliography inlined (Editorial Manager
+does not run BibTeX); this is the file uploaded to AML.

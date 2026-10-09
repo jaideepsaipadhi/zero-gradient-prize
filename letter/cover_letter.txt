@@ -2,7 +2,7 @@ To the Editor, Applied Mathematics Letters
 
 Dear Editor,
 
-We submit the manuscript "The missing pressure traction in Scott-Vogelius-Nitsche methods on polygonal approximations of a curved wall" for consideration as a letter in Applied Mathematics Letters. It is joint work of Claudemir de Souza Cavalcante and Jaideep Sai Padhi.
+We submit the manuscript "The missing pressure traction in Scott-Vogelius-Nitsche methods on polygonal approximations of a curved wall" for consideration as a letter in Applied Mathematics Letters. It is joint work of Jaideep Sai Padhi and Claudemir de Souza Cavalcante.
 
 Exactly divergence-free finite elements are attractive for incompressible flow, but they are sensitive to how a curved wall is approximated, and weak imposition of boundary conditions is a common remedy. The letter should therefore interest readers working on divergence-free discretisations, Nitsche's method and boundary approximation.
 
@@ -17,13 +17,13 @@ The letter states its results and proves the key steps. Longer proofs and extens
 
 Sincerely,
 
-Claudemir de Souza Cavalcante
-Graduate Program in Mathematics and Statistics, Institute of Exact and Natural Sciences
-Federal University of Para (UFPA), Belem, Brazil
-claudemir.cavalcante@icen.ufpa.br  (ORCID 0009-0007-4426-1869)
-
 Jaideep Sai Padhi (corresponding author)
 Department of Computer Science, Purdue University
 West Lafayette, IN 47907, USA
 jpadhi@purdue.edu
 jpadhi@purdue.edu
+
+Claudemir de Souza Cavalcante
+Graduate Program in Mathematics and Statistics, Institute of Exact and Natural Sciences
+Federal University of Para (UFPA), Belem, Brazil
+claudemir.cavalcante@icen.ufpa.br  (ORCID 0009-0007-4426-1869)

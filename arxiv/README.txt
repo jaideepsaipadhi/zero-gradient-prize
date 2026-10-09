@@ -65,7 +65,7 @@ SUGGESTED arXiv METADATA -- LETTER  (post ONLY after Cavalcante agrees)
 ======================================================================
 Title:    The missing pressure traction in Scott--Vogelius--Nitsche methods on polygonal approximations of a
           curved wall
-Authors:  Claudemir de Souza Cavalcante, Jaideep Sai Padhi   (alphabetical, as in the manuscript)
+Authors:  Jaideep Sai Padhi, Claudemir de Souza Cavalcante   (order agreed 9 Oct 2026)
 Primary:  math.NA   (cross-list: none; see the note above on physics.flu-dyn)
 MSC:      65N30 65N12 76D07
 Comments: 6 pages. Submitted to Applied Mathematics Letters. Companion to arXiv:XXXX.XXXXX (the extended version,
@@ -77,5 +77,5 @@ We study smooth two-dimensional Stokes flow with a curved no-slip wall approxima
   [1132 characters; limit 1920]
 
 SHA-256 of the tarballs:
-afdadf315fdb36baed909ac420a42cad11a86b0c07b0e86305d5c358664a9cb8  letter_src.tar.gz
+a98efb30b8000789d523e21461809b208a4154cd060b8228523f7322b3de40a6  letter_src.tar.gz
 32f9e8c092e3d7e71431e50cc35222e1041868060845f0f1b9c0f4cc2819f73e  extended_src.tar.gz

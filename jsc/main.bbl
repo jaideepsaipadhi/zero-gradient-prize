@@ -414,11 +414,11 @@ pp. \bfpage{327}--\blpage{336}.
 \endbibitem
 
 %%% 25
-\bibitem[\protect\citeauthoryear{Cavalcante and
-  Padhi}{2026}]{CavalcantePadhiLetter}
+\bibitem[\protect\citeauthoryear{Padhi and
+  Cavalcante}{2026}]{CavalcantePadhiLetter}
 \begin{botherref}
-\oauthor{\bsnm{Cavalcante}, \binits{C.d.S.}},
-\oauthor{\bsnm{Padhi}, \binits{J.S.}}:
+\oauthor{\bsnm{Padhi}, \binits{J.S.}},
+\oauthor{\bsnm{Cavalcante}, \binits{C.d.S.}}:
 The missing pressure traction in {S}cott--{V}ogelius--{N}itsche methods on
   polygonal approximations of a curved wall.
 Submitted to Applied Mathematics Letters

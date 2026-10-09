@@ -58,16 +58,16 @@
 \begin{frontmatter}
 \title{The missing pressure traction in Scott--Vogelius--Nitsche methods on polygonal approximations of a curved wall}
 
-%% Authors in alphabetical order of surname (joint work; see the CRediT statement).
+%% Author order: Padhi first (agreed with Cavalcante, e-mail of 9 Oct 2026).
 %% Cavalcante's e-mail, affiliation, ORCID and the choice of corresponding author: from his e-mail of Oct 2026.
-\author[cav]{Claudemir de Souza Cavalcante\fnref{orcidcav}}
-\ead{claudemir.cavalcante@icen.ufpa.br}
-\fntext[orcidcav]{ORCID: 0009-0007-4426-1869.}
-\address[cav]{Graduate Program in Mathematics and Statistics, Institute of Exact and Natural Sciences, Federal University of Par\'a (UFPA), Bel\'em, Brazil}
 \author[pur]{Jaideep Sai Padhi\corref{cor}}
 \cortext[cor]{Corresponding author.}
 \ead{jpadhi@purdue.edu}
 \address[pur]{Department of Computer Science, Purdue University, West Lafayette, IN 47907, USA}
+\author[cav]{Claudemir de Souza Cavalcante\fnref{orcidcav}}
+\ead{claudemir.cavalcante@icen.ufpa.br}
+\fntext[orcidcav]{ORCID: 0009-0007-4426-1869.}
+\address[cav]{Graduate Program in Mathematics and Statistics, Institute of Exact and Natural Sciences, Federal University of Par\'a (UFPA), Bel\'em, Brazil}
 
 \begin{abstract}
 We study smooth two-dimensional Stokes flow with a curved no-slip wall approximated by an inscribed polygon, using Scott--Vogelius elements of degree $k\ge4$ and Nitsche's method. For the printed Gjerde--Scott formulation, the pressure traction is absent. Under the approximation assumptions of Theorem~1(c), with fixed effective penalty, bounded mesh ratio and nonconstant wall pressure, the leading normal leak is $(h_\Omega/\mu)(p-\bar p)$, with asymptotic constant $1$. The energy and $H^1$ errors have orders $(h_\Omega/\mu)^{1/2}$ and $h_\Omega/\mu$, respectively, with matching lower bounds. A mean-free pressure-traction correction has the same velocity as a zero-net-flux formulation of Frachon, Nilsson and Zahedi and attains $O(h_\Gamma^{3/2}+h_\Omega^k)$ under the stated assumptions and a sufficiently large, bounded effective penalty. Under condition (S) and nonzero wall shear, the exponent $3/2$ is sharp for every $k\ge4$. A penalty proportional to $h_\Omega/\min_e|e|$ is sufficient and, under a triangle-shape condition, necessary. Quartic computations support the predicted rates, leak constant and penalty thresholds.
@@ -246,7 +246,7 @@ To test Proposition~\ref{prop:penalty} we find $\mu^\ast$ by bisection on the in
 
 \section*{CRediT authorship contribution statement}
 %% Roles as given by Cavalcante (Oct 2026); his formal analysis = constant-pressure analysis and Clough--Tocher result.
-\textbf{Claudemir de Souza Cavalcante:} Formal analysis, Writing -- review \& editing. \textbf{Jaideep Sai Padhi:} Formal analysis, Software, Validation, Writing -- original draft.
+\textbf{Jaideep Sai Padhi:} Formal analysis, Software, Validation, Writing -- original draft. \textbf{Claudemir de Souza Cavalcante:} Formal analysis, Writing -- review \& editing.
 
 \section*{Declaration of competing interest}
 The question studied is the subject of a prize offered by L. R. Scott; the authors intend to submit this work for it. The authors declare no other competing interests.
