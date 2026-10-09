@@ -5,7 +5,7 @@
 | file | contents |
 |---|---|
 | `letter.tex` | Manuscript source (elsarticle). |
-| `refs.bib` | The cited entries only (20 in v8; BrambleDupontThomee1972 and DupontGuzmanScott2025 now cited), built from `notes/v5/refs_letter.bib` and `paper/refs.bib` (MorganScott1975, NeilanOtus2021), plus ChenLiu2026, with the VERIFY comments kept. Cavalcante's author field is "de Souza Cavalcante, Claudemir" (record: "Claudemir de Souza Cavalcante"). `PadhiExt` is the extended version, Zenodo version 3 (doi:10.5281/zenodo.23044296). `Cavalcante2026` is pinned to his manuscript of 2 September 2026 (VERIFY that the DOI resolves to that version). |
+| `refs.bib` | The cited entries only (20 in v8; BrambleDupontThomee1972 and DupontGuzmanScott2025 now cited), built from `notes/v5/refs_letter.bib` and `paper/refs.bib` (MorganScott1975, NeilanOtus2021), plus ChenLiu2026, with the VERIFY comments kept. Cavalcante's author field is "de Souza Cavalcante, Claudemir" (record: "Claudemir de Souza Cavalcante"). `PadhiExt` is the extended version, Zenodo version 3 (doi:10.5281/zenodo.23044296). `Cavalcante2026`: version of 3 September 2026, DOI confirmed by Cavalcante. |
 | `highlights.txt` | 5 highlights, 75–85 characters each. |
 | `cover_letter.txt` | Cover letter to the editor, joint (first person plural); Cavalcante's details and contribution filled in (v9). |
 | `CHANGES_v9.txt` | Cavalcante's corrections (Oct 2026) and how each was applied. |

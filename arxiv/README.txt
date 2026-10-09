@@ -77,5 +77,5 @@ We study smooth two-dimensional Stokes flow with a curved no-slip wall approxima
   [1132 characters; limit 1920]
 
 SHA-256 of the tarballs:
-c6b2cf0cdc3d1b856a79003b864a4350f1e29dd511006c89f6a99d57babbadfb  letter_src.tar.gz
+afdadf315fdb36baed909ac420a42cad11a86b0c07b0e86305d5c358664a9cb8  letter_src.tar.gz
 32f9e8c092e3d7e71431e50cc35222e1041868060845f0f1b9c0f4cc2819f73e  extended_src.tar.gz

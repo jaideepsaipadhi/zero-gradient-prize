@@ -47,3 +47,9 @@ sentence now states its hypotheses); arxiv/letter bundle rebuilt from v9 with co
 Companion papers (same issues): jsc/ and paper2d/ now report |c| (sign is convention-dependent; our run gives
 c = -9.69e-4) and cite the archived run; paper2d's "can never lift its energy rate above 1" bullet now states the
 window caveat; Cavalcante bib entries pinned to the 2 Sept 2026 version.
+
+v9.1 (Cavalcante's answers, 9 Oct 2026)
+ - AI declaration: his clause = "to help locate relevant mathematical theorems, correct grammar, and write computer code".
+ - Reference [10]: DOI 10.5281/zenodo.22262466 confirmed; version date changed to 3 September 2026 (also jsc/, paper2d/).
+ - L^2_0 numerical example stays omitted (his decision). The archived run remains in code/ and logs/ only.
+ - He agrees to arXiv posting (math.NA) at submission, Padhi corresponding. Padhi has no math.NA endorsement yet.
