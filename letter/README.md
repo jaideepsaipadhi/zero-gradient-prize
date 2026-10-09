@@ -5,9 +5,10 @@
 | file | contents |
 |---|---|
 | `letter.tex` | Manuscript source (elsarticle). |
-| `refs.bib` | The cited entries only (20 in v8; BrambleDupontThomee1972 and DupontGuzmanScott2025 now cited), built from `notes/v5/refs_letter.bib` and `paper/refs.bib` (MorganScott1975, NeilanOtus2021), plus ChenLiu2026, with the VERIFY comments kept. Cavalcante's author field is "de Souza Cavalcante, Claudemir" (record: "Claudemir de Souza Cavalcante"). `PadhiExt` is the extended version, which will be posted as Zenodo **version 3**. Its DOI is the placeholder `10.5281/zenodo.XXXXXXXX`, marked `%% FILL v3 DOI`. |
+| `refs.bib` | The cited entries only (20 in v8; BrambleDupontThomee1972 and DupontGuzmanScott2025 now cited), built from `notes/v5/refs_letter.bib` and `paper/refs.bib` (MorganScott1975, NeilanOtus2021), plus ChenLiu2026, with the VERIFY comments kept. Cavalcante's author field is "de Souza Cavalcante, Claudemir" (record: "Claudemir de Souza Cavalcante"). `PadhiExt` is the extended version, Zenodo version 3 (doi:10.5281/zenodo.23044296). `Cavalcante2026` is pinned to his manuscript of 2 September 2026 (VERIFY that the DOI resolves to that version). |
 | `highlights.txt` | 5 highlights, 75–85 characters each. |
-| `cover_letter.txt` | Cover letter to the editor, joint (first person plural), with a FILL line for Cavalcante. |
+| `cover_letter.txt` | Cover letter to the editor, joint (first person plural); Cavalcante's details and contribution filled in (v9). |
+| `CHANGES_v9.txt` | Cavalcante's corrections (Oct 2026) and how each was applied. |
 | `letter.pdf` | The `[3p,times]` build. This is the page-count reference. |
 | `letter_5p.pdf` | The `[5p,times]` two-column build, for checking only. |
 | `elsarticle.cls`, `elsarticle-num.bst` | Elsevier class v3.4c (2025/01/11) and bst v2.1. They were not in this TeX Live install and CTAN was blocked, so they were taken from `github.com/quarto-journals/elsevier`. |
@@ -23,9 +24,9 @@ This runs pdflatex, bibtex, then pdflatex twice, for `letter`. It then does the 
 
 ## Page counts and length
 
-- **3p (`letter.pdf`): 6 pages**, including references and declarations. The limit is 6, and the last page is full (v6): anything Cavalcante adds must be offset by cuts.
+- **3p (`letter.pdf`): 6 pages**, including references and declarations (v9, after Cavalcante's corrections; reference list set in \small). The limit is 6 and the last page is full.
 - **5p (`letter_5p.pdf`): 5 pages.**
-- **Abstract:** 205 words (limit 250).
+- **Abstract:** Cavalcante's v9 text, about 160 words (limit 250).
 - **Keywords:** 5.
 - **Build:**
   - No undefined references or citations, and no bibtex warnings.
@@ -47,7 +48,7 @@ This runs pdflatex, bibtex, then pdflatex twice, for `letter`. It then does the 
   - one sentence at the end of Section 1 also refers to it.
 - [ ] Authors: Cavalcante (affiliation, e-mail, CRediT roles: FILL) and Padhi, alphabetical. See `CHANGES_v6.txt`.
 - [x] Pointers into the extended version (macro `\ext`) follow the current numbering in `paper/main.aux` (penalty §9, pressure §8, rescue §7.2). Every one was checked against that file.
-- [ ] **Author to do: insert the v3 DOI.** Replace `10.5281/zenodo.XXXXXXXX` in `refs.bib` (entry `PadhiExt`) and in the Data availability section of `letter.tex`. Both places are marked `%% FILL v3 DOI`.
+- [x] v3 DOI inserted in `refs.bib` (`PadhiExt`). The Zenodo reference in Data availability was removed at Cavalcante's request (v9) until the archive/version correspondence is confirmed.
 - [ ] **Author to do: re-check pointers.** If the long paper is renumbered again, re-check the `\ext` pointers.
 - [ ] **Author to do: declarations `.docx`.** AML requires the Elsevier declarations-tool `.docx` (competing interests) at submission. Its content must match the manuscript statement about Scott's prize.
 - [ ] **Author to do: open literature items.** See `notes/v5/lit_report.md` §4.

@@ -2,11 +2,10 @@ arXiv BUNDLES  (prepared 2026-09-30, branch v3-draft, not committed)
 ====================================================================
 
 !! POSTING ORDER !!
-The LETTER (letter/, letter_src.tar.gz) is joint work with Claudemir de Souza Cavalcante. It must NOT be posted to
-arXiv until he has agreed to the text, the author list and the posting, and has confirmed his affiliation, e-mail
-and CRediT roles. letter.tex still contains FILL placeholders: his e-mail and affiliation, his CRediT roles, and the
-corresponding author. The drafts of his parts are in ../letter/letter_with_cavalcante_draft.tex and have not been
-approved. After he approves, rebuild this bundle from the approved file (see "Rebuilding" below).
+The LETTER (letter/, letter_src.tar.gz) is joint work with Claudemir de Souza Cavalcante. As of 2026-10-08 it is
+rebuilt from letter/letter.tex with all of his corrections (e-mail of Oct 2026) applied, and full-line %-comments
+stripped. His details, CRediT roles and the corresponding author (Padhi) are filled in. Post it only once he has
+also agreed to the arXiv posting itself, and confirmed the purpose clause for his AI use (see letter/CHANGES_v9.txt).
 The EXTENDED paper is single-author and can be posted independently. Before posting it, fix the incorrect
 statement about Cavalcante's preprint in paper/sections/09_clough_tocher.tex (see ../letter/CAVALCANTE_PREPRINT_NOTES.txt,
 section 3), and then rebuild the bundle.
@@ -39,8 +38,7 @@ REBUILDING
 letter:   copy letter.tex, refs.bib, elsarticle.cls and elsarticle-num.bst into a scratch directory, then run
           pdflatex, bibtex, pdflatex, pdflatex. Copy letter.tex and letter.bbl (plus the .cls and .bst) into
           arxiv/letter/, then  tar -czf letter_src.tar.gz -C letter .
-          If the approved file is letter_with_cavalcante_draft.tex, rename it to letter.tex first; the .bbl
-          must have the same base name as the .tex.
+          Strip full-line %-comments from letter.tex first (they are public on arXiv).
 extended: the same, from paper/ (main.tex, refs.bib, sections/, figures/). Use style amsplain.
 
 ======================================================================
@@ -71,13 +69,13 @@ Authors:  Claudemir de Souza Cavalcante, Jaideep Sai Padhi   (alphabetical, as i
 Primary:  math.NA   (cross-list: none; see the note above on physics.flu-dyn)
 MSC:      65N30 65N12 76D07
 Comments: 6 pages. Submitted to Applied Mathematics Letters. Companion to arXiv:XXXX.XXXXX (the extended version,
-          once it is posted). Code and data: https://github.com/jaideepsaipadhi/zero-gradient-prize ;
-          Zenodo DOI 10.5281/zenodo.23044296
+          once it is posted). Code and data: https://github.com/jaideepsaipadhi/zero-gradient-prize
+          (Zenodo DOI left out at Cavalcante's request until the archive/version correspondence is confirmed.)
           (Journal policy: Elsevier allows preprints on arXiv. Mention the submission only if both authors agree.)
-Abstract (the manuscript abstract, unchanged, in plain text):
-We consider two-dimensional Stokes flow in which a curved no-slip wall is replaced by an inscribed polygon with edges of length at most $h_\Gamma$, and the method of Gjerde and Scott: Scott-Vogelius elements of degree $k\ge4$ on a mesh of size $h_\Omega$, with no-slip imposed by Nitsche's method with penalty $\mu/h_\Omega$. Scott asked whether the $H^1$ error is $O(h_\Gamma^{3/2}+h_\Omega^k)$ for general Stokes data, and if not, why not. For the method as printed and a fixed penalty, the answer is no whenever the pressure varies along the wall: the Nitsche form has no pressure traction, so the discrete flow leaks through the polygon with normal velocity $(h_\Omega/\mu)(p-\bar p)$, $\bar p$ the mean wall pressure. We prove that this leak is the leading error, with constant 1, and that the energy and $H^1$ errors are of order $(h_\Omega/\mu)^{1/2}$ and $h_\Omega/\mu$, with matching lower bounds. A mean-free traction term, whose velocity coincides with that of a zero-net-flux formulation of Frachon, Nilsson and Zahedi, attains $h_\Gamma^{3/2}+h_\Omega^k$ for general data, and the exponent 3/2 is sharp for every $k\ge4$. A penalty scaling like $h_\Omega/\min_e|e|$ is sufficient, and necessary under a shape condition (by an exactly certified witness). Computations with $k=4$ agree with the predicted rates, constants and threshold.
-  [1347 characters; limit 1920]
+Abstract (the manuscript abstract, v9, in plain text):
+We study smooth two-dimensional Stokes flow with a curved no-slip wall approximated by an inscribed polygon, using Scott-Vogelius elements of degree $k\ge4$ and Nitsche's method. For the printed Gjerde-Scott formulation, the pressure traction is absent. Under the approximation assumptions of Theorem 1(c), with fixed effective penalty, bounded mesh ratio and nonconstant wall pressure, the leading normal leak is $(h_\Omega/\mu)(p-\bar p)$, with asymptotic constant 1. The energy and $H^1$ errors have orders $(h_\Omega/\mu)^{1/2}$ and $h_\Omega/\mu$, respectively, with matching lower bounds. A mean-free pressure-traction correction has the same velocity as a zero-net-flux formulation of Frachon, Nilsson and Zahedi and attains $O(h_\Gamma^{3/2}+h_\Omega^k)$ under the stated assumptions and a sufficiently large, bounded effective penalty. Under condition (S) and nonzero wall shear, the exponent 3/2 is sharp for every $k\ge4$. A penalty proportional to $h_\Omega/\min_e|e|$ is sufficient and, under a triangle-shape condition, necessary. Quartic computations support the predicted rates, leak constant and penalty thresholds.
+  [1132 characters; limit 1920]
 
 SHA-256 of the tarballs:
-75c9fcf589ad4a8b33ba34778c44f888d4f280149a9d53148477716320c93880  letter_src.tar.gz
+c6b2cf0cdc3d1b856a79003b864a4350f1e29dd511006c89f6a99d57babbadfb  letter_src.tar.gz
 32f9e8c092e3d7e71431e50cc35222e1041868060845f0f1b9c0f4cc2819f73e  extended_src.tar.gz

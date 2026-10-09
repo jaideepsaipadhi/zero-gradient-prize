@@ -1,6 +1,3 @@
-%% letter.tex -- Applied Mathematics Letters submission.
-%% Build (journal 3p format):   pdflatex letter; bibtex letter; pdflatex letter; pdflatex letter
-%% Build (5p two-column check): see README.md (defines \FIVEP before \input{letter}).
 \ifdefined\FIVEP
   \documentclass[5p,times]{elsarticle}
 \else
@@ -58,17 +55,17 @@
 \begin{frontmatter}
 \title{The missing pressure traction in Scott--Vogelius--Nitsche methods on polygonal approximations of a curved wall}
 
-%% Authors in alphabetical order of surname (joint work; see the CRediT statement).
-%% FILL: Cavalcante's affiliation and e-mail (do not guess); choose the corresponding author (\cortext).
-\author[cav]{Claudemir de Souza Cavalcante}
-\ead{FILL}
-\address[cav]{FILL (affiliation of C. de S. Cavalcante)}
-\author[pur]{Jaideep Sai Padhi}
+\author[cav]{Claudemir de Souza Cavalcante\fnref{orcidcav}}
+\ead{claudemir.cavalcante@icen.ufpa.br}
+\fntext[orcidcav]{ORCID: 0009-0007-4426-1869.}
+\address[cav]{Graduate Program in Mathematics and Statistics, Institute of Exact and Natural Sciences, Federal University of Par\'a (UFPA), Bel\'em, Brazil}
+\author[pur]{Jaideep Sai Padhi\corref{cor}}
+\cortext[cor]{Corresponding author.}
 \ead{jpadhi@purdue.edu}
 \address[pur]{Department of Computer Science, Purdue University, West Lafayette, IN 47907, USA}
 
 \begin{abstract}
-We consider two-dimensional Stokes flow in which a curved no-slip wall is replaced by an inscribed polygon with edges of length at most $h_\Gamma$, and the method of Gjerde and Scott: Scott--Vogelius elements of degree $k\ge4$ on a mesh of size $h_\Omega$, with no-slip imposed by Nitsche's method with penalty $\mu/h_\Omega$. Scott asked whether the $H^1$ error is $O(h_\Gamma^{3/2}+h_\Omega^k)$ for general Stokes data, and if not, why not. For the method as printed and a fixed penalty, the answer is no whenever the pressure varies along the wall: the Nitsche form has no pressure traction, so the discrete flow leaks through the polygon with normal velocity $(h_\Omega/\mu)(p-\bar p)$, $\bar p$ the mean wall pressure. We prove that this leak is the leading error, with constant $1$, and that the energy and $H^1$ errors are of order $(h_\Omega/\mu)^{1/2}$ and $h_\Omega/\mu$, with matching lower bounds. A mean-free traction term, whose velocity coincides with that of a zero-net-flux formulation of Frachon, Nilsson and Zahedi, attains $h_\Gamma^{3/2}+h_\Omega^k$ for general data, and the exponent $3/2$ is sharp for every $k\ge4$. A penalty scaling like $h_\Omega/\min_e|e|$ is sufficient, and necessary under a shape condition (by an exactly certified witness). Computations with $k=4$ agree with the predicted rates, constants and threshold.
+We study smooth two-dimensional Stokes flow with a curved no-slip wall approximated by an inscribed polygon, using Scott--Vogelius elements of degree $k\ge4$ and Nitsche's method. For the printed Gjerde--Scott formulation, the pressure traction is absent. Under the approximation assumptions of Theorem~1(c), with fixed effective penalty, bounded mesh ratio and nonconstant wall pressure, the leading normal leak is $(h_\Omega/\mu)(p-\bar p)$, with asymptotic constant $1$. The energy and $H^1$ errors have orders $(h_\Omega/\mu)^{1/2}$ and $h_\Omega/\mu$, respectively, with matching lower bounds. A mean-free pressure-traction correction has the same velocity as a zero-net-flux formulation of Frachon, Nilsson and Zahedi and attains $O(h_\Gamma^{3/2}+h_\Omega^k)$ under the stated assumptions and a sufficiently large, bounded effective penalty. Under condition (S) and nonzero wall shear, the exponent $3/2$ is sharp for every $k\ge4$. A penalty proportional to $h_\Omega/\min_e|e|$ is sufficient and, under a triangle-shape condition, necessary. Quartic computations support the predicted rates, leak constant and penalty thresholds.
 \end{abstract}
 
 \begin{keyword}
@@ -76,28 +73,22 @@ Stokes equations \sep Scott--Vogelius elements \sep Nitsche's method \sep curved
 \end{keyword}
 \end{frontmatter}
 
-%% ============================================================================ 1
 \section{Introduction}\label{sec:intro}
 
-In 1985 Scott and Vogelius showed that for polynomial degree $k\ge4$, on meshes without singular vertices, the divergence maps continuous piecewise-$P_k$ velocities onto discontinuous piecewise-$P_{k-1}$ pressures \cite{ScottVogelius1985,GuzmanScott2019}. The velocities are then divergence-free pointwise, with exact mass conservation and pressure-robust errors on fitted meshes \cite{JohnEtAl2017}. At a curved wall the same property causes trouble. If the wall is replaced by an inscribed polygon and no-slip is imposed strongly, the divergence constraint can force a zero velocity gradient at a polygon vertex (for instance one lying in only two triangles), and the $H^1$ error is then only of order $h^{1/2}$ \cite{ScottPrize,GjerdeScott2024} (under (M2) below this lock cannot occur \cite{PadhiExt}). Gjerde and Scott \cite{GjerdeScott2024} therefore keep the polygon but impose the wall condition weakly, by Nitsche's method \cite{Nitsche1971}, with penalty $\mu/\hO$ on a mesh of size $\hO$. For a zero-pressure benchmark Scott observed $H^1$ errors of order $h^{3/2}$, the rate expected from an uncorrected polygon (corrections beyond it for scalar problems go back to \cite{BrambleDupontThomee1972}; see \cite{DupontGuzmanScott2025}).
-%% CAVALCANTE: one or two sentences stating his constant-pressure (zero-pressure-gradient) result from
-%% \cite{Cavalcante2026} as part of this joint letter (hypotheses, norm, rate) -- to be written by him; do not invent.
- He offered a prize for a proof of the error $\hG^{3/2}+\hO^k$, $\hG$ the longest polygon edge, for general Stokes data: ``If this does not hold, why not?'' \cite{ScottPrize}.
+In 1985 Scott and Vogelius showed that for polynomial degree $k\ge4$, on meshes without singular vertices, the divergence maps continuous piecewise-$P_k$ velocities onto discontinuous piecewise-$P_{k-1}$ pressures \cite{ScottVogelius1985,GuzmanScott2019}. The velocities are then divergence-free pointwise, with exact mass conservation and pressure-robust errors on fitted meshes \cite{JohnEtAl2017}. At a curved wall the same property causes trouble. If the wall is replaced by an inscribed polygon and no-slip is imposed strongly, the divergence constraint can force a zero velocity gradient at wall vertices with two incident triangles. A positive fraction of such locking vertices, in a region with nonzero wall shear, can lead to an $H^1$ error of order $\hG^{1/2}$ \cite{ScottPrize,GjerdeScott2024}. Under uniform shape and angle control, including (M2), and compatible outer data, strong imposition can also attain $\hG^{3/2}+\hO^k$ \cite{PadhiExt}. Weak imposition therefore remains relevant on meshes exhibiting locking or approaching degenerate wall stars. Gjerde and Scott \cite{GjerdeScott2024} therefore keep the polygon but impose the wall condition weakly, by Nitsche's method \cite{Nitsche1971}, with penalty $\mu/\hO$ on a mesh of size $\hO$. For a zero-pressure benchmark Scott observed $H^1$ errors of order $h^{3/2}$, the rate expected from an uncorrected polygon (corrections beyond it for scalar problems go back to \cite{BrambleDupontThomee1972}; see \cite{DupontGuzmanScott2025}).
+For Scott's constant-pressure benchmark $u=(1-r^{-2})(-y,x)$, $p=0$, Cavalcante proved $\norm{u-u_h}_{H^1(\Oh)}\le C(\hO^k+\hG^{3/2})$ for every fixed $k\ge4$, under the stated geometric and uniform mesh assumptions, flux-compatible outer data, and a sufficiently large, bounded effective-penalty window $\gamma_0\le\mu\hG/\hO\le\gamma_1$ \cite[Theorem~5.2]{Cavalcante2026}. The constant is independent of the two mesh scales.
+ Scott offered a prize for a proof of the error $\hG^{3/2}+\hO^k$, $\hG$ the longest polygon edge, for general Stokes data: ``If this does not hold, why not?'' \cite{ScottPrize}.
 
 For the method as printed it does not hold, because a term is missing. The consistent Nitsche form for Stokes flow uses the full traction, so it contains $\ip{p}{v\cdot n}$ \cite{BurmanHansbo2014,BurmanHansboLarson2019Stokes}; the form printed in \cite[(27)--(28)]{GjerdeScott2024} omits it. Without a traction only the penalty balances the wall pressure, and the discrete flow leaks through the polygon with normal velocity $u_h\cdot n\approx(\hO/\mu)(p-\pbar)$, where $\pbar$ is the mean of $p$ on the wall (the mean cannot leak, as the net flux is zero). This is the consistency error of penalty methods \cite{Babuska1973}, acting on the pressure alone: for fixed $\mu$ the $H^1$ rate is $1$. Restoring the full traction fails for divergence-free spaces: the constant pressure mode then drops out of the equations and is not determined. Subtracting the wall mean of the discrete pressure repairs this. The velocity of the resulting method is that of the zero-net-flux formulation of Frachon, Nilsson and Zahedi \cite[\S5.1]{FrachonNilssonZahedi2024}, transcribed to this setting.
 
-\emph{Related work and novelty.} Cavalcante \cite{Cavalcante2026} analysed the zero-pressure-gradient case, in which there is no leak.
-%% CAVALCANTE: place for his Clough--Tocher results for k>=2 (statement and pointer) -- to be written by him; do not invent.
-%% VERIFY: the attribution of Clough--Tocher k>=2 results to Cavalcante (paper/sections/09_clough_tocher.tex) is not
-%% visible in the Zenodo record 10.5281/zenodo.22262466 description (notes/v6/cites/FINDINGS.txt [9]); check against his PDF.
- Exactly divergence-free methods of the optimal order $h^k$ exist on curved domains, at a higher cost: isoparametric Piola-mapped Scott--Vogelius elements fit the wall and are pressure-robust \cite[Theorem~6.1]{NeilanOtus2021}, also in 3D \cite{ChenLiu2026}, and Liu, Neilan and Otus \cite{LiuNeilanOtus2023} work inside the curved domain with a boundary multiplier, a zero-flux constraint and a Taylor correction. The placement of the pressure traction in divergence-free cut methods is discussed in \cite{LiuNeilanOlshanskii2023,FrachonNilssonZahedi2024}; our stability theory is that of Guzm\'an and Scott \cite{GuzmanScott2019}. None of these works treats the straight-sided Gjerde--Scott method, for which $\hG^{3/2}$ is the sharp target. New here are: (i) the leak law, with constant $1$ and two-sided bounds (Theorem~\ref{thm:gs}); (ii) the proof that the mean-free traction attains $\hG^{3/2}+\hO^k$ for general data (Theorem~\ref{thm:cns}), and that $3/2$ is sharp for every $k\ge4$ (Remark~\ref{rem:further}); (iii) the penalty threshold $\mu\asymp\hO/\min_e|e|$, sufficient, and necessary under a shape hypothesis by a certified witness (Proposition~\ref{prop:penalty}); (iv) computations with $k=4$ confirming all of this, including the penalty study requested in the prize. The failure of the naive and $L^2_0$ forms (Section~\ref{sec:results}) is elementary; compare \cite[(5.7)--(5.9)]{FrachonNilssonZahedi2024}, \cite[Remark~3.2]{LiuNeilanOtus2023}. We treat a disk in a square; general domains, Clough--Tocher meshes, Navier--Stokes, 3D and omitted proofs are in \cite{PadhiExt}. The work was done with the AI model Claude (Anthropic), as declared at the end.
+\emph{Related work and novelty.} For the constant-pressure benchmark, there is no pressure-driven leak. Cavalcante's estimate also holds for every fixed $k\ge2$ on admissible barycentric Clough--Tocher refinements of uniformly shape-regular macrotriangulations, with the same geometric assumptions, flux-compatible outer data and penalty window, using the degree-$k$ spaces and trace interpolant \cite[Corollary~5.3]{Cavalcante2026}.
+ Exactly divergence-free methods of the optimal order $h^k$ exist on curved domains, at a higher cost: isoparametric Piola-mapped Scott--Vogelius elements fit the wall and are pressure-robust \cite[Theorem~6.1]{NeilanOtus2021}, also in 3D \cite{ChenLiu2026}, and Liu, Neilan and Otus \cite{LiuNeilanOtus2023} work inside the curved domain with a boundary multiplier, a zero-flux constraint and a Taylor correction. The placement of the pressure traction in divergence-free cut methods is discussed in \cite{LiuNeilanOlshanskii2023,FrachonNilssonZahedi2024}; our stability theory is that of Guzm\'an and Scott \cite{GuzmanScott2019}. None of these works treats the straight-sided Gjerde--Scott method, for which $\hG^{3/2}$ is the sharp target. New here are: (i) the leak law, with constant $1$ and two-sided bounds (Theorem~\ref{thm:gs}); (ii) the proof that the mean-free traction attains $\hG^{3/2}+\hO^k$ for general data (Theorem~\ref{thm:cns}), and that $3/2$ is sharp for every $k\ge4$ (Remark~\ref{rem:further}); (iii) the penalty threshold $\mu\asymp\hO/\min_e|e|$, sufficient, and necessary under a shape hypothesis by a certified witness (Proposition~\ref{prop:penalty}); (iv) computations with $k=4$ confirming all of this, including the penalty study requested in the prize. The failure of the naive and $L^2_0$ forms (Section~\ref{sec:results}) is elementary; compare \cite[(5.7)--(5.9)]{FrachonNilssonZahedi2024}, \cite[Remark~3.2]{LiuNeilanOtus2023}. We treat a disk in a square; general domains, Clough--Tocher meshes, Navier--Stokes, 3D and omitted proofs are in \cite{PadhiExt}. The authors' respective uses of AI-assisted tools are declared at the end.
 
-%% ============================================================================ 2
 \section{Setting and the three methods}\label{sec:setting}
 
-Let $R=(-L,L)^2$, $L>1$, $D$ the unit disk, $\Omega=R\setminus\overline D$, $\Gamma=\partial D$, and let $(u,p)$ be smooth (an assumption at the corners of $R$ \ext{Rem.~2.5}) with $-\Delta u+\nabla p=f$, $\div u=0$ in $\Omega$, $u|_\Gamma=0$, $u|_{\partial R}=g$. $P_h$ is a convex polygon with vertices on $\Gamma$, $\Gh=\partial P_h$ and $\Oh=R\setminus P_h\supset\Omega$. On $\Gh$ and on $\Gamma$, $n$ is the unit normal pointing out of $\Oh$ (resp.\ $\Omega$); $\nu$ is the outward normal of $R$; $\ip\cdot\cdot$ is the $L^2(\Gh)$ product. A triangulation of $\Oh$ with edges $\EG$ on $\Gh$ has
+Let $R=(-L,L)^2$, $L>1$, $D$ the unit disk, $\Omega=R\setminus\overline D$, $\Gamma=\partial D$, and let $(u,p)$ be smooth (an assumption at the corners of $R$ \ext{Rem.~2.5}) with $-\Delta u+\nabla p=f$, $\div u=0$ in $\Omega$, $u|_\Gamma=0$, $u|_{\partial R}=g$. Let $P_h$ be a convex polygon with vertices on $\Gamma$ and $0\in\operatorname{int}P_h$, and assume $\hG$ is sufficiently small. Set $\Gh=\partial P_h$ and $\Oh=R\setminus P_h\supset\Omega$. On $\Gh$ and on $\Gamma$, $n$ is the unit normal pointing out of $\Oh$ (resp.\ $\Omega$); $\nu$ is the outward normal of $R$; $\ip\cdot\cdot$ is the $L^2(\Gh)$ product. A triangulation of $\Oh$ with edges $\EG$ on $\Gh$ has
 $h=\hO:=\max\operatorname{diam}T$, $\hG:=\max_{\EG}|e|$, $\rho:=h/\min_{\EG}|e|$ and $\gamma:=\mu\hG/h$, so $\mu/h=\gamma/\hG$.
-We assume (M0) shape regularity and $|e|\ge c_0\hG$ on $\EG$, (M1) no singular vertices, and (M2) the angle condition of \cite[Thm.~1]{GuzmanScott2019}; $\hG\ll h$ is allowed. For $k\ge4$, $\Vh$ is the space of continuous piecewise-$P_k$ fields, $\VR$ and $\VO$ are its subspaces vanishing on $\partial R$ and on $\partial\Oh$, $\Pih$ is the space of discontinuous piecewise-$P_{k-1}$ functions, and $\Zh:=\{v\in\VR:\div v=0\}$. Then $\div\VR=\Pih$, and $(\VO,\Pih\cap L^2_0)$ has an inf-sup constant $\beta$ independent of $h$ \cite{GuzmanScott2019}, \ext{Lemmas~4.3, 4.5}. With $Du=\nabla u+(\nabla u)^{\mathsf T}$, $\dn u=(\nabla u)n$ and $\pbG(q):=|\Gh|^{-1}\int_{\Gh}q$, the Nitsche form
+We assume (M0) shape regularity and $|e|\ge c_0\hG$ on $\EG$, (M1) no singular vertices, and (M2) the angle condition of \cite[Thm.~1]{GuzmanScott2019}, with its angular parameter bounded below independently of the mesh size; $\hG\ll h$ is allowed. For $k\ge4$, $\Vh$ is the space of continuous piecewise-$P_k$ fields, $\VR$ and $\VO$ are its subspaces vanishing on $\partial R$ and on $\partial\Oh$, $\Pih$ is the space of discontinuous piecewise-$P_{k-1}$ functions, and $\Zh:=\{v\in\VR:\div v=0\}$. Then $\div\VR=\Pih$, and $(\VO,\Pih\cap L^2_0)$ has an inf-sup constant $\beta$ independent of $h$ \cite{GuzmanScott2019}, \ext{Lemmas~4.3, 4.5}. With $Du=\nabla u+(\nabla u)^{\mathsf T}$, $\dn u=(\nabla u)n$ and $\pbG(q):=|\Gh|^{-1}\int_{\Gh}q$, the Nitsche form
 \[
 N_h(u,v)=\tfrac12(Du,Dv)-\ip{\dn u}{v}-\ip{u}{\dn v}+(\mu/h)\ip uv
 \]
@@ -113,7 +104,6 @@ Let $\eps:=h^k+\inf\tnorm{\ut-z}$, the infimum over divergence-free $z\in\Vh$ wi
 
 The penalty must dominate the inverse trace constant on the shortest wall edge. With $\kappa$ the Korn constant on $\VR$ and $C_I$ the inverse trace constant, if $\mu\ge4\kappa C_I^2\rho$ (true if $\gamma\ge\gamma_0:=4\kappa C_I^2/c_0$), then $N_h(v,v)\ge c_1\tnorm v^2$ and $|N_h(w,v)|\le M\tnorm w\tnorm v$ on $\VR$, with $c_1,M$ independent of $h,\mu,\rho$ \ext{Lemma~4.2}.
 
-%% ============================================================================ 3
 \section{Main results}\label{sec:results}
 
 The polygon enters through a consistency error $\Gc$, small because chords lie $O(\hG^2)$ from $\Gamma$ and the normal tilt is odd on each edge.
@@ -131,7 +121,7 @@ For $v\in\Zh$, $\int_{\Gh}v\cdot n=\int_{\Oh}\div v=0$, so for $\GS$
 \begin{equation}\label{eq:gserr}
 N_h(\ut-u_h,v)=\Rc(v)+\Gc(v),\qquad \Rc(v):=-\ip{\pt-\pbar}{v\cdot n}\qquad\forall v\in\Zh .
 \end{equation}
-So $\GS$ is driven by the missing load $\Rc$, and its response is, to leading order, the leak field $(h/\mu)v_\varphi$ defined next. Let $\varphi:=\chi(r)\int_0^\theta(p-\pbar)\,d\theta'$ in polar coordinates, with a cut-off $\chi$ ($1$ near $r=1$, $0$ near $\partial R$); then $w:=\curl\varphi=-(p-\pbar)n$ on $\Gamma$. With $I_h^{C^1}$ the $C^1$ piecewise-$P_{k+1}$ interpolant \cite{MorganScott1975}, $v_\varphi:=\curl I_h^{C^1}\varphi\in\Zh$, $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^k$, and $v_\varphi=-(p-\pbar)(x^\ast)n+O(\hG)$ on $\Gh$, with $x^\ast$ the radial projection of $x$ onto $\Gamma$.
+So $\GS$ is driven by the missing load $\Rc$, and its response is, to leading order, the leak field $(h/\mu)v_\varphi$ defined next. Let $\varphi:=\chi(r)\int_0^\theta(p-\pbar)\,d\theta'$ in polar coordinates, with a cut-off $\chi$ ($1$ near $r=1$, $0$ near $\partial R$); then $w:=\curl\varphi=-(p-\pbar)n$ on $\Gamma$. With $I_h^{C^1}$ the $C^1$ piecewise-$P_{k+1}$ interpolant \cite{MorganScott1975}, $v_\varphi:=\curl I_h^{C^1}\varphi\in\Zh$, $\norm{v_\varphi-w}_{W^{1,\infty}}\le Ch^k$, and $v_\varphi=-(p-\pbar)(x^\ast)n+O(\hG+\hO^k)$ on $\Gh$, with $x^\ast$ the radial projection of $x$ onto $\Gamma$.
 
 \begin{theorem}[The printed method \ext{\S6}]\label{thm:gs}
 Let $\gamma\ge\gamma_0$ and $Y:=(1+\gamma^{1/2})\hG^{3/2}+\eps$. (a) $\tnorm{\ut-u_h}\le C[(h/\mu)^{1/2}G+Y]$. If $G>0$ and $h\le h_0(G)$, with $h_0$ independent of $\gamma$, then $\tnorm{\ut-u_h}\ge(2M)^{-1}(h/\mu)^{1/2}G-CY$. (b) $\norm{\nabla(\ut-u_h)}\le C_ph/\mu+CY$.
@@ -163,9 +153,7 @@ On $e$, $(\pt-\pbar)n+v_\varphi=(p-\pbar)(m_e^\ast)s\tau_e+O(\hG^2+h^k)$, with $
 (c) Here $\vartheta_h=(\ut-z)+\delta_G+r_h$, so $\tnorm{\vartheta_h}\le C_ph/\mu+CY$, $\norm{\vartheta_h}_{\Gh}\le(h/\mu)^{1/2}\tnorm{\vartheta_h}$, and $\norm{v_\varphi}_{\Gh}=G+O(\hG^2+h^k)$. Testing \eqref{eq:gserr} with $v_\varphi$, all terms but $(\mu/h)\ip{\ut-u_h}{v_\varphi}$ and $\Rc(v_\varphi)$ are $o(G^2)$ by (a), (b), so $\norm{\ut-u_h}_{\Gh}\ge c(h/\mu)G$; and $\norm{\ut-u_h}_{\Gh}\le C\norm{\nabla(\ut-u_h)}+Ch^{k+1/2}$ by a uniform trace inequality.
 \end{proof}
 
-%% v8: former Proposition 2 (naive and L^2_0 forms) merged into this paragraph for space; content unchanged
-%% except that the "c=0 => CNS velocity" clause is now parenthetical. Label kept for safety (not referenced).
-\emph{Naive and $L^2_0$ forms.}\label{prop:naive} Adding the traction back naively fails. The naive system is square, and $(0,1)$ lies in the kernel of its matrix, since $-(1,\div v)+\ip{1}{v\cdot n}=0$ for $v\in\VR$. In the $L^2_0$ variant, $\div u_h\in\Pih$ is orthogonal to $\Pih\cap L^2_0$, so $\div u_h\equiv c$ with $c|\Oh|=\int_{\partial R}\gI\cdot\nu+\int_{\Gh}u_h\cdot n$, and nothing forces $c=0$: on test A below ($N=16$), $\norm{\div u_h}=4.5\cdot10^{-3}$. (If $c=0$ and $\gamma\ge\gamma_2$, then $u_h$ is the $\CNS$ velocity, since the naive pressure form at $q$ is the $\CNS$ form at $q-\pbG(q)$.) The mean-free traction avoids both defects: it ignores constants, so the constant pressure mode is fixed by $(p_h,\div v)$ as in $\GS$, and the velocity stays divergence-free.
+\emph{Naive and $L^2_0$ forms.}\label{prop:naive} Adding the traction back naively fails. The naive system is square, and $(0,1)$ lies in the kernel of its matrix, since $-(1,\div v)+\ip{1}{v\cdot n}=0$ for $v\in\VR$. In the $L^2_0$ variant, $\div u_h\in\Pih$ is orthogonal to $\Pih\cap L^2_0$, so $\div u_h\equiv c$ with $c|\Oh|=\int_{\partial R}\gI\cdot\nu+\int_{\Gh}u_h\cdot n$, and nothing forces $c=0$. The mean-free traction avoids both defects: it ignores constants, so the constant pressure mode is fixed by $(p_h,\div v)$ as in $\GS$, and the velocity stays divergence-free.
 
 \begin{theorem}[The mean-free method; \ext{Thm.~7.2, Rem.~7.3}]\label{thm:cns}
 There is $\gamma_2\asymp\max(\gamma_0,\beta^{-2})$ such that for $\gamma\ge\gamma_2$:
@@ -179,16 +167,14 @@ Let $B^\ast(q,v):=-(q,\div v)+\ip{q-\pbG(q)}{v\cdot n}$. Then $B^\ast(q+c,v)=B^\
 \end{proof}
 
 \begin{remark}[Further results that complete the picture, proved in \cite{PadhiExt}]\label{rem:further}
-(1) \emph{Pressures and uniformity} \ext{Thms.~8.11, 8.7, 7.30, 7.33}. For fixed $\gamma$, bounded $\rho$, the $\GS$ pressure error is $\asymp\hG^{1/2}G/\gamma$ (up to $\pm C_p\hG$). With data $\tilde g_I$, the $\CNS$ pressure error is $O(\hG^{3/2}+\hO^k)$ for $\gamma\le\gamma_{\max}$, and Theorem~\ref{thm:cns}(c) holds uniformly in $\gamma\ge\gamma_2$.
-%% (M3) now proved for all k>=4 (notes/v4/m3_proof.tex; notes/v6/m3/REPORT.md; referee3): witness P4, patch = 3 star
-%% triangles, needs (M0theta), (M1') [from (M2)], (S). Pointer checked against paper/main.aux 2026-09-28: m3:thm = Thm 7.8, lb:thm = Thm 7.24.
-(2) \emph{Sharpness, every $k\ge4$} \ext{Thms.~7.8, 7.24}. Assume (S) $\hG\le2\sin(\theta_{\min}/4)$, $\theta_{\min}$ the smallest angle of the triangles touching $\Gh$, and let $\hG$ be small. If $W=\dn u\cdot\tau\not\equiv0$ on $\Gamma$, then $\norm{\nabla(\ut-u_h)}\ge c\norm W\hG^{3/2}-C\hG^2$ for $\CNS$, and for $\GS$ with any $G$, with $c$ independent of $\gamma,\rho,p$. \emph{Idea.} On $v\in\Zh$ vanishing on $\Gh$ with $\int_e\dn v=0$, pressure and penalty drop out, and the chordal bump $-\frac12s^2W_e$ of $\ut\cdot\tau_e$ ($H^{1/2}$-size $\hG^{3/2}$) pairs with the second moment of $\dn v\cdot\tau_e$, which an explicit $C^1$ piecewise-$P_5$ stream function on three triangles at each wall vertex makes positive when (S) holds.
-(3) \emph{A growing penalty} \ext{Thm.~7.30, Cor.~7.34, Thm.~7.35}. For $\GS$, $\mu\gtrsim h\hG^{-3/2}$ restores the $H^1$ rate $3/2$ (data $\tilde g_I$), but no scaling gives an energy rate above $1$.
+(1) \emph{Pressures, uniformity} \ext{Thms.~8.11, 8.7, 7.30, 7.33}. The $\GS$ pressure error is $\asymp\hG^{1/2}G/\gamma$ up to $\pm C_p\hG$ (fixed $\gamma$, bounded $\rho$); with data $\tilde g_I$ that of $\CNS$ is $O(\hG^{3/2}+\hO^k)$, and Theorem~\ref{thm:cns}(c) is uniform in $\gamma\ge\gamma_2$.
+(2) \emph{Sharpness, every $k\ge4$} \ext{Thms.~7.8, 7.24}. Assume (S) $\hG\le2\sin(\theta_{\min}/4)$, $\theta_{\min}$ the smallest angle of the triangles touching $\Gh$, and let $\hG$ be small. If $W=\dn u\cdot\tau\not\equiv0$ on $\Gamma$, then $\norm{\nabla(\ut-u_h)}\ge c\norm W\hG^{3/2}-C\hG^2$ for $\CNS$, and for $\GS$ with any $G$, with $c$ independent of $\gamma,\rho,p$.
+(3) \emph{A growing penalty} \ext{Thm.~7.30, Cor.~7.34}. For $\GS$ with flux-corrected outer data $\tilde g_I$, a penalty $\mu\gtrsim\hO\hG^{-3/2}$ yields $\norm{\ut-u_h}_{H^1(\Oh)}\le C_p(\hG^{3/2}+\hO^k)$.
 \end{remark}
 
 \begin{\tabenv}[!tb]
 \centering\footnotesize\setlength{\tabcolsep}{3pt}
-\caption{$H^1$ seminorm errors (rate), tests A and B$_{100}$, and pressure errors $\norm{p^\ast-p_h}_{L^2(\Oh)}$ for B$_{100}$. Strong: $u_h=0$ at the nodes of $\Gh$, mesh (a) (wall vertices in two or four triangles, violating (M2)). $\GS$, $\CNS$: standard mesh. Rates from the preceding $N\in\{16,24,32,48,64,96,128,192\}$; at $N=256$, $\GS$ and $\CNS$ give $1.55$, $1.56$ on test A.}\label{tab:rates}
+\caption{$H^1$ seminorm errors (rate), tests A and B$_{100}$, and pressure errors $\norm{p^\ast-p_h}_{L^2(\Oh)}$ for B$_{100}$. Strong: $u_h=0$ at the nodes of $\Gh$, mesh (a) (wall vertices in two or four triangles, violating (M2)). $\GS$, $\CNS$: standard mesh. Rates are computed from the preceding mesh in $N\in\{16,24,32,48,64,96,128,192\}$ using $r=\log(E_{\mathrm{previous}}/E_{\mathrm{current}})/\log(h_{\Omega,\mathrm{previous}}/h_{\Omega,\mathrm{current}})$; at $N=256$, $\GS$ and $\CNS$ give $1.55$, $1.56$ on test A.}\label{tab:rates}
 \begin{tabular}{rccccccc}
 \toprule
  & \multicolumn{3}{c}{test A, velocity} & \multicolumn{2}{c}{test B$_{100}$, velocity} & \multicolumn{2}{c}{test B$_{100}$, pressure}\\
@@ -210,55 +196,35 @@ Scott asked how to choose the penalty. On one well-shaped triangle at a short wa
 \end{proposition}
 
 \begin{proof}
-(b) The potential vanishes to second order on the edges through the apex, so $v_t$, extended by zero, lies in $\Zh$. $A_T$ and $B_T$ are invariant under dilation and $C_T$ scales with $|e|$, so $N_h(v_t,v_t)=(\mu|e|/h-\lambda_T)C_T(t)<0$ for the top eigenvector. (c) $A_T,B_T,C_T$ are explicit rational functions of $(a,b)$ \ext{\S10.1}. On dyadic boxes covering each shape region we verify $2520\,b^3q^{\mathsf T}(2B_T-A_T-\lambda C_T)q>0$ for a rational $q$ in exact interval arithmetic \ext{Prop.~10.3}. For tall triangles $\lambda_T<0$, and even one-star witnesses can fail \ext{Prop.~10.6}; under (M0) alone, $\mu^\ast\gtrsim\rho$ is proved only with astronomically small constants \ext{Thm.~10.13}.
-%% One-star failure: exact LDL^T certificates at minimum angle 11.3deg (notes/v6/penalty, referee1).
-%% Explicit constant (notes/v6/consts, referee11): N_h indefinite on Z_h for mu < 15 h/Y if all triangles meeting
-%% B(x0,3Y), x0 a wall-edge midpoint, Y <= 1e-6, have diameter <= kappa0(theta) Y; kappa0(30deg)=0.0117. Cut for space.
+(b) The potential vanishes to second order on the edges through the apex, so $v_t$, extended by zero, lies in $\Zh$. $A_T$ and $B_T$ are invariant under dilation and $C_T$ scales with $|e|$, so $N_h(v_t,v_t)=(\mu|e|/h-\lambda_T)C_T(t)<0$ for the top eigenvector. (c) $A_T,B_T,C_T$ are explicit rational functions of $(a,b)$ \ext{\S10.1}. On dyadic boxes covering each shape region we verify $2520\,b^3q^{\mathsf T}(2B_T-A_T-\lambda C_T)q>0$ for a rational $q$ in exact interval arithmetic \ext{Prop.~10.3}. For tall triangles see \ext{Prop.~10.6, Thm.~10.13}.
 \end{proof}
 
-%% ============================================================================ 4
 \section{Numerical study}\label{sec:num}
 
-We take $k=4$, $L=2.5$, and $N$ polygon vertices radially projected from equispaced points on the square; then $h/\hG\approx3.3$, $\max|e|/\min|e|\le1.97$, and each vertex of $\Gh$ lies in three triangles. Direct solves give residuals below $10^{-12}$ and $\norm{\div u_h}\le2\cdot10^{-9}$ ($10^{-6}$ for strong, mesh (a)). We use $\mu=100$ ($\gamma\approx30$), known to be above the measured thresholds only ($\CNS$: by $27\%$ at $N=16$, $13\%$ at $N=64$, ${\approx}7\%$ extrapolated \ext{Rem.~15.18}). Test A is Scott's benchmark $u=(1-r^{-2})(-y,x)$, $p=0$. Test B$_a$ has stream function $(r^2-1)^2(x+y^2/2)/10$ and $p=a(x^2y-y+x/2)$, so $G=a(7\pi/8)^{1/2}$.
+We take $k=4$, $L=2.5$, and $N$ polygon vertices radially projected from equispaced points on the square; then $h/\hG\approx3.3$, $\max|e|/\min|e|\le1.97$, and each vertex of $\Gh$ lies in three triangles. Direct solves give residuals below $10^{-12}$ and $\norm{\div u_h}\le2\cdot10^{-9}$ ($10^{-6}$ for strong, mesh (a)). We use $\mu=100$ ($\gamma\approx30$), known to be above the measured thresholds only ($\CNS$: by $27\%$ at $N=16$, $13\%$ at $N=64$, ${\approx}7\%$ extrapolated \ext{Rem.~15.18}). Test A is Scott's benchmark $u=(1-r^{-2})(-y,x)$, $p=0$. Test B$_a$ has stream function $(r^2-1)^2(x+y^2/2)/10$ and $p=a(x^2y-y+x/2)$, so $G=|a|(7\pi/8)^{1/2}$.
 
 
-In Table~\ref{tab:rates} strong imposition locks (rate $\to1/2$), but not on our standard mesh, which satisfies (M2) (rate $1.61$ at $N=128$); on test A ($G=0$) both Nitsche methods tend to $3/2$. On B$_{100}$ the printed method has $H^1$ rate $1$, an error over $500$ times that of $\CNS$ at $N=192$, and pressure rate decreasing towards $1/2$. The $\CNS$ errors for B$_1$ and B$_{100}$ agree to all printed digits. On the pure-pressure test ($u=0$, $f=\nabla p$, $p$ as in B$_1$), $\CNS$ gives $u_h=0$ to round-off, and at $N=96$ the ratios in Theorem~\ref{thm:gs}(c) are $0.981$, $0.996$ ($\mu=10^2$), $0.9993$, $0.9994$ ($\mu=10^4$).
-
-%% v6: Table 2 (threshold sweep) folded into the text below for space; the data are unchanged.
-%% Old Table 2 source, kept for reference:
-%% \begin{\tabenv}[!tb]
-%% \centering\footnotesize\setlength{\tabcolsep}{4pt}
-%% \caption{Coercivity threshold $\mu^\ast$ and $\gamma^\ast=\mu^\ast\hG/h$, with $h/\hG$ and $\rho$ varied through the outer box $(-L,L)^2$ and $\Gh$ fixed. Under refinement at $L=2.5$, $\gamma^\ast=14.7,18.1,19.9,20.8$ for $N=8,16,32,64$.}\label{tab:thresh}
-%% \begin{tabular}{lcccccclcccccc}
-%% \toprule
-%% $N=16$ & $L$ & 2.5 & 5 & 10 & 20 & 40 & $N=32$ & 2.5 & 5 & 10 & 20 & 40\\
-%% \midrule
-%%  & $\rho$ & 4.70 & 8.47 & 16.2 & 31.8 & 63.0 & & 5.73 & 9.98 & 18.7 & 36.3 & 71.5\\
-%%  & $\mu^\ast$ & 59.3 & 112 & 208 & 411 & 809 & & 66.0 & 114 & 218 & 422 & 836\\
-%%  & $\gamma^\ast$ & 18.1 & 19.0 & 18.4 & 18.5 & 18.4 & & 19.9 & 19.7 & 20.1 & 20.0 & 20.1\\
-%% \bottomrule
-%% \end{tabular}
-%% \end{\tabenv}
+In Table~\ref{tab:rates} strong imposition locks (rate $\to1/2$), but not on our standard mesh, which satisfies (M2) (rate $1.61$ at $N=128$); on test A ($G=0$) both Nitsche methods tend to $3/2$. On B$_{100}$ the printed method has $H^1$ rate $1$, an error over $500$ times that of $\CNS$ at $N=192$, and pressure rate decreasing towards $1/2$. On the pure-pressure test ($u=0$, $f=\nabla p$, $p$ as in B$_1$), $\CNS$ gives $u_h=0$ to round-off, and at $N=96$ the ratios in Theorem~\ref{thm:gs}(c) are $0.981$, $0.996$ ($\mu=10^2$), $0.9993$, $0.9994$ ($\mu=10^4$).
 
 
-To test Proposition~\ref{prop:penalty} we find $\mu^\ast$ by bisection on the inertia of the velocity block plus a divergence penalty. With $\Gh$ fixed and the box enlarged ($L=2.5,\dots,40$), $\mu^\ast$ is linear in $\rho$ over more than a decade ($\mu^\ast=59.3,\dots,809$ for $\rho=4.70,\dots,63.0$ at $N=16$; similarly at $N=32$), so $\gamma^\ast\approx18$--$21$ and $\mu^\ast/\rho\approx11$--$13$; under refinement at $L=2.5$, $\gamma^\ast=14.7,18.1,19.9,20.8$ for $N=8,\dots,64$. (The sweep cannot separate $\rho$ from $h/\hG$; collective boundary modes explain the gap to $\lambda_T>9.3$ \ext{\S10.1}.) Thus $\mu\ge25\rho$ was always coercive, while a fixed $\mu$ fails once $h/\hG\gtrsim\mu/20$.
+
+To test Proposition~\ref{prop:penalty} we find $\mu^\ast$ by bisection on the inertia of the velocity block plus a divergence penalty. With $\Gh$ fixed and the box enlarged ($L=2.5,\dots,40$), $\mu^\ast$ is linear in $\rho$ over more than a decade ($\mu^\ast=59.3,\dots,809$ for $\rho=4.70,\dots,63.0$ at $N=16$; similarly at $N=32$), so $\gamma^\ast\approx18$--$21$ and $\mu^\ast/\rho\approx11$--$13$; under refinement at $L=2.5$, $\gamma^\ast=14.7,18.1,19.9,20.8$ for $N=8,\dots,64$. In the reported experiments, $\mu\ge25\rho$ exceeded all measured thresholds, while a fixed $\mu$ fell below the measured threshold once $\hO/\hG\gtrsim\mu/20$.
 
 \section*{CRediT authorship contribution statement}
-%% CHECK: Padhi's roles as listed (shortened for space); add Conceptualization/Methodology/review & editing as agreed.
-%% FILL: Cavalcante's CRediT roles (e.g. his constant-pressure analysis and Clough--Tocher results); both authors to confirm.
-\textbf{Claudemir de Souza Cavalcante:} FILL. \textbf{Jaideep Sai Padhi:} Formal analysis, Software, Validation, Writing -- original draft.
+\textbf{Claudemir de Souza Cavalcante:} Formal analysis, Writing -- review \& editing. \textbf{Jaideep Sai Padhi:} Formal analysis, Software, Validation, Writing -- original draft.
 
 \section*{Declaration of competing interest}
 The question studied is the subject of a prize offered by L. R. Scott; the authors intend to submit this work for it. The authors declare no other competing interests.
 
 \section*{Data availability}
-{\sloppy Code, raw outputs and logs for every number reported here are at \url{https://github.com/jaideepsaipadhi/zero-gradient-prize} and on Zenodo, \href{https://doi.org/10.5281/zenodo.23044296}{doi:10.5281/zenodo.23044296}.\par}
+{\sloppy Code and archived numerical outputs supporting this study are available at \url{https://github.com/jaideepsaipadhi/zero-gradient-prize}.\par}
 
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
-%% VERIFY with Cavalcante: whether this statement also covers his parts, or needs a clause for them.
-During the preparation of this work the authors used Claude (Anthropic), a large language model, in order to develop and check proofs, write and run the numerical code, search and check the literature, and draft and edit the text. The proofs were checked by separate instances of the model acting as independent referees, the computer-assisted steps by exact-arithmetic certificates, and all numbers by reproducible public code (see Data availability); the authors reviewed these checks. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
+During the preparation of this work J.~S.~Padhi used Claude (Anthropic), a large language model, in order to develop and check proofs, write and run the numerical code, search and check the literature, and draft and edit the text. The proofs were checked by separate instances of the model acting as independent referees, the computer-assisted steps by exact-arithmetic certificates, and the numbers by reproducible public code (see Data availability). C.~de~S.~Cavalcante used ChatGPT 6 Astra (OpenAI) in the preparation of his contributions. After using these tools, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
 
+{\small
 \bibliographystyle{elsarticle-num}
 \bibliography{refs}
+}
 
 \end{document}

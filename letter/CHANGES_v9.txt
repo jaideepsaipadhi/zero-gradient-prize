@@ -1,0 +1,49 @@
+CHANGES v8 -> v9: Cavalcante's corrections (e-mail of Oct 2026), applied to letter.tex
+=====================================================================================
+His page references were to the joint v8 PDF (letter.tex), so the edits were made there; the earlier
+letter_with_cavalcante_draft.tex (my drafts of his parts) is superseded and removed.
+
+All items applied verbatim (LaTeX macros \hG, \hO used for h_Gamma, h_Omega):
+ 1. Author block: e-mail claudemir.cavalcante@icen.ufpa.br; affiliation Graduate Program in Mathematics and
+    Statistics, ICEN, UFPA, Belem; ORCID 0009-0007-4426-1869 (footnote); Padhi = corresponding author.
+ 2. Abstract replaced with his text.
+ 3. Intro, strong imposition: his four sentences (locking at two-triangle wall vertices; h_Gamma^{1/2} for a positive
+    fraction; h_Gamma^{3/2}+h^k under uniform shape/angle control incl. (M2); weak imposition still relevant).
+    Citations kept: [ScottPrize, GjerdeScott2024] for the lock, [PadhiExt] for the strong-imposition rate.
+ 4. His Theorem 5.2 sentence inserted before the prize sentence; "He offered" -> "Scott offered".
+ 5. Related work: "analysed the zero-pressure-gradient case, in which there is no leak" -> his two sentences
+    (no pressure-driven leak; Corollary 5.3, k>=2 on Clough-Tocher refinements).
+ 6. "The work was done with the AI model Claude..." -> "The authors' respective uses of AI-assisted tools are declared
+    at the end."
+ 7. Setting: P_h convex, vertices on Gamma, 0 in int P_h, h_Gamma small.
+ 8. (M2): "with its angular parameter bounded below independently of the mesh size."
+ 9. v_phi remainder O(h_Gamma) -> O(h_Gamma + h_Omega^k).
+10. L^2_0 paragraph: numerical value removed ("and nothing forces c=0.").
+    NOTE: the run is now archived and reproducible: code/l20check.py, logs/l20/l20_A_N16_mu100.json
+    (test A, N=16, mu=100, nodal g_I: |c| = 9.69e-4, ||div u_h|| = 4.538e-3, CNS* 3.8e-13, rel. residual 1e-15).
+    Per his note, the example can be restored in the letter if he agrees.
+11. Remark 1(3): energy-rate ceiling deleted; now the flux-corrected GS bound with mu >~ h_Omega h_Gamma^{-3/2}.
+    He is right: the extended paper (07a_rescue.tex, after Thm 7.35) itself admits a window of gamma*h_Gamma with no
+    matching lower bound. Citation Thm 7.35 dropped (it supported the deleted claim); Thm 7.30, Cor 7.34 kept.
+12. Table 1 caption: explicit rate formula.
+13. G = |a| (7 pi/8)^{1/2}.
+14. Penalty paragraph: empirical wording ("In the reported experiments ...").
+15. CRediT: Cavalcante = Formal analysis, Writing - review & editing; Padhi unchanged.
+16. Data availability: GitHub only; Zenodo reference removed until version correspondence is confirmed.
+17. AI declaration: per author. Padhi: Claude (Anthropic), purposes as before. Cavalcante: ChatGPT 6 Astra (OpenAI)
+    "in the preparation of his contributions" -- CONFIRM WITH HIM the purposes (Elsevier asks for them); he named
+    only the tool.
+18. Bibliography (his item on versions): Cavalcante2026 now reads "version of 2 September 2026"; VERIFY that DOI
+    10.5281/zenodo.22262466 resolves to that version.
+
+Page budget (3p, limit 6): his additions pushed the letter to 7 pages. Cuts, all to Padhi's text: proof idea of
+Remark 1(2) (kept as a comment; in [PadhiExt, Thm 7.24]); tall-triangle aside in the proof of Prop. 3 (now a pointer);
+the sweep parenthetical; "CNS errors for B_1 and B_100 agree"; the "(If c=0 ...)" parenthetical; Remark 1(1)
+tightened (qualifier "up to +-C_p h_Gamma" kept). Reference list set in \small. Result: 3p 6 pages, 5p 5 pages,
+no overfull boxes in 3p, no undefined references.
+
+Also: cover_letter.txt filled (his contribution, affiliation, ORCID, AI tools, corresponding author; sharpness
+sentence now states its hypotheses); arxiv/letter bundle rebuilt from v9 with comments stripped.
+Companion papers (same issues): jsc/ and paper2d/ now report |c| (sign is convention-dependent; our run gives
+c = -9.69e-4) and cite the archived run; paper2d's "can never lift its energy rate above 1" bullet now states the
+window caveat; Cavalcante bib entries pinned to the 2 Sept 2026 version.

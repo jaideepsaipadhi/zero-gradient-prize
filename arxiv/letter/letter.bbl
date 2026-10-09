@@ -63,6 +63,13 @@ T.~Dupont, J.~Guzm\'an, L.~R. Scott, Obtaining higher-order {G}alerkin accuracy
 \newblock \href {https://doi.org/10.1515/jnma-2023-0135}
   {\path{doi:10.1515/jnma-2023-0135}}.
 
+\bibitem{Cavalcante2026}
+C.~de~Souza~Cavalcante, {S}cott--{V}ogelius--{N}itsche convergence for a
+  zero-pressure-gradient problem on a polygonally approximated boundary,
+  Preprint, version of 2 September 2026, Zenodo (2026).
+\newblock \href {https://doi.org/10.5281/zenodo.22262466}
+  {\path{doi:10.5281/zenodo.22262466}}.
+
 \bibitem{BurmanHansbo2014}
 E.~Burman, P.~Hansbo, Fictitious domain methods using cut elements: {III}. {A}
   stabilized {N}itsche method for {S}tokes' problem, ESAIM Math. Model. Numer.
@@ -90,13 +97,6 @@ T.~Frachon, E.~Nilsson, S.~Zahedi, Divergence-free cut finite element methods
   for {S}tokes flow, BIT Numer. Math. 64 (2024) Paper No. 39.
 \newblock \href {https://doi.org/10.1007/s10543-024-01040-x}
   {\path{doi:10.1007/s10543-024-01040-x}}.
-
-\bibitem{Cavalcante2026}
-C.~de~Souza~Cavalcante, {S}cott--{V}ogelius--{N}itsche convergence for a
-  zero-pressure-gradient problem on a polygonally approximated boundary,
-  Preprint, Zenodo (2026).
-\newblock \href {https://doi.org/10.5281/zenodo.22262466}
-  {\path{doi:10.5281/zenodo.22262466}}.
 
 \bibitem{NeilanOtus2021}
 M.~Neilan, M.~B. Otus, Divergence-free {S}cott--{V}ogelius elements on curved
