@@ -1,4 +1,4 @@
-%% letter.tex -- Applied Mathematics Letters submission.
+%% letter_em.tex -- Computers & Mathematics with Applications submission (bibliography inlined; Editorial Manager does not run BibTeX).
 %% Build (journal 3p format):   pdflatex letter; bibtex letter; pdflatex letter; pdflatex letter
 %% Build (5p two-column check): see README.md (defines \FIVEP before \input{letter}).
 \ifdefined\FIVEP
@@ -14,7 +14,7 @@
 \renewcommand{\ttdefault}{txtt}
 \ifdefined\FIVEP\def\tabenv{table*}\else\def\tabenv{table}\fi
 
-\journal{Applied Mathematics Letters}
+\journal{Computers \& Mathematics with Applications}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -178,12 +178,7 @@ Let $B^\ast(q,v):=-(q,\div v)+\ip{q-\pbG(q)}{v\cdot n}$. Then $B^\ast(q+c,v)=B^\
 
 \begin{remark}[Further results that complete the picture, proved in \cite{PadhiExt}]\label{rem:further}
 (1) \emph{Pressures, uniformity} \ext{Thms.~8.11, 8.7, 7.30, 7.33}. The $\GS$ pressure error is $\asymp\hG^{1/2}G/\gamma$ up to $\pm C_p\hG$ (fixed $\gamma$, bounded $\rho$); with data $\tilde g_I$ that of $\CNS$ is $O(\hG^{3/2}+\hO^k)$, and Theorem~\ref{thm:cns}(c) is uniform in $\gamma\ge\gamma_2$.
-%% (M3) now proved for all k>=4 (notes/v4/m3_proof.tex; notes/v6/m3/REPORT.md; referee3): witness P4, patch = 3 star
-%% triangles, needs (M0theta), (M1') [from (M2)], (S). Pointer checked against paper/main.aux 2026-09-28: m3:thm = Thm 7.8, lb:thm = Thm 7.24.
-(2) \emph{Sharpness, every $k\ge4$} \ext{Thms.~7.8, 7.24}. Assume (S) $\hG\le2\sin(\theta_{\min}/4)$, $\theta_{\min}$ the smallest angle of the triangles touching $\Gh$, and let $\hG$ be small. If $W=\dn u\cdot\tau\not\equiv0$ on $\Gamma$, then $\norm{\nabla(\ut-u_h)}\ge c\norm W\hG^{3/2}-C\hG^2$ for $\CNS$, and for $\GS$ with any $G$, with $c$ independent of $\gamma,\rho,p$.
-%% v9 cut for space (proof idea; in \ext{Thm.~7.24}): On v in Z_h vanishing on Gamma_h with int_e d_n v = 0, pressure and
-%% penalty drop out; the chordal bump -s^2 W_e/2 pairs with the second moment of d_n v . tau_e, made positive by an
-%% explicit C^1 P_5 stream function on three triangles at each wall vertex when (S) holds.
+(2) \emph{Sharpness, every $k\ge4$} \ext{Thms.~7.8, 7.24}. Assume (S) $\hG\le2\sin(\theta_{\min}/4)$, $\theta_{\min}$ the smallest angle of the triangles touching $\Gh$, and let $\hG$ be small. If $W=\dn u\cdot\tau\not\equiv0$ on $\Gamma$, then $\norm{\nabla(\ut-u_h)}\ge c\norm W\hG^{3/2}-C\hG^2$ for $\CNS$, and for $\GS$ with any $G$, with $c$ independent of $\gamma,\rho,p$. The idea, detailed in \ext{Thm.~7.24}: for $v\in\Zh$ vanishing on $\Gh$ with $\int_e\dn v=0$ edgewise, the pressure and penalty terms of $N_h$ drop out, so coercivity is tested against $\Gc$ alone; the chordal bump $-s^2W_e/2$ in the consistency error of Lemma~\ref{lem:consist} then pairs with the second moment of $\dn v\cdot\tau_e$, and this pairing is made strictly positive, under (S), by an explicit $C^1$ piecewise-$P_5$ stream function supported on the three triangles meeting each wall vertex.
 (3) \emph{A growing penalty} \ext{Thm.~7.30, Cor.~7.34}. For $\GS$ with flux-corrected outer data $\tilde g_I$, a penalty $\mu\gtrsim\hO\hG^{-3/2}$ yields $\norm{\ut-u_h}_{H^1(\Oh)}\le C_p(\hG^{3/2}+\hO^k)$.
 \end{remark}
 
@@ -211,10 +206,7 @@ Scott asked how to choose the penalty. On one well-shaped triangle at a short wa
 \end{proposition}
 
 \begin{proof}
-(b) The potential vanishes to second order on the edges through the apex, so $v_t$, extended by zero, lies in $\Zh$. $A_T$ and $B_T$ are invariant under dilation and $C_T$ scales with $|e|$, so $N_h(v_t,v_t)=(\mu|e|/h-\lambda_T)C_T(t)<0$ for the top eigenvector. (c) $A_T,B_T,C_T$ are explicit rational functions of $(a,b)$ \ext{\S10.1}. On dyadic boxes covering each shape region we verify $2520\,b^3q^{\mathsf T}(2B_T-A_T-\lambda C_T)q>0$ for a rational $q$ in exact interval arithmetic \ext{Prop.~10.3}. For tall triangles see \ext{Prop.~10.6, Thm.~10.13}.
-%% One-star failure: exact LDL^T certificates at minimum angle 11.3deg (notes/v6/penalty, referee1).
-%% Explicit constant (notes/v6/consts, referee11): N_h indefinite on Z_h for mu < 15 h/Y if all triangles meeting
-%% B(x0,3Y), x0 a wall-edge midpoint, Y <= 1e-6, have diameter <= kappa0(theta) Y; kappa0(30deg)=0.0117. Cut for space.
+(b) The potential vanishes to second order on the edges through the apex, so $v_t$, extended by zero, lies in $\Zh$. $A_T$ and $B_T$ are invariant under dilation and $C_T$ scales with $|e|$, so $N_h(v_t,v_t)=(\mu|e|/h-\lambda_T)C_T(t)<0$ for the top eigenvector. (c) $A_T,B_T,C_T$ are explicit rational functions of $(a,b)$ \ext{\S10.1}. On dyadic boxes covering each shape region we verify $2520\,b^3q^{\mathsf T}(2B_T-A_T-\lambda C_T)q>0$ for a rational $q$ in exact interval arithmetic \ext{Prop.~10.3}. For tall triangles see \ext{Prop.~10.6, Thm.~10.13}. One-triangle failure already occurs at a minimum angle of $11.3^\circ$, by an exact $LDL^{\mathsf T}$ certificate \ext{\S10.1}. In absolute, mesh-independent terms: if every triangle meeting $B(x_0,3Y)$, for $x_0$ a wall-edge midpoint and $Y\le10^{-6}$, has diameter at most $\kappa_0(\theta)Y$ for the shape angle $\theta$ of that star (with $\kappa_0(30^\circ)=0.0117$), then $N_h$ is indefinite on $\Zh$ for $\mu<15h/Y$.
 \end{proof}
 
 %% ============================================================================ 4
@@ -225,24 +217,21 @@ We take $k=4$, $L=2.5$, and $N$ polygon vertices radially projected from equispa
 
 In Table~\ref{tab:rates} strong imposition locks (rate $\to1/2$), but not on our standard mesh, which satisfies (M2) (rate $1.61$ at $N=128$); on test A ($G=0$) both Nitsche methods tend to $3/2$. On B$_{100}$ the printed method has $H^1$ rate $1$, an error over $500$ times that of $\CNS$ at $N=192$, and pressure rate decreasing towards $1/2$. On the pure-pressure test ($u=0$, $f=\nabla p$, $p$ as in B$_1$), $\CNS$ gives $u_h=0$ to round-off, and at $N=96$ the ratios in Theorem~\ref{thm:gs}(c) are $0.981$, $0.996$ ($\mu=10^2$), $0.9993$, $0.9994$ ($\mu=10^4$).
 
-%% v6: Table 2 (threshold sweep) folded into the text below for space; the data are unchanged.
-%% Old Table 2 source, kept for reference:
-%% \begin{\tabenv}[!tb]
-%% \centering\footnotesize\setlength{\tabcolsep}{4pt}
-%% \caption{Coercivity threshold $\mu^\ast$ and $\gamma^\ast=\mu^\ast\hG/h$, with $h/\hG$ and $\rho$ varied through the outer box $(-L,L)^2$ and $\Gh$ fixed. Under refinement at $L=2.5$, $\gamma^\ast=14.7,18.1,19.9,20.8$ for $N=8,16,32,64$.}\label{tab:thresh}
-%% \begin{tabular}{lcccccclcccccc}
-%% \toprule
-%% $N=16$ & $L$ & 2.5 & 5 & 10 & 20 & 40 & $N=32$ & 2.5 & 5 & 10 & 20 & 40\\
-%% \midrule
-%%  & $\rho$ & 4.70 & 8.47 & 16.2 & 31.8 & 63.0 & & 5.73 & 9.98 & 18.7 & 36.3 & 71.5\\
-%%  & $\mu^\ast$ & 59.3 & 112 & 208 & 411 & 809 & & 66.0 & 114 & 218 & 422 & 836\\
-%%  & $\gamma^\ast$ & 18.1 & 19.0 & 18.4 & 18.5 & 18.4 & & 19.9 & 19.7 & 20.1 & 20.0 & 20.1\\
-%% \bottomrule
-%% \end{tabular}
-%% \end{\tabenv}
+To test Proposition~\ref{prop:penalty} we find $\mu^\ast$ by bisection on the inertia of the velocity block plus a divergence penalty. With $\Gh$ fixed and the box enlarged ($L=2.5,\dots,40$), $\mu^\ast$ is linear in $\rho$ over more than a decade ($\mu^\ast=59.3,\dots,809$ for $\rho=4.70,\dots,63.0$ at $N=16$; similarly at $N=32$), so $\gamma^\ast\approx18$--$21$ and $\mu^\ast/\rho\approx11$--$13$; under refinement at $L=2.5$, $\gamma^\ast=14.7,18.1,19.9,20.8$ for $N=8,\dots,64$. In the reported experiments, $\mu\ge25\rho$ exceeded all measured thresholds, while a fixed $\mu$ fell below the measured threshold once $\hO/\hG\gtrsim\mu/20$. Table~\ref{tab:thresh} gives the full sweep.
 
-
-To test Proposition~\ref{prop:penalty} we find $\mu^\ast$ by bisection on the inertia of the velocity block plus a divergence penalty. With $\Gh$ fixed and the box enlarged ($L=2.5,\dots,40$), $\mu^\ast$ is linear in $\rho$ over more than a decade ($\mu^\ast=59.3,\dots,809$ for $\rho=4.70,\dots,63.0$ at $N=16$; similarly at $N=32$), so $\gamma^\ast\approx18$--$21$ and $\mu^\ast/\rho\approx11$--$13$; under refinement at $L=2.5$, $\gamma^\ast=14.7,18.1,19.9,20.8$ for $N=8,\dots,64$. In the reported experiments, $\mu\ge25\rho$ exceeded all measured thresholds, while a fixed $\mu$ fell below the measured threshold once $\hO/\hG\gtrsim\mu/20$.
+\begin{\tabenv}[!tb]
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\caption{Coercivity threshold $\mu^\ast$ and $\gamma^\ast=\mu^\ast\hG/h$, with $h/\hG$ and $\rho$ varied through the outer box $(-L,L)^2$ and $\Gh$ fixed. Under refinement at $L=2.5$, $\gamma^\ast=14.7,18.1,19.9,20.8$ for $N=8,16,32,64$.}\label{tab:thresh}
+\begin{tabular}{lcccccclcccccc}
+\toprule
+$N=16$ & $L$ & 2.5 & 5 & 10 & 20 & 40 & $N=32$ & 2.5 & 5 & 10 & 20 & 40\\
+\midrule
+ & $\rho$ & 4.70 & 8.47 & 16.2 & 31.8 & 63.0 & & 5.73 & 9.98 & 18.7 & 36.3 & 71.5\\
+ & $\mu^\ast$ & 59.3 & 112 & 208 & 411 & 809 & & 66.0 & 114 & 218 & 422 & 836\\
+ & $\gamma^\ast$ & 18.1 & 19.0 & 18.4 & 18.5 & 18.4 & & 19.9 & 19.7 & 20.1 & 20.0 & 20.1\\
+\bottomrule
+\end{tabular}
+\end{\tabenv}
 
 \section*{CRediT authorship contribution statement}
 %% Roles as given by Cavalcante (Oct 2026); his formal analysis = constant-pressure analysis and Clough--Tocher result.
@@ -261,7 +250,6 @@ The question studied is the subject of a prize offered by L. R. Scott; the autho
 During the preparation of this work J.~S.~Padhi used Claude (Anthropic), a large language model, in order to develop and check proofs, write and run the numerical code, search and check the literature, and draft and edit the text. The proofs were checked by separate instances of the model acting as independent referees, the computer-assisted steps by exact-arithmetic certificates, and the numbers by reproducible public code (see Data availability). C.~de~S.~Cavalcante used ChatGPT 6 Astra (OpenAI) to help locate relevant mathematical theorems, correct grammar, and write computer code. After using these tools, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
 
 %% References set in \small (Elsevier typesets the reference list in a smaller size).
-%% Bibliography inlined from letter.bbl (Editorial Manager does not run BibTeX). Regenerate from refs.bib if citations change.
 {\small
 \begin{thebibliography}{10}
 \expandafter\ifx\csname url\endcsname\relax
